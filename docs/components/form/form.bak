@@ -1,0 +1,140 @@
+import { h } from 'preact';
+import PageContainer from '@/Layout/PageContainer';
+import DemoBlock from '@/Layout/DemoBlock';
+import RightNav from '@/Layout/RightNav';
+import { IconLink, Link } from '@parker/element-plus-react';
+import BasicForm, { html as basic_form_html } from './basic-form';
+import InlineForm, { html as inline_form_html } from './inline-form';
+import Alignment, { html as alignment_html } from './alignment';
+import Validation, { html as validation_html } from './validation';
+import CustomValidation, { html as custom_validation_html } from './custom-validation';
+import SizeControl, { html as size_control_html } from './size-control';
+import UseWatch, { html as use_watch_html } from './use-watch';
+import NamePath, { html as name_path_html } from './name-path';
+import DynamicForm, { html as dynamic_form_html } from './dynamic-form';
+import ComplexForm, { html as complex_form_html } from './complex-form';
+
+/\*\*
+
+-   @author Parker
+-   @CreateTime 2022/3/10 下午 12:45:47
+-   @LastEditor Parker
+-   @ModifyTime 2022/5/16 22:51:00
+-   @Description Form 表单 API
+    \*/
+    const FormDoc = () => {
+    return (
+    <PageContainer>
+    <section className="content element-doc content">
+    <h2>Form 表单</h2>
+    <p>
+    表单包含 <code>输入框</code>, <code>单选框</code>, <code>下拉选择</code>, <code>多选框</code> 等用户输入的组件。 使用表单，您可以收集、验证和提交数据。
+    </p>
+    <div
+    style={{
+                            margin: '24px 0',
+                            padding: '10px 20px',
+                            borderRadius: 4,
+                            border: '1px solid var(--el-color-success-light-3)',
+                            background: 'var(--el-color-success-light-8)',
+                        }} >
+    此表格与 <code>Ant Design</code> 的 Form 组件 API 基本一致，更多用法见：
+    <Link type="primary" href="https://ant-design.gitee.io/components/form-cn/" target="_blank">
+    Ant Design Form <IconLink />
+    </Link>
+    </div>
+
+                    <DemoBlock
+                        title="典型表单"
+                        tip="通过 `Form.useForm` 对表单数据域进行交互。`useForm` 是 `React Hooks` 的实现，只能用于函数组件"
+                        content={
+                            '最基础的表单包括各种输入表单项，比如`Input`、`Select`、`Radio`、`Checkbox`等。 \
+                                    在每一个 `Form` 组件中，你需要一个 `Form.Item` 字段作为输入项的容器，用于获取值与验证值。'
+                        }
+                        highlight={basic_form_html}
+                        source={<BasicForm />}
+                    />
+
+                    <DemoBlock
+                        title="行内表单"
+                        content={
+                            '当垂直方向空间受限且表单较简单时，可以在一行内放置表单。 \
+                                    通过设置 `inline` 属性为 `true` 可以让表单域变为行内的表单域。'
+                        }
+                        highlight={inline_form_html}
+                        source={<InlineForm />}
+                    />
+
+                    <DemoBlock
+                        title="对齐方式"
+                        content={
+                            '根据你们的设计情况，来选择最佳的标签对齐方式。 \
+                                    通过设置 `labelPosition` 属性可以改变表单域标签的位置，可选值为 `top`、`left`， 当设为 `top` 时标签会置于表单域的顶部'
+                        }
+                        highlight={alignment_html}
+                        source={<Alignment />}
+                    />
+
+                    <DemoBlock
+                        title="表单校验"
+                        content={
+                            'Form 组件允许你验证用户的输入是否符合规范，来帮助你找到和纠正错误。 \
+                                    `Form` 组件提供了表单验证的功能，只需为 `rules` 属性传入约定的验证规则，并将 `Form.Item` 的 `name` 属性设置为需要验证的特殊键值即可。 更多高级用法可参考<a class="el-link el-link--primary" href="https://github.com/yiminghe/async-validator" target="_blank">async-validator</a>'
+                        }
+                        highlight={validation_html}
+                        source={<Validation />}
+                    />
+
+                    <DemoBlock
+                        title="自定义校验规则"
+                        content={'这个例子中展示了如何使用自定义验证规则来完成密码的二次验证。'}
+                        highlight={custom_validation_html}
+                        source={<CustomValidation />}
+                    />
+
+                    <DemoBlock
+                        title="尺寸控制"
+                        content={
+                            '表单中的所有子组件都继承了该表单的 `size` 属性。 同样，`Form.Item` 也有一个 `size` 属性。 \
+                            如果希望某个表单项或某个表单组件的尺寸不同于 `Form` 上的 `size` 属性，直接为这个表单项或表单组件设置自己的 `size` 属性即可。'
+                        }
+                        highlight={size_control_html}
+                        source={<SizeControl />}
+                    />
+
+                    <DemoBlock title="字段监听 Hooks" content={'`useWatch` 允许你监听字段变化，同时仅当该字段变化时重新渲染。'} highlight={use_watch_html} source={<UseWatch />} />
+
+                    <DemoBlock
+                        title="嵌套数据结构"
+                        tip={
+                            '此例中还演示了 `Form.Item` 内有多个元素的使用方式，<Form.Item name="field" /> 只会对它的直接子元素绑定表单功能，\
+                            例如直接包裹了 Input/Select。如果控件前后还有一些文案或样式装点，或者一个表单项内有多个控件，你可以使用内嵌的 `Form.Item` 完成。\
+                            你可以给 `Form.Item` 自定义 `style` 进行内联布局，或者添加 `noStyle` 作为纯粹的无样式绑定组件'
+                        }
+                        content={'`name` 属性支持嵌套数据结构。如果你希望某些字段的值类型成为对象类型，而不是字符串或者数字，那么`Form.Item` 的 `name`属性可以设置成数组格式'}
+                        highlight={name_path_html}
+                        source={<NamePath />}
+                    />
+
+                    <DemoBlock
+                        title="动态增减嵌套字段"
+                        content={'嵌套表单字段需要对 `field` 进行拓展，将 `field.name` 应用于控制字段。'}
+                        highlight={dynamic_form_html}
+                        source={<DynamicForm />}
+                    />
+
+                    <DemoBlock
+                        title="复杂一点的控件"
+                        content={'嵌套表单字段需要对 field 进行拓展，将 field.name 应用于控制字段。'}
+                        highlight={complex_form_html}
+                        source={<ComplexForm />}
+                    />
+
+                    <RightNav />
+                </section>
+            </PageContainer>
+        );
+
+    };
+
+export default FormDoc;

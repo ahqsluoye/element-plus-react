@@ -1,0 +1,119 @@
+{
+  "name": "@parker/element-plus-react",
+  "version": "1.0.0-next.1",
+  "description": "element-plus-react",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "dumi dev",
+    "build": "gulp clean && father build && gulp build",
+    "gulp": "gulp build",
+    "build:watch": "father dev",
+    "docs:build": "dumi build",
+    "prepare": "husky install && dumi setup",
+    "doctor": "father doctor",
+    "lint": "npm run lint:es && npm run lint:css",
+    "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
+    "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
+    "doc": "tsc ./doc.ts && node ./doc.js",
+    "publish": "npm run build && npm publish ./packages --scope=@parker --access=public",
+    "prepublishOnly": "father doctor && npm run build"
+  },
+  "authors": [
+    "ahqsluoye@126.com"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahqsluoye/element-plus-react"
+  },
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.{md,json}": [
+      "prettier --write --no-error-on-unmatched-pattern"
+    ],
+    "*.{css,less}": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.23.9",
+    "@babel/plugin-transform-class-properties": "^7.23.3",
+    "@babel/plugin-transform-runtime": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-react": "^7.23.3",
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@types/lodash": "^4.14.202",
+    "@types/node": "^20.11.20",
+    "@types/prismjs": "^1.26.3",
+    "@types/react": "^18.2.55",
+    "@types/react-is": "^19.0.0",
+    "@umijs/lint": "^4.0.0",
+    "babel-plugin-prismjs": "^2.1.0",
+    "clipboard-copy": "^4.0.1",
+    "dumi": "^2.0.2",
+    "eslint": "^8.23.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "father": "^4.1.0",
+    "gulp": "^5.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-sass": "^6.0.1",
+    "gulp-typescript": "6.0.0-alpha.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "lorem-ipsum": "^2.0.8",
+    "normalize.css": "^8.0.1",
+    "prettier": "^2.7.1",
+    "prettier-plugin-organize-imports": "^3.0.0",
+    "prettier-plugin-packagejson": "^2.2.18",
+    "prismjs": "1.28.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "stylelint": "^14.9.1",
+    "tslib": "^2.6.2"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "ahooks": "^3.7.10",
+    "async-validator": "^4.2.5",
+    "classnames": "^2.5.1",
+    "dayjs": "^1.11.13",
+    "dom-lib": "^3.2.0",
+    "escape-html": "^1.0.3",
+    "lodash": "^4.17.21",
+    "rc-resize-observer": "^1.4.0",
+    "rc-util": "^5.38.1",
+    "react-is": "^19.0.0",
+    "react-popper": "^2.3.0",
+    "react-router-dom": "^6.22.1",
+    "react-sortable-hoc": "^2.0.0",
+    "resize-observer-polyfill": "^1.5.1",
+    "scroll-into-view-if-needed": "^3.1.0"
+  }
+}

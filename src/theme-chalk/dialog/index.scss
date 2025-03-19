@@ -1,0 +1,190 @@
+@use '../common/var';
+
+// Kill the scroll on the body
+.#{$namespace}-popup-parent--hidden {
+    overflow: hidden !important;
+}
+
+.#{$namespace}-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2000;
+    height: 100%;
+    background-color: var(--#{$namespace}-overlay-color-lighter);
+    overflow: auto;
+
+    &.is-message-box .el-overlay-message-box {
+        text-align: center;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 16px;
+        overflow: auto;
+    }
+
+    &.is-message-box .el-overlay-message-box:after {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        width: 0;
+        vertical-align: middle;
+    }
+}
+
+.#{$namespace}-overlay-dialog {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+}
+
+// Container that the dialog scrolls within
+.#{$namespace}-dialog {
+    --#{$namespace}-dialog-width: 50%;
+    --#{$namespace}-dialog-margin-top: 15vh;
+    --#{$namespace}-dialog-bg-color: var(--#{$namespace}-bg-color);
+    --#{$namespace}-dialog-box-shadow: var(--#{$namespace}-box-shadow);
+    --#{$namespace}-dialog-title-font-size: var(--#{$namespace}-font-size-large);
+    --#{$namespace}-dialog-content-font-size: 14px;
+    --#{$namespace}-dialog-font-line-height: var(--#{$namespace}-font-line-height-primary);
+    --#{$namespace}-dialog-padding-primary: 16px;
+    --#{$namespace}-dialog-border-radius: var(--#{$namespace}-border-radius-base);
+    position: relative;
+    margin: var(--#{$namespace}-dialog-margin-top, 15vh) auto 50px;
+    background: var(--#{$namespace}-dialog-bg-color);
+    border-radius: var(--#{$namespace}-dialog-border-radius);
+    box-shadow: var(--#{$namespace}-dialog-box-shadow);
+    box-sizing: border-box;
+    padding: var(--#{$namespace}-dialog-padding-primary);
+    width: var(--#{$namespace}-dialog-width, 50%);
+
+    &:focus {
+        outline: none !important;
+    }
+
+    &.is-align-center {
+        margin: auto;
+    }
+
+    &.is-fullscreen {
+        --#{$namespace}-dialog-width: 100%;
+        --#{$namespace}-dialog-margin-top: 0;
+        margin-bottom: 0;
+        height: 100%;
+        overflow: auto;
+        border-radius: 0;
+    }
+
+    &.is-draggable .#{$namespace}-dialog__header {
+        cursor: move;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    &.#{$namespace}-dialog-shake {
+        animation: 0.3s linear rShakeHead;
+    }
+}
+
+.#{$namespace}-dialog--center {
+    text-align: center;
+}
+
+.#{$namespace}-dialog__wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    margin: 0;
+}
+
+.#{$namespace}-dialog__header {
+    padding-bottom: var(--#{$namespace}-dialog-padding-primary);
+}
+
+.#{$namespace}-dialog__header.show-close {
+    padding-right: calc(var(--#{$namespace}-dialog-padding-primary) + var(--#{$namespace}-message-close-size, 16px));
+}
+
+.#{$namespace}-dialog__headerbtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    width: 48px;
+    height: 48px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: var(--#{$namespace}-message-close-size, 16px);
+
+    & .#{$namespace}-dialog__close {
+        color: var(--#{$namespace}-color-info);
+        font-size: inherit;
+    }
+
+    &:focus .#{$namespace}-dialog__close,
+    &:hover .#{$namespace}-dialog__close {
+        color: var(--#{$namespace}-color-primary);
+    }
+}
+
+.#{$namespace}-dialog__title {
+    line-height: var(--#{$namespace}-dialog-font-line-height);
+    font-size: var(--#{$namespace}-dialog-title-font-size);
+    color: var(--#{$namespace}-text-color-primary);
+}
+
+.#{$namespace}-dialog__body {
+    color: var(--#{$namespace}-text-color-regular);
+    font-size: var(--#{$namespace}-dialog-content-font-size);
+}
+
+.#{$namespace}-dialog__footer {
+    padding-top: var(--#{$namespace}-dialog-padding-primary);
+    text-align: right;
+    box-sizing: border-box;
+
+    &.is-left {
+        text-align: left;
+    }
+
+    &.is-center {
+        text-align: center;
+    }
+
+    &.is-right {
+        text-align: right;
+    }
+}
+
+.#{$namespace}-dialog--center {
+    text-align: center;
+
+    & .#{$namespace}-dialog__body {
+        text-align: initial;
+    }
+
+    & .#{$namespace}-dialog__footer {
+        text-align: inherit;
+    }
+}
+
+.#{$namespace}-overlay-dialog {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+}

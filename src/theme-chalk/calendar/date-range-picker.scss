@@ -1,0 +1,139 @@
+@use '../common/var';
+
+.#{$namespace}-date-range-picker {
+    --#{$namespace}-datepicker-text-color: var(--#{$namespace}-text-color-regular);
+    --#{$namespace}-datepicker-off-text-color: var(--#{$namespace}-text-color-placeholder);
+    --#{$namespace}-datepicker-header-text-color: var(--#{$namespace}-text-color-regular);
+    --#{$namespace}-datepicker-icon-color: var(--#{$namespace}-text-color-primary);
+    --#{$namespace}-datepicker-border-color: var(--#{$namespace}-border-color);
+    --#{$namespace}-datepicker-inner-border-color: var(--#{$namespace}-border-color-light);
+    --#{$namespace}-datepicker-inrange-bg-color: var(--#{$namespace}-border-color-extra-light);
+    --#{$namespace}-datepicker-inrange-hover-bg-color: var(--#{$namespace}-border-color-extra-light);
+    --#{$namespace}-datepicker-active-color: var(--#{$namespace}-color-primary);
+    --#{$namespace}-datepicker-hover-text-color: var(--#{$namespace}-color-primary);
+}
+
+.#{$namespace}-date-range-picker {
+    width: 646px;
+
+    &.has-sidebar {
+        width: 756px;
+    }
+
+    table {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    .#{$namespace}-picker-panel__body {
+        min-width: 513px;
+    }
+
+    .#{$namespace}-picker-panel__content {
+        margin: 0;
+    }
+
+    &__header {
+        position: relative;
+        text-align: center;
+        height: 28px;
+
+        // [class*='arrow-left'],
+        .#{$namespace}-date-range-picker__prev-btn {
+            float: left;
+        }
+
+        // [class*='arrow-right'],
+        .#{$namespace}-date-range-picker__next-btn {
+            float: right;
+        }
+
+        div {
+            font-size: 16px;
+            font-weight: 500;
+            // margin-right: 50px;
+            cursor: text;
+            margin-top: -2px;
+        }
+    }
+
+    &__header-label {
+        font-size: 16px;
+        font-weight: 500;
+        padding: 0 5px;
+        line-height: 22px;
+        text-align: center;
+        cursor: pointer;
+        color: var(--#{$namespace}-text-color-regular);
+
+        &:hover {
+            color: var(--#{$namespace}-datepicker-hover-text-color);
+        }
+
+        &.active {
+            color: var(--#{$namespace}-datepicker-hover-text-color);
+        }
+    }
+
+    &__content {
+        float: left;
+        width: 50%;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 16px;
+
+        &.is-left {
+            border-right: 1px solid var(--#{$namespace}-datepicker-inner-border-color);
+        }
+
+        // .#{$namespace}-date-range-picker__header {
+        //     div {
+        //         margin-left: 50px;
+        //         margin-right: 50px;
+        //     }
+        // }
+    }
+
+    &__editors-wrap {
+        box-sizing: border-box;
+        display: table-cell;
+
+        .is-right {
+            text-align: right;
+        }
+    }
+
+    &__time-header {
+        position: relative;
+        border-bottom: 1px solid var(--#{$namespace}-datepicker-inner-border-color);
+        font-size: 12px;
+        padding: 8px 5px 5px 5px;
+        display: table;
+        width: 100%;
+        box-sizing: border-box;
+
+        & > .#{$namespace}-icon-arrow-right {
+            font-size: 20px;
+            vertical-align: middle;
+            display: table-cell;
+            color: #303133;
+        }
+    }
+
+    &__time-picker-wrap {
+        position: relative;
+        display: table-cell;
+        padding: 0 5px;
+
+        .#{$namespace}-picker-panel {
+            position: absolute;
+            top: 13px;
+            right: 0;
+            z-index: 1;
+            background: #ffffff;
+        }
+        .#{$namespace}-time-panel {
+            position: absolute;
+        }
+    }
+}

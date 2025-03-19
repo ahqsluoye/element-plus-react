@@ -1,0 +1,50 @@
+@use '../common/var';
+
+.#{$namespace}-timeline {
+    --#{$namespace}-timeline-node-size-normal: 12px;
+    --#{$namespace}-timeline-node-size-large: 14px;
+    --#{$namespace}-timeline-timestamp-color: var(--#{$namespace}-text-color-secondary);
+    --#{$namespace}-timeline-content-color: var(--#{$namespace}-text-color-primary);
+    --#{$namespace}-timeline-content-font-size-small: 13px;
+    --#{$namespace}-timeline-content-font-size-large: 14px;
+    --#{$namespace}-timeline-node-color: var(--#{$namespace}-border-color-light);
+}
+
+.#{$namespace}-timeline {
+    margin: 0;
+    font-size: 14px;
+    list-style: none;
+
+    .#{$namespace}-timeline-item:last-child {
+        .#{$namespace}-timeline-item__tail {
+            display: none;
+        }
+    }
+
+    .#{$namespace}-timeline-item__center {
+        display: flex;
+        align-items: center;
+
+        .#{$namespace}-timeline-item__wrapper {
+            width: 100%;
+        }
+
+        .#{$namespace}-timeline-item__tail {
+            top: 0;
+        }
+    }
+
+    .#{$namespace}-timeline-item__center:first-child {
+        .#{$namespace}-timeline-item__tail {
+            height: calc(50% + 10px);
+            top: calc(50% - 10px);
+        }
+    }
+
+    .#{$namespace}-timeline-item__center:last-child {
+        .#{$namespace}-timeline-item__tail {
+            display: block;
+            height: calc(50% - 10px);
+        }
+    }
+}

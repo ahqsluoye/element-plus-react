@@ -1,0 +1,208 @@
+@use '../common/var';
+@use 'sass:map';
+
+$input-height: () !default;
+$input-height: map.merge(
+    (
+        'large': var(--#{$namespace}-component-size-large),
+        'default': 32px,
+        'small': var(--#{$namespace}-component-size-small),
+    ),
+    $input-height
+);
+
+$input-line-height: () !default;
+$input-line-height: map.merge(
+    (
+        'large': var(--#{$namespace}-component-size-large),
+        'default': 32px,
+        'small': var(--#{$namespace}-component-size-small),
+    ),
+    $input-line-height
+);
+
+$input-font-size: () !default;
+$input-font-size: map.merge(
+    (
+        'large': 14px,
+        'default': 14px,
+        'small': 12px,
+    ),
+    $input-font-size
+);
+
+.#{$namespace}-input-range {
+    --#{$namespace}-input-hover-border-color: var(--#{$namespace}-border-color-hover);
+
+    position: relative;
+    display: inline-block;
+    text-align: left;
+
+    &.is-warning {
+        box-shadow: 0 0 0 1px var(--#{$namespace}-color-warning) inset !important;
+
+        .#{$namespace}-range-input {
+            color: var(--#{$namespace}-color-warning) !important;
+        }
+    }
+
+    &.is-error {
+        box-shadow: 0 0 0 1px var(--#{$namespace}-color-error) inset !important;
+
+        .#{$namespace}-range-input {
+            color: var(--#{$namespace}-color-error) !important;
+        }
+    }
+
+    .close-icon {
+        cursor: pointer;
+    }
+
+    .clear-icon {
+        cursor: pointer;
+
+        &:hover {
+            color: #909399;
+        }
+    }
+
+    .#{$namespace}-range__icon {
+        height: 1em;
+        font-size: 14px;
+        color: var(--#{$namespace}-text-color-placeholder);
+        float: left;
+        padding-right: 5px;
+    }
+
+    .#{$namespace}-range-input {
+        appearance: none;
+        border: none;
+        outline: none;
+        display: inline-block;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 39%;
+        text-align: center;
+        font-size: 14px;
+        color: var(--#{$namespace}-text-color-regular);
+        background: transparent;
+
+        @include placeholder();
+    }
+
+    .#{$namespace}-range-separator {
+        flex: 1;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding: 0 5px;
+        margin: 0;
+        font-size: 14px;
+        word-break: keep-all;
+        color: var(--#{$namespace}-text-color-primary);
+    }
+
+    .#{$namespace}-range__close-icon {
+        font-size: 14px;
+        color: var(--#{$namespace}-text-color-placeholder);
+        height: 1em;
+        width: 20px;
+        cursor: pointer;
+        padding-left: 5px;
+        margin-left: 5px;
+
+        &:hover {
+            color: var(--#{$namespace}-color-primary);
+        }
+
+        svg {
+            vertical-align: middle;
+        }
+
+        &--hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+
+    .#{$namespace}-range__end-icon {
+        font-size: 14px;
+        color: var(--#{$namespace}-text-color-placeholder);
+        height: 1em;
+        width: unset;
+        cursor: pointer;
+        padding-left: 5px;
+    }
+
+    &.#{$namespace}-input__wrapper {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3px 10px;
+        background-color: var(--#{$namespace}-input-bg-color, var(--#{$namespace}-fill-color-blank));
+        background-image: none;
+        transition: box-shadow 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+        height: map.get($input-height, default);
+    }
+
+    .#{$namespace}-range-input {
+        line-height: 1;
+    }
+
+    &.is-active {
+        box-shadow: 0 0 0 1px var(--#{$namespace}-color-primary) inset;
+
+        &:hover {
+            box-shadow: 0 0 0 1px var(--#{$namespace}-color-primary) inset;
+        }
+    }
+
+    &.is-disabled {
+        background-color: var(--#{$namespace}-disabled-bg-color);
+        border-color: var(--#{$namespace}-border-color-light);
+        color: var(--#{$namespace}-disabled-text-color);
+        cursor: not-allowed;
+
+        &:hover,
+        &:focus {
+            border-color: var(--#{$namespace}-border-color-light);
+        }
+
+        input {
+            // background-color: #f5f7fa;
+            color: var(--#{$namespace}-disabled-text-color);
+            cursor: not-allowed;
+
+            // @include placeholder();
+        }
+
+        .#{$namespace}-range-separator {
+            color: var(--#{$namespace}-disabled-text-color);
+        }
+
+        &:hover {
+            box-shadow: 0 0 0 1px var(--#{$namespace}-input-border-color, var(--#{$namespace}-border-color)) inset;
+        }
+    }
+}
+
+@each $size in (large, small) {
+    .#{$namespace}-input-range--#{$size} {
+        line-height: map.get($input-height, $size);
+
+        &.#{$namespace}-input__warpper {
+            height: map.get($input-height, $size);
+        }
+
+        .#{$namespace}-range-separator {
+            line-height: map.get($input-line-height, $size);
+            font-size: map.get($input-font-size, $size);
+        }
+
+        .#{$namespace}-range-input {
+            font-size: map.get($input-font-size, $size);
+        }
+    }
+}

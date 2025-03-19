@@ -1,0 +1,382 @@
+@use '../common/var';
+
+@use 'sass:map';
+@import './mixins';
+
+$button-icon-span-gap: () !default;
+$button-icon-span-gap: map.merge(
+    (
+        'large': 8px,
+        'default': 6px,
+        'small': 4px,
+    ),
+    $button-icon-span-gap
+);
+
+.#{$namespace}-button {
+    --#{$namespace}-button-bg-color: var(--#{$namespace}-fill-color-blank);
+    --#{$namespace}-button-border-style: solid;
+    --#{$namespace}-button-text-color: var(--#{$namespace}-text-color-regular);
+    --#{$namespace}-button-border-color: var(--#{$namespace}-border-color, var(--#{$namespace}-color-primary));
+    --#{$namespace}-button-hover-bg-color: var(--#{$namespace}-color-primary-light-9);
+    --#{$namespace}-button-active-border-color: var(--#{$namespace}-color-primary);
+    --#{$namespace}-button-active-bg-color: var(--#{$namespace}-button-hover-bg-color);
+    --#{$namespace}-button-active-color: var(--#{$namespace}-text-color-primary);
+    --#{$namespace}-button-hover-text-color: var(--#{$namespace}-color-primary);
+    --#{$namespace}-button-hover-border-color: var(--#{$namespace}-color-primary-light-7);
+    --#{$namespace}-button-hover-link-text-color: var(--#{$namespace}-color-info);
+    --#{$namespace}-button-active-text-color: var(--#{$namespace}-button-hover-text-color);
+    --#{$namespace}-button-disabled-text-color: var(--#{$namespace}-disabled-text-color);
+    --#{$namespace}-button-disabled-bg-color: var(--#{$namespace}-fill-color-blank);
+    --#{$namespace}-button-disabled-border-color: var(--#{$namespace}-border-color-light);
+    --#{$namespace}-button-divide-border-color: rgba(255, 255, 255, 0.5);
+    --#{$namespace}-button-outline-color: var(--#{$namespace}-color-primary-light-5);
+    --#{$namespace}-button-border-radius-round: 20px;
+}
+
+.#{$namespace}-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    height: 32px;
+    white-space: nowrap;
+    cursor: pointer;
+    background: var(--#{$namespace}-button-bg-color);
+    border: 1px var(--#{$namespace}-button-border-style);
+    border-color: var(--#{$namespace}-button-border-color);
+    color: var(--#{$namespace}-button-text-color);
+    // -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    transition: 0.1s;
+    font-weight: 500;
+    user-select: none;
+    vertical-align: middle;
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+
+    & > span {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    & + & {
+        margin-left: 12px;
+    }
+
+    // @include button-size(
+    //     map.get($button-padding-vertical, 'default') - $button-border-width,
+    //     map.get($button-padding-horizontal, 'default') - $button-border-width,
+    //     map.get($button-font-size, 'default'),
+    //     map.get($button-border-radius, 'default')
+    // );
+
+    &:hover,
+    &:focus {
+        color: var(--#{$namespace}-button-hover-text-color, var(--#{$namespace}-color-primary));
+        border-color: var(--#{$namespace}-button-hover-border-color);
+        background: var(--#{$namespace}-button-hover-bg-color, #ecf5ff);
+        outline: none;
+    }
+
+    &:active,
+    &.is-active {
+        color: var(--#{$namespace}-button-active-text-color, var(--#{$namespace}-color-primary));
+        border-color: var(--#{$namespace}-button-active-border-color);
+        background: var(--#{$namespace}-button-active-bg-color, #ecf5ff);
+        outline: none;
+    }
+
+    &::-moz-focus-inner {
+        border: 0;
+    }
+
+    & [class*='#{$namespace}-icon'] {
+        & + span {
+            margin-left: 6px;
+        }
+        svg {
+            vertical-align: bottom;
+        }
+    }
+
+    &.is-plain,
+    &.is-dashed {
+        --#{$namespace}-button-hover-text-color: var(--#{$namespace}-color-primary);
+        --#{$namespace}-button-hover-bg-color: var(--#{$namespace}-fill-color-blank);
+        --#{$namespace}-button-hover-border-color: var(--#{$namespace}-color-primary);
+    }
+
+    &.is-dashed {
+        --#{$namespace}-button-border-style: dashed;
+        --#{$namespace}-button-active-bg-color: var(--#{$namespace}-fill-color-blank);
+        --#{$namespace}-button-active-text-color: var(--#{$namespace}-color-primary-light-3);
+        --#{$namespace}-button-active-border-color: var(--#{$namespace}-color-primary-light-3);
+    }
+
+    &.is-disabled {
+        &,
+        &:hover,
+        &:focus {
+            color: var(--#{$namespace}-button-disabled-text-color, #a8abb2);
+            cursor: not-allowed;
+            background-image: none;
+            background: var(--#{$namespace}-button-disabled-bg-color, #ffffff);
+            border-color: var(--#{$namespace}-button-disabled-border-color, #e4e7ed);
+        }
+    }
+
+    &.is-loading {
+        position: relative;
+        pointer-events: none;
+
+        &:before {
+            // mask the button
+            z-index: 1;
+            pointer-events: none;
+            content: '';
+            position: absolute;
+            left: -1px;
+            top: -1px;
+            right: -1px;
+            bottom: -1px;
+            border-radius: inherit;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    }
+
+    &.is-round {
+        border-radius: 20px;
+    }
+
+    &.is-circle {
+        border-radius: 50%;
+        padding: 8px;
+    }
+
+    &.is-block {
+        width: 100%;
+    }
+
+    &.is-text {
+        color: var(--#{$namespace}-button-text-color);
+        border: 0 solid transparent;
+        background: transparent;
+
+        &.is-disabled {
+            color: var(--#{$namespace}-button-disabled-text-color);
+            background: transparent;
+        }
+
+        &:not(.is-disabled) {
+            &:hover,
+            &:focus {
+                background: var(--#{$namespace}-fill-color-light);
+            }
+
+            &:focus-visible {
+                outline: 2px solid var(--#{$namespace}-button-outline-color);
+                outline-offset: 1px;
+            }
+
+            &:active {
+                background: var(--#{$namespace}-fill-color);
+            }
+
+            &.is-has-bg {
+                background: var(--#{$namespace}-fill-color-light);
+
+                &:hover,
+                &:focus {
+                    background: var(--#{$namespace}-fill-color);
+                }
+
+                &:active {
+                    background: var(--#{$namespace}-fill-color-dark);
+                }
+            }
+        }
+    }
+
+    &.is-link {
+        border-color: transparent;
+        color: var(--#{$namespace}-button-text-color);
+        background: transparent;
+        padding: 2px;
+        height: auto;
+
+        &:hover,
+        &:focus {
+            color: var(--#{$namespace}-button-hover-link-text-color);
+        }
+
+        &.is-disabled {
+            color: var(--#{$namespace}-button-disabled-text-color);
+            background: transparent;
+            border-color: transparent;
+        }
+
+        &:not(.is-disabled) {
+            &:hover,
+            &:focus {
+                border-color: transparent;
+                background: transparent;
+            }
+
+            &:active {
+                color: var(--#{$namespace}-button-active-color);
+                border-color: transparent;
+                background: transparent;
+            }
+        }
+    }
+}
+
+.#{$namespace}-button__text--expand {
+    letter-spacing: 0.3em;
+    margin-right: -0.3em;
+}
+
+.#{$namespace}-button--primary {
+    --#{$namespace}-button-text-color: var(--#{$namespace}-color-white);
+    --#{$namespace}-button-bg-color: var(--#{$namespace}-bg-color-primary, var(--#{$namespace}-color-primary));
+    --#{$namespace}-button-border-color: var(--btn-border-color, #4f8ffa);
+    --#{$namespace}-button-hover-text-color: var(--#{$namespace}-color-white);
+    --#{$namespace}-button-hover-bg-color: var(--#{$namespace}-bg-color-primary, #79bbff);
+    --#{$namespace}-button-hover-border-color: var(--btn-border-color, #79bbff);
+    --#{$namespace}-button-hover-link-text-color: var(--#{$namespace}-color-primary-light-5);
+    --#{$namespace}-button-active-text-color: var(--#{$namespace}-color-white);
+    --#{$namespace}-button-active-bg-color: var(--#{$namespace}-bg-color-primary, #337ecc);
+    --#{$namespace}-button-active-border-color: var(--btn-border-color, #337ecc);
+    --#{$namespace}-button-disabled-text-color: var(--#{$namespace}-color-white);
+    --#{$namespace}-button-disabled-bg-color: var(--#{$namespace}-bg-color-primary, #a0cfff);
+    --#{$namespace}-button-disabled-border-color: var(--btn-border-color, #a0cfff);
+    // 我是默认按钮悬浮透明度
+    --#{$namespace}-button-hover-opacity: 0.8;
+    // 我是默认按钮禁用状态透明度
+    --#{$namespace}-button--disabled-opacity: 0.5;
+
+    &:hover,
+    &:focus {
+        opacity: var(--#{$namespace}-button-hover-opacity, 1);
+    }
+
+    &:active,
+    &.is-active {
+        opacity: calc(var(--#{$namespace}-button-hover-opacity, 1) * 10);
+    }
+
+    &.is-disabled {
+        &,
+        &:hover,
+        &:focus {
+            opacity: var(--#{$namespace}-button--disabled-opacity, 1);
+        }
+    }
+
+    &.is-plain {
+        --#{$namespace}-button-text-color: var(--#{$namespace}-color-primary);
+        --#{$namespace}-button-bg-color: var(--#{$namespace}-color-primary-light-9, #ecf5ff);
+        --#{$namespace}-button-border-color: var(--#{$namespace}-color-primary-light-5, #a0cfff);
+        --#{$namespace}-button-hover-text-color: var(--#{$namespace}-color-white);
+        --#{$namespace}-button-hover-bg-color: var(--#{$namespace}-bg-color-primary, var(--#{$namespace}-color-primary));
+        --#{$namespace}-button-hover-border-color: var(--btn-border-color, #4f8ffa);
+
+        &.is-disabled,
+        &.is-disabled:hover,
+        &.is-disabled:focus,
+        &.is-disabled:active {
+            color: var(--#{$namespace}-color-primary-light-5, #a0cfff);
+            background: var(--#{$namespace}-color-primary-light-9, #ecf5ff);
+            border-color: var(--#{$namespace}-color-primary-light-8, #d9ecff);
+            opacity: 1;
+        }
+    }
+
+    &.is-dashed {
+        --#{$namespace}-button-text-color: var(--#{$namespace}-color-primary);
+        --#{$namespace}-button-bg-color: var(--#{$namespace}-fill-color-blank);
+        --#{$namespace}-button-hover-text-color: var(--#{$namespace}-color-primary);
+        --#{$namespace}-button-hover-bg-color: var(--#{$namespace}-fill-color-blank);
+        --#{$namespace}-button-hover-border-color: var(--btn-border-color);
+        --#{$namespace}-button-active-text-color: var(--#{$namespace}-color-primary);
+        --#{$namespace}-button-active-border-color: var(--#{$namespace}-color-primary);
+
+        &.is-disabled,
+        &.is-disabled:hover,
+        &.is-disabled:focus,
+        &.is-disabled:active {
+            color: var(--#{$namespace}-color-primary-light-5, #a0cfff);
+            background: var(--#{$namespace}-fill-color-blank);
+            border-color: var(--#{$namespace}-color-primary-light-8, #d9ecff);
+            opacity: 1;
+        }
+    }
+
+    &.is-link,
+    &.is-text {
+        --#{$namespace}-button-text-color: var(--#{$namespace}-color-primary);
+        --#{$namespace}-button-bg-color: var(--#{$namespace}-color-primary-light-9, #ecf5ff);
+        --#{$namespace}-button-border-color: var(--#{$namespace}-color-primary-light-5, #a0cfff);
+        --#{$namespace}-button-hover-text-color: var(--#{$namespace}-color-white);
+        --#{$namespace}-button-hover-bg-color: var(--#{$namespace}-bg-color-primary, var(--#{$namespace}-color-primary));
+        --#{$namespace}-button-hover-border-color: var(--btn-border-color, #4f8ffa);
+
+        &.is-disabled,
+        &.is-disabled:hover,
+        &.is-disabled:focus,
+        &.is-disabled:active {
+            color: var(--#{$namespace}-color-primary-light-5, #a0cfff);
+            opacity: 1;
+        }
+    }
+}
+
+@each $type in (success, warning, danger, error, info) {
+    .#{$namespace}-button--#{$type} {
+        @include button-variant($type);
+    }
+}
+
+.#{$namespace}-button--large {
+    height: var(--#{$namespace}-component-size-large);
+    padding: 12px 19px;
+    font-size: 14px;
+    border-radius: 4px;
+
+    [class*='#{$namespace}-icon'] + span {
+        margin-left: 8px;
+    }
+
+    &.is-round {
+        padding: 12px 19px;
+    }
+
+    &.is-circle {
+        width: var(--#{$namespace}-component-size-large);
+        padding: 12px;
+    }
+}
+
+.#{$namespace}-button--small {
+    height: var(--#{$namespace}-component-size-small);
+    padding: 5px 11px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+.#{$namespace}-button--small [class*='#{$namespace}-icon'] + span {
+    margin-left: 4px;
+}
+
+.#{$namespace}-button--small.is-round {
+    padding: 5px 11px;
+}
+
+.#{$namespace}-button--small.is-circle {
+    width: var(--#{$namespace}-component-size-small);
+    padding: 5px;
+}

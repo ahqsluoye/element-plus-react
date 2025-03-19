@@ -1,0 +1,13 @@
+.demo-input {
+    .el-input {
+        width: 300px;
+
+        & + .el-input {
+            margin-left: 50px;
+        }
+    }
+}
+
+.mt-4 {
+    margin-top: 1rem;
+}

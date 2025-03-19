@@ -1,0 +1,65 @@
+@use '../common/var';
+
+.#{$namespace}-breadcrumb {
+    font-size: 14px;
+    line-height: 1;
+
+    &::before,
+    &::after {
+        display: table;
+        content: '';
+    }
+}
+
+.#{$namespace}-breadcrumb__separator {
+    margin: 0 9px;
+    font-weight: bold;
+    color: var(--#{$namespace}-text-color-placeholder);
+
+    &.#{$namespace}-icon {
+        margin: 0 6px;
+        font-weight: normal;
+        svg {
+            vertical-align: middle;
+        }
+    }
+}
+
+.#{$namespace}-breadcrumb__item {
+    float: left;
+    display: flex;
+    align-items: center;
+
+    &:last-child {
+        .#{$namespace}-breadcrumb__inner:not(.is-link),
+        .#{$namespace}-breadcrumb__inner:not(.is-link) a {
+            &,
+            &:hover {
+                font-weight: normal;
+                color: var(--#{$namespace}-text-color-regular);
+                cursor: text;
+            }
+        }
+
+        .#{$namespace}-breadcrumb__separator {
+            display: none;
+        }
+    }
+}
+
+.#{$namespace}-breadcrumb__inner {
+    color: var(--#{$namespace}-text-color-regular);
+
+    &.is-link,
+    & a {
+        font-weight: bold;
+        text-decoration: none;
+        transition: var(--#{$namespace}-transition-color);
+        color: var(--#{$namespace}-text-color-primary);
+
+        &:hover {
+            color: var(--#{$namespace}-color-primary);
+            cursor: pointer;
+        }
+    }
+}

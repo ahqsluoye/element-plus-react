@@ -1,0 +1,16 @@
+@use '../common/var';
+
+@mixin placeholder {
+    &::-webkit-input-placeholder {
+        color: var(--#{$namespace}-text-color-placeholder);
+    }
+    &:-moz-placeholder {
+        color: var(--#{$namespace}-text-color-placeholder);
+    }
+    &::-moz-placeholder {
+        color: var(--#{$namespace}-text-color-placeholder);
+    }
+    &:-ms-input-placeholder {
+        color: var(--#{$namespace}-text-color-placeholder);
+    }
+}

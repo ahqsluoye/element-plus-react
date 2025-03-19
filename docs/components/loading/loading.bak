@@ -1,0 +1,88 @@
+/_ eslint-disable quotes _/
+import { h, Fragment } from 'preact';
+import { useEffect, useRef } from 'react';
+import PageContainer from '@/Layout/PageContainer';
+import DemoBlock from '@/Layout/DemoBlock';
+import RightNav from '@/Layout/RightNav';
+import Prism from 'prismjs';
+import { PropsTable } from '@/Layout/Table';
+import Basic, { html as basic_html } from './basic';
+// import Customization, { html as customization_html } from './customization';
+import Fullscreen, { html as fullscreen_html } from './fullscreen';
+
+const LoadingDoc = () => {
+const demo1Ref = useRef<HTMLDivElement>();
+const demo2Ref = useRef<HTMLDivElement>();
+const demo3Ref = useRef<HTMLDivElement>();
+
+    useEffect(() => {
+        demo1Ref.current.innerHTML = Prism.highlight(`import { Loading } from '@parker/element-plus-react';`, Prism.languages.tsx, 'tsx');
+        demo2Ref.current.innerHTML = Prism.highlight(`Loading.service(options);`, Prism.languages.tsx, 'tsx');
+        demo3Ref.current.innerHTML = Prism.highlight(
+            `const loadingInstance = Loading.service(options);
+
+// Loading should be closed asynchronously
+loadingInstance.close()`,
+Prism.languages.tsx,
+'tsx',
+);
+}, []);
+
+    return (
+        <>
+            <PageContainer>
+                <section class="content element-doc content">
+                    <h2>Loading 加载</h2>
+                    <p>加载数据时显示动效。</p>
+
+                    <DemoBlock title="区域加载" content={'在需要的时候展示加载动画，防止页面失去响应提高用户体验。'} source={<Basic />} highlight={basic_html} />
+
+                    <DemoBlock title="让加载组件铺满整个屏幕" content={'加载数据时显示全屏动画。'} source={<Fullscreen />} highlight={fullscreen_html} />
+
+                    <h3>以服务的方式来调用</h3>
+                    <p>Loading 还可以以服务的方式调用。 你可以像这样引入 Loading 服务：</p>
+
+                    <div className="language-tsx">
+                        <pre style={{ padding: 15, borderRadius: 4 }}>
+                            <code ref={demo1Ref} />
+                        </pre>
+                    </div>
+
+                    <p>在你需要的时候通过下面的方式调用：</p>
+
+                    <div className="language-tsx">
+                        <pre style={{ padding: 15, borderRadius: 4 }}>
+                            <code ref={demo2Ref} />
+                        </pre>
+                    </div>
+
+                    <p>
+                        其中options参数为 Loading 的配置项，具体见下表。 <code>LoadingService</code> 会返回一个 <code>Loading</code> 实例，可通过调用该实例的 <code>close</code>
+                        方法来关闭它：
+                    </p>
+
+                    <div className="language-tsx">
+                        <pre style={{ padding: 15, margin: 0 }}>
+                            <code ref={demo3Ref} />
+                        </pre>
+                    </div>
+
+                    <h3>属性</h3>
+                    <PropsTable
+                        data={[
+                            ['visible', '是否显示加载（可控）', 'boolean', '`true` | `false`', 'false'],
+                            ['fullscreen', '是否让加载组件铺满整个屏幕', 'boolean', '`true` | `false`', 'true'],
+                            ['text', '显示在加载图标下方的加载文案', 'string', '', '—'],
+                            ['background', '遮罩背景色', 'string', '', '—'],
+                        ]}
+                    />
+
+                    <RightNav />
+                </section>
+            </PageContainer>
+        </>
+    );
+
+};
+
+export default LoadingDoc;

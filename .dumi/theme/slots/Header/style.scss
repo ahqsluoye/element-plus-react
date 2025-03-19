@@ -1,0 +1,29 @@
+.logo-container {
+    display: flex;
+    align-items: center;
+    height: var(--header-height);
+
+    & > a {
+        height: 28px;
+        width: 128px;
+    }
+    .logo {
+        position: relative;
+        height: 100%;
+    }
+}
+
+.is-menu-link {
+    display: block;
+    padding: 0 12px;
+    line-height: calc(var(--nav-height) - 3px);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+    transition: color var(--el-transition-duration);
+    border-bottom: 2px solid transparent;
+
+    &:hover {
+    color: var(--brand-color);
+}
+}

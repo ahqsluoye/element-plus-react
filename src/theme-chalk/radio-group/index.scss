@@ -1,0 +1,31 @@
+@use '../common/var';
+
+.#{$namespace}-radio-group {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 0;
+    // position: relative;
+    // min-height: 32px;
+    // flex-direction: column;
+    // align-items: flex-start;
+
+    // &.#{$namespace}-radio-group-inline {
+    //     flex-direction: row;
+    //     line-height: 32px;
+    // }
+
+    &.#{$namespace}-radio-group--large {
+        min-height: var(--#{$namespace}-component-size-large);
+        &.#{$namespace}-radio-group-inline {
+            line-height: var(--#{$namespace}-component-size-large);
+        }
+    }
+
+    &.#{$namespace}-radio-group--small {
+        min-height: var(--#{$namespace}-component-size-small);
+        &.#{$namespace}-radio-group-inline {
+            line-height: var(--#{$namespace}-component-size-small);
+        }
+    }
+}

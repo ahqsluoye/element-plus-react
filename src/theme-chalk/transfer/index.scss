@@ -1,0 +1,247 @@
+@use '../common/var';
+
+.#{$namespace}-transfer {
+    --#{$namespace}-transfer-border-color: var(--#{$namespace}-border-color);
+    --#{$namespace}-transfer-border-radius: 4px;
+    --#{$namespace}-transfer-panel-width: 200px;
+    --#{$namespace}-transfer-panel-header-height: 40px;
+    --#{$namespace}-transfer-panel-header-bg-color: var(--#{$namespace}-fill-color-light);
+    --#{$namespace}-transfer-panel-footer-height: 40px;
+    --#{$namespace}-transfer-panel-body-height: 278px;
+    --#{$namespace}-transfer-item-height: unset;
+    --#{$namespace}-transfer-filter-height: 32px;
+}
+
+.#{$namespace}-transfer {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: var(--#{$namespace}-text-color-regular);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: 'tnum';
+    position: relative;
+    display: flex;
+    align-items: stretch;
+
+    &.is-disabled {
+        .#{$namespace}-transfer-list {
+            background: var(--#{$namespace}-disabled-bg-color);
+        }
+    }
+
+    .#{$namespace}-transfer-list {
+        display: flex;
+        flex-direction: column;
+        width: var(--#{$namespace}-transfer-panel-width);
+        height: var(--#{$namespace}-transfer-panel-body-height);
+        border: 1px solid var(--#{$namespace}-transfer-border-color);
+        border-radius: 4px;
+
+        .#{$namespace}-transfer-list-with-pagination {
+            width: 250px;
+            height: auto;
+        }
+
+        .#{$namespace}-transfer-list-search {
+            .anticon-search {
+                color: fade(#000, 25%);
+            }
+        }
+
+        .#{$namespace}-transfer-list-header {
+            display: flex;
+            flex: none;
+            align-items: center;
+            height: var(--#{$namespace}-transfer-panel-header-height);
+            padding: 8px 12px 9px;
+            color: var(--#{$namespace}-text-color-regular);
+            background: var(--#{$namespace}-transfer-panel-header-bg-color);
+            border-bottom: 1px solid;
+            border-color: var(--#{$namespace}-transfer-border-color);
+            border-radius: var(--#{$namespace}-transfer-border-radius) var(--#{$namespace}-transfer-border-radius) 0 0;
+
+            & > *:not(:last-child) {
+                margin-right: 4px;
+            }
+
+            & > * {
+                flex: none;
+            }
+
+            .#{$namespace}-transfer-list-header-title {
+                flex: auto;
+                overflow: hidden;
+                white-space: nowrap;
+                text-align: right;
+                text-overflow: ellipsis;
+            }
+
+            .#{$namespace}-transfer-list-header-dropdown {
+                font-size: 10px;
+                transform: translateY(10%);
+                cursor: pointer;
+
+                &[disabled] {
+                    cursor: not-allowed;
+                }
+            }
+        }
+
+        .#{$namespace}-transfer-list-body {
+            display: flex;
+            flex: auto;
+            flex-direction: column;
+            overflow: hidden;
+            font-size: 14px;
+
+            .#{$namespace}-transfer-list-body-search-wrapper {
+                position: relative;
+                flex: none;
+                padding: 12px;
+            }
+        }
+
+        .#{$namespace}-transfer-list-content {
+            flex: auto;
+            margin: 0;
+            padding: 0;
+            // overflow: auto;
+            list-style: none;
+
+            .#{$namespace}-transfer-list-content-item {
+                display: flex;
+                align-items: center;
+                min-height: 32px;
+                padding: 6px 12px;
+                line-height: 32px - 2 * 6px;
+                transition: all 0.3s;
+
+                & > *:not(:last-child) {
+                    margin-right: 8px;
+                    height: var(--#{$namespace}-transfer-item-height);
+                }
+
+                & > * {
+                    flex: none;
+                }
+
+                .#{$namespace}-transfer-list-content-item-text {
+                    flex: auto;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+
+                .#{$namespace}-transfer-list-content-item-remove {
+                    color: #177ddc;
+                    text-decoration: none;
+                    outline: 0;
+                    cursor: pointer;
+                    transition: color 0.3s;
+                    position: relative;
+                    color: #434343;
+
+                    &:focus,
+                    &:hover {
+                        color: var(--#{$namespace}-color-primary);
+                    }
+
+                    &:active {
+                        color: var(--#{$namespace}-color-primary);
+                    }
+
+                    &::after {
+                        position: absolute;
+                        top: -6px;
+                        right: -50%;
+                        bottom: -6px;
+                        left: -50%;
+                        content: '';
+                    }
+
+                    &:hover {
+                        color: var(--#{$namespace}-color-primary);
+                    }
+                }
+            }
+
+            .#{$namespace}-transfer-list-content-item:not(&-item-disabled) {
+                &:hover {
+                    background-color: var(--#{$namespace}-fill-color-light);
+                    cursor: pointer;
+                }
+
+                &.#{$namespace}-transfer-list-content-item-checked:hover {
+                    color: var(--#{$namespace}-color-primary);
+                }
+            }
+
+            // Do not change hover style when `oneWay` mode
+            &-show-remove &-item:not(&-item-disabled):hover {
+                background: transparent;
+                cursor: default;
+            }
+
+            .#{$namespace}-transfer-list-content-item-checked {
+                color: var(--#{$namespace}-color-primary);
+            }
+
+            .#{$namespace}-transfer-list-content-item-disabled {
+                color: #c0c4cc;
+                cursor: not-allowed;
+            }
+        }
+
+        .#{$namespace}-transfer-list-pagination {
+            padding: 8px 0;
+            text-align: right;
+            border-top: 1px solid #e4e7ed;
+        }
+
+        .#{$namespace}-transfer-list-body-not-found {
+            flex: none;
+            width: 100%;
+            margin: auto 0;
+            color: fade(#000, 25%);
+            text-align: center;
+        }
+
+        .#{$namespace}-transfer-list-footer {
+            border-top: 1px solid #e4e7ed;
+        }
+    }
+
+    .#{$namespace}-transfer-operation {
+        display: flex;
+        flex: none;
+        flex-direction: column;
+        align-self: center;
+        margin: 0 8px;
+        vertical-align: middle;
+
+        .#{$namespace}-button {
+            display: block;
+            margin-left: 0;
+
+            &:first-child {
+                margin-bottom: 4px;
+            }
+
+            .fa {
+                font-size: 12px;
+            }
+        }
+    }
+}
+
+.#{$namespace}-transfer-customize-list {
+    .#{$namespace}-transfer-list {
+        flex: 1 1 50%;
+        width: auto;
+        height: auto;
+        min-height: 200px;
+    }
+}

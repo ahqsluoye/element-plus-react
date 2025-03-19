@@ -1,0 +1,63 @@
+@use '../common/var';
+
+@use 'sass:math';
+@use 'sass:map';
+
+.#{$namespace}-badge {
+    --#{$namespace}-badge-bg-color: var(--#{$namespace}-color-error);
+    --#{$namespace}-badge-radius: 10px;
+    --#{$namespace}-badge-font-size: 12px;
+    --#{$namespace}-badge-padding: 6px;
+    --#{$namespace}-badge-size: 18px;
+
+    position: relative;
+    vertical-align: middle;
+    display: inline-block;
+    width: fit-content;
+}
+
+.#{$namespace}-badge__content {
+    background-color: var(--#{$namespace}-badge-bg-color);
+    border-radius: var(--#{$namespace}-badge-radius);
+    color: var(--#{$namespace}-color-white);
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: var(--#{$namespace}-badge-font-size);
+    height: var(--#{$namespace}-badge-size);
+    padding: 0 var(--#{$namespace}-badge-padding);
+    white-space: nowrap;
+    border: 1px solid var(--#{$namespace}-bg-color);
+
+    &.is-fixed {
+        position: absolute;
+        top: 0;
+        right: calc(1px + #{var(--#{$namespace}-badge-size)} / 2);
+        transform: translateY(-50%) translateX(100%);
+        z-index: 1;
+
+        &.is-dot {
+            right: 5px;
+        }
+    }
+
+    &.is-dot {
+        height: 8px;
+        width: 8px;
+        padding: 0;
+        right: 0;
+        border-radius: 50%;
+    }
+}
+
+.#{$namespace}-badge__content--primary {
+    background-color: var(--#{$namespace}-color-primary);
+}
+
+@each $type in (success, warning, info, error) {
+    .#{$namespace}-badge__content--#{$type} {
+        background-color: var(--#{$namespace}-color-#{$type});
+    }
+}

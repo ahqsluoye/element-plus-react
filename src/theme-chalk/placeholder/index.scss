@@ -1,0 +1,135 @@
+@use '../common/var';
+
+.#{$namespace}-placeholder {
+    --#{$namespace}-skeleton-color: var(--#{$namespace}-fill-color);
+    --#{$namespace}-skeleton-to-color: var(--#{$namespace}-fill-color-darker);
+}
+
+.is-dark {
+    .#{$namespace}-placeholder {
+        --#{$namespace}-skeleton-color: #3c3f43;
+        --#{$namespace}-skeleton-to-color: #484c50;
+    }
+}
+
+.#{$namespace}-placeholder {
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    justify-content: flex-start;
+    display: flex;
+
+    &-paragraph {
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        &-graph {
+            flex: 0 0 auto;
+            width: 60px;
+            height: 60px;
+            border-radius: 2px;
+            margin-right: 20px;
+            background-color: var(--#{$namespace}-skeleton-color);
+
+            &-circle {
+                border-radius: 50%;
+            }
+
+            &-image {
+                width: 80px;
+                height: 60px;
+                position: relative;
+                overflow: hidden;
+
+                &::after {
+                    content: '';
+                    width: 0;
+                    height: 0;
+                    left: 10px;
+                    bottom: 10px;
+                    position: absolute;
+                    border-bottom: 36px solid;
+                    border-left: 20px solid transparent;
+                    border-right: 30px solid transparent;
+                }
+
+                &::before {
+                    content: '';
+                    width: 0;
+                    height: 0;
+                    left: 40px;
+                    bottom: 10px;
+                    position: absolute;
+                    border-bottom: 22px solid;
+                    border-left: 16px solid transparent;
+                    border-right: 16px solid transparent;
+                }
+            }
+
+            &-image &-inner {
+                width: 12px;
+                height: 12px;
+                right: 18px;
+                top: 10px;
+                border-radius: 50%;
+                position: absolute;
+            }
+        }
+
+        &-rows {
+            width: 100%;
+
+            & > p {
+                background-color: var(--#{$namespace}-skeleton-color);
+                border-radius: 4px;
+            }
+        }
+    }
+
+    &-grid {
+        &-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            & > p {
+                background-color: var(--#{$namespace}-skeleton-color);
+                border-radius: 4px;
+            }
+
+            &:first-child {
+                align-items: flex-start; //first col align left
+            }
+        }
+    }
+
+    &-graph {
+        display: inline-block;
+        width: 100%;
+        background-color: var(--#{$namespace}-skeleton-color);
+    }
+
+    &-active {
+        &.#{$namespace}-placeholder-graph,
+        .#{$namespace}-placeholder-paragraph-graph-image,
+        .#{$namespace}-placeholder-grid-col > p,
+        .#{$namespace}-placeholder-paragraph-rows > p {
+            background: linear-gradient(-45deg, var(--#{$namespace}-skeleton-color) 25%, var(--#{$namespace}-skeleton-to-color) 37%, var(--#{$namespace}-skeleton-color) 63%);
+            background-size: 400% 100% !important;
+            animation: placeholder-active 1.4s ease infinite;
+        }
+    }
+
+    @keyframes placeholder-active {
+        0% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0 50%;
+        }
+    }
+}

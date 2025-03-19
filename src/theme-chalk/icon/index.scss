@@ -1,0 +1,53 @@
+@use '../common/var';
+
+@import './scss/index.scss';
+@import './scss/v4-shims.scss';
+@import './scss/regular.scss';
+@import './scss/light.scss';
+@import './scss/thin.scss';
+@import './scss/duotone.scss';
+@import './scss/brands.scss';
+@import './scss/solid.scss';
+
+.#{$namespace}-icon-loading {
+    animation: rotating 2s linear infinite;
+}
+
+.#{$namespace}-icon--right {
+    margin-left: 5px;
+}
+.#{$namespace}-icon--left {
+    margin-right: 5px;
+}
+
+@keyframes rotating {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+.#{$namespace}-icon {
+    --color: inherit;
+    height: 1em;
+    width: 1em;
+    line-height: 1em;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    fill: currentColor;
+    color: var(--color);
+    // font-size: inherit;
+
+    .is-loading {
+        animation: rotating 2s linear infinite;
+    }
+
+    svg {
+        height: 1em;
+        width: 1em;
+    }
+}

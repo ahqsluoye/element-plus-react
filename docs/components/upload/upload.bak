@@ -1,0 +1,69 @@
+import { h } from 'preact';
+import PageContainer from '@/Layout/PageContainer';
+import DemoBlock from '@/Layout/DemoBlock';
+import RightNav from '@/Layout/RightNav';
+import Basic, { html as basic_html } from './basic';
+import LimitCover, { html as limit_cover_html } from './limit-cover';
+import Avatar, { html as avatar_html, style as avatar_style } from './avatar';
+import PhotoWall, { html as photo_wall_html } from './photo-wall';
+import CustomThumbnail, { html as custom_thumbnail_html } from './custom-thumbnail';
+import FileListWithThumbnail, { html as file_list_with_thumbnail_html } from './file-list-with-thumbnail';
+import FileList, { html as file_list_html } from './file-list';
+import DragAndDrop, { html as drag_and_drop_html } from './drag-and-drop';
+import Manual, { html as manual_html } from './manual';
+import { props, ref } from './util';
+import { MethodTable, PropsTable } from '@/Layout/Table';
+
+const UploadDoc = () => {
+return (
+<PageContainer>
+
+<section className="content element-doc content">
+<h2>Upload 上传</h2>
+<p>通过点击或者拖拽上传文件</p>
+
+                <DemoBlock
+                    title="基础用法"
+                    content={
+                        '你可以传入自定义的上传按钮类型和文字提示。 可通过设置 `limit` 和 `onExceed` 来限制上传文件的个数和定义超出限制时的行为。 可通过设置 `beforeRemove` 来阻止文件移除操作。'
+                    }
+                    highlight={basic_html}
+                    source={<Basic />}
+                />
+
+                <DemoBlock title="覆盖前一个文件" content={'设置 `limit` 和 `onExceed` 可以在选中时自动替换上一个文件。'} highlight={limit_cover_html} source={<LimitCover />} />
+
+                <DemoBlock
+                    title="用户头像"
+                    content={'在 `beforeUpload` 钩子中限制用户上传文件的格式和大小。'}
+                    highlight={avatar_html}
+                    source={<Avatar />}
+                    extra={[{ name: 'style', type: 'scss', label: 'avatar.scss', content: avatar_style }]}
+                />
+
+                <DemoBlock title="照片墙" content={'使用 `listType` 属性来设定文件列表的样式。'} highlight={photo_wall_html} source={<PhotoWall />} />
+
+                <DemoBlock title="自定义缩略图" content={'使用 `formatter` 属性来改变默认的缩略图模板样式。'} highlight={custom_thumbnail_html} source={<CustomThumbnail />} />
+
+                <DemoBlock title="图片列表缩略图" highlight={file_list_with_thumbnail_html} source={<FileListWithThumbnail />} />
+
+                <DemoBlock title="上传文件列表控制" content={'通过 `onChange` 钩子函数来对列表进行控制'} highlight={file_list_html} source={<FileList />} />
+
+                <DemoBlock title="拖拽上传" content={'你可以将文件拖拽到特定区域以进行上传。'} highlight={drag_and_drop_html} source={<DragAndDrop />} />
+
+                <DemoBlock title="手动上传" highlight={manual_html} source={<Manual />} />
+
+                <h3>属性</h3>
+                <PropsTable data={props} />
+
+                <h3>UploadRef</h3>
+                <MethodTable data={ref} />
+
+                <RightNav />
+            </section>
+        </PageContainer>
+    );
+
+};
+
+export default UploadDoc;

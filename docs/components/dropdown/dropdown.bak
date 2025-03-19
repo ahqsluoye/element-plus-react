@@ -1,0 +1,102 @@
+import { h } from 'preact';
+import { useMemo } from 'react';
+import PageContainer from '@/Layout/PageContainer';
+import DemoBlock from '@/Layout/DemoBlock';
+import RightNav from '@/Layout/RightNav';
+import { EventsTable, PropsTable } from '@/Layout/Table';
+import BasicUsage, { html as basic_usage_html } from './basic-usage';
+import TriggeringElement, { html as triggering_element_html } from './triggering-element';
+// import HowToTrigger, { html as how_to_trigger_html } from './how-to-trigger';
+import MenuHidingBehavior, { html as menu_hiding_behavior_html } from './menu-hiding-behavior';
+import CommandEvent, { html as command_event_html } from './command-event';
+// import DropdownMethods, { html as dropdown_methods_html } from './dropdown-methods';
+// import Sizes, { html as sizes_html } from './sizes';
+
+const DropdownDoc = () => {
+const propsData = useMemo(
+() => [
+['disabled', '是否禁用', 'boolean', '—', 'false'],
+['placement', '菜单弹出位置', 'string', 'top | top-start | top-end | bottom | bottom-start | bottom-end', 'bottom'],
+['trigger', '触发下拉的行为', 'string', 'hover | click | contextmenu', 'hover'],
+['hideOnClick', '是否在点击菜单项后隐藏菜单', 'boolean', '—', 'true'],
+['showTimeout', '展开下拉菜单的延时，仅在 trigger 为 hover 时有效', 'number', '—', '250'],
+['hideTimeout', '收起下拉菜单的延时（仅在 trigger 为 hover 时有效）', 'number', '—', '150'],
+// ['tabindex', 'Dropdown 组件的 tabindex', 'number', '—', '0'],
+['popperClass', '自定义浮层类名', 'string', '—', '—'],
+['popperOptions', 'popper.js 参数', 'Object', '参考 popper.js 文档', '—'],
+],
+[],
+);
+
+    return (
+        <PageContainer>
+            <section class="content element-doc content">
+                <h2>Dropdown 下拉菜单</h2>
+                <p>将动作或菜单折叠到下拉菜单中。</p>
+
+                <DemoBlock
+                    title="基础用法"
+                    content={
+                        '悬停在下拉菜单上以展开更多操作。\
+                        默认情况下，只需要悬停在触发菜单的元素上即可，无需点击也会显示下拉菜单。'
+                    }
+                    source={<BasicUsage />}
+                    highlight={basic_usage_html}
+                />
+
+                <DemoBlock
+                    title="触发方式"
+                    content={
+                        '可以配置点击激活或者悬停激活。\
+                        将 `trigger` 属性设置为 `click` 即可， 默认为 `hover`。'
+                    }
+                    source={<TriggeringElement />}
+                    highlight={triggering_element_html}
+                />
+
+                <DemoBlock
+                    title="菜单隐藏方式"
+                    content={
+                        '可以通过 `hideOnClick` 属性来配置。\
+                        下拉菜单默认在点击菜单项后会被隐藏，将 `hideOnClick` 属性设置为 false 可以关闭此功能。'
+                    }
+                    source={<MenuHidingBehavior />}
+                    highlight={menu_hiding_behavior_html}
+                />
+                <DemoBlock
+                    title="指令事件"
+                    content={'点击菜单项后会触发事件，用户可以通过相应的菜单项 `key` 进行不同的操作。'}
+                    source={<CommandEvent />}
+                    highlight={command_event_html}
+                />
+
+                <h3>Dropdown 属性</h3>
+                <PropsTable data={propsData} />
+
+                <h3>Dropdown 事件</h3>
+                <EventsTable
+                    data={[
+                        ['onClick', '点击左侧按钮的回调', '—'],
+                        ['command', '点击菜单项触发的事件回调', 'dropdown-item 的指令'],
+                        ['visiblechange', '下拉框出现/隐藏时触发', '出现则为 true，隐藏则为 false'],
+                    ]}
+                />
+
+                <h3>Dropdown-Item 属性</h3>
+                <PropsTable
+                    data={[
+                        ['command', '派发到command回调函数的指令参数', 'string | number | object', '—', '—'],
+                        ['disabled', '是否禁用', 'boolean', '—', 'false'],
+                        ['divided', '是否显示分隔符', 'boolean', '—', 'false'],
+                        // ['icon', 'custom icon', 'string / Component', '—', '—'],
+                    ]}
+                />
+
+                <RightNav />
+            </section>
+        </PageContainer>
+    );
+
+};
+
+export default DropdownDoc;

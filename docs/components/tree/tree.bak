@@ -1,0 +1,137 @@
+import { h } from 'preact';
+import { useMemo } from 'react';
+import PageContainer from '@/Layout/PageContainer';
+import DemoBlock from '@/Layout/DemoBlock';
+import RightNav from '@/Layout/RightNav';
+import { EventsTable, PropsTable } from '@/Layout/Table';
+import Basic, { html as basic_html } from './basic';
+import Selectable, { html as selectable_html } from './selectable';
+import { data1, data2 } from './treeData';
+// import CustomLeaf, { html as custom_leaf_html } from './custom-leaf';
+// import Disabled, { html as disabled_html } from './disabled';
+// import DefaultState, { html as default_state_html } from './default-state';
+// import CheckingTree, { html as checking_tree_html } from './checking-tree';
+// import CustomizedNode, { html as customized_node_html } from './customized-node';
+// import CustomNodeClass, { html as custom_node_class_html } from './custom-node-class';
+// import Filtering, { html as filtering_html } from './filtering';
+// import Accordion, { html as accordion_html } from './accordion';
+// import Draggable, { html as draggable_html } from './draggable';
+
+const TreeDoc = () => {
+const propsData = useMemo(
+() => [
+['allowDrop', '是否允许拖拽时放置在该节点', '({ dropNode, dropPosition }) => boolean', '—', '—'],
+['autoExpandParent', '是否自动展开父节点', 'boolean', 'true/false', 'false'],
+['blockNode', '是否节点占据一行', 'boolean', 'true/false', 'false'],
+['checkable', '节点前添加 Checkbox 复选框', 'boolean', 'true/false', 'false'],
+[
+'checkedKeys',
+'（受控）选中复选框的树节点（注意：父子节点有关联，如果传入父节点 key，则子节点自动选中；相应当子节点 key 都传入，父节点也自动选中。当设置 checkable 和 checkStrictly，它是一个有 checked 和 halfChecked 属性的对象，并且父子节点的选中与否不再关联',
+'string[] | {checked: string[], halfChecked: string[]}',
+'—',
+'[]',
+],
+['checkStrictly', 'checkable 状态下节点选择完全受控（父子节点选中状态不再关联）', 'boolean', 'true/false', 'false'],
+['defaultCheckedKeys', '默认选中复选框的树节点', 'string[]', '—', '[]'],
+['defaultExpandAll', '默认展开所有树节点', 'boolean', 'true/false', 'false'],
+['defaultExpandedKeys', '默认展开指定的树节点', 'string[]', '—', '[]'],
+['defaultExpandParent', '默认展开父节点', 'boolean', 'true/false', 'true'],
+['defaultSelectedKeys', '默认选中的树节点', 'string[]', '[]', '—'],
+['disabled', '将树禁用', 'boolean', 'true/false', 'false'],
+[
+'draggable',
+'设置节点可拖拽，可以通过 icon: false 关闭拖拽提示图标',
+'boolean | ((node: DataNode) => boolean) | { icon?: React.ReactNode | false, nodeDraggable?: (node: DataNode) => boolean }',
+'true/false',
+'false',
+],
+['expandedKeys', '（受控）展开指定的树节点', 'string[]', '—', '[]'],
+['fieldNames', '自定义节点 title、key、children 的字段', 'object', '{ title: title, key: key, children: children }', '—'],
+['filterTreeNode', '按需筛选树节点（高亮），返回 true', 'function(node)', '—', '—'],
+['height', '设置虚拟滚动容器高度，设置后内部节点不再支持横向滚动', 'number', '—', '—'],
+['icon', '自定义树节点图标。', 'ReactNode | (props) => ReactNode', '—', '—'],
+['loadData', '异步加载数据', 'function(node)', '—', '—'],
+['loadedKeys', '（受控）已经加载的节点，需要配合 loadData 使用', 'string[]', '—', '[]'],
+['multiple', '支持点选多个节点（节点本身）', 'boolean', 'true/false', 'false'],
+['selectable', '是否可选中', 'boolean', 'true/false', 'true'],
+['selectedKeys', '（受控）设置选中的树节点', 'string[]', '—', '—'],
+['showIcon', '是否展示 TreeNode title 前的图标，没有默认样式，如设置为 true，需要自行定义图标相关样式', 'boolean', 'true/false', 'false'],
+['showLine', '是否展示连接线', 'boolean | {showLeafIcon: boolean}', 'true/false', 'false'],
+['switcherIcon', '自定义树节点的展开/折叠图标', 'ReactNode', '—', '—'],
+['titleRender', '自定义渲染节点', '(nodeData) => ReactNode', '—', '—'],
+['treeData', 'treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点（key 在整个树范围内唯一）', 'array<{key, title, children, [disabled, selectable]}>', '—', '—'],
+['virtual', '设置 false 时关闭虚拟滚动', 'boolean', 'true/false', 'true'],
+],
+[],
+);
+
+    return (
+        <PageContainer>
+            <section class="content element-doc content">
+                <h2>Tree 树形控件</h2>
+                <p>用清晰的层级结构展示信息，可展开或折叠。</p>
+
+                <DemoBlock
+                    title="基础用法"
+                    content="基础的树形结构展示"
+                    source={<Basic />}
+                    highlight={basic_html}
+                    extra={[{ type: 'jsx', name: 'comp1', content: data1, label: 'treeData.ts' }]}
+                />
+
+                <DemoBlock
+                    title="可选择"
+                    content="适用于需要选择层级时使用。"
+                    source={<Selectable />}
+                    highlight={selectable_html}
+                    extra={[{ type: 'jsx', name: 'comp1', content: data2, label: 'treeData.ts' }]}
+                />
+
+                <h3>属性</h3>
+                <PropsTable data={propsData} />
+
+                <h3>TreeNode props</h3>
+                <PropsTable
+                    data={[
+                        ['checkable', '当树为 checkable 时，设置独立节点是否展示 Checkbox', 'boolean', 'true/false', 'false'],
+                        ['disableCheckbox', '禁掉 checkbox', 'boolean', 'true/false', 'false'],
+                        ['disabled', '禁掉响应', 'boolean', 'true/false', 'false'],
+                        ['icon', '自定义图标。可接收组件，props 为当前节点 props', 'ReactNode | (props) => ReactNode', '—', '—'],
+                        ['isLeaf', '设置为叶子节点 (设置了 loadData 时有效)。为 false 时会强制将其作为父节点', 'boolean', 'true/false', 'false'],
+                        [
+                            'key',
+                            '被树的 (default)ExpandedKeys / (default)CheckedKeys / (default)SelectedKeys 属性所用。注意：整个树范围内的所有节点的 key 值不能重复！',
+                            'string',
+                            '—',
+                            '(内部计算出的节点位置)',
+                        ],
+                        ['selectable', '设置节点是否可被选中', 'boolean', 'true/false', 'true'],
+                        ['title', '标题', 'ReactNode', '—', '---'],
+                    ]}
+                />
+
+                <h3>事件</h3>
+                <EventsTable
+                    data={[
+                        ['onCheck', '点击复选框触发', 'function(checkedKeys, e:{checked: bool, checkedNodes, node, event, halfCheckedKeys})'],
+                        ['onDragEnd', 'dragend 触发时调用', 'function({event, node})'],
+                        ['onDragEnter', 'dragenter 触发时调用', 'function({event, node, expandedKeys})'],
+                        ['onDragLeave', 'dragleave 触发时调用', 'function({event, node})'],
+                        ['onDragOver', 'dragover 触发时调用', 'function({event, node})'],
+                        ['onDragStart', '开始拖拽时调用', 'function({event, node})'],
+                        ['onDrop', 'drop 触发时调用', 'function({event, node, dragNode, dragNodesKeys})'],
+                        ['onExpand', '展开/收起节点时触发', 'function(expandedKeys, {expanded: bool, node})'],
+                        ['onLoad', '节点加载完毕时触发', 'function(loadedKeys, {event, node})'],
+                        ['onRightClick', '响应右键点击', 'function({event, node})'],
+                        ['onSelect', '点击树节点触发', 'function(selectedKeys, e:{selected: bool, selectedNodes, node, event})'],
+                    ]}
+                />
+
+                <RightNav />
+            </section>
+        </PageContainer>
+    );
+
+};
+
+export default TreeDoc;

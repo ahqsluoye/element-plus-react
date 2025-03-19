@@ -1,0 +1,62 @@
+@use 'sass:math';
+@use '../common/var';
+
+// Break-point
+$sm: 768px !default;
+$md: 992px !default;
+$lg: 1200px !default;
+$xl: 1920px !default;
+
+$breakpoints: (
+    'xs': '(max-width: #{$sm})',
+    'sm': '(min-width: #{$sm})',
+    'md': '(min-width: #{$md})',
+    'lg': '(min-width: #{$lg})',
+    'xl': '(min-width: #{$xl})',
+) !default;
+
+// Break-points
+@mixin res($key, $map: $breakpoints) {
+    // loop breakpoint Map, return if present
+    @if map-has-key($map, $key) {
+        @media only screen and #{unquote(map-get($map, $key))} {
+            @content;
+        }
+    } @else {
+        @warn "Undefined points: `#{$map}`";
+    }
+}
+
+@mixin col-size($size) {
+    @include res($size) {
+        .#{$namespace}-col-#{$size}-0 {
+            display: none;
+            &.is-guttered {
+                display: none;
+            }
+        }
+        @for $i from 0 through 24 {
+            .#{$namespace}-col-#{$size}-#{$i} {
+                @if $i != 0 {
+                    display: block;
+                }
+                max-width: (math.div(1, 24) * $i * 100) * 1%;
+                flex: 0 0 (math.div(1, 24) * $i * 100) * 1%;
+            }
+
+            .#{$namespace}-col-#{$size}-offset-#{$i} {
+                margin-left: (math.div(1, 24) * $i * 100) * 1%;
+            }
+
+            .#{$namespace}-col-#{$size}-pull-#{$i} {
+                position: relative;
+                right: (math.div(1, 24) * $i * 100) * 1%;
+            }
+
+            .#{$namespace}-col-#{$size}-push-#{$i} {
+                position: relative;
+                left: (math.div(1, 24) * $i * 100) * 1%;
+            }
+        }
+    }
+}

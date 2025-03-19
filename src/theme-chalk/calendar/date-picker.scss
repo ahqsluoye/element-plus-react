@@ -1,0 +1,112 @@
+@use '../common/var';
+
+.#{$namespace}-date-picker {
+    --#{$namespace}-datepicker-text-color: var(--#{$namespace}-text-color-regular);
+    --#{$namespace}-datepicker-off-text-color: var(--#{$namespace}-text-color-placeholder);
+    --#{$namespace}-datepicker-header-text-color: var(--#{$namespace}-text-color-regular);
+    --#{$namespace}-datepicker-icon-color: var(--#{$namespace}-text-color-primary);
+    --#{$namespace}-datepicker-border-color: var(--#{$namespace}-border-color);
+    --#{$namespace}-datepicker-inner-border-color: var(--#{$namespace}-border-color-light);
+    --#{$namespace}-datepicker-inrange-bg-color: var(--#{$namespace}-border-color-extra-light);
+    --#{$namespace}-datepicker-inrange-hover-bg-color: var(--#{$namespace}-border-color-extra-light);
+    --#{$namespace}-datepicker-active-color: var(--#{$namespace}-color-primary);
+    --#{$namespace}-datepicker-hover-text-color: var(--#{$namespace}-color-primary);
+}
+
+.#{$namespace}-date-picker {
+    width: 322px;
+
+    &.has-sidebar.has-time {
+        width: 434px;
+    }
+
+    &.has-sidebar {
+        width: 438px;
+    }
+
+    &.has-time .#{$namespace}-picker-panel__body-wrapper {
+        position: relative;
+    }
+
+    .#{$namespace}-picker-panel__content {
+        width: 292px;
+    }
+
+    table {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    &__editor-wrap {
+        position: relative;
+        display: table-cell;
+        padding: 0 5px;
+    }
+
+    &__time-header {
+        position: relative;
+        border-bottom: 1px solid var(--#{$namespace}-datepicker-inner-border-color);
+        font-size: 12px;
+        padding: 8px 5px 5px 5px;
+        display: table;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    &__header {
+        margin: 12px;
+        text-align: center;
+
+        &--bordered {
+            margin-bottom: 0;
+            padding-bottom: 12px;
+            border-bottom: solid 1px var(--#{$namespace}-border-color-lighter);
+
+            & + .#{$namespace}-picker-panel__content {
+                margin-top: 0;
+            }
+        }
+    }
+
+    &__header-label {
+        font-size: 16px;
+        font-weight: 500;
+        padding: 0 5px;
+        line-height: 22px;
+        text-align: center;
+        cursor: pointer;
+        color: var(--#{$namespace}-text-color-regular);
+
+        &:hover {
+            color: var(--#{$namespace}-color-primary);
+        }
+
+        &.active {
+            color: var(--#{$namespace}-color-primary);
+        }
+    }
+
+    &__prev-btn {
+        float: left;
+    }
+
+    &__next-btn {
+        float: right;
+    }
+
+    &__time-wrap {
+        padding: 10px;
+        text-align: center;
+    }
+
+    &__time-label {
+        float: left;
+        cursor: pointer;
+        line-height: 30px;
+        margin-left: 10px;
+    }
+
+    .#{$namespace}-time-panel {
+        position: absolute;
+    }
+}

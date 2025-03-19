@@ -1,0 +1,107 @@
+@use '../common/var';
+
+.#{$namespace}-year-table {
+    font-size: 12px;
+    margin: -1px;
+    border-collapse: collapse;
+
+    .#{$namespace}-icon {
+        color: #303133;
+    }
+
+    td {
+        width: 68px;
+        text-align: center;
+        padding: 8px 0;
+        cursor: pointer;
+        position: relative;
+
+        & > div {
+            height: 48px;
+            padding: 6px 0;
+            box-sizing: border-box;
+        }
+        &.today {
+            .cell {
+                color: var(--#{$namespace}-color-primary);
+                font-weight: bold;
+
+                &:hover {
+                    color: var(--#{$namespace}-color-primary);
+                }
+            }
+
+            &.start-date .cell,
+            &.end-date .cell {
+                color: #ffffff;
+            }
+        }
+
+        &.disabled .cell {
+            background-color: var(--#{$namespace}-fill-color-light);
+            cursor: not-allowed;
+            color: var(--#{$namespace}-text-color-placeholder);
+
+            &:hover {
+                color: var(--#{$namespace}-text-color-placeholder);
+            }
+        }
+
+        .cell {
+            color: var(--#{$namespace}-datepicker-text-color);
+            margin: 0 auto;
+            font-size: 15px;
+            border-radius: 18px;
+            width: 60px;
+            height: 36px;
+            display: block;
+            line-height: 36px;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+
+            &:hover {
+                color: var(--#{$namespace}-datepicker-hover-text-color);
+                // background: #f5f5f5;
+            }
+        }
+
+        &.in-range div {
+            background-color: var(--#{$namespace}-datepicker-inrange-bg-color);
+            &:hover {
+                background-color: var(--#{$namespace}-datepicker-inrange-bg-color);
+            }
+        }
+        &.start-date div,
+        &.end-date div {
+            color: #ffffff;
+        }
+
+        &.start-date .cell,
+        &.end-date .cell {
+            color: #ffffff;
+            background: var(--#{$namespace}-datepicker-active-color);
+        }
+
+        &.start-date div {
+            border-top-left-radius: 24px;
+            border-bottom-left-radius: 24px;
+        }
+
+        &.end-date div {
+            border-top-right-radius: 24px;
+            border-bottom-right-radius: 24px;
+        }
+        &.current:not(.disabled) .cell {
+            background: var(--#{$namespace}-bg-color-primary, var(--#{$namespace}-color-primary));
+            color: #ffffff;
+        }
+
+        &.next-year,
+        &.prev-year {
+            .cell {
+                color: var(--#{$namespace}-datepicker-off-text-color);
+            }
+        }
+    }
+}

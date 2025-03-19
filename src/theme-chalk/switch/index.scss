@@ -1,0 +1,273 @@
+@use '../common/var';
+
+@use 'sass:map';
+
+$switch-height: () !default;
+$switch-height: map.merge(
+    (
+        'large': var(--#{$namespace}-component-size-large),
+        'default': 32px,
+        'small': var(--#{$namespace}-component-size-small),
+    ),
+    $switch-height
+);
+
+$switch-font-size: () !default;
+$switch-font-size: map.merge(
+    (
+        'large': 14px,
+        'default': 14px,
+        'small': 12px,
+    ),
+    $switch-font-size
+);
+
+$switch-core-border-radius: () !default;
+$switch-core-border-radius: map.merge(
+    (
+        'large': 12px,
+        'default': 10px,
+        'small': 8px,
+    ),
+    $switch-core-border-radius
+);
+
+$switch-core-width: () !default;
+$switch-core-width: map.merge(
+    (
+        'large': 50px,
+        'default': 40px,
+        'small': 30px,
+    ),
+    $switch-core-width
+);
+
+$switch-core-height: () !default;
+$switch-core-height: map.merge(
+    (
+        'large': 24px,
+        'default': 20px,
+        'small': 16px,
+    ),
+    $switch-core-height
+);
+
+$switch-button-size: () !default;
+$switch-button-size: map.merge(
+    (
+        'large': 20px,
+        'default': 16px,
+        'small': 12px,
+    ),
+    $switch-button-size
+);
+
+$switch-content-padding: () !default;
+$switch-content-padding: map.merge(
+    (
+        'large': 6px,
+        'default': 4px,
+        'small': 2px,
+    ),
+    $switch-content-padding
+);
+
+.#{$namespace}-switch {
+    --#{$namespace}-switch-on-color: var(--#{$namespace}-color-primary);
+    --#{$namespace}-switch-off-color: var(--#{$namespace}-border-color);
+}
+
+.#{$namespace}-switch {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    font-size: 14px;
+    line-height: 20px;
+    height: 32px;
+    vertical-align: middle;
+
+    &.is-disabled {
+        .#{$namespace}-switch__core,
+        .#{$namespace}-switch__label {
+            cursor: not-allowed;
+        }
+    }
+
+    .#{$namespace}-switch__label {
+        transition: 0.2s;
+        height: 20px;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        vertical-align: middle;
+        color: var(--#{$namespace}-text-color-primary);
+
+        &.is-active {
+            color: var(--#{$namespace}-color-primary);
+        }
+
+        &.#{$namespace}-switch__label--left {
+            margin-right: 10px;
+        }
+        &.#{$namespace}-switch__label--right {
+            margin-left: 10px;
+        }
+        & * {
+            line-height: 1;
+            font-size: 14px;
+            display: inline-block;
+        }
+    }
+
+    .#{$namespace}-switch__input {
+        position: absolute;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        margin: 0;
+    }
+
+    .#{$namespace}-switch__core {
+        display: inline-flex;
+        align-items: center;
+        position: relative;
+        min-width: 40px;
+        height: 20px;
+        border: 1px solid var(--#{$namespace}-switch-border-color, var(--#{$namespace}-switch-off-color));
+        outline: none;
+        border-radius: 10px;
+        box-sizing: border-box;
+        background: var(--#{$namespace}-switch-off-color);
+        cursor: pointer;
+        transition: border-color 0.3s, background-color 0.3s;
+
+        .#{$namespace}-switch__inner {
+            transition: all 0.3s;
+            height: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 0 4px 0 18px;
+
+            .is-text,
+            .is-icon {
+                font-size: 12px;
+                color: #ffffff;
+                user-select: none;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .is-show {
+                opacity: 1;
+            }
+
+            .is-hide {
+                opacity: 0;
+            }
+        }
+
+        .#{$namespace}-switch__action {
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            border-radius: 100%;
+            transition: all 0.3s;
+            width: 16px;
+            height: 16px;
+            background-color: var(--#{$namespace}-color-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--#{$namespace}-switch-off-color);
+        }
+    }
+
+    &.is-checked {
+        .#{$namespace}-switch__core {
+            border-color: var(--#{$namespace}-switch-border-color, var(--#{$namespace}-switch-on-color));
+            background: var(--#{$namespace}-switch-on-color);
+
+            .#{$namespace}-switch__inner {
+                padding: 0 18px 0 4px;
+            }
+
+            .#{$namespace}-switch__action {
+                left: calc(100% - 17px);
+                color: var(--#{$namespace}-switch-on-color);
+            }
+        }
+    }
+
+    &.is-disabled {
+        opacity: 0.6;
+    }
+
+    &.#{$namespace}-switch--wide {
+        .#{$namespace}-switch__label {
+            &.#{$namespace}-switch__label--left {
+                span {
+                    left: 10px;
+                }
+            }
+            &.#{$namespace}-switch__label--right {
+                span {
+                    right: 10px;
+                }
+            }
+        }
+    }
+
+    & .label-fade-enter-from,
+    & .label-fade-leave-active {
+        opacity: 0;
+    }
+}
+
+@each $size in (large, small) {
+    .#{$namespace}-switch--#{$size} {
+        font-size: map.get($switch-font-size, $size);
+        line-height: map.get($switch-core-height, $size);
+        height: map.get($switch-height, $size);
+
+        .#{$namespace}-switch__label {
+            height: map.get($switch-core-height, $size);
+            font-size: map.get($switch-font-size, $size);
+
+            & * {
+                font-size: map.get($switch-font-size, $size);
+            }
+        }
+
+        .#{$namespace}-switch__core {
+            min-width: map.get($switch-core-width, $size);
+            height: map.get($switch-core-height, $size);
+            border-radius: map.get($switch-core-border-radius, $size);
+
+            .#{$namespace}-switch__inner {
+                height: map.get($switch-button-size, $size);
+                padding: 0 #{map.get($switch-content-padding, $size)} 0 calc(#{map.get($switch-button-size, $size)} + 2px);
+            }
+
+            .#{$namespace}-switch__action {
+                width: map.get($switch-button-size, $size);
+                height: map.get($switch-button-size, $size);
+            }
+        }
+
+        &.is-checked {
+            .#{$namespace}-switch__core {
+                .#{$namespace}-switch__action {
+                    left: calc(100% - #{map.get($switch-button-size, $size) + 1px});
+                }
+
+                .#{$namespace}-switch__inner {
+                    padding: 0 calc(#{map.get($switch-button-size, $size)} + 2px) 0 #{map.get($switch-content-padding, $size)};
+                }
+            }
+        }
+    }
+}

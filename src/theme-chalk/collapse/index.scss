@@ -1,0 +1,84 @@
+@use '../common/var';
+
+.#{$namespace}-collapse {
+    --#{$namespace}-collapse-border-color: var(--#{$namespace}-border-color-lighter);
+    --#{$namespace}-collapse-header-height: 48px;
+    --#{$namespace}-collapse-header-bg-color: var(--#{$namespace}-fill-color-blank);
+    --#{$namespace}-collapse-header-text-color: var(--#{$namespace}-text-color-primary);
+    --#{$namespace}-collapse-header-font-size: 14px;
+    --#{$namespace}-collapse-content-bg-color: var(--#{$namespace}-fill-color-blank);
+    --#{$namespace}-collapse-content-font-size: 1tpx;
+    --#{$namespace}-collapse-content-text-color: var(--#{$namespace}-text-color-primary);
+    --#{$namespace}-transition-duration: 0.3s;
+    --#{$namespace}-collapse-item-margin: 0px;
+    border-top: 1px solid var(--#{$namespace}-collapse-border-color);
+    border-bottom: 1px solid var(--#{$namespace}-collapse-border-color);
+}
+
+.#{$namespace}-collapse-item {
+    &.is-disabled {
+        .#{$namespace}-collapse-item__header {
+            color: var(--#{$namespace}-text-color-disabled);
+            cursor: not-allowed;
+        }
+    }
+
+    &:last-child {
+        margin-bottom: -1px;
+    }
+
+    & + .#{$namespace}-collapse-item {
+        margin-top: var(--#{$namespace}-collapse-item-margin);
+    }
+}
+
+.#{$namespace}-collapse-item__header {
+    display: flex;
+    align-items: center;
+    height: var(--#{$namespace}-collapse-header-height);
+    line-height: var(--#{$namespace}-collapse-header-height);
+    background: var(--#{$namespace}-collapse-header-bg-color);
+    color: var(--#{$namespace}-collapse-header-text-color);
+    cursor: pointer;
+    border-bottom: 1px solid var(--#{$namespace}-collapse-border-color);
+    font-size: var(--#{$namespace}-collapse-header-font-size);
+    font-weight: 500;
+    transition: border-bottom-color var(--#{$namespace}-transition-duration);
+    outline: none;
+    padding-left: 10px;
+
+    .#{$namespace}-collapse-item__arrow {
+        margin: 0 8px 0 auto;
+        transition: transform var(--#{$namespace}-transition-duration);
+        font-weight: 300;
+        font-size: 16px;
+
+        &.is-active {
+            transform: rotate(90deg);
+        }
+    }
+
+    &.focusing:focus:not(:hover) {
+        color: var(--#{$namespace}-color-primary);
+    }
+
+    &.is-active {
+        border-bottom-color: transparent;
+    }
+}
+
+.#{$namespace}-collapse-item__wrap {
+    display: none;
+    will-change: height;
+    background: var(--#{$namespace}-collapse-content-bg-color);
+    overflow: hidden;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--#{$namespace}-collapse-border-color);
+}
+
+.#{$namespace}-collapse-item__content {
+    padding-bottom: 25px;
+    font-size: var(--#{$namespace}-collapse-content-font-size);
+    color: var(--#{$namespace}-collapse-content-text-color);
+    line-height: 1.769230769230769;
+}

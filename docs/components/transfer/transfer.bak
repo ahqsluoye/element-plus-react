@@ -1,0 +1,41 @@
+import { h } from 'preact';
+import PageContainer from '@/Layout/PageContainer';
+import DemoBlock from '@/Layout/DemoBlock';
+import RightNav from '@/Layout/RightNav';
+import Basic, { html as basic_html } from './basic';
+import Filterable, { html as filterable_html } from './filterable';
+// import Customizable, { html as customizable_html } from './customizable';
+// import PropAlias, { html as prop_alias_html } from './prop-alias';
+
+const TransferDoc = () => {
+return (
+<PageContainer>
+
+<section className="content element-doc content">
+<h2>Transfer 穿梭框</h2>
+
+                <DemoBlock
+                    title="基础用法"
+                    tip="最基本的用法，展示了 data、targetKeys、每行的渲染函数 render 以及回调函数 onChange onSelectChange onScroll 的用法。Transfer 的数据通过 `data` 属性传入。数据需要是一个对象数组，每个对象有以下属性：`key` 为数据的唯一性标识（必要），显示文本的字段，需要在 render 里指定（必要），`disabled` 表示该项数据是否禁止转移（非必要）。"
+                    source={<Basic />}
+                    highlight={basic_html}
+                />
+
+                <DemoBlock
+                    title="可搜索"
+                    content={
+                        '默认情况下，Transfer 仅能识别数据项中的 `key`、`label` 和 `disabled` 字段。 如果你的数据的字段名不同，可以使用 `render` 数据渲染函数。 \
+                                本例中的数据源没有 `key` 和 `label` 字段，在功能上与它们相同的字段名为 `value` 和 `desc。` 因此可以使用 `render` 属性渲染数据。'
+                    }
+                    source={<Filterable />}
+                    highlight={filterable_html}
+                />
+
+                <RightNav />
+            </section>
+        </PageContainer>
+    );
+
+};
+
+export default TransferDoc;

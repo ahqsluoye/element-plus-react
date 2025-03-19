@@ -1,0 +1,136 @@
+@use '../common/var';
+
+.#{$namespace}-picker-panel {
+    color: var(--#{$namespace}-text-color-regular);
+    background: var(--#{$namespace}-bg-color-overlay);
+    border-radius: 4px;
+    line-height: 30px;
+
+    .#{$namespace}-time-panel {
+        margin: 5px 0;
+        border: solid 1px var(--#{$namespace}-datepicker-border-color);
+        background-color: var(--#{$namespace}-bg-color-overlay);
+        box-shadow: var(--#{$namespace}-box-shadow-light);
+    }
+}
+
+.#{$namespace}-picker-panel__body,
+.#{$namespace}-picker-panel__body-wrapper {
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+.#{$namespace}-picker-panel__content {
+    position: relative;
+    margin: 15px;
+}
+
+.#{$namespace}-picker-panel__footer {
+    border-top: 1px solid var(--#{$namespace}-datepicker-inner-border-color);
+    padding: 4px 12px;
+    text-align: right;
+    background-color: var(--#{$namespace}-bg-color-overlay);
+    position: relative;
+    font-size: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.#{$namespace}-picker-panel__shortcut {
+    display: block;
+    width: 100%;
+    border: 0;
+    background-color: transparent;
+    line-height: 28px;
+    font-size: 14px;
+    color: var(--#{$namespace}-text-color-regular);
+    padding-left: 12px;
+    text-align: left;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--#{$namespace}-color-primary);
+    }
+
+    &.active {
+        background-color: #e6f1fe;
+        color: var(--#{$namespace}-color-primary);
+    }
+}
+
+.#{$namespace}-picker-panel__btn {
+    border: 1px solid var(--#{$namespace}-border-color);
+    color: #303133;
+    line-height: 24px;
+    border-radius: 2px;
+    padding: 0 20px;
+    cursor: pointer;
+    background-color: transparent;
+    outline: none;
+    font-size: 12px;
+
+    &[disabled] {
+        color: #cccccc;
+        cursor: not-allowed;
+    }
+}
+
+.#{$namespace}-picker-panel__icon-btn {
+    font-size: 16px;
+    color: var(--#{$namespace}-datepicker-icon-color);
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    margin-top: -2px;
+    min-width: unset !important;
+    line-height: 0px !important;
+    padding: 5px !important;
+
+    &:hover {
+        color: var(--#{$namespace}-color-primary);
+    }
+
+    .is-disabled {
+        color: #bbb !important;
+
+        &:hover {
+            cursor: not-allowed;
+        }
+    }
+    &.#{$namespace}-icon {
+        cursor: pointer;
+        font-size: inherit;
+    }
+}
+
+.#{$namespace}-picker-panel__today-btn {
+    margin: 0 auto;
+    padding: 8px 15px !important;
+}
+
+.#{$namespace}-picker-panel__link-btn {
+    vertical-align: middle;
+}
+
+.#{$namespace}-picker-panel *[slot='sidebar'],
+.#{$namespace}-picker-panel__sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 110px;
+    border-right: 1px solid var(--#{$namespace}-border-color);
+    box-sizing: border-box;
+    padding-top: 6px;
+    background-color: var(--#{$namespace}-bg-color-overlay);
+    overflow: auto;
+}
+
+.#{$namespace}-picker-panel *[slot='sidebar'] + .#{$namespace}-picker-panel__body,
+.#{$namespace}-picker-panel__sidebar + .#{$namespace}-picker-panel__body {
+    margin-left: 110px;
+}

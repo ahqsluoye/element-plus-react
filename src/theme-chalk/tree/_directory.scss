@@ -1,0 +1,73 @@
+@use '../common/var';
+
+.#{$namespace}-tree.#{$namespace}-tree-directory {
+    // ================== TreeNode ==================
+    .#{$namespace}-tree-treenode {
+        position: relative;
+
+        // Hover color
+        &::before {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 4px;
+            left: 0;
+            transition: background-color 0.3s;
+            content: '';
+            pointer-events: none;
+        }
+
+        &:hover {
+            background: var(--#{$namespace}-tree-node-hover-bg-color);
+        }
+
+        // Elements
+        > * {
+            z-index: 1;
+        }
+
+        // >>> Switcher
+        .#{$namespace}-tree-switcher {
+            transition: color 0.3s;
+        }
+
+        // >>> Title
+        .#{$namespace}-tree-node-content-wrapper {
+            border-radius: 0;
+            user-select: none;
+            white-space: nowrap;
+
+            &:hover {
+                background: transparent;
+            }
+
+            &.#{$namespace}-tree-node-selected {
+                color: var(--#{$namespace}-tree-text-color);
+                background: transparent;
+            }
+        }
+
+        // ============= Selected =============
+        &-selected {
+            &:hover,
+            & {
+                background: var(--#{$namespace}-tree-node-hover-bg-color);
+            }
+
+            // >>> Switcher
+            // .#{$namespace}-tree-switcher {
+            //     color: #fff;
+
+            //     .#{$namespace}-tree-switcher-icon {
+            //         color: #fff;
+            //     }
+            // }
+
+            // >>> Title
+            .#{$namespace}-tree-node-content-wrapper {
+                color: var(--#{$namespace}-tree-text-color);
+                background: transparent;
+            }
+        }
+    }
+}

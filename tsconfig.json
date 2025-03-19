@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "target": "es2015",
+        "module": "esnext",
+        // "strict": true,
+        "allowJs": true,
+        "resolveJsonModule": true,
+        "jsx": "react",
+        "importHelpers": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "baseUrl": "./",
+        "outDir": "./dist/",
+        "declaration": true,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "lib": ["esnext", "DOM"],
+        "noUnusedLocals": false,
+        "strict": false,
+        "paths": {
+            "@/*": [".dumi/*"],
+            "@@/*": [".dumi/tmp/*"],
+            "@parker/element-plus-react": ["src"],
+            "@parker/element-plus-react/*": ["src/*", "*"]
+        }
+    },
+    "include": [".dumirc.ts", "src/**/*", "docs/**/*"]
+}

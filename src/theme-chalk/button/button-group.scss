@@ -1,0 +1,83 @@
+@use '../common/var';
+.#{$namespace}-button-group {
+    display: inline-block;
+    vertical-align: middle;
+
+    &::before,
+    &::after {
+        display: table;
+        content: '';
+    }
+    &::after {
+        clear: both;
+    }
+
+    & > .#{$namespace}-button {
+        float: left;
+        position: relative;
+        & + .#{$namespace}-button {
+            margin-left: 0;
+        }
+        &:first-child {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        &:last-child {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        &:first-child:last-child {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+
+            &.is-round {
+                border-radius: var(--#{$namespace}-button-border-radius-round);
+            }
+
+            &.is-circle {
+                border-radius: 50%;
+            }
+        }
+        &:not(:first-child):not(:last-child) {
+            border-radius: 0;
+        }
+        &:not(:last-child) {
+            margin-right: -1px;
+        }
+
+        &:hover,
+        &:focus,
+        &:active {
+            z-index: 1;
+        }
+
+        &.is-active {
+            z-index: 1;
+        }
+    }
+
+    & > .#{$namespace}-dropdown {
+        & > .#{$namespace}-button {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-left-color: var(--#{$namespace}-button-divide-border-color);
+        }
+    }
+
+    @each $type in (primary, success, warning, danger, info) {
+        .#{$namespace}-button--#{$type} {
+            &:first-child {
+                border-right-color: var(--#{$namespace}-button-divide-border-color) !important;
+            }
+            &:last-child {
+                border-left-color: var(--#{$namespace}-button-divide-border-color) !important;
+            }
+            &:not(:first-child):not(:last-child) {
+                border-left-color: var(--#{$namespace}-button-divide-border-color) !important;
+                border-right-color: var(--#{$namespace}-button-divide-border-color) !important;
+            }
+        }
+    }
+}

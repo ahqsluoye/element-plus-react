@@ -1,0 +1,317 @@
+@use 'sass:map';
+@use '../common/var';
+
+// join var name
+// joinVarName(('button', 'text-color')) => '--el-button-text-color'
+@function joinVarName($list) {
+    $name: '--el';
+    @each $item in $list {
+        @if $item != '' {
+            $name: $name + '-' + $item;
+        }
+    }
+    @return $name;
+}
+
+// getCssVar('button', 'text-color') => var(--el-button-text-color)
+@function getCssVar($args...) {
+    @return var(#{joinVarName($args)});
+}
+
+// set css var value, because we need translate value to string
+// for example:
+// @include set-css-var-value(('color', 'primary'), red);
+// --el-color-primary: red;
+@mixin set-css-var-value($name, $value) {
+    #{joinVarName($name)}: #{$value};
+}
+
+// generate css var from existing css var
+// for example:
+// @include css-var-from-global(('button', 'text-color'), ('color', $type))
+// --el-button-text-color: var(--el-color-#{$type});
+@mixin css-var-from-global($var, $gVar) {
+    $varName: joinVarName($var);
+    $gVarName: joinVarName($gVar);
+    #{$varName}: var(#{$gVarName});
+}
+
+@mixin button-plain($type) {
+    $button-color-types: (
+        '': (
+            'text-color': (
+                'color',
+                $type,
+            ),
+            'bg-color': (
+                'color',
+                $type,
+                'light-9',
+            ),
+            'border-color': (
+                'color',
+                $type,
+                'light-5',
+            ),
+        ),
+        'hover': (
+            'text-color': (
+                'color',
+                'white',
+            ),
+            'bg-color': (
+                'color',
+                $type,
+            ),
+            'border-color': (
+                'color',
+                $type,
+            ),
+        ),
+        'active': (
+            'text-color': (
+                'color',
+                'white',
+            ),
+        ),
+    );
+
+    @each $type, $typeMap in $button-color-types {
+        @each $typeColor, $list in $typeMap {
+            @include css-var-from-global(('button', $type, $typeColor), $list);
+        }
+    }
+
+    &.is-disabled {
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            color: getCssVar('color', $type, 'light-5');
+            background-color: getCssVar('color', $type, 'light-9');
+            border-color: getCssVar('color', $type, 'light-8');
+        }
+    }
+}
+
+@mixin button-dashed($type) {
+    $button-color-types: (
+        '': (
+            'text-color': (
+                'color',
+                $type,
+            ),
+            'bg-color': (
+                'fill-color-blank',
+            ),
+            'border-color': (
+                'color',
+                $type,
+            ),
+        ),
+        'hover': (
+            'text-color': (
+                'color',
+                $type,
+                'light-3',
+            ),
+            'bg-color': (
+                'fill-color-blank',
+            ),
+            'border-color': (
+                'color',
+                $type,
+                'light-3',
+            ),
+        ),
+        'active': (
+            'text-color': (
+                'color',
+                $type,
+            ),
+            'border-color': (
+                'color',
+                $type,
+            ),
+        ),
+    );
+
+    @each $type, $typeMap in $button-color-types {
+        @each $typeColor, $list in $typeMap {
+            @include css-var-from-global(('button', $type, $typeColor), $list);
+        }
+    }
+
+    &.is-disabled {
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            color: getCssVar('color', $type, 'light-5');
+            background-color: var(--#{$namespace}-fill-color-blank);
+            border-color: getCssVar('color', $type, 'light-8');
+        }
+    }
+}
+
+@mixin button-link($type) {
+    $button-color-types: (
+        '': (
+            'text-color': (
+                'color',
+                $type,
+            ),
+            // 'bg-color': (
+            //     'color',
+            //     $type,
+            //     'light-9',
+            // ),
+            // 'border-color': (
+            //     'color',
+            //     $type,
+            //     'transparent',
+            // ),,,,,,,,,,,
+        ),
+        'hover': (
+            'text-color': (
+                'color',
+                'white',
+            ),
+            // 'bg-color': (
+            //     'color',
+            //     $type,
+            // ),
+            // 'border-color': (
+            //     'color',
+            //     $type,
+            // ),,,,,,,,,,,
+        ),
+        'active': (
+            'text-color': (
+                'color',
+                'white',
+            ),
+        ),
+    );
+
+    @each $type, $typeMap in $button-color-types {
+        @each $typeColor, $list in $typeMap {
+            @include css-var-from-global(('button', $type, $typeColor), $list);
+        }
+    }
+
+    &.is-disabled {
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            color: getCssVar('color', $type, 'light-5');
+        }
+    }
+}
+
+@mixin button-variant($type) {
+    $button-color-types: (
+        '': (
+            'text-color': (
+                'color',
+                'white',
+            ),
+            'bg-color': (
+                'color',
+                $type,
+            ),
+            'border-color': (
+                'color',
+                $type,
+            ),
+            'outline-color': (
+                'color',
+                $type,
+                'light-5',
+            ),
+            'active-color': (
+                'color',
+                $type,
+                'dark-2',
+            ),
+        ),
+        'hover': (
+            'text-color': (
+                'color',
+                'white',
+            ),
+            'link-text-color': (
+                'color',
+                $type,
+                'light-5',
+            ),
+            'bg-color': (
+                'color',
+                $type,
+                'light-3',
+            ),
+            'border-color': (
+                'color',
+                $type,
+                'light-3',
+            ),
+        ),
+        'active': (
+            'bg-color': (
+                'color',
+                $type,
+                'dark-2',
+            ),
+            'border-color': (
+                'color',
+                $type,
+                'dark-2',
+            ),
+        ),
+        'disabled': (
+            'text-color': (
+                'color',
+                'white',
+            ),
+            'bg-color': (
+                'color',
+                $type,
+                'light-5',
+            ),
+            'border-color': (
+                'color',
+                $type,
+                'light-5',
+            ),
+        ),
+    );
+
+    @each $type, $typeMap in $button-color-types {
+        @each $typeColor, $list in $typeMap {
+            @include css-var-from-global(('button', $type, $typeColor), $list);
+        }
+    }
+
+    &.is-plain {
+        @include button-plain($type);
+    }
+
+    &.is-dashed {
+        @include button-dashed($type);
+    }
+
+    &.is-text,
+    &.is-link {
+        @include button-link($type);
+    }
+}
+
+@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $border-radius) {
+    padding: $padding-vertical $padding-horizontal;
+    font-size: $font-size;
+    border-radius: $border-radius;
+    &.is-round {
+        padding: $padding-vertical $padding-horizontal;
+    }
+}

@@ -1,0 +1,79 @@
+import { h } from 'preact';
+import { useEffect, useMemo, useRef } from 'react';
+import PageContainer from '@/Layout/PageContainer';
+import DemoBlock from '@/Layout/DemoBlock';
+import RightNav from '@/Layout/RightNav';
+import { PropsTable } from '@/Layout/Table';
+import Prism from 'prismjs';
+import Basic, { html as basic_html } from './basic';
+import DifferentTypes, { html as different_types_html } from './different-types';
+import Closable, { html as closable_html } from './closable';
+import CenteredContent, { html as centered_content_html } from './centered-content';
+// import RawHtml, { html as raw_html_html } from './raw-html';
+// import Grouping, { html as grouping_html } from './grouping';
+
+const MessageDoc = () => {
+const propsData = useMemo(
+() => [
+['message', '消息文字', 'string | VNode', '—'],
+['type', '消息类型', 'success | warning | info | error', 'info'],
+['icon', '自定义图标，该属性会覆盖 type 的图标。', 'string | Component', '—'],
+['dangerouslyUseHTMLString', '是否将 message 属性作为 HTML 片段处理', 'boolean', 'false'],
+['className', '自定义类名', 'string', '—'],
+['duration', '显示时间，单位为毫秒。 设为 0 则不会自动关闭', 'number', '3000'],
+['showClose', '是否显示关闭按钮', 'boolean', 'true'],
+['center', '文字是否居中', 'boolean', 'false'],
+['onClose', '关闭时的回调函数, 参数为被关闭的 message 实例', 'function', '—'],
+['offset', 'Message 距离窗口顶部的偏移量', 'number', '20'],
+],
+[],
+);
+
+    const demo1Ref = useRef<HTMLDivElement>();
+
+    useEffect(() => {
+        demo1Ref.current.innerHTML = Prism.highlight(
+            `const { close } = Message.success({ message: '这是一条成功消息', duration: 0 });
+
+setTimeout(() => {
+close();
+}, 2000);`,
+Prism.languages.tsx,
+'tsx',
+);
+}, []);
+
+    return (
+        <PageContainer>
+            <section class="content element-doc content">
+                <h2>Message 消息提示</h2>
+                <p>常用于主动操作后的反馈提示。与 Notification 的区别是后者更多用于系统级通知的被动提醒。</p>
+
+                <DemoBlock title="基础用法" source={<Basic />} content={'从顶部出现，3 秒后自动消失。'} highlight={basic_html} />
+
+                <DemoBlock title="不同状态" source={<DifferentTypes />} content={'用来显示「成功、警告、消息、错误」类的操作反馈。'} highlight={different_types_html} />
+
+                <DemoBlock title="不可关闭" source={<Closable />} content={'默认可以关闭，设置 `showClose: false` 可以隐藏关闭按钮。'} highlight={closable_html} />
+
+                <DemoBlock title="文字居中" source={<CenteredContent />} content={'使用 center 属性让文字水平居中。'} highlight={centered_content_html} />
+
+                <h3>Message 方法</h3>
+                <p>调用 `Message` 会返回当前 `Message` 的实例。 如果需要手动关闭实例，可以调用它的 close 方法。</p>
+
+                <div className="language-tsx">
+                    <pre style={{ padding: 15, borderRadius: 4 }}>
+                        <code ref={demo1Ref} />
+                    </pre>
+                </div>
+
+                <h3>属性</h3>
+                <PropsTable data={propsData} />
+
+                <RightNav />
+            </section>
+        </PageContainer>
+    );
+
+};
+
+export default MessageDoc;

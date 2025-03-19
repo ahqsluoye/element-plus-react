@@ -1,0 +1,222 @@
+@use 'sass:math';
+@use 'sass:map';
+@import '../common/var';
+
+// types
+$types: primary, success, warning, danger, error, info;
+
+// Color
+$colors: () !default;
+$colors: map.deep-merge(
+    (
+        'white': #ffffff,
+        'black': #000000,
+        'primary': (
+            'base': #409eff,
+        ),
+        'success': (
+            'base': #67c23a,
+        ),
+        'warning': (
+            'base': #e6a23c,
+        ),
+        'danger': (
+            'base': #f56c6c,
+        ),
+        'error': (
+            'base': #f56c6c,
+        ),
+        'info': (
+            'base': #909399,
+        ),
+    ),
+    $colors
+);
+
+$color-white: map.get($colors, 'white') !default;
+$color-black: map.get($colors, 'black') !default;
+$color-primary: map.get($colors, 'primary', 'base') !default;
+$color-success: map.get($colors, 'success', 'base') !default;
+$color-warning: map.get($colors, 'warning', 'base') !default;
+$color-danger: map.get($colors, 'danger', 'base') !default;
+$color-error: map.get($colors, 'error', 'base') !default;
+$color-info: map.get($colors, 'info', 'base') !default;
+
+@mixin set-color-mix-level($type, $number, $mode: 'light', $mix-color: $color-white) {
+    --#{$namespace}-color-#{$type}-#{$mode}-#{$number}: #{mix($mix-color, map.get($colors, $type, 'base'), math.percentage(math.div($number, 10)))};
+}
+
+:root {
+    color-scheme: light;
+    --#{$namespace}-color-white: #ffffff;
+    --#{$namespace}-color-black: #000000;
+
+    @each $type in $types {
+        --#{$namespace}-color-#{$type}: #{map.get($colors, $type, 'base')};
+
+        @each $i in (3, 5, 7, 8, 9) {
+            @include set-color-mix-level($type, $i, 'light', $color-white);
+        }
+    }
+
+    // --#{$namespace}-color-primary-dark-2
+    @each $type in $types {
+        @include set-color-mix-level($type, 2, 'dark', $color-black);
+    }
+
+    --#{$namespace}-bg-color: #ffffff;
+    --#{$namespace}-bg-color-page: #f2f3f5;
+    --#{$namespace}-bg-color-overlay: #ffffff;
+    --#{$namespace}-text-color-primary: rgb(61, 77, 102);
+    --#{$namespace}-text-color-regular: #606266;
+    --#{$namespace}-text-color-secondary: #909399;
+    --#{$namespace}-text-color-placeholder: #a8abb2;
+    --#{$namespace}-text-color-disabled: #c0c4cc;
+
+    // 我是边框色
+    --#{$namespace}-border-color: #dcdfe6;
+    // 我是鼠标悬浮边框色
+    --#{$namespace}-border-color-hover: var(--#{$namespace}-text-color-disabled);
+    --#{$namespace}-border: 1px solid var(--#{$namespace}-border-color);
+    --#{$namespace}-border-color-light: #e4e7ed;
+    --#{$namespace}-border-color-lighter: #ebeef5;
+    --#{$namespace}-border-color-extra-light: #f2f6fc;
+    --#{$namespace}-border-color-dark: #d4d7de;
+    --#{$namespace}-border-color-darker: #cdd0d6;
+
+    --#{$namespace}-fill-color: #f0f2f5;
+    --#{$namespace}-fill-color-light: #f5f7fa;
+    --#{$namespace}-fill-color-lighter: #fafafa;
+    --#{$namespace}-fill-color-extra-light: #fafcff;
+    --#{$namespace}-fill-color-dark: #ebedf0;
+    --#{$namespace}-fill-color-darker: #e6e8eb;
+    --#{$namespace}-fill-color-blank: #ffffff;
+
+    --#{$namespace}-box-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.04), 0px 8px 20px rgba(0, 0, 0, 0.08);
+    --#{$namespace}-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, 0.12);
+    // 右侧阴影
+    --#{$namespace}-box-shadow-lighter: rgb(101 119 134 / 20%) 0px 10px 15px, rgb(101 119 134 / 15%) 0px 25px 3px 0px;
+    // --#{$namespace}-box-shadow-dark: 0px 16px 48px 16px rgba(0, 0, 0, 0.08), 0px 12px 32px rgba(0, 0, 0, 0.12), 0px 8px 16px -8px rgba(0, 0, 0, 0.16);
+    --#{$namespace}-disabled-bg-color: var(--#{$namespace}-fill-color-light);
+    --#{$namespace}-disabled-text-color: var(--#{$namespace}-text-color-placeholder);
+    --#{$namespace}-disabled-border-color: var(--#{$namespace}-border-color-light);
+
+    --#{$namespace}-overlay-color: rgba(0, 0, 0, 0.8);
+    --#{$namespace}-overlay-color-light: rgba(0, 0, 0, 0.7);
+    --#{$namespace}-overlay-color-lighter: rgba(0, 0, 0, 0.5);
+
+    --#{$namespace}-mask-color: rgba(255, 255, 255, 0.9);
+    --#{$namespace}-mask-color-extra-light: rgba(255, 255, 255, 0.3);
+
+    --#{$namespace}-svg-monochrome-grey: var(--#{$namespace}-border-color);
+
+    --#{$namespace}-color-primary-rgb: 64, 158, 255;
+    --#{$namespace}-color-success-rgb: 103, 194, 58;
+    --#{$namespace}-color-warning-rgb: 230, 162, 60;
+    --#{$namespace}-color-danger-rgb: 245, 108, 108;
+    --#{$namespace}-color-error-rgb: 245, 108, 108;
+    --#{$namespace}-color-info-rgb: 144, 147, 153;
+
+    --#{$namespace}-font-size-extra-large: 20px;
+    --#{$namespace}-font-size-large: 18px;
+    --#{$namespace}-font-size-medium: 16px;
+    --#{$namespace}-font-size-base: 14px;
+    --#{$namespace}-font-size-small: 13px;
+    --#{$namespace}-font-size-extra-small: 12px;
+
+    --#{$namespace}-font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    --#{$namespace}-font-weight-primary: 500;
+    --#{$namespace}-font-line-height-primary: 24px;
+    --#{$namespace}-index-normal: 1;
+    --#{$namespace}-index-top: 1000;
+    --#{$namespace}-index-popper: 2000;
+    --#{$namespace}-border-radius-base: 4px;
+    --#{$namespace}-border-radius-small: 2px;
+    --#{$namespace}-border-radius-round: 20px;
+    --#{$namespace}-border-radius-circle: 100%;
+
+    --#{$namespace}-transition-duration: 0.3s;
+    --#{$namespace}-transition-duration-fast: 0.2s;
+    --#{$namespace}-transition-function-ease-in-out-bezier: cubic-bezier(0.645, 0.045, 0.355, 1);
+    --#{$namespace}-transition-function-fast-bezier: cubic-bezier(0.23, 1, 0.32, 1);
+    --#{$namespace}-transition-all: all var(--#{$namespace}-transition-duration) var(--#{$namespace}-transition-function-ease-in-out-bezier);
+    --#{$namespace}-transition-fade: opacity var(--#{$namespace}-transition-duration) var(--#{$namespace}-transition-function-fast-bezier);
+    --#{$namespace}-transition-md-fade: transform var(--#{$namespace}-transition-duration) var(--#{$namespace}-transition-function-fast-bezier),
+        opacity var(--#{$namespace}-transition-duration) var(--#{$namespace}-transition-function-fast-bezier);
+    --#{$namespace}-transition-fade-linear: opacity var(--#{$namespace}-transition-duration-fast) linear;
+    --#{$namespace}-transition-border: border-color var(--#{$namespace}-transition-duration-fast) var(--#{$namespace}-transition-function-ease-in-out-bezier);
+    --#{$namespace}-transition-box-shadow: box-shadow var(--#{$namespace}-transition-duration-fast) var(--#{$namespace}-transition-function-ease-in-out-bezier);
+    --#{$namespace}-transition-color: color var(--#{$namespace}-transition-duration-fast) var(--#{$namespace}-transition-function-ease-in-out-bezier);
+
+    --#{$namespace}-component-size-large: 40px;
+    --#{$namespace}-component-size: 32px;
+    --#{$namespace}-component-size-small: 24px;
+}
+
+$bg-color: () !default;
+$bg-color: map.merge(
+    (
+        'page': #0a0a0a,
+        '': #141414,
+        'overlay': #1d1e1f,
+    ),
+    $bg-color
+);
+
+.is-dark {
+    color-scheme: dark;
+    @each $type in $types {
+        --#{$namespace}-color-#{$type}: #{map.get($colors, $type, 'base')};
+
+        @each $i in (3, 5, 7, 8, 9) {
+            @include set-color-mix-level($type, $i, 'light', map.get($bg-color, ''));
+        }
+    }
+    @each $type in $types {
+        @include set-color-mix-level($type, 2, 'dark', $color-white);
+    }
+
+    --#{$namespace}-box-shadow: 0 6px 12px rgba(162, 162, 162, 0.175);
+    --#{$namespace}-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, 0.72);
+    // --#{$namespace}-box-shadow-lighter: 0px 0px 6px rgba(0, 0, 0, 0.72);
+    // --#{$namespace}-box-shadow-dark: 0px 16px 48px 16px rgba(0, 0, 0, 0.72), 0px 12px 32px #000000, 0px 8px 16px -8px #000000;
+    // --#{$namespace}-bg-color-page: #0a0a0a;
+    --#{$namespace}-bg-color: #15202b;
+    --#{$namespace}-bg-color-overlay: rgb(25, 39, 52);
+    --#{$namespace}-text-color-primary: #cfd3dc;
+    // 我是正常文本颜色
+    --#{$namespace}-text-color-regular: #cfd3dc;
+    --#{$namespace}-text-color-secondary: #a3a6ad;
+    --#{$namespace}-text-color-placeholder: #8d9095;
+    --#{$namespace}-text-color-disabled: #adbdca;
+
+    // 我是边框色
+    --#{$namespace}-border-color: rgb(56, 68, 77);
+    // 我是鼠标悬浮边框色
+    --#{$namespace}-border-color-hover: #6c6e72;
+    --#{$namespace}-border-color-light: #414243;
+    --#{$namespace}-border-color-lighter: rgb(56, 68, 77);
+    --#{$namespace}-border-color-darker: #636466;
+    --#{$namespace}-border-color-dark: #58585b;
+    --#{$namespace}-border-color-extra-light: rgba(107, 125, 140, 0.1);
+
+    --#{$namespace}-fill-color-darker: #424243;
+    --#{$namespace}-fill-color-dark: #39393a;
+    --#{$namespace}-fill-color: #303030;
+    --#{$namespace}-fill-color-light: rgba(107, 125, 140, 0.1);
+    --#{$namespace}-fill-color-lighter: #253341;
+    --#{$namespace}-fill-color-extra-light: #191919;
+    --#{$namespace}-fill-color-blank: var(--#{$namespace}-bg-color);
+
+    --#{$namespace}-disabled-bg-color: var(--#{$namespace}-fill-color-lighter);
+    --#{$namespace}-disabled-text-color: var(--#{$namespace}-text-color-placeholder);
+    --#{$namespace}-disabled-border-color: var(--#{$namespace}-border-color-lighter);
+
+    --#{$namespace}-mask-color: rgba(0, 0, 0, 0.8);
+    --#{$namespace}-mask-color-extra-light: rgba(0, 0, 0, 0.3);
+
+    @for $i from 0 through 9 {
+        // @include set-color-mix-level($i, 'light', $--main-color, #141414);
+        --#{$namespace}-empty-fill-color-#{$i}: #{mix(#141414, #000000, math.percentage(math.div($i, 10)))};
+    }
+}

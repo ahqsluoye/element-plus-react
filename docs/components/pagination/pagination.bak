@@ -1,0 +1,103 @@
+import { h } from 'preact';
+import { useMemo } from 'react';
+import PageContainer from '@/Layout/PageContainer';
+import DemoBlock from '@/Layout/DemoBlock';
+import RightNav from '@/Layout/RightNav';
+import { EventsTable, PropsTable } from '@/Layout/Table';
+import BasicUsage, { html as basic_usage_html } from './basic';
+import NumberOfPagers, { html as number_of_pagers_html } from './number-of-pagers';
+import PaginationDesc, { html as pagination_desc_html } from './pagination-desc';
+import PrevAndNext, { html as prev_and_next_html } from './prev-and-next';
+import SimplePagination, { html as simple_pagination_html } from './simple-pagination';
+import SmallPagination, { html as small_pagination_html } from './small-pagination';
+import QuickJumper, { html as quick_jumper_html } from './quick-jumper';
+
+const PaginationDoc = () => {
+const propsData = useMemo(
+() => [
+['current', '当前页数', 'number', '—', '—'],
+['defaultCurrent', '默认的当前页数', 'number', '—', '1'],
+['defaultPageSize', '默认的每页条数', 'number', '—', '10'],
+['disabled', '禁用分页', 'boolean', 'true/false', 'false'],
+['hideOnSinglePage', '只有一页时是否隐藏分页器', 'boolean', 'true/false', 'false'],
+['itemRender', '用于自定义页码的结构，可用于优化 SEO', '(page, type: `page` | `prev` | `next`, originalElement) => React.ReactNode', '—', '—'],
+['pageSize', '每页条数', 'number', '—', '—'],
+['pageSizeOptions', '指定每页可以显示多少条', 'string[]', '—', '[10, 20, 50, 100]'],
+['responsive', '当 size 未指定时，根据屏幕宽度自动调整尺寸', 'boolean', 'true/false', 'false'],
+['showLessItems', '是否显示较少页面内容', 'boolean', 'true/false', 'false'],
+['showQuickJumper', '是否可以快速跳转至某页', 'boolean | { goButton: ReactNode }', 'true/false', 'false'],
+['showSizeChanger', '是否展示 pageSize 切换器，当 total 大于 50 时默认为 true', 'boolean', 'true/false', 'false'],
+['showTitle', '是否显示原生 tooltip 页码提示', 'boolean', 'true/false', 'true'],
+['showTotal', '用于显示数据总量和当前数据顺序', 'function(total, range)', '—', '—'],
+['simple', '当添加该属性时，显示为简单分页', 'boolean', 'true/false', 'false'],
+['size', '当为 small 时，是小尺寸分页', 'default | small', '—', 'default'],
+['total', '数据总数', 'number', '—', '0'],
+],
+[],
+);
+
+    return (
+        <PageContainer>
+            <section className="content element-doc content">
+                <h2>Pagination 分页</h2>
+                <p>当数据量过多时，使用分页分解数据。</p>
+
+                <DemoBlock title="基础用法" source={<BasicUsage />} highlight={basic_usage_html} />
+
+                <DemoBlock
+                    title="更多分页"
+                    content="默认情况下，当总页数超过 7 页时，`Pagination` 会折叠多余的页码按钮。 "
+                    source={<NumberOfPagers />}
+                    highlight={number_of_pagers_html}
+                />
+
+                <DemoBlock title="快速跳转" content="快速跳转到某一页。" source={<QuickJumper />} highlight={quick_jumper_html} />
+
+                <DemoBlock
+                    title="小型分页"
+                    content={
+                        '在空间有限的情况下，可以使用简单的小型分页。\
+                                只需要设置 `small` 属性为 `true` 即可让分页变小。'
+                    }
+                    source={<SmallPagination />}
+                    highlight={small_pagination_html}
+                />
+
+                <DemoBlock
+                    title="简单的翻页。"
+                    content={
+                        '在空间有限的情况下，如果小型翻页依然占据控件，可以使用更加简单的翻页。\
+                                只需要设置 `simple` 属性为 `true` 即可让分页变的更加简单。'
+                    }
+                    source={<SimplePagination />}
+                    highlight={simple_pagination_html}
+                />
+
+                <DemoBlock
+                    title="分页描述"
+                    content={'通过设置 `showTotal` 来控制是否显示分页描述或修改分页描述信息。'}
+                    source={<PaginationDesc />}
+                    highlight={pagination_desc_html}
+                />
+
+                <DemoBlock title="上一步和下一步" content={'修改上一步和下一步为文字链接。'} source={<PrevAndNext />} highlight={prev_and_next_html} />
+
+                <h3>属性</h3>
+                <PropsTable data={propsData} />
+
+                <h3>事件</h3>
+                <EventsTable
+                    data={[
+                        ['onChange', '页码或 pageSize 改变的回调，参数是改变后的页码及每页条数', 'function(page, pageSize)'],
+                        ['onShowSizeChange', 'pageSize 变化的回调', 'function(current, size)'],
+                    ]}
+                />
+
+                <RightNav />
+            </section>
+        </PageContainer>
+    );
+
+};
+
+export default PaginationDoc;
