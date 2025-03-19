@@ -1,4 +1,4 @@
-import { ElTimePicker } from '@parker/element-plus-react';
+import { ElTimePicker } from '@qsxy/element-plus-react';
 import React, { useCallback } from 'react';
 
 const App = () => {

@@ -1,5 +1,4 @@
-import { ElBadge, ElButton, ElDropdown, ElDropdownItem, ElDropdownMenu } from '@parker/element-plus-react';
-import { Icon } from '@parker/element-plus-react/Icon';
+import { ElBadge, ElButton, ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {
@@ -34,7 +33,7 @@ const App = () => {
                 style={{ marginTop: '0.5rem' }}
             >
                 点击我
-                <Icon prefix="fas" name="caret-down" />
+                <ElIcon prefix="fas" name="caret-down" />
             </ElDropdown>
         </>
     );

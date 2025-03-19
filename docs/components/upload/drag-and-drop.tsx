@@ -1,4 +1,4 @@
-import { ElIcon, ElUpload } from '@parker/element-plus-react';
+import { ElIcon, ElUpload } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {

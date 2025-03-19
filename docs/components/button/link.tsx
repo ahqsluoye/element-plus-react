@@ -1,4 +1,4 @@
-import { ElButton, TypeAttributes } from '@parker/element-plus-react';
+import { ElButton, TypeAttributes } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const buttons: {

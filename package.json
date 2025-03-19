@@ -1,5 +1,5 @@
 {
-  "name": "@parker/element-plus-react",
+  "name": "@qsxy/element-plus-react",
   "version": "1.0.0-next.1",
   "description": "element-plus-react",
   "module": "dist/index.js",
@@ -17,7 +17,7 @@
     "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
     "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
     "doc": "tsc ./doc.ts && node ./doc.js",
-    "publish": "npm run build && npm publish ./packages --scope=@parker --access=public",
+    "publish": "npm run build && npm publish ./packages --scope=@qsxy --access=public",
     "prepublishOnly": "father doctor && npm run build"
   },
   "authors": [

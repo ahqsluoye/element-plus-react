@@ -6,7 +6,7 @@ import BasicUsage, { html as basic_usage_html } from './basic-usage';
 import Sizes, { html as sizes_html, size_style } from './sizes';
 import VerticalList, { html as vertical_list_html } from './vertical-list';
 import CustomizedStyle, { customized_style, html as customized_style_html } from './customized-style';
-import { props, itemProps } from '@parker/element-plus-react/Descriptions/demos/util';
+import { props, itemProps } from '@qsxy/element-plus-react/Descriptions/demos/util';
 import { PropsTable } from '@/Layout/Table';
 
 const DescriptionsDoc = () => {

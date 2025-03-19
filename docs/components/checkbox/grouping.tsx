@@ -1,4 +1,4 @@
-import { ElCheckbox, ElCheckboxGroup } from '@parker/element-plus-react';
+import { ElCheckbox, ElCheckboxGroup } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

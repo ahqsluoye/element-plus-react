@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { ElDirectoryTree } from '@parker/element-plus-react';
+import { ElDirectoryTree } from '@qsxy/element-plus-react';
 import React from 'react';
 import { Demo2 } from './treeData';
 

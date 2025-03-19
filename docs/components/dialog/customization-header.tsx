@@ -1,4 +1,4 @@
-import { ElButton, ElDialog, ElIcon } from '@parker/element-plus-react';
+import { ElButton, ElDialog, ElIcon } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 import './customization-header.scss';
 

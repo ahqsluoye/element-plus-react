@@ -1,4 +1,4 @@
-import { ElScrollbar } from '@parker/element-plus-react';
+import { ElScrollbar } from '@qsxy/element-plus-react';
 import React from 'react';
 import './basic-usage.scss';
 

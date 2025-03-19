@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { ElTable, ElTableColumn, ElTag, RenderCell } from '@parker/element-plus-react';
+import { ElTable, ElTableColumn, ElTag, RenderCell } from '@qsxy/element-plus-react';
 import React from 'react';
 
 interface TableData {

@@ -1,4 +1,4 @@
-import { ElButton, ElProgress } from '@parker/element-plus-react';
+import { ElButton, ElProgress } from '@qsxy/element-plus-react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import './style.scss';
 

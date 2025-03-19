@@ -1,4 +1,4 @@
-import { ElColorPicker } from '@parker/element-plus-react';
+import { ElColorPicker } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {

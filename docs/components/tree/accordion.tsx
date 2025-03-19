@@ -1,5 +1,5 @@
 import React from 'react';
-            import {  } from '@parker/element-plus-react';
+            import {  } from '@qsxy/element-plus-react';
 
             const App = () => {
 

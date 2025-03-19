@@ -1,4 +1,4 @@
-import { ElTabPane, ElTable, ElTableColumn, ElTabs, TableRef, TabsPaneContext } from '@parker/element-plus-react';
+import { ElTabPane, ElTable, ElTableColumn, ElTabs, TableRef, TabsPaneContext } from '@qsxy/element-plus-react';
 import { useCallback, useRef } from 'react';
 
 interface Data {
@@ -61,7 +61,7 @@ const App = () => {
 
 export const html = `import { h } from 'preact';
     import { useCallback, useRef } from 'react';
-    import { Table, TableColumn, TableRef, TabPane, Tabs, TabsPaneContext } from '@parker/element-plus-react';
+    import { Table, TableColumn, TableRef, TabPane, Tabs, TabsPaneContext } from '@qsxy/element-plus-react';
 
     interface Data {
         date: string;

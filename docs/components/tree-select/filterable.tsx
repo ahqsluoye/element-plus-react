@@ -1,4 +1,4 @@
-import { ElTreeSelect, generateTree } from '@parker/element-plus-react';
+import { ElTreeSelect, generateTree } from '@qsxy/element-plus-react';
 import cloneDeep from 'lodash/cloneDeep';
 import React, { useMemo } from 'react';
 import { Demo4, Demo5 } from '../tree/treeData';

@@ -1,4 +1,4 @@
-import { ElTabPane, ElTabs } from '@parker/element-plus-react';
+import { ElTabPane, ElTabs } from '@qsxy/element-plus-react';
 
 const App = () => {
     return (
@@ -20,7 +20,7 @@ const App = () => {
 };
 
 export const html = `import { h } from 'preact';
-    import { TabPane, Tabs } from '@parker/element-plus-react';
+    import { TabPane, Tabs } from '@qsxy/element-plus-react';
 
     const App = () => {
         return (

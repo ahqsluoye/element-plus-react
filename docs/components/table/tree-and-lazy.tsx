@@ -1,4 +1,4 @@
-import { ElTable, ElTableColumn, randomCode } from '@parker/element-plus-react';
+import { ElTable, ElTableColumn, randomCode } from '@qsxy/element-plus-react';
 import React from 'react';
 import { tableData, tableData1 } from './tree-data';
 

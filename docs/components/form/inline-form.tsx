@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { ElButton, ElForm, ElInput, ElSelect, useForm } from '@parker/element-plus-react';
+import { ElButton, ElForm, ElInput, ElSelect, useForm } from '@qsxy/element-plus-react';
 import React, { useCallback } from 'react';
 
 const App = () => {

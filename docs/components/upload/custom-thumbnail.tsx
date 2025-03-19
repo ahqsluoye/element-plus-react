@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { ElDialog, ElIcon, ElUpload, UploadFile } from '@parker/element-plus-react';
+import { ElDialog, ElIcon, ElUpload, UploadFile } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

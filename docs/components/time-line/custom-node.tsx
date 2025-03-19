@@ -1,4 +1,4 @@
-import { ElTimeLine, ElTimeLineItem, IconMore } from '@parker/element-plus-react';
+import { ElTimeLine, ElTimeLineItem, IconMore } from '@qsxy/element-plus-react';
 import React from 'react';
 
 interface Activities {

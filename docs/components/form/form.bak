@@ -2,7 +2,7 @@ import { h } from 'preact';
 import PageContainer from '@/Layout/PageContainer';
 import DemoBlock from '@/Layout/DemoBlock';
 import RightNav from '@/Layout/RightNav';
-import { IconLink, Link } from '@parker/element-plus-react';
+import { IconLink, Link } from '@qsxy/element-plus-react';
 import BasicForm, { html as basic_form_html } from './basic-form';
 import InlineForm, { html as inline_form_html } from './inline-form';
 import Alignment, { html as alignment_html } from './alignment';

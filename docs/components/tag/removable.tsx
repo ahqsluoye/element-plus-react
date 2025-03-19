@@ -1,4 +1,4 @@
-import { ElTag } from '@parker/element-plus-react';
+import { ElTag } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {

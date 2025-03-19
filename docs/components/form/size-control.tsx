@@ -15,7 +15,7 @@ import {
     ElTimePicker,
     TypeAttributes,
     useForm,
-} from '@parker/element-plus-react';
+} from '@qsxy/element-plus-react';
 import React, { useCallback, useMemo, useState } from 'react';
 
 const App = () => {

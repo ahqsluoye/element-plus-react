@@ -1,4 +1,4 @@
-import { ElButton, ElScrollbar, ScrollbarRef } from '@parker/element-plus-react';
+import { ElButton, ElScrollbar, ScrollbarRef } from '@qsxy/element-plus-react';
 import React, { useCallback, useRef, useState } from 'react';
 
 const App = () => {

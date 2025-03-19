@@ -1,4 +1,4 @@
-import { ElCard, ElTimeLine, ElTimeLineItem } from '@parker/element-plus-react';
+import { ElCard, ElTimeLine, ElTimeLineItem } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {

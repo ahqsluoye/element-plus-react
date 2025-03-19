@@ -1,4 +1,4 @@
-import { ElSwitch, ElTable, ElTableColumn } from '@parker/element-plus-react';
+import { ElSwitch, ElTable, ElTableColumn } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 import { tableData } from './expandable-row-data';
 import './expandable-row.scss';

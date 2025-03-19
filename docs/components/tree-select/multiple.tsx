@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { ElTreeSelect } from '@parker/element-plus-react';
+import { ElTreeSelect } from '@qsxy/element-plus-react';
 import cloneDeep from 'lodash/cloneDeep';
 import React from 'react';
 import { Demo2 } from '../tree/treeData';

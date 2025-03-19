@@ -1,4 +1,4 @@
-import { ElBadge, ElButton } from '@parker/element-plus-react';
+import { ElBadge, ElButton } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {

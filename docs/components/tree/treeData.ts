@@ -1,5 +1,5 @@
 /* eslint-disable lines-around-comment */
-import { DataNode } from '@parker/element-plus-react';
+import { DataNode } from '@qsxy/element-plus-react';
 
 export const Demo1: DataNode[] = [
     {
@@ -1993,7 +1993,7 @@ export const Demo5 = [
     },
 ];
 
-export const data1 = `import { DataNode } from '@parker/element-plus-react';
+export const data1 = `import { DataNode } from '@qsxy/element-plus-react';
 
     export const Demo1: DataNode[] = [
         {
@@ -2066,7 +2066,7 @@ export const data1 = `import { DataNode } from '@parker/element-plus-react';
         },
     ];`;
 
-export const data2 = `import { DataNode } from '@parker/element-plus-react';
+export const data2 = `import { DataNode } from '@qsxy/element-plus-react';
     
     export const Demo2: DataNode[] = [
         {

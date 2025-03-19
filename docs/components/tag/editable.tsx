@@ -1,4 +1,4 @@
-import { ElButton, ElInput, ElTag } from '@parker/element-plus-react';
+import { ElButton, ElInput, ElTag } from '@qsxy/element-plus-react';
 import cloneDeep from 'lodash/cloneDeep';
 import filter from 'lodash/filter';
 import React, { useCallback, useState } from 'react';

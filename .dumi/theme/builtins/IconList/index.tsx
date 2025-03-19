@@ -12,7 +12,7 @@ import {
     IconPrefix,
     ScrollbarRef,
     isEmpty,
-} from '@parker/element-plus-react';
+} from '@qsxy/element-plus-react';
 import classNames from 'classnames';
 import clipboardCopy from 'clipboard-copy';
 import { cloneDeep, debounce, filter, get, keys, some, trim } from 'lodash';

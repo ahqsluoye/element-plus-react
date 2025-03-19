@@ -1,3 +1,3 @@
-import { ElTag } from '@parker/element-plus-react';
+import { ElTag } from '@qsxy/element-plus-react';
 
 export default ElTag;

@@ -1,4 +1,4 @@
-import { ElScrollbar, ScrollbarRef, isNotEmpty } from '@parker/element-plus-react';
+import { ElScrollbar, ScrollbarRef, isNotEmpty } from '@qsxy/element-plus-react';
 import debounce from 'lodash/debounce';
 import last from 'lodash/last';
 import Prism from 'prismjs';

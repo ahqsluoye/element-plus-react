@@ -1,4 +1,4 @@
-import { ElButton, ElTooltip } from '@parker/element-plus-react';
+import { ElButton, ElTooltip } from '@qsxy/element-plus-react';
 import React, { useEffect, useMemo, useState } from 'react';
 
 const App = () => {

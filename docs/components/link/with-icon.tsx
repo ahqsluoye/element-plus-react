@@ -1,4 +1,4 @@
-import { ElIcon, ElLink } from '@parker/element-plus-react';
+import { ElIcon, ElLink } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {

@@ -1,4 +1,4 @@
-import { ElCard } from '@parker/element-plus-react';
+import { ElCard } from '@qsxy/element-plus-react';
 import React from 'react';
 import './basic.scss';
 

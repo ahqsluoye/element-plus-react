@@ -1,4 +1,4 @@
-import { ElCol, ElInputNumber, ElRow } from '@parker/element-plus-react';
+import { ElCol, ElInputNumber, ElRow } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

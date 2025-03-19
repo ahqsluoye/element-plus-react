@@ -1,4 +1,4 @@
-import { ElForm, ElInput, ElRadio, ElRadioGroup, useForm } from '@parker/element-plus-react';
+import { ElForm, ElInput, ElRadio, ElRadioGroup, useForm } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

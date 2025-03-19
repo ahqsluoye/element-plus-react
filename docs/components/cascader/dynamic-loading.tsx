@@ -1,4 +1,4 @@
-import { ElCascader } from '@parker/element-plus-react';
+import { ElCascader } from '@qsxy/element-plus-react';
 import React, { useMemo } from 'react';
 
 let id = 0;

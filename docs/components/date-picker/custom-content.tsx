@@ -1,4 +1,4 @@
-import { ElDatePicker } from '@parker/element-plus-react';
+import { ElDatePicker } from '@qsxy/element-plus-react';
 import classNames from 'classnames';
 import React from 'react';
 import './custom-content.scss';

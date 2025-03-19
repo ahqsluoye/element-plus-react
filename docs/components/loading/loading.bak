@@ -16,7 +16,7 @@ const demo2Ref = useRef<HTMLDivElement>();
 const demo3Ref = useRef<HTMLDivElement>();
 
     useEffect(() => {
-        demo1Ref.current.innerHTML = Prism.highlight(`import { Loading } from '@parker/element-plus-react';`, Prism.languages.tsx, 'tsx');
+        demo1Ref.current.innerHTML = Prism.highlight(`import { Loading } from '@qsxy/element-plus-react';`, Prism.languages.tsx, 'tsx');
         demo2Ref.current.innerHTML = Prism.highlight(`Loading.service(options);`, Prism.languages.tsx, 'tsx');
         demo3Ref.current.innerHTML = Prism.highlight(
             `const loadingInstance = Loading.service(options);

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ElButton, ElMessage, ElMessageBox, ElUpload, UploadProps, UploadUserFile } from '@parker/element-plus-react';
+import { ElButton, ElMessage, ElMessageBox, ElUpload, UploadProps, UploadUserFile } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

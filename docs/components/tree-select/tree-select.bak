@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import PageContainer from '@/Layout/PageContainer';
 import DemoBlock from '@/Layout/DemoBlock';
 import RightNav from '@/Layout/RightNav';
-import { data1, data2, data4, data5 } from '@parker/element-plus-react/Tree/demos/treeData';
+import { data1, data2, data4, data5 } from '@qsxy/element-plus-react/Tree/demos/treeData';
 import { EventsTable, PropsTable } from '@/Layout/Table';
 import Basic, { html as basic_html } from './basic';
 import CheckStrictly, { html as check_strictly_html } from './check-strictly';

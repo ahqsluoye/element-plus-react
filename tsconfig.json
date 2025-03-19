@@ -25,8 +25,8 @@
         "paths": {
             "@/*": [".dumi/*"],
             "@@/*": [".dumi/tmp/*"],
-            "@parker/element-plus-react": ["src"],
-            "@parker/element-plus-react/*": ["src/*", "*"]
+            "@qsxy/element-plus-react": ["src"],
+            "@qsxy/element-plus-react/*": ["src/*", "*"]
         }
     },
     "include": [".dumirc.ts", "src/**/*", "docs/**/*"]

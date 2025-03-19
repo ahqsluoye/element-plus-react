@@ -14,7 +14,7 @@ import {
     ElSwitch,
     ElTimePicker,
     useForm,
-} from '@parker/element-plus-react';
+} from '@qsxy/element-plus-react';
 import React, { useCallback, useMemo } from 'react';
 
 const App = () => {

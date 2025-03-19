@@ -1,4 +1,4 @@
-import { ElButton, ElDialog } from '@parker/element-plus-react';
+import { ElButton, ElDialog } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

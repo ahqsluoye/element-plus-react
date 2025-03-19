@@ -1,4 +1,4 @@
-import { ElSkeleton } from '@parker/element-plus-react';
+import { ElSkeleton } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {

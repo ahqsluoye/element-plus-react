@@ -1,4 +1,4 @@
-import { ElCascader } from '@parker/element-plus-react';
+import { ElCascader } from '@qsxy/element-plus-react';
 import React, { Key, useMemo, useState } from 'react';
 import { options3 } from './data';
 

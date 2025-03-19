@@ -1,4 +1,4 @@
-import { ElButton, ElCard, ElCol, ElRow } from '@parker/element-plus-react';
+import { ElButton, ElCard, ElCol, ElRow } from '@qsxy/element-plus-react';
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
 import './with-images.scss';

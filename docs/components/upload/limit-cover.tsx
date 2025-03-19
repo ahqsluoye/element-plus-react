@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { ElButton, ElUpload, UploadProps, UploadRawFile, UploadRef, genFileId } from '@parker/element-plus-react';
+import { ElButton, ElUpload, UploadProps, UploadRawFile, UploadRef, genFileId } from '@qsxy/element-plus-react';
 import React, { useRef } from 'react';
 
 const App = () => {

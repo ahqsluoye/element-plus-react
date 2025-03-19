@@ -1,4 +1,4 @@
-import { ElLink, ElPagination, PageType } from '@parker/element-plus-react';
+import { ElLink, ElPagination, PageType } from '@qsxy/element-plus-react';
 import React, { useCallback } from 'react';
 
 const App = () => {

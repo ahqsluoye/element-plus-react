@@ -1,4 +1,4 @@
-import { ElButton, ElUpload, UploadRef } from '@parker/element-plus-react';
+import { ElButton, ElUpload, UploadRef } from '@qsxy/element-plus-react';
 import React, { useRef } from 'react';
 
 const App = () => {

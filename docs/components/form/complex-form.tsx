@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { ElButton, ElDatePicker, ElForm, ElInput, ElLink, ElMessage, ElSelect, ElTooltip } from '@parker/element-plus-react';
+import { ElButton, ElDatePicker, ElForm, ElInput, ElLink, ElMessage, ElSelect, ElTooltip } from '@qsxy/element-plus-react';
 import React, { useCallback } from 'react';
 
 const App = () => {

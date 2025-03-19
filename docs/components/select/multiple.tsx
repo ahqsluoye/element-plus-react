@@ -1,4 +1,4 @@
-import { ElCol, ElRow, ElSelect } from '@parker/element-plus-react';
+import { ElCol, ElRow, ElSelect } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {

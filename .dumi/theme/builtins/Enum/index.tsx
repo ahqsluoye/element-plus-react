@@ -1,4 +1,4 @@
-import { ElIcon, ElTooltip } from '@parker/element-plus-react';
+import { ElIcon, ElTooltip } from '@qsxy/element-plus-react';
 import React from 'react';
 import './style.scss';
 

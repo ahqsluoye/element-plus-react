@@ -2,7 +2,7 @@ import Header from '@/theme/slots/Header';
 import Home from '@/theme/slots/Home';
 import Main from '@/theme/slots/Main';
 import Sidebar from '@/theme/slots/Sidebar';
-import '@parker/element-plus-react/theme-chalk/index.scss';
+import '@qsxy/element-plus-react/theme-chalk/index.scss';
 import { Helmet, useIntl, useRouteMeta, useSidebarData } from 'dumi';
 import React, { FC, memo } from 'react';
 import './style';

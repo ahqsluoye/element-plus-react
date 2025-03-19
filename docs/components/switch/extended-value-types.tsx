@@ -1,4 +1,4 @@
-import { ElSwitch, ElTooltip } from '@parker/element-plus-react';
+import { ElSwitch, ElTooltip } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

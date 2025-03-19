@@ -1,5 +1,5 @@
 import { getOffsetTopByBody } from '@/theme/builtins/IconList/dom';
-import { isNotEmpty } from '@parker/element-plus-react';
+import { isNotEmpty } from '@qsxy/element-plus-react';
 import classNames from 'classnames';
 import { addStyle } from 'dom-lib';
 import { useRouteMeta, useSidebarData, useTabMeta } from 'dumi';

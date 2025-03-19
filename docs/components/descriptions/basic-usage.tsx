@@ -1,4 +1,4 @@
-import { ElDescriptions, ElDescriptionsItem, ElTag } from '@parker/element-plus-react';
+import { ElDescriptions, ElDescriptionsItem, ElTag } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {

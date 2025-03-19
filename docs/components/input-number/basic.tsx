@@ -1,4 +1,4 @@
-import { ElInputNumber } from '@parker/element-plus-react';
+import { ElInputNumber } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

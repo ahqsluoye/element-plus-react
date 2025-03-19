@@ -1,4 +1,4 @@
-import { ElButton, ElTable, ElTableColumn, RenderCell } from '@parker/element-plus-react';
+import { ElButton, ElTable, ElTableColumn, RenderCell } from '@qsxy/element-plus-react';
 import dayjs from 'dayjs';
 import cloneDeep from 'lodash/cloneDeep';
 import React, { useCallback, useMemo, useState } from 'react';

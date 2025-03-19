@@ -1,4 +1,4 @@
-import { ElDivider, ElSkeleton } from '@parker/element-plus-react';
+import { ElDivider, ElSkeleton } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {

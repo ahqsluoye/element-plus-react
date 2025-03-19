@@ -1,4 +1,4 @@
-import { ElRadio, ElRadioGroup, ElTable, ElTableColumn } from '@parker/element-plus-react';
+import { ElRadio, ElRadioGroup, ElTable, ElTableColumn } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 import { tableData } from './data';
 

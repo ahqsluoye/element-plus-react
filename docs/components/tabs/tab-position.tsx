@@ -1,4 +1,4 @@
-import { ElRadio, ElRadioGroup, ElTabPane, ElTabs } from '@parker/element-plus-react';
+import { ElRadio, ElRadioGroup, ElTabPane, ElTabs } from '@qsxy/element-plus-react';
 import { useState } from 'react';
 
 const App = () => {
@@ -33,7 +33,7 @@ const App = () => {
 
 export const html = `import { h, Fragment } from 'preact';
     import { useState } from 'react';
-    import { Radio, RadioGroup, TabPane, Tabs } from '@parker/element-plus-react';
+    import { Radio, RadioGroup, TabPane, Tabs } from '@qsxy/element-plus-react';
 
     const App = () => {
         const [pos, setPos] = useState<'top' | 'right' | 'bottom' | 'left'>('top');

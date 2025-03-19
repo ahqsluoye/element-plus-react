@@ -1,4 +1,4 @@
-import { ElButton } from '@parker/element-plus-react';
+import { ElButton } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {
@@ -6,7 +6,7 @@ const App = () => {
         <>
             <div className="mb-4">
                 <ElButton size="large">大型按钮</ElButton>
-                <ElButton size='default'>默认按钮</ElButton>
+                <ElButton size="default">默认按钮</ElButton>
                 <ElButton size="small">小型按钮</ElButton>
                 <ElButton size="large" icon="magnifying-glass">
                     搜索
@@ -20,7 +20,9 @@ const App = () => {
                 <ElButton size="large" round>
                     大型按钮
                 </ElButton>
-                <ElButton size='default' round>默认按钮</ElButton>
+                <ElButton size="default" round>
+                    默认按钮
+                </ElButton>
                 <ElButton size="small" round>
                     小型按钮
                 </ElButton>
@@ -36,7 +38,7 @@ const App = () => {
             </div>
             <div className="mb-4">
                 <ElButton icon="magnifying-glass" size="large" circle />
-                <ElButton icon="magnifying-glass" size='default' circle />
+                <ElButton icon="magnifying-glass" size="default" circle />
                 <ElButton icon="magnifying-glass" size="small" circle />
             </div>
         </>

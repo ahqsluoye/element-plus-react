@@ -1,4 +1,4 @@
-import { ElScrollbar } from '@parker/element-plus-react';
+import { ElScrollbar } from '@qsxy/element-plus-react';
 import classNames from 'classnames';
 import { Link, useSidebarData } from 'dumi';
 import React, { FC, memo, useEffect, useState } from 'react';

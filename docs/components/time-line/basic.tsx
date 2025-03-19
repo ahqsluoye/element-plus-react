@@ -1,4 +1,4 @@
-import { ElTimeLine, ElTimeLineItem } from '@parker/element-plus-react';
+import { ElTimeLine, ElTimeLineItem } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const activities = [

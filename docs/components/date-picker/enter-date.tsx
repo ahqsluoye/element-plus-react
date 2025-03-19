@@ -1,4 +1,4 @@
-import { ElDatePicker, ElRadio, ElRadioGroup, TypeAttributes } from '@parker/element-plus-react';
+import { ElDatePicker, ElRadio, ElRadioGroup, TypeAttributes } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 import './style.scss';
 

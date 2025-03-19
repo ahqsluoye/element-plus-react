@@ -1,4 +1,4 @@
-import { ElButton, ElLoading } from '@parker/element-plus-react';
+import { ElButton, ElLoading } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

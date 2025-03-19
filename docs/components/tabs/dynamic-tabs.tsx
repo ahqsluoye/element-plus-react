@@ -1,4 +1,4 @@
-import { ElTabPane, ElTabs, TabPaneName } from '@parker/element-plus-react';
+import { ElTabPane, ElTabs, TabPaneName } from '@qsxy/element-plus-react';
 import cloneDeep from 'lodash/cloneDeep';
 import { useState } from 'react';
 
@@ -68,7 +68,7 @@ const App = () => {
 };
 
 export const html = `import { h } from 'preact';
-    import { TabPane, TabPaneName, Tabs } from '@parker/element-plus-react';
+    import { TabPane, TabPaneName, Tabs } from '@qsxy/element-plus-react';
     import { useState } from 'react';
     import cloneDeep from 'lodash/cloneDeep';
 

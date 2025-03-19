@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { ElCollapse, ElCollapseItem } from '@parker/element-plus-react';
+import { ElCollapse, ElCollapseItem } from '@qsxy/element-plus-react';
 import React, { useCallback, useState } from 'react';
 
 const App = () => {

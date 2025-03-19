@@ -1,4 +1,4 @@
-import { ElButton, ElPopover } from '@parker/element-plus-react';
+import { ElButton, ElPopover } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {

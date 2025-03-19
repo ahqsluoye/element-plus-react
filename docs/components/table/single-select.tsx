@@ -1,4 +1,4 @@
-import { ElTable, ElTableColumn, TableRef } from '@parker/element-plus-react';
+import { ElTable, ElTableColumn, TableRef } from '@qsxy/element-plus-react';
 import React, { useCallback, useRef, useState } from 'react';
 import { tableData } from './data';
 

@@ -1,4 +1,4 @@
-import { ElLoading } from '@parker/element-plus-react';
+import { ElLoading } from '@qsxy/element-plus-react';
 import { LoremIpsum } from 'lorem-ipsum';
 import React, { useMemo, useRef } from 'react';
 

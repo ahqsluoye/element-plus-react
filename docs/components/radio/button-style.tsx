@@ -1,4 +1,4 @@
-import { ElRadio, ElRadioGroup } from '@parker/element-plus-react';
+import { ElRadio, ElRadioGroup } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {

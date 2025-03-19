@@ -1,5 +1,5 @@
 import SourceCode from '@/theme/slots/SourceCode';
-import { ElIcon, ElTabPane, ElTabs, ElTooltip, ElTransition } from '@parker/element-plus-react';
+import { ElIcon, ElTabPane, ElTabs, ElTooltip, ElTransition } from '@qsxy/element-plus-react';
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import { IPreviewerProps } from 'dumi';

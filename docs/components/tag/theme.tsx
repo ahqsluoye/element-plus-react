@@ -1,4 +1,4 @@
-import { ElTag, TagProps } from '@parker/element-plus-react';
+import { ElTag, TagProps } from '@qsxy/element-plus-react';
 import React, { useMemo } from 'react';
 import './theme.scss';
 

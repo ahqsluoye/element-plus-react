@@ -1,4 +1,4 @@
-import { ElCascader } from '@parker/element-plus-react';
+import { ElCascader } from '@qsxy/element-plus-react';
 import { useMount } from 'ahooks';
 import React, { useState } from 'react';
 import { options1 } from './data';
