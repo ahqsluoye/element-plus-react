@@ -16,10 +16,10 @@ import { useDraggable } from './useDraggable';
 
 function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
     const {
-        modal,
+        modal = true,
         closeOnClickModal = true,
         width = '50%',
-        overflow,
+        overflow = false,
         title,
         showClose,
         border,
@@ -164,6 +164,7 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
 
             {createPortal(
                 <Transition
+                    nodeRef={wrapperRef}
                     visible={visible}
                     transitionAppear
                     unmountOnExit={props.unmountOnExit || !draggable}
@@ -249,17 +250,11 @@ type InternalType = typeof Comp;
 
 interface CompInterface extends InternalType {
     displayName?: string;
-    defaultProps?: Partial<DialogProps>;
     body: typeof DialogBody;
     footer: typeof DialogFooter;
 }
 
 const Dialog = Comp as CompInterface;
-
-Dialog.defaultProps = {
-    modal: true,
-    overflow: false,
-};
 
 Dialog.body = DialogBody;
 Dialog.footer = DialogFooter;

@@ -10,7 +10,7 @@ import { TabsContext } from './TabsContext';
 import { Navs, Scrollable, TabPaneProps, TabsProps } from './typings';
 
 const Tabs: FC<TabsProps> = forwardRef((props: TabsProps, ref?: Ref<HTMLDivElement>) => {
-    const { type, tabPosition, stretch, classPrefix = 'tabs', children, onTabClick, beforeLeave, center, editable, addable, closable, onTabRemove } = props;
+    const { type, tabPosition = 'top', stretch, classPrefix = 'tabs', children, onTabClick, beforeLeave, center, editable, addable, closable, onTabRemove } = props;
     const [activeName, setActiveName] = useControlled(props.activeName, props.defaultActiveName);
     const { b, m, e, is } = useClassNames(classPrefix);
 
@@ -343,10 +343,6 @@ const Tabs: FC<TabsProps> = forwardRef((props: TabsProps, ref?: Ref<HTMLDivEleme
         </TabsContext.Provider>
     );
 });
-
-Tabs.defaultProps = {
-    tabPosition: 'top',
-};
 
 Tabs.displayName = 'Tabs';
 

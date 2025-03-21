@@ -3,7 +3,7 @@ import { addClass, removeClass } from 'dom-lib';
 import React, { RefObject, forwardRef, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Transition } from '../Transition';
-import { PopupManager } from '../Util';
+import { PopupManager, mergeDefaultProps } from '../Util';
 import { useClassNames, useControlled } from '../hooks';
 import DrawerBody from './DrawerBody';
 import { DrawerContext } from './DrawerContext';
@@ -12,6 +12,14 @@ import DrawerHeader from './DrawerHeader';
 import { DrawerProps } from './typings';
 
 function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
+    props = mergeDefaultProps(
+        {
+            placement: 'right',
+            backdrop: true,
+            size: 'small',
+        },
+        props,
+    );
     const { backdrop, size, placement, children, onClose, classPrefix = 'drawer' } = props;
     const { b, wb } = useClassNames(classPrefix);
     const [visible, setVisible, isControlled] = useControlled(props.visible, props.defaultVisible);
@@ -57,6 +65,7 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
             {backdrop &&
                 createPortal(
                     <Transition
+                        nodeRef={backdropRef}
                         visible={visible}
                         transitionAppear
                         unmountOnExit
@@ -75,6 +84,7 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
 
             {createPortal(
                 <Transition
+                    nodeRef={ref || wrapperRef}
                     visible={visible}
                     transitionAppear
                     unmountOnExit
@@ -119,12 +129,6 @@ interface CompInterface extends InternalType {
 }
 
 const Drawer = Comp as CompInterface;
-
-Drawer.defaultProps = {
-    placement: 'right',
-    backdrop: true,
-    size: 'small',
-};
 
 Drawer.Header = DrawerHeader;
 Drawer.Body = DrawerBody;

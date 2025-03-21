@@ -2,12 +2,25 @@ import classNames from 'classnames';
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Transition } from '../Transition';
-import { PopupManager } from '../Util';
+import { PopupManager, mergeDefaultProps } from '../Util';
 import { EVENT_CODE, TypeMap } from '../config/Constants';
 import { useClassNames } from '../hooks';
 import { NotificationProps, NotificationRef } from './typings';
 
 const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref) => {
+    props = mergeDefaultProps(
+        {
+            duration: 4500, // default 4500
+            message: '',
+            onClose: null,
+            onClick: null,
+            afterLeave: null,
+            offset: 0, // defaults 0
+            position: 'top-right', // default top-right
+            showClose: true,
+        },
+        props,
+    );
     const { iconClass, message, position, showClose, type, title, classPrefix = 'notification', onClose, duration, onSuccess, afterLeave } = props;
     const { b, e } = useClassNames(classPrefix);
     const [visible, setVisible] = useState(false);
@@ -98,7 +111,7 @@ const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref)
     const closeIcon = useMemo(() => showClose && <div className={classNames(e`closeBtn`, b('icon-close', false))} onClick={handleClose} />, [showClose, e, b, handleClose]);
 
     return createPortal(
-        <Transition name={b('notification-fade', false)} visible={visible} display="flex" afterLeave={afterLeave}>
+        <Transition nodeRef={notificationRef} name={b('notification-fade', false)} visible={visible} display="flex" afterLeave={afterLeave}>
             <div
                 ref={notificationRef}
                 className={classNames(b(), position.indexOf('right') > 1 ? 'right' : 'left')}
@@ -123,17 +136,6 @@ const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref)
         document.body,
     );
 });
-
-Notification.defaultProps = {
-    duration: 4500, // default 4500
-    message: '',
-    onClose: null,
-    onClick: null,
-    afterLeave: null,
-    offset: 0, // defaults 0
-    position: 'top-right', // default top-right
-    showClose: true,
-};
 
 Notification.displayName = 'ElNotification';
 

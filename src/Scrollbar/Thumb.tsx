@@ -141,7 +141,7 @@ const Thumb: FC<BarProps> = props => {
     }, []);
 
     return (
-        <Transition name={b`fade`} visible={always || visible} transitionAppear afterEnter={onEnter}>
+        <Transition nodeRef={instanceRef} name={b`fade`} visible={always || visible} transitionAppear afterEnter={onEnter}>
             <div ref={instanceRef} className={classNames(e`bar`, is(bar.key, { always }))} onMouseDown={clickTrackHandler}>
                 <div ref={thumbRef} className={classNames(e`thumb`)} style={thumbStyle} onMouseDown={clickThumbHandler} />
             </div>

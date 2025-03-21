@@ -4,7 +4,7 @@ import React, { FC, forwardRef, useCallback, useEffect, useImperativeHandle, use
 import { createPortal } from 'react-dom';
 import { usePopper } from 'react-popper';
 import { Transition } from '../Transition';
-import { randomCode } from '../Util';
+import { mergeDefaultProps, randomCode } from '../Util';
 import PopupManager from '../Util/PopupManager';
 import { partitionAnimationProps, useClassNames, useClickOutside, useComponentWillMount } from '../hooks';
 import { globalKey } from '../hooks/prefix';
@@ -12,6 +12,19 @@ import usePopperOptions from './popperOptions';
 import { PopperProps } from './typings';
 
 const Popper: FC<PopperProps> = forwardRef((props, ref) => {
+    props = mergeDefaultProps(
+        {
+            arrowOffset: 5,
+            appendToBody: true,
+            offset: 10,
+            placement: 'bottom',
+            popperClass: '',
+            showArrow: true,
+            gpuAcceleration: false,
+            strategy: 'absolute',
+        },
+        props,
+    );
     const {
         id = randomCode(5),
         visible,
@@ -95,7 +108,7 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
 
     const content = useMemo(
         () => (
-            <Transition visible={visible} name={animation} className={className} afterLeave={afterLeave} {...transitionProps}>
+            <Transition nodeRef={{ current: popperElement }} visible={visible} name={animation} className={className} afterLeave={afterLeave} {...transitionProps}>
                 <div
                     id={`${globalKey}-popper-${id}`}
                     className={classNames(b(), is(effect), popperClass)}
@@ -123,6 +136,7 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
             onMouseEnter,
             onMouseLeave,
             popperClass,
+            popperElement,
             popperStyle,
             props.children,
             showArrow,
@@ -157,16 +171,5 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
     //     {showArrow ? <div className={e`arrow`} data-popper-arrow ref={setArrowElement} style={{ ...styles.arrow }} /> : null}
     // </Transition>
 });
-
-Popper.defaultProps = {
-    arrowOffset: 5,
-    appendToBody: true,
-    offset: 10,
-    placement: 'bottom',
-    popperClass: '',
-    showArrow: true,
-    gpuAcceleration: false,
-    strategy: 'absolute',
-};
 
 export default Popper;

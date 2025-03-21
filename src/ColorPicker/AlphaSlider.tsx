@@ -139,7 +139,6 @@ const AlphaSlider = forwardRef<AlphaSliderRef, Props>((props, ref) => {
     );
 });
 
-AlphaSlider.defaultProps = {};
 AlphaSlider.displayName = 'AlphaSlider';
 
 export default AlphaSlider;

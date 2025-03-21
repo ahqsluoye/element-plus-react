@@ -4,7 +4,7 @@ import { useClassNames } from '../hooks';
 import { BreadcrumbContextProps, BreadcrumbProps } from './typings';
 
 const Breadcrumb: FC<BreadcrumbProps> = memo(props => {
-    const { classPrefix = 'breadcrumb', separator } = props;
+    const { classPrefix = 'breadcrumb', separator = '/' } = props;
     const { b } = useClassNames(classPrefix);
 
     return (
@@ -15,10 +15,6 @@ const Breadcrumb: FC<BreadcrumbProps> = memo(props => {
         </BreadcrumbContext.Provider>
     );
 });
-
-Breadcrumb.defaultProps = {
-    separator: '/',
-};
 
 export default Breadcrumb;
 

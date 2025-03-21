@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Empty } from '../Empty';
+import { mergeDefaultProps } from '../Util';
 import { useClassNames, useControlled } from '../hooks';
 import List from './List';
 import Operation from './operation';
@@ -9,6 +10,17 @@ import { KeyWise, TransferDirection, TransferItem, TransferProps } from './typin
 type RecordType = TransferItem;
 
 const Transfer: FC<TransferProps<RecordType>> = props => {
+    // @ts-ignore
+    props = mergeDefaultProps(
+        {
+            data: [],
+            titles: ['Source', 'Target'],
+            locale: {},
+            filterable: false,
+            listStyle: {},
+        },
+        props,
+    );
     const {
         className,
         disabled,
@@ -318,13 +330,6 @@ const Transfer: FC<TransferProps<RecordType>> = props => {
     );
 };
 
-Transfer.defaultProps = {
-    data: [],
-    titles: ['Source', 'Target'],
-    locale: {},
-    filterable: false,
-    listStyle: {},
-};
 Transfer.displayName = 'Transfer';
 
 export default Transfer;

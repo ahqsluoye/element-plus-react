@@ -20,8 +20,7 @@ const App = () => {
                 </ElDialog.footer>
             </ElDialog>
 
-            <ElDialog visible={visible1} width={500} close={() => setVisible1(false)}>
-                <ElDialog.header>内部对话框</ElDialog.header>
+            <ElDialog visible={visible1} title="内部对话框" width={500} close={() => setVisible1(false)}>
                 <ElDialog.body>
                     <span>我是内部对话框</span>
                 </ElDialog.body>

@@ -19,7 +19,7 @@ const CheckboxButton = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
         checked: controlledChecked,
         className,
         children,
-        defaultChecked,
+        defaultChecked = false,
         title,
         indeterminate,
         readOnly = readOnlyContext,
@@ -28,7 +28,7 @@ const CheckboxButton = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
         onClick,
         onCheckboxClick,
         onChange,
-        prevent,
+        prevent = false,
         onMouseEnter,
         onMouseLeave,
         ...rest
@@ -134,11 +134,6 @@ const CheckboxButton = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
 });
 
 const Comp: FC<CheckboxProps> = memo(CheckboxButton);
-
-Comp.defaultProps = {
-    prevent: false,
-    defaultChecked: false,
-};
 
 Comp.displayName = 'ElCheckboxButton';
 

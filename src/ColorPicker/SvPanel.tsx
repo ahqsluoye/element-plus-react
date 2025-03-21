@@ -96,7 +96,6 @@ const SvPanel = forwardRef<SvPanelRef, Props>((props, ref) => {
     );
 });
 
-SvPanel.defaultProps = {};
 SvPanel.displayName = 'SvPanel';
 
 export default SvPanel;

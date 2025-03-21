@@ -68,10 +68,6 @@ const PlaceholderGrid = forwardRef<HTMLDivElement, PlaceholderGridProps>((props,
     );
 });
 
-PlaceholderGrid.defaultProps = {
-    rowHeight: 16,
-    rowMargin: 16,
-};
 PlaceholderGrid.displayName = 'PlaceholderGrid';
 
 export default PlaceholderGrid;

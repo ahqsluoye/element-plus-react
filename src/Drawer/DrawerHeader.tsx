@@ -6,7 +6,7 @@ import { DrawerContext } from './DrawerContext';
 import { DrawerHeaderProps } from './typings';
 
 const DrawerHeader: FC<DrawerHeaderProps> = props => {
-    const { closeButton, onClose: onCloseHeader, classPrefix = 'drawer', border } = props;
+    const { closeButton = true, onClose: onCloseHeader, classPrefix = 'drawer', border } = props;
     const { b, is } = useClassNames(classPrefix);
 
     const { setVisible, isControlled, onClose } = useContext(DrawerContext);
@@ -35,9 +35,6 @@ const DrawerHeader: FC<DrawerHeaderProps> = props => {
     );
 };
 
-DrawerHeader.defaultProps = {
-    closeButton: true,
-};
 DrawerHeader.displayName = 'DrawerHeader';
 
 export default DrawerHeader;

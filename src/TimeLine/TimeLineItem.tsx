@@ -2,10 +2,17 @@ import classNames from 'classnames';
 import React, { cloneElement, FC, useMemo } from 'react';
 import { useClassNames } from '../hooks';
 import { Icon } from '../Icon';
-import { isNotEmpty } from '../Util';
+import { isNotEmpty, mergeDefaultProps } from '../Util';
 import { TimeLineItemProps } from './typings';
 
 const TimeLineItem: FC<TimeLineItemProps> = props => {
+    props = mergeDefaultProps(
+        {
+            size: 'normal',
+            placement: 'bottom',
+        },
+        props,
+    );
     const { classPrefix = 'timeline-item', timestamp, hideTimestamp, center, placement, type, color, size, icon, hollow } = props;
     const { b, e, em, is } = useClassNames(classPrefix);
 
@@ -33,11 +40,6 @@ const TimeLineItem: FC<TimeLineItemProps> = props => {
             </div>
         </li>
     );
-};
-
-TimeLineItem.defaultProps = {
-    size: 'normal',
-    placement: 'bottom',
 };
 
 export default TimeLineItem;

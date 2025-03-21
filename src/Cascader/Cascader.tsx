@@ -24,16 +24,34 @@ import { toArray } from './Utils';
 import { CascaderProps, CascaderRef, OptionNode } from './typings';
 import { useCascader } from './useCascader';
 
-/**
- * Cascader 级联选择器
- * @author	Parker
- * @CreateTime	2022/4/17 10:25:52
- * @LastEditor	Parker
- * @ModifyTime	2025/2/22 16:07:35
- * @Description
- */
 const Cascader: FC<CascaderProps> = memo(
     forwardRef((props: CascaderProps, ref?: RefObject<CascaderRef>) => {
+        props = {
+            separator: '/',
+            showAllLevels: true,
+            props: {
+                expandTrigger: 'click',
+                emitPath: true,
+                valueKey: 'value',
+                labelKey: 'label',
+                childrenKey: 'children',
+                disabledKey: 'disabled',
+                leafKey: 'leaf',
+            },
+            treeMenuProps: {
+                valueKey: 'key',
+                labelKey: 'title',
+                childrenKey: 'children',
+                disabledKey: 'disabled',
+                leafKey: 'leaf',
+            },
+            shouldSelect: () => true,
+            placeholder: '请选择',
+            collapseTags: true,
+            collapseTagsTooltip: true,
+            maxCollapseTags: 1,
+            ...props,
+        };
         const {
             classPrefix = 'cascader',
             options,
@@ -694,31 +712,6 @@ const Cascader: FC<CascaderProps> = memo(
     }),
 );
 
-Cascader.defaultProps = {
-    separator: '/',
-    showAllLevels: true,
-    props: {
-        expandTrigger: 'click',
-        emitPath: true,
-        valueKey: 'value',
-        labelKey: 'label',
-        childrenKey: 'children',
-        disabledKey: 'disabled',
-        leafKey: 'leaf',
-    },
-    treeMenuProps: {
-        valueKey: 'key',
-        labelKey: 'title',
-        childrenKey: 'children',
-        disabledKey: 'disabled',
-        leafKey: 'leaf',
-    },
-    shouldSelect: () => true,
-    placeholder: '请选择',
-    collapseTags: true,
-    collapseTagsTooltip: true,
-    maxCollapseTags: 1,
-};
 Cascader.displayName = 'Cascader';
 
 export default Cascader;

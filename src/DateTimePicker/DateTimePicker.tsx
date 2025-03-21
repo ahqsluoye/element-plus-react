@@ -15,6 +15,15 @@ import { DateTimePickerProps, DateTimePickerRef } from './typings';
 import { extractDateFormat, extractTimeFormat } from './util';
 
 const DateTimePicker = forwardRef<DateTimePickerRef, DateTimePickerProps>((props, ref) => {
+    props = {
+        format: 'YYYY-MM-DD HH:mm:ss',
+        readonly: true,
+        isoWeek: true,
+        clearable: true,
+        disabled: false,
+        placeholder: '请选择日期时间',
+        ...props,
+    };
     const {
         name,
         readonly,
@@ -160,6 +169,7 @@ const DateTimePicker = forwardRef<DateTimePickerRef, DateTimePickerProps>((props
                             <div className={e`editor-wrap`}>
                                 <Input placeholder="选择时间" value={time} clearable={false} onFocus={() => setShowTime(true)} ref={timeReferenceElement} />
                                 <Transition
+                                    nodeRef={() => ({ current: timePanelRef.current.ref })}
                                     visible={showTime}
                                     name="r-slide-up"
                                     transitionAppear
@@ -190,14 +200,6 @@ const DateTimePicker = forwardRef<DateTimePickerRef, DateTimePickerProps>((props
         </>
     );
 });
-DateTimePicker.defaultProps = {
-    format: 'YYYY-MM-DD HH:mm:ss',
-    readonly: true,
-    isoWeek: true,
-    clearable: true,
-    disabled: false,
-    placeholder: '请选择日期时间',
-};
 
 DateTimePicker.displayName = 'DateTimePicker';
 

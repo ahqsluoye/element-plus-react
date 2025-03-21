@@ -5,7 +5,7 @@ import { useClassNames } from '../hooks';
 import { LinkProps } from './typings';
 
 const Link = forwardRef<any, LinkProps>((props: LinkProps, ref) => {
-    const { type, underline, disabled, className, style, classPrefix = 'link', onClick, icon, ...rest } = props;
+    const { type = 'default', underline, disabled, className, style, classPrefix = 'link', onClick, icon, ...rest } = props;
     const { b, m, is } = useClassNames(classPrefix);
 
     return (
@@ -28,8 +28,5 @@ const Link = forwardRef<any, LinkProps>((props: LinkProps, ref) => {
 });
 
 Link.displayName = 'Link';
-Link.defaultProps = {
-    type: 'default',
-};
 
 export default memo(Link);

@@ -193,3 +193,8 @@ export function addUnit(value?: string | number, defaultUnit = 'px') {
         return value;
     }
 }
+
+export function mergeDefaultProps<T extends object>(defaultProps: Partial<T> = {}, props: T): T {
+    // @ts-ignore
+    return { ...defaultProps, ...(props ?? {}) };
+}

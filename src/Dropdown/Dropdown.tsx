@@ -1,11 +1,22 @@
 import classNames from 'classnames';
 import React, { FC, useCallback } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
+import { mergeDefaultProps } from '../Util';
 import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames } from '../hooks';
 import { DropdownContext } from './DropdownContext';
 import { DropdownProps } from './typings';
 
 const Dropdown: FC<DropdownProps> = props => {
+    props = mergeDefaultProps(
+        {
+            hideOnClick: true,
+            showArrow: true,
+            showTimeout: 0,
+            hideTimeout: 100,
+            trigger: 'hover',
+        },
+        props,
+    );
     const {
         menu,
         classPrefix = 'dropdown',
@@ -70,13 +81,6 @@ const Dropdown: FC<DropdownProps> = props => {
     );
 };
 
-Dropdown.defaultProps = {
-    hideOnClick: true,
-    showArrow: true,
-    showTimeout: 0,
-    hideTimeout: 100,
-    trigger: 'hover',
-};
 Dropdown.displayName = 'Dropdown';
 
 export default Dropdown;

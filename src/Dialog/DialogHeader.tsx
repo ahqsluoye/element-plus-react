@@ -7,7 +7,7 @@ import { DialogHeaderProps } from './typings';
 
 const DialogHeader: React.ForwardRefExoticComponent<DialogHeaderProps & React.RefAttributes<HTMLDivElement>> = memo(
     forwardRef<HTMLDivElement, DialogHeaderProps>((props, ref) => {
-        const { showClose, classPrefix = 'dialog', border } = props;
+        const { showClose = true, classPrefix = 'dialog', border } = props;
         const { e, is } = useClassNames(classPrefix);
 
         const { doClose, center } = useContext(DialogContext);
@@ -35,9 +35,6 @@ const DialogHeader: React.ForwardRefExoticComponent<DialogHeaderProps & React.Re
     }),
 );
 
-DialogHeader.defaultProps = {
-    showClose: true,
-};
 DialogHeader.displayName = 'ElDialogHeader';
 
 export default DialogHeader;

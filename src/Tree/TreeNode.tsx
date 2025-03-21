@@ -455,7 +455,7 @@ class InternalTreeNode extends Component<InternalTreeNodeProps, TreeNodeState> {
     // Icon + Title
     renderSelector = () => {
         const { dragNodeHighlight } = this.state;
-        const { title, selected, icon, loading, data } = this.props;
+        const { title = defaultTitle, selected, icon, loading, data } = this.props;
         const {
             context: { prefixCls, showIcon, icon: treeIcon, loadData, titleRender },
         } = this.props;
@@ -612,10 +612,6 @@ class InternalTreeNode extends Component<InternalTreeNodeProps, TreeNodeState> {
 const ContextTreeNode: FC<TreeNodeProps> = props => <TreeContext.Consumer>{context => <InternalTreeNode {...props} context={context} />}</TreeContext.Consumer>;
 
 ContextTreeNode.displayName = 'TreeNode';
-
-ContextTreeNode.defaultProps = {
-    title: defaultTitle,
-};
 
 (ContextTreeNode as any).isTreeNode = 1;
 

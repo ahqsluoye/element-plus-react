@@ -7,13 +7,24 @@ import noop from 'lodash/noop';
 import toFinite from 'lodash/toFinite';
 import React, { ComponentType, cloneElement, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Icon, IconProps } from '../Icon';
-import { formatNumber, isEmpty, isNotEmpty } from '../Util';
+import { formatNumber, isEmpty, isNotEmpty, mergeDefaultProps } from '../Util';
 import { useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { globalKey } from '../hooks/prefix';
 import InputGroup from './InputGroup';
 import { InputRangeProps, InputRangeValueType } from './typings';
 
 const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) => {
+    props = mergeDefaultProps(
+        {
+            name: ['', ''],
+            startPlaceholder: '请输入',
+            endPlaceholder: '请输入',
+            type: 'text',
+            clearable: true,
+            rangeSeparator: '到',
+        },
+        props,
+    );
     const {
         name,
         clearable,
@@ -364,14 +375,6 @@ const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) =>
     }
 });
 
-InputRange.defaultProps = {
-    name: ['', ''],
-    startPlaceholder: '请输入',
-    endPlaceholder: '请输入',
-    type: 'text',
-    clearable: true,
-    rangeSeparator: '到',
-};
 InputRange.displayName = 'InputRange';
 
 export default InputRange;

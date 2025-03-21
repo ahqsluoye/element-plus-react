@@ -128,7 +128,6 @@ const HueSlider = forwardRef<HueSliderRef, Props>((props, ref) => {
     );
 });
 
-HueSlider.defaultProps = {};
 HueSlider.displayName = 'HueSlider';
 
 export default HueSlider;

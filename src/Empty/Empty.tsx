@@ -11,7 +11,7 @@ export interface IEmptyProps extends BaseProps, NativeProps {
 }
 
 const Empty: FC<IEmptyProps> = props => {
-    const { image, imageSize, description } = props;
+    const { image, imageSize, description = '暂无数据' } = props;
     const { b, e } = useClassNames('empty');
     const imageStyle = useMemo(() => {
         return {
@@ -41,9 +41,6 @@ const Empty: FC<IEmptyProps> = props => {
     );
 };
 
-Empty.defaultProps = {
-    description: '暂无数据',
-};
 Empty.displayName = 'Empty';
 
 export default Empty;

@@ -15,6 +15,17 @@ import { DatePickerRangeProps } from './typings';
 
 const DateRangePicker: FC<DatePickerRangeProps> = memo(
     forwardRef<HTMLInputElement, DatePickerRangeProps>((props, ref) => {
+        props = {
+            name: ['', ''],
+            type: 'daterange',
+            readOnly: false,
+            isoWeek: true,
+            clearable: true,
+            disabled: false,
+            unlinkPanels: false,
+            rangeSeparator: '到',
+            ...props,
+        };
         const { name, clearable, valueFormat, type, classPrefix = 'range', prepend, append, onChange, error, warning, formatter } = props;
         const [value, setValue] = useControlled(props.value, props.defaultValue);
         const { b, e, be, bm, ebm, is } = useClassNames(classPrefix);
@@ -265,16 +276,6 @@ const DateRangePicker: FC<DatePickerRangeProps> = memo(
     }),
 );
 
-DateRangePicker.defaultProps = {
-    name: ['', ''],
-    type: 'daterange',
-    readOnly: false,
-    isoWeek: true,
-    clearable: true,
-    disabled: false,
-    unlinkPanels: false,
-    rangeSeparator: '到',
-};
 DateRangePicker.displayName = 'DateRangePicker';
 
 export default DateRangePicker;

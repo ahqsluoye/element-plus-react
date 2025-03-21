@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { Ref, RefObject, forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import { Loading } from '../Loading';
 import { Scrollbar, ScrollbarRef } from '../Scrollbar';
+import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import Colgroup from './Colgroup';
 import TableBody from './TableBody';
@@ -14,6 +15,18 @@ import { TableProps, TableRef, TableRefs, TreeNode } from './typings';
 import { TableIdManager } from './util';
 
 function InternalTable<RecordType extends object = TreeNode>(props: TableProps<RecordType>, ref: RefObject<TableRef<RecordType>>) {
+    props = mergeDefaultProps(
+        {
+            data: [],
+            fit: true,
+            showHeader: true,
+            tableLayout: 'fixed',
+            style: {},
+            emptyText: '暂无数据',
+            selectOnIndeterminate: true,
+        },
+        props,
+    );
     const { height, maxHeight, size, stripe = false, fit, border, tableLayout, showHeader, showSummary, emptyText, append, loading } = props;
     const { b, e, m } = useClassNames('table');
 
@@ -178,15 +191,6 @@ interface TableInterface extends InternalTableType {
 
 const Table = ForwardTable as TableInterface;
 
-Table.defaultProps = {
-    data: [],
-    fit: true,
-    showHeader: true,
-    tableLayout: 'fixed',
-    style: {},
-    emptyText: '暂无数据',
-    selectOnIndeterminate: true,
-};
 Table.displayName = 'Table';
 
 export default Table;

@@ -19,7 +19,25 @@ dayjs.extend(weekOfYear);
 
 const DatePicker: FC<DatePickerProps> = memo(
     forwardRef<DatePickerRef, DatePickerProps>((props, ref) => {
-        const { name, readonly, clearable, required, valueFormat, plain, onClick, prepend, append, error, warning, shortcuts, onChange, formatter, type, isoWeek, ...rest } = props;
+        const {
+            name,
+            readonly = true,
+            clearable = true,
+            required,
+            valueFormat,
+            plain,
+            onClick,
+            prepend,
+            append,
+            error,
+            warning,
+            shortcuts,
+            onChange,
+            formatter,
+            type = 'date',
+            isoWeek = true,
+            ...rest
+        } = props;
         const [value, setValue] = useControlled(props.value, props.defaultValue);
         const [visible, setVisible] = useState(false);
         const popperInstRef = useRef<PopperOptionRef>();
@@ -202,13 +220,6 @@ const DatePicker: FC<DatePickerProps> = memo(
     }),
 );
 
-DatePicker.defaultProps = {
-    type: 'date',
-    readonly: true,
-    isoWeek: true,
-    clearable: true,
-    disabled: false,
-};
 DatePicker.displayName = 'DatePicker';
 
 export default DatePicker;

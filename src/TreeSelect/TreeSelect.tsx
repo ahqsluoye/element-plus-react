@@ -20,6 +20,24 @@ import { parentNotSelectable } from './Utils';
 import { SelectInfo, TreeSelectProps, TreeSelectRef } from './typings';
 
 function InternalTreeSelect<RecordType extends object = DataNode>(props: TreeSelectProps<RecordType>, ref: RefObject<TreeSelectRef>) {
+    props = {
+        clearable: true,
+        collapseTags: true,
+        checkStrictly: true,
+        disabled: false,
+        selectable: true,
+        filterable: true,
+        placeholder: '请选择',
+        noDataText: '无数据',
+        loadingText: (
+            <span>
+                <Icon prefix="fas" name="spinner" spin /> 加载中...
+            </span>
+        ),
+        fieldNames: { title: 'title', key: 'key', children: 'children' },
+        onBeforeClick: () => true,
+        ...props,
+    };
     const {
         placeholder,
         clearable,
@@ -581,24 +599,6 @@ interface DirectoryTreeSelectInterface extends InternalDirectoryTreeType {
 }
 
 const TreeSelect = ForwardTreeSelect as DirectoryTreeSelectInterface;
-
-TreeSelect.defaultProps = {
-    clearable: true,
-    collapseTags: true,
-    checkStrictly: true,
-    disabled: false,
-    selectable: true,
-    filterable: true,
-    placeholder: '请选择',
-    noDataText: '无数据',
-    loadingText: (
-        <span>
-            <Icon prefix="fas" name="spinner" spin /> 加载中...
-        </span>
-    ),
-    fieldNames: { title: 'title', key: 'key', children: 'children' },
-    onBeforeClick: () => true,
-};
 
 TreeSelect.displayName = 'TreeSelect';
 

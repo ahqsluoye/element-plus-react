@@ -2,10 +2,18 @@ import classNames from 'classnames';
 import React, { forwardRef, useCallback } from 'react';
 import { Icon } from '../Icon';
 import { Transition } from '../Transition';
+import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import { TagProps } from './typings';
 
 const Tag = forwardRef<HTMLSpanElement, TagProps>((props, ref) => {
+    props = mergeDefaultProps(
+        {
+            type: 'primary',
+            theme: 'light',
+        },
+        props,
+    );
     const { type, closable, size, color, theme, round, hit, classPrefix = 'tag', className, style, onClick, onClose, disableTransitions } = props;
     const { b, m, e, is } = useClassNames(classPrefix);
 
@@ -26,7 +34,8 @@ const Tag = forwardRef<HTMLSpanElement, TagProps>((props, ref) => {
     );
 
     return (
-        <Transition name={disableTransitions ? '' : 'r-zoom-in-center'} visible display="" transitionAppear unmountOnExit duration={200}>
+        // @ts-ignore
+        <Transition nodeRef={ref} name={disableTransitions ? '' : 'r-zoom-in-center'} visible display="" transitionAppear unmountOnExit duration={200}>
             <span
                 ref={ref}
                 className={classNames(b(), m(type, theme, { [size]: size }), is({ round, hit }), className)}
@@ -42,10 +51,6 @@ const Tag = forwardRef<HTMLSpanElement, TagProps>((props, ref) => {
     );
 });
 
-Tag.defaultProps = {
-    type: 'primary',
-    theme: 'light',
-};
 Tag.displayName = 'Tag';
 
 export default Tag;

@@ -346,7 +346,7 @@ const IconList = () => {
                                         return (
                                             <div key={index} className="r-wrap-icon" onClick={() => showDetail(item)}>
                                                 <ElIcon name={item.name} size="2x" prefix={activeType} />
-                                                <p className="r-icon-text" title="item.name">
+                                                <p className="r-icon-text" title={item.name}>
                                                     {item.name}
                                                 </p>
                                             </div>
@@ -369,9 +369,8 @@ const IconList = () => {
                 </div>
             </div>
 
-            <ElDialog visible={dialogVisible} size="large" onClose={() => setDialogVisible(false)}>
-                <ElDialog.Header>{dialogTitle}</ElDialog.Header>
-                <ElDialog.Body>
+            <ElDialog visible={dialogVisible} title={dialogTitle} close={() => setDialogVisible(false)}>
+                <ElDialog.body>
                     <div className="r-style-switcher">
                         {activeSubType === 'fab' ? (
                             <span className={classNames('style-toggle', 'active')} onClick={() => onChangeSubType('fab')}>
@@ -428,7 +427,7 @@ const IconList = () => {
                             </div>
                         </div>
                     </div>
-                </ElDialog.Body>
+                </ElDialog.body>
             </ElDialog>
         </>
     );

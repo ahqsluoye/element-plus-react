@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 import React, { FC, RefObject, forwardRef, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import FieldContext, { HOOK_MARK } from './FieldContext';
 import FormContext, { FormContextProps, FormProvider } from './FormContext';
@@ -22,6 +23,15 @@ interface FormComponent extends FC<FormProps> {
 type RenderProps = (values: Store, form: FormInstance) => React.ReactElement;
 
 const Form: FormComponent = forwardRef((props: FormProps, ref: RefObject<FormInstance>) => {
+    props = mergeDefaultProps(
+        {
+            inline: false,
+            cols: 0,
+            labelWidth: 120,
+            labelPosition: 'right',
+        },
+        props,
+    );
     const {
         colon,
         inline,
@@ -179,12 +189,5 @@ Form.Item = Field;
 Form.List = List;
 Form.useForm = useForm;
 Form.useWatch = useWatch;
-
-Form.defaultProps = {
-    inline: false,
-    cols: 0,
-    labelWidth: 120,
-    labelPosition: 'right',
-};
 
 export default Form;

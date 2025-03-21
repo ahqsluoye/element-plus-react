@@ -6,7 +6,7 @@ import { IconProps } from './typings';
 
 const Icon: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<any>> = memo(
     forwardRef<any, IconProps>((props, ref) => {
-        const { prefix, name, size, rotate, flip, spin, pulse, className, style, onClick, classPrefix = 'icon', ...other } = props;
+        const { prefix = 'far', name, size, rotate, flip, spin, pulse, className, style, onClick, classPrefix = 'icon', ...other } = props;
         const { b } = useClassNames(classPrefix, 'el');
         const hasFa = startsWith(name, 'fa-');
         return (
@@ -26,10 +26,6 @@ const Icon: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<any>
         );
     }),
 );
-
-Icon.defaultProps = {
-    prefix: 'far',
-};
 
 Icon.displayName = 'ElIcon';
 

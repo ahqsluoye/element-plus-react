@@ -3,10 +3,23 @@ import React, { FC, useState } from 'react';
 import { Button } from '../Button';
 import { Icon } from '../Icon';
 import Tooltip from '../Tooltip/Tooltip';
+import { mergeDefaultProps } from '../Util';
 import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames } from '../hooks';
 import { PopconfirmProps } from './typings';
 
 const Popconfirm: FC<PopconfirmProps> = props => {
+    props = mergeDefaultProps(
+        {
+            showArrow: true,
+            confirmButtonText: '确 定',
+            cancelButtonText: '取 消',
+            confirmButtonType: 'primary',
+            cancelButtonType: 'primary',
+            icon: 'circle-question',
+            iconColor: '#f90',
+        },
+        props,
+    );
     const {
         title,
         confirmButtonText,
@@ -77,15 +90,6 @@ const Popconfirm: FC<PopconfirmProps> = props => {
     );
 };
 
-Popconfirm.defaultProps = {
-    showArrow: true,
-    confirmButtonText: '确 定',
-    cancelButtonText: '取 消',
-    confirmButtonType: 'primary',
-    cancelButtonType: 'primary',
-    icon: 'circle-question',
-    iconColor: '#f90',
-};
 Popconfirm.displayName = 'Popconfirm';
 
 export default Popconfirm;

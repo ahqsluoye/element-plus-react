@@ -40,7 +40,6 @@ const Footer: FC = () => {
     );
 };
 
-Footer.defaultProps = {};
-Footer.displayName = 'Calendar.Footer';
+Footer.displayName = 'ElCalendar.Footer';
 
 export default Footer;

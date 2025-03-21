@@ -63,10 +63,6 @@ const PlaceholderParagraph = forwardRef<HTMLDivElement, PlaceholderParagraphProp
     );
 });
 
-PlaceholderParagraph.defaultProps = {
-    rowHeight: 16,
-    rowMargin: 16,
-};
 PlaceholderParagraph.displayName = 'PlaceholderParagraph';
 
 export default PlaceholderParagraph;

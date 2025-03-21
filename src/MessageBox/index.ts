@@ -10,8 +10,7 @@ const MESSAGE_BOX_DEFAULT_OPTS: Record<'prompt' | 'alert' | 'confirm', Partial<M
 };
 
 const instanceFactory = (boxType: MessageState['boxType']) => {
-    return (message: string | React.ReactElement, title: string | React.ReactElement | MessageBoxProps, options: MessageBoxProps) => {
-        const { distinguishCancelAndClose } = options;
+    return (message: string | React.ReactElement, title: string | React.ReactElement | MessageBoxProps, options?: MessageBoxProps) => {
         let titleOrOpts = '';
         if (isObject(title)) {
             options = title as unknown as MessageBoxProps;
@@ -21,6 +20,8 @@ const instanceFactory = (boxType: MessageState['boxType']) => {
         } else {
             titleOrOpts = title as string;
         }
+
+        const { distinguishCancelAndClose } = options ?? {};
         return new Promise<MessageBoxData>((resolve, reject) => {
             new Main({
                 boxType,

@@ -65,7 +65,6 @@ const Predefine = forwardRef<PredefineRef, Props>((props, ref) => {
     );
 });
 
-Predefine.defaultProps = {};
 Predefine.displayName = 'Predefine';
 
 export default Predefine;

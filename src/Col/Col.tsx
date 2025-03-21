@@ -7,7 +7,7 @@ import { useClassNames } from '../hooks';
 import { ColProps, MediaLayout, MediaSize } from './typings';
 
 const Col: FC<ColProps> = memo(props => {
-    const { tag = 'div', span, offset, push, pull, classPrefix = 'col' } = props;
+    const { tag = 'div', span = 24, offset = 0, push = 0, pull = 0, classPrefix = 'col' } = props;
     const { wb, b, is } = useClassNames(classPrefix);
 
     const { gutter = 0 } = useContext(RowContext);
@@ -52,11 +52,4 @@ const Col: FC<ColProps> = memo(props => {
     );
 });
 
-Col.defaultProps = {
-    span: 24,
-    offset: 0,
-    push: 0,
-    pull: 0,
-    tag: 'div',
-};
 export default Col;

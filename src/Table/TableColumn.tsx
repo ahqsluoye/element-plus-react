@@ -16,10 +16,6 @@ const TableColumn: FC<TableColumnProps<any>> = props => {
     }
 };
 
-TableColumn.defaultProps = {
-    resizable: true,
-    filterMultiple: true,
-};
 TableColumn.displayName = 'TableColumn';
 
 export default TableColumn;

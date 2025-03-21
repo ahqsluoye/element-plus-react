@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React, { cloneElement, createElement, forwardRef, isValidElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { Button } from '../Button';
 import { Icon } from '../Icon';
+import { mergeDefaultProps } from '../Util';
 import { useClassNames, useControlled } from '../hooks';
 import Options from './Options';
 import Pager from './Pager';
@@ -10,6 +11,20 @@ import { PaginationProps, PaginationRef } from './typings';
 import { calculatePage, isValid } from './util';
 
 const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
+    props = mergeDefaultProps(
+        {
+            defaultCurrent: 1,
+            total: 0,
+            defaultPageSize: 10,
+            hideOnSinglePage: false,
+            showPrevNextJumpers: true,
+            showQuickJumper: false,
+            showLessItems: false,
+            showTitle: true,
+            itemRender: (page, type, element) => element,
+        },
+        props,
+    );
     const {
         classPrefix = 'pagination',
         className,
@@ -514,18 +529,6 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
         </ul>
     );
 });
-
-Pagination.defaultProps = {
-    defaultCurrent: 1,
-    total: 0,
-    defaultPageSize: 10,
-    hideOnSinglePage: false,
-    showPrevNextJumpers: true,
-    showQuickJumper: false,
-    showLessItems: false,
-    showTitle: true,
-    itemRender: (page, type, element) => element,
-};
 
 Pagination.displayName = 'Pagination';
 

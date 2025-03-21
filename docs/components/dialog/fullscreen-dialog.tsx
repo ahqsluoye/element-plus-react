@@ -10,8 +10,7 @@ const App = () => {
     return (
         <>
             <ElButton onClick={() => setVisible(true)}>打开对话框</ElButton>
-            <ElDialog fullscreen visible={visible} beforeClose={onClose} width={500}>
-                <ElDialog.header>标题</ElDialog.header>
+            <ElDialog fullscreen title="标题" visible={visible} beforeClose={onClose} width={500}>
                 <ElDialog.body>
                     <span>This is a message</span>
                 </ElDialog.body>

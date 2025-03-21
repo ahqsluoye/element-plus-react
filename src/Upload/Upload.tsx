@@ -9,6 +9,15 @@ import { useHandlers } from './use-handlers';
 
 const Upload: React.ForwardRefExoticComponent<UploadProps & React.RefAttributes<any>> = memo(
     forwardRef<UploadRef, UploadProps>((props, ref) => {
+        props = {
+            action: '#',
+            method: 'post',
+            name: 'file',
+            showFileList: true,
+            listType: 'text',
+            autoUpload: true,
+            ...props,
+        };
         const { listType, accept, onPreview, showFileList, formatter, trigger, tip } = props;
         const uploadRef = useRef<UploadContentRef>(null);
 
@@ -91,15 +100,6 @@ const Upload: React.ForwardRefExoticComponent<UploadProps & React.RefAttributes<
         );
     }),
 );
-
-Upload.defaultProps = {
-    action: '#',
-    method: 'post',
-    name: 'file',
-    showFileList: true,
-    listType: 'text',
-    autoUpload: true,
-};
 
 Upload.displayName = 'ElUpload';
 

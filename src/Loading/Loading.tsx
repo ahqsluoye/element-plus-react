@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FC } from 'react';
+import React, { FC, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import { Icon } from '../Icon';
@@ -9,18 +9,14 @@ import { useClassNames } from '../hooks';
 import { LoadingProps, LoadingService } from './typings';
 
 const Main: FC<LoadingProps> = props => {
-    const { visible, text, fullscreen, spinner, background } = props;
+    const { visible, text, fullscreen = true, spinner, background } = props;
     const { b, is } = useClassNames('loading');
 
-    // const mask = useMemo(
-    //     () => (
+    const nodeRef = useRef(null);
 
-    //     ),
-    //     [visible, classNames, b, is, fullscreen, props.className, props.style, background, spinner, text],
-    // );
     return (
-        <Transition name="loading-fade" visible={visible}>
-            <div className={classNames(b`mask`, is({ fullscreen }), props.className)} style={{ ...props.style, background, zIndex: PopupManager.nextZIndex() }}>
+        <Transition nodeRef={nodeRef} name="loading-fade" visible={visible}>
+            <div ref={nodeRef} className={classNames(b`mask`, is({ fullscreen }), props.className)} style={{ ...props.style, background, zIndex: PopupManager.nextZIndex() }}>
                 <div className={b`spinner`}>
                     {spinner ? (
                         <Icon name={spinner} spin />
@@ -63,10 +59,6 @@ interface CompInterface extends FC<LoadingProps> {
     defaultProps?: Partial<LoadingProps>;
     service: LoadingService;
 }
-
-Loading.defaultProps = {
-    fullscreen: true,
-};
 
 Loading.service = service;
 Loading.displayName = 'Loading';

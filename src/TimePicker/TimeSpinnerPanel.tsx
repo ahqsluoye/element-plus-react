@@ -15,7 +15,7 @@ interface ListMap {
 
 const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React.RefAttributes<SpinnerRef>> = memo(
     forwardRef<SpinnerRef, TimeSpinnerProps>((props, ref) => {
-        const { classPrefix = 'time', showSeconds, value: valueProp, onChange } = props;
+        const { classPrefix = 'time', showSeconds = true, value: valueProp, onChange } = props;
         const { b, be, is } = useClassNames(classPrefix);
 
         const spinnerDate = useRef(valueProp);
@@ -334,9 +334,6 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
     }),
 );
 
-TimeSpinnerPanel.defaultProps = {
-    showSeconds: true,
-};
 TimeSpinnerPanel.displayName = 'TimeSpinnerPanel';
 
 export default TimeSpinnerPanel;

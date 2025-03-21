@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import head from 'lodash/head';
-import React, { Children, cloneElement, isValidElement, memo, useContext } from 'react';
+import React, { Children, cloneElement, createRef, isValidElement, memo, useContext } from 'react';
 import { Icon } from '../Icon';
 import Tooltip from '../Tooltip/Tooltip';
 import { Transition } from '../Transition';
@@ -133,6 +133,8 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
 
     private errors: string[] = EMPTY_ERRORS;
     private warnings: string[] = EMPTY_ERRORS;
+    warningRef: React.RefObject<any | null>;
+    errorRef: React.RefObject<any | null>;
 
     // ============================== Subscriptions ==============================
     constructor(props: InternalFieldProps) {
@@ -144,6 +146,9 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
             const { initEntityValue } = getInternalHooks(HOOK_MARK);
             initEntityValue(this);
         }
+
+        this.warningRef = createRef();
+        this.errorRef = createRef();
     }
 
     public componentDidMount() {
@@ -607,13 +612,13 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
         const { errorStyle, warningStyle } = this.props;
         return (
             <>
-                <Transition name={b('slide-up')} visible={this.errors.length > 0} transitionAppear unmountOnExit display="">
-                    <label className={e`error`} style={errorStyle}>
+                <Transition nodeRef={this.errorRef} name={b('slide-up')} visible={this.errors.length > 0} transitionAppear unmountOnExit display="">
+                    <label ref={this.errorRef} className={e`error`} style={errorStyle}>
                         {head(this.errors)}
                     </label>
                 </Transition>
-                <Transition name={b('slide-up')} visible={this.warnings.length > 0} transitionAppear unmountOnExit display="">
-                    <label className={e`warning`} style={warningStyle}>
+                <Transition nodeRef={this.warningRef} name={b('slide-up')} visible={this.warnings.length > 0} transitionAppear unmountOnExit display="">
+                    <label ref={this.warningRef} className={e`warning`} style={warningStyle}>
                         {head(this.warnings)}
                     </label>
                 </Transition>

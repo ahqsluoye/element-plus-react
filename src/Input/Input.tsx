@@ -4,7 +4,7 @@ import { addClass, addStyle, hasClass, removeClass } from 'dom-lib';
 import isObject from 'lodash/isObject';
 import React, { ComponentType, RefObject, cloneElement, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { Icon, IconProps } from '../Icon';
-import { isNotEmpty } from '../Util';
+import { isNotEmpty, mergeDefaultProps } from '../Util';
 import { partitionHTMLProps, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import InputGroup from './InputGroup';
 import InputRange from './InputRange';
@@ -12,6 +12,16 @@ import TextArea from './TextArea';
 import { InputProps, InputRef, ValueType } from './typings';
 
 function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
+    props = mergeDefaultProps(
+        {
+            type: 'text',
+            placeholder: '请输入',
+            clearable: true,
+            debounceTime: 200,
+            defaultValue: '',
+        },
+        props,
+    );
     const {
         name,
         title,
@@ -275,12 +285,16 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
                     onInput={handleInput}
                     onClick={props.onClick}
                     onFocus={event => {
-                        addClass(contentRef.current, is('focus'));
+                        if (contentRef.current) {
+                            addClass(contentRef.current, is('focus'));
+                        }
                         showClear(value);
                         onFocus?.call(this, event);
                     }}
                     onBlur={event => {
-                        removeClass(contentRef.current, is('focus'));
+                        if (contentRef.current) {
+                            removeClass(contentRef.current, is('focus'));
+                        }
                         hideClear();
                         onBlur?.call(this, event);
                     }}
@@ -399,14 +413,6 @@ const Input = ForwardInput as InputInterface;
 
 Input.TextArea = TextArea;
 Input.Range = InputRange;
-
-Input.defaultProps = {
-    type: 'text',
-    placeholder: '请输入',
-    clearable: true,
-    debounceTime: 200,
-    defaultValue: '',
-};
 
 Input.displayName = 'ElInput';
 

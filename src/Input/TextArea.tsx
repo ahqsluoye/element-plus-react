@@ -1,9 +1,17 @@
 import classNames from 'classnames';
 import React, { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
+import { mergeDefaultProps } from '../Util';
 import { partitionHTMLProps, useClassNames, useControlled, useDisabled } from '../hooks';
 import { TextareaProps, TextareaRef } from './typings';
 
 const TextArea = forwardRef<TextareaRef, TextareaProps>((props, ref) => {
+    props = mergeDefaultProps(
+        {
+            placeholder: '请输入',
+            style: { width: '100%' },
+        },
+        props,
+    );
     const { name, title, error, placeholder, readOnly, plain, rows, classPrefix = 'textarea', onFocus, onBlur, onChange, warning, maxLength, showWordLimit, ...rest } = props;
     const { b, m, e, is } = useClassNames(classPrefix);
 
@@ -85,11 +93,6 @@ const TextArea = forwardRef<TextareaRef, TextareaProps>((props, ref) => {
         </div>
     );
 });
-
-TextArea.defaultProps = {
-    placeholder: '请输入',
-    style: { width: '100%' },
-};
 
 TextArea.displayName = 'TextArea';
 

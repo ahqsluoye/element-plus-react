@@ -4,10 +4,22 @@ import React, { Children, cloneElement, FC, forwardRef, useCallback, useImperati
 import * as ReactIs from 'react-is';
 import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames, useControlled } from '../hooks';
 import { Popper, PopperOptionRef } from '../Popper';
+import { mergeDefaultProps } from '../Util';
 import { TooltipContext } from './TooltipContext';
 import { TooltipProps, TooltipRef } from './typings';
 
 const Tooltip: FC<TooltipProps> = forwardRef<TooltipRef, TooltipProps>((props, ref) => {
+    props = mergeDefaultProps(
+        {
+            effect: 'dark',
+            showArrow: true,
+            showAfter: 0,
+            hideAfter: 200,
+            trigger: 'hover',
+            unmountOnExit: true,
+        },
+        props,
+    );
     const {
         classPrefix = 'tooltip',
         effect: theme,
@@ -175,14 +187,6 @@ const Tooltip: FC<TooltipProps> = forwardRef<TooltipRef, TooltipProps>((props, r
     );
 });
 
-Tooltip.defaultProps = {
-    effect: 'dark',
-    showArrow: true,
-    showAfter: 0,
-    hideAfter: 200,
-    trigger: 'hover',
-    unmountOnExit: true,
-};
 Tooltip.displayName = 'Tooltip';
 
 export default Tooltip;

@@ -2,12 +2,25 @@ import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import isObject from 'lodash/isObject';
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { mergeDefaultProps } from '../Util';
 import { addResizeListener, removeResizeListener } from '../Util/resize-event';
 import { partitionHTMLProps, useClassNames } from '../hooks';
 import Thumb from './Thumb';
 import { ScrollbarProps, ScrollbarRef } from './typings';
 
 const Scrollbar = forwardRef<ScrollbarRef, ScrollbarProps>((props, ref) => {
+    props = mergeDefaultProps(
+        {
+            native: false,
+            tag: 'div',
+            always: false,
+            minSize: 20,
+            height: '100%',
+            showHorizontal: true,
+            showVertical: true,
+        },
+        props,
+    );
     const { tag, className, style, wrapClass, wrapStyle, viewClass, viewStyle, native, height, maxHeight, minSize, always, onScroll, showHorizontal, showVertical, ...rest } =
         props;
     const { b, e, em } = useClassNames('scrollbar');
@@ -146,15 +159,6 @@ const Scrollbar = forwardRef<ScrollbarRef, ScrollbarProps>((props, ref) => {
     );
 });
 
-Scrollbar.defaultProps = {
-    native: false,
-    tag: 'div',
-    always: false,
-    minSize: 20,
-    height: '100%',
-    showHorizontal: true,
-    showVertical: true,
-};
 Scrollbar.displayName = 'Scrollbar';
 
 export default Scrollbar;

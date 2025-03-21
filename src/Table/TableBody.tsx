@@ -1,10 +1,9 @@
 import classNames from 'classnames';
-import cloneDeep from 'lodash/cloneDeep';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import some from 'lodash/some';
 import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
-import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
+// import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 import { useClassNames } from '../hooks';
 import TableCell from './TableCell';
 import { TableBodyContext, TableContext } from './TableContext';
@@ -12,7 +11,7 @@ import { TableColumnCtx } from './typings';
 import { getRowIdentity } from './util';
 
 const TableBody = () => {
-    const { data, setData, props, tableId, flattenColumns, fixedLeftColumns, fixedRightColumns } = useContext(TableContext);
+    const { data, /* setData, */ props, tableId, flattenColumns, fixedLeftColumns, fixedRightColumns } = useContext(TableContext);
     const { state, oldActiveRow, treeProps } = useContext(TableBodyContext);
     const { stripe, rowClassName, rowStyle, onCurrentChange, highlightCurrentRow, currentRowKey, rowKey, onDragChange, spanMethod } = props;
     const { e, em, bm, is } = useClassNames('table');
@@ -200,50 +199,50 @@ const TableBody = () => {
     );
 
     /** 排序结束后回调 */
-    const onSortItems = useCallback(
-        ({ oldIndex, newIndex }) => {
-            const result = arrayMove(cloneDeep(data), oldIndex, newIndex);
-            if (!isEqual(data, result)) {
-                setData(result);
-                onDragChange?.(result);
-            }
-        },
-        [data, onDragChange, setData],
-    );
+    // const onSortItems = useCallback(
+    //     ({ oldIndex, newIndex }) => {
+    //         const result = arrayMove(cloneDeep(data), oldIndex, newIndex);
+    //         if (!isEqual(data, result)) {
+    //             setData(result);
+    //             onDragChange?.(result);
+    //         }
+    //     },
+    //     [data, onDragChange, setData],
+    // );
 
-    const isSortTable = useMemo(
-        () => [...flattenColumns, ...fixedLeftColumns, ...fixedRightColumns].some(item => item.type === 'drag'),
-        [fixedLeftColumns, fixedRightColumns, flattenColumns],
-    );
+    // const isSortTable = useMemo(
+    //     () => [...flattenColumns, ...fixedLeftColumns, ...fixedRightColumns].some(item => item.type === 'drag'),
+    //     [fixedLeftColumns, fixedRightColumns, flattenColumns],
+    // );
 
-    /** 拖拽容器 */
-    const Sortable = useMemo(() => {
-        return SortableContainer(({ children }) => <tbody ref={tbodyRef}>{children}</tbody>);
-    }, []);
+    // /** 拖拽容器 */
+    // const Sortable = useMemo(() => {
+    //     return SortableContainer(({ children }) => <tbody ref={tbodyRef}>{children}</tbody>);
+    // }, []);
 
-    /** 拖拽项 */
-    const ListItem = useMemo(() => {
-        return SortableElement(({ item: row, rowIndex }) => renderTr(row, rowIndex));
-    }, [renderTr]);
+    // /** 拖拽项 */
+    // const ListItem = useMemo(() => {
+    //     return SortableElement(({ item: row, rowIndex }) => renderTr(row, rowIndex));
+    // }, [renderTr]);
 
-    return isSortTable ? (
-        // @ts-ignore
-        <Sortable
-            axis="y"
-            helperClass="r-sort-placeholder"
-            useDragHandle
-            helperContainer={() => tbodyRef.current}
-            onSortEnd={onSortItems}
-            onSortStart={(_, event) => event.preventDefault()}
-        >
-            {data.map((row, rowIndex) => (
-                // @ts-ignore
-                <ListItem index={rowIndex} key={`${tableId}_${rowIndex}`} item={row} rowIndex={rowIndex} />
-            ))}
-        </Sortable>
-    ) : (
-        <tbody ref={tbodyRef}>{data.map(renderTr)}</tbody>
-    );
+    // return isSortTable ? (
+    //     // @ts-ignore
+    //     <Sortable
+    //         axis="y"
+    //         helperClass="r-sort-placeholder"
+    //         useDragHandle
+    //         helperContainer={() => tbodyRef.current}
+    //         onSortEnd={onSortItems}
+    //         onSortStart={(_, event) => event.preventDefault()}
+    //     >
+    //         {data.map((row, rowIndex) => (
+    //             // @ts-ignore
+    //             <ListItem index={rowIndex} key={`${tableId}_${rowIndex}`} item={row} rowIndex={rowIndex} />
+    //         ))}
+    //     </Sortable>
+    // ) : (
+    // );
+    return <tbody ref={tbodyRef}>{data.map(renderTr)}</tbody>;
 };
 
 TableBody.displayName = 'TableBody';

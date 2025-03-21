@@ -16,16 +16,8 @@ export interface DividerProps
     /** 设置分割线文案的位置 */
     contentPosition?: 'left' | 'right' | 'center';
 }
-
-/**
- * @author	Parker
- * @CreateTime	2022/3/24下午8:46:40
- * @LastEditor	Parker
- * @ModifyTime	2022/5/13 13:56:36
- * @Description	Divider 分割线组件
- */
 const Divider: FC<DividerProps> = props => {
-    const { direction, borderStyle, contentPosition, classPrefix = 'divider' } = props;
+    const { direction = 'horizontal', borderStyle = 'solid', contentPosition = 'left', classPrefix = 'divider' } = props;
     const { b, m, e, is } = useClassNames(classPrefix);
 
     return (
@@ -40,11 +32,6 @@ const Divider: FC<DividerProps> = props => {
     );
 };
 
-Divider.defaultProps = {
-    direction: 'horizontal',
-    borderStyle: 'solid',
-    contentPosition: 'left',
-};
 Divider.displayName = 'Divider';
 
 export default memo(Divider);

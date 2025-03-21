@@ -213,7 +213,6 @@ const ColorPicker = forwardRef<any, ColorPickerProps>((props, ref) => {
     );
 });
 
-ColorPicker.defaultProps = {};
 ColorPicker.displayName = 'ColorPicker';
 
 export default ColorPicker;

@@ -6,22 +6,28 @@ import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, u
 import { Icon } from '../Icon';
 import { Input, InputRef } from '../Input';
 import { Popper, PopperOptionRef } from '../Popper';
-import { isNotEmpty } from '../Util';
+import { isNotEmpty, mergeDefaultProps } from '../Util';
 import { partitionAnimationProps, useControlled, useDisabled, useSize } from '../hooks';
 import { globalKey } from '../hooks/prefix';
 import TimePickerPanel from './TimePickerPanel';
 import { TimePanelRef, TimePickerProps, TimePickerRef, TimeType } from './typings';
 import { getAvailableArrs } from './useTimePicker';
 
-/**
- * @LastEditor	Parker
- * @ModifyTime	2022/4/5 21:16:52
- * @CreateTime	2022/4/5 11:15:37
- * @LastEditor	Parker
- * @ModifyTime	2025/2/21 20:55:34
- * @Description 用于选择或输入日期
- */
 const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
+    props = mergeDefaultProps(
+        {
+            format: 'HH:mm:ss',
+            disabledHours: () => [],
+            disabledMinutes: () => [],
+            disabledSeconds: () => [],
+            readonly: true,
+            isoWeek: true,
+            clearable: true,
+            disabled: false,
+            placeholder: '请选择时间',
+        },
+        props,
+    );
     const {
         name,
         readonly,
@@ -226,18 +232,6 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
         </>
     );
 });
-
-TimePicker.defaultProps = {
-    format: 'HH:mm:ss',
-    disabledHours: () => [],
-    disabledMinutes: () => [],
-    disabledSeconds: () => [],
-    readonly: true,
-    isoWeek: true,
-    clearable: true,
-    disabled: false,
-    placeholder: '请选择时间',
-};
 
 TimePicker.displayName = 'TimePicker';
 

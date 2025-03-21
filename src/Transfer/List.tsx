@@ -4,6 +4,7 @@ import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
 import { Checkbox } from '../Checkbox';
 import { Dropdown, DropdownItem, DropdownMenu } from '../Dropdown';
 import { Icon } from '../Icon';
+import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import DefaultListBody from './ListBody';
 import Search from './search';
@@ -20,6 +21,17 @@ import { ListBodyRef, OmitProps, TransferListBodyProps } from './typings/listBod
 type RecordType = KeyWiseTransferItem;
 
 const TransferList: FC<TransferListProps<RecordType>> = props => {
+    props = mergeDefaultProps(
+        {
+            data: [],
+            titleText: '',
+            showSearch: false,
+            itemsUnit: '项',
+            itemUnit: '项',
+            searchPlaceholder: '请输入搜索内容',
+        },
+        props,
+    );
     const {
         classPrefix = 'transfer-list',
         data,
@@ -324,15 +336,6 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
             {listFooter}
         </div>
     );
-};
-
-TransferList.defaultProps = {
-    data: [],
-    titleText: '',
-    showSearch: false,
-    itemsUnit: '项',
-    itemUnit: '项',
-    searchPlaceholder: '请输入搜索内容',
 };
 
 export default TransferList;

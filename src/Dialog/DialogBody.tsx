@@ -58,8 +58,5 @@ const DialogBody: React.ForwardRefExoticComponent<DialogBodyProps & React.RefAtt
 );
 
 DialogBody.displayName = 'ElDialogBody';
-DialogBody.defaultProps = {
-    padding: '0 20px',
-};
 
 export default DialogBody;

@@ -325,7 +325,6 @@ const Calendar: FC<CalendarProps> = forwardRef<HTMLDivElement, CalendarProps>((p
     );
 });
 
-Calendar.defaultProps = {};
-Calendar.displayName = 'Calendar';
+Calendar.displayName = 'ElCalendar';
 
 export default Calendar;

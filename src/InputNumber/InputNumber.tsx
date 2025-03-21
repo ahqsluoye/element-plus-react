@@ -7,11 +7,21 @@ import React, { forwardRef, memo, useCallback, useContext, useEffect, useImperat
 import { ConfigProvider } from '../ConfigProvider';
 import { Icon } from '../Icon';
 import { Input, InputRef } from '../Input';
-import { floatAdd, floatSub, formatNumber, isEmpty, isNotEmpty } from '../Util';
+import { floatAdd, floatSub, formatNumber, isEmpty, isNotEmpty, mergeDefaultProps } from '../Util';
 import { partitionHTMLProps, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { InputNumberProps, InputNumberRef } from './typings';
 
 const InputNumber = forwardRef<InputNumberRef, InputNumberProps>((props, ref) => {
+    props = mergeDefaultProps(
+        {
+            step: 1,
+            precision: 0,
+            max: Infinity,
+            min: -Infinity,
+            placeholder: '请输入',
+        },
+        props,
+    );
     const {
         name,
         max: _maxProp,
@@ -226,13 +236,6 @@ const InputNumber = forwardRef<InputNumberRef, InputNumberProps>((props, ref) =>
     );
 });
 
-InputNumber.defaultProps = {
-    step: 1,
-    precision: 0,
-    max: Infinity,
-    min: -Infinity,
-    placeholder: '请输入',
-};
 InputNumber.displayName = 'ElInputNumber';
 
 export default memo(InputNumber);

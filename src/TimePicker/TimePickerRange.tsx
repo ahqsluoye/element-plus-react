@@ -11,7 +11,7 @@ import React, { forwardRef, memo, useCallback, useImperativeHandle, useMemo, use
 import { ValueRagne } from '../Calendar';
 import { Icon } from '../Icon';
 import { Popper, PopperOptionRef } from '../Popper';
-import { isEmpty, isNotEmpty } from '../Util';
+import { isEmpty, isNotEmpty, mergeDefaultProps } from '../Util';
 import { partitionAnimationProps, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import TimeRangePanel from './TimeRangePanel';
 import { RoleType, TimePanelRef, TimePickerRangeProps, TimeType } from './typings';
@@ -19,6 +19,21 @@ import { getAvailableArrs } from './useTimePicker';
 import { makeRange } from './util';
 
 const TimePickerRange = forwardRef<HTMLInputElement, TimePickerRangeProps>((props, ref) => {
+    props = mergeDefaultProps(
+        {
+            format: 'HH:mm:ss',
+            disabledHours: () => [],
+            disabledMinutes: () => [],
+            disabledSeconds: () => [],
+            isoWeek: true,
+            clearable: true,
+            disabled: false,
+            startPlaceholder: '开始时间',
+            endPlaceholder: '结束时间',
+            rangeSeparator: '到',
+        },
+        props,
+    );
     const {
         name,
         clearable,
@@ -354,19 +369,6 @@ const TimePickerRange = forwardRef<HTMLInputElement, TimePickerRangeProps>((prop
         </>
     );
 });
-
-TimePickerRange.defaultProps = {
-    format: 'HH:mm:ss',
-    disabledHours: () => [],
-    disabledMinutes: () => [],
-    disabledSeconds: () => [],
-    isoWeek: true,
-    clearable: true,
-    disabled: false,
-    startPlaceholder: '开始时间',
-    endPlaceholder: '结束时间',
-    rangeSeparator: '到',
-};
 
 TimePickerRange.displayName = 'TimePicker';
 

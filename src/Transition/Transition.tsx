@@ -5,7 +5,7 @@ import isFunction from 'lodash/isFunction';
 import omit from 'lodash/omit';
 import React, { Children, cloneElement, Component, createRef, RefObject } from 'react';
 import { AnimationEventProps, ComponentChildren } from '../types/common';
-import { getAnimationEnd, getDOMNode } from './util';
+import { getAnimationEnd } from './util';
 
 export enum STATUS {
     UNMOUNTED = 0,
@@ -15,6 +15,10 @@ export enum STATUS {
     BEFORE_LEAVE = 4,
     LEAVE = 5,
     AFTER_LEAVE = 6,
+}
+
+interface ExtraProps {
+    nodeRef: RefObject<HTMLElement> | (() => RefObject<HTMLElement>);
 }
 
 export interface TransitionProps extends AnimationEventProps {
@@ -60,7 +64,7 @@ interface TransitionState {
     status?: number;
 }
 
-class Transition extends Component<TransitionProps, TransitionState> {
+class Transition extends Component<TransitionProps & ExtraProps, TransitionState> {
     static displayName = 'Transition';
     static defaultProps = {
         duration: 100,
@@ -72,7 +76,7 @@ class Transition extends Component<TransitionProps, TransitionState> {
     needsUpdate = null;
     childRef: RefObject<any>;
 
-    constructor(props: TransitionProps) {
+    constructor(props: TransitionProps & ExtraProps) {
         super(props);
 
         let initialStatus: number;
@@ -192,10 +196,10 @@ class Transition extends Component<TransitionProps, TransitionState> {
     }
 
     getChildElement() {
-        if (this.childRef.current) {
-            return getDOMNode(this.childRef.current);
+        if (this.props?.nodeRef instanceof Function) {
+            return this.props?.nodeRef()?.current;
         }
-        return getDOMNode(this);
+        return this.props?.nodeRef?.current;
     }
 
     performEnter(props: TransitionProps) {
@@ -276,6 +280,7 @@ class Transition extends Component<TransitionProps, TransitionState> {
             'beforeLeave',
             'onLeave',
             'afterLeave',
+            'nodeRef',
         ]);
 
         let transitionClassName;

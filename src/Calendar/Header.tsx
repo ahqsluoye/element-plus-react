@@ -8,9 +8,9 @@ import { HeaderProps } from './typings';
 const Header: FC<HeaderProps> = props => {
     const {
         prefix,
-        showBackward,
-        showForward,
-        showMonth,
+        showBackward = true,
+        showForward = true,
+        showMonth = true,
         plain,
         postion,
         year,
@@ -72,12 +72,6 @@ const Header: FC<HeaderProps> = props => {
             {plain && <div>{showMonth ? `${year}  ${month}` : year}</div>}
         </div>
     );
-};
-
-Header.defaultProps = {
-    showBackward: true,
-    showForward: true,
-    showMonth: true,
 };
 
 Header.displayName = 'Calendar.Header';

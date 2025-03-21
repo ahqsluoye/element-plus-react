@@ -6,7 +6,7 @@ import DescriptionsRow from './DescriptionsRow';
 import { DescriptionsItemProps, DescriptionsProps } from './typings';
 
 const Descriptions = forwardRef<any, DescriptionsProps>((props, ref) => {
-    const { border, column, direction, title, size, extra, classPrefix = 'descriptions', className, style } = props;
+    const { border, column = 3, direction = 'horizontal', title, size, extra, classPrefix = 'descriptions', className, style } = props;
     const { b, e, m, is } = useClassNames(classPrefix);
 
     /** 获取子组件 */
@@ -91,9 +91,5 @@ const Descriptions = forwardRef<any, DescriptionsProps>((props, ref) => {
 });
 
 Descriptions.displayName = 'Descriptions';
-Descriptions.defaultProps = {
-    column: 3,
-    direction: 'horizontal',
-};
 
 export default memo(Descriptions);

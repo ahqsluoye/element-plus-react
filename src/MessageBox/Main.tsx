@@ -17,7 +17,9 @@ export class Main {
                 options={{
                     ...options,
                     afterLeave: () => {
-                        root.unmount();
+                        setTimeout(() => {
+                            root.unmount();
+                        }, 200);
                     },
                 }}
                 {...other}

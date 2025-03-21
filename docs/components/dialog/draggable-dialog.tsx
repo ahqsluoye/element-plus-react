@@ -27,8 +27,7 @@ const App = () => {
                 打开一个可拖拽超出可视区范围的对话框
             </ElButton>
 
-            <ElDialog draggable visible={visible} overflow={overflow} beforeClose={onClose} width={500}>
-                <ElDialog.header>标题</ElDialog.header>
+            <ElDialog draggable title="标题" visible={visible} overflow={overflow} beforeClose={onClose} width={500}>
                 <ElDialog.body>
                     <span>This is a message</span>
                 </ElDialog.body>

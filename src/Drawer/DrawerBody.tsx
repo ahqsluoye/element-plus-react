@@ -6,7 +6,7 @@ import { useClassNames } from '../hooks';
 import { DrawerBodyProps } from './typings';
 
 const DrawerBody = forwardRef<HTMLDivElement, DrawerBodyProps>((props, ref) => {
-    const { classPrefix = 'drawer-body', padding } = props;
+    const { classPrefix = 'drawer-body', padding = '0 20px' } = props;
     const { b } = useClassNames(classPrefix);
 
     const scrollbarInstance = useRef<ScrollbarRef>(null);
@@ -37,8 +37,5 @@ const DrawerBody = forwardRef<HTMLDivElement, DrawerBodyProps>((props, ref) => {
 });
 
 DrawerBody.displayName = 'DrawerBody';
-DrawerBody.defaultProps = {
-    padding: '0 20px',
-};
 
 export default DrawerBody;

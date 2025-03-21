@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Icon } from '../Icon';
 import { Progress } from '../Progress';
 import { Transition } from '../Transition';
@@ -11,6 +11,7 @@ const UploadList = (props: UploadListProps) => {
     const { b, bm, be, is } = useClassNames('upload');
 
     const disabled = useDisabled(props.disabled);
+    const nodeRef = useRef(null);
 
     const handleRemove = useCallback(
         (file: UploadFile) => {
@@ -22,8 +23,8 @@ const UploadList = (props: UploadListProps) => {
     return (
         <ul className={classNames(b`list`, bm('list', listType), is({ disabled }))}>
             {files.map((file, i) => (
-                <Transition key={`tr_${file.uid || file.name}${i}`} name={b('list', false)} visible transitionAppear unmountOnExit display="">
-                    <li key={`${file.uid || file.name}${i}`} className={classNames(be('list', 'item'), is(file.status) /* , { focusing } */)}>
+                <Transition nodeRef={nodeRef} key={`tr_${file.uid || file.name}${i}`} name={b('list', false)} visible transitionAppear unmountOnExit display="">
+                    <li ref={nodeRef} key={`${file.uid || file.name}${i}`} className={classNames(be('list', 'item'), is(file.status) /* , { focusing } */)}>
                         {formatter ? (
                             formatter(file)
                         ) : (

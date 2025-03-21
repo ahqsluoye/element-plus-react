@@ -1,11 +1,23 @@
 import classNames from 'classnames';
 import React, { FC, useMemo } from 'react';
 import { Icon } from '../Icon';
+import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import { globalKey } from '../hooks/prefix';
 import { PropgressProps } from './typings';
 
-const Progress: FC<PropgressProps> = props => {
+const Progress: FC<PropgressProps> = (props: PropgressProps) => {
+    props = mergeDefaultProps(
+        {
+            type: 'line',
+            strokeWidth: 6,
+            duration: 3,
+            width: 126,
+            showText: true,
+            strokeLinecap: 'round',
+        },
+        props,
+    );
     const { classPrefix = 'progress', percentage, type, strokeWidth, textInside, status, indeterminate, duration, color, width, showText, strokeLinecap, format } = props;
     const { b, m, e, be, bem, is } = useClassNames(classPrefix);
 
@@ -178,14 +190,6 @@ const Progress: FC<PropgressProps> = props => {
     );
 };
 
-Progress.defaultProps = {
-    type: 'line',
-    strokeWidth: 6,
-    duration: 3,
-    width: 126,
-    showText: true,
-    strokeLinecap: 'round',
-};
 Progress.displayName = 'Progress';
 
 export default Progress;

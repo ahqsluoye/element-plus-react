@@ -1,10 +1,22 @@
 import classNames from 'classnames';
 import React, { FC, useCallback } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
+import { mergeDefaultProps } from '../Util';
 import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames } from '../hooks';
 import { PopoverProps } from './typings';
 
 const Popover: FC<PopoverProps> = props => {
+    props = mergeDefaultProps(
+        {
+            placement: 'bottom',
+            showArrow: true,
+            showTimeout: 0,
+            hideTimeout: 300,
+            width: 200,
+            trigger: 'click',
+        },
+        props,
+    );
     const { title, classPrefix = 'popover', plain, width, showTimeout, hideTimeout, offset, trigger, content, onEnter, onMouseEnter, onMouseLeave, placement, ...rest } = props;
     const { b, e, m } = useClassNames(classPrefix);
     const [popperProps] = partitionPopperPropsUtils(rest);
@@ -54,14 +66,6 @@ const Popover: FC<PopoverProps> = props => {
     );
 };
 
-Popover.defaultProps = {
-    placement: 'bottom',
-    showArrow: true,
-    showTimeout: 0,
-    hideTimeout: 300,
-    width: 200,
-    trigger: 'click',
-};
 Popover.displayName = 'Popover';
 
 export default Popover;

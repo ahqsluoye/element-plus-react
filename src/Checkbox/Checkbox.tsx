@@ -20,7 +20,7 @@ const Checkbox: FC<CheckboxProps> = memo(
             checked: controlledChecked,
             className,
             children,
-            defaultChecked,
+            defaultChecked = false,
             title,
             indeterminate,
             readOnly = readOnlyContext,
@@ -29,7 +29,7 @@ const Checkbox: FC<CheckboxProps> = memo(
             onClick,
             onCheckboxClick,
             onChange,
-            prevent,
+            prevent = false,
             onMouseEnter,
             onMouseLeave,
             ...rest
@@ -135,11 +135,6 @@ const Checkbox: FC<CheckboxProps> = memo(
         return title ? <Tooltip content={title}>{main}</Tooltip> : main;
     }),
 );
-
-Checkbox.defaultProps = {
-    prevent: false,
-    defaultChecked: false,
-};
 
 Checkbox.displayName = 'ElCheckbox';
 

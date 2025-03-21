@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FC, memo, useCallback, useContext, useMemo } from 'react';
+import React, { FC, memo, useCallback, useContext, useMemo, useRef } from 'react';
 import { Icon } from '../Icon';
 import { Transition } from '../Transition';
 import { useClassNames } from '../hooks';
@@ -12,6 +12,8 @@ const CollapseItem: FC<CollapseItemProps> = memo(props => {
     const { b, e, is } = useClassNames(classPrefix);
 
     const { value, setValue, accordion, onChange } = useContext(CollapseContext);
+
+    const containerRef = useRef(null);
 
     const active = useMemo(() => {
         if (accordion && typeof value === 'string') {
@@ -56,17 +58,18 @@ const CollapseItem: FC<CollapseItemProps> = memo(props => {
             </div>
 
             <Transition
+                nodeRef={containerRef}
                 name="r-menu-collapse"
                 duration={300}
                 visible={active}
-                beforeEnter={beforeEnter}
-                onEnter={onEnter}
-                afterEnter={afterEnter}
-                beforeLeave={beforeLeave}
-                onLeave={onLeave}
-                afterLeave={afterLeave}
+                beforeEnter={() => beforeEnter(containerRef)}
+                onEnter={() => onEnter(containerRef)}
+                afterEnter={() => afterEnter(containerRef)}
+                beforeLeave={() => beforeLeave(containerRef)}
+                onLeave={() => onLeave(containerRef)}
+                afterLeave={() => afterLeave(containerRef)}
             >
-                <div className={classNames(e`wrap`)} style={{ display: 'none' }}>
+                <div ref={containerRef} className={classNames(e`wrap`)} style={{ display: 'none' }}>
                     <div className={e`content`}>{props.children}</div>
                 </div>
             </Transition>

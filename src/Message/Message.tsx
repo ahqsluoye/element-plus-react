@@ -3,13 +3,23 @@ import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, u
 import { createPortal } from 'react-dom';
 import { Badge } from '../Badge';
 import { Transition } from '../Transition';
-import { PopupManager } from '../Util';
+import { PopupManager, mergeDefaultProps } from '../Util';
 import { EVENT_CODE, TypeMap } from '../config/Constants';
 import { useClassNames } from '../hooks';
 import { MessageProps, MessageRef } from './typings';
 // import { ConfigProvider } from '../ConfigProvider';
 
 const Message = forwardRef<MessageRef, MessageProps>((props, ref) => {
+    props = mergeDefaultProps(
+        {
+            duration: 3000,
+            message: '',
+            showClose: true,
+            type: 'info',
+            offset: 20,
+        },
+        props,
+    );
     const { classPrefix = 'message', center, iconClass, showClose: closable, type, onClose, duration, message, immediate, userOnClose, afterLeave } = props;
     const { b, e, m, is } = useClassNames(classPrefix);
     // const { message: messageConfig } = useContext(ConfigProvider);
@@ -116,7 +126,7 @@ const Message = forwardRef<MessageRef, MessageProps>((props, ref) => {
     const closeIcon = useMemo(() => closable && <div className={classNames(e`closeBtn`, b('icon-close', false))} onClick={handleClose} />, [closable, e, b, handleClose]);
 
     return createPortal(
-        <Transition name={b('message-fade', false)} visible={visible} display="flex" unmountOnExit afterEnter={startTimer} afterLeave={afterLeave}>
+        <Transition nodeRef={messageRef} name={b('message-fade', false)} visible={visible} display="flex" unmountOnExit afterEnter={startTimer} afterLeave={afterLeave}>
             <div
                 ref={messageRef}
                 className={classNames(b(), { [m(type)]: type && !iconClass }, is({ center, closable }), props.className)}
@@ -138,13 +148,5 @@ const Message = forwardRef<MessageRef, MessageProps>((props, ref) => {
         document.body,
     );
 });
-
-Message.defaultProps = {
-    duration: 3000,
-    message: '',
-    showClose: true,
-    type: 'info',
-    offset: 20,
-};
 
 export default memo(Message);

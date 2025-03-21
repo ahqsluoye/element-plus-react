@@ -11,12 +11,33 @@ import { Popper } from '../Popper';
 import { PopperOptionRef } from '../Popper/typings';
 import { Tag } from '../Tag';
 import Tooltip from '../Tooltip/Tooltip';
-import { isNotEmpty } from '../Util';
+import { isNotEmpty, mergeDefaultProps } from '../Util';
 import { partitionAnimationProps, partitionHTMLProps, partitionPopperPropsUtils, useChildrenInstance, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import SelectDropdown from './SelectDropdown';
 import { SelectDropdownRef, SelectOptionGroupProps, SelectOptionProps, SelectProps, SelectRef, ValueType } from './typings';
 
 const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
+    props = mergeDefaultProps(
+        {
+            placeholder: '请选择',
+            noDataText: '无数据',
+            noMatchText: '没有找到匹配的结果',
+            loadingText: (
+                <span>
+                    <Icon prefix="fas" name="spinner" spin /> 加载中...
+                </span>
+            ),
+            clearable: true,
+            filterable: false,
+            error: false,
+            required: false,
+            disabled: false,
+            maxWidth: 500,
+            collapseTagsTooltip: true,
+            maxCollapseTags: 1,
+        },
+        props,
+    );
     const { b, e, be, m, is } = useClassNames('select');
     // 选择框容器div
     const containerRef = useRef<HTMLDivElement>(null);
@@ -434,24 +455,6 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
     );
 });
 
-SelectCore.defaultProps = {
-    placeholder: '请选择',
-    noDataText: '无数据',
-    noMatchText: '没有找到匹配的结果',
-    loadingText: (
-        <span>
-            <Icon prefix="fas" name="spinner" spin /> 加载中...
-        </span>
-    ),
-    clearable: true,
-    filterable: false,
-    error: false,
-    required: false,
-    disabled: false,
-    maxWidth: 500,
-    collapseTagsTooltip: true,
-    maxCollapseTags: 1,
-};
 SelectCore.displayName = 'SelectCore';
 
 export default SelectCore;

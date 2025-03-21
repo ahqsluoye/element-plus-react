@@ -1,11 +1,19 @@
 import classNames from 'classnames';
 import React, { FC } from 'react';
-import { floatDivide } from '../Util';
+import { floatDivide, mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import { RowContext } from './RowContext';
 import { RowProps } from './typings';
 
 const Row: FC<RowProps> = props => {
+    props = mergeDefaultProps(
+        {
+            gutter: 0,
+            justify: 'start',
+            tag: 'div',
+        },
+        props,
+    );
     const { tag = 'div', gutter = 0, justify, align, classPrefix = 'row' } = props;
     const { b, is } = useClassNames(classPrefix);
 
@@ -26,9 +34,4 @@ const Row: FC<RowProps> = props => {
     );
 };
 
-Row.defaultProps = {
-    gutter: 0,
-    justify: 'start',
-    tag: 'div',
-};
 export default Row;

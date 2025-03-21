@@ -11,15 +11,33 @@ import { ButtonProps, ButtonRef } from './typings';
 const InternalButton = (props: ButtonProps, ref: Ref<ButtonRef>) => {
     const { disabled: groupDisabled, type: groupType, size: groupSize, bgColor, borderColor } = useContext(ButtonGroupContext);
     const { button } = useContext(ConfigProvider);
-    const { active, block, plain, round, circle, link, text, bg, dashed, className, loading, loadingIcon, loadingSlot, nativeType, icon, onClick, ...rest } = props;
+    const {
+        active,
+        block,
+        plain,
+        round,
+        circle,
+        link,
+        text,
+        bg,
+        dashed,
+        className,
+        loading,
+        loadingIcon = 'spinner',
+        loadingSlot,
+        nativeType = 'button',
+        icon = false,
+        onClick,
+        ...rest
+    } = props;
     const disabled = useDisabled(groupDisabled ?? props.disabled);
     const size = useSize(groupSize ?? props.size);
     const { b, m, is } = useClassNames('button');
     const [htmlInputProps] = partitionHTMLProps(rest);
     const containerRef = useRef<HTMLButtonElement>(null);
 
-    const spin = useMemo(() => loadingSlot ?? <Icon name={loadingIcon} className={classNames(b`spin`, is`loading`)} spin />, [loadingSlot, loadingIcon, classNames, b, is]);
-    const type = useMemo(() => groupType ?? props.type, [groupType, props.type]);
+    const spin = useMemo(() => loadingSlot ?? <Icon name={loadingIcon} className={classNames(b`spin`, is`loading`)} spin />, [loadingSlot, loadingIcon, b, is]);
+    const type = useMemo(() => groupType ?? (props.type || 'default'), [groupType, props.type]);
     const autoInsertSpace = useMemo(() => props.autoInsertSpace ?? button?.autoInsertSpace ?? true, [button?.autoInsertSpace, props.autoInsertSpace]);
 
     const children = useMemo(() => {
@@ -68,18 +86,10 @@ type InternalType = typeof Comp;
 
 interface CompInterface extends InternalType {
     displayName?: string;
-    defaultProps?: ButtonProps;
     Group: typeof ButtonGroup;
 }
 
 const Button = Comp as CompInterface;
-
-Button.defaultProps = {
-    type: 'default',
-    nativeType: 'button',
-    icon: false,
-    loadingIcon: 'spinner',
-};
 
 Button.Group = ButtonGroup;
 Button.displayName = 'ElButton';

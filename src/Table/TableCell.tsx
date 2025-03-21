@@ -9,7 +9,7 @@ import words from 'lodash/words';
 import React, { RefObject, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Root, createRoot } from 'react-dom/client';
-import { SortableHandle } from 'react-sortable-hoc';
+// import { SortableHandle } from 'react-sortable-hoc';
 import { Checkbox } from '../Checkbox';
 import { Icon } from '../Icon';
 import { TooltipRef } from '../Tooltip/typings';
@@ -374,14 +374,14 @@ const TableCell = (p: Props) => {
     }, [column.id, column.level, e, em, handleExpandTreeCell, indent, isTreeExpandCell, loading, row, treeProps.children, treeProps.hasChildren]);
 
     /** 拖拽手柄 */
-    const DragHandle = useMemo(() => {
-        return SortableHandle(() => (
-            <div style={{ cursor: 'grab' }}>
-                <Icon name="grip-vertical" prefix="fas" />
-                {/* <Icon name="grip-dots-vertical" prefix="fas" /> */}
-            </div>
-        ));
-    }, []);
+    // const DragHandle = useMemo(() => {
+    //     return SortableHandle(() => (
+    //         <div style={{ cursor: 'grab' }}>
+    //             <Icon name="grip-vertical" prefix="fas" />
+    //             {/* <Icon name="grip-dots-vertical" prefix="fas" /> */}
+    //         </div>
+    //     ));
+    // }, []);
 
     return (
         <td
@@ -431,7 +431,7 @@ const TableCell = (p: Props) => {
                             </div>
                         );
                     } else if (column.type === 'drag') {
-                        return <DragHandle />;
+                        // return <DragHandle />;
                     } else if (column.type === 'selection') {
                         return (
                             <Checkbox
