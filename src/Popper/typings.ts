@@ -26,7 +26,7 @@ export type PopperOptions = {
     popperClass?: string;
     /** 为 popper 添加自定义内联样式 */
     popperStyle?: React.CSSProperties;
-    effect?: 'light' | 'dark';
+    effect?: 'light' | 'dark' | string;
     popperOptions?: Options;
 };
 

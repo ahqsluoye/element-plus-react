@@ -1,13 +1,17 @@
-# element-plus-react
+# @qsxy/element-plus-react
 
 [![NPM version](https://img.shields.io/npm/v/element-plus-react.svg?style=flat)](https://npmjs.org/package/@qsxy/element-plus-react)
 [![NPM downloads](http://img.shields.io/npm/dm/element-plus-react.svg?style=flat)](https://npmjs.org/package/@qsxy/element-plus-react)
 
-element-plus-react
+@qsxy/element-plus-react
 
 ## Usage
 
-TODO
+```javascript
+// how to use
+import '@qsxy/element-plus-react/dist/index.css';
+import { ElButton, ElLink } from '@qsxy/element-plus-react';
+```
 
 ## Options
 
@@ -17,22 +21,7 @@ TODO
 
 ```bash
 # install dependencies
-$ pnpm install
-
-# develop library by docs demo
-$ pnpm start
-
-# build library source code
-$ pnpm run build
-
-# build library source code in watch mode
-$ pnpm run build:watch
-
-# build docs
-$ pnpm run docs:build
-
-# check your project for potential problems
-$ pnpm run doctor
+$ npm i @qsxy/element-plus-react
 ```
 
 ## LICENSE

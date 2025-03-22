@@ -4,31 +4,19 @@ import React, { Children, cloneElement, FC, forwardRef, useCallback, useImperati
 import * as ReactIs from 'react-is';
 import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames, useControlled } from '../hooks';
 import { Popper, PopperOptionRef } from '../Popper';
-import { mergeDefaultProps } from '../Util';
 import { TooltipContext } from './TooltipContext';
 import { TooltipProps, TooltipRef } from './typings';
 
 const Tooltip: FC<TooltipProps> = forwardRef<TooltipRef, TooltipProps>((props, ref) => {
-    props = mergeDefaultProps(
-        {
-            effect: 'dark',
-            showArrow: true,
-            showAfter: 0,
-            hideAfter: 200,
-            trigger: 'hover',
-            unmountOnExit: true,
-        },
-        props,
-    );
     const {
         classPrefix = 'tooltip',
-        effect: theme,
-        trigger,
+        effect = 'dark',
+        trigger = 'hover',
         content,
         disabled,
-        enterable,
-        showAfter,
-        hideAfter,
+        enterable = true,
+        showAfter = 0,
+        hideAfter = 200,
         onMouseEnter,
         onMouseLeave,
         onEnter,
@@ -36,6 +24,7 @@ const Tooltip: FC<TooltipProps> = forwardRef<TooltipRef, TooltipProps>((props, r
         contentSlot,
         virtualTriggering,
         virtualRef,
+        unmountOnExit = true,
         ...rest
     } = props;
     const [popperProps] = partitionPopperPropsUtils(rest);
@@ -165,8 +154,8 @@ const Tooltip: FC<TooltipProps> = forwardRef<TooltipRef, TooltipProps>((props, r
                 }}
                 onMouseEnter={enterable && trigger === 'hover' ? handleMouseEnter : noop}
                 onMouseLeave={enterable && trigger === 'hover' ? handleMouseLeave : noop}
-                className={classNames(is(theme), props.popperClass, { [e`popper`]: classPrefix === 'tooltip' })}
-                unmountOnExit={props.unmountOnExit}
+                className={classNames(is(effect), props.popperClass, { [e`popper`]: classPrefix === 'tooltip' })}
+                unmountOnExit={unmountOnExit}
                 {...popperProps}
                 {...transitionProps}
             >

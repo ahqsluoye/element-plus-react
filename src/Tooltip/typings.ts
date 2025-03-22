@@ -20,7 +20,7 @@ export interface TooltipProps extends BaseProps<React.ReactNode>, NativeProps, P
     /** 指示 Tooltip 的内容将附加在哪一个网页元素上 */
     appendTo?: HTMLElement;
     /** 默认提供的主题 */
-    effect?: 'light' | 'dark';
+    effect?: 'light' | 'dark' | string;
     /** 显示的内容 */
     content?: string | React.ReactNode;
     /** 触发下拉的行为 */

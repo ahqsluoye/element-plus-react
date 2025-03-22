@@ -121,6 +121,19 @@ function generatePackageJSON() {
         .pipe(gulp.dest('./packages/'));
 }
 
+function generateReadme() {
+    return gulp
+        .src('./README.md')
+        .pipe(
+            through.obj((file, enc, cb) => {
+                const rawJSON = file.contents.toString();
+                file.contents = Buffer.from(rawJSON);
+                cb(null, file);
+            }),
+        )
+        .pipe(gulp.dest('./packages/'));
+}
+
 /**
  * 复制json文件
  * @returns
@@ -137,5 +150,5 @@ function generatePackageJSON() {
 // exports.build = gulp.series(clean, buildJs /* , buildCJS, cleanES */);
 
 // exports.build = gulp.series(clean, buildES, buildCJS, gulp.parallel(gulp.series(buildDts /* , buildTypings */), buildComponentStyles, generatePackageJSON), cleanTemp);
-exports.build = gulp.parallel(buildComponentStyles, generatePackageJSON);
+exports.build = gulp.parallel(buildComponentStyles, generatePackageJSON, generateReadme);
 exports.clean = clean;

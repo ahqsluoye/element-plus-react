@@ -5,7 +5,10 @@ import { BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export type LinkType = TypeAttributes.Appearance;
 
-export interface LinkProps extends BaseProps, NativeProps, Omit<React.AllHTMLAttributes<HTMLAnchorElement>, 'type' | 'style' | 'children'> {
+export interface LinkProps
+    extends BaseProps,
+        NativeProps<'--el-link-font-size' | '--el-link-font-weight' | '--el-link-text-color' | '--el-link-hover-text-color' | '--el-link-disabled-text-color'>,
+        Omit<React.AllHTMLAttributes<HTMLAnchorElement>, 'type' | 'style' | 'children'> {
     /** 链接地址 */
     href?: string;
     /** 链接类型 */

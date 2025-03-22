@@ -1,21 +1,18 @@
 import classNames from 'classnames';
-import React, { forwardRef, useCallback } from 'react';
+import { useComposeRef } from 'rc-util/lib/ref';
+import React, { forwardRef, useCallback, useRef } from 'react';
 import { Icon } from '../Icon';
 import { Transition } from '../Transition';
-import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import { TagProps } from './typings';
 
-const Tag = forwardRef<HTMLSpanElement, TagProps>((props, ref) => {
-    props = mergeDefaultProps(
-        {
-            type: 'primary',
-            theme: 'light',
-        },
-        props,
-    );
-    const { type, closable, size, color, theme, round, hit, classPrefix = 'tag', className, style, onClick, onClose, disableTransitions } = props;
+const Tag = forwardRef<HTMLElement, TagProps>((props, ref) => {
+    const { type = 'primary', closable, size, color, theme = 'light', round, hit, classPrefix = 'tag', className, style, onClick, onClose, disableTransitions } = props;
     const { b, m, e, is } = useClassNames(classPrefix);
+
+    const containerRef = useRef<HTMLElement>(null);
+
+    const mergedRef = useComposeRef(ref, containerRef);
 
     const onClickTag = useCallback(
         (event: React.MouseEvent<HTMLSpanElement>) => {
@@ -34,10 +31,9 @@ const Tag = forwardRef<HTMLSpanElement, TagProps>((props, ref) => {
     );
 
     return (
-        // @ts-ignore
-        <Transition nodeRef={ref} name={disableTransitions ? '' : 'r-zoom-in-center'} visible display="" transitionAppear unmountOnExit duration={200}>
+        <Transition nodeRef={containerRef} name={disableTransitions ? '' : b('zoom-in-center', false)} visible display="" transitionAppear unmountOnExit duration={200}>
             <span
-                ref={ref}
+                ref={mergedRef}
                 className={classNames(b(), m(type, theme, { [size]: size }), is({ round, hit }), className)}
                 style={{ background: color, ...style }}
                 onClick={onClickTag}
@@ -51,6 +47,6 @@ const Tag = forwardRef<HTMLSpanElement, TagProps>((props, ref) => {
     );
 });
 
-Tag.displayName = 'Tag';
+Tag.displayName = 'ElTag';
 
 export default Tag;

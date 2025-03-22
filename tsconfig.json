@@ -17,7 +17,7 @@
         "outDir": "./dist/",
         "declaration": true,
         "noImplicitAny": false,
-        "removeComments": true,
+        "removeComments": false,
         "noLib": false,
         "lib": ["esnext", "DOM"],
         "noUnusedLocals": false,
