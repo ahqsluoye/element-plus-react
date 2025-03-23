@@ -163,7 +163,7 @@ const IconList = () => {
                 ...focusIcon,
                 prefix: icon.prefix,
                 name: icon.name,
-                pre: Prism.highlight(`<Icon name="${icon.name}" prefix="${icon.prefix}" />`, Prism.languages.tsx, 'tsx'),
+                pre: Prism.highlight(`<ElIcon name="${icon.name}" prefix="${icon.prefix}" />`, Prism.languages.tsx, 'tsx'),
                 unicode: '\\' + get(ICONS, `${icon.name}.unicode`, ''),
                 svg: get(ICONS, `${icon.name}.svg`, {}),
             });
@@ -177,7 +177,7 @@ const IconList = () => {
             if (type === 'unicode') {
                 content = focusIcon.unicode;
             } else if (type === 'jsx') {
-                content = `<Icon name="${focusIcon.name}" prefix="${focusIcon.prefix}" />`;
+                content = `<ElIcon name="${focusIcon.name}" prefix="${focusIcon.prefix}" />`;
             } else if (type === 'name') {
                 content = focusIcon.name;
             } else if (type === 'svg') {
@@ -238,7 +238,7 @@ const IconList = () => {
             setActiveSubType(type);
             Object.assign(focusIcon, {
                 prefix: type,
-                pre: Prism.highlight(`<Icon name="${focusIcon.name}" prefix="${focusIcon.prefix}" />`, Prism.languages.tsx, 'tsx'),
+                pre: Prism.highlight(`<ElIcon name="${focusIcon.name}" prefix="${focusIcon.prefix}" />`, Prism.languages.tsx, 'tsx'),
             });
         },
         [focusIcon],

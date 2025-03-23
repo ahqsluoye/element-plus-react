@@ -5,7 +5,7 @@ import { TransitionProps } from '../Transition';
 import { AnimationEventProps, BaseProps, NativeProps } from '../types/common';
 
 /** Dropdown 属性 */
-export interface PopoverProps extends BaseProps, NativeProps, PopperOptions, AnimationEventProps, TransitionProps {
+export interface PopoverProps extends BaseProps<React.ReactElement>, NativeProps, PopperOptions, AnimationEventProps, Omit<TransitionProps, 'children'> {
     /** 触发下拉的行为 */
     trigger?: 'hover' | 'click' | 'contextmenu';
 

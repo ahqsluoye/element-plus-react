@@ -45,7 +45,7 @@ const Popconfirm: FC<PopconfirmProps> = props => {
             classPrefix={classPrefix}
             popperClass={b('popover', false)}
             popperStyle={{ minWidth: 200 }}
-            triggerRef={<>{props.children}</>}
+            triggerRef={props.children}
             enterable
             effect="light"
             trigger="click"

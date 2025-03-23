@@ -317,7 +317,7 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
                 </span>
 
                 {suffixSlot && (
-                    <span ref={suffixRef} key="suffixSlot" className={classNames(e`suffix`, { 'r-click': suffixCanClick })} onClick={onClickSuffix}>
+                    <span ref={suffixRef} key="suffixSlot" className={classNames(e`suffix`, { [b('click', false)]: suffixCanClick })} onClick={onClickSuffix}>
                         <span className={e`suffix-inner`}>{suffixSlot}</span>
                     </span>
                 )}
@@ -347,6 +347,7 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
         maxLength,
         handelClear,
         suffixSlot,
+        b,
         suffixCanClick,
         onClickSuffix,
         showClear,

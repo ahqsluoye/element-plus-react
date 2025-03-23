@@ -226,8 +226,9 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
                     ),
                     type === 'hours' ? 23 : 59,
                 );
-                debouncedResetScroll(type);
                 modifyDateField(type, value);
+                debouncedResetScroll(type);
+                isScrolling.current = false;
             },
             [debouncedResetScroll, listRefsMap, modifyDateField, scrollBarHeight, typeItemHeight],
         );

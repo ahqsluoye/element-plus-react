@@ -13,7 +13,7 @@ export const TableIdManager: {
 } = {
     tableId: 0,
     columnId: 0,
-    nextTableId: () => `r-table_${++TableIdManager.tableId}`,
+    nextTableId: () => `${globalKey}-table_${++TableIdManager.tableId}`,
     nextColumnId: (start?: number) => `column_${start ? ++start : ++TableIdManager.columnId}`,
 };
 
@@ -64,7 +64,7 @@ export function createTablePopper(parentNode: HTMLElement | undefined, trigger: 
     // function renderContent(): HTMLDivElement {
     //     const isLight = tooltipEffect === 'light';
     //     const content = document.createElement('div');
-    //     content.className = `${ns}-popper ${isLight ? 'is-light' : 'is-dark'} r-slide-down`;
+    //     content.className = `${ns}-popper ${isLight ? 'is-light' : 'is-dark'} ${globalKey}-slide-down`;
     //     content.style.padding = '6px';
     //     popperContent = escapeHtml(popperContent);
     //     content.innerHTML = popperContent;

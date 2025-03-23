@@ -59,7 +59,7 @@ const CollapseItem: FC<CollapseItemProps> = memo(props => {
 
             <Transition
                 nodeRef={containerRef}
-                name="r-menu-collapse"
+                name={b('menu-collapse', false)}
                 duration={300}
                 visible={active}
                 beforeEnter={() => beforeEnter(containerRef)}

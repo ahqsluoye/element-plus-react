@@ -178,7 +178,7 @@ const Tabs: FC<TabsProps> = forwardRef((props: TabsProps, ref?: Ref<HTMLDivEleme
         let tabSize = 0;
         const sizeDir = sizeName === 'offsetWidth' ? 'X' : 'Y';
 
-        forEach(elRef.current?.querySelectorAll('.r-tabs__item'), el => {
+        forEach(elRef.current?.querySelectorAll('.' + e`item`), el => {
             if (hasClass(el, 'is-active')) {
                 tabSize = el[sizeName === 'offsetWidth' ? 'clientWidth' : 'clientHeight'];
                 const position = sizeDir === 'X' ? 'left' : 'top';

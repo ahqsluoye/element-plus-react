@@ -43,7 +43,7 @@ const Popover: FC<PopoverProps> = props => {
             classPrefix={classPrefix}
             popperClass={classNames(b(), { [m`plain`]: plain })}
             popperStyle={{ width }}
-            triggerRef={<>{props.children}</>}
+            triggerRef={props.children}
             enterable
             effect="light"
             placement={placement}

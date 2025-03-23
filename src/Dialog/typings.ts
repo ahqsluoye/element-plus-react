@@ -5,7 +5,7 @@ import { AnimationEventProps, BaseProps, NativeProps } from '../types/common';
 
 export interface DialogProps extends AnimationEventProps, BaseProps, NativeProps, TransitionProps {
     /** 是否显示模态框（可控） */
-    visible?: boolean;
+    visible: boolean;
     /** 默认是否显示模态框 */
     defaultVisible?: boolean;
     /** 是否需要遮罩层 */
@@ -57,7 +57,7 @@ export interface DialogProps extends AnimationEventProps, BaseProps, NativeProps
     /** Dialog 关闭动画结束时的回调 */
     onClosed?: () => void;
     /** 关闭弹窗函数 */
-    close?: () => void;
+    close: () => void;
     /** 关闭前的回调，会暂停 Dialog 的关闭. 回调函数内执行 done 参数方法的时候才是真正关闭对话框的时候. */
     beforeClose?: DialogBeforeCloseFn;
 }

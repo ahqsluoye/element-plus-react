@@ -60,7 +60,7 @@ const Dropdown: FC<DropdownProps> = props => {
         <div className={classNames(b(), props.className)} style={props.style}>
             <Tooltip
                 classPrefix={classPrefix}
-                triggerRef={<>{props.children}</>}
+                triggerRef={props.children}
                 popperClass={e`popper`}
                 disabled={disabled}
                 enterable

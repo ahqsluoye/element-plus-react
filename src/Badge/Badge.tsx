@@ -25,7 +25,7 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
     return (
         <div ref={ref} className={classNames(b(), props.className)} style={props.style}>
             {props.children}
-            <Transition nodeRef={nodeRef} name="r-zoom-in-center" visible={!hidden && (!!content || isDot) && !(!showZero && value === 0)} display="inline-flex">
+            <Transition nodeRef={nodeRef} name={b('zoom-in-center', false)} visible={!hidden && (!!content || isDot) && !(!showZero && value === 0)} display="inline-flex">
                 <sup
                     ref={nodeRef}
                     className={classNames(e`content`, em('content', type), is({ fixed: !!props.children, dot: isDot }), badgeClass)}

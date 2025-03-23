@@ -66,8 +66,7 @@ const App = () => {
                 <ElIcon name="plus" />
             </ElUpload>
 
-            <ElDialog visible={visible} size="large" beforeClose={() => setVisible(false)}>
-                <ElDialog.header />
+            <ElDialog visible={visible} close={() => setVisible(false)}>
                 <ElDialog.body>
                     <img src={imageUrl} alt="Preview Image" />
                 </ElDialog.body>

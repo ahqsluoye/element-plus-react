@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { Transition } from '../Transition';
 import { PopupManager, mergeDefaultProps } from '../Util';
 import { useClassNames, useControlled } from '../hooks';
+import { globalKey } from '../hooks/prefix';
 import DrawerBody from './DrawerBody';
 import { DrawerContext } from './DrawerContext';
 import DrawerFooter from './DrawerFooter';
@@ -51,14 +52,14 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
                     setVisible(false);
                     onClose?.();
                 } else if (backdrop === 'static') {
-                    addClass(drawerRef.current, 'r-drawer-shake');
+                    addClass(drawerRef.current, `${globalKey}-drawer-shake`);
                     setTimeout(() => {
-                        removeClass(drawerRef.current, 'r-drawer-shake');
+                        removeClass(drawerRef.current, `${globalKey}-drawer-shake`);
                     }, 300);
                 }
             });
         }
-    }, [backdrop, onClose, ref, setVisible, visible]);
+    }, [b, backdrop, onClose, ref, setVisible, visible]);
 
     return (
         <DrawerContext.Provider value={{ backdrop, setVisible, isControlled, onClose }}>
@@ -72,12 +73,12 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
                         duration={300}
                         onEnter={() => {
                             setTimeout(() => {
-                                addClass(backdropRef.current, 'r-anim-in');
+                                addClass(backdropRef.current, `${globalKey}-anim-in`);
                             }, 10);
                         }}
-                        beforeLeave={() => removeClass(backdropRef.current, 'r-anim-in')}
+                        beforeLeave={() => removeClass(backdropRef.current, `${globalKey}-anim-in`)}
                     >
-                        <div className={classNames(b`backdrop`, 'r-anim-fade')} style={{ zIndex: PopupManager.nextZIndex() }} ref={backdropRef} />
+                        <div className={classNames(b`backdrop`, `${globalKey}-anim-fade`)} style={{ zIndex: PopupManager.nextZIndex() }} ref={backdropRef} />
                     </Transition>,
                     document.body,
                 )}
@@ -94,8 +95,8 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
                         props.onEnter?.();
                     }}
                     beforeLeave={() => {
-                        removeClass(drawerRef.current, 'r-anim-slide-in');
-                        addClass(drawerRef.current, 'r-anim-slide-out');
+                        removeClass(drawerRef.current, `${globalKey}-anim-slide-in`);
+                        addClass(drawerRef.current, `${globalKey}-anim-slide-out`);
                         props.beforeLeave?.();
                     }}
                     onLeave={props.onLeave}
@@ -103,7 +104,11 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
                     duration={300}
                 >
                     <div className={classNames(b`wrapper`, props.className)} style={{ ...props.style, zIndex: PopupManager.nextZIndex() }} ref={ref || wrapperRef}>
-                        <div className={classNames(wb(size, placement), 'r-anim-slide-in', `r-anim-${placement}`)} style={{ display: 'block' }} ref={drawerRef}>
+                        <div
+                            className={classNames(wb(size, placement), `${globalKey}-anim-slide-in`, `${globalKey}-anim-${placement}`)}
+                            style={{ display: 'block' }}
+                            ref={drawerRef}
+                        >
                             <div className={b`dialog`}>
                                 <div className={b`content`}>{children}</div>
                             </div>

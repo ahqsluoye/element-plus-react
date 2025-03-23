@@ -41,7 +41,7 @@ const DateTimePicker = forwardRef<DateTimePickerRef, DateTimePickerProps>((props
         formatter,
         ...rest
     } = props;
-    const { e, is } = useClassNames(classPrefix);
+    const { b, e, is } = useClassNames(classPrefix);
     const [value, setValue] = useControlled(props.value, props.defaultValue);
     const [visible, setVisible] = useState(false);
     const [showTime, setShowTime] = useState(false);
@@ -109,7 +109,7 @@ const DateTimePicker = forwardRef<DateTimePickerRef, DateTimePickerProps>((props
                 onClick={onActive}
                 value={value}
                 onClear={() => handleChange(null, {})}
-                className={classNames({ 'r-date': readonly }, is({ active: visible }))}
+                className={classNames({ [b('date', false)]: readonly }, is({ active: visible }))}
                 style={props.style}
                 error={error}
                 warning={warning}
@@ -171,7 +171,7 @@ const DateTimePicker = forwardRef<DateTimePickerRef, DateTimePickerProps>((props
                                 <Transition
                                     nodeRef={() => ({ current: timePanelRef.current.ref })}
                                     visible={showTime}
-                                    name="r-slide-up"
+                                    name={b('slide-up', false)}
                                     transitionAppear
                                     unmountOnExit
                                     display=""
