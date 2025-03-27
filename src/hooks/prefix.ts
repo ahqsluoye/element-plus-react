@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import curry from 'lodash/curry';
 
-export const globalKey = 'el';
+export const namespace = 'el';
 export const getClassNamePrefix = () => {
-    return globalKey + '-';
+    return namespace + '-';
 };
 export const defaultClassPrefix = (name: string) => `${getClassNamePrefix()}${name}`;
 

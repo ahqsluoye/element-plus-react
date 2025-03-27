@@ -2,7 +2,7 @@ import React, { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Tooltip } from '../Tooltip';
 import { TooltipRef } from '../Tooltip/typings';
-import { globalKey } from '../hooks/prefix';
+import { namespace } from '../hooks/prefix';
 import { TableColumnCtx, TableProps } from './typings';
 
 export const TableIdManager: {
@@ -13,7 +13,7 @@ export const TableIdManager: {
 } = {
     tableId: 0,
     columnId: 0,
-    nextTableId: () => `${globalKey}-table_${++TableIdManager.tableId}`,
+    nextTableId: () => `${namespace}-table_${++TableIdManager.tableId}`,
     nextColumnId: (start?: number) => `column_${start ? ++start : ++TableIdManager.columnId}`,
 };
 
@@ -59,7 +59,7 @@ export let removePopper: () => void | undefined;
 
 export function createTablePopper(parentNode: HTMLElement | undefined, trigger: HTMLElement, popperContent: string, tooltipRef: React.MutableRefObject<TooltipRef>) {
     // const { nextZIndex } = PopupManager;
-    const ns = globalKey || 'r';
+    const ns = namespace || 'r';
     const scrollContainer = parentNode?.querySelector(`.${ns}-scrollbar__wrap`);
     // function renderContent(): HTMLDivElement {
     //     const isLight = tooltipEffect === 'light';

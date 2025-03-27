@@ -6,13 +6,6 @@ import { isNotEmpty } from '../../Util';
 import { TableProps } from '../typings';
 import { getRowIdentity } from '../util';
 
-/**
- * @author	Parker
- * @CreateTime	2022/9/17 19:39:22
- * @LastEditor	Parker
- * @ModifyTime	2022/11/7 19:38:04
- * @Description
- */
 export const useSelection = <T>(props: TableProps<T>, data: T[]) => {
     const { rowKey, currentRowKey } = props;
     const _selection = useRef<T[]>([]);

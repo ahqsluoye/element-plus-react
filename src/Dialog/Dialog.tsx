@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import { Transition } from '../Transition';
 import { PopupManager, addUnit } from '../Util';
 import { useClassNames, useControlled } from '../hooks';
-import { globalKey } from '../hooks/prefix';
+import { namespace } from '../hooks/prefix';
 import { ComponentChildren } from '../types/common';
 import DialogBody from './DialogBody';
 import { DialogContext } from './DialogContext';
@@ -213,8 +213,8 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
                                 style={{
                                     ...props.style,
                                     // @ts-ignore
-                                    [`--${globalKey}-dialog-width`]: fullscreen || classPrefix !== 'dialog' ? '' : addUnit(width),
-                                    [`--${globalKey}-dialog-margin-top`]: addUnit(top),
+                                    [`--${namespace}-dialog-width`]: fullscreen || classPrefix !== 'dialog' ? '' : addUnit(width),
+                                    [`--${namespace}-dialog-margin-top`]: addUnit(top),
                                 }}
                                 ref={dialogRef}
                             >

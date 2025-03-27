@@ -4,7 +4,7 @@ import React, { cloneElement, forwardRef, memo, RefObject, useCallback, useImper
 import { Button } from '../Button';
 import { Dialog } from '../Dialog';
 import { partitionAnimationProps, useClassNames, useControlled } from '../hooks';
-import { globalKey } from '../hooks/prefix';
+import { namespace } from '../hooks/prefix';
 import { Icon } from '../Icon';
 import { Input } from '../Input';
 import { addUnit, isNotEmpty } from '../Util';
@@ -171,7 +171,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
                 visible={visible}
                 className={classNames('is-message-box', className)}
                 // @ts-ignore
-                style={{ ...style, [`--${globalKey}-messagebox-width`]: addUnit(width) }}
+                style={{ ...style, [`--${namespace}-messagebox-width`]: addUnit(width) }}
                 modal
                 overflow={overflow}
                 showClose={showClose}

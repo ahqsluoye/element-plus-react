@@ -54,6 +54,7 @@ export const SIDEBAR = {
             children: [
                 { link: '/components/badge', title: 'Badge 徽章' },
                 { link: '/components/card', title: 'Card 卡片' },
+                { link: '/components/carousel', title: 'Carousel 走马灯' },
                 { link: '/components/collapse', title: 'Collapse 折叠面板' },
                 { link: '/components/descriptions', title: 'Descriptions 描述列表' },
                 { link: '/components/pagination', title: 'Pagination 分页' },

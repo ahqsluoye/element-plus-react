@@ -96,6 +96,9 @@ export type { BadgeProps } from './Badge';
 export { Card as ElCard } from './Card';
 export type { CardProps } from './Card';
 
+export { Carousel as ElCarousel, CarouselItem as ElCarouselItem } from './Carousel';
+export type { CarouselItemProps, CarouselProps, CarouselRef } from './Carousel';
+
 export { Collapse as ElCollapse, CollapseItem as ElCollapseItem } from './Collapse';
 export type { CollapseItemProps, CollapseProps } from './Collapse';
 

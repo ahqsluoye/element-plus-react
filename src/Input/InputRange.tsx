@@ -9,7 +9,7 @@ import React, { ComponentType, cloneElement, forwardRef, useCallback, useEffect,
 import { Icon, IconProps } from '../Icon';
 import { formatNumber, isEmpty, isNotEmpty, mergeDefaultProps } from '../Util';
 import { useClassNames, useControlled, useDisabled, useSize } from '../hooks';
-import { globalKey } from '../hooks/prefix';
+import { namespace } from '../hooks/prefix';
 import InputGroup from './InputGroup';
 import { InputRangeProps, InputRangeValueType } from './typings';
 
@@ -235,7 +235,7 @@ const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) =>
             if (nodeType === 'ElIcon') {
                 return cloneElement(prefix as React.ReactElement<IconProps>, {
                     ...prefix.props,
-                    className: classNames(prefix.props?.className, `${globalKey}-range__icon`),
+                    className: classNames(prefix.props?.className, `${namespace}-range__icon`),
                 });
             }
         }
@@ -252,11 +252,11 @@ const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) =>
                 if (nodeType === 'ElIcon') {
                     return cloneElement(suffix as React.ReactElement<IconProps>, {
                         ...suffix.props,
-                        className: classNames(suffix.props?.className, `${globalKey}-input__icon ${globalKey}-range__close-icon`),
+                        className: classNames(suffix.props?.className, `${namespace}-input__icon ${namespace}-range__close-icon`),
                     });
                 }
             } else {
-                return <span className={`${globalKey}-range__end-icon`}>{suffix}</span>;
+                return <span className={`${namespace}-range__end-icon`}>{suffix}</span>;
             }
         }
         return null;

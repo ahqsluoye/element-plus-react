@@ -2,7 +2,6 @@
 @import './common';
 @import './link';
 @import './button';
-@import './icon/fonts';
 @import './icon';
 @import './row';
 @import './col';
@@ -12,6 +11,7 @@
 
 /* Form 表单组件 */
 @import './cascader';
+@import './carousel/';
 @import './checkbox';
 @import './checkbox-button';
 @import './checkbox-group';

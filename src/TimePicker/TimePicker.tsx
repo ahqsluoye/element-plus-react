@@ -8,7 +8,7 @@ import { Input, InputRef } from '../Input';
 import { Popper, PopperOptionRef } from '../Popper';
 import { isNotEmpty, mergeDefaultProps } from '../Util';
 import { partitionAnimationProps, useControlled, useDisabled, useSize } from '../hooks';
-import { globalKey } from '../hooks/prefix';
+import { namespace } from '../hooks/prefix';
 import TimePickerPanel from './TimePickerPanel';
 import { TimePanelRef, TimePickerProps, TimePickerRef, TimeType } from './typings';
 import { getAvailableArrs } from './useTimePicker';
@@ -179,7 +179,7 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
                     handleChange(null);
                     initialValue.current = '';
                 }}
-                className={classNames({ [`${globalKey}-date`]: readonly, 'is-active': visible })}
+                className={classNames({ [`${namespace}-date`]: readonly, 'is-active': visible })}
                 style={props.style}
                 error={error}
                 warning={warning}

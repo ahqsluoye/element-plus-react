@@ -96,7 +96,7 @@ function cleanTemp(done) {
 
 function buildComponentStyles() {
     return gulp
-        .src(`${srcRoot}/theme-chalk/build.scss`)
+        .src(`${srcRoot}/theme-chalk/index.scss`)
         .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
         .pipe(rename('index.css'))
         .pipe(gulp.dest(styleRoot));

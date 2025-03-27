@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import isBoolean from 'lodash/isBoolean';
 import last from 'lodash/last';
 import { useCallback } from 'react';
-import { prefix as addPrefix, globalKey, ISplitCode } from './prefix';
+import { ISplitCode, prefix as addPrefix, namespace } from './prefix';
 
 export type ClassValue = string | number | ClassDictionary | ClassArray | undefined | null | boolean;
 
@@ -37,7 +37,7 @@ export type ClassNameM = {
  *  - merge: A merge className function.
  *  - prefix: Add a prefix to className
  */
-function useClassNames(str: string, classPrefix = globalKey) {
+function useClassNames(str: string, classPrefix = namespace) {
     const componentName = addPrefix(classPrefix, str);
 
     /**

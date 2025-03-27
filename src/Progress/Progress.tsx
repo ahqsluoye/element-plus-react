@@ -3,7 +3,7 @@ import React, { FC, useMemo } from 'react';
 import { Icon } from '../Icon';
 import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
-import { globalKey } from '../hooks/prefix';
+import { namespace } from '../hooks/prefix';
 import { PropgressProps } from './typings';
 
 const Progress: FC<PropgressProps> = (props: PropgressProps) => {
@@ -159,7 +159,7 @@ const Progress: FC<PropgressProps> = (props: PropgressProps) => {
                     <path
                         className={be('circle', 'track')}
                         d={trackPath}
-                        stroke={`var(--${globalKey}-fill-color-light, #e5e9f2)`}
+                        stroke={`var(--${namespace}-fill-color-light, #e5e9f2)`}
                         strokeWidth={relativeStrokeWidth}
                         fill="none"
                         style={trailPathStyle}

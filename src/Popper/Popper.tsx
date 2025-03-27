@@ -7,7 +7,7 @@ import { Transition } from '../Transition';
 import { mergeDefaultProps, randomCode } from '../Util';
 import PopupManager from '../Util/PopupManager';
 import { partitionAnimationProps, useClassNames, useClickOutside, useComponentWillMount } from '../hooks';
-import { globalKey } from '../hooks/prefix';
+import { namespace } from '../hooks/prefix';
 import usePopperOptions from './popperOptions';
 import { PopperProps } from './typings';
 
@@ -58,13 +58,13 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
 
     const animation = useMemo(() => {
         if (startsWith(popperInstance?.state?.placement || props?.placement, 'top')) {
-            return `${globalKey}-slide-down`;
+            return `${namespace}-slide-down`;
         } else if (startsWith(popperInstance?.state?.placement || props?.placement, 'bottom')) {
-            return `${globalKey}-slide-up`;
+            return `${namespace}-slide-up`;
         } else if (startsWith(popperInstance?.state?.placement || props?.placement, 'left')) {
-            return `${globalKey}-slide-right`;
+            return `${namespace}-slide-right`;
         } else if (startsWith(popperInstance?.state?.placement || props?.placement, 'right')) {
-            return `${globalKey}-slide-left`;
+            return `${namespace}-slide-left`;
         }
     }, [popperInstance?.state?.placement, props?.placement]);
 
@@ -97,8 +97,8 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
     }, [popperInstance]);
 
     useComponentWillMount(() => {
-        if (!transitionProps.unmountOnExit && document.getElementById(`${globalKey}-popper-${id}`)) {
-            document.getElementById(`${globalKey}-popper-${id}`).parentNode.removeChild(document.getElementById(`${globalKey}-popper-${id}`));
+        if (!transitionProps.unmountOnExit && document.getElementById(`${namespace}-popper-${id}`)) {
+            document.getElementById(`${namespace}-popper-${id}`).parentNode.removeChild(document.getElementById(`${namespace}-popper-${id}`));
         }
     });
 
@@ -110,7 +110,7 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
         () => (
             <Transition nodeRef={{ current: popperElement }} visible={visible} name={animation} className={className} afterLeave={afterLeave} {...transitionProps}>
                 <div
-                    id={`${globalKey}-popper-${id}`}
+                    id={`${namespace}-popper-${id}`}
                     className={classNames(b(), is(effect), popperClass)}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}

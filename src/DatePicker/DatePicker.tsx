@@ -11,7 +11,7 @@ import { Input, InputRef } from '../Input';
 import { Popper, PopperOptionRef } from '../Popper';
 import { isNotEmpty } from '../Util';
 import { partitionAnimationProps, partitionHTMLProps, partitionPopperPropsUtils, useControlled, useDisabled, useSize } from '../hooks';
-import { globalKey } from '../hooks/prefix';
+import { namespace } from '../hooks/prefix';
 import { DatePickerProps, DatePickerRef } from './typings';
 
 dayjs.extend(advancedFormat);
@@ -163,7 +163,7 @@ const DatePicker: FC<DatePickerProps> = memo(
                     value={value}
                     onChange={noop}
                     onClear={() => handleChange?.(null)}
-                    className={classNames({ [`${globalKey}-date`]: readonly, 'is-active': visible })}
+                    className={classNames({ [`${namespace}-date`]: readonly, 'is-active': visible })}
                     style={props.style}
                     error={error}
                     warning={warning}
