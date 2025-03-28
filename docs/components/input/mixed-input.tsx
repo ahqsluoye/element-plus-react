@@ -1,6 +1,6 @@
 import { ElIcon, ElInput, ElSelect } from '@qsxy/element-plus-react';
 import React from 'react';
-import './style.scss';
+import './mixed-input.scss';
 
 const App = () => {
     return (
@@ -13,7 +13,7 @@ const App = () => {
                 <ElInput
                     append={<ElIcon name="search" />}
                     prepend={
-                        <ElSelect v-model="select" placeholder="Select" style={{ width: 110 }}>
+                        <ElSelect placeholder="Select" style={{ width: 110 }}>
                             <ElSelect.Option label="Restaurant" value="1" />
                             <ElSelect.Option label="Order No." value="2" />
                             <ElSelect.Option label="Tel" value="3" />
@@ -27,7 +27,7 @@ const App = () => {
                 <ElInput
                     prepend={<ElIcon name="search" />}
                     append={
-                        <ElSelect v-model="select" placeholder="Select" style={{ width: 110 }}>
+                        <ElSelect placeholder="Select" style={{ width: 110 }}>
                             <ElSelect.Option label="Restaurant" value="1" />
                             <ElSelect.Option label="Order No." value="2" />
                             <ElSelect.Option label="Tel" value="3" />

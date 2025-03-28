@@ -1,6 +1,5 @@
 import { addClass, removeClass } from 'dom-lib';
 import { TransitionProps } from '../../Transition';
-import { namespace } from '../../hooks/prefix';
 
 export const beforeEnter = el => {
     el.style.height = '0';
@@ -8,7 +7,7 @@ export const beforeEnter = el => {
 };
 
 export const onEnter = (el: HTMLElement) => {
-    addClass(el, `${namespace}-motion-collapse`);
+    addClass(el, 'r-motion-collapse');
     el.dataset.oldOverflow = el.style.overflow;
     if (el.scrollHeight !== 0) {
         el.style.height = `${el.scrollHeight}px`;
@@ -20,13 +19,13 @@ export const onEnter = (el: HTMLElement) => {
 };
 
 export const afterEnter = (el: HTMLElement) => {
-    removeClass(el, `${namespace}-motion-collapse`);
+    removeClass(el, 'r-motion-collapse');
     el.style.height = '';
     el.style.overflow = el.dataset.oldOverflow;
 };
 
 export const beforeLeave = el => {
-    addClass(el, `${namespace}-motion-collapse`);
+    addClass(el, 'r-motion-collapse');
     if (!el.dataset) {
         el.dataset = {};
     }
@@ -37,14 +36,14 @@ export const beforeLeave = el => {
 };
 
 export const afterLeave = el => {
-    removeClass(el, `${namespace}-motion-collapse`);
+    removeClass(el, 'r-motion-collapse');
     el.style.height = '';
     el.style.overflow = el.dataset.oldOverflow;
     el.style.display = '';
 };
 
 const collapseMotion: TransitionProps = {
-    name: `${namespace}-treenode-collapse`,
+    name: 'r-treenode-collapse',
     beforeEnter,
     onEnter,
     afterEnter,

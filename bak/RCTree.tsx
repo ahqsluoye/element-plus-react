@@ -2,19 +2,21 @@
 // Fully accessibility support
 
 import classNames from 'classnames';
-import KeyCode from 'rc-util/lib/KeyCode';
-import pickAttrs from 'rc-util/lib/pickAttrs';
-import warning from 'rc-util/lib/warning';
 import * as React from 'react';
 
-import DropIndicator, { DropIndicatorProps } from './DropIndicator';
+import { warning } from 'rc-util';
+import type { DropIndicatorProps } from './DropIndicator';
+import DropIndicator from './DropIndicator';
 import NodeList, { MOTION_KEY, MotionEntity, type NodeListRef } from './NodeList';
 import TreeNode from './TreeNode';
-import { NodeDragEventHandler, NodeDragEventParams, NodeMouseEventHandler, NodeMouseEventParams, TreeContext } from './contextTypes';
-import type { BasicDataNode, DataNode, Direction, EventDataNode, FieldNames, FlattenNode, IconType, Key, KeyEntities, SafeKey, ScrollTo, TreeNodeProps } from './typings';
+import type { NodeDragEventHandler, NodeDragEventParams, NodeMouseEventHandler, NodeMouseEventParams } from './contextTypes';
+import { TreeContext } from './contextTypes';
+import type { BasicDataNode, DataNode, Direction, EventDataNode, FieldNames, FlattenNode, IconType, Key, KeyEntities, SafeKey, ScrollTo, TreeNodeProps } from './interface';
 import { arrAdd, arrDel, calcDropPosition, calcSelectedKeys, conductExpandParent, getDragChildrenKeys, parseCheckedKeys, posToArr } from './util';
+import KeyCode from './utils/KeyCode';
 import { conductCheck } from './utils/conductUtil';
 import getEntity from './utils/keyUtil';
+import pickAttrs from './utils/pickAttrs';
 import { convertDataToEntities, convertNodePropsToEventData, convertTreeToData, fillFieldNames, flattenTreeData, getTreeNodeProps, warningWithoutKey } from './utils/treeUtil';
 
 const MAX_RETRY_TIMES = 10;
@@ -192,9 +194,9 @@ interface TreeState<TreeDataType extends BasicDataNode = DataNode> {
     fieldNames: FieldNames;
 }
 
-class Tree<TreeDataType extends DataNode | BasicDataNode = DataNode> extends React.Component<TreeProps<TreeDataType>, TreeState<TreeDataType>> {
+class RCTree<TreeDataType extends DataNode | BasicDataNode = DataNode> extends React.Component<TreeProps<TreeDataType>, TreeState<TreeDataType>> {
     static defaultProps = {
-        prefixCls: 'el-tree',
+        prefixCls: 'rc-tree',
         showLine: false,
         showIcon: true,
         selectable: true,
@@ -305,7 +307,7 @@ class Tree<TreeDataType extends DataNode | BasicDataNode = DataNode> extends Rea
         };
 
         function needSync(name: string) {
-            return (!prevProps && Object.prototype.hasOwnProperty.call(props, name)) || (prevProps && prevProps[name] !== props[name]);
+            return (!prevProps && props.hasOwnProperty(name)) || (prevProps && prevProps[name] !== props[name]);
         }
 
         // ================== Tree Node ==================
@@ -517,7 +519,7 @@ class Tree<TreeDataType extends DataNode | BasicDataNode = DataNode> extends Rea
                     newExpandedKeys = arrAdd(expandedKeys, nodeProps.eventKey);
                 }
 
-                if (!Object.prototype.hasOwnProperty.call(this.props, 'expandedKeys')) {
+                if (!this.props.hasOwnProperty('expandedKeys')) {
                     this.setExpandedKeys(newExpandedKeys);
                 }
 
@@ -683,7 +685,7 @@ class Tree<TreeDataType extends DataNode | BasicDataNode = DataNode> extends Rea
 
         const dropToChild = dragChildrenKeys.includes(dropTargetKey);
 
-        warning(!dropToChild, 'Can not drop to dragNodes children node. This is a bug of rc-tree. Please report an issue.');
+        warning(!dropToChild, "Can not drop to dragNode's children node. This is a bug of rc-tree. Please report an issue.");
 
         const posArr = posToArr(dropTargetPos);
 
@@ -938,9 +940,7 @@ class Tree<TreeDataType extends DataNode | BasicDataNode = DataNode> extends Rea
         });
 
         // Not care warning if we ignore this
-        loadPromise.catch(() => {
-            //
-        });
+        loadPromise.catch(() => {});
 
         return loadPromise;
     };
@@ -1190,7 +1190,7 @@ class Tree<TreeDataType extends DataNode | BasicDataNode = DataNode> extends Rea
             const newState = {};
 
             Object.keys(state).forEach(name => {
-                if (Object.prototype.hasOwnProperty.call(this.props, name)) {
+                if (this.props.hasOwnProperty(name)) {
                     allPassed = false;
                     return;
                 }
@@ -1354,4 +1354,4 @@ class Tree<TreeDataType extends DataNode | BasicDataNode = DataNode> extends Rea
     }
 }
 
-export default Tree;
+export default RCTree;

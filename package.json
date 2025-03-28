@@ -1,6 +1,6 @@
 {
   "name": "@qsxy/element-plus-react",
-  "version": "1.0.0-next.5",
+  "version": "1.0.0-next.6",
   "description": "element-plus-react",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -113,7 +113,9 @@
     "escape-html": "^1.0.3",
     "lodash": "^4.17.21",
     "rc-resize-observer": "^1.4.0",
+    "rc-tree": "^5.13.1",
     "rc-util": "^5.38.1",
+    "rc-virtual-list": "3.18.5",
     "react-is": "^19.0.0",
     "react-popper": "^2.3.0",
     "react-router-dom": "^6.22.1",

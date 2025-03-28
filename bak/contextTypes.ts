@@ -4,7 +4,7 @@
  */
 import * as React from 'react';
 import type { DraggableConfig, SemanticName } from './RCTree';
-import type { BasicDataNode, DataNode, Direction, EventDataNode, IconType, Key, KeyEntities, TreeNodeProps } from './typings';
+import type { BasicDataNode, DataNode, Direction, EventDataNode, IconType, Key, KeyEntities, TreeNodeProps } from './interface';
 
 export type NodeMouseEventParams<TreeDataType extends BasicDataNode = DataNode, T = HTMLSpanElement> = {
     event: React.MouseEvent<T>;

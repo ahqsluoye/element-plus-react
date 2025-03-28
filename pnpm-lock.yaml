@@ -45,7 +45,9 @@ specifiers:
   prettier-plugin-packagejson: ^2.2.18
   prismjs: 1.28.0
   rc-resize-observer: ^1.4.0
+  rc-tree: ^5.13.1
   rc-util: ^5.38.1
+  rc-virtual-list: 3.18.5
   react: ^18.0.0
   react-dom: ^18.0.0
   react-is: ^19.0.0
@@ -67,7 +69,9 @@ dependencies:
   escape-html: 1.0.3
   lodash: 4.17.21
   rc-resize-observer: 1.4.3_nnrd3gsncyragczmpvfhocinkq
+  rc-tree: 5.13.1_nnrd3gsncyragczmpvfhocinkq
   rc-util: 5.44.4_nnrd3gsncyragczmpvfhocinkq
+  rc-virtual-list: 3.18.5_nnrd3gsncyragczmpvfhocinkq
   react-is: 19.0.0
   react-popper: 2.3.0_k46i3rdtqabbepls5b256fuiee
   react-router-dom: 6.30.0_nnrd3gsncyragczmpvfhocinkq
@@ -1420,6 +1424,12 @@ packages:
 
   /@babel/runtime/7.26.10:
     resolution: {integrity: sha512-2WJMeRQPHKSPemqk/awGrAiuFfzBmOIPXKizAsVhWH9YJqLZ0H+HS4c8loHGgW6utJ3E/ejXQUsiGaQy2NZ9Fw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.1
+
+  /@babel/runtime/7.27.0:
+    resolution: {integrity: sha512-VtPOkrdPHZsKc/clNqyi9WUA8TINkZ4cGk63UUE3u4pmB2k+ZMQRDuIOagv8UVd6j7k0T3+RRIb7beKTebNbcw==}
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
@@ -12086,7 +12096,6 @@ packages:
       rc-util: 5.44.4_nnrd3gsncyragczmpvfhocinkq
       react: 18.3.1
       react-dom: 18.3.1_react@18.3.1
-    dev: true
 
   /rc-overflow/1.4.1_nnrd3gsncyragczmpvfhocinkq:
     resolution: {integrity: sha512-3MoPQQPV1uKyOMVNd6SZfONi+f3st0r8PksexIdBTeIYbMX0Jr+k7pHEDvsXtR4BpCv90/Pv2MovVNhktKrwvw==}
@@ -12158,10 +12167,9 @@ packages:
       classnames: 2.5.1
       rc-motion: 2.9.5_nnrd3gsncyragczmpvfhocinkq
       rc-util: 5.44.4_nnrd3gsncyragczmpvfhocinkq
-      rc-virtual-list: 3.18.4_nnrd3gsncyragczmpvfhocinkq
+      rc-virtual-list: 3.18.5_nnrd3gsncyragczmpvfhocinkq
       react: 18.3.1
       react-dom: 18.3.1_react@18.3.1
-    dev: true
 
   /rc-util/5.44.4_nnrd3gsncyragczmpvfhocinkq:
     resolution: {integrity: sha512-resueRJzmHG9Q6rI/DfK6Kdv9/Lfls05vzMs1Sk3M2P+3cJa+MakaZyWY8IPfehVuhPJFKrIY1IK4GqbiaiY5w==}
@@ -12174,20 +12182,19 @@ packages:
       react-dom: 18.3.1_react@18.3.1
       react-is: 18.3.1
 
-  /rc-virtual-list/3.18.4_nnrd3gsncyragczmpvfhocinkq:
-    resolution: {integrity: sha512-qkurwgc4Je4xJaYe1DprDl2fwtfEZcuC4UhsJRiX2YZ6wSZAUPQXH/lIX+ZRtNEWmz3pzSBQ7NX3Csjp0wCtcg==}
+  /rc-virtual-list/3.18.5_nnrd3gsncyragczmpvfhocinkq:
+    resolution: {integrity: sha512-1FuxVSxhzTj3y8k5xMPbhXCB0t2TOiI3Tq+qE2Bu+GGV7f+ECVuQl4OUg6lZ2qT5fordTW7CBpr9czdzXCI7Pg==}
     engines: {node: '>=8.x'}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
-      '@babel/runtime': 7.26.10
+      '@babel/runtime': 7.27.0
       classnames: 2.5.1
       rc-resize-observer: 1.4.3_nnrd3gsncyragczmpvfhocinkq
       rc-util: 5.44.4_nnrd3gsncyragczmpvfhocinkq
       react: 18.3.1
       react-dom: 18.3.1_react@18.3.1
-    dev: true
 
   /react-copy-to-clipboard/5.1.0_react@18.3.1:
     resolution: {integrity: sha512-k61RsNgAayIJNoy9yDsYzDe/yAZAzEbEgcz3DZMhF686LEyukcE1hzurxe85JandPUG+yTfGVFzuEw3xt8WP/A==}

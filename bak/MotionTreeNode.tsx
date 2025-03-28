@@ -1,12 +1,10 @@
+import CSSMotion from '@rc-component/motion';
 import classNames from 'classnames';
-import { useComposeRef } from 'rc-util';
 import useLayoutEffect from 'rc-util/lib/hooks/useLayoutEffect';
 import * as React from 'react';
-import { useRef } from 'react';
-import { Transition } from '../Transition';
 import TreeNode from './TreeNode';
 import { TreeContext } from './contextTypes';
-import type { FlattenNode, TreeNodeProps } from './typings';
+import type { FlattenNode, TreeNodeProps } from './interface';
 import useUnmount from './useUnmount';
 import { getTreeNodeProps, type TreeNodeRequiredProps } from './utils/treeUtil';
 
@@ -41,25 +39,12 @@ const MotionTreeNode = React.forwardRef<HTMLDivElement, MotionTreeNodeProps>((or
     // And apply in effect to make `leave` motion work.
     const targetVisible = motionNodes && motionType !== 'hide';
 
-    const motionedRef = useRef(false);
-    const containerRef = useRef(null);
-
-    const mergedRef = useComposeRef(ref, containerRef);
-
-    const onMotionEnd = () => {
-        if (!motionedRef.current) {
-            onOriginMotionEnd();
-        }
-        motionedRef.current = true;
-    };
-
     useLayoutEffect(() => {
         if (motionNodes) {
             if (targetVisible !== visible) {
                 setVisible(targetVisible);
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [motionNodes]);
 
     const triggerMotionStart = () => {
@@ -89,37 +74,37 @@ const MotionTreeNode = React.forwardRef<HTMLDivElement, MotionTreeNodeProps>((or
 
     if (motionNodes) {
         return (
-            <Transition nodeRef={containerRef} visible={visible} {...motion} transitionAppear={motionType === 'show'} afterEnter={onMotionEnd} afterLeave={onMotionEnd}>
-                <div ref={mergedRef} className={classNames(`${prefixCls}-treenode-motion`, className)} style={style}>
-                    {motionNodes.map(treeNode => {
-                        const {
-                            data: { ...restProps },
-                            title,
-                            key,
-                            isStart,
-                            isEnd,
-                        } = treeNode;
-                        delete restProps.children;
+            <CSSMotion ref={ref} visible={visible} {...motion} motionAppear={motionType === 'show'} onVisibleChanged={onVisibleChanged}>
+                {({ className: motionClassName, style: motionStyle }, motionRef) => (
+                    <div ref={motionRef} className={classNames(`${prefixCls}-treenode-motion`, motionClassName)} style={motionStyle}>
+                        {motionNodes.map(treeNode => {
+                            const {
+                                data: { ...restProps },
+                                title,
+                                key,
+                                isStart,
+                                isEnd,
+                            } = treeNode;
+                            delete restProps.children;
 
-                        const treeNodeProps = getTreeNodeProps(key, treeNodeRequiredProps);
+                            const treeNodeProps = getTreeNodeProps(key, treeNodeRequiredProps);
 
-                        return (
-                            <TreeNode
-                                {...(restProps as Omit<typeof restProps, 'children'>)}
-                                {...treeNodeProps}
-                                title={title}
-                                active={active}
-                                data={treeNode.data}
-                                key={key}
-                                isStart={isStart}
-                                isEnd={isEnd}
-                            />
-                        );
-                    })}
-                </div>
-                {/* {({ className: motionClassName, style: motionStyle }, motionRef) => (
-                )} */}
-            </Transition>
+                            return (
+                                <TreeNode
+                                    {...(restProps as Omit<typeof restProps, 'children'>)}
+                                    {...treeNodeProps}
+                                    title={title}
+                                    active={active}
+                                    data={treeNode.data}
+                                    key={key}
+                                    isStart={isStart}
+                                    isEnd={isEnd}
+                                />
+                            );
+                        })}
+                    </div>
+                )}
+            </CSSMotion>
         );
     }
     return <TreeNode domRef={ref} className={className} style={style} {...props} active={active} />;

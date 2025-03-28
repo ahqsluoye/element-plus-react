@@ -1,14 +1,7 @@
-/* eslint-disable lines-around-comment */
-import classNames from 'classnames';
-import RcTree, { TreeProps as RcTreeProps } from './RCTree';
-// import RcTree, { TreeProps as RcTreeProps, TreeNode } from 'rc-tree';
-import React, { Component, Ref, forwardRef, useMemo } from 'react';
-import DirectoryTree from './DirectoryTree';
-import TreeNode from './TreeNode';
-import { BasicDataNode, DataNode, Key } from './typings';
-import DropIndicatorRender from './utils/dropIndicator';
-import renderSwitcherIcon from './utils/iconUtil';
-import collapseMotion from './utils/motion';
+import React, { Component } from 'react';
+import { IconName } from '../Icon';
+import { TreeProps as RcTreeProps } from './RCTree';
+import { TreeNodeProps } from './TreeNode';
 
 export interface AntdTreeNodeAttribute {
     eventKey: string;
@@ -99,134 +92,154 @@ interface DraggableConfig {
     nodeDraggable?: DraggableFn;
 }
 
-export interface TreeProps<T extends BasicDataNode = DataNode> extends Omit<RcTreeProps<T>, 'prefixCls' | 'showLine' | 'direction' | 'draggable'> {
+export interface TreeProps<T> extends Omit<RcTreeProps<T>, 'prefixCls' | 'showLine' | 'direction' | 'draggable'> {
     showLine?: boolean | { showLeafIcon: boolean };
     className?: string;
+
     /** 是否支持多选 */
     multiple?: boolean;
+
     /** 是否自动展开父节点 */
     autoExpandParent?: boolean;
+
     /** Checkable状态下节点选择完全受控（父子节点选中状态不再关联） */
     checkStrictly?: boolean;
+
     /** 是否支持选中 */
     checkable?: boolean;
+
     /** 是否禁用树 */
     disabled?: boolean;
+
     /** 默认展开所有树节点 */
     defaultExpandAll?: boolean;
+
     /** 默认展开对应树节点 */
     defaultExpandParent?: boolean;
+
     /** 默认展开指定的树节点 */
     defaultExpandedKeys?: Key[];
+
     /** （受控）展开指定的树节点 */
     expandedKeys?: Key[];
+
     /** （受控）选中复选框的树节点 */
     checkedKeys?: Key[] | { checked: Key[]; halfChecked: Key[] };
+
     /** 默认选中复选框的树节点 */
     defaultCheckedKeys?: Key[];
+
     /** （受控）设置选中的树节点 */
     selectedKeys?: Key[];
+
     /** 默认选中的树节点 */
     defaultSelectedKeys?: Key[];
     selectable?: boolean;
+
     /** 点击树节点触发 */
     filterAntTreeNode?: (node: AntTreeNode) => boolean;
     loadedKeys?: Key[];
+
     /** 设置节点可拖拽（IE>8） */
     draggable?: DraggableFn | boolean | DraggableConfig;
     style?: React.CSSProperties;
     showIcon?: boolean;
-    icon?: React.ReactNode | ((props: AntdTreeNodeAttribute) => React.ReactNode);
+    icon?: ((nodeProps: AntdTreeNodeAttribute) => React.ReactElement) | React.ReactElement;
     switcherIcon?: React.ReactElement<any>;
     prefixCls?: string;
     children?: React.ReactElement;
     blockNode?: boolean;
 }
 
-function InternalTree<RecordType extends object = DataNode>(props: TreeProps<RecordType>, ref: Ref<RcTree>) {
-    const { prefixCls = 'el-tree', className, showIcon, showLine, switcherIcon, blockNode, children, checkable, selectable, draggable } = props;
-    const newProps = {
-        ...props,
-        showLine: Boolean(showLine),
-        dropIndicatorRender: DropIndicatorRender,
+/** For fieldNames, we provides a abstract interface */
+export interface BasicDataNode {
+    checkable?: boolean;
+    disabled?: boolean;
+    disableCheckbox?: boolean;
+    icon?: IconType;
+    isLeaf?: boolean;
+    selectable?: boolean;
+    switcherIcon?: IconType;
+
+    /** Set style of TreeNode. This is not recommend if you don't have any force requirement */
+    className?: string;
+    style?: React.CSSProperties;
+}
+
+export interface DataNode<T = any> extends BasicDataNode {
+    children?: T[];
+    key?: string | number;
+    title?: string | React.ReactElement;
+}
+
+export interface EventDataNode extends DataNode {
+    expanded: boolean;
+    selected: boolean;
+    checked: boolean;
+    loaded: boolean;
+    loading: boolean;
+    halfChecked: boolean;
+    dragOver: boolean;
+    dragOverGapTop: boolean;
+    dragOverGapBottom: boolean;
+    pos: string;
+    active: boolean;
+}
+
+export type IconType = React.ReactElement | ((props: TreeNodeProps) => React.ReactElement) | IconName;
+
+export type Key = React.Key;
+
+export type NodeElement = React.ReactElement<TreeNodeProps> & {
+    selectHandle?: HTMLSpanElement;
+    type: {
+        isTreeNode: boolean;
     };
-
-    const draggableConfig = useMemo(() => {
-        if (!draggable) {
-            return false;
-        }
-
-        let mergedDraggable: DraggableConfig = {};
-        switch (typeof draggable) {
-            case 'function':
-                mergedDraggable.nodeDraggable = draggable;
-                break;
-
-            case 'object':
-                mergedDraggable = { ...draggable };
-                break;
-
-            default:
-            // Do nothing
-        }
-
-        // if (mergedDraggable.icon !== false) {
-        //     mergedDraggable.icon = mergedDraggable.icon || <HolderOutlined />;
-        // }
-
-        return mergedDraggable;
-    }, [draggable]);
-
-    return (
-        // @ts-ignore
-        <RcTree
-            itemHeight={props.itemHeight}
-            ref={ref}
-            virtual={props.virtual}
-            {...newProps}
-            prefixCls={prefixCls}
-            className={classNames(
-                {
-                    [`${prefixCls}-icon-hide`]: !showIcon,
-                    [`${prefixCls}-block-node`]: blockNode,
-                    [`${prefixCls}-unselectable`]: !selectable,
-                },
-                className,
-            )}
-            // direction={props.direction}
-            checkable={checkable ? <span className={`${prefixCls}-checkbox-inner`} /> : checkable}
-            selectable={selectable}
-            switcherIcon={(nodeProps: AntTreeNodeProps) => renderSwitcherIcon(prefixCls, switcherIcon, showLine, nodeProps)}
-            draggable={draggableConfig as any}
-        >
-            {children}
-        </RcTree>
-    );
-}
-
-const ForwardTree = forwardRef(InternalTree) as <RecordType extends object = any>(props: TreeProps<RecordType> & { ref?: Ref<RcTree> }) => React.ReactElement;
-
-type InternalTreeType = typeof ForwardTree;
-
-interface TreeInterface extends InternalTreeType {
-    displayName?: string;
-    defaultProps?: Partial<TreeProps<any>>;
-    TreeNode: typeof TreeNode;
-    DirectoryTree: typeof DirectoryTree;
-}
-
-const Tree = ForwardTree as TreeInterface;
-
-Tree.TreeNode = TreeNode;
-Tree.DirectoryTree = DirectoryTree;
-
-Tree.defaultProps = {
-    checkable: false,
-    selectable: true,
-    showIcon: false,
-    motion: collapseMotion,
-    blockNode: false,
-    itemHeight: 20,
 };
 
-export default Tree;
+export type NodeInstance<TreeDataType extends BasicDataNode = DataNode> = Component<TreeNodeProps<TreeDataType>> & {
+    selectHandle?: HTMLSpanElement;
+};
+
+export interface Entity {
+    node: NodeElement;
+    index: number;
+    key: Key;
+    pos: string;
+    parent?: Entity;
+    children?: Entity[];
+}
+
+export interface DataEntity<TreeDataType extends BasicDataNode = DataNode> extends Omit<Entity, 'node' | 'parent' | 'children'> {
+    node: TreeDataType;
+    nodes: TreeDataType[];
+    parent?: DataEntity<TreeDataType>;
+    children?: DataEntity<TreeDataType>[];
+    level: number;
+}
+
+export interface FlattenNode {
+    parent: FlattenNode | null;
+    children: FlattenNode[];
+    pos: string;
+    data: DataNode;
+    title: React.ReactElement;
+    key: Key;
+    isStart: boolean[];
+    isEnd: boolean[];
+}
+
+export type GetKey<RecordType> = (record: RecordType, index?: number) => Key;
+
+export type GetCheckDisabled<RecordType> = (record: RecordType) => boolean;
+
+export type Direction = 'ltr' | 'rtl' | undefined;
+
+export interface FieldNames {
+    title?: string;
+
+    /** @private Internal usage for `rc-tree-select`, safe to remove if no need */
+    _title?: string[];
+    key?: string;
+    children?: string;
+}

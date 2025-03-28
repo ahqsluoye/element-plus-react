@@ -160,11 +160,12 @@
 }
 
 .#{$namespace}-input {
+    --#{$namespace}-input-inner-height: calc(var(--#{$namespace}-input-height, 32px) - 2px);
     position: relative;
     display: inline-flex;
     width: 100%;
     font-size: 14px;
-    line-height: var(--#{$namespace}-input-height, 32px);
+    line-height: var(--#{$namespace}-input-inner-height, 30px);
     box-sizing: border-box;
     vertical-align: middle;
 
@@ -411,6 +412,7 @@
     .#{$namespace}-button {
         display: inline-block;
         margin: 0 -20px;
+        line-height: 0;
     }
 
     button.#{$namespace}-button,
@@ -564,12 +566,12 @@
 
 .#{$namespace}-input--large {
     --#{$namespace}-input-height: var(--#{$namespace}-component-size-large);
-    --#{$namespace}-input-inner-height: calc(var(--#{$namespace}-input-height, var(--#{$namespace}-component-size-large)) - 2px);
+    --#{$namespace}-input-inner-height: calc(var(--#{$namespace}-input-height, 40px) - 2px);
     font-size: 14px;
 }
 
 .#{$namespace}-input--small {
     --#{$namespace}-input-height: var(--#{$namespace}-component-size-small);
-    --#{$namespace}-input-inner-height: var(--#{$namespace}-component-size-small);
+    --#{$namespace}-input-inner-height: calc(var(--#{$namespace}-input-height, 24px) - 2px);
     font-size: 12px;
 }

@@ -120,7 +120,7 @@ export type { TagProps } from './Tag';
 export { TimeLine as ElTimeLine, TimeLineItem as ElTimeLineItem } from './TimeLine';
 export type { TimeLineItemProps, TimeLineProps } from './TimeLine';
 
-export { DirectoryTree as ElDirectoryTree, Tree as ElTree, TreeNode } from './Tree';
+export { DirectoryTree as ElDirectoryTree, Tree as ElTree /* , TreeNode */ } from './Tree';
 export type {
     AntTreeNode,
     AntTreeNodeCheckedEvent,
@@ -135,15 +135,13 @@ export type {
     DirectoryTreeProps,
     EventDataNode,
     Key,
-    TreeNodeProps,
-    TreeProps,
 } from './Tree';
 
 export { TreeSelect as ElTreeSelect } from './TreeSelect';
 export type { SelectInfo, TreeSelectProps, TreeSelectRef } from './TreeSelect';
 
-export { VirtualList } from './VirtualList';
-export type { ListProps, ListRef, ScrollTo } from './VirtualList';
+// export { VirtualList } from './VirtualList';
+// export type { ListProps, ListRef, ScrollTo } from './VirtualList';
 
 /* Navigation 导航 */
 export { Breadcrumb as ElBreadcrumb, BreadcrumbItem as ElBreadcrumbItem } from './Breadcrumb';

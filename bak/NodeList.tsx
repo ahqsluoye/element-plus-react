@@ -2,11 +2,11 @@
  * Handle virtual list of the TreeNodes.
  */
 
-import useLayoutEffect from 'rc-util/lib/hooks/useLayoutEffect';
+import useLayoutEffect from '@rc-component/util/lib/hooks/useLayoutEffect';
 import VirtualList, { type ListRef } from 'rc-virtual-list';
 import * as React from 'react';
 import MotionTreeNode from './MotionTreeNode';
-import type { BasicDataNode, DataEntity, DataNode, FlattenNode, Key, KeyEntities, ScrollTo } from './typings';
+import type { BasicDataNode, DataEntity, DataNode, FlattenNode, Key, KeyEntities, ScrollTo } from './interface';
 import { findExpandedKeys, getExpandRange } from './utils/diffUtil';
 import { getKey, getTreeNodeProps } from './utils/treeUtil';
 
@@ -21,7 +21,6 @@ const HIDDEN_STYLE = {
     margin: 0,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {};
 
 export const MOTION_KEY = `RC_TREE_MOTION_${Math.random()}`;

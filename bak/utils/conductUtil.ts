@@ -1,5 +1,5 @@
-import warning from 'rc-util/lib/warning';
-import type { BasicDataNode, DataEntity, DataNode, GetCheckDisabled, Key, KeyEntities } from '../typings';
+import warning from '@rc-component/util/lib/warning';
+import type { BasicDataNode, DataEntity, DataNode, GetCheckDisabled, Key, KeyEntities } from '../interface';
 import getEntity from './keyUtil';
 
 interface ConductReturnType {

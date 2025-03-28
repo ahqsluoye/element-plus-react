@@ -1,27 +1,45 @@
+import { TreeProps } from '../RCTree';
 import { DataNode, Key } from '../typings';
+import { fillFieldNames } from './treeUtil';
 
-enum Record {
-    None,
-    Start,
-    End,
-}
+const RECORD_NONE = 0;
+const RECORD_START = 1;
+const RECORD_END = 2;
 
-function traverseNodesKey<T = DataNode>(treeData: T[], callback: (key: Key | number | null, node: T) => boolean) {
-    function processNode(dataNode: T) {
-        // @ts-ignore
-        const { key, children } = dataNode;
+type Record = typeof RECORD_NONE | typeof RECORD_START | typeof RECORD_END;
+
+type FieldNames = TreeProps['fieldNames'];
+
+function traverseNodesKey(treeData: DataNode[], callback: (key: Key | number | null, node: DataNode) => boolean, fieldNames: Required<NonNullable<FieldNames>>) {
+    const { key: fieldKey, children: fieldChildren } = fieldNames;
+
+    function processNode(dataNode: DataNode & FieldNames[keyof FieldNames]) {
+        const key = dataNode[fieldKey];
+        const children = dataNode[fieldChildren];
         if (callback(key, dataNode) !== false) {
-            traverseNodesKey(children || [], callback);
+            traverseNodesKey(children || [], callback, fieldNames);
         }
     }
 
-    treeData.forEach(processNode);
+    treeData.forEach(processNode as any);
 }
 
 /** 计算选中范围，只考虑expanded情况以优化性能 */
-export function calcRangeKeys<T = DataNode>({ treeData, expandedKeys, startKey, endKey }: { treeData: T[]; expandedKeys: Key[]; startKey?: Key; endKey?: Key }): Key[] {
+export function calcRangeKeys({
+    treeData,
+    expandedKeys,
+    startKey,
+    endKey,
+    fieldNames,
+}: {
+    treeData: DataNode[];
+    expandedKeys: Key[];
+    startKey?: Key;
+    endKey?: Key;
+    fieldNames?: FieldNames;
+}): Key[] {
     const keys: Key[] = [];
-    let record: Record = Record.None;
+    let record: Record = RECORD_NONE;
 
     if (startKey && startKey === endKey) {
         return [startKey];
@@ -34,47 +52,50 @@ export function calcRangeKeys<T = DataNode>({ treeData, expandedKeys, startKey, 
         return key === startKey || key === endKey;
     }
 
-    traverseNodesKey(treeData, (key: Key) => {
-        if (record === Record.End) {
-            return false;
-        }
-
-        if (matchKey(key)) {
-            // Match test
-            keys.push(key);
-
-            if (record === Record.None) {
-                record = Record.Start;
-            } else if (record === Record.Start) {
-                record = Record.End;
+    traverseNodesKey(
+        treeData,
+        key => {
+            if (record === RECORD_END) {
                 return false;
             }
-        } else if (record === Record.Start) {
-            // Append selection
-            keys.push(key);
-        }
 
-        if (expandedKeys.indexOf(key) === -1) {
-            return false;
-        }
+            if (matchKey(key as any)) {
+                // Match test
+                keys.push(key as any);
 
-        return true;
-    });
+                if (record === RECORD_NONE) {
+                    record = RECORD_START;
+                } else if (record === RECORD_START) {
+                    record = RECORD_END;
+                    return false;
+                }
+            } else if (record === RECORD_START) {
+                // Append selection
+                keys.push(key as any);
+            }
+            return expandedKeys.includes(key as any);
+        },
+        fillFieldNames(fieldNames),
+    );
 
     return keys;
 }
 
-export function convertDirectoryKeysToNodes<T = DataNode>(treeData: T[], keys: Key[]) {
+export function convertDirectoryKeysToNodes(treeData: DataNode[], keys: Key[], fieldNames?: FieldNames) {
     const restKeys: Key[] = [...keys];
-    const nodes: T[] = [];
-    traverseNodesKey(treeData, (key: Key, node: T) => {
-        const index = restKeys.indexOf(key);
-        if (index !== -1) {
-            nodes.push(node);
-            restKeys.splice(index, 1);
-        }
+    const nodes: DataNode[] = [];
+    traverseNodesKey(
+        treeData,
+        (key, node) => {
+            const index = restKeys.indexOf(key as any);
+            if (index !== -1) {
+                nodes.push(node);
+                restKeys.splice(index, 1);
+            }
 
-        return !!restKeys.length;
-    });
+            return !!restKeys.length;
+        },
+        fillFieldNames(fieldNames),
+    );
     return nodes;
 }
