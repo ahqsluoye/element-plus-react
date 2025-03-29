@@ -26,7 +26,7 @@ export type { TransitionProps } from './Transition';
 
 /* Form 表单组件 */
 export { Cascader as ElCascader } from './Cascader';
-export type { CascaderMenuProps, CascaderProps, TreeMenuProps } from './Cascader';
+export type { CascaderMenuProps, CascaderProps } from './Cascader';
 
 export { Checkbox as ElCheckbox, CheckboxButton as ElCheckboxButton } from './Checkbox';
 export type { CheckboxProps, ValueType as CheckboxValueType } from './Checkbox';
@@ -122,19 +122,20 @@ export type { TimeLineItemProps, TimeLineProps } from './TimeLine';
 
 export { DirectoryTree as ElDirectoryTree, Tree as ElTree /* , TreeNode */ } from './Tree';
 export type {
-    AntTreeNode,
-    AntTreeNodeCheckedEvent,
-    AntTreeNodeExpandedEvent,
-    AntTreeNodeMouseEvent,
-    AntTreeNodeProps,
-    AntTreeNodeSelectedEvent,
-    AntdTreeNodeAttribute,
     BasicDataNode,
     DataNode,
     DirectoryTreeExpandAction,
     DirectoryTreeProps,
     EventDataNode,
     Key,
+    // AntTreeNode,
+    // AntTreeNodeCheckedEvent,
+    // AntTreeNodeExpandedEvent,
+    // AntTreeNodeMouseEvent,
+    // AntTreeNodeProps,
+    // AntTreeNodeSelectedEvent,
+    // AntdTreeNodeAttribute,
+    TreeProps,
 } from './Tree';
 
 export { TreeSelect as ElTreeSelect } from './TreeSelect';

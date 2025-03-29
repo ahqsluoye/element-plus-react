@@ -22,7 +22,7 @@ const App = () => {
     return (
         <div ref={divRef} style={{ height: 300, padding: 10, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <span>{lorem.generateParagraphs(5)}</span>
-            <ElLoading fullscreen={false} visible />
+            <ElLoading fullscreen={false} target={divRef} visible />
         </div>
     );
 };

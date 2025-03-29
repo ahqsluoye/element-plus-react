@@ -1,2 +1,2 @@
 export { default as Cascader } from './Cascader';
-export type { CascaderMenuProps, CascaderProps, TreeMenuProps } from './typings';
+export type { CascaderMenuProps, CascaderProps } from './typings';

@@ -56,7 +56,7 @@ const DatePicker: FC<DatePickerProps> = memo(
             if (isNotEmpty(props.format)) {
                 return props.format;
             } else {
-                switch (props.type) {
+                switch (type) {
                     case 'year':
                         return 'YYYY';
                     case 'month':
@@ -67,14 +67,14 @@ const DatePicker: FC<DatePickerProps> = memo(
                         return 'YYYY-MM-DD';
                 }
             }
-        }, [props.format, props.type]);
+        }, [props.format, type]);
 
         /** 根据日期类型设定占位符 */
         const placeholder = useMemo(() => {
             if (isNotEmpty(props.placeholder)) {
                 return props.placeholder;
             } else {
-                switch (props.type) {
+                switch (type) {
                     case 'year':
                         return '请选择年份';
                     case 'month':
@@ -85,7 +85,7 @@ const DatePicker: FC<DatePickerProps> = memo(
                         return '请选择日期';
                 }
             }
-        }, [props.placeholder, props.type]);
+        }, [props.placeholder, type]);
 
         /** 日期参数转成dayjs对象 */
         const dateProp = useMemo(() => {
@@ -202,7 +202,7 @@ const DatePicker: FC<DatePickerProps> = memo(
                         value={{
                             value: dateProp,
                             valueRange,
-                            dateType: props.type,
+                            dateType: type,
                             isoWeek: props.isoWeek,
                             showToday: props.showToday,
                             popperInstRef,

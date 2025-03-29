@@ -69,7 +69,7 @@
 
         &.start-date .cell,
         &.end-date .cell {
-            color: #ffffff;
+            color: #ffffff !important;
             background: var(--#{$namespace}-datepicker-active-color);
         }
 

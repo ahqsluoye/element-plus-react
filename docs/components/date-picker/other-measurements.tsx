@@ -9,7 +9,7 @@ const App = () => {
                 <div className="container">
                     <div className="block">
                         <span className="demonstration">Week</span>
-                        <ElDatePicker type="week" valueFormat="YYYY ww" format="[Week] ww" defaultValue="2024 22" style={{ width: 200 }} />
+                        <ElDatePicker type="week" valueFormat="YYYY ww" format="[Week] ww" isoWeek defaultValue="2024 22" style={{ width: 200 }} />
                     </div>
                     <div className="block">
                         <span className="demonstration">Dates</span>

@@ -21,7 +21,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 const App = () => {
     const [formInstance] = useForm();
     const [disabled, setDisabled] = useState(false);
-    const [size, setSize] = useState<TypeAttributes.Size>(null);
+    const [size, setSize] = useState<TypeAttributes.Size>('');
     const [labelPosition, setLabelPosition] = useState<'left' | 'right' | 'top'>('right');
 
     const initialValues = useMemo(() => {
@@ -37,7 +37,7 @@ const App = () => {
             <ElCol span={24}>
                 <ElRadioGroup value={size} onChange={(value: TypeAttributes.Size) => setSize(value)}>
                     <ElRadio.Button value="large">大</ElRadio.Button>
-                    <ElRadio.Button value={null}>默认</ElRadio.Button>
+                    <ElRadio.Button value={''}>默认</ElRadio.Button>
                     <ElRadio.Button value="small">小</ElRadio.Button>
                 </ElRadioGroup>
                 <ElRadioGroup value={labelPosition} onChange={(value: 'left' | 'right' | 'top') => setLabelPosition(value)} style={{ marginLeft: 20 }}>

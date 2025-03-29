@@ -1,6 +1,8 @@
-.el-select__trigger {
-    .el-input {
-        width: unset !important;
+.mixed-input {
+    .el-select__trigger {
+        .el-input {
+            width: unset !important;
+        }
     }
 }
 

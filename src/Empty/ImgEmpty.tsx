@@ -17,7 +17,7 @@ const ImgEmpty = () => {
                 </linearGradient>
                 <rect id="path-3-1" x="0" y="0" width="17" height="36" />
             </defs>
-            <g id="Illustrations" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="Illustrations" stroke="none" stroke-width="1" fill="none" fillRule="evenodd">
                 <g id="B-type" transform="translate(-1268.000000, -535.000000)">
                     <g id="Group-2" transform="translate(1268.000000, 535.000000)">
                         <path

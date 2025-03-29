@@ -17,7 +17,7 @@ interface Props {
 }
 
 const CascaderDropdown = memo((props: Props) => {
-    const { menuProps, onSelect, onCheckedChange } = useContext(CascaderContext);
+    const { props: menuProps, onSelect, onCheckedChange } = useContext(CascaderContext);
     const { options, separator, value, checkedNodes } = props;
     const { valueKey = 'value', labelKey = 'label', multiple } = menuProps;
     const { e, is } = useClassNames('cascader');

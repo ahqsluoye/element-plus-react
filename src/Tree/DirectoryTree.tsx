@@ -1,13 +1,13 @@
 import classNames from 'classnames';
-import RcTree, { BasicDataNode } from 'rc-tree';
-import type { DataNode, EventDataNode, Key } from 'rc-tree/lib/interface';
-import { conductExpandParent } from 'rc-tree/lib/util';
-import { convertDataToEntities, convertTreeToData } from 'rc-tree/lib/utils/treeUtil';
 import * as React from 'react';
+import RcTree from './RCTree';
 
 import { Icon } from '../Icon';
 import Tree, { AntdTreeNodeAttribute, TreeProps } from './Tree';
+import { BasicDataNode, DataNode, EventDataNode, Key } from './typings';
+import { conductExpandParent } from './util';
 import { calcRangeKeys, convertDirectoryKeysToNodes } from './utils/dictUtil';
+import { convertDataToEntities, convertTreeToData } from './utils/treeUtil';
 
 export type ExpandAction = false | 'click' | 'doubleClick';
 

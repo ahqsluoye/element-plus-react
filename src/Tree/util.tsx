@@ -3,10 +3,10 @@
  * Legacy code. Should avoid to use if you are new to import these code.
  */
 
-import { TreeNode } from 'rc-tree';
 import warning from 'rc-util/lib/warning';
 import React from 'react';
 import type { AllowDrop, TreeProps } from './RCTree';
+import TreeNode from './TreeNode';
 import type { BasicDataNode, DataEntity, DataNode, Direction, FlattenNode, Key, KeyEntities, NodeElement, TreeNodeProps } from './typings';
 import getEntity from './utils/keyUtil';
 

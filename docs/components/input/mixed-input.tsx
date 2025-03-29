@@ -4,7 +4,7 @@ import './mixed-input.scss';
 
 const App = () => {
     return (
-        <div>
+        <div className="mixed-input">
             <ElInput prepend="Http://" placeholder="请输入内容" style={{ width: 600 }} />
             <div className="mt-4">
                 <ElInput append=".com" placeholder="请输入内容" style={{ width: 600 }} />

@@ -1,9 +1,8 @@
 /* eslint-disable lines-around-comment */
 import classNames from 'classnames';
-import RcTree, { TreeProps as RcTreeProps } from './RCTree';
-// import RcTree, { TreeProps as RcTreeProps, TreeNode } from 'rc-tree';
 import React, { Component, Ref, forwardRef, useMemo } from 'react';
 import DirectoryTree from './DirectoryTree';
+import RcTree, { TreeProps as RcTreeProps } from './RCTree';
 import TreeNode from './TreeNode';
 import { BasicDataNode, DataNode, Key } from './typings';
 import DropIndicatorRender from './utils/dropIndicator';

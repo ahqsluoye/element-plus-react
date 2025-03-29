@@ -5,23 +5,13 @@ import last from 'lodash/last';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Key } from '../Tree';
 import { isEmpty, isNotEmpty, randomCode } from '../Util';
-import { reOrgTree } from './Utils';
 import { CascaderProps, OptionNode } from './typings';
 
-/**
- * @author	Parker
- * @CreateTime	2022/4/17 16:02:49
- * @LastEditor	Parker
- * @ModifyTime	2022/11/20 13:05:51
- * @Description
- */
 export const useCascader = (initialData: object[], props: CascaderProps, value: string[] | string[][]) => {
-    const { props: menuProps, treeMenuProps, showAllLevels, separator, expandedKeys = [] } = props;
+    const { props: menuProps, showAllLevels, separator } = props;
     const { childrenKey = 'children', valueKey = 'value', labelKey = 'label', leafKey = 'leaf', lazy } = menuProps;
     // 展开层级数
     const [allLevel, setAllLevel] = useState(0);
-    // 缓存树数据
-    const [treeData, setTreeData] = useState<Record<string, any[]>>({});
     // 缓存每层组件类型
     const [dataTypes, setDataTypes] = useState([]);
     // 缓存每层组件类型（同上）
@@ -369,27 +359,19 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
      * @param level 层级
      */
     const storeOptionData = useCallback(
-        (nodes: object[], level: number, parent: OptionNode, { isTree, isCover }: { isTree?: boolean; isCover?: boolean }): OptionNode[] => {
+        (nodes: object[], level: number, parent: OptionNode, { isCover }: { isCover?: boolean }): OptionNode[] => {
             let data = cloneDeep(_optionData.current);
 
             let newNodes: OptionNode[] = [];
-            if (isTree) {
-                const treeNodes = reOrgTree(nodes, level, menuProps, treeMenuProps, newNodes);
-                setTreeData({
-                    ...treeData,
-                    [`level${level}`]: treeNodes,
-                });
-            } else {
-                newNodes = nodes.map((node: object) => ({
-                    ...node,
-                    __level: level,
-                    __id: randomCode(11),
-                    __pId: parent?.__id ?? '0',
-                    __leaf: node[leafKey] ?? false,
-                    __checked: false,
-                    __indeterminate: false,
-                }));
-            }
+            newNodes = nodes.map((node: object) => ({
+                ...node,
+                __level: level,
+                __id: randomCode(11),
+                __pId: parent?.__id ?? '0',
+                __leaf: node[leafKey] ?? false,
+                __checked: false,
+                __indeterminate: false,
+            }));
 
             // 新的层级
             if (isEmpty(data[`level${level}`])) {
@@ -425,19 +407,19 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
                     selectedValue.current.push(null);
                     selectedLabel.current.push(null);
                     selectedNode.current.push(null);
-                    setDataTypes((_dataTypes.current = [..._dataTypes.current, isTree ? true : false]));
+                    setDataTypes(_dataTypes.current);
                 }
             } else {
                 selectedValue.current[level] = null;
                 selectedLabel.current[level] = null;
                 selectedNode.current[level] = null;
                 const _types = cloneDeep(_dataTypes.current);
-                _types[level] = isTree ? true : false;
+                _types[level] = false;
                 setDataTypes((_dataTypes.current = _types));
             }
             return data[`level${level}`];
         },
-        [allLevel, childrenKey, leafKey, menuProps, treeData, treeMenuProps],
+        [allLevel, childrenKey, leafKey],
     );
 
     /**
@@ -466,18 +448,6 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
             return lazy && dataTypes[level];
         },
         [dataTypes, lazy],
-    );
-
-    /**
-     * 获取树数据
-     * @param level 层级
-     * @returns
-     */
-    const getTreeData = useCallback(
-        (level: number) => {
-            return lazy && treeData[`level${level}`];
-        },
-        [lazy, treeData],
     );
 
     /**
@@ -660,12 +630,6 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value, allLevel, props.options]);
 
-    useEffect(() => {
-        expandedKeys.forEach((keys, level) => {
-            setExpandedKeys(level, keys);
-        });
-    }, [expandedKeys, setExpandedKeys]);
-
     return {
         // eslint-disable-next-line lines-around-comment
         /** 最高层级 */
@@ -752,13 +716,6 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
          * @returns
          */
         getDataType,
-
-        /**
-         * 获取树数据
-         * @param level 层级
-         * @returns
-         */
-        getTreeData,
 
         /**
          * 获取扩展key

@@ -1,13 +1,11 @@
 @use '../common/var';
 
-.#{$namespace}-loading-parent {
-    .#{$namespace}-loading-parent--relative {
-        position: relative !important;
-    }
+.#{$namespace}-loading-parent--relative {
+    position: relative !important;
+}
 
-    .#{$namespace}-loading-parent--hidden {
-        overflow: hidden !important;
-    }
+.#{$namespace}-loading-parent--hidden {
+    overflow: hidden !important;
 }
 
 .#{$namespace}-loading-mask {

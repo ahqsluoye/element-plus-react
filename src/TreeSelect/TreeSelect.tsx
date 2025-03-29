@@ -13,13 +13,13 @@ import { Input, InputGroup, InputRef } from '../Input';
 import { Popper, PopperOptionRef } from '../Popper';
 import { Scrollbar, ScrollbarRef } from '../Scrollbar';
 import { Tag } from '../Tag';
-import { CheckInfo, DataNode, DirectoryTree, Key, RCTree } from '../Tree';
+import { BasicDataNode, CheckInfo, DataNode, DirectoryTree, Key, RCTree } from '../Tree';
 import { isEmpty, isNotEmpty } from '../Util';
 import { partitionAnimationProps, partitionHTMLProps, partitionPopperPropsUtils, partitionTreePropsUtils, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { parentNotSelectable } from './Utils';
 import { SelectInfo, TreeSelectProps, TreeSelectRef } from './typings';
 
-function InternalTreeSelect<RecordType extends object = DataNode>(props: TreeSelectProps<RecordType>, ref: RefObject<TreeSelectRef>) {
+function InternalTreeSelect<RecordType extends BasicDataNode = DataNode>(props: TreeSelectProps<RecordType>, ref: RefObject<TreeSelectRef>) {
     props = {
         clearable: true,
         collapseTags: true,
@@ -112,6 +112,7 @@ function InternalTreeSelect<RecordType extends object = DataNode>(props: TreeSel
     }, [visible]);
 
     const treeData = useMemo(() => {
+        // @ts-ignore
         return !multiple && !props.checkStrictly ? parentNotSelectable(props.treeData) : props.treeData;
     }, [multiple, props.checkStrictly, props.treeData]);
 
@@ -193,6 +194,7 @@ function InternalTreeSelect<RecordType extends object = DataNode>(props: TreeSel
     }, [searchText, popperStyle]);
 
     useEffect(() => {
+        // @ts-ignore
         const flattenNodes = treeRef.current?.flattenTreeData(expandedKeys);
         treeRef.current?.setState({
             expandedKeys,
@@ -333,6 +335,7 @@ function InternalTreeSelect<RecordType extends object = DataNode>(props: TreeSel
             setLabel(text);
             // @ts-ignore
             setValue(selectedKeys);
+            // @ts-ignore
             onChange?.(multiple ? selectedKeys : head(selectedKeys), text);
             !multiple && onClick(info.nativeEvent);
             // @ts-ignore
@@ -377,6 +380,7 @@ function InternalTreeSelect<RecordType extends object = DataNode>(props: TreeSel
             const labels = selectedKeys
                 .filter(item => isNotEmpty(item))
                 .map(item => {
+                    // @ts-ignore
                     return keyEntities[item]?.node[_fieldNames.title] ?? null;
                 });
             if (labels.length > 0) {

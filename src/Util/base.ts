@@ -194,7 +194,20 @@ export function addUnit(value?: string | number, defaultUnit = 'px') {
     }
 }
 
-export function mergeDefaultProps<T extends object>(defaultProps: Partial<T> = {}, props: T): T {
-    // @ts-ignore
-    return { ...defaultProps, ...(props ?? {}) };
+export function mergeDefaultProps<T>(defaultProps: Partial<T> = {}, target: T): T {
+    const props = { ...target };
+    if (Object.prototype.toString.call(props) === '[object Object]' && Object.prototype.toString.call(defaultProps) === '[object Object]') {
+        for (const item in defaultProps) {
+            //target无值,都有取source
+            if (isUndefined(props[item])) {
+                Object.assign(props, { [item]: defaultProps[item] });
+            } else {
+                if (Object.prototype.toString.call(props[item]) === '[object Object]' && Object.prototype.toString.call(defaultProps[item]) === '[object Object]') {
+                    //递归赋值
+                    props[item] = mergeDefaultProps(props[item], defaultProps[item]);
+                }
+            }
+        }
+    }
+    return props;
 }

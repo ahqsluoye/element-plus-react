@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { FC, useRef } from 'react';
+import { addClass } from 'dom-lib';
+import React, { FC, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import { Icon } from '../Icon';
@@ -10,9 +11,16 @@ import { LoadingProps, LoadingService } from './typings';
 
 const Main: FC<LoadingProps> = props => {
     const { visible, text, fullscreen = true, spinner, background } = props;
-    const { b, is } = useClassNames('loading');
+    const { b, is, bm } = useClassNames('loading');
 
     const nodeRef = useRef(null);
+
+    useEffect(() => {
+        if (nodeRef.current?.parentNode) {
+            addClass(nodeRef.current.parentNode, bm('parent', 'relative'));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <Transition nodeRef={nodeRef} name="loading-fade" visible={visible}>
@@ -34,11 +42,14 @@ const Main: FC<LoadingProps> = props => {
 
 const service = (props: LoadingProps = {}) => {
     const { target = { current: document.body } } = props;
-    const root = createRoot(document.body);
+    const renderDom = document.createDocumentFragment();
+    const root = createRoot(renderDom);
     root.render(createPortal(<Main {...props} visible />, target.current));
     return {
         close: () => {
-            root.unmount();
+            setTimeout(() => {
+                root.unmount();
+            }, 200);
         },
     };
 };
@@ -61,6 +72,6 @@ interface CompInterface extends FC<LoadingProps> {
 }
 
 Loading.service = service;
-Loading.displayName = 'Loading';
+Loading.displayName = 'ElLoading';
 
 export default Loading;

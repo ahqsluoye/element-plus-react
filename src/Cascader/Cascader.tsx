@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import classNames from 'classnames';
 import find from 'lodash/find';
-import get from 'lodash/get';
 import isEqual from 'lodash/isEqual';
 import last from 'lodash/last';
 import max from 'lodash/max';
 import omit from 'lodash/omit';
-import reverse from 'lodash/reverse';
 import trim from 'lodash/trim';
 import React, { FC, RefObject, forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { Divider } from '../Divider';
@@ -15,7 +13,7 @@ import { Input, InputRef } from '../Input';
 import { Popper, PopperOptionRef } from '../Popper';
 import { Tag } from '../Tag';
 import { Tooltip } from '../Tooltip';
-import { isEmpty, isNotEmpty } from '../Util';
+import { isEmpty, isNotEmpty, mergeDefaultProps } from '../Util';
 import { partitionAnimationProps, partitionHTMLProps, partitionPopperPropsUtils, partitionTreePropsUtils, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { CascaderContext } from './CascaderContext';
 import CascaderDropdown from './CascaderDropdown';
@@ -26,32 +24,27 @@ import { useCascader } from './useCascader';
 
 const Cascader: FC<CascaderProps> = memo(
     forwardRef((props: CascaderProps, ref?: RefObject<CascaderRef>) => {
-        props = {
-            separator: '/',
-            showAllLevels: true,
-            props: {
-                expandTrigger: 'click',
-                emitPath: true,
-                valueKey: 'value',
-                labelKey: 'label',
-                childrenKey: 'children',
-                disabledKey: 'disabled',
-                leafKey: 'leaf',
+        props = mergeDefaultProps(
+            {
+                separator: '/',
+                showAllLevels: true,
+                props: {
+                    expandTrigger: 'click',
+                    emitPath: true,
+                    valueKey: 'value',
+                    labelKey: 'label',
+                    childrenKey: 'children',
+                    disabledKey: 'disabled',
+                    leafKey: 'leaf',
+                },
+                shouldSelect: () => true,
+                placeholder: '请选择',
+                collapseTags: true,
+                collapseTagsTooltip: true,
+                maxCollapseTags: 1,
             },
-            treeMenuProps: {
-                valueKey: 'key',
-                labelKey: 'title',
-                childrenKey: 'children',
-                disabledKey: 'disabled',
-                leafKey: 'leaf',
-            },
-            shouldSelect: () => true,
-            placeholder: '请选择',
-            collapseTags: true,
-            collapseTagsTooltip: true,
-            maxCollapseTags: 1,
-            ...props,
-        };
+            props,
+        );
         const {
             classPrefix = 'cascader',
             options,
@@ -70,7 +63,6 @@ const Cascader: FC<CascaderProps> = memo(
             afterEnter,
             afterLeave,
             props: menuProps,
-            treeMenuProps,
             shouldSelect,
             labelFormatter,
             error,
@@ -78,7 +70,6 @@ const Cascader: FC<CascaderProps> = memo(
             ...rest
         } = props;
         const { multiple, valueKey = 'value', labelKey = 'label', childrenKey = 'children', lazy, lazyLoad } = menuProps;
-        const { valueKey: treeValueKey = 'key' } = treeMenuProps;
         const { e, b, m, is } = useClassNames(classPrefix);
         const disabled = useDisabled(props.disabled);
         const size = useSize(props.size);
@@ -129,7 +120,6 @@ const Cascader: FC<CascaderProps> = memo(
             clearSelected,
             setNodeLeaf,
             getDataType,
-            getTreeData,
             getExpandedKeys,
             setExpandedKeys,
             setSelectedValue,
@@ -264,28 +254,6 @@ const Cascader: FC<CascaderProps> = memo(
             [searchText],
         );
 
-        /**
-         *
-         * @param nodeList
-         * @param node
-         * @param expandedKeys
-         * @returns
-         */
-        const loopGetExpandedKeys = useCallback(
-            (nodeList: OptionNode[], node: OptionNode, expandedKeys = []) => {
-                if (Object.prototype.hasOwnProperty.call(node, 'parent')) {
-                    const key = get(node, `parent.${treeValueKey}`);
-                    const parent = find(nodeList, { [valueKey]: key });
-                    if (parent) {
-                        expandedKeys.push(key);
-                        loopGetExpandedKeys(nodeList, parent, expandedKeys);
-                    }
-                }
-                return expandedKeys;
-            },
-            [treeValueKey, valueKey],
-        );
-
         const onSelect = useCallback(
             (_level: number, node: OptionNode) => {
                 // 懒加载且非叶子节点且没有子节点时进入
@@ -295,8 +263,8 @@ const Cascader: FC<CascaderProps> = memo(
                         setLoading(node.__id);
                         lazyLoad({ ...node, level: _level + 1 }, resolve, reject);
                     })
-                        .then(({ nodes, isTree }: { nodes: object[]; isTree: boolean }) => {
-                            storeOptionData(nodes, _level + 1, node, { isTree });
+                        .then(({ nodes }: { nodes: object[] }) => {
+                            storeOptionData(nodes, _level + 1, node, {});
                             setLoading(null);
                             if (shouldSelect(node, _level)) {
                                 setLevel(_level + 1);
@@ -318,7 +286,7 @@ const Cascader: FC<CascaderProps> = memo(
                             setNodeLeaf(node, true);
                             setLoading(null);
                             if (shouldSelect(node, _level)) {
-                                storeOptionData([], _level + 1, node, { isTree: false });
+                                storeOptionData([], _level + 1, node, {});
                                 const _label = getSelectedLabel(labelFormatter?.bind(this, _level));
                                 lastValueRef.current = getSelectedValue();
                                 setValue(lastValueRef.current);
@@ -406,7 +374,6 @@ const Cascader: FC<CascaderProps> = memo(
          * 循环懒加载（初始化有值时自动加载）
          * @param l
          * @param parent
-         * @param isTree
          */
         const loopLazyLoad = useCallback(
             (l: number, parent: OptionNode, _value: string[] | string[][], { isCover }: { isCover?: boolean }) => {
@@ -416,8 +383,6 @@ const Cascader: FC<CascaderProps> = memo(
                     }
                     const curNode = find(nodes, { [valueKey]: _value[_l] });
                     if (curNode) {
-                        const expandedKeys = loopGetExpandedKeys(nodes, curNode);
-                        setExpandedKeys(_l, reverse(expandedKeys));
                         setSelectedNode(_l, curNode);
                         setLabel(getSelectedLabel(labelFormatter?.bind(this, showAllLevels ? _value.length : allLevel)));
                         loopLazyLoad(_l + 1, curNode, _value, { isCover });
@@ -435,8 +400,8 @@ const Cascader: FC<CascaderProps> = memo(
                     } else {
                         new Promise((resolve, reject) => {
                             lazyLoad({ ...parent, level: l }, resolve, reject);
-                        }).then(({ nodes, isTree }: { nodes: object[]; isTree: boolean }) => {
-                            const newNodes = storeOptionData(nodes, l, parent, { isTree, isCover });
+                        }).then(({ nodes }: { nodes: object[] }) => {
+                            const newNodes = storeOptionData(nodes, l, parent, { isCover });
                             loopCore(newNodes, l);
                         });
                     }
@@ -455,8 +420,6 @@ const Cascader: FC<CascaderProps> = memo(
             [
                 stopLazy,
                 valueKey,
-                loopGetExpandedKeys,
-                setExpandedKeys,
                 setSelectedNode,
                 setLabel,
                 getSelectedLabel,
@@ -528,8 +491,8 @@ const Cascader: FC<CascaderProps> = memo(
             if (lazy && lazyLoad && isEmpty(value)) {
                 new Promise((resolve, reject) => {
                     lazyLoad({ level: 0 }, resolve, reject);
-                }).then(({ nodes, isTree }: { nodes: object[]; isTree: boolean }) => {
-                    storeOptionData(nodes, 0, null, { isTree, isCover: true });
+                }).then(({ nodes }: { nodes: object[] }) => {
+                    storeOptionData(nodes, 0, null, { isCover: true });
                 });
             }
             if (isEmpty(props.lable)) {
@@ -551,9 +514,7 @@ const Cascader: FC<CascaderProps> = memo(
         }));
 
         return (
-            <CascaderContext.Provider
-                value={{ menuProps, treeMenuProps, treeProps, onSelect, onCheckedChange, loading, getDataType, getTreeData, getExpandedKeys, setExpandedKeys, searchText }}
-            >
+            <CascaderContext.Provider value={{ props: menuProps, onSelect, onCheckedChange, loading, getDataType, searchText }}>
                 <div
                     className={classNames(b(), is({ disabled }), m({ [size]: size }), props.className)}
                     style={props.style}

@@ -2,18 +2,17 @@
 import React from 'react';
 import { InputRef } from '../Input';
 import { PopperOptions } from '../Popper';
-import { DataNode, DirectoryTreeProps, Key } from '../Tree';
+// import { DataNode, DirectoryTreeProps, Key } from '../Tree';
 import { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps } from '../types/common';
 
 export type ValueType = string[] | string[][];
 
-export interface CascaderProps<V = ValueType, S = DataNode>
+export interface CascaderProps<V = ValueType, S = any>
     extends Omit<FormControlBaseProps<V>, 'onChange' | 'value' | 'defaultValue'>,
         BaseProps,
         NativeProps,
         AnimationEventProps,
-        PopperOptions,
-        Omit<DirectoryTreeProps<S>, 'children' | 'style' | 'expandedKeys' | 'className' | 'readOnly' | 'disabled'> {
+        PopperOptions {
     /** 初始值 */
     defaultValue?: ValueType;
     /** 值（可控） */
@@ -22,8 +21,6 @@ export interface CascaderProps<V = ValueType, S = DataNode>
     options?: any[];
     /** 配置选项 */
     props?: CascaderMenuProps;
-    /** 树形租金配置选项 */
-    treeMenuProps?: TreeMenuProps;
     /** 是否禁用 */
     disabled?: boolean;
     /** 是否可以清空选项 */
@@ -70,7 +67,6 @@ export interface CascaderProps<V = ValueType, S = DataNode>
     prepend?: React.ReactElement<any> | string | number;
     /** 输入框后置内容，只对 type="text" 有效 */
     append?: React.ReactElement | string | number;
-    expandedKeys?: Key[][];
     lable?: string;
     /** 是否追加到body下 */
     appendToBody?: boolean;
@@ -94,20 +90,7 @@ export interface CascaderMenuProps {
     /** 是否动态加载子节点，需与 lazyLoad 方法结合使用 */
     lazy?: boolean;
     /** 加载动态数据的方法，仅在 lazy 为 true 时有效 */
-    lazyLoad?: (node: object, resolve?: (value: object[], isTree?: boolean) => void, reject?: () => void) => void;
-    /** 指定选项的值为选项对象的某个属性值 */
-    valueKey?: string;
-    /** 指定选项标签为选项对象的某个属性值 */
-    labelKey?: string;
-    /** 指定选项的子选项为选项对象的某个属性值 */
-    childrenKey?: string;
-    /** 指定选项的禁用为选项对象的某个属性值 */
-    disabledKey?: string;
-    /** 指定选项的叶子节点的标志位为选项对象的某个属性值 */
-    leafKey?: string;
-}
-
-export interface TreeMenuProps {
+    lazyLoad?: (node: object, resolve?: (value: object[]) => void, reject?: () => void) => void;
     /** 指定选项的值为选项对象的某个属性值 */
     valueKey?: string;
     /** 指定选项标签为选项对象的某个属性值 */
