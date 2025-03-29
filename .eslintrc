@@ -1,0 +1,228 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "ecmaVersion": 12, // 支持es6语法，但并不意味着同时支持新的 ES6 全局变量或类型（比如 Set 等新类型）
+        "sourceType": "module", // 指定来源的类型，"script" (默认) 或 "module"（如果你的代码是 ECMAScript 模块)
+        "ecmaFeatures": {
+            "jsx": true,
+            "tsx": true
+        }
+    },
+    "plugins": ["@typescript-eslint", "react-hooks"],
+    // 一个配置文件可以从基础配置中继承已启用的规则，每个配置继承它前面的配置
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react-hooks/recommended"],
+    "env": {
+        "es6": true, // 启用 ES6 语法支持以及新的 ES6 全局变量或类型
+        "node": true, // Node.js 全局变量和 Node.js 作用域
+        "browser": true, // 浏览器全局变量
+        "jquery": true // jQuery 全局变量
+    },
+    "globals": {
+        "JQuery": true,
+        "layer": true,
+        "Plat": true,
+        "MozWebSocket": true,
+        "SockJS": true,
+        "ITreeNode": true,
+        "IzTreeObj": true
+    },
+    // 在此处添加自定义规则，此规则基于 https://github.com/shiguang0116/eslint-config-vui
+    "rules": {
+        // 强制使用一致的缩进
+        "indent": [
+            1,
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        // 要求使用 === 和 !==
+        "eqeqeq": 0,
+        // 要求或禁止使用分号代替 ASI
+        "semi": [1, "always"],
+        // 强制使用一致的反勾号、双引号或单引号
+        "quotes": [2, "single"],
+        // 要求或禁止末尾逗号
+        "comma-dangle": [1, "always-multiline"],
+        // 强制在逗号前后使用一致的空格
+        "comma-spacing": [
+            1,
+            {
+                "before": false,
+                "after": true
+            }
+        ],
+        // 禁用未声明的变量，除非它们在 /*global */ 注释中被提到
+        "no-undef": 1,
+        // 禁止数字字面量中使用前导和末尾小数点
+        "no-floating-decimal": 2,
+        // 禁止使用类似 eval() 的方法
+        "no-implied-eval": 2,
+        // 禁用 eval()
+        "no-eval": 2,
+        // 禁用标签语句
+        "no-labels": 2,
+        // 禁止在循环语句中出现包含不安全引用的函数声明
+        "no-loop-func": 0,
+        // 禁止使用多个空格
+        "no-multi-spaces": 1,
+        // 禁止使用多行字符串
+        "no-multi-str": 1,
+        // 禁止抛出异常字面量
+        "no-throw-literal": 2,
+        // 禁止在变量定义之前使用它们
+        "no-use-before-define": 0,
+        // 禁止或强制在代码块中开括号前和闭括号后有空格
+        "block-spacing": 1,
+        // 强制使用骆驼拼写法命名约定
+        "camelcase": 0,
+        // 强制使用一致的逗号风格
+        "comma-style": [1, "last"],
+        // 强制在计算的属性的方括号中使用一致的空格
+        "computed-property-spacing": [1, "never"],
+        // 要求或禁止在函数标识符和其调用之间有空格
+        "func-call-spacing": [1, "never"],
+        // 强制在对象字面量的属性中键和值之间使用一致的间距
+        "key-spacing": 1,
+        // 强制在关键字前后使用一致的空格
+        "keyword-spacing": 1,
+        // 要求在注释周围有空行
+        "lines-around-comment": 0,
+        // 禁止混合使用不同的操作符
+        "no-mixed-operators": [
+            2,
+            {
+                "groups": [
+                    ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
+                    ["&&", "||"],
+                    ["in", "instanceof"]
+                ],
+                "allowSamePrecedence": true
+            }
+        ],
+        // 禁止出现多行空行
+        "no-multiple-empty-lines": [
+            1,
+            {
+                "max": 2,
+                "maxEOF": 1,
+                "maxBOF": 0
+            }
+        ],
+        // 禁用嵌套的三元表达式
+        "no-nested-ternary": 2,
+        // 禁止可以在有更简单的可替代的表达式时使用三元操作符
+        "no-unneeded-ternary": 0,
+        // 禁止属性前有空白
+        "no-whitespace-before-property": 1,
+        // 强制在 function的左括号之前使用一致的空格
+        "space-before-function-paren": [
+            1,
+            {
+                "anonymous": "always",
+                "named": "never",
+                "asyncArrow": "always"
+            }
+        ],
+        // 要求操作符周围有空格
+        "space-infix-ops": 1,
+        // 强制在一元操作符前后使用一致的空格
+        "space-unary-ops": 1,
+        // 强制分号之前和之后使用一致的空格
+        "semi-spacing": 1,
+        // 强制在块之前使用一致的空格
+        "space-before-blocks": 1,
+        // 强制箭头函数的箭头前后使用一致的空格
+        "arrow-spacing": 1,
+        // 禁止重复模块导入
+        "no-duplicate-imports": 1,
+        // 要求使用 let 或 const 而不是 var
+        "no-var": 1,
+        // 禁止不必要的分号
+        "no-extra-semi": 2,
+        // 禁止出现未使用过的变量
+        "no-unused-vars": 0,
+        "@typescript-eslint/no-unused-vars": [1, { "varsIgnorePattern": "h|Fragment" }],
+        // 禁止空格和 tab 的混合缩进
+        "no-mixed-spaces-and-tabs": 2,
+        // 强制所有控制语句使用一致的括号风格
+        "curly": 1,
+        // 强制在大括号中使用一致的空格
+        "object-curly-spacing": [1, "always"],
+        // 强制大括号内换行符的一致性
+        "object-curly-newline": [
+            1,
+            {
+                "consistent": true
+            }
+        ],
+        // 禁用 console
+        "no-console": 1,
+        // 禁用行尾空格
+        "no-trailing-spaces": [
+            1,
+            {
+                "skipBlankLines": true,
+                "ignoreComments": true
+            }
+        ],
+        // 禁止在 return、throw、continue 和 break 语句之后出现不可达代码
+        "no-unreachable": 2,
+        // 禁用 alert、confirm 和 prompt
+        "no-alert": 1,
+        // 禁用不必要的转义字符
+        "no-useless-escape": 1,
+        // 禁止使用空解构模式
+        "no-empty-pattern": 2,
+        // 禁止变量声明与外层作用域的变量同名
+        "no-shadow": 0,
+        "@typescript-eslint/no-shadow": [
+            1,
+            {
+                "builtinGlobals": false
+            }
+        ],
+        // 要求使用 const 声明那些声明后不再被修改的变量
+        "prefer-const": [
+            1,
+            {
+                "destructuring": "any",
+                "ignoreReadBeforeAssign": true
+            }
+        ],
+        // 要求一致的 This
+        "consistent-this": 2,
+        // typescript
+        "@typescript-eslint/no-this-alias": [
+            2,
+            {
+                "allowDestructuring": true, // Allow `const { props, state } = this`; false by default
+                "allowedNames": ["that", "self"] // Allow `const self = this`; `[]` by default
+            }
+        ],
+        "arrow-parens": [2, "as-needed"],
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/member-delimiter-style": [
+            1,
+            {
+                "multiline": {
+                    "delimiter": "semi",
+                    "requireLast": true
+                },
+                "singleline": {
+                    "delimiter": "semi",
+                    "requireLast": false
+                }
+            }
+        ],
+        "@typescript-eslint/ban-types": 0,
+        "@typescript-eslint/ban-ts-comment": 0,
+        // 检查 Hook 的规则
+        "react-hooks/rules-of-hooks": 2,
+        // 检查 effect 的依赖
+        "react-hooks/exhaustive-deps": 1
+    }
+}

@@ -1,0 +1,106 @@
+@use './mixins' as *;
+@use './vars' as *;
+@use './content/doc-content';
+@use './content/hero-content';
+@use './content/tag-content';
+
+.page-content {
+    outline: none;
+    @include respond-to('lg') {
+        padding-top: var(--nav-height);
+
+        &.has-sidebar {
+            padding-left: calc(var(--sidebar-width-sm) + 10px);
+            @include respond-to('xlg') {
+                padding-left: calc(var(--vp-sidebar-width-small));
+            }
+            @include respond-to('xxl') {
+                padding-left: calc(var(--vp-sidebar-width-small) + 32px);
+            }
+            @include respond-to('max') {
+                padding-left: calc(var(--vp-sidebar-width-small) + 48px);
+            }
+        }
+    }
+
+    .doc-content a {
+        display: inline-flex;
+        align-items: center;
+        &.vp-link {
+            white-space: nowrap;
+        }
+        .link-icon {
+            margin-left: 0.25rem;
+            height: 1em;
+            width: 1em;
+        }
+    }
+}
+
+.text-center,
+[text~='center'] {
+    text-align: center;
+}
+
+.home-page .banner-desc p {
+    font-size: 18px;
+    color: var(--text-color-light);
+}
+
+.r-doc-demo-tab {
+    .r-tabs__content {
+        height: calc(100% - 40px);
+    }
+}
+
+.r-height-100 {
+    height: 100% !important;
+}
+
+.dumi-default-table table {
+    border-collapse: collapse;
+    width: 100%;
+    background: #fff;
+    font-size: 14px;
+    margin-bottom: 45px;
+    line-height: 1.5em;
+}
+
+.dumi-default-table table td,
+.dumi-default-table table th {
+    border-bottom: 1px solid var(--el-border-color, #dcdfe6);
+    padding: 15px;
+    max-width: 250px;
+}
+
+.dumi-default-table table th {
+    text-align: left;
+    white-space: nowrap;
+    color: var(--el-text-color-regular, #909399);
+    font-weight: normal;
+}
+
+.dumi-default-table table th:first-child,
+.dumi-default-table table td:first-child {
+    padding-left: 10px;
+}
+
+.dumi-default-table table td {
+    color: var(--el-text-color-regular, #606266);
+}
+
+.dumi-default-container.markdown {
+    padding-left: 15px;
+
+    & > svg {
+        display: none;
+    }
+}
+
+.dumi-default-container.markdown[data-type='info'] {
+    border-left: 5px solid var(--el-color-primary);
+}
+
+.dumi-default-container.markdown[data-type='error'] {
+    border-left: 5px solid var(--el-color-error);
+}
