@@ -49,19 +49,19 @@ Avatar 组件可以用来代表人物或对象， 支持使用图片、图标或
 
 ## API
 
-### Attributes
+### 属性
 
-| 名称    | 说明                                         | 类型                                                                  | 默认值  |
-| ------- | -------------------------------------------- | --------------------------------------------------------------------- | ------- |
-| icon    | 设置 Avatar 的图标类型，具体参考 Icon 组件   | `string` / `Component`                                                | —       |
-| size    | Avatar 大小                                  | `number` / <Enum>'large' \| 'default' \| 'small'</Enum>               | default |
-| shape   | Avatar 形状                                  | <Enum>'circle' \| 'square'</Enum>                                     | circle  |
-| src     | Avatar 图片的源地址                          | `string`                                                              | —       |
-| src-set | 图片 Avatar 的原生 `srcset` 属性             | `string`                                                              | —       |
-| alt     | 图片 Avatar 的原生 `alt` 属性                | `string`                                                              | —       |
-| fit     | 当展示类型为图片的时候，设置图片如何适应容器 | <Enum>'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'</Enum> | cover   |
+| 名称   | 说明                                         | 类型                                                                  | 默认值  |
+| ------ | -------------------------------------------- | --------------------------------------------------------------------- | ------- |
+| icon   | 设置 Avatar 的图标类型，具体参考 Icon 组件   | `string` / `Component`                                                | —       |
+| size   | Avatar 大小                                  | `number` / <Enum>'large' \| 'default' \| 'small'</Enum>               | default |
+| shape  | Avatar 形状                                  | <Enum>'circle' \| 'square'</Enum>                                     | circle  |
+| src    | Avatar 图片的源地址                          | `string`                                                              | —       |
+| srcSet | 图片 Avatar 的原生 `srcset` 属性             | `string`                                                              | —       |
+| alt    | 图片 Avatar 的原生 `alt` 属性                | `string`                                                              | —       |
+| fit    | 当展示类型为图片的时候，设置图片如何适应容器 | <Enum>'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'</Enum> | cover   |
 
-### Events
+### 事件
 
 | 名称    | 说明               | 类型                                              |
 | ------- | ------------------ | ------------------------------------------------- |

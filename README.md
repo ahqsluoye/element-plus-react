@@ -3,7 +3,7 @@
 [![NPM version](https://img.shields.io/npm/v/element-plus-react.svg?style=flat)](https://npmjs.org/package/@qsxy/element-plus-react)
 [![NPM downloads](http://img.shields.io/npm/dm/element-plus-react.svg?style=flat)](https://npmjs.org/package/@qsxy/element-plus-react)
 
-@qsxy/element-plus-react
+-   [API 文档](https://ahqsluoye.github.io/element-plus-react/)
 
 ## Usage
 
