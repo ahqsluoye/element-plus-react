@@ -52,6 +52,7 @@ export const SIDEBAR = {
         {
             title: 'Data 数据展示',
             children: [
+                { link: '/components/avatar', title: 'Avatar 头像' },
                 { link: '/components/badge', title: 'Badge 徽章' },
                 { link: '/components/card', title: 'Card 卡片' },
                 { link: '/components/carousel', title: 'Carousel 走马灯' },

@@ -228,6 +228,17 @@ function useClassNames(str: string, classPrefix = namespace) {
         return mergeClasses.join(' ');
     }, []);
 
+    // with block
+    const cssVarBlock = (object: Record<string, string>) => {
+        const styles: Record<string, string> = {};
+        for (const key in object) {
+            if (object[key]) {
+                styles[`--${componentName}-${key}`] = object[key];
+            }
+        }
+        return styles;
+    };
+
     return {
         /**
          * 如果组件前缀是'button':
@@ -316,6 +327,8 @@ function useClassNames(str: string, classPrefix = namespace) {
          * is('block', { block: true }) => 'is-block'
          */
         is,
+
+        cssVarBlock,
     };
 }
 

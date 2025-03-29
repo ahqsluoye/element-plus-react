@@ -89,7 +89,7 @@
         // 强制在关键字前后使用一致的空格
         "keyword-spacing": 1,
         // 要求在注释周围有空行
-        "lines-around-comment": 1,
+        "lines-around-comment": 0,
         // 禁止混合使用不同的操作符
         "no-mixed-operators": [
             2,

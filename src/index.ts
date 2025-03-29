@@ -90,6 +90,9 @@ export { Upload as ElUpload } from './Upload';
 export type { UploadFile, UploadFiles, UploadProps, UploadRawFile, UploadRef, UploadStatus, UploadUserFile } from './Upload';
 
 /* Data 数据展示 */
+export { Avatar as ElAvatar } from './Avatar';
+export type { AvatarProps } from './Avatar';
+
 export { Badge as ElBadge } from './Badge';
 export type { BadgeProps } from './Badge';
 
