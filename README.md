@@ -13,8 +13,15 @@ import '@qsxy/element-plus-react/dist/index.css';
 import { ElButton, ElLink } from '@qsxy/element-plus-react';
 ```
 
-在项目中改变 SCSS 变量
+### Change the SCSS variable in the project
+
+element-plus-react is using SCSS. If your project also uses SCSS, you can directly change the style variable of Element in the project. Create a new style file, such as element-variables.csss, and write the following content:
+
+### 在项目中改变 SCSS 变量
+
 element-plus-react 的 theme-chalk 使用 SCSS 编写，如果你的项目也使用了 SCSS，那么可以直接在项目中改变 Element 的样式变量。新建一个样式文件，例如 element-variables.scss，写入以下内容：
+
+/_ Change the theme color variable _/
 
 /_ 改变主题色变量 _/
 
@@ -58,6 +65,8 @@ $--el-color-primary: #4f8ffa;
 }
 ```
 
+/_ Change icon font path variable, required _/
+
 /_ 改变 icon 字体路径变量，必需 _/
 
 ```scss
@@ -65,7 +74,7 @@ $fa-font-path: '~@/assets/fonts';
 @import '@qsxy/element-plus-react/theme-chalk/index.scss';
 ```
 
-## Warm Reminder 温馨提示
+## Warm Reminder
 
 Currently, this library is in the development and testing stage, and there may be some inevitable issues. If you encounter any problems, please feel free to raise an issue for me, and I will fix them as soon as possible.
 
