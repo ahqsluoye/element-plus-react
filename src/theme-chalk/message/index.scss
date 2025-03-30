@@ -103,7 +103,7 @@
         font-size: 16px;
 
         &::before {
-            font-family: 'R Icons';
+            font-family: $fa-font-family;
             content: '\f00d';
             font-weight: 400;
         }
@@ -120,7 +120,7 @@
         color: var(--#{$namespace}-message-text-color);
 
         &::before {
-            font-family: 'R Icons';
+            font-family: $fa-font-family;
             content: '\f058';
             font-style: normal;
             font-weight: bold;
@@ -131,7 +131,7 @@
         color: var(--#{$namespace}-message-text-color);
 
         &::before {
-            font-family: 'R Icons';
+            font-family: $fa-font-family;
             content: '\f057';
             font-style: normal;
             font-weight: bold;
@@ -142,7 +142,7 @@
         color: var(--#{$namespace}-message-text-color);
 
         &::before {
-            font-family: 'R Icons';
+            font-family: $fa-font-family;
             content: '\f05a';
             font-style: normal;
             font-weight: bold;
@@ -153,7 +153,7 @@
         color: var(--#{$namespace}-message-text-color);
 
         &::before {
-            font-family: 'R Icons';
+            font-family: $fa-font-family;
             content: '\f06a';
             font-style: normal;
             font-weight: bold;

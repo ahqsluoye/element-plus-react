@@ -1,9 +1,8 @@
 // variables
 // --------------------------
-
 $fa-css-prefix: fa !default;
 $fa-style: 900 !default;
-$fa-style-family: 'R Icons' !default;
+$fa-style-family: $fa-font-family;
 
 $fa-display: inline-block !default;
 
@@ -46,8 +45,6 @@ $fa-stack-width: ($fa-fw-width * 2) !default;
 $fa-stack-z-index: auto !default;
 
 $fa-font-display: block !default;
-$fa-font-path: '/fonts' !default;
-// $fa-font-path: '/element-plus-react/fonts' !default;
 
 $fa-var-0: \30;
 $fa-var-1: \31;

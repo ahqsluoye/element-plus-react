@@ -133,7 +133,7 @@
             color: var(--#{$namespace}-checkbox-checked-icon-color);
 
             &:after {
-                font-family: 'R Icons';
+                font-family: $fa-font-family;
                 content: '\f068';
                 font-weight: normal;
                 display: block;
@@ -152,7 +152,7 @@
         }
 
         &:checked + .#{$namespace}-checkbox__inner:after {
-            font-family: 'R Icons';
+            font-family: $fa-font-family;
             content: '\f00c';
             font-weight: normal;
             display: block;

@@ -3,7 +3,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-envelope-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-envelope-o:before {
@@ -11,7 +11,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-star-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-star-o:before {
@@ -31,7 +31,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-trash-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-trash-o:before {
@@ -43,7 +43,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-o:before {
@@ -51,7 +51,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-clock-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-clock-o:before {
@@ -59,7 +59,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-arrow-circle-o-down {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-arrow-circle-o-down:before {
@@ -67,7 +67,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-arrow-circle-o-up {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-arrow-circle-o-up:before {
@@ -75,7 +75,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-play-circle-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-play-circle-o:before {
@@ -95,7 +95,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-list-alt {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-list-alt:before {
@@ -111,7 +111,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-picture-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-picture-o:before {
@@ -119,7 +119,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-photo {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-photo:before {
@@ -127,7 +127,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-image {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-image:before {
@@ -139,7 +139,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-pencil-square-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-pencil-square-o:before {
@@ -147,7 +147,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-edit {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-edit:before {
@@ -159,7 +159,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-check-square-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-check-square-o:before {
@@ -171,7 +171,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-times-circle-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-times-circle-o:before {
@@ -179,7 +179,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-check-circle-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-check-circle-o:before {
@@ -199,12 +199,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-eye {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-eye-slash {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -233,12 +233,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-twitter-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-facebook-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -247,7 +247,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-thumbs-o-up {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-thumbs-o-up:before {
@@ -255,7 +255,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-thumbs-o-down {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-thumbs-o-down:before {
@@ -263,7 +263,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-heart-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-heart-o:before {
@@ -275,7 +275,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-linkedin-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-linkedin-square:before {
@@ -295,12 +295,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-github-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-lemon-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-lemon-o:before {
@@ -308,7 +308,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-square-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-square-o:before {
@@ -316,7 +316,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-bookmark-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-bookmark-o:before {
@@ -324,12 +324,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-twitter {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-facebook {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-facebook:before {
@@ -337,7 +337,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-facebook-f {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-facebook-f:before {
@@ -345,12 +345,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-github {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-credit-card {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -359,7 +359,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hdd-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hdd-o:before {
@@ -367,7 +367,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-o-right {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-o-right:before {
@@ -375,7 +375,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-o-left {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-o-left:before {
@@ -383,7 +383,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-o-up {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-o-up:before {
@@ -391,7 +391,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-o-down {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-o-down:before {
@@ -423,7 +423,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-files-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-files-o:before {
@@ -431,7 +431,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-floppy-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-floppy-o:before {
@@ -439,7 +439,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-save {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-save:before {
@@ -459,22 +459,22 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-pinterest {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-pinterest-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-google-plus-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-google-plus {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-google-plus:before {
@@ -498,7 +498,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-linkedin {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-linkedin:before {
@@ -522,7 +522,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-comment-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-comment-o:before {
@@ -530,7 +530,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-comments-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-comments-o:before {
@@ -546,7 +546,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-lightbulb-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-lightbulb-o:before {
@@ -566,7 +566,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-bell-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-bell-o:before {
@@ -578,7 +578,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-text-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-text-o:before {
@@ -586,7 +586,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-building-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-building-o:before {
@@ -594,7 +594,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hospital-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hospital-o:before {
@@ -614,7 +614,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-circle-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-circle-o:before {
@@ -626,12 +626,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-github-alt {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-folder-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-folder-o:before {
@@ -639,7 +639,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-folder-open-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-folder-open-o:before {
@@ -647,7 +647,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-smile-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-smile-o:before {
@@ -655,7 +655,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-frown-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-frown-o:before {
@@ -663,7 +663,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-meh-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-meh-o:before {
@@ -671,7 +671,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-keyboard-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-keyboard-o:before {
@@ -679,7 +679,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-flag-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-flag-o:before {
@@ -691,7 +691,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-star-half-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-star-half-o:before {
@@ -699,7 +699,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-star-half-empty {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-star-half-empty:before {
@@ -707,7 +707,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-star-half-full {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-star-half-full:before {
@@ -727,7 +727,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-calendar-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-calendar-o:before {
@@ -735,17 +735,17 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-maxcdn {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-html5 {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-css3 {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -754,7 +754,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-minus-square-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-minus-square-o:before {
@@ -778,12 +778,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-compass {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-caret-square-o-down {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-caret-square-o-down:before {
@@ -791,7 +791,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-toggle-down {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-toggle-down:before {
@@ -799,7 +799,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-caret-square-o-up {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-caret-square-o-up:before {
@@ -807,7 +807,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-toggle-up {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-toggle-up:before {
@@ -815,7 +815,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-caret-square-o-right {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-caret-square-o-right:before {
@@ -823,7 +823,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-toggle-right {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-toggle-right:before {
@@ -895,12 +895,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-btc {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-bitcoin {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-bitcoin:before {
@@ -936,27 +936,27 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-youtube-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-youtube {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-xing {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-xing-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-youtube-play {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-youtube-play:before {
@@ -964,37 +964,37 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-dropbox {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-stack-overflow {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-instagram {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-flickr {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-adn {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-bitbucket {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-bitbucket-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-bitbucket-square:before {
@@ -1002,12 +1002,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-tumblr {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-tumblr-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -1028,52 +1028,52 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-apple {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-windows {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-android {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-linux {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-dribbble {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-skype {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-foursquare {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-trello {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-gratipay {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-gittip {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-gittip:before {
@@ -1081,7 +1081,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-sun-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-sun-o:before {
@@ -1089,7 +1089,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-moon-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-moon-o:before {
@@ -1097,32 +1097,32 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-vk {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-weibo {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-renren {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-pagelines {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-stack-exchange {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-arrow-circle-o-right {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-arrow-circle-o-right:before {
@@ -1130,7 +1130,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-arrow-circle-o-left {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-arrow-circle-o-left:before {
@@ -1138,7 +1138,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-caret-square-o-left {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-caret-square-o-left:before {
@@ -1146,7 +1146,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-toggle-left {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-toggle-left:before {
@@ -1154,7 +1154,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-dot-circle-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-dot-circle-o:before {
@@ -1162,7 +1162,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-vimeo-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -1175,7 +1175,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-plus-square-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-plus-square-o:before {
@@ -1183,17 +1183,17 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-slack {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-wordpress {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-openid {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -1210,82 +1210,82 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-yahoo {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-google {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-reddit {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-reddit-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-stumbleupon-circle {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-stumbleupon {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-delicious {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-digg {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-pied-piper-pp {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-pied-piper-alt {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-drupal {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-joomla {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-behance {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-behance-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-steam {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-steam-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -1298,22 +1298,22 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-spotify {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-deviantart {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-soundcloud {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-pdf-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-pdf-o:before {
@@ -1321,7 +1321,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-word-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-word-o:before {
@@ -1329,7 +1329,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-excel-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-excel-o:before {
@@ -1337,7 +1337,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-powerpoint-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-powerpoint-o:before {
@@ -1345,7 +1345,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-image-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-image-o:before {
@@ -1353,7 +1353,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-photo-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-photo-o:before {
@@ -1361,7 +1361,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-picture-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-picture-o:before {
@@ -1369,7 +1369,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-archive-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-archive-o:before {
@@ -1377,7 +1377,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-zip-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-zip-o:before {
@@ -1385,7 +1385,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-audio-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-audio-o:before {
@@ -1393,7 +1393,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-sound-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-sound-o:before {
@@ -1401,7 +1401,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-video-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-video-o:before {
@@ -1409,7 +1409,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-movie-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-movie-o:before {
@@ -1417,7 +1417,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-code-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-file-code-o:before {
@@ -1425,17 +1425,17 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-vine {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-codepen {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-jsfiddle {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -1460,12 +1460,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-rebel {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-ra {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-ra:before {
@@ -1473,7 +1473,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-resistance {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-resistance:before {
@@ -1481,12 +1481,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-empire {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-ge {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-ge:before {
@@ -1494,22 +1494,22 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-git-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-git {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hacker-news {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-y-combinator-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-y-combinator-square:before {
@@ -1517,7 +1517,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-yc-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-yc-square:before {
@@ -1525,22 +1525,22 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-tencent-weibo {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-qq {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-weixin {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-wechat {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-wechat:before {
@@ -1552,7 +1552,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-paper-plane-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-paper-plane-o:before {
@@ -1560,7 +1560,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-send-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-send-o:before {
@@ -1568,7 +1568,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-circle-thin {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-circle-thin:before {
@@ -1580,7 +1580,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-futbol-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-futbol-o:before {
@@ -1588,7 +1588,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-soccer-ball-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-soccer-ball-o:before {
@@ -1596,22 +1596,22 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-slideshare {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-twitch {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-yelp {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-newspaper-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-newspaper-o:before {
@@ -1619,47 +1619,47 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-paypal {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-google-wallet {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-cc-visa {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-cc-mastercard {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-cc-discover {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-cc-amex {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-cc-paypal {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-cc-stripe {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-bell-slash-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-bell-slash-o:before {
@@ -1671,7 +1671,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-copyright {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -1692,27 +1692,27 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-lastfm {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-lastfm-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-ioxhost {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-angellist {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-cc {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-cc:before {
@@ -1732,52 +1732,52 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-buysellads {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-connectdevelop {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-dashcube {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-forumbee {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-leanpub {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-sellsy {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-shirtsinbulk {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-simplybuilt {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-skyatlas {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-diamond {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-diamond:before {
@@ -1797,7 +1797,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-facebook-official {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-facebook-official:before {
@@ -1805,12 +1805,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-pinterest-p {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-whatsapp {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -1819,22 +1819,22 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-viacoin {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-medium {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-y-combinator {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-yc {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-yc:before {
@@ -1842,17 +1842,17 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-optin-monster {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-opencart {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-expeditedssl {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -1881,17 +1881,17 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-object-group {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-object-ungroup {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-sticky-note-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-sticky-note-o:before {
@@ -1899,17 +1899,17 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-cc-jcb {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-cc-diners-club {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-clone {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -1934,7 +1934,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-rock-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-rock-o:before {
@@ -1942,7 +1942,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-grab-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-grab-o:before {
@@ -1950,7 +1950,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-paper-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-paper-o:before {
@@ -1958,7 +1958,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-stop-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-stop-o:before {
@@ -1966,7 +1966,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-scissors-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-scissors-o:before {
@@ -1974,7 +1974,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-lizard-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-lizard-o:before {
@@ -1982,7 +1982,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-spock-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-spock-o:before {
@@ -1990,7 +1990,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-pointer-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-pointer-o:before {
@@ -1998,7 +1998,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-peace-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-hand-peace-o:before {
@@ -2006,67 +2006,67 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-registered {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-creative-commons {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-gg {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-gg-circle {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-odnoklassniki {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-odnoklassniki-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-get-pocket {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-wikipedia-w {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-safari {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-chrome {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-firefox {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-opera {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-internet-explorer {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -2075,22 +2075,22 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-contao {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-500px {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-amazon {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-calendar-plus-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-calendar-plus-o:before {
@@ -2098,7 +2098,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-calendar-minus-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-calendar-minus-o:before {
@@ -2106,7 +2106,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-calendar-times-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-calendar-times-o:before {
@@ -2114,7 +2114,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-calendar-check-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-calendar-check-o:before {
@@ -2122,7 +2122,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-map-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-map-o:before {
@@ -2134,7 +2134,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-commenting-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-commenting-o:before {
@@ -2142,12 +2142,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-houzz {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-vimeo {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-vimeo:before {
@@ -2155,22 +2155,22 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-black-tie {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-fonticons {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-reddit-alien {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-edge {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -2179,42 +2179,42 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-codiepie {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-modx {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-fort-awesome {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-usb {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-product-hunt {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-mixcloud {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-scribd {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-pause-circle-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-pause-circle-o:before {
@@ -2222,7 +2222,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-stop-circle-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-stop-circle-o:before {
@@ -2230,37 +2230,37 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-bluetooth {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-bluetooth-b {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-gitlab {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-wpbeginner {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-wpforms {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-envira {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-wheelchair-alt {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-wheelchair-alt:before {
@@ -2268,7 +2268,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-question-circle-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-question-circle-o:before {
@@ -2292,12 +2292,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-glide {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-glide-g {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -2306,22 +2306,22 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-viadeo {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-viadeo-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-snapchat {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-snapchat-ghost {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-snapchat-ghost:before {
@@ -2329,32 +2329,32 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-snapchat-square {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-pied-piper {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-first-order {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-yoast {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-themeisle {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-google-plus-official {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-google-plus-official:before {
@@ -2362,7 +2362,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-google-plus-circle {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-google-plus-circle:before {
@@ -2370,12 +2370,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-font-awesome {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-fa {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-fa:before {
@@ -2383,7 +2383,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-handshake-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-handshake-o:before {
@@ -2391,7 +2391,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-envelope-open-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-envelope-open-o:before {
@@ -2399,12 +2399,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-linode {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-address-book-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-address-book-o:before {
@@ -2416,7 +2416,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-address-card-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-address-card-o:before {
@@ -2424,7 +2424,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-vcard-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-vcard-o:before {
@@ -2432,7 +2432,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-user-circle-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-user-circle-o:before {
@@ -2440,7 +2440,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-user-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-user-o:before {
@@ -2448,7 +2448,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-id-badge {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -2457,7 +2457,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-id-card-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-id-card-o:before {
@@ -2465,7 +2465,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-drivers-license-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-drivers-license-o:before {
@@ -2473,17 +2473,17 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-quora {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-free-code-camp {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-telegram {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -2520,12 +2520,12 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-window-maximize {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-window-restore {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
@@ -2534,7 +2534,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-window-close-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-window-close-o:before {
@@ -2542,7 +2542,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-times-rectangle-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-times-rectangle-o:before {
@@ -2550,32 +2550,32 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-bandcamp {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-grav {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-etsy {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-imdb {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-ravelry {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-eercast {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-eercast:before {
@@ -2583,7 +2583,7 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-snowflake-o {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 .#{$fa-css-prefix}.#{$fa-css-prefix}-snowflake-o:before {
@@ -2591,16 +2591,16 @@
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-superpowers {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-wpexplorer {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-meetup {
-    font-family: 'R Icons';
+    font-family: $fa-style-family;
     font-weight: 400;
 }
