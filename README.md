@@ -78,7 +78,7 @@ Currently, this library is in the development and testing stage, and there may b
 $ npm i @qsxy/element-plus-react
 # It is recommended to use (to avoid React version conflicts)
 # 推荐使用（避免react版本冲突）
-$ pnpm i @qsxy/element-plus-react
+$ pnpm add @qsxy/element-plus-react
 ```
 
 ## LICENSE
