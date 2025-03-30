@@ -14,7 +14,7 @@ const Avatar: FC<AvatarProps> = memo((props: AvatarProps) => {
 
     const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
         setHasLoadError(true);
-        onError(e);
+        onError?.(e);
     };
 
     useEffect(() => {

@@ -1,6 +1,6 @@
 {
   "name": "@qsxy/element-plus-react",
-  "version": "1.0.0-next.9",
+  "version": "1.0.0-next.10",
   "description": "element-plus-react",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -31,7 +31,8 @@
   },
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    "theme-chalk"
   ],
   "commitlint": {
     "extends": [

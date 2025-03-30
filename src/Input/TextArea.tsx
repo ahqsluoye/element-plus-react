@@ -21,17 +21,13 @@ const TextArea = forwardRef<TextareaRef, TextareaProps>((props, ref) => {
 
     const containerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLTextAreaElement>(null);
-    // 搜索框是否输入完毕
-    const inputOver = useRef(true);
 
     const [htmlInputProps] = partitionHTMLProps(rest);
 
     const handleInput = useCallback(
         event => {
-            if (inputOver.current) {
-                setValue(event.target.value);
-                onChange?.(event.target.value);
-            }
+            setValue(event.target.value);
+            onChange?.(event.target.value);
         },
         [onChange, setValue],
     );
