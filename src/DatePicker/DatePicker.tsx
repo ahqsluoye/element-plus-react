@@ -4,7 +4,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import noop from 'lodash/noop';
 import omit from 'lodash/omit';
-import React, { FC, forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { Calendar, CalendarContext, ValueRagne, initDate, toDayjs } from '../Calendar';
 import { Icon } from '../Icon';
 import { Input, InputRef } from '../Input';
@@ -17,7 +17,7 @@ import { DatePickerProps, DatePickerRef } from './typings';
 dayjs.extend(advancedFormat);
 dayjs.extend(weekOfYear);
 
-const DatePicker: FC<DatePickerProps> = memo(
+const DatePicker = memo(
     forwardRef<DatePickerRef, DatePickerProps>((props, ref) => {
         const {
             name,
@@ -220,6 +220,6 @@ const DatePicker: FC<DatePickerProps> = memo(
     }),
 );
 
-DatePicker.displayName = 'DatePicker';
+DatePicker.displayName = 'ElDatePicker';
 
 export default DatePicker;

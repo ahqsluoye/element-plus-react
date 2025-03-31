@@ -1,6 +1,6 @@
 ---
 title: Pagination 分页
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Pagination 分页

@@ -1,6 +1,6 @@
 ---
 title: Select 选择器
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Select 选择器

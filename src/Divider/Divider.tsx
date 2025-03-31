@@ -16,7 +16,8 @@ export interface DividerProps
     /** 设置分割线文案的位置 */
     contentPosition?: 'left' | 'right' | 'center';
 }
-const Divider: FC<DividerProps> = props => {
+
+const Divider: FC<DividerProps> = memo(props => {
     const { direction = 'horizontal', borderStyle = 'solid', contentPosition = 'left', classPrefix = 'divider' } = props;
     const { b, m, e, is } = useClassNames(classPrefix);
 
@@ -30,8 +31,8 @@ const Divider: FC<DividerProps> = props => {
             )}
         </div>
     );
-};
+});
 
-Divider.displayName = 'Divider';
+Divider.displayName = 'ElDivider';
 
-export default memo(Divider);
+export default Divider;

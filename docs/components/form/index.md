@@ -1,6 +1,6 @@
 ---
 title: Form 表单
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Form 表单

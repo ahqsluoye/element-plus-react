@@ -1,6 +1,6 @@
 ---
 title: Switch 开关
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Switch 开关

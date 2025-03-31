@@ -217,7 +217,6 @@ interface TreeInterface extends InternalTreeType {
 const Tree = ForwardTree as TreeInterface;
 
 Tree.TreeNode = TreeNode;
-Tree.DirectoryTree = DirectoryTree;
 
 Tree.defaultProps = {
     checkable: false,

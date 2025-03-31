@@ -1,6 +1,6 @@
 ---
 title: Link 链接
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Link 链接
@@ -47,4 +47,4 @@ title: Link 链接
 | underline | 是否下划线     | `boolean`                                                                           | true    |
 | disabled  | 是否禁用状态   | `boolean`                                                                           | false   |
 | href      | 原生 href 属性 | `string`                                                                            | —       |
-| icon      | 图标组件       | `string` / `Component`                                                             | —       |
+| icon      | 图标组件       | `string` / `Component`                                                              | —       |

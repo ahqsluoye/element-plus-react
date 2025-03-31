@@ -1,6 +1,6 @@
 ---
 title: Descriptions 描述列表
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Descriptions 描述列表

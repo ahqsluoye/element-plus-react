@@ -16,6 +16,8 @@ const Breadcrumb: FC<BreadcrumbProps> = memo(props => {
     );
 });
 
+Breadcrumb.displayName = 'ElBreadcrumb';
+
 export default Breadcrumb;
 
 export const BreadcrumbContext = createContext<BreadcrumbContextProps>({

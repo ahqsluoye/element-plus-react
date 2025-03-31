@@ -1,6 +1,6 @@
 ---
 title: Message 消息提示
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Message 消息提示

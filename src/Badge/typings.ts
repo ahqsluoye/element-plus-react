@@ -2,7 +2,10 @@
 import React from 'react';
 import { AnimationEventProps, BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
-export interface BadgeProps extends BaseProps, NativeProps, AnimationEventProps {
+export interface BadgeProps
+    extends BaseProps,
+        NativeProps<'--el-badge-bg-color' | '--el-badge-radius' | '--el-badge-font-size' | '--el-badge-padding' | '--el-badge-size'>,
+        AnimationEventProps {
     /** 显示值 */
     value?: string | number;
     /** 最大值，超过最大值会显示 {max}+。 只有当 value 是数字类型时起作用。 */

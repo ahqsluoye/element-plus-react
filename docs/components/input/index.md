@@ -1,6 +1,6 @@
 ﻿---
 title: Input 输入框
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Input 输入框

@@ -1,6 +1,6 @@
 ---
 title: ColorPicker 颜色选择器
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # ColorPicker 颜色选择器

@@ -3,7 +3,29 @@ import React from 'react';
 import { IconName } from '../Icon';
 import { BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
-export interface ButtonProps extends Omit<React.AllHTMLAttributes<HTMLElement>, 'loading' | 'size' | 'icon' | 'style' | 'children'>, BaseProps, NativeProps {
+export interface ButtonProps
+    extends Omit<React.AllHTMLAttributes<HTMLElement>, 'loading' | 'size' | 'icon' | 'style' | 'children'>,
+        BaseProps,
+        NativeProps<
+            | '--el-button-bg-color'
+            | '--el-button-border-style'
+            | '--el-button-text-color'
+            | '--el-button-border-color'
+            | '--el-button-hover-bg-color'
+            | '--el-button-active-border-color'
+            | '--el-button-active-bg-color'
+            | '--el-button-active-color'
+            | '--el-button-hover-text-color'
+            | '--el-button-hover-border-color'
+            | '--el-button-hover-link-text-color'
+            | '--el-button-active-text-color'
+            | '--el-button-disabled-text-color'
+            | '--el-button-disabled-bg-color'
+            | '--el-button-disabled-border-color'
+            | '--el-button-divide-border-color'
+            | '--el-button-outline-color'
+            | '--el-button-border-radius-round'
+        > {
     /** 尺寸 */
     size?: TypeAttributes.Size;
     /** 类型 */

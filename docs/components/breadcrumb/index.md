@@ -1,6 +1,6 @@
 ---
 title: Breadcrumb 面包屑
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Breadcrumb 面包屑

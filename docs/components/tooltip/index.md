@@ -1,6 +1,6 @@
 ---
 title: Tooltip 文字提示
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Tooltip 文字提示

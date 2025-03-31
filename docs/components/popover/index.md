@@ -1,6 +1,6 @@
 ---
 title: Popover 气泡卡片
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Popover 气泡卡片

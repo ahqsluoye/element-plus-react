@@ -1,6 +1,6 @@
 ---
 title: Tabs 标签页
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Tabs 标签页

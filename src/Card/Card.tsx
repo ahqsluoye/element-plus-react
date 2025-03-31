@@ -21,6 +21,6 @@ const Card = memo(
     }),
 );
 
-Card.displayName = 'Card';
+Card.displayName = 'ElCard';
 
 export default Card;

@@ -1,6 +1,6 @@
 ---
 title: TimePicker 时间选择器
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # TimePicker 时间选择器

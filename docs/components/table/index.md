@@ -1,6 +1,6 @@
 ---
 title: Table 表格
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Table 表格

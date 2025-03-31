@@ -1,6 +1,6 @@
 ---
 title: Popconfirm 气泡确认框
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Popconfirm 气泡确认框

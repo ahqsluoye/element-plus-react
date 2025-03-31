@@ -1,6 +1,6 @@
 ---
 title: Collapse 折叠面板
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Collapse 折叠面板

@@ -15,7 +15,7 @@ export type DatePickerRef = {
     setVisible: (value: boolean) => void;
 };
 
-type ValueType = string | number | Date;
+// type ValueType = string | number | Date;
 
 export interface DatePickerProps
     extends Omit<FormControlBaseProps, 'name' | 'value' | 'defaultValue' | 'onChange'>,

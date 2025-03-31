@@ -1,6 +1,6 @@
 ---
 title: Tag 标签
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Tag 标签

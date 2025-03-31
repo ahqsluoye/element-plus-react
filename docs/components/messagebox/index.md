@@ -1,6 +1,6 @@
 ---
 title: MessageBox 消息弹框
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # MessageBox 消息弹框

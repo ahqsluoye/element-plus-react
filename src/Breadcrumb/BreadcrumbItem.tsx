@@ -32,4 +32,6 @@ const BreadcrumbItem: FC<BreadcrumbItemProps> = memo(props => {
     );
 });
 
+BreadcrumbItem.displayName = 'ElBreadcrumbItem';
+
 export default BreadcrumbItem;

@@ -1,6 +1,6 @@
 ---
 title: Tree 树形控件
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Tree 树形控件

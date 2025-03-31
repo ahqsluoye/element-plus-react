@@ -1,6 +1,6 @@
 ---
 title: Notification 通知
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Notification 通知

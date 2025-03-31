@@ -1,6 +1,6 @@
 ---
 title: Radio 单选框
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Radio 单选框

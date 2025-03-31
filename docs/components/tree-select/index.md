@@ -1,6 +1,6 @@
 ---
 title: TreeSelect 树形选择
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # TreeSelect 树形选择

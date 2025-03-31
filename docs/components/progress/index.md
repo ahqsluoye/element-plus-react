@@ -1,6 +1,6 @@
 ---
 title: Progress 进度条
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Progress 进度条

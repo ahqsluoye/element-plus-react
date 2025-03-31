@@ -1,29 +1,17 @@
 ---
 title: Drawer 抽屉
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Drawer 抽屉
 
 有些时候, `Dialog` 组件并不满足我们的需求, 比如你的表单很长, 亦或是你需要临时展示一些文档, `Drawer` 拥有和 `Dialog` 几乎相同的 API, 在 UI 上带来不一样的体验.
 
-:::info{title=TIP}
-
-在 Vue 3 之后的版本 v-model 可以用于任何一个组件，`visible.sync` 已被移除，请使用 `v-model="visibilityBinding"` 来控制抽屉组件的显示和隐藏状态。
-
-:::
-
-:::info{title=TIP}
-
-在 SSR 场景下，您需要将组件包裹在 `<client-only></client-only>` 之中 (如: [Nuxt](https://nuxt.com/v3)) 和 SSG (例如: [VitePress](https://vitepress.vuejs.org/)).
-
-:::
-
 ## 基础用法
 
 呼出一个临时的侧边栏, 可以从多个方向呼出
 
-你必须像 `Dialog`一样为 `Drawer` 设置 `modelValue` 属性来控制 `Drawer` 的显示与隐藏状态，该属性接受一个 `boolean` 类型。 `Drawer` 包含三部分: `title` & `body` & `footer`, 其中 `title` 是一个具名 slot, 你还可以通过 `title` 属性来设置标题, 默认情况下它是一个空字符串, 其中 `body` 部分是 `Drawer` 组件的主区域, 它包含了用户定义的主要内容. footer 和 title 用法一致, 用来显示页脚信息. 当 `Drawer` 打开时，默认设置是**从右至左**打开 **30%** 浏览器宽度。 你可以通过传入对应的 `direction` 和 `size` 属性来修改这一默认行为。 下面一个示例将展示如何使用 `beforeClose` API，更多详细用法请参考页面底部的 API 部分。
+你必须像 `Dialog`一样为 `Drawer` 设置 `visible` 属性来控制 `Drawer` 的显示与隐藏状态，该属性接受一个 `boolean` 类型。 `Drawer` 包含三部分: `title` & `body` & `footer`, 其中 `title` 是一个具名 slot, 你还可以通过 `title` 属性来设置标题, 默认情况下它是一个空字符串, 其中 `body` 部分是 `Drawer` 组件的主区域, 它包含了用户定义的主要内容. footer 和 title 用法一致, 用来显示页脚信息. 当 `Drawer` 打开时，默认设置是**从右至左**打开 **30%** 浏览器宽度。 你可以通过传入对应的 `direction` 和 `size` 属性来修改这一默认行为。 下面一个示例将展示如何使用 `beforeClose` API，更多详细用法请参考页面底部的 API 部分。
 
 <code src="./basic-usage.tsx"></code>
 
@@ -71,7 +59,8 @@ Drawer 还提供一个 `destroy-on-close` 的 API，用来控制是否在 Drawer
 
 | 属性名                | 说明                                                                                                                       | 类型                                 | 可选值                | 默认值 |
 | --------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------------------- | ------ |
-| model-value / v-model | 是否显示 Drawer                                                                                                            | boolean                              | —                     | false  |
+| visible               | 是否显示 Drawer（可控）                                                                                                    | boolean                              | —                     | false  |
+| defaultVisible        | 默认是否显示 Drawer（不可控）                                                                                              | boolean                              | —                     | false  |
 | append-to-body        | Drawer 自身是否插入至 body 元素上。嵌套的 Drawer 必须指定该属性并赋值为 **true**                                           | boolean                              | —                     | false  |
 | lock-scroll           | 是否在 Drawer 出现时将 body 滚动锁定                                                                                       | boolean                              | —                     | true   |
 | before-close          | 关闭前的回调，会暂停 Drawer 的关闭                                                                                         | function(done)，done 用于关闭 Drawer | —                     | —      |

@@ -1,6 +1,6 @@
 ---
 title: Upload 上传
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Upload 上传

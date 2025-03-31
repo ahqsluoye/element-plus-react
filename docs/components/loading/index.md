@@ -1,6 +1,6 @@
 ---
 title: Loading 加载
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Loading 加载

@@ -1,6 +1,6 @@
 ---
 title: Transfer 穿梭框
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Transfer 穿梭框

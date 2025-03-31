@@ -1,6 +1,6 @@
 ---
 title: Cascader 级联选择器
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Cascader 级联选择器

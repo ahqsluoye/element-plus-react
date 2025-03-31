@@ -13,7 +13,24 @@ export interface CheckboxProps<V = ValueType>
     extends Omit<React.AllHTMLAttributes<HTMLElement>, 'value' | 'defaultValue' | 'loading' | 'size' | 'icon' | 'style' | 'onChange' | 'children'>,
         Omit<FormControlBaseProps<V>, 'onChange'>,
         BaseProps,
-        NativeProps {
+        NativeProps<
+            | '--el-checkbox-text-color'
+            | '--el-checkbox-input-width'
+            | '--el-checkbox-input-height'
+            | '--el-checkbox-bg-color'
+            | '--el-checkbox-input-border'
+            | '--el-checkbox-disabled-border-color'
+            | '--el-checkbox-disabled-input-fill'
+            | '--el-checkbox-disabled-icon-color'
+            | '--el-checkbox-disabled-checked-input-fill'
+            | '--el-checkbox-disabled-checked-input-border-color'
+            | '--el-checkbox-disabled-checked-icon-color'
+            | '--el-checkbox-checked-text-color'
+            | '--el-checkbox-checked-input-border-color'
+            | '--el-checkbox-checked-bg-color'
+            | '--el-checkbox-checked-icon-color'
+            | '--el-checkbox-input-border-color-hover'
+        > {
     // eslint-disable-next-line lines-around-comment
     /** tooltip 提示*/
     title?: string;

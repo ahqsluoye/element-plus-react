@@ -1,6 +1,6 @@
 ---
 title: Card 卡片
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Card 卡片

@@ -1,6 +1,6 @@
 ---
 title: DateTimePicker 日期时间选择器
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # DateTimePicker 日期时间选择器

@@ -1,6 +1,6 @@
 ---
 title: Divider 分割线
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Divider 分割线

@@ -1,6 +1,6 @@
 ---
 title: Dropdown 下拉菜单
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Dropdown 下拉菜单

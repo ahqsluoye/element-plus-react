@@ -1,6 +1,6 @@
 ---
 title: Checkbox 多选框
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Checkbox 多选框

@@ -3,7 +3,21 @@ import React from 'react';
 import { TransitionProps } from '../Transition';
 import { AnimationEventProps, BaseProps, NativeProps } from '../types/common';
 
-export interface DialogProps extends AnimationEventProps, BaseProps, NativeProps, TransitionProps {
+export interface DialogProps
+    extends AnimationEventProps,
+        BaseProps,
+        NativeProps<
+            | '--el-dialog-width'
+            | '--el-dialog-margin-top'
+            | '--el-dialog-bg-color'
+            | '--el-dialog-box-shadow'
+            | '--el-dialog-title-font-size'
+            | '--el-dialog-content-font-size'
+            | '--el-dialog-font-line-height'
+            | '--el-dialog-padding-primary'
+            | '--el-dialog-border-radius'
+        >,
+        TransitionProps {
     /** 是否显示模态框（可控） */
     visible: boolean;
     /** 默认是否显示模态框 */

@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import React, { FC, forwardRef, memo, useCallback, useContext, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { forwardRef, memo, useCallback, useContext, useImperativeHandle, useMemo, useRef } from 'react';
 import { CheckboxGroupContext } from '../CheckboxGroup';
 import Tooltip from '../Tooltip/Tooltip';
 import { partitionHTMLProps, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { CheckboxProps, CheckboxRef } from './typings';
 
-const Checkbox: FC<CheckboxProps> = memo(
+const Checkbox = memo(
     forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
         const {
             name: nameContext,

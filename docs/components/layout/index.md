@@ -1,6 +1,6 @@
 ---
 title: Layout 布局
-`boolean` ang: zh-CN
+lang: zh-CN
 ---
 
 # Layout 布局
@@ -101,8 +101,8 @@ import 'element-plus/theme-chalk/display.css';
 | push   | 栅格向右移动格数                       | `number`                                                                                             | 0      |
 | pull   | 栅格向左移动格数                       | `number`                                                                                             | 0      |
 | xs     | `<768px` 响应式栅格数或者栅格属性对象  | `number` / <Enum type='object'>{span?: number, offset?: number, pull?: number, push?: number}</Enum> | —      |
-| sm  | `≥768px` 响应式栅格数或者栅格属性对象  | `number` / <Enum type='object'>{span?: number, offset?: number, pull?: number, push?: number}</Enum> | —      |
+| sm     | `≥768px` 响应式栅格数或者栅格属性对象  | `number` / <Enum type='object'>{span?: number, offset?: number, pull?: number, push?: number}</Enum> | —      |
 | md     | `≥992px` 响应式栅格数或者栅格属性对象  | `number` / <Enum type='object'>{span?: number, offset?: number, pull?: number, push?: number}</Enum> | —      |
-| lg  | `≥1200px` 响应式栅格数或者栅格属性对象 | `number` / <Enum type='object'>{span?: number, offset?: number, pull?: number, push?: number}</Enum> | —      |
+| lg     | `≥1200px` 响应式栅格数或者栅格属性对象 | `number` / <Enum type='object'>{span?: number, offset?: number, pull?: number, push?: number}</Enum> | —      |
 | xl     | `≥1920px` 响应式栅格数或者栅格属性对象 | `number` / <Enum type='object'>{span?: number, offset?: number, pull?: number, push?: number}</Enum> | —      |
 | tag    | 自定义元素标签                         | `string`                                                                                             | div    |

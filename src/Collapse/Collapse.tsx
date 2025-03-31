@@ -17,6 +17,6 @@ const Collapse: FC<CollapseProps> = memo(props => {
     );
 });
 
-Collapse.displayName = 'Collapse';
+Collapse.displayName = 'ElCollapse';
 
 export default Collapse;
