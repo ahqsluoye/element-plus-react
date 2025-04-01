@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import { createContext } from 'react';
 import type { ValueType } from '../Checkbox/index';
 import { TypeAttributes } from '../types/common';

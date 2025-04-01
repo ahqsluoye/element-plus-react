@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import React from 'react';
 import { BaseProps, NativeProps, TooltipBaseProps, TypeAttributes } from '../types/common';
 

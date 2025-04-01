@@ -4,7 +4,6 @@ export type MediaType = keyof Pick<ColProps, 'span' | 'offset' | 'push' | 'pull'
 export type MediaLayout = Partial<Record<MediaType, number>>;
 export type MediaSize = Pick<ColProps, 'xs' | 'sm' | 'md' | 'lg' | 'xl'>;
 
-/* eslint-disable lines-around-comment */
 export interface ColProps extends BaseProps, NativeProps {
     /** 栅格占据的列数 */
     span?: number;

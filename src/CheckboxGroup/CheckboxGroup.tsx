@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import classNames from 'classnames';
 import cloneDeep from 'lodash/cloneDeep';
 import remove from 'lodash/remove';

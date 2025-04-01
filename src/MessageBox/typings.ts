@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import React, { RefObject } from 'react';
 import { DialogFooterProps, DialogProps } from '../Dialog/typings';
 import { IconName, IconProps } from '../Icon';

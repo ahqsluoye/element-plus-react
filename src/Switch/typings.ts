@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import React from 'react';
 import { IconName } from '../Icon';
 import { BaseProps, FormControlBaseProps, NativeProps, TooltipBaseProps } from '../types/common';

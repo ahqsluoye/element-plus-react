@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import React from 'react';
 import { RouteProps } from 'react-router-dom';
 import { BaseProps, NativeProps } from '../types/common';

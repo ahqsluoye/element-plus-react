@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import { Dayjs } from 'dayjs';
 import React from 'react';
 import { DateRangeType, DateType, Shortcuts } from '../Calendar';

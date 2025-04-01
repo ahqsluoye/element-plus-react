@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import { BaseProps, NativeProps } from '../types/common';
 
 export interface RowProps extends BaseProps, NativeProps {

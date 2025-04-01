@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import React, { Fragment, memo, useContext } from 'react';
 import DescriptionsCell from './DescriptionsCell';
 import { DescriptionsContext } from './DescriptionsContext';

@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import { BaseProps } from '../../types/common';
 import { ElementOf, tuple } from '../../types/type';
 import { FieldNames, KeyWiseTransferItem } from './index';

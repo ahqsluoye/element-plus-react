@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import dayjs, { Dayjs } from 'dayjs';
 import React from 'react';
 import { isNotEmpty } from '../Util';

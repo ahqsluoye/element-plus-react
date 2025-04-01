@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import classNames from 'classnames';
 import last from 'lodash/last';
 import React, { memo, useContext, useMemo, useRef, useState } from 'react';

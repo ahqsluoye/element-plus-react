@@ -3,7 +3,7 @@ import { NAV, SIDEBAR } from './config';
 
 export default defineConfig({
     outputPath: 'docs-dist',
-    title: '一个 React UI 框架 | Element Plus',
+    title: '一个 React UI 框架 | Element Plus React',
     base: process.env.NODE_ENV === 'production' ? '/element-plus-react/' : '/',
     publicPath: process.env.NODE_ENV === 'production' ? '/element-plus-react/' : '/',
     themeConfig: {

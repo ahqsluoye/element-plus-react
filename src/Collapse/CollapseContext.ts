@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import { createContext } from 'react';
 import { CollapseProps } from './typings';
 

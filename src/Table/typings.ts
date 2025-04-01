@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import { Placement } from '@popperjs/core';
 import React, { RefObject } from 'react';
 import { ScrollbarRef } from '../Scrollbar';

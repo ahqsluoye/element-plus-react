@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import React from 'react';
 import { PopperOptions } from '../Popper';
 import { TransitionProps } from '../Transition';

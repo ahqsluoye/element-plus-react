@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import { DataNode } from '@qsxy/element-plus-react';
 
 export const Demo1: DataNode[] = [

@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import React, { RefObject } from 'react';
 import { InputRef } from '../Input';
 import { PopperOptionRef, PopperOptions } from '../Popper';

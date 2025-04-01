@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import { Dayjs } from 'dayjs';
 import React, { createContext, RefObject } from 'react';
 import { PopperOptionRef } from '../Popper';

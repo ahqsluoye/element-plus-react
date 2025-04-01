@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import React from 'react';
 import { ValueType } from '../Radio';
 import { BaseProps, FormControlBaseProps, NativeProps, TypeAttributes } from '../types/common';

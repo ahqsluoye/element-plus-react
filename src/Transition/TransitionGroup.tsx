@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import React, { Component } from 'react';
 import TransitionGroupContext from './TransitionGroupContext';
 

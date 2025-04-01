@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import React, { ComponentClass, FC } from 'react';
 import type { Options as ScrollOptions } from 'scroll-into-view-if-needed';
 import { BaseProps, ComponentChildren, NativeProps, TypeAttributes } from '../types/common';

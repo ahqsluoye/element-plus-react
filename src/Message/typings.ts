@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import React, { RefObject } from 'react';
 import { AnimationEventProps, BaseProps, NativeProps } from '../types/common';
 

@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import type { Options, Placement, Instance as PopperInstance, PositioningStrategy, State, VirtualElement } from '@popperjs/core';
 import React, { RefObject } from 'react';
 import { TransitionProps } from '../Transition';

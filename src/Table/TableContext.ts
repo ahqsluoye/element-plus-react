@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import noop from 'lodash/noop';
 import { createContext, MutableRefObject } from 'react';
 import { Action, State } from './hooks/useSelection';

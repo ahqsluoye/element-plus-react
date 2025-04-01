@@ -1,7 +1,6 @@
 import { RefObject } from 'react';
 import { BaseProps, NativeProps } from '../types/common';
 
-/* eslint-disable lines-around-comment */
 export interface CarouselProps extends BaseProps, NativeProps {
     /** carousel 的高度	 */
     height?: string | number;

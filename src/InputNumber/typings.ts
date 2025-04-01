@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import React, { Ref } from 'react';
 import { InputRef } from '../Input';
 import { BaseProps, FormControlBaseProps, NativeProps } from '../types/common';

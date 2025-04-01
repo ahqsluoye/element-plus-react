@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import isNil from 'lodash/isNil';
 import { RefObject, useCallback, useEffect, useRef } from 'react';
 import { genFileId, warning } from '../Util';

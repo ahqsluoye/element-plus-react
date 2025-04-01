@@ -6,7 +6,7 @@ import { mergeDefaultProps } from '../Util';
 import { addResizeListener, removeResizeListener } from '../Util/resize-event';
 import { partitionHTMLProps, useClassNames } from '../hooks';
 import Thumb from './Thumb';
-import { ScrollbarProps, ScrollbarRef } from './typings';
+import { ScrollbarProps, ScrollbarRef, ScrollToOptions } from './typings';
 
 const Scrollbar = forwardRef<ScrollbarRef, ScrollbarProps>((props, ref) => {
     props = mergeDefaultProps(
@@ -58,7 +58,6 @@ const Scrollbar = forwardRef<ScrollbarRef, ScrollbarProps>((props, ref) => {
     );
 
     /** 滚动到一组特定坐标 */
-    // eslint-disable-next-line no-undef
     const scrollTo = useCallback((options: ScrollToOptions | number, yCoord?: number) => {
         if (wrapRef.current) {
             if (isObject(options)) {
@@ -159,6 +158,6 @@ const Scrollbar = forwardRef<ScrollbarRef, ScrollbarProps>((props, ref) => {
     );
 });
 
-Scrollbar.displayName = 'Scrollbar';
+Scrollbar.displayName = 'ElScrollbar';
 
 export default Scrollbar;

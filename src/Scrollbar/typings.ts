@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import React, { RefObject } from 'react';
 import { BaseProps, NativeProps } from '../types/common';
 
@@ -59,4 +58,15 @@ export interface BarProps {
     always: boolean;
     scrollbar: RefObject<HTMLElement>;
     wrapRef: RefObject<HTMLElement>;
+}
+
+type ScrollBehavior = 'auto' | 'instant' | 'smooth';
+
+interface ScrollOptions {
+    behavior?: ScrollBehavior;
+}
+
+export interface ScrollToOptions extends ScrollOptions {
+    left?: number;
+    top?: number;
 }

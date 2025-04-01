@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import { PopperOptions } from '../Popper';
 import { AnimationEventProps, BaseProps, NativeProps, TypeAttributes } from '../types/common';
 

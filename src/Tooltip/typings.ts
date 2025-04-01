@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import { VirtualElement } from '@popperjs/core';
 import React from 'react';
 import { PopperOptionRef, PopperOptions } from '../Popper';

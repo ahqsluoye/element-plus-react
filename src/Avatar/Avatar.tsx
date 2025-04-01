@@ -34,21 +34,21 @@ const Avatar: FC<AvatarProps> = memo((props: AvatarProps) => {
         if (shape) {
             classList.push(m(shape));
         }
-        return classNames(classList);
-    }, [b, icon, m, shape, size]);
+        return classNames(classList, props.className);
+    }, [b, icon, m, props.className, shape, size]);
 
     const sizeStyle = useMemo(() => {
         return isNumber(size)
             ? (cssVarBlock({
                   size: addUnit(size) || '',
               }) as React.CSSProperties)
-            : undefined;
+            : {};
     }, [cssVarBlock, size]);
 
     const children = useMemo(() => (icon ? <ElIcon name={icon}></ElIcon> : props.children), [icon, props.children]);
 
     return (
-        <span className={avatarClass} style={sizeStyle}>
+        <span className={avatarClass} style={{ ...sizeStyle, ...props.style }}>
             {(src || srcSet) && !hasLoadError ? (
                 <img
                     src={src}

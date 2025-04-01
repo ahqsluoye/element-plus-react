@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import classNames from 'classnames';
 import trim from 'lodash/trim';
 import React, { Children, ComponentType, cloneElement, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';

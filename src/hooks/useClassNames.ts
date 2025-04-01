@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 /* eslint-disable indent */
 import classNames from 'classnames';
 import isBoolean from 'lodash/isBoolean';

@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import React from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace

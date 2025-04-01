@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import { Dayjs } from 'dayjs';
 import { RefObject } from 'react';
 import { ValueRagne } from '../Calendar';

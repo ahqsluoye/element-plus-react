@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import classNames from 'classnames';
 import React, { Component, Ref, forwardRef, useMemo } from 'react';
 import DirectoryTree from './DirectoryTree';

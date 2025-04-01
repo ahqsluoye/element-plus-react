@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import { Dayjs } from 'dayjs';
 import { BaseProps, ComponentChildren, NativeProps } from '../types/common';
 

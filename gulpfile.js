@@ -31,7 +31,7 @@ function generatePackageJSON() {
                 const rawJSON = file.contents.toString();
                 const parsed = JSON.parse(rawJSON);
                 delete parsed.scripts;
-                delete parsed.peerDependencies;
+                // delete parsed.peerDependencies;
                 delete parsed.devDependencies;
                 delete parsed.publishConfig;
                 delete parsed.commitlint;

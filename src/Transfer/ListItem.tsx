@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import classNames from 'classnames';
 import React from 'react';
 import { Checkbox } from '../Checkbox';
