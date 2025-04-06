@@ -18,5 +18,3 @@ features:
       emoji: 🚀
       description: Put ! description here
 ---
-
-`boolean` lement-plus-react

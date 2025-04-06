@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import omit from 'lodash/omit';
-import React, { FC, RefObject, forwardRef, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { FC, forwardRef, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import FieldContext, { HOOK_MARK } from './FieldContext';
@@ -22,13 +22,16 @@ interface FormComponent extends FC<FormProps> {
 
 type RenderProps = (values: Store, form: FormInstance) => React.ReactElement;
 
-const Form: FormComponent = forwardRef((props: FormProps, ref: RefObject<FormInstance>) => {
+const Form: FormComponent = forwardRef<FormInstance, FormProps>((props, ref) => {
     props = mergeDefaultProps(
         {
             inline: false,
             cols: 0,
             labelWidth: 120,
             labelPosition: 'right',
+            validateTrigger: 'onChange',
+            showMessage: true,
+            requireAsteriskPosition: 'left',
         },
         props,
     );
@@ -47,7 +50,7 @@ const Form: FormComponent = forwardRef((props: FormProps, ref: RefObject<FormIns
         preserve,
         children,
         validateMessages,
-        validateTrigger = 'onChange',
+        validateTrigger,
         onValuesChange,
         onFieldsChange,
         onFinish,
@@ -57,6 +60,10 @@ const Form: FormComponent = forwardRef((props: FormProps, ref: RefObject<FormIns
         labelWidth = 120,
         size,
         rules = {},
+        hideRequiredAsterisk,
+        requireAsteriskPosition,
+        showMessage,
+        scrollToError,
         ...restProps
     } = props;
     const formContext: FormContextProps = useContext(FormContext);
@@ -140,8 +147,12 @@ const Form: FormComponent = forwardRef((props: FormProps, ref: RefObject<FormIns
             labelWidth: inline ? null : labelWidth,
             size,
             rules,
+            hideRequiredAsterisk,
+            requireAsteriskPosition,
+            showMessage,
+            scrollToError,
         }),
-        [colon, disabled, formInstance, inline, labelPosition, labelWidth, rules, size, validateTrigger],
+        [colon, disabled, formInstance, hideRequiredAsterisk, inline, labelPosition, labelWidth, requireAsteriskPosition, rules, scrollToError, showMessage, size, validateTrigger],
     );
 
     // @ts-ignore

@@ -147,7 +147,7 @@ $input-font-size: map.merge(
         padding: 0 5px;
         margin: 0;
         font-size: 14px;
-        word-break: keep-all;
+        word-break: break-all;
         color: var(--#{$namespace}-text-color-primary);
     }
 

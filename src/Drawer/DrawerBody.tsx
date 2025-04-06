@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import React, { forwardRef, useCallback, useEffect, useRef } from 'react';
-import { Scrollbar, ScrollbarRef } from '../Scrollbar';
+import Scrollbar from '../Scrollbar/Scrollbar';
+import { ScrollbarRef } from '../Scrollbar/typings';
 import { useClassNames } from '../hooks';
 import { DrawerBodyProps } from './typings';
 

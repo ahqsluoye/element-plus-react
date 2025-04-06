@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { useComposeRef } from 'rc-util/lib/ref';
 import React, { forwardRef, useCallback, useRef } from 'react';
-import { Icon } from '../Icon';
-import { Transition } from '../Transition';
+import Icon from '../Icon/Icon';
+import Transition from '../Transition/Transition';
 import { useClassNames } from '../hooks';
 import { TagProps } from './typings';
 

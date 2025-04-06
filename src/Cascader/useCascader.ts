@@ -631,7 +631,6 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
     }, [value, allLevel, props.options]);
 
     return {
-        // eslint-disable-next-line lines-around-comment
         /** 最高层级 */
         allLevel,
 

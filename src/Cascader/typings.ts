@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputRef } from '../Input';
+import { InputRef } from '../Input/typings';
 import { PopperOptions } from '../Popper';
 // import { DataNode, DirectoryTreeProps, Key } from '../Tree';
 import { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps } from '../types/common';

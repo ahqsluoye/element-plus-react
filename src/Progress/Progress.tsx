@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { FC, useMemo } from 'react';
-import { Icon } from '../Icon';
+import Icon from '../Icon/Icon';
 import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import { namespace } from '../hooks/prefix';

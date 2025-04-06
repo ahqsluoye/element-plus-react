@@ -10,8 +10,8 @@ import React, { RefObject, useCallback, useContext, useEffect, useMemo, useRef, 
 import { createPortal } from 'react-dom';
 import { Root, createRoot } from 'react-dom/client';
 // import { SortableHandle } from 'react-sortable-hoc';
-import { Checkbox } from '../Checkbox';
-import { Icon } from '../Icon';
+import Checkbox from '../Checkbox/Checkbox';
+import Icon from '../Icon/Icon';
 import { TooltipRef } from '../Tooltip/typings';
 import { isEmpty, isNotEmpty } from '../Util';
 import { useClassNames, useUpdateEffect } from '../hooks';
@@ -69,7 +69,7 @@ const TableCell = (p: Props) => {
     const tdRef = useRef<HTMLTableCellElement | null>(null);
     const expandCell = useRef<HTMLDivElement | null>(null);
     // 树形表格开始展开/折叠行树，为了保证递归展开/折叠行时不重复执行
-    const startRowIndex = useRef<number>();
+    const startRowIndex = useRef<number>(null);
     const nextRow = useRef<HTMLTableRowElement>(null);
     const rootRef = useRef<Root | null>(null);
     const tooltipRef = useRef<TooltipRef>(null);

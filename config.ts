@@ -1,10 +1,12 @@
-export const NAV = {
+import { IThemeConfig } from 'dumi/dist/client/theme-api/types';
+
+export const NAV: IThemeConfig['nav'] = {
     'zh-CN': [
-        { title: '指南', link: '/guide' },
+        { title: '指南', link: '/guide', activePath: '/guide' },
         {
             title: '组件',
             link: '/components/button',
-            activePath: '/components',
+            activePath: '/components/button',
         },
     ],
     'en-US': [
@@ -12,12 +14,12 @@ export const NAV = {
         {
             title: 'components',
             link: '/en/components/button',
-            activePath: '/components',
+            activePath: '/components/button',
         },
     ],
 };
 
-export const SIDEBAR = {
+export const SIDEBAR: IThemeConfig['sidebar'] = {
     '/components': [
         {
             title: 'Basic 基础组件',

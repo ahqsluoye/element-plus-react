@@ -76,17 +76,13 @@ ps: `loadingSlot` 优先级高于`loadingIcon`属性
 
 <code src="./size.tsx"></code>
 
-<!-- ## 自定义颜色
+## 自定义颜色
 
-您可以自定义按钮颜色。
+您可以用 `color`属性 自定义按钮颜色。
 
 我们将自动计算 hover 和 active 颜色。
 
-demo
-
 <code src="./custom.tsx" ></code>
-
- -->
 
 ## Button API
 

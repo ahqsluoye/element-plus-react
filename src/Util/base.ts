@@ -19,6 +19,9 @@ export function isEmpty(val: any): boolean {
         return false;
     }
     if (val instanceof Object) {
+        if (val instanceof Date) {
+            return false;
+        }
         return is_empty(val);
     }
     if (val instanceof Array) {

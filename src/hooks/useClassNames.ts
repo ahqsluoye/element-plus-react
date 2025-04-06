@@ -238,6 +238,9 @@ function useClassNames(str: string, classPrefix = namespace) {
         return styles;
     };
 
+    const cssVarName = (name: string) => `--${namespace}-${name}`;
+    const cssVarBlockName = (name: string) => `--${componentName}-${name}`;
+
     return {
         /**
          * 如果组件前缀是'button':
@@ -328,6 +331,8 @@ function useClassNames(str: string, classPrefix = namespace) {
         is,
 
         cssVarBlock,
+        cssVarBlockName,
+        cssVarName,
     };
 }
 

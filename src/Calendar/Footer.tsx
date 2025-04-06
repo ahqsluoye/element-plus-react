@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import React, { FC, useCallback, useContext } from 'react';
-import { Button } from '../Button';
+import Button from '../Button/Button';
 import { Message } from '../Message';
 import { useClassNames } from '../hooks';
 import CalendarContext from './CalendarContext';

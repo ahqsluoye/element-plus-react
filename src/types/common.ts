@@ -36,7 +36,6 @@ export interface FormControlBaseProps<ValueType = React.AllHTMLAttributes<HTMLIn
 
 /** 基础参数 */
 export interface BaseProps<S = ComponentChildren> {
-    // eslint-disable-next-line lines-around-comment
     /** 组件 CSS 类的前缀 */
     classPrefix?: string;
     /** 下拉面板自定义内联样式 */

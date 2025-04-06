@@ -67,7 +67,7 @@ $color-info: map.get($colors, 'info', 'base') !default;
     --#{$namespace}-bg-color: #ffffff;
     --#{$namespace}-bg-color-page: #f2f3f5;
     --#{$namespace}-bg-color-overlay: #ffffff;
-    --#{$namespace}-text-color-primary: rgb(61, 77, 102);
+    --#{$namespace}-text-color-primary: #303133;
     --#{$namespace}-text-color-regular: #606266;
     --#{$namespace}-text-color-secondary: #909399;
     --#{$namespace}-text-color-placeholder: #a8abb2;
@@ -216,7 +216,7 @@ $bg-color: map.merge(
     --#{$namespace}-mask-color-extra-light: rgba(0, 0, 0, 0.3);
 
     @for $i from 0 through 9 {
-        // @include set-color-mix-level($i, 'light', $--main-color, #141414);
+        // @include set-color-mix-level($i, 'light', $--el-color-primary, #141414);
         --#{$namespace}-empty-fill-color-#{$i}: #{mix(#141414, #000000, math.percentage(math.div($i, 10)))};
     }
 }

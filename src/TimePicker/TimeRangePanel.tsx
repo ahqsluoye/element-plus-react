@@ -10,7 +10,7 @@ import { makeRange } from './util';
 
 const TimeRangePanel = memo(
     forwardRef<TimeRangePanelRef, TimeRangePanelProps>((props, ref) => {
-        const { value, startPlaceholder, endPlaceholder, onChange } = props;
+        const { value, startPlaceholder, endPlaceholder, onChange, setStartSelectionRange, setEndSelectionRange, ...other } = props;
         const { b, e } = useClassNames('time-range-picker');
         const { be } = useClassNames('time');
 
@@ -123,9 +123,13 @@ const TimeRangePanel = memo(
                             value={value instanceof Array ? head(value) : null}
                             onChange={time => handleChange(time, 'start')}
                             className={e`body`}
+                            {...other}
+                            setSelectionRange={setStartSelectionRange}
                             disabledHours={disabledStartHours}
                             disabledMinutes={disabledStartMinutes}
                             disabledSeconds={disabledStartSeconds}
+                            showSeconds={other.showSeconds}
+                            isRange
                         />
                     </div>
                     <div className={e`cell`}>
@@ -134,9 +138,12 @@ const TimeRangePanel = memo(
                             value={value instanceof Array ? last(value) : null}
                             onChange={time => handleChange(time, 'end')}
                             className={e`body`}
+                            {...other}
+                            setSelectionRange={setEndSelectionRange}
                             disabledHours={disabledEndHours}
                             disabledMinutes={disabledEndMinutes}
                             disabledSeconds={disabledEndSeconds}
+                            isRange
                         />
                     </div>
                 </div>

@@ -1,12 +1,13 @@
 import classNames from 'classnames';
 import React, { Ref, RefObject, forwardRef, memo, useContext, useImperativeHandle, useMemo, useRef } from 'react';
 import { ConfigProvider } from '../ConfigProvider';
-import { Icon } from '../Icon';
+import Icon from '../Icon/Icon';
 import { isNotEmpty } from '../Util';
 import { partitionHTMLProps, useClassNames, useDisabled, useSize } from '../hooks';
 import ButtonGroup from './ButtonGroup';
 import { ButtonGroupContext } from './ButtonGroupContext';
 import { ButtonProps, ButtonRef } from './typings';
+import { useButtonCustomStyle } from './useButtonCustomStyle';
 
 const InternalButton = (props: ButtonProps, ref: Ref<ButtonRef>) => {
     const { disabled: groupDisabled, type: groupType, size: groupSize, bgColor, borderColor } = useContext(ButtonGroupContext);
@@ -32,9 +33,11 @@ const InternalButton = (props: ButtonProps, ref: Ref<ButtonRef>) => {
     } = props;
     const disabled = useDisabled(groupDisabled ?? props.disabled);
     const size = useSize(groupSize ?? props.size);
-    const { b, m, is } = useClassNames('button');
+    const { b, m, is, cssVarBlock, cssVarBlockName, cssVarName } = useClassNames('button');
     const [htmlInputProps] = partitionHTMLProps(rest);
     const containerRef = useRef<HTMLButtonElement>(null);
+
+    const buttonStyle = useButtonCustomStyle({ color: bgColor, ...props }, cssVarBlock, cssVarName, cssVarBlockName);
 
     const spin = useMemo(() => loadingSlot ?? <Icon name={loadingIcon} className={classNames(b`spin`, is`loading`)} spin />, [loadingSlot, loadingIcon, b, is]);
     const type = useMemo(() => groupType ?? (props.type || 'default'), [groupType, props.type]);
@@ -65,7 +68,7 @@ const InternalButton = (props: ButtonProps, ref: Ref<ButtonRef>) => {
             ref={containerRef}
             disabled={disabled || loading}
             className={classNames(b(), m(type, size), is({ block, active, disabled, loading, plain, round, circle, link, text, dashed, 'has-bg': bg }), className)}
-            style={{ background: bgColor, borderColor, ...props.style }}
+            style={{ borderColor, ...buttonStyle, ...props.style }}
             onClick={e => {
                 if (!disabled) {
                     onClick?.call(this, e);

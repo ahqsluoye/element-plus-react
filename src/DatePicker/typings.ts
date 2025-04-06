@@ -1,17 +1,15 @@
 import { Dayjs } from 'dayjs';
-import React from 'react';
+import React, { RefObject } from 'react';
 import { DateRangeType, DateType, Shortcuts } from '../Calendar';
-import { InputRef } from '../Input';
-import { PopperOptionRef } from '../Popper';
+import { InputRef } from '../Input/typings';
 import { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export type DatePickerRef = {
-    inputInstance?: InputRef;
-    popperInstRef: PopperOptionRef;
-    getValue: () => string | number | Date;
-    setValue: (value: string) => void;
-    // onClear: (event?: any) => void;
-    setVisible: (value: boolean) => void;
+    input?: RefObject<InputRef>;
+    focus: () => void;
+    blur: () => void;
+    handleOpen: () => void;
+    handleClose: () => void;
 };
 
 // type ValueType = string | number | Date;
@@ -21,6 +19,7 @@ export interface DatePickerProps
         BaseProps,
         NativeProps,
         AnimationEventProps,
+        CommonProps,
         Omit<
             React.AllHTMLAttributes<HTMLInputElement>,
             'value' | 'defaultValue' | 'size' | 'prefix' | 'type' | 'onInput' | 'onChange' | 'className' | 'style' | 'readOnly' | 'disabled' | 'children'
@@ -28,9 +27,9 @@ export interface DatePickerProps
     /** 等价于原生 name 属性 */
     name?: string;
     /** 选中项绑定值 */
-    value?: string;
+    value?: string | number | Date;
     /** 默认值 */
-    defaultValue?: string;
+    defaultValue?: string | number | Date;
     /** 只读 */
     readonly?: boolean;
     /** 必输项*/
@@ -72,13 +71,13 @@ export interface DatePickerProps
     formatter?: (value: Dayjs, text: number) => React.ReactElement;
 }
 
-export interface DatePickerRangeProps extends Omit<FormControlBaseProps, 'name' | 'value' | 'defaultValue' | 'onChange'>, BaseProps, AnimationEventProps, NativeProps {
+export interface DatePickerRangeProps extends Omit<FormControlBaseProps, 'name' | 'value' | 'defaultValue' | 'onChange'>, BaseProps, AnimationEventProps, CommonProps, NativeProps {
     /** 等价于原生 name 属性 */
     name?: [string, string];
     /** 选中项绑定值 */
-    value?: [string, string];
+    value?: [string, string] | [number, number] | [Date, Date];
     /** 默认值 */
-    defaultValue?: [string, string];
+    defaultValue?: [string, string] | [number, number] | [Date, Date];
     /** 只读 */
     readOnly?: boolean;
     /** 禁用 */
@@ -118,11 +117,21 @@ export interface DatePickerRangeProps extends Omit<FormControlBaseProps, 'name' 
     formatter?: (value: Dayjs, text: number) => React.ReactElement;
 }
 
+export type CommonProps = {
+    /** 自定义前缀图标 */
+    prefixIcon?: string | React.ReactElement;
+    /** 可清空的模式下用户点击清空按钮时触发 */
+    onClear?: () => void;
+    /** 当 TimePicker 的下拉列表出现/消失时触发 */
+    onVisibleChange?: (visibility: boolean) => void;
+};
+
 export interface AllDatePickerProps
     extends Omit<FormControlBaseProps, 'name' | 'value' | 'defaultValue' | 'onChange'>,
         BaseProps,
         NativeProps,
         AnimationEventProps,
+        CommonProps,
         Omit<
             React.AllHTMLAttributes<HTMLInputElement>,
             'name' | 'value' | 'defaultValue' | 'size' | 'prefix' | 'type' | 'onInput' | 'onChange' | 'className' | 'style' | 'readOnly' | 'disabled' | 'children'
@@ -173,8 +182,6 @@ export interface AllDatePickerProps
     /** 格式化 */
     formatter?: (value: Dayjs, text: number) => React.ReactElement;
 
-    /** 只读 */
-    readOnly?: boolean;
     /** 禁用 */
     disabled?: boolean;
     /** 范围选择时开始日期的占位内容 */
@@ -185,4 +192,6 @@ export interface AllDatePickerProps
     rangeSeparator?: string;
     /** 在范围选择器里取消两个日期面板之间的联动 */
     unlinkPanels?: boolean;
+    /** 选择日期后的默认时间值。 如未指定则默认时间值为 `00:00:00` */
+    defaultTime?: Date;
 }

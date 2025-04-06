@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import { Checkbox } from '../Checkbox';
+import Checkbox from '../Checkbox/Checkbox';
 import { FieldNames, KeyWiseTransferItem } from './typings';
 
 type ListItemProps<RecordType> = {

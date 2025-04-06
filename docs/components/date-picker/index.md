@@ -100,9 +100,8 @@ lang: zh-CN
 
 | 属性名           | 说明                                                                                       | 类型                                                                            | 可选值                                                                                                                            | 默认值     |
 | ---------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| value            | 值                                                                                         | `string` / `[string, string]`                                                   | —                                                                                                                                 | —          |
-| defaultValue     | 可选，选择器打开时默认显示的时间                                                           | Date / [Date, Date]                                                             | —                                                                                                                                 | —          |
-| readonly         | 只读                                                                                       | boolean                                                                         | —                                                                                                                                 | false      |
+| value            | 绑定值，如果它是数组，长度应该是 2                                                         | `string` \ <Enum type="object">[string, string]</Enum>                          | —                                                                                                                                 | —          |
+| defaultValue     | 可选，选择器打开时默认显示的时间                                                           | `string` \ <Enum type="object">[string, string]</Enum>                          | —                                                                                                                                 | —          |
 | disabled         | 禁用                                                                                       | boolean                                                                         | —                                                                                                                                 | false      |
 | size             | 输入框尺寸                                                                                 | string                                                                          | <Enum>'' \| 'large' \| 'default' \| 'small'</Enum>                                                                                | default    |
 | clearable        | 是否显示清除按钮                                                                           | boolean                                                                         | —                                                                                                                                 | true       |
@@ -117,7 +116,7 @@ lang: zh-CN
 | showToday        | 是否展示“今天”按钮                                                                         | boolean                                                                         | —                                                                                                                                 | false      |
 | isoWeek          | 设置 ISO 周数，其中 1 为星期一，7 为星期日                                                 | boolean                                                                         | —                                                                                                                                 | false      |
 | unlinkPanels     | 在范围选择器里取消两个日期面板之间的联动                                                   | boolean                                                                         | —                                                                                                                                 | false      |
-| disabledDate     | 一个用来判断该日期是否被禁用的函数，接受一个 Date 对象作为参数。 应该返回一个 Boolean 值。 | function                                                                        | —                                                                                                                                 | —          |
+| disabledDate     | 一个用来判断该日期是否被禁用的函数，接受一个 Date 对象作为参数。 应该返回一个 Boolean 值。 | <Enum type='Function'>`(time: Date) => boolean`</Enum>                          | —                                                                                                                                 | —          |
 | shortcuts        | 设置快捷选项，需要传入数组对象                                                             | <Enum type='object'>`Array<{ text: string, value: Date \| Function }>`</Enum>   | —                                                                                                                                 | —          |
 | formatter        | 格式化                                                                                     | <Enum type='Function'>(value: Dayjs, text: number) => React.ReactElement</Enum> | —                                                                                                                                 | —          |
 
@@ -140,3 +139,12 @@ lang: zh-CN
 | focus       | 使 input 获取焦点  | —    |
 | handleOpen  | 打开日期选择器弹窗 | —    |
 | handleClose | 关闭日期选择器弹窗 | —    | -->
+
+### Ref
+
+| 名称        | 说明               | Type                                      |
+| ----------- | ------------------ | ----------------------------------------- |
+| focus       | 使组件获取焦点     | <Enum type="Function">`() => void`</Enum> |
+| blur        | 使组件失去焦点     | <Enum type="Function">`() => void`</Enum> |
+| handleOpen  | 打开时间选择器弹窗 | <Enum type="Function">`() => void`</Enum> |
+| handleClose | 关闭时间选择器弹窗 | <Enum type="Function">`() => void`</Enum> |

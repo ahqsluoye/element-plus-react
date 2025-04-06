@@ -2,25 +2,18 @@ import React from 'react';
 import { BaseProps, NativeProps } from '../types/common';
 
 export interface IconProps extends Omit<React.AllHTMLAttributes<HTMLElement>, 'size' | 'style' | 'className' | 'readOnly' | 'disabled' | 'children'>, BaseProps, NativeProps {
-    // eslint-disable-next-line lines-around-comment
     /** 图标前缀，定义图标字体粗细 */
     prefix?: IconPrefix;
-
     /** 图标名称 */
     name: IconName;
-
     /** 图标大小 */
     size?: IconSize;
-
     /** 图标是否旋转 */
     rotate?: Rotate;
-
     /** 图标是否翻转 */
     flip?: Flip;
-
     /** 是否动画 */
     spin?: boolean;
-
     /** 是否8方向旋转 */
     pulse?: boolean;
 }

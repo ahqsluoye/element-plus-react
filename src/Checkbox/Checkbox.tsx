@@ -48,8 +48,8 @@ const Checkbox = memo(
         const { b, m, e, is } = useClassNames('checkbox');
         const [htmlInputProps, restProps] = partitionHTMLProps(rest);
 
-        const inputRef = useRef<HTMLInputElement>();
-        const containerRef = useRef<HTMLDivElement>();
+        const inputRef = useRef<HTMLInputElement>(null);
+        const containerRef = useRef<HTMLDivElement>(null);
 
         const handleChange = useCallback(
             event => {

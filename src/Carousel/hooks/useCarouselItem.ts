@@ -8,8 +8,8 @@ export const useCarouselItem = (props: CarouselItemProps) => {
 
     const id = useId();
 
-    const carouselItemRef = useRef<HTMLDivElement>();
-    const ref = useRef<CarouselItemRef>();
+    const carouselItemRef = useRef<HTMLDivElement>(null);
+    const ref = useRef<CarouselItemRef>(null);
 
     const reducer = (state: CarouselItemStates, action: CarouselItemAction) => {
         switch (action.type) {

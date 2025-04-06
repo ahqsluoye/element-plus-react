@@ -6,10 +6,12 @@ import noop from 'lodash/noop';
 import omit from 'lodash/omit';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { Calendar, CalendarContext, ValueRagne, initDate, toDayjs } from '../Calendar';
-import { Icon } from '../Icon';
-import { Input, InputRef } from '../Input';
-import { Popper, PopperOptionRef } from '../Popper';
-import { isNotEmpty } from '../Util';
+import Icon from '../Icon/Icon';
+import Input from '../Input/Input';
+import { InputRef } from '../Input/typings';
+import Popper from '../Popper/Popper';
+import { PopperOptionRef } from '../Popper/typings';
+import { isNotEmpty, mergeDefaultProps } from '../Util';
 import { partitionAnimationProps, partitionHTMLProps, partitionPopperPropsUtils, useControlled, useDisabled, useSize } from '../hooks';
 import { namespace } from '../hooks/prefix';
 import { DatePickerProps, DatePickerRef } from './typings';
@@ -19,28 +21,11 @@ dayjs.extend(weekOfYear);
 
 const DatePicker = memo(
     forwardRef<DatePickerRef, DatePickerProps>((props, ref) => {
-        const {
-            name,
-            readonly = true,
-            clearable = true,
-            required,
-            valueFormat,
-            plain,
-            onClick,
-            prepend,
-            append,
-            error,
-            warning,
-            shortcuts,
-            onChange,
-            formatter,
-            type = 'date',
-            isoWeek = true,
-            ...rest
-        } = props;
+        props = mergeDefaultProps({ readonly: true, clearable: true, type: 'date', isoWeek: true }, props);
+        const { name, readonly, clearable, required, valueFormat, plain, onClick, prepend, append, error, warning, shortcuts, onChange, formatter, type, isoWeek, ...rest } = props;
         const [value, setValue] = useControlled(props.value, props.defaultValue);
         const [visible, setVisible] = useState(false);
-        const popperInstRef = useRef<PopperOptionRef>();
+        const popperInstRef = useRef<PopperOptionRef>(null);
         const inputRef = useRef<InputRef>(null);
         const currentDate = useRef<Dayjs>(null);
 
@@ -62,12 +47,23 @@ const DatePicker = memo(
                     case 'month':
                         return 'YYYY-MM';
                     case 'week':
-                        return '';
+                        return 'YYYY[w]ww';
                     default:
                         return 'YYYY-MM-DD';
                 }
             }
         }, [props.format, type]);
+
+        const formatValue = useMemo(() => {
+            if (typeof value === 'string') {
+                return value;
+            } else if (typeof value === 'number') {
+                return dayjs(new Date(value)).format(format);
+            } else if (value instanceof Date) {
+                return dayjs(value).format(valueFormat ?? format);
+            }
+            return '';
+        }, [format, value, valueFormat]);
 
         /** 根据日期类型设定占位符 */
         const placeholder = useMemo(() => {
@@ -89,10 +85,29 @@ const DatePicker = memo(
 
         /** 日期参数转成dayjs对象 */
         const dateProp = useMemo(() => {
-            if (type === 'week') {
-                return currentDate.current || (currentDate.current = typeof value === 'string' ? toDayjs<Dayjs>(value, props.valueFormat ?? format) : initDate());
+            let result = initDate();
+            if (isNotEmpty(value)) {
+                if (type === 'week') {
+                    if (currentDate.current) {
+                        result = currentDate.current;
+                    } else if (value instanceof Date) {
+                        result = currentDate.current = dayjs(value);
+                    } else if (typeof value === 'number') {
+                        result = currentDate.current = dayjs(new Date(value));
+                    } else if (typeof value === 'string') {
+                        result = currentDate.current = toDayjs<Dayjs>(value, props.valueFormat ?? format);
+                    }
+                } else {
+                    if (value instanceof Date) {
+                        result = dayjs(value);
+                    } else if (typeof value === 'number') {
+                        result = dayjs(new Date(value));
+                    } else if (typeof value === 'string') {
+                        result = toDayjs<Dayjs>(value, props.valueFormat ?? format);
+                    }
+                }
             }
-            return typeof value === 'string' ? toDayjs<Dayjs>(value, props.valueFormat ?? format) : initDate();
+            return result;
         }, [format, props.valueFormat, type, value]);
 
         useEffect(() => {
@@ -141,11 +156,11 @@ const DatePicker = memo(
         );
 
         useImperativeHandle(ref, () => ({
-            popperInstRef: popperInstRef.current,
-            inputInstance: inputRef.current,
-            getValue: () => value,
-            setValue,
-            setVisible,
+            input: inputRef,
+            focus: () => inputRef.current.focus(),
+            blur: () => inputRef.current.blur(),
+            handleOpen: () => setVisible(true),
+            handleClose: () => setVisible(false),
         }));
 
         return (
@@ -160,7 +175,7 @@ const DatePicker = memo(
                     clearable={clearable && !disabled}
                     prefix={!plain && <Icon name="calendar-days" />}
                     onClick={onActive}
-                    value={value}
+                    value={formatValue}
                     onChange={noop}
                     onClear={() => handleChange?.(null)}
                     className={classNames({ [`${namespace}-date`]: readonly, 'is-active': visible })}

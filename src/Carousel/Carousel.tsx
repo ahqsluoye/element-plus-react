@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { forwardRef, memo, useImperativeHandle, useMemo, useRef } from 'react';
-import { Icon } from '../Icon';
-import { Transition } from '../Transition';
+import Icon from '../Icon/Icon';
+import Transition from '../Transition/Transition';
 import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import { namespace } from '../hooks/prefix';
@@ -57,8 +57,8 @@ const Carousel: React.ForwardRefExoticComponent<CarouselProps & React.RefAttribu
             next,
         } = useCarousel(props);
 
-        const buttonLeft = useRef();
-        const buttonRight = useRef();
+        const buttonLeft = useRef(null);
+        const buttonRight = useRef(null);
 
         const carouselContainer = useMemo(() => {
             const classes = [e`container`];

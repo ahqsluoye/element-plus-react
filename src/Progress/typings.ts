@@ -1,7 +1,6 @@
 import { BaseProps, NativeProps } from '../types/common';
 
 export interface PropgressProps extends BaseProps, NativeProps {
-    // eslint-disable-next-line lines-around-comment
     /** 百分比，必填 */
     percentage: number;
 

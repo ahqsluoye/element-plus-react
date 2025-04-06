@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import { Icon } from '../Icon';
-import { Input } from '../Input/index';
+import Icon from '../Icon/Icon';
+import Input from '../Input/Input';
 
 export interface TransferSearchProps {
     prefixCls?: string;

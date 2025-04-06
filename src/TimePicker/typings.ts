@@ -1,9 +1,8 @@
 import { Dayjs } from 'dayjs';
-import { RefObject } from 'react';
+import React, { RefObject } from 'react';
 import { ValueRagne } from '../Calendar';
-import { DatePickerProps, DatePickerRangeProps } from '../DatePicker';
-import { InputRef } from '../Input';
-import { PopperOptionRef } from '../Popper';
+import { AllDatePickerProps, DatePickerProps, DatePickerRangeProps } from '../DatePicker/typings';
+import { InputRef } from '../Input/typings';
 import { AnimationEventProps, BaseProps, NativeProps } from '../types/common';
 
 export type RoleType = 'start' | string;
@@ -25,58 +24,65 @@ export interface ChangeParams {
 }
 
 export type TimePickerRef = {
-    inputInstance?: InputRef;
-    popperInstRef: PopperOptionRef;
-    getValue: () => string;
-    setValue: (value: string) => void;
-    // onClear: (event?: any) => void;
-    setVisible: (value: boolean) => void;
+    input?: RefObject<InputRef>;
+    focus: () => void;
+    blur: () => void;
+    handleOpen: () => void;
+    handleClose: () => void;
 };
 
-export type TimePickerRangeRef = {
-    popperInstRef: PopperOptionRef;
-    getValue: () => [string, string];
-    setValue: (value: [string, string]) => void;
-    // onClear: (event?: any) => void;
-    setVisible: (value: boolean) => void;
+// export type TimePickerRangeRef = {
+//     ref: React.MutableRefObject<HTMLDivElement>;
+//     popperInstRef: PopperOptionRef;
+//     getValue: () => [string, string];
+//     setValue: (value: [string, string]) => void;
+//     setVisible: (value: boolean) => void;
+// };
+
+export type CommonProps = {
+    /** 自定义前缀图标 */
+    prefixIcon?: string | React.ReactElement;
+    /** 可清空的模式下用户点击清空按钮时触发 */
+    onClear?: () => void;
+    /** 当 TimePicker 的下拉列表出现/消失时触发 */
+    onVisibleChange?: (visibility: boolean) => void;
 };
 
-export type TimePickerProps = Omit<DatePickerProps, 'type' | 'instance'> & {
-    disabledHours?: DisabledHours;
-    disabledMinutes?: DisabledMinutes;
-    disabledSeconds?: DisabledSeconds;
-    /** 等价于原生 name 属性 */
-    name?: string;
-    /** 选中项绑定值 */
-    value?: string;
-    /** 默认值 */
-    defaultValue?: string;
-};
+export type TimePickerProps = Omit<DatePickerProps, 'type'> &
+    CommonProps & {
+        disabledHours?: DisabledHours;
+        disabledMinutes?: DisabledMinutes;
+        disabledSeconds?: DisabledSeconds;
+    };
 
-export type TimePickerRangeProps = Omit<DatePickerRangeProps, 'type' | 'instance'> & {
-    disabledHours?: DisabledHours;
-    disabledMinutes?: DisabledMinutes;
-    disabledSeconds?: DisabledSeconds;
-    instance?: RefObject<TimePickerRangeRef>;
-};
+export type TimePickerRangeProps = Omit<DatePickerRangeProps, 'type'> &
+    CommonProps & {
+        disabledHours?: DisabledHours;
+        disabledMinutes?: DisabledMinutes;
+        disabledSeconds?: DisabledSeconds;
+    };
+
+export type AllTimePickerProps = Omit<AllDatePickerProps, 'type'> &
+    CommonProps & {
+        disabledHours?: DisabledHours;
+        disabledMinutes?: DisabledMinutes;
+        disabledSeconds?: DisabledSeconds;
+        /** 是否为时间范围选择 */
+        isRange?: boolean;
+    };
 
 export interface TimeSpinnerProps extends BaseProps, NativeProps, AnimationEventProps {
-    // eslint-disable-next-line lines-around-comment
-
     /** 值 */
     value: Dayjs;
-
     disabledHours?: DisabledHours;
     disabledMinutes?: DisabledMinutes;
     disabledSeconds?: DisabledSeconds;
-
     showSeconds?: boolean;
-
+    /** 是否为时间范围选择 */
+    isRange?: boolean;
     role?: RoleType;
-
     /** 单选框提交数据方法 */
     onChange: (value: Dayjs, params?: ChangeParams) => void;
-
     setSelectionRange?: (start: number, end: number, pos?: 'min' | 'max') => void;
 }
 
@@ -96,11 +102,13 @@ export interface TimeRangePanelProps
         NativeProps,
         AnimationEventProps,
         Omit<TimeSpinnerProps, 'value' | 'onChange'>,
-        Omit<TimePickerRangeProps, 'instance' | 'value' | 'onChange'> {
+        Omit<TimePickerRangeProps, 'value' | 'onChange'> {
     value: ValueRagne;
     onChange: (value: ValueRagne, params?: ChangeParams) => void;
     /** 是否显示 */
     visible: boolean;
+    setStartSelectionRange?: (start: number, end: number, pos?: 'min' | 'max') => void;
+    setEndSelectionRange?: (start: number, end: number, pos?: 'min' | 'max') => void;
     /**  */
     // referenceElement: RefObject<HTMLElement>;
     /** 关闭时回调函数 */

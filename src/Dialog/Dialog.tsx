@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import React, { ComponentType, RefObject, forwardRef, memo, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { Transition } from '../Transition';
+import Transition from '../Transition/Transition';
 import { PopupManager, addUnit } from '../Util';
 import { useClassNames, useControlled } from '../hooks';
 import { namespace } from '../hooks/prefix';
@@ -44,12 +44,12 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
     /** 是否有按钮组 */
     const haveFooter = useRef(false);
     // 模态框容器div
-    const wrapperRef = useRef<HTMLDivElement>();
+    const wrapperRef = useRef<HTMLDivElement>(null);
     // 模态框主题div
-    const dialogRef = useRef<HTMLDivElement>();
+    const dialogRef = useRef<HTMLDivElement>(null);
     // 遮罩div
-    // const backdropRef = useRef<HTMLDivElement>();
-    const overlayRef = useRef<HTMLDivElement>();
+    // const backdropRef = useRef<HTMLDivElement>(null);
+    const overlayRef = useRef<HTMLDivElement>(null);
     const headerRef = useRef<HTMLDivElement>(null);
 
     useDraggable(dialogRef, headerRef, draggable, overflow);

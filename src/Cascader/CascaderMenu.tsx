@@ -2,9 +2,10 @@
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useContext, useImperativeHandle, useRef } from 'react';
 import scrollIntoView from 'scroll-into-view-if-needed';
-import { Checkbox } from '../Checkbox';
-import { Icon } from '../Icon';
-import { Scrollbar, ScrollbarRef } from '../Scrollbar';
+import Checkbox from '../Checkbox/Checkbox';
+import Icon from '../Icon/Icon';
+import Scrollbar from '../Scrollbar/Scrollbar';
+import { ScrollbarRef } from '../Scrollbar/typings';
 import { useClassNames } from '../hooks';
 import { CascaderContext } from './CascaderContext';
 import { OptionNode } from './typings';

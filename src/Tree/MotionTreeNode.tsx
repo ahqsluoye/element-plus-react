@@ -3,7 +3,7 @@ import { useComposeRef } from 'rc-util';
 import useLayoutEffect from 'rc-util/lib/hooks/useLayoutEffect';
 import * as React from 'react';
 import { useRef } from 'react';
-import { Transition } from '../Transition';
+import Transition from '../Transition/Transition';
 import TreeNode from './TreeNode';
 import { TreeContext } from './contextTypes';
 import type { FlattenNode, TreeNodeProps } from './typings';

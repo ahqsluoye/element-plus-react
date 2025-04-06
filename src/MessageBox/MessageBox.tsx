@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import isString from 'lodash/isString';
 import React, { cloneElement, forwardRef, memo, RefObject, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { Button } from '../Button';
-import { Dialog } from '../Dialog';
+import Button from '../Button/Button';
+import Dialog from '../Dialog/Dialog';
 import { partitionAnimationProps, useClassNames, useControlled } from '../hooks';
 import { namespace } from '../hooks/prefix';
-import { Icon } from '../Icon';
-import { Input } from '../Input';
+import Icon from '../Icon/Icon';
+import Input from '../Input/Input';
 import { addUnit, isNotEmpty } from '../Util';
 import { Action, MessageBoxRef, MessageState } from './typings';
 
@@ -54,7 +54,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
 
         const [transitionProps] = partitionAnimationProps(rest);
 
-        const containerRef = useRef<HTMLDivElement>();
+        const containerRef = useRef<HTMLDivElement>(null);
 
         const iconContent = useMemo(() => {
             if (isNotEmpty(icon)) {

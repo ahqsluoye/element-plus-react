@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import isBoolean from 'lodash/isBoolean';
 import React, { forwardRef, isValidElement, useCallback, useMemo, useRef } from 'react';
-import { Icon } from '../Icon';
+import Icon from '../Icon/Icon';
 import { mergeDefaultProps, warning } from '../Util';
 import { useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { SwitchProps } from './typings';
@@ -45,7 +45,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
         onChange,
     } = props;
 
-    const inputRef = useRef<HTMLInputElement>();
+    const inputRef = useRef<HTMLInputElement>(null);
     const { b, e, m, em, is } = useClassNames(classPrefix);
 
     const [value, setValue] = useControlled(props.value, defaultValue);

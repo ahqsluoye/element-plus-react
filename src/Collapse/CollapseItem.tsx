@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FC, memo, useCallback, useContext, useMemo, useRef } from 'react';
-import { Icon } from '../Icon';
-import { Transition } from '../Transition';
+import Icon from '../Icon/Icon';
+import Transition from '../Transition/Transition';
 import { useClassNames } from '../hooks';
 import { CollapseContext } from './CollapseContext';
 import { afterEnter, afterLeave, beforeEnter, beforeLeave, onEnter, onLeave } from './CollapseTransition';

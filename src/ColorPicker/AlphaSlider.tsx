@@ -27,7 +27,7 @@ const AlphaSlider = forwardRef<AlphaSliderRef, Props>((props, ref) => {
     const { color, vertical, onChange } = props;
     const { b, e, is } = useClassNames('color-alpha-slider');
 
-    const el = useRef<HTMLDivElement>();
+    const el = useRef<HTMLDivElement>(null);
     const thumb = useRef<HTMLDivElement>(null);
     const bar = useRef<HTMLDivElement>(null);
 

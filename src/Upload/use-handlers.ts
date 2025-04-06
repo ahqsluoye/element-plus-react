@@ -12,7 +12,7 @@ const revokeObjectURL = (file: UploadFile) => {
 
 export const useHandlers = (props: Omit<UploadProps, 'fileList'> & { fileList: UploadFiles }, uploadRef: RefObject<UploadContentRef | undefined>) => {
     const { fileList, listType = 'text', onError, onChange, onProgress, onSuccess, beforeRemove, onRemove } = props;
-    const uploadFilesRef = useRef<UploadFiles>();
+    const uploadFilesRef = useRef<UploadFiles>(null);
 
     // const [uploadFiles, setUploadFiles] = useState(() => {
     //     uploadFilesRef.current = fileList.map(item => {

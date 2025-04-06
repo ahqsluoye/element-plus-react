@@ -10,6 +10,7 @@
     width: var(--sidebar-width-xs);
     background-color: var(--bg-color);
     padding: 48px 32px;
+    padding-top: 0;
     overflow-y: auto;
     transform: translate(-100%);
     transition: background-color var(--el-transition-duration-fast), opacity 0.25s, transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
@@ -23,6 +24,7 @@
 
         @include respond-to('lg') {
             padding-bottom: 48px;
+            padding-top: 0;
         }
 
         .sidebar-group__title {
@@ -55,11 +57,13 @@
 
     @include respond-to('xxl') {
         padding: 48px 32px;
+        padding-top: 0;
         width: calc(var(--vp-sidebar-width-small) + 32px);
     }
 
     @include respond-to('max') {
         padding: 48px;
+        padding-top: 0;
         width: calc(var(--vp-sidebar-width-small) + 48px);
     }
 

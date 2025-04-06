@@ -1,5 +1,5 @@
 import React, { Ref } from 'react';
-import { InputRef } from '../Input';
+import { InputRef } from '../Input/typings';
 import { BaseProps, FormControlBaseProps, NativeProps } from '../types/common';
 
 export type LiteralUnion<T extends U, U> = T | (U & {});

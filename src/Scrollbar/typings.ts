@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react';
+import React, { AllHTMLAttributes, RefObject } from 'react';
 import { BaseProps, NativeProps } from '../types/common';
 
 export interface ScrollbarRef {
@@ -19,6 +19,7 @@ export interface ScrollbarRef {
 
 export interface ScrollbarProps
     extends BaseProps,
+        Omit<AllHTMLAttributes<any>, 'children' | 'style' | 'onScroll'>,
         NativeProps<'--el-scrollbar-opacity' | '--el-scrollbar-bg-color' | '--el-scrollbar-hover-opacity' | '--el-scrollbar-hover-bg-color' | '--el-scrollbar-width'> {
     /** 滚动条高度 */
     height?: number | string;

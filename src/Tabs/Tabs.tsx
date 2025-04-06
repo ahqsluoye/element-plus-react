@@ -3,7 +3,7 @@ import { addClass, addStyle, hasClass, removeClass } from 'dom-lib';
 import forEach from 'lodash/forEach';
 import omit from 'lodash/omit';
 import React, { Children, FC, Ref, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Icon } from '../Icon';
+import Icon from '../Icon/Icon';
 import { isEmpty } from '../Util';
 import { useChildrenInstance, useClassNames, useControlled } from '../hooks';
 import { TabsContext } from './TabsContext';

@@ -29,7 +29,7 @@ const SvPanel = forwardRef<SvPanelRef, Props>((props, ref) => {
     const [cursorLeft, setCursorLeft] = useState(0);
     const [background, setBackground] = useState('hsl(0, 100%, 50%)');
 
-    const el = useRef<HTMLDivElement>();
+    const el = useRef<HTMLDivElement>(null);
 
     // methods
     const update = useCallback(() => {

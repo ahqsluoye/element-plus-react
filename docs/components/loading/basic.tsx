@@ -3,7 +3,7 @@ import { LoremIpsum } from 'lorem-ipsum';
 import React, { useMemo, useRef } from 'react';
 
 const App = () => {
-    const divRef = useRef<HTMLDivElement>();
+    const divRef = useRef<HTMLDivElement>(null);
 
     const lorem = useMemo(
         () =>

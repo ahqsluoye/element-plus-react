@@ -2,7 +2,7 @@ import SourceCode from '@/theme/slots/SourceCode';
 import { ElIcon, ElTabPane, ElTabs, ElTooltip, ElTransition } from '@qsxy/element-plus-react';
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
-import { IPreviewerProps } from 'dumi';
+import { IPreviewerProps, openCodeSandbox } from 'dumi';
 import React, { FC, forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import './style.scss';
 
@@ -16,6 +16,7 @@ interface ExtraFile {
 const BlockControl = forwardRef<any, { expand: boolean }>(({ expand }, ref) => {
     const [hovering, setHovering] = useState(false);
 
+    const nodeRef = useRef(null);
     const onMouseEnter = useCallback(() => setHovering(true), []);
     const onMouseLeave = useCallback(() => setHovering(false), []);
 
@@ -27,8 +28,10 @@ const BlockControl = forwardRef<any, { expand: boolean }>(({ expand }, ref) => {
     return (
         <>
             <ElIcon prefix="far" name={expand ? 'angle-up' : 'angle-down'} className={classNames({ hovering })} />
-            <ElTransition name="text-slide" visible={hovering} display="inline-block">
-                <span className="r-link">{expand ? '隐藏代码' : '显示代码'}</span>
+            <ElTransition nodeRef={nodeRef} name="text-slide" visible={hovering} display="inline-block">
+                <span ref={nodeRef} className="r-link">
+                    {expand ? '隐藏代码' : '显示代码'}
+                </span>
             </ElTransition>
         </>
     );
@@ -162,6 +165,28 @@ const Previewer: FC<IPreviewerProps> = props => {
                 <div ref={control} className={classNames('demo-block-control')} onClick={() => setExpand(!expand)}>
                     <BlockControl ref={blockControl} expand={expand} />
                     <div className="control-button-container">
+                        <ElTooltip content="在 CodeSandbox 中打开" placement="top">
+                            <span
+                                className="control-button copy-button"
+                                onClick={e => {
+                                    e.stopPropagation();
+                                    openCodeSandbox({
+                                        asset: {
+                                            ...props.asset,
+                                            dependencies: {
+                                                ...props.asset.dependencies,
+                                                ['index.tsx']: {
+                                                    type: 'FILE',
+                                                    value: "import '@qsxy/element-plus-react/dist/index.css';\n" + props.asset.dependencies['index.tsx'].value,
+                                                },
+                                            },
+                                        },
+                                    });
+                                }}
+                            >
+                                <ElIcon name="box-open-full" prefix="far" />
+                            </span>
+                        </ElTooltip>
                         <ElTooltip content="复制代码" placement="top">
                             <span ref={copyButton} className="control-button copy-button" onClick={copy}>
                                 <ElIcon name="paste" prefix="far" />

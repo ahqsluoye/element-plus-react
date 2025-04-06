@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import noop from 'lodash/noop';
 import React, { FC, useContext } from 'react';
-import { Scrollbar } from '../Scrollbar';
-import { TooltipContext } from '../Tooltip';
+import Scrollbar from '../Scrollbar/Scrollbar';
+import { TooltipContext } from '../Tooltip/TooltipContext';
 import { useClassNames } from '../hooks';
 import { DropdownMenuProps } from './typings';
 

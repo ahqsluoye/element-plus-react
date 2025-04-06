@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
 import sortBy from 'lodash/sortBy';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { Checkbox } from '../Checkbox';
+import Checkbox from '../Checkbox/Checkbox';
 import { isEmpty, isNotEmpty } from '../Util';
 import { useClassNames } from '../hooks';
 import { NativeProps } from '../types/common';

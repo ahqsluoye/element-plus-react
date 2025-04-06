@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
-import { Checkbox } from '../Checkbox';
+import Checkbox from '../Checkbox/Checkbox';
 import { Dropdown, DropdownItem, DropdownMenu } from '../Dropdown';
-import { Icon } from '../Icon';
+import Icon from '../Icon/Icon';
 import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import DefaultListBody from './ListBody';
@@ -59,7 +59,7 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
 
     const { b } = useClassNames(classPrefix);
     const [filterValue, setFilterValue] = useState('');
-    const defaultListBodyRef = useRef<ListBodyRef>();
+    const defaultListBodyRef = useRef<ListBodyRef>(null);
 
     const getCheckStatus = useCallback(
         (filteredItems: RecordType[]) => {

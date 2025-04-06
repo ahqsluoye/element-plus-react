@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FC, useState } from 'react';
-import { Button } from '../Button';
-import { Icon } from '../Icon';
+import Button from '../Button/Button';
+import Icon from '../Icon/Icon';
 import Tooltip from '../Tooltip/Tooltip';
 import { mergeDefaultProps } from '../Util';
 import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames } from '../hooks';

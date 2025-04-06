@@ -8,10 +8,14 @@ import omit from 'lodash/omit';
 import trim from 'lodash/trim';
 import React, { RefObject, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { Divider } from '../Divider';
-import { Icon } from '../Icon';
-import { Input, InputGroup, InputRef } from '../Input';
-import { Popper, PopperOptionRef } from '../Popper';
-import { Scrollbar, ScrollbarRef } from '../Scrollbar';
+import Icon from '../Icon/Icon';
+import Input from '../Input/Input';
+import InputGroup from '../Input/InputGroup';
+import { InputRef } from '../Input/typings';
+import Popper from '../Popper/Popper';
+import { PopperOptionRef } from '../Popper/typings';
+import Scrollbar from '../Scrollbar/Scrollbar';
+import { ScrollbarRef } from '../Scrollbar/typings';
 import { Tag } from '../Tag';
 import { BasicDataNode, CheckInfo, DataNode, DirectoryTree, Key, RCTree } from '../Tree';
 import { isEmpty, isNotEmpty } from '../Util';
@@ -80,16 +84,16 @@ function InternalTreeSelect<RecordType extends BasicDataNode = DataNode>(props: 
     const [popperStyle, setPopperStyle] = useState<React.CSSProperties>({});
     const [checkedNodes, setCheckedNodes] = useState<DataNode[]>([]);
 
-    const groupRef = useRef<HTMLDivElement>();
+    const groupRef = useRef<HTMLDivElement>(null);
     // 选择框容器div
-    const containerRef = useRef<HTMLDivElement>();
+    const containerRef = useRef<HTMLDivElement>(null);
     // 下拉选项容器div
-    const contentRef = useRef<HTMLDivElement>();
-    const wrapperRef = useRef<HTMLInputElement>();
-    const popperInstRef = useRef<PopperOptionRef>();
-    const treeRef = useRef<RCTree>();
+    const contentRef = useRef<HTMLDivElement>(null);
+    const wrapperRef = useRef<HTMLInputElement>(null);
+    const popperInstRef = useRef<PopperOptionRef>(null);
+    const treeRef = useRef<RCTree>(null);
     const dataList = useRef<any[]>([]);
-    const labelRef = useRef<string>();
+    const labelRef = useRef<string>(null);
     const inputInstance = useRef<InputRef>(null);
     const searchInstance = useRef<InputRef>(null);
     const scrollbarRef = useRef<ScrollbarRef>(null);

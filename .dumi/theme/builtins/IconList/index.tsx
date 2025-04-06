@@ -34,7 +34,7 @@ const IconList = () => {
     const [height, setHeight] = useState(800);
 
     const all = useRef(keys(ICONS));
-    const scrollbarInstance = useRef<ScrollbarRef>();
+    const scrollbarInstance = useRef<ScrollbarRef>(null);
 
     const allIconsByType = useMemo(() => {
         if (activeType === 'fab') {
@@ -313,9 +313,7 @@ const IconList = () => {
                         <ul className="r-icon-ul">
                             <ElScrollbar ref={scrollbarInstance}>
                                 <li className="r-icon-li" onClick={() => activeItem('ALL')}>
-                                    <a href="javascript:void(0);" className="r-icon-category">
-                                        所有
-                                    </a>
+                                    <a className="r-icon-category">所有</a>
                                 </li>
                                 {catagories.current.map(item => {
                                     return (
@@ -327,9 +325,7 @@ const IconList = () => {
                                                 setPageNum(1);
                                             }}
                                         >
-                                            <a href="javascript:void(0);" className="r-icon-category">
-                                                {item.label}
-                                            </a>
+                                            <a className="r-icon-category">{item.label}</a>
                                         </li>
                                     );
                                 })}

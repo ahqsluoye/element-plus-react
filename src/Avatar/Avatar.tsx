@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import classNames from 'classnames';
 import React, { FC, memo, useEffect, useMemo, useState } from 'react';
-import ElIcon from '../Icon/Icon';
+import Icon from '../Icon/Icon';
 import { addUnit, isNotEmpty, isNumber, isString } from '../Util/base';
 import { useClassNames } from '../hooks';
 import { AvatarProps } from './typings';
@@ -45,7 +45,7 @@ const Avatar: FC<AvatarProps> = memo((props: AvatarProps) => {
             : {};
     }, [cssVarBlock, size]);
 
-    const children = useMemo(() => (icon ? <ElIcon name={icon}></ElIcon> : props.children), [icon, props.children]);
+    const children = useMemo(() => (icon ? <Icon name={icon} /> : props.children), [icon, props.children]);
 
     return (
         <span className={avatarClass} style={{ ...sizeStyle, ...props.style }}>

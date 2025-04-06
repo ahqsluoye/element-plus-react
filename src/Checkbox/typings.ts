@@ -30,7 +30,6 @@ export interface CheckboxProps<V = ValueType>
             | '--el-checkbox-checked-icon-color'
             | '--el-checkbox-input-border-color-hover'
         > {
-    // eslint-disable-next-line lines-around-comment
     /** tooltip 提示*/
     title?: string;
     /** Inline layout */

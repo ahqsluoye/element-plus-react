@@ -1,6 +1,7 @@
-import React, { ComponentClass, FC } from 'react';
+import React, { ComponentClass, FC, RefObject } from 'react';
 import type { Options as ScrollOptions } from 'scroll-into-view-if-needed';
 import { BaseProps, ComponentChildren, NativeProps, TypeAttributes } from '../types/common';
+import { InternalFieldProps } from './FormItem';
 
 type BaseFormProps = Omit<React.AllHTMLAttributes<HTMLFormElement>, 'onSubmit' | 'form' | 'size' | 'children'>;
 
@@ -8,7 +9,7 @@ type RenderProps = (values: Store, form: FormInstance) => React.ReactElement;
 
 // <HTMLFormElement>
 
-export type FormRules = Record<string, Rule[]>;
+export type FormRules = Record<string, Rule[] | Record<string, Rule[]>>;
 
 export interface FormProps<Values = any> extends BaseFormProps {
     /** 经 Form.useForm() 创建的 form 控制实例，不提供时会自动创建 */
@@ -45,12 +46,18 @@ export interface FormProps<Values = any> extends BaseFormProps {
     inline?: boolean;
     /** 是否宽度100% */
     flat?: boolean;
-    /** 每行列数 */
-    // cols?: number;
     /** 是否只读 */
     disabled?: boolean;
     /** 用于控制该表单内组件的尺寸 */
     size?: TypeAttributes.Size;
+    /** 是否隐藏必填字段标签旁边的红色星号。 */
+    hideRequiredAsterisk?: boolean;
+    /** 星号的位置。 */
+    requireAsteriskPosition?: 'left' | 'right';
+    /** 是否显示校验错误信息 */
+    showMessage?: boolean;
+    /** 当校验失败时，滚动到第一个错误表单项 */
+    scrollToError?: boolean;
 
     onChange?: (model) => void;
     formStyle?: React.CSSProperties;
@@ -69,6 +76,8 @@ export interface FormItemProps<T> extends BaseProps, NativeProps {
     size?: TypeAttributes.Size;
     /** 标签的长度，例如 '50px'。 作为 Form 直接子元素的 form-item 会继承该值。 可以使用 auto。 */
     labelWidth?: string | number;
+    /** 表单域标签的位置， 如果值为 left 或者 right 时，则需要设置 label-width */
+    labelPosition?: 'left' | 'right' | 'top';
     /** 必填样式设置。如不设置，则会根据校验规则自动生成 */
     required?: boolean;
     /** 为 true 时不带样式，作为纯字段控件使用 */
@@ -81,6 +90,8 @@ export interface FormItemProps<T> extends BaseProps, NativeProps {
     pure?: boolean;
     /** 是否居中 */
     center?: boolean;
+    /** 是否显示校验错误信息 */
+    showMessage?: boolean;
     /** 文本自定义内联样式 */
     labelStyle?: React.CSSProperties;
     /** 校验失败文本自定义内联样式 */
@@ -102,13 +113,14 @@ export interface FieldEntity {
     getNamePath: () => InternalNamePath;
     getErrors: () => string[];
     getWarnings: () => string[];
+    containerRef?: RefObject<HTMLDivElement>;
     props: {
         label?: string | boolean | React.ReactElement<any>;
         name?: NamePath;
         rules?: Rule[];
         dependencies?: NamePath[];
         initialValue?: any;
-    };
+    } & InternalFieldProps;
 }
 
 interface UpdateAction {
@@ -367,6 +379,14 @@ export type InternalFormInstance = Omit<FormInstance, 'validateFields'> & {
     size?: TypeAttributes.Size;
     /** 表单验证规则 */
     rules?: FormRules;
+    /** 是否隐藏必填字段标签旁边的红色星号。 */
+    hideRequiredAsterisk?: boolean;
+    /** 星号的位置。 */
+    requireAsteriskPosition?: 'left' | 'right';
+    /** 是否显示校验错误信息 */
+    showMessage?: boolean;
+    /** 当校验失败时，滚动到第一个错误表单项 */
+    scrollToError?: boolean;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

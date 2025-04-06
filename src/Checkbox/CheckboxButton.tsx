@@ -47,7 +47,7 @@ const CheckboxButton = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
     const { b, m, e, is } = useClassNames('checkbox-button');
     const [htmlInputProps, restProps] = partitionHTMLProps(rest);
 
-    const inputRef = useRef<HTMLInputElement>();
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const handleChange = useCallback(
         event => {

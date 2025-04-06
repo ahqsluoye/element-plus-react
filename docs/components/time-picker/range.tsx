@@ -1,14 +1,8 @@
+import { ElTimePicker } from '@qsxy/element-plus-react';
 import React from 'react';
-            import {  } from '@qsxy/element-plus-react';
 
-            const App = () => {
+const App = () => {
+    return <ElTimePicker isRange />;
+};
 
-                return (
-
-                );
-            };
-
-            export const html = ``;
-
-            export default App;
-            
+export default App;

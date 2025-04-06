@@ -39,7 +39,7 @@ const RadioButton = forwardRef((props: RadioProps, ref) => {
     const size = useSize(sizeContext ?? props.size);
 
     const containerRef = useRef<HTMLDivElement>(null);
-    const inputRef = useRef<HTMLInputElement>();
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -11,30 +11,30 @@ const App = () => {
                         <span className="demonstration">Week</span>
                         <ElDatePicker type="week" valueFormat="YYYY ww" format="[Week] ww" isoWeek defaultValue="2024 22" style={{ width: 200 }} />
                     </div>
-                    <div className="block">
+                    {/* <div className="block">
                         <span className="demonstration">Dates</span>
                         <ElDatePicker type="dates" style={{ width: 200 }} />
-                    </div>
+                    </div> */}
                 </div>
                 <div className="container">
                     <div className="block">
                         <span className="demonstration">Year</span>
                         <ElDatePicker type="year" style={{ width: 200 }} />
                     </div>
-                    <div className="block">
+                    {/* <div className="block">
                         <span className="demonstration">Years</span>
                         <ElDatePicker type="years" style={{ width: 200 }} />
-                    </div>
+                    </div> */}
                 </div>
                 <div className="container">
                     <div className="block">
                         <span className="demonstration">Month</span>
                         <ElDatePicker type="month" style={{ width: 200 }} />
                     </div>
-                    <div className="block">
+                    {/* <div className="block">
                         <span className="demonstration">Months</span>
                         <ElDatePicker type="months" style={{ width: 200 }} />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>

@@ -3,7 +3,7 @@ import startsWith from 'lodash/startsWith';
 import React, { FC, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { usePopper } from 'react-popper';
-import { Transition } from '../Transition';
+import Transition from '../Transition/Transition';
 import { mergeDefaultProps, randomCode } from '../Util';
 import PopupManager from '../Util/PopupManager';
 import { partitionAnimationProps, useClassNames, useClickOutside, useComponentWillMount } from '../hooks';

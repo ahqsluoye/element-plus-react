@@ -31,8 +31,10 @@ const App = () => {
                 { min: 3, max: 5, message: '长度在 3 到 5 个字符' },
             ],
             region: [{ required: true, message: '请选择活动区域' }],
-            date1: [{ type: 'date', required: true, message: '请选择日期' }],
-            date2: [{ type: 'date', required: true, message: '请选择时间' }],
+            date: {
+                date1: [{ type: 'date', required: true, message: '请选择日期' }],
+                date2: [{ type: 'date', required: true, message: '请选择时间' }],
+            },
             type: [{ type: 'array', required: true, message: '请至少选择一个活动性质' }],
             resource: [{ required: true, message: '请选择活动资源' }],
             desc: [{ required: true, message: '请填写活动形式' }],
@@ -56,10 +58,10 @@ const App = () => {
 
     return (
         <ElForm form={formInstance} initialValues={initialValues} rules={rules} style={{ width: 800 }}>
-            <ElForm.Item name="name" label="活动名称" validateTrigger="onBlur">
+            <ElForm.Item name="name" label="活动名称" validateTrigger="onBlur" colon>
                 <ElInput />
             </ElForm.Item>
-            <ElForm.Item name="region" label="活动区域">
+            <ElForm.Item name="region" label="活动区域" validateStatus="warning">
                 <ElSelect placeholder="请选择活动区域">
                     <ElSelect.Option label="区域一" value="shanghai" />
                     <ElSelect.Option label="区域二" value="beijing" />

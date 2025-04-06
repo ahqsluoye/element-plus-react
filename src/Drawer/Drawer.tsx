@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import React, { RefObject, forwardRef, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { Transition } from '../Transition';
+import Transition from '../Transition/Transition';
 import { PopupManager, mergeDefaultProps } from '../Util';
 import { useClassNames, useControlled } from '../hooks';
 import { namespace } from '../hooks/prefix';
@@ -26,11 +26,11 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
     const [visible, setVisible, isControlled] = useControlled(props.visible, props.defaultVisible);
 
     // 模态框容器div
-    const wrapperRef = useRef<HTMLDivElement>();
+    const wrapperRef = useRef<HTMLDivElement>(null);
     // 模态框主题div
-    const drawerRef = useRef<HTMLDivElement>();
+    const drawerRef = useRef<HTMLDivElement>(null);
     // 遮罩div
-    const backdropRef = useRef<HTMLDivElement>();
+    const backdropRef = useRef<HTMLDivElement>(null);
 
     /**关闭对话框 */
     useEffect(() => {

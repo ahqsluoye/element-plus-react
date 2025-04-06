@@ -3,7 +3,8 @@ import noop from 'lodash/noop';
 import React, { Children, cloneElement, FC, forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import * as ReactIs from 'react-is';
 import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames, useControlled } from '../hooks';
-import { Popper, PopperOptionRef } from '../Popper';
+import Popper from '../Popper/Popper';
+import { PopperOptionRef } from '../Popper/typings';
 import { TooltipContext } from './TooltipContext';
 import { TooltipProps, TooltipRef } from './typings';
 
@@ -16,7 +17,7 @@ const Tooltip: FC<TooltipProps> = forwardRef<TooltipRef, TooltipProps>((props, r
         disabled,
         enterable = true,
         showAfter = 0,
-        hideAfter = 200,
+        hideAfter = 0,
         onMouseEnter,
         onMouseLeave,
         onEnter,
@@ -33,7 +34,7 @@ const Tooltip: FC<TooltipProps> = forwardRef<TooltipRef, TooltipProps>((props, r
     const [visible, setVisible] = useControlled(props.visible, props.defaultVisible);
     let referenceElement = useRef<any>(null);
     const timeOut = useRef(0);
-    const popperInstRef = useRef<PopperOptionRef>();
+    const popperInstRef = useRef<PopperOptionRef>(null);
 
     /** 显示 */
     const handleMouseEnter = useCallback(

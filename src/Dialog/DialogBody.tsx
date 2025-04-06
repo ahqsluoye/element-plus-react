@@ -9,7 +9,7 @@ const DialogBody: React.ForwardRefExoticComponent<DialogBodyProps & React.RefAtt
         const { e } = useClassNames(classPrefix);
         // const { overflow, mounted, haveFooter } = useContext(DialogContext);
 
-        const contentRef = useRef<HTMLDivElement>();
+        const contentRef = useRef<HTMLDivElement>(null);
         // const scrollbarInstance = useRef<ScrollbarRef>(null);
 
         // const resizeFn = useCallback(() => {

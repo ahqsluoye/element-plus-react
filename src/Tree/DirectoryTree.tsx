@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 import RcTree from './RCTree';
 
-import { Icon } from '../Icon';
+import Icon from '../Icon/Icon';
 import Tree, { AntdTreeNodeAttribute, TreeProps } from './Tree';
 import { BasicDataNode, DataNode, EventDataNode, Key } from './typings';
 import { conductExpandParent } from './util';

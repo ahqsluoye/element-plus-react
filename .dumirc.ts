@@ -10,7 +10,9 @@ export default defineConfig({
         name: 'element-plus-react',
         nav: NAV,
         sidebar: SIDEBAR,
+        editLink: true,
     },
+
     alias: {
         '@': process.cwd() + '/.dumi',
         '@qsxy/element-plus-react': process.cwd() + '/src',

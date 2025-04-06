@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useMemo, useState } from 'react';
-import { Select } from '../Select';
+import Select from '../Select/Select';
 import { useClassNames } from '../hooks';
 
 interface Props {

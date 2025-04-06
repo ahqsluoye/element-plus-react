@@ -22,10 +22,10 @@ export const useCarousel = (props: CarouselProps) => {
     const preActiveIndex = usePrevious(activeIndex);
 
     const timer = useRef<ReturnType<typeof setInterval> | null>(null);
-    const root = useRef<HTMLDivElement>();
+    const root = useRef<HTMLDivElement>(null);
     const isItemsTwoLength = useRef(true);
     const isTransition = useRef(false);
-    const resizeObserver = useRef<ResizeObserver>();
+    const resizeObserver = useRef<ResizeObserver>(null);
     const isFirstCall = useRef(true);
     const itemLen = useRef(0);
     const activeIndexRef = useRef(-1);

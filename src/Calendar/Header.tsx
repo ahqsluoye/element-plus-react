@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FC, useMemo } from 'react';
-import { Icon } from '../Icon';
-import { Link } from '../Link';
+import Icon from '../Icon/Icon';
+import Link from '../Link/Link';
 import { useClassNames } from '../hooks';
 import { HeaderProps } from './typings';
 

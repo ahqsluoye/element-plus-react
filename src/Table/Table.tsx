@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import React, { Ref, RefObject, forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import { Loading } from '../Loading';
-import { Scrollbar, ScrollbarRef } from '../Scrollbar';
+import Scrollbar from '../Scrollbar/Scrollbar';
+import { ScrollbarRef } from '../Scrollbar/typings';
 import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import Colgroup from './Colgroup';

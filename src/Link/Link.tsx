@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
-import { Icon } from '../Icon';
+import Icon from '../Icon/Icon';
 import { useClassNames } from '../hooks';
 import { LinkProps } from './typings';
 

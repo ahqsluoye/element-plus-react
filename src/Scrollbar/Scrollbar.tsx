@@ -6,7 +6,7 @@ import { mergeDefaultProps } from '../Util';
 import { addResizeListener, removeResizeListener } from '../Util/resize-event';
 import { partitionHTMLProps, useClassNames } from '../hooks';
 import Thumb from './Thumb';
-import { ScrollbarProps, ScrollbarRef, ScrollToOptions } from './typings';
+import { ScrollToOptions, ScrollbarProps, ScrollbarRef } from './typings';
 
 const Scrollbar = forwardRef<ScrollbarRef, ScrollbarProps>((props, ref) => {
     props = mergeDefaultProps(
@@ -25,9 +25,9 @@ const Scrollbar = forwardRef<ScrollbarRef, ScrollbarProps>((props, ref) => {
         props;
     const { b, e, em } = useClassNames('scrollbar');
     const [htmlInputProps] = partitionHTMLProps(rest);
-    const containerRef = useRef<HTMLDivElement>();
-    const wrapRef = useRef<HTMLDivElement>();
-    const resizeRef = useRef<any>();
+    const containerRef = useRef<HTMLDivElement>(null);
+    const wrapRef = useRef<HTMLDivElement>(null);
+    const resizeRef = useRef<any>(null);
 
     const [sizeWidth, setSizeWidth] = useState('0');
     const [sizeHeight, setSizeHeight] = useState('0');

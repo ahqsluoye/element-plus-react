@@ -31,7 +31,7 @@
                     background-color: var(--el-fill-color-light);
 
                     a {
-                        color: var(--main-color);
+                        color: var(--el-color-primary);
                     }
                 }
 
@@ -83,8 +83,8 @@
             cursor: pointer;
 
             &:hover {
-                color: var(--main-color);
-                border-color: var(--main-color);
+                color: var(--el-color-primary);
+                border-color: var(--el-color-primary);
             }
 
             p {
@@ -133,14 +133,14 @@
 
         &.active {
             border: 2px solid;
-            border-color: var(--main-color);
+            border-color: var(--el-color-primary);
             border-radius: 8px;
         }
 
         &:hover {
-            color: var(--main-color);
+            color: var(--el-color-primary);
             border: 2px solid;
-            border-color: var(--main-color);
+            border-color: var(--el-color-primary);
         }
 
         i {
@@ -175,7 +175,7 @@
         color: var(--el-text-color-primary);
 
         &.active {
-            color: var(--main-color);
+            color: var(--el-color-primary);
         }
     }
 }

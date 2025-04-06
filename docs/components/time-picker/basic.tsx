@@ -1,5 +1,6 @@
 import { ElTimePicker } from '@qsxy/element-plus-react';
 import React from 'react';
+import './style.scss';
 
 const App = () => {
     return (

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import classNames from 'classnames';
 import find from 'lodash/find';
 import isEqual from 'lodash/isEqual';
@@ -8,13 +7,15 @@ import omit from 'lodash/omit';
 import trim from 'lodash/trim';
 import React, { FC, RefObject, forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { Divider } from '../Divider';
-import { Icon } from '../Icon';
-import { Input, InputRef } from '../Input';
-import { Popper, PopperOptionRef } from '../Popper';
-import { Tag } from '../Tag';
-import { Tooltip } from '../Tooltip';
+import Icon from '../Icon/Icon';
+import Input from '../Input/Input';
+import { InputRef } from '../Input/typings';
+import Popper from '../Popper/Popper';
+import { PopperOptionRef } from '../Popper/typings';
+import Tag from '../Tag/Tag';
+import Tooltip from '../Tooltip/Tooltip';
 import { isEmpty, isNotEmpty, mergeDefaultProps } from '../Util';
-import { partitionAnimationProps, partitionHTMLProps, partitionPopperPropsUtils, partitionTreePropsUtils, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
+import { partitionAnimationProps, partitionHTMLProps, partitionPopperPropsUtils, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { CascaderContext } from './CascaderContext';
 import CascaderDropdown from './CascaderDropdown';
 import CascaderMenu, { CascaderMenuRef } from './CascaderMenu';
@@ -52,7 +53,6 @@ const Cascader: FC<CascaderProps> = memo(
             filterable,
             clearable,
             showAllLevels,
-            required,
             collapseTags,
             maxCollapseTags,
             collapseTagsTooltip,
@@ -76,11 +76,10 @@ const Cascader: FC<CascaderProps> = memo(
         const [htmlInputProps] = partitionHTMLProps(rest);
         const [transitionProps] = partitionAnimationProps(rest);
         const [popperProps] = partitionPopperPropsUtils(rest);
-        const [treeProps] = partitionTreePropsUtils(rest);
 
         // 选择框容器div
-        const containerRef = useRef<HTMLDivElement>();
-        const popperInstRef = useRef<PopperOptionRef>();
+        const containerRef = useRef<HTMLDivElement>(null);
+        const popperInstRef = useRef<PopperOptionRef>(null);
         const inputRef = useRef<InputRef>(null);
         const searchInstance = useRef<InputRef>(null);
         const menuRefs = useRef<Record<number, CascaderMenuRef>>({});
@@ -120,8 +119,6 @@ const Cascader: FC<CascaderProps> = memo(
             clearSelected,
             setNodeLeaf,
             getDataType,
-            getExpandedKeys,
-            setExpandedKeys,
             setSelectedValue,
             handleSearch,
             resetNodes,

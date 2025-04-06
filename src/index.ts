@@ -58,9 +58,6 @@ export type { DateRangeType, DateType } from './Calendar';
 export { DatePicker as ElDatePicker } from './DatePicker';
 export type { DatePickerProps, DatePickerRef } from './DatePicker';
 
-export { DateTimePicker as ElDateTimePicker } from './DateTimePicker';
-export type { DateTimePickerProps, DateTimePickerRef } from './DateTimePicker';
-
 export { TimePicker as ElTimePicker } from './TimePicker';
 export type { TimePickerProps, TimePickerRef } from './TimePicker';
 

@@ -38,7 +38,7 @@ const Main = props => {
     );
     const isIconList = useMemo(() => location.pathname.endsWith('icon-list'), [location.pathname]);
 
-    const markerRef = useRef();
+    const markerRef = useRef(null);
 
     const [active, setActive] = useState('');
 

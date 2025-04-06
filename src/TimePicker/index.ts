@@ -1,3 +1,2 @@
-export { default as TimePicker } from './TimePicker';
-export { default as TimeSpinnerPanel } from './TimeSpinnerPanel';
-export type { TimePanelRef, TimePickerProps, TimePickerRef } from './typings';
+export { default as TimePicker } from './main';
+export type { TimePanelRef, AllTimePickerProps as TimePickerProps, TimePickerRef } from './typings';

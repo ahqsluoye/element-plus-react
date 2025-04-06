@@ -3,7 +3,7 @@ import React, { useCallback, useRef, useState } from 'react';
 
 const App = () => {
     const [count, setCount] = useState(3);
-    const scrollbarRef = useRef<ScrollbarRef>();
+    const scrollbarRef = useRef<ScrollbarRef>(null);
 
     const add = useCallback(() => {
         setCount(count + 1);

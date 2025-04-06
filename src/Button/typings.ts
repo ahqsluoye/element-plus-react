@@ -53,10 +53,12 @@ export interface ButtonProps
     active?: boolean;
     /** 是否为禁用状态 */
     disabled?: boolean;
+    /** dark 模式, 意味着自动设置 color 为 dark 模式的颜色 */
+    dark?: boolean;
     /** 自定义图标 */
     icon?: IconName | boolean;
     /** 自定义颜色 */
-    color?: TypeAttributes.Color;
+    color?: string;
     /** Format button to appear inside a content bloc */
     block?: boolean;
     /** 自动在两个中文字符之间插入空格 */

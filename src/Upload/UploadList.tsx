@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import React, { useCallback, useRef } from 'react';
-import { Icon } from '../Icon';
+import Icon from '../Icon/Icon';
 import { Progress } from '../Progress';
-import { Transition } from '../Transition';
+import Transition from '../Transition/Transition';
 import { useClassNames, useDisabled } from '../hooks';
 import { UploadFile, UploadListProps } from './typings';
 

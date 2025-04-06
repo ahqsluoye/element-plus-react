@@ -1,49 +1,48 @@
 import { ElScrollbar } from '@qsxy/element-plus-react';
 import classNames from 'classnames';
-import { Link, useSidebarData } from 'dumi';
-import React, { FC, memo, useEffect, useState } from 'react';
+import { Link, useFullSidebarData } from 'dumi';
+import React, { FC, memo, useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
 const Sidebar: FC = memo(() => {
     const location = useLocation();
-    const sidebar = useSidebarData();
+    const fullsidebar = useFullSidebarData();
     const [active, setActive] = useState(location.pathname);
-    // const path = useMemo(() => (location.pathname.startsWith('/components') ? '/components' : location.pathname), [location.pathname]);
+    const path = useMemo(() => '/' + location.pathname.split('/').filter(item => !!item)[0], [location.pathname]);
 
     useEffect(() => {
-        const node = document.querySelector(`[href="${active}"]`);
+        setActive(location.pathname);
+        const node = document.querySelector(`[href="${location.pathname}"]`);
         if (node) {
             scrollIntoView(node, {
                 scrollMode: 'if-needed',
                 block: 'center',
             });
         }
-    }, [active]);
+    }, [location.pathname]);
 
     return (
         <ElScrollbar className="sidebar">
-            <aside>
-                <div className="sidebar-groups">
-                    {sidebar.map(group => (
-                        <section key={group.title} className="sidebar-group">
-                            <p className="sidebar-group__title">{group.title}</p>
-                            {group.children.map(item => (
-                                <Link
-                                    key={item.link}
-                                    to={item.link}
-                                    className={classNames('link', {
-                                        active: active === item.link,
-                                    })}
-                                    onClick={() => setActive(item.link)}
-                                >
-                                    <p className="link-text">{item.title}</p>
-                                </Link>
-                            ))}
-                        </section>
-                    ))}
-                </div>
-            </aside>
+            <div className="sidebar-groups">
+                {fullsidebar[path].map((group, index) => (
+                    <section key={index} className="sidebar-group">
+                        <p className="sidebar-group__title">{group.title}</p>
+                        {group.children.map(item => (
+                            <Link
+                                key={item.link}
+                                to={item.link}
+                                className={classNames('link', {
+                                    active: active === item.link,
+                                })}
+                                onClick={() => setActive(item.link)}
+                            >
+                                <p className="link-text">{item.title}</p>
+                            </Link>
+                        ))}
+                    </section>
+                ))}
+            </div>
         </ElScrollbar>
         // <div className="dumi-default-sidebar">
         //   {meta[path].map((item, i) => (

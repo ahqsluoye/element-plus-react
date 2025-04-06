@@ -42,7 +42,7 @@ const InternalRadio = (props: RadioProps, ref: RefObject<RadioRef>) => {
     const [htmlInputProps, restProps] = partitionHTMLProps(rest);
 
     const containerRef = useRef<HTMLDivElement>(null);
-    const inputRef = useRef<HTMLInputElement>();
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -18,8 +18,16 @@ function clean(done) {
 function buildComponentStyles() {
     return gulp
         .src(`${srcRoot}/theme-chalk/build.scss`)
-        .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+        .pipe(sass({ outputStyle: 'compressed', sourceComments: false }).on('error', sass.logError))
         .pipe(rename('index.css'))
+        .pipe(gulp.dest(styleRoot));
+}
+
+function buildDisplayStyle() {
+    return gulp
+        .src(`${srcRoot}/theme-chalk/display.scss`)
+        .pipe(sass({ outputStyle: 'compressed', sourceComments: false }).on('error', sass.logError))
+        .pipe(rename('display.css'))
         .pipe(gulp.dest(styleRoot));
 }
 
@@ -84,5 +92,5 @@ function generateFonts() {
     return gulp.src('./empty', { allowEmpty: true }).pipe(gulp.dest('./packages/dist/fonts/'));
 }
 
-exports.build = gulp.series(gulp.parallel(buildComponentStyles, generatePackageJSON, generateReadme, generateReadme), generateFonts);
+exports.build = gulp.series(gulp.parallel(buildComponentStyles, buildDisplayStyle, generatePackageJSON, generateReadme, generateReadme), generateFonts);
 exports.clean = clean;

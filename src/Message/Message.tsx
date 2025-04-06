@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Badge } from '../Badge';
-import { Transition } from '../Transition';
+import Badge from '../Badge/Badge';
+import Transition from '../Transition/Transition';
 import { PopupManager, mergeDefaultProps } from '../Util';
 import { EVENT_CODE, TypeMap } from '../config/Constants';
 import { useClassNames } from '../hooks';

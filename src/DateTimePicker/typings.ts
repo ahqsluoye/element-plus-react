@@ -1,23 +1,18 @@
+import { RefObject } from 'react';
 import { DatePickerProps } from '../DatePicker';
-import { InputRef } from '../Input';
-import { PopperOptionRef } from '../Popper';
+import { InputRef } from '../Input/typings';
 
 export type DateTimePickerRef = {
-    inputInstance?: InputRef;
-    popperInstRef: PopperOptionRef;
-
-    /** �Ƿ�׷�ӵ�body�� */
-    appendToBody?: boolean;
-    getValue: () => string;
-    setValue: (value: string) => void;
-    // onClear: (event?: any) => void;
-    setVisible: (value: boolean) => void;
+    input?: RefObject<InputRef>;
+    focus: () => void;
+    blur: () => void;
+    handleOpen: () => void;
+    handleClose: () => void;
 };
 
-export type DateTimePickerProps = Omit<DatePickerProps, 'type' | 'value' | 'defaultValue' | 'onChange' | 'name'> & {
+export type DateTimePickerProps = Omit<DatePickerProps, 'type' | 'name'> & {
     name?: string;
-    value?: string;
-    defaultValue?: string;
-    onChange?: (value: string) => void;
     onClear?: (event?: any) => void;
+    /** 选择日期后的默认时间值。 如未指定则默认时间值为 `00:00:00` */
+    defaultTime?: Date;
 };

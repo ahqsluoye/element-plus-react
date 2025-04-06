@@ -2,7 +2,7 @@ import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
-import { Scrollbar } from '../Scrollbar';
+import Scrollbar from '../Scrollbar/Scrollbar';
 import { useClassNames } from '../hooks';
 import { SpinnerRef, TimeSpinnerProps, TimeType } from './typings';
 import { getTimeLists } from './useTimePicker';
@@ -15,11 +15,12 @@ interface ListMap {
 
 const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React.RefAttributes<SpinnerRef>> = memo(
     forwardRef<SpinnerRef, TimeSpinnerProps>((props, ref) => {
-        const { classPrefix = 'time', showSeconds = true, value: valueProp, onChange } = props;
+        const { classPrefix = 'time', showSeconds = true, value: valueProp, isRange, onChange, setSelectionRange } = props;
         const { b, be, is } = useClassNames(classPrefix);
 
         const spinnerDate = useRef(valueProp);
         const isScrolling = useRef(false);
+        const isInit = useRef(true);
 
         // useEffect(() => {
         //     spinnerDate.current = valueProp;
@@ -112,23 +113,27 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
         //     return content;
         // };
 
-        // const handleSelectRange = useCallback(
-        //     type => {
-        //         if (type === 'hours') {
-        //             setSelectionRange?.(0, 2);
-        //         } else if (type === 'minutes') {
-        //             setSelectionRange?.(3, 5);
-        //         } else if (type === 'seconds') {
-        //             setSelectionRange?.(6, 8);
-        //         }
-        //     },
-        //     [setSelectionRange],
-        // );
+        const handleSelectRange = useCallback(
+            type => {
+                if (type === 'hours') {
+                    setSelectionRange?.(0, 2);
+                } else if (type === 'minutes') {
+                    setSelectionRange?.(3, 5);
+                } else if (type === 'seconds') {
+                    setSelectionRange?.(6, 8);
+                }
+            },
+            [setSelectionRange],
+        );
 
         const typeItemHeight = useCallback(
             (type: TimeType) => {
                 const el = listRefsMap[type].current;
-                return el?.querySelector('li').offsetHeight;
+                const listItem = el?.querySelector('li');
+                if (listItem) {
+                    return el?.querySelector('li').offsetHeight;
+                }
+                return 0;
             },
             [listRefsMap],
         );
@@ -158,6 +163,7 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
                         onChange?.(spinnerDate.current.hour(value), { defaultTime: true });
                         break;
                     case 'minutes':
+                        // console.log(spinnerDate.current.minute(value).format('HH:mm:ss'));
                         onChange?.(spinnerDate.current.minute(value), { defaultTime: true });
                         break;
                     case 'seconds':
@@ -179,7 +185,7 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
         const debouncedResetScroll = debounce(
             useCallback(
                 (type: TimeType) => {
-                    isScrolling.current = false;
+                    // isScrolling.current = false;
                     adjustCurrentSpinner(type);
                 },
                 [adjustCurrentSpinner],
@@ -201,11 +207,13 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
             (type: TimeType, { value, disabled }: { value: number; disabled: boolean }) => {
                 if (!disabled) {
                     modifyDateField(type, value);
-                    // handleSelectRange(type);
                     adjustSpinner(type, value);
+                    setTimeout(() => {
+                        handleSelectRange(type);
+                    }, 200);
                 }
             },
-            [modifyDateField, adjustSpinner],
+            [modifyDateField, handleSelectRange, adjustSpinner],
         );
 
         const scrollBarHeight = useCallback(
@@ -228,9 +236,20 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
                 );
                 modifyDateField(type, value);
                 debouncedResetScroll(type);
-                isScrolling.current = false;
+                setTimeout(
+                    () => {
+                        isScrolling.current = false;
+                        if (!isInit.current) {
+                            handleSelectRange(type);
+                        }
+                    },
+                    isRange ? 500 : 200,
+                );
+                if (!isRange) {
+                    isScrolling.current = false;
+                }
             },
-            [debouncedResetScroll, listRefsMap, modifyDateField, scrollBarHeight, typeItemHeight],
+            [debouncedResetScroll, handleSelectRange, isRange, listRefsMap, modifyDateField, scrollBarHeight, typeItemHeight],
         );
 
         /** 绑定时间滚动事件 */
@@ -279,7 +298,12 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
         useMount(() => {
             bindScrollEvent();
             adjustSpinners();
-            // setSelectionRange?.(0, 2);
+            setTimeout(() => {
+                adjustSpinners();
+                setTimeout(() => {
+                    isInit.current = false;
+                }, 800);
+            }, 200);
 
             return unbindScrollEvent;
         });
@@ -311,8 +335,7 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
                                 ref={_ref => (listRefsMap[item].current = _ref?.ref?.current)}
                                 noresize
                                 onScroll={() => handleScroll(item)}
-                                // onMouseEnter={() => handleSelectRange(item)}
-                                // @ts-ignore
+                                onMouseEnter={() => handleSelectRange(item)}
                                 onMouseMove={() => adjustCurrentSpinner(item)}
                             >
                                 {listMap[item].map((disabled, key) => {

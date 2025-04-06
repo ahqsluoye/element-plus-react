@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import head from 'lodash/head';
 import React, { Children, cloneElement, createRef, isValidElement, memo, useContext } from 'react';
-import { Icon } from '../Icon';
+import Icon from '../Icon/Icon';
 import Tooltip from '../Tooltip/Tooltip';
-import { Transition } from '../Transition';
-import { isNotEmpty, warning } from '../Util';
+import Transition from '../Transition/Transition';
+import { addUnit, isNotEmpty, warning } from '../Util';
 import { ComponentChildren } from '../types/common';
 import FieldContext, { HOOK_MARK } from './FieldContext';
 import { FormItemContext } from './FormItemContext';
@@ -26,6 +26,7 @@ import type {
     ValidateOptions,
 } from './typings';
 import { b, e, m } from './utils/classUtil';
+import get from './utils/get';
 import { toArray } from './utils/typeUtil';
 import { validateRules } from './utils/validateUtil';
 import { containsNamePath, defaultGetValueFromEvent, getNamePath, getValue } from './utils/valueUtil';
@@ -135,6 +136,7 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
     private warnings: string[] = EMPTY_ERRORS;
     warningRef: React.RefObject<any | null>;
     errorRef: React.RefObject<any | null>;
+    containerRef: React.RefObject<HTMLDivElement | null>;
 
     // ============================== Subscriptions ==============================
     constructor(props: InternalFieldProps) {
@@ -149,6 +151,7 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
 
         this.warningRef = createRef();
         this.errorRef = createRef();
+        this.containerRef = createRef();
     }
 
     public componentDidMount() {
@@ -596,11 +599,12 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
 
     public getLabelWidth = () => {
         const { pure, fieldContext, labelWidth } = this.props;
-        const { labelWidth: labelWidthContext, labelPosition }: InternalFormInstance = fieldContext;
+        const { labelWidth: labelWidthContext, labelPosition: contextLabelPos }: InternalFormInstance = fieldContext;
+        const labelPosition = this.props.labelPosition ?? contextLabelPos;
         if (labelPosition === 'top') {
             return 0;
         } else if (isNotEmpty(labelWidth)) {
-            return labelWidth;
+            return addUnit(labelWidth);
         } else if (pure === true) {
             return 0;
         } else {
@@ -629,8 +633,17 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
     public render() {
         const { resetCount } = this.state;
         const { children, label, center, className, style, noStyle, fieldContext, labelStyle = {}, colon = false, size, help, pure } = this.props;
-        const { size: sizeContext, labelPosition, colon: colonContext }: InternalFormInstance = fieldContext;
+        const {
+            size: sizeContext,
+            labelPosition: contextLabelPos,
+            colon: colonContext,
+            hideRequiredAsterisk,
+            requireAsteriskPosition,
+            showMessage: contextShowMessage,
+        }: InternalFormInstance = fieldContext;
         const labelWidth = this.getLabelWidth();
+        const labelPosition = this.props.labelPosition ?? contextLabelPos;
+        const showMessage = this.props.showMessage ?? contextShowMessage;
 
         const { child, isFunction } = this.getOnlyChild(children);
 
@@ -650,12 +663,27 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
 
         return noStyle ? (
             <FormItemContext.Provider key={resetCount} value={{ size }}>
-                {returnChildNode}
-                {this.getValidateLable()}
+                <div ref={this.containerRef} className={e('nostyle')}>
+                    {returnChildNode}
+                    {showMessage ? this.getValidateLable() : null}
+                </div>
             </FormItemContext.Provider>
         ) : (
             <FormItemContext.Provider key={resetCount} value={{ size }}>
-                <div className={classNames(b('form-item'), { 'is-required': isRequired, [m(sizeContext ?? size)]: sizeContext ?? size }, className)} style={style}>
+                <div
+                    ref={this.containerRef}
+                    className={classNames(
+                        b('form-item'),
+                        {
+                            'is-required': isRequired && !hideRequiredAsterisk,
+                            [m(`label-${labelPosition}`)]: this.props.labelPosition,
+                            [m(sizeContext ?? size)]: sizeContext ?? size,
+                        },
+                        'asterisk-' + requireAsteriskPosition,
+                        className,
+                    )}
+                    style={style}
+                >
                     {label && !pure && (
                         <label className={e`label`} style={['left', 'right'].includes(labelPosition) ? { width: labelWidth, ...labelStyle } : labelStyle}>
                             {typeof label === 'string' || typeof label === 'number' ? `${label}${colonContext ?? colon ? '：' : ''}` : label}
@@ -682,7 +710,7 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
                                     return item;
                                 },
                             )}
-                            {this.getValidateLable()}
+                            {showMessage ? this.getValidateLable() : null}
                         </>
                     </div>
                 </div>
@@ -707,8 +735,9 @@ function InternalFormItem<Values = any>({ name, rules = [], ...restProps }: Fiel
         warning(false, '`preserve` should not apply on Form.List fields.');
     }
 
-    // @ts-ignore
-    return <Field key={key} name={namePath} rules={[...(fieldContext.rules?.[name] ?? []), ...rules]} {...restProps} fieldContext={fieldContext} />;
+    const formRules = namePath?.length > 0 ? get(fieldContext?.rules ?? {}, namePath) : undefined;
+
+    return <Field key={key} name={namePath} rules={[...(formRules || []), ...rules]} {...restProps} fieldContext={fieldContext} />;
 }
 
 type InternalFormItemType = typeof InternalFormItem;

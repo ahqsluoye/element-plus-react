@@ -97,13 +97,12 @@ export class FormStore {
 
     private scrollToField = (name: NamePath, options: StandardBehaviorOptions = {}) => {
         const namePath = toArray(name);
-        // @ts-ignore
-        const node: HTMLElement | null = this.getFieldsMap().get(namePath)?.base;
+        const node = this.getFieldsMap().get(namePath)?.containerRef;
 
-        if (node) {
-            scrollIntoView(node, {
+        if (node.current) {
+            scrollIntoView(node.current, {
                 scrollMode: 'if-needed',
-                block: 'nearest',
+                block: 'center',
                 ...options,
             });
         }
@@ -915,6 +914,10 @@ export class FormStore {
                 return Promise.reject<string[]>([]);
             })
             .catch((results: { name: InternalNamePath; errors: string[] }[]) => {
+                const fieldContext = this.getFieldsMap().get(results[0].name)?.props?.fieldContext;
+                if (fieldContext?.scrollToError) {
+                    this.scrollToField(results[0].name);
+                }
                 const errorList = results.filter(result => result && result.errors.length);
                 return Promise.reject({
                     values: this.getFieldsValue(namePathList),
@@ -956,7 +959,7 @@ export class FormStore {
 }
 
 function useForm<Values = any>(form?: FormInstance<Values>): [FormInstance<Values>] {
-    const formRef = useRef<FormInstance>();
+    const formRef = useRef<FormInstance>(null);
     const [, forceUpdate] = useState({});
 
     if (!formRef.current) {

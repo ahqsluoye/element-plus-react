@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { FC, useContext } from 'react';
-import { TooltipContext } from '../Tooltip';
+import { TooltipContext } from '../Tooltip/TooltipContext';
 import { useClassNames } from '../hooks';
 import { DropdownContext } from './DropdownContext';
 import { DropdownItemProps } from './typings';

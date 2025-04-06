@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { FC, useCallback, useContext } from 'react';
-import { Icon } from '../Icon';
+import Icon from '../Icon/Icon';
 import { useClassNames } from '../hooks';
 import { DrawerContext } from './DrawerContext';
 import { DrawerHeaderProps } from './typings';

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { cloneElement, FC, useMemo } from 'react';
 import { useClassNames } from '../hooks';
-import { Icon } from '../Icon';
+import Icon from '../Icon/Icon';
 import { isNotEmpty, mergeDefaultProps } from '../Util';
 import { TimeLineItemProps } from './typings';
 

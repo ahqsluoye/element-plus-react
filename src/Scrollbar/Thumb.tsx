@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { addClass, off, on, removeClass } from 'dom-lib';
 import React, { FC, memo, useEffect, useMemo, useRef, useState } from 'react';
-import { Transition } from '../Transition';
+import Transition from '../Transition/Transition';
 import { useClassNames } from '../hooks';
 import { BarProps } from './typings';
 import { BAR_MAP, renderThumbStyle } from './util';
@@ -9,8 +9,8 @@ import { BAR_MAP, renderThumbStyle } from './util';
 const Thumb: FC<BarProps> = props => {
     const { always, vertical, scrollbar, wrapRef, size, move } = props;
     const { b, e, is } = useClassNames('scrollbar');
-    const instanceRef = useRef<HTMLDivElement>();
-    const thumbRef = useRef<HTMLDivElement>();
+    const instanceRef = useRef<HTMLDivElement>(null);
+    const thumbRef = useRef<HTMLDivElement>(null);
     const bar = useMemo(() => BAR_MAP[vertical ? 'vertical' : 'horizontal'], [vertical]);
     const barStore = useRef({});
     const cursorDown = useRef(null);

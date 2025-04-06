@@ -2,9 +2,11 @@
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { Button } from '../Button';
-import { Input, InputRef } from '../Input';
-import { Popper, PopperOptionRef } from '../Popper';
+import Button from '../Button/Button';
+import Input from '../Input/Input';
+import { InputRef } from '../Input/typings';
+import Popper from '../Popper/Popper';
+import { PopperOptionRef } from '../Popper/typings';
 import { isEmpty, isNotEmpty } from '../Util';
 import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import AlphaSlider, { AlphaSliderRef } from './AlphaSlider';
@@ -25,7 +27,7 @@ const ColorPicker = memo(
         const size = useSize(props.size);
 
         const [value, setValue] = useControlled(props.value, props.defaultValue);
-        const initialColor = useRef<string>();
+        const initialColor = useRef<string>(null);
         const isConfirm = useRef(false);
         useMount(() => {
             initialColor.current = value;
@@ -61,13 +63,13 @@ const ColorPicker = memo(
         });
         const [visible, setVisible] = useState(false);
 
-        const inputRef = useRef<InputRef>();
-        const containerRef = useRef<HTMLDivElement>();
-        const svPanelRef = useRef<SvPanelRef>();
-        const hueSliderRef = useRef<HueSliderRef>();
-        const alphaSliderRef = useRef<AlphaSliderRef>();
-        const predefineRef = useRef<PredefineRef>();
-        const popperInstRef = useRef<PopperOptionRef>();
+        const inputRef = useRef<InputRef>(null);
+        const containerRef = useRef<HTMLDivElement>(null);
+        const svPanelRef = useRef<SvPanelRef>(null);
+        const hueSliderRef = useRef<HueSliderRef>(null);
+        const alphaSliderRef = useRef<AlphaSliderRef>(null);
+        const predefineRef = useRef<PredefineRef>(null);
+        const popperInstRef = useRef<PopperOptionRef>(null);
 
         useImperativeHandle(ref, () => ({
             get ref() {

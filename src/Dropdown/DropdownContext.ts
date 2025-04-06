@@ -2,7 +2,6 @@ import noop from 'lodash/noop';
 import { createContext } from 'react';
 
 interface DropdownContextProps {
-    // eslint-disable-next-line lines-around-comment
     /** 是否在点击菜单项后隐藏菜单 */
     hideOnClick: boolean;
 
