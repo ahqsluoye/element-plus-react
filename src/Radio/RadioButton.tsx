@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import React, { forwardRef, useCallback, useContext, useImperativeHandle, useRef } from 'react';
 import { RadioContext } from '../RadioGroup/RadioGroup';
 import { partitionHTMLProps, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
-import { RadioProps } from './typings';
+import { RadioProps, RadioRef } from './typings';
 
-const RadioButton = forwardRef((props: RadioProps, ref) => {
+const RadioButton = forwardRef<RadioRef, RadioProps>((props, ref) => {
     const {
         value: groupValue,
         name: nameContext,
@@ -16,7 +16,6 @@ const RadioButton = forwardRef((props: RadioProps, ref) => {
     } = useContext(RadioContext);
 
     const {
-        // title,
         className,
         children,
         checked: checkedProp,
@@ -27,7 +26,6 @@ const RadioButton = forwardRef((props: RadioProps, ref) => {
         name = nameContext,
         value,
         onChange,
-        // onClick,
         ...rest
     } = props;
 
@@ -35,10 +33,11 @@ const RadioButton = forwardRef((props: RadioProps, ref) => {
 
     const { wb, b, e, m, is } = useClassNames(classPrefix);
     const [htmlInputProps, restProps] = partitionHTMLProps(rest);
+    const [tooltipEvents] = partitionHTMLProps(props, { htmlProps: ['onMouseEnter', 'onMouseLeave', 'onClick', 'onContextMenu'] });
     const disabled = useDisabled(disabledContext ?? props.disabled);
     const size = useSize(sizeContext ?? props.size);
 
-    const containerRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleChange = useCallback(
@@ -60,6 +59,7 @@ const RadioButton = forwardRef((props: RadioProps, ref) => {
     // }
 
     useImperativeHandle(ref, () => ({
+        ref: containerRef,
         get input() {
             return inputRef.current;
         },
@@ -76,7 +76,16 @@ const RadioButton = forwardRef((props: RadioProps, ref) => {
     }
 
     return (
-        <div className={classNames(b(), m({ [size]: size }), className, is({ active: checked, disabled }))} ref={containerRef} onClick={() => (inputRef.current.checked = true)}>
+        <div
+            className={classNames(b(), m({ [size]: size }), className, is({ active: checked, disabled }))}
+            ref={containerRef}
+            {...tooltipEvents}
+            onClick={() => {
+                inputRef.current.checked = true;
+                // @ts-ignore
+                props.onClick?.();
+            }}
+        >
             <input
                 key={name}
                 {...htmlInputProps}

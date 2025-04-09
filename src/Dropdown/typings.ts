@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import { PopperOptions } from '../Popper';
 import { TransitionProps } from '../Transition';
 import { AnimationEventProps, BaseProps, NativeProps } from '../types/common';
@@ -47,3 +47,11 @@ export interface DropdownItemProps extends BaseProps, NativeProps {
     /** 是否为激活状态 */
     active?: boolean;
 }
+
+export type DropdownRef = {
+    ref: RefObject<HTMLDivElement>;
+    /** 打开下拉菜单 */
+    handleOpen?: () => void;
+    /** 关闭下拉菜单 */
+    handleClose?: () => void;
+};

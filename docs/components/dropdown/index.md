@@ -7,12 +7,6 @@ lang: zh-CN
 
 将动作或菜单折叠到下拉菜单中。
 
-:::info{title=TIP}
-
-在 SSR 场景下，您需要将组件包裹在 `<client-only></client-only>` 之中 (如: [Nuxt](https://nuxt.com/v3)) 和 SSG (e.g: [VitePress](https://vitepress.vuejs.org/)).
-
-:::
-
 ## 基础用法
 
 悬停在下拉菜单上以展开更多操作。

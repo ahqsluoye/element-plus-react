@@ -236,20 +236,17 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
                 );
                 modifyDateField(type, value);
                 debouncedResetScroll(type);
-                setTimeout(
-                    () => {
-                        isScrolling.current = false;
-                        if (!isInit.current) {
-                            handleSelectRange(type);
-                        }
-                    },
-                    isRange ? 500 : 200,
-                );
-                if (!isRange) {
+                setTimeout(() => {
                     isScrolling.current = false;
-                }
+                    if (!isInit.current) {
+                        handleSelectRange(type);
+                    }
+                }, 1000);
+                // if (!isRange) {
+                //     isScrolling.current = false;
+                // }
             },
-            [debouncedResetScroll, handleSelectRange, isRange, listRefsMap, modifyDateField, scrollBarHeight, typeItemHeight],
+            [debouncedResetScroll, handleSelectRange, listRefsMap, modifyDateField, scrollBarHeight, typeItemHeight],
         );
 
         /** 绑定时间滚动事件 */

@@ -29,7 +29,6 @@ const InternalRadio = (props: RadioProps, ref: RefObject<RadioRef>) => {
         name = nameContext,
         value,
         onChange,
-        onClick,
         ...rest
     } = props;
 
@@ -39,9 +38,10 @@ const InternalRadio = (props: RadioProps, ref: RefObject<RadioRef>) => {
 
     const { b, wb, e, m, is } = useClassNames(classPrefix);
     const classes = classNames(className, wb({ disabled, checked }));
-    const [htmlInputProps, restProps] = partitionHTMLProps(rest);
+    const [htmlInputProps] = partitionHTMLProps(rest);
+    const [tooltipEvents] = partitionHTMLProps(props, { htmlProps: ['onMouseEnter', 'onMouseLeave', 'onClick', 'onContextMenu'] });
 
-    const containerRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleChange = useCallback(
@@ -63,6 +63,7 @@ const InternalRadio = (props: RadioProps, ref: RefObject<RadioRef>) => {
     // }
 
     useImperativeHandle(ref, () => ({
+        ref: containerRef,
         get input() {
             return inputRef.current;
         },
@@ -89,7 +90,7 @@ const InternalRadio = (props: RadioProps, ref: RefObject<RadioRef>) => {
 
     const main = useMemo(
         () => (
-            <label className={classNames(b(), is({ checked, disabled }), m({ [size]: size }), className)} onClick={onClick} ref={containerRef} {...restProps}>
+            <label className={classNames(b(), is({ checked, disabled }), m({ [size]: size }), className)} {...tooltipEvents} ref={containerRef}>
                 <span className={classNames(e`input`, is({ checked, disabled }))}>
                     <input
                         key={name}
@@ -111,12 +112,12 @@ const InternalRadio = (props: RadioProps, ref: RefObject<RadioRef>) => {
                 <span className={e`label`}>{children}</span>
             </label>
         ),
-        [b, checked, children, className, disabled, e, handleChange, htmlInputProps, is, m, name, onClick, readOnly, restProps, size, value],
+        [b, checked, children, className, disabled, e, handleChange, htmlInputProps, is, m, name, readOnly, size, tooltipEvents, value],
     );
 
     if (plaintext) {
         return checked ? (
-            <div {...restProps} ref={containerRef} className={classes}>
+            <div {...tooltipEvents} ref={containerRef} className={classes}>
                 {children}
             </div>
         ) : null;

@@ -96,7 +96,7 @@ export interface InputProps
     /** 是否隐藏值 */
     hiddenValue?: boolean;
     /** 在点击由 clearable 属性生成的清空按钮时触发 */
-    onClear?: (e: MouseEvent) => void;
+    onClear?: (e: React.MouseEvent) => void;
 
     /** 在 Input 值改变时触发 */
     onChange?: (value: ValueType, event?: React.ChangeEvent) => void;

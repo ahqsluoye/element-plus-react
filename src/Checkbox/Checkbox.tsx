@@ -30,8 +30,6 @@ const Checkbox = memo(
             onCheckboxClick,
             onChange,
             prevent = false,
-            onMouseEnter,
-            onMouseLeave,
             ...rest
         } = props;
         const disabled = useDisabled(disabledContext || props.disabled);
@@ -46,10 +44,11 @@ const Checkbox = memo(
 
         const [checked, setChecked] = useControlled<boolean>(isChecked(), defaultChecked);
         const { b, m, e, is } = useClassNames('checkbox');
-        const [htmlInputProps, restProps] = partitionHTMLProps(rest);
+        const [htmlInputProps] = partitionHTMLProps(rest);
+        const [tooltipEvents] = partitionHTMLProps(props, { htmlProps: ['onMouseEnter', 'onMouseLeave', 'onClick', 'onContextMenu'] });
 
         const inputRef = useRef<HTMLInputElement>(null);
-        const containerRef = useRef<HTMLDivElement>(null);
+        const containerRef = useRef(null);
 
         const handleChange = useCallback(
             event => {
@@ -67,6 +66,7 @@ const Checkbox = memo(
         );
 
         useImperativeHandle(ref, () => ({
+            ref: containerRef,
             get input() {
                 return inputRef.current;
             },
@@ -76,14 +76,7 @@ const Checkbox = memo(
 
         const main = useMemo(
             () => (
-                <label
-                    className={classNames(b(), is({ checked, disabled }), m({ [size]: size }), className)}
-                    ref={containerRef}
-                    onClick={onClick}
-                    onMouseEnter={onMouseEnter}
-                    onMouseLeave={onMouseLeave}
-                    {...restProps}
-                >
+                <label className={classNames(b(), is({ checked, disabled }), m({ [size]: size }), className)} ref={containerRef} {...tooltipEvents} onClick={onClick}>
                     <input
                         key={name}
                         {...htmlInputProps}
@@ -122,12 +115,10 @@ const Checkbox = memo(
                 name,
                 onCheckboxClick,
                 onClick,
-                onMouseEnter,
-                onMouseLeave,
                 prevent,
                 readOnly,
-                restProps,
                 size,
+                tooltipEvents,
                 value,
             ],
         );

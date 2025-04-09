@@ -143,7 +143,8 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
 
     /** 在点击由 clearable 属性生成的清空按钮时触发 */
     const handelClear = useCallback(
-        event => {
+        (event: any) => {
+            event.stopPropagation();
             setValue('');
             if (clearRef.current) {
                 addStyle(clearRef.current, 'display', 'none');
@@ -302,13 +303,12 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
                     {...htmlInputProps}
                 />
 
-                <span ref={clearRef} key="clearIcon" className={e`suffix`} style={{ display: 'none' }}>
+                <span ref={clearRef} key="clearIcon" className={e`suffix`} style={{ display: 'none' }} onClick={handelClear}>
                     <span className={e`suffix-inner`}>
                         <Icon
                             prefix="fal"
                             name="circle-xmark"
                             className={classNames(e`icon`, e`clear`)}
-                            onClick={handelClear}
                             onMouseDown={event => {
                                 event.preventDefault();
                                 event.stopPropagation();

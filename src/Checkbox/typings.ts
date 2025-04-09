@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import { BaseProps, FormControlBaseProps, NativeProps } from '../types/common';
 
 export type ValueType = string | number;
 export type CheckboxRef = {
+    ref: RefObject<HTMLSpanElement>;
     input: HTMLInputElement;
     isChcked: () => boolean;
     setChecked: (value: boolean) => void;

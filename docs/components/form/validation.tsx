@@ -58,10 +58,10 @@ const App = () => {
 
     return (
         <ElForm form={formInstance} initialValues={initialValues} rules={rules} style={{ width: 800 }}>
-            <ElForm.Item name="name" label="活动名称" validateTrigger="onBlur" colon>
+            <ElForm.Item name="name" label="活动名称" colon>
                 <ElInput />
             </ElForm.Item>
-            <ElForm.Item name="region" label="活动区域" validateStatus="warning">
+            <ElForm.Item name="region" label="活动区域">
                 <ElSelect placeholder="请选择活动区域">
                     <ElSelect.Option label="区域一" value="shanghai" />
                     <ElSelect.Option label="区域二" value="beijing" />

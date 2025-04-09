@@ -1,12 +1,12 @@
 import classNames from 'classnames';
-import React, { FC, useCallback } from 'react';
+import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
 import { mergeDefaultProps } from '../Util';
-import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames } from '../hooks';
+import { partitionAnimationProps, partitionHTMLProps, partitionPopperPropsUtils, useClassNames } from '../hooks';
 import { DropdownContext } from './DropdownContext';
-import { DropdownProps } from './typings';
+import { DropdownProps, DropdownRef } from './typings';
 
-const Dropdown: FC<DropdownProps> = props => {
+const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
     props = mergeDefaultProps(
         {
             hideOnClick: true,
@@ -35,8 +35,10 @@ const Dropdown: FC<DropdownProps> = props => {
     } = props;
     const [popperProps] = partitionPopperPropsUtils(rest);
     const [transitionProps] = partitionAnimationProps(rest);
+    const [tooltipEvents] = partitionHTMLProps(props, { htmlProps: ['onMouseEnter', 'onMouseLeave', 'onClick', 'onContextMenu'] });
 
     const { b, e } = useClassNames(classPrefix);
+    const containerRef = useRef(null);
 
     /** 显示 */
     const handleMouseEnter = useCallback(
@@ -56,8 +58,14 @@ const Dropdown: FC<DropdownProps> = props => {
         [onMouseLeave, visiblechange],
     );
 
+    useImperativeHandle(ref, () => ({
+        ref: containerRef,
+        handleOpen: onMouseEnter,
+        handleClose: onMouseLeave,
+    }));
+
     return (
-        <div className={classNames(b(), props.className)} style={props.style}>
+        <div ref={containerRef} className={classNames(b(), props.className)} style={props.style} {...tooltipEvents}>
             <Tooltip
                 classPrefix={classPrefix}
                 triggerRef={props.children}
@@ -79,7 +87,7 @@ const Dropdown: FC<DropdownProps> = props => {
             />
         </div>
     );
-};
+});
 
 Dropdown.displayName = 'Dropdown';
 

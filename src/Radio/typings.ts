@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import { BaseProps, FormControlBaseProps, NativeProps } from '../types/common';
 
 export type ValueType = React.AllHTMLAttributes<HTMLInputElement>['value'];
 
 export type RadioRef = {
+    ref: RefObject<HTMLSpanElement>;
     input: HTMLInputElement;
     isChcked: () => boolean;
     setChecked: (value: boolean) => void;

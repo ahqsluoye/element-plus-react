@@ -44,6 +44,7 @@ const InputNumber = forwardRef<InputNumberRef, InputNumberProps>((props, ref) =>
     } = props;
     const { b, e, m, is } = useClassNames(classPrefix);
     const [htmlInputProps] = partitionHTMLProps(rest);
+    const [tooltipEvents] = partitionHTMLProps(props, { htmlProps: ['onMouseEnter', 'onMouseLeave', 'onClick', 'onContextMenu'] });
 
     const [value, setValue] = useControlled(props.value, props.defaultValue);
     const disabled = useDisabled(props.disabled);
@@ -164,7 +165,12 @@ const InputNumber = forwardRef<InputNumberRef, InputNumberProps>((props, ref) =>
     }));
 
     return (
-        <div className={classNames(b(), m({ [size]: size }), is({ 'controls-right': controlsPositionRight }), props.className)} style={props.style} ref={containerRef}>
+        <div
+            className={classNames(b(), m({ [size]: size }), is({ 'controls-right': controlsPositionRight }), props.className)}
+            style={props.style}
+            ref={containerRef}
+            {...tooltipEvents}
+        >
             <span className={classNames(e`decrease`, is({ disabled: disabled || value == minProp }))} onClick={decrease}>
                 <Icon prefix={controlsPositionRight ? 'fal' : 'far'} name={controlsPositionRight ? 'angle-down' : 'minus'} />
             </span>

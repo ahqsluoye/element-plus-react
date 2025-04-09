@@ -2,12 +2,13 @@ import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import React, { forwardRef, memo, useMemo, useRef } from 'react';
 import Transition from '../Transition/Transition';
-import { useClassNames } from '../hooks';
+import { partitionHTMLProps, useClassNames } from '../hooks';
 import { BadgeProps } from './typings';
 
-const Badge: React.ForwardRefExoticComponent<BadgeProps & React.RefAttributes<HTMLDivElement>> = memo(
+const Badge = memo(
     forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
         const { type = 'danger', isDot, value, max, hidden, showZero = true, color, offset = [], badgeClass, badgeStyle = {} } = props;
+        const [tooltipEvents] = partitionHTMLProps(props, { htmlProps: ['onMouseEnter', 'onMouseLeave', 'onClick', 'onContextMenu'] });
         const { b, e, em, is } = useClassNames('badge');
 
         const nodeRef = useRef(null);
@@ -24,7 +25,7 @@ const Badge: React.ForwardRefExoticComponent<BadgeProps & React.RefAttributes<HT
         }, [isDot, max, value]);
 
         return (
-            <div ref={ref} className={classNames(b(), props.className)} style={props.style}>
+            <div ref={ref} className={classNames(b(), props.className)} style={props.style} {...tooltipEvents}>
                 {props.children}
                 <Transition nodeRef={nodeRef} name={b('zoom-in-center', false)} visible={!hidden && (!!content || isDot) && !(!showZero && value === 0)} display="inline-flex">
                     <sup

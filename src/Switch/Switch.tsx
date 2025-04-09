@@ -3,7 +3,7 @@ import isBoolean from 'lodash/isBoolean';
 import React, { forwardRef, isValidElement, useCallback, useMemo, useRef } from 'react';
 import Icon from '../Icon/Icon';
 import { mergeDefaultProps, warning } from '../Util';
-import { useClassNames, useControlled, useDisabled, useSize } from '../hooks';
+import { partitionHTMLProps, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { SwitchProps } from './typings';
 
 const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
@@ -47,6 +47,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
 
     const inputRef = useRef<HTMLInputElement>(null);
     const { b, e, m, em, is } = useClassNames(classPrefix);
+    const [tooltipEvents] = partitionHTMLProps(props, { htmlProps: ['onMouseEnter', 'onMouseLeave', 'onClick', 'onContextMenu'] });
 
     const [value, setValue] = useControlled(props.value, defaultValue);
     const disabled = useDisabled(props.disabled || loading);
@@ -145,6 +146,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             onContextMenu={onContextMenu}
+            {...tooltipEvents}
         >
             <input
                 ref={inputRef}

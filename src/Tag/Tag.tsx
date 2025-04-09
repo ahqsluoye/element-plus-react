@@ -3,12 +3,13 @@ import { useComposeRef } from 'rc-util/lib/ref';
 import React, { forwardRef, useCallback, useRef } from 'react';
 import Icon from '../Icon/Icon';
 import Transition from '../Transition/Transition';
-import { useClassNames } from '../hooks';
+import { partitionHTMLProps, useClassNames } from '../hooks';
 import { TagProps } from './typings';
 
 const Tag = forwardRef<HTMLElement, TagProps>((props, ref) => {
     const { type = 'primary', closable, size, color, theme = 'light', round, hit, classPrefix = 'tag', className, style, onClick, onClose, disableTransitions } = props;
     const { b, m, e, is } = useClassNames(classPrefix);
+    const [tooltipEvents] = partitionHTMLProps(props, { htmlProps: ['onMouseEnter', 'onMouseLeave', 'onClick', 'onContextMenu'] });
 
     const containerRef = useRef<HTMLElement>(null);
 
@@ -36,9 +37,8 @@ const Tag = forwardRef<HTMLElement, TagProps>((props, ref) => {
                 ref={mergedRef}
                 className={classNames(b(), m(type, theme, { [size]: size }), is({ round, hit }), className)}
                 style={{ background: color, ...style }}
+                {...tooltipEvents}
                 onClick={onClickTag}
-                onMouseEnter={props.onMouseEnter}
-                onMouseLeave={props.onMouseLeave}
             >
                 <span className={e`content`}>{props.children}</span>
                 {closable && <Icon name="xmark" className={e`close`} onClick={onCloseTag} />}
