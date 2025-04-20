@@ -31,7 +31,7 @@ lang: zh-CN
 
 :::info{title=TIP}
 
-使用 `icon` 属性来为按钮添加图标。 您可以传递组件名称的字符串（提前注册）或组件本身是一个 SVG Vue 组件。 Element Plus 提供了一组图标，您可以在 [icon component](/zh-CN/component/icon)
+使用 `icon` 属性来为按钮添加图标。 Element Plus React 提供了丰富的图标，您可以在 [icon component](/components/icon-list)
 
 :::
 

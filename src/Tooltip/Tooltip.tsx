@@ -1,14 +1,14 @@
 import classNames from 'classnames';
 import noop from 'lodash/noop';
-import React, { Children, cloneElement, FC, forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
+import React, { Children, cloneElement, forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import * as ReactIs from 'react-is';
-import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames, useControlled } from '../hooks';
 import Popper from '../Popper/Popper';
 import { PopperOptionRef } from '../Popper/typings';
+import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames, useControlled } from '../hooks';
 import { TooltipContext } from './TooltipContext';
 import { TooltipProps, TooltipRef } from './typings';
 
-const Tooltip: FC<TooltipProps> = forwardRef<TooltipRef, TooltipProps>((props, ref) => {
+const Tooltip = forwardRef<TooltipRef, TooltipProps>((props, ref) => {
     const {
         classPrefix = 'tooltip',
         effect = 'dark',
@@ -17,7 +17,7 @@ const Tooltip: FC<TooltipProps> = forwardRef<TooltipRef, TooltipProps>((props, r
         disabled,
         enterable = true,
         showAfter = 0,
-        hideAfter = 0,
+        hideAfter = 100,
         onMouseEnter,
         onMouseLeave,
         onEnter,
@@ -177,6 +177,6 @@ const Tooltip: FC<TooltipProps> = forwardRef<TooltipRef, TooltipProps>((props, r
     );
 });
 
-Tooltip.displayName = 'Tooltip';
+Tooltip.displayName = 'ElTooltip';
 
 export default Tooltip;

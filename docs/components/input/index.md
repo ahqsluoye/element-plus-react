@@ -118,8 +118,7 @@ lang: zh-CN
 
 | 名称      | 说明                  | 类型                                                       |
 | --------- | --------------------- | ---------------------------------------------------------- |
-| root      | 顶级 div              | <Enum type='object'>Ref\<HTMLDivElement\></Enum>           |
-| ref       | Input HTML 元素       | <Enum type='object'>Ref\<HTMLInputElement></Enum>          |
+| ref       | 顶级 div              | <Enum type='object'>Ref\<HTMLDivElement></Enum>            |
 | input     | Input HTML 元素       | <Enum type='object'>HTMLInputElement</Enum>                |
 | getValue  | 获取值                | <Enum type='Function'>() => `string` / `number`</Enum>     |
 | setValue  | 设置值                | <Enum type='Function'>(`string` / `number`) => void</Enum> |

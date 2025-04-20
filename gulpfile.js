@@ -15,6 +15,11 @@ function clean(done) {
     done();
 }
 
+function cleanDistThemeChalk(done) {
+    del.sync([path.join(__dirname, './packages/dist/theme-chalk/')], { force: true });
+    done();
+}
+
 function buildComponentStyles() {
     return gulp
         .src(`${srcRoot}/theme-chalk/build.scss`)
@@ -92,5 +97,5 @@ function generateFonts() {
     return gulp.src('./empty', { allowEmpty: true }).pipe(gulp.dest('./packages/dist/fonts/'));
 }
 
-exports.build = gulp.series(gulp.parallel(buildComponentStyles, buildDisplayStyle, generatePackageJSON, generateReadme, generateReadme), generateFonts);
+exports.build = gulp.series(gulp.parallel(buildComponentStyles, buildDisplayStyle, generatePackageJSON, generateReadme, generateReadme), generateFonts, cleanDistThemeChalk);
 exports.clean = clean;

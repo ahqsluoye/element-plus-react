@@ -58,11 +58,12 @@ scrollbar/manual-scroll -->
 ### Ref
 
 | 名称          | 说明                   | 类型                                                                                         |
-| ------------- | ---------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| ------------- | ---------------------- | -------------------------------------------------------------------------------------------- |
 | scrollTo      | 滚动到一组特定坐标     | <Enum  type="Function">(options: ScrollToOptions \| number, yCoord?: number) => void </Enum> |
 | setScrollTop  | 设置滚动条到顶部的距离 | <Enum  type="Function">(scrollTop: number) => void</Enum>                                    |
 | setScrollLeft | 设置滚动条到左边的距离 | <Enum  type="Function">(scrollLeft: number) => void </Enum>                                  |
 | update        | 手动更新滚动条状态     | <Enum  type="Function">() => void </Enum>                                                    |
 | wrapRef       | 滚动条包裹的 ref 对象  | <Enum type="Object">Ref\<HTMLDivElement\></Enum>                                             |
 | resizeRef     | 视图 ref 对象          | <Enum type="Object">Ref\<any\></Enum>                                                        |
-| <!--          | handleScroll           | 触发滚动事件                                                                                 | <Enum  type="Function">() => void </Enum> --> |
+
+<!--          | handleScroll           | 触发滚动事件                                                                                 | <Enum  type="Function">() => void </Enum> -->

@@ -48,7 +48,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
         const [confirmButtonLoading, setConfirmButtonLoading] = useState(false);
         const [confirmButtonText, setConfirmButtonText] = useState(options.confirmButtonText || '确定');
 
-        const [inputValue, setInputValue] = useControlled(options.inputValue);
+        const [inputValue, setInputValue] = useControlled(undefined, options.inputValue);
         const [editorErrorMessage, setEditorErrorMessage] = useState(inputErrorMessage);
         const [validateError, setValidateError] = useState(false);
 
@@ -187,6 +187,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
                     {boxType === 'prompt' && showInput && (
                         <div className={e`input`}>
                             <Input
+                                value={inputValue}
                                 type={inputType}
                                 error={validateError}
                                 placeholder={inputPlaceholder}
