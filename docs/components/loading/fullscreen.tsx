@@ -26,7 +26,7 @@ const App = () => {
             >
                 组件方式调用
             </ElButton>
-            {<ElLoading text="组件方式调用，正在加载中..." visible={visible} />}
+            {<ElLoading text="组件方式调用，正在加载中..." fullscreen visible={visible} />}
         </>
     );
 };

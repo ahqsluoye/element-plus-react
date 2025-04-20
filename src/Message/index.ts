@@ -6,14 +6,6 @@ import { MessageHandle, MessageMethod, MessageParams, MessageProps, MessageQueue
 export const instances: MessageQueue = [];
 let seed = 1;
 
-/**
- * 消息提示组件
- * @author	Parker
- * @CreateTime	2022/3/10 12:45:48
- * @LastEditor	Parker
- * @ModifyTime	2022/5/3 12:10:04
- * @Description	Element Plus 消息提示组件魔改过来的，源代码见：https://github.com/element-plus/element-plus
- */
 export const Message: MessageMethod = function (opts: MessageParams = {} as MessageParams): MessageHandle {
     if (typeof opts === 'string' || isValidElement(opts)) {
         opts = {

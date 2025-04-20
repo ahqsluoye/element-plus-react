@@ -1,10 +1,9 @@
-import { ElLoading } from '@qsxy/element-plus-react';
+import { ElDivider, ElLoading, ElTable, ElTableColumn } from '@qsxy/element-plus-react';
 import { LoremIpsum } from 'lorem-ipsum';
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
+import { tableData } from '../table/data';
 
 const App = () => {
-    const divRef = useRef<HTMLDivElement>(null);
-
     const lorem = useMemo(
         () =>
             new LoremIpsum({
@@ -20,10 +19,21 @@ const App = () => {
         [],
     );
     return (
-        <div ref={divRef} style={{ height: 300, padding: 10, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <span>{lorem.generateParagraphs(5)}</span>
-            <ElLoading fullscreen={false} target={divRef} visible />
-        </div>
+        <>
+            <ElLoading visible background="var(--el-mask-color)" text="正在加载中...">
+                <ElTable data={tableData} style={{ width: '100%' }}>
+                    <ElTableColumn prop="date" label="Date" width={180} />
+                    <ElTableColumn prop="name" label="Name" width={180} />
+                    <ElTableColumn prop="address" label="Address" align="center" showOverflowTooltip />
+                </ElTable>
+            </ElLoading>
+            <ElDivider />
+            <ElLoading visible>
+                <div style={{ height: 300, padding: 10, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <span>{lorem.generateParagraphs(5)}</span>
+                </div>
+            </ElLoading>
+        </>
     );
 };
 
