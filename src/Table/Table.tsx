@@ -187,11 +187,10 @@ type InternalTableType = typeof ForwardTable;
 
 interface TableInterface extends InternalTableType {
     displayName?: string;
-    defaultProps?: Partial<TableProps<any>>;
 }
 
 const Table = ForwardTable as TableInterface;
 
-Table.displayName = 'Table';
+Table.displayName = 'ElTable';
 
 export default Table;

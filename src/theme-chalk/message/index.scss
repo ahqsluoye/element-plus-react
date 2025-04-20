@@ -9,6 +9,8 @@
 
 .#{$namespace}-message {
     min-width: 380px;
+    width: fit-content;
+    max-width: calc(100% - 32px);
     box-sizing: border-box;
     border-radius: 4px;
     border-width: 1px;
@@ -21,8 +23,8 @@
     background-color: var(--#{$namespace}-message-bg-color);
     color: var(--#{$namespace}-message-text-color);
     transition: opacity 0.3s, transform 0.4s, top 0.4s;
-    overflow: hidden;
-    padding: 15px 15px 15px 20px;
+    // overflow: hidden;
+    padding: 15px 19px;
     display: flex;
     align-items: center;
 
@@ -32,7 +34,7 @@
 
     &.is-closable {
         .#{$namespace}-message__content {
-            padding-right: 16px;
+            padding-right: 31px;
         }
     }
 
@@ -158,6 +160,12 @@
             font-style: normal;
             font-weight: bold;
         }
+    }
+
+    .#{$namespace}-message__badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
     }
 }
 

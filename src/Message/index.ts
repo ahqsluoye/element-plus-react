@@ -115,6 +115,10 @@ export function closeAll(): void {
     };
 });
 
+// const config = (opts: MessageParams = {} as MessageParams) => {
+
+// }
+
 Object.assign(Message, {
     closeAll: closeAll,
 });
