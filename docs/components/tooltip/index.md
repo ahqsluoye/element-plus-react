@@ -69,15 +69,16 @@ tooltip 内不支持 disabled form 元素，参考 [MDN](https://developer.mozil
 
 <code src="./html-content.tsx"></code> -->
 
-<!-- ## 虚拟触发
+## 虚拟触发
 
 有时候我们想把 tooltip 的触发元素放在别的地方，而不需要写在一起，这时候就可以使用虚拟触发。
 
-tip
+:::info{title=TIP}
 
 需要注意的是，虚拟触发的 tooltip 是受控组件，因此你必须自己去控制 tooltip 是否显示，**你将无法**通过点击空白处来关闭 tooltip。
 
-<code src="./virtual-trigger.tsx"></code> -->
+:::
+<code src="./virtual-trigger.tsx"></code>
 
 <!-- ## 单例模式
 

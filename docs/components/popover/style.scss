@@ -1,0 +1,19 @@
+.popover-base-box {
+    width: 600px;
+}
+
+.popover-base-box .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.popover-base-box .center {
+    justify-content: center;
+}
+
+.popover-base-box .box-item {
+    width: 110px;
+    margin-top: 10px;
+}

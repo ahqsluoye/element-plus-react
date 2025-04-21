@@ -88,7 +88,7 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
                 { link: '/components/messagebox', title: 'MessageBox 消息弹框' },
                 { link: '/components/notification', title: 'Notification 通知' },
                 { link: '/components/popconfirm', title: 'Popconfirm 弹出确认框' },
-                { link: '/components/popover', title: 'Popover 气泡卡片' },
+                { link: '/components/popover', title: 'Popover 弹出框' },
                 { link: '/components/tooltip', title: 'Tooltip 文字提示' },
             ],
         },

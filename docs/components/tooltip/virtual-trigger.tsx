@@ -12,11 +12,10 @@ const App = () => {
 
     const triggerRef = useMemo(
         () => ({
-            getBoundingClientRect: position,
+            getBoundingClientRect: () => position,
         }),
         [position],
     );
-    console.log(triggerRef);
 
     const mousemoveHandler = ({ clientX, clientY }: MouseEvent) => {
         setPosition(

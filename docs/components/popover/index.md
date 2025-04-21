@@ -1,19 +1,21 @@
 ---
-title: Popover 气泡卡片
+title: Popover 弹出框
 lang: zh-CN
 ---
 
-# Popover 气泡卡片
+# Popover 弹出框
 
-:::info{title=TIP}
+## 展示位置
 
-在 SSR 场景下，您需要将组件包裹在 `<client-only></client-only>` 之中 (如: [Nuxt](https://nuxt.com/v3)) 和 SSG (例如: [VitePress](https://vitepress.vuejs.org/)).
+Popover 弹出框提供 9 种展示位置。
 
-:::
+:::demo 使用 `content` 属性来设置悬停时显示的信息。 由 `placement` 属性决定 Popover 弹出框的位置。 该属性值格式为：`[方向]-[对齐位置]`，可供选择的四个方向分别是`top`、`left`、`right`、`bottom`，可供选择的三种对齐方式分别是`start`、`end`、`null`，默认的对齐方式为 null。 以 `placement="left-end"` 为例，Popover 弹出框会显示在悬停元素的左侧，且提示信息的底部与悬停元素的底部对齐。
+
+<code src="./placement.tsx"></code>
 
 ## 基础用法
 
-与 Tooltip 相似，Popover 也是基于`ElPopper`的构建。 因此对于重复属性，请参考 Tooltip 的文档，在此文档中不做详尽解释。
+与 Tooltip 相似，Popover 也是基于`Popper`的构建。 因此对于重复属性，请参考 Tooltip 的文档，在此文档中不做详尽解释。
 
 `trigger` 属性被用来决定 popover 的触发方式，支持的触发方式： `hover`、`click`、`focus` 或 `contextmenu`。 如果你想手动控制它，可以设置 `:visible` 属性。
 
@@ -45,11 +47,7 @@ lang: zh-CN
 
 <code src="./nested-operation.tsx"></code>
 
-## 指令
-
-您可以使用指令性方式弹出窗口，但这种方法**不再推荐** ，因为这使得应用程序变得复杂， 您可以参考虚拟触发来实现一样的效果。
-
-<code src="./directive-usage.tsx"></code> -->
+ -->
 
 ## 属性
 
