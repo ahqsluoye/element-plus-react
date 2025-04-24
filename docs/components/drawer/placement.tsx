@@ -2,7 +2,7 @@ import { DrawerProps, ElButton, ElDrawer, ElSkeleton } from '@qsxy/element-plus-
 import React, { useCallback, useState } from 'react';
 
 const App = () => {
-    const [placement, setPlacement] = useState<DrawerProps['placement']>('right');
+    const [placement, setPlacement] = useState<DrawerProps['direction']>('right');
     const [visible, setVisible] = useState(false);
     const onClose = useCallback(() => {
         setVisible(false);
@@ -42,11 +42,11 @@ const App = () => {
             >
                 Bottom
             </ElButton>
-            <ElDrawer visible={visible} placement={placement} onClose={onClose}>
-                <ElDrawer.Header>标题</ElDrawer.Header>
-                <ElDrawer.Body>
+            <ElDrawer visible={visible} direction={placement} close={onClose}>
+                <ElDrawer.header>标题</ElDrawer.header>
+                <ElDrawer.body>
                     <ElSkeleton.Paragraph rows={4}></ElSkeleton.Paragraph>
-                </ElDrawer.Body>
+                </ElDrawer.body>
             </ElDrawer>
         </>
     );

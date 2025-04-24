@@ -10,7 +10,7 @@ const MESSAGE_BOX_DEFAULT_OPTS: Record<'prompt' | 'alert' | 'confirm', Partial<M
 };
 
 const instanceFactory = <T extends MessageBoxData>(boxType: MessageState['boxType']) => {
-    return (message: string | React.ReactElement, title: string | React.ReactElement | MessageBoxProps, options?: MessageBoxProps) => {
+    return (message: string | React.ReactElement, title?: string | React.ReactElement | MessageBoxProps, options?: MessageBoxProps) => {
         let titleOrOpts = '';
         if (isObject(title)) {
             options = title as unknown as MessageBoxProps;

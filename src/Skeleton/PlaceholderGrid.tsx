@@ -5,31 +5,24 @@ import { useClassNames } from '../hooks';
 export interface PlaceholderGridProps {
     // number of rows
     rows?: number;
-
     /* height of rows */
     rowHeight?: number;
-
     /* margin of rows */
     rowMargin?: number;
-
     /* number of columns */
     columns?: number;
-
     /** Placeholder status */
-    active?: boolean;
-
+    animated?: boolean;
     /** The prefix of the component CSS class */
     classPrefix?: string;
-
     /** Additional classes */
     className?: string;
-
     /** Additional style */
     style?: React.CSSProperties;
 }
 
 const PlaceholderGrid = forwardRef<HTMLDivElement, PlaceholderGridProps>((props, ref) => {
-    const { className, classPrefix = 'placeholder', rows = 5, columns = 5, rowHeight = 10, rowMargin = 20, active, ...rest } = props;
+    const { className, classPrefix = 'skeleton', rows = 5, columns = 5, rowHeight = 10, rowMargin = 20, animated: active, ...rest } = props;
 
     const { b, wb } = useClassNames(classPrefix);
     const classes = classNames(className, wb('grid', { active }));

@@ -3,7 +3,7 @@ import { createContext } from 'react';
 
 interface DialogContentProps {
     /** 当设置为 true，Dialog 打开时会显示背景，点击背景会关闭 Dialog，如果不想关闭 Dialog，可以设置为 'static' */
-    backdrop: boolean | 'static';
+    modal: boolean;
     setVisible: (visible: boolean) => void;
     /** 隐藏时的回调函数 */
     doClose: () => void;
@@ -22,7 +22,7 @@ interface DialogContentProps {
 }
 
 export const DialogContext = createContext<DialogContentProps>({
-    backdrop: true,
+    modal: true,
     setVisible: noop,
     doClose: noop,
     isControlled: false,

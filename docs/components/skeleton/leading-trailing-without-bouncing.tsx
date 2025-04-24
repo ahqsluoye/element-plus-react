@@ -12,8 +12,10 @@ const App = () => {
             </div>
 
             <ElSkeleton
+                defaultVisible
                 visible={loading}
                 animated
+                throttle={{ leading: 500, trailing: 500 }}
                 style={{ width: 240 }}
                 formatter={
                     <>

@@ -5,25 +5,20 @@ import { useClassNames } from '../hooks';
 export interface SkeletonGraphProps {
     // height of rows
     height?: number;
-
     /* width of rows */
     width?: number;
-
     /** Placeholder status */
-    active?: boolean;
-
+    animated?: boolean;
     /** The prefix of the component CSS class */
     classPrefix?: string;
-
     /** Additional classes */
     className?: string;
-
     /** Additional style */
     style?: React.CSSProperties;
 }
 
 const SkeletonGraph = forwardRef<HTMLDivElement, SkeletonGraphProps>((props, ref) => {
-    const { className, width, height = 200, style, active, classPrefix = 'placeholder', ...rest } = props;
+    const { className, width, height = 200, style, animated: active, classPrefix = 'skeleton', ...rest } = props;
     const { wb } = useClassNames(classPrefix);
 
     const classes = classNames(className, wb('graph', { active }));

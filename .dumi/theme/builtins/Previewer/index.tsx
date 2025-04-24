@@ -131,37 +131,6 @@ const Previewer: FC<IPreviewerProps> = props => {
                 <div className="source">
                     <div className="r-demo-source">{children}</div>
                 </div>
-                <div ref={meta} className="meta">
-                    {props.description && (
-                        <div className="description" ref={description}>
-                            {props.description}
-                        </div>
-                    )}
-                    {files?.length > 1 ? (
-                        <ElTabs
-                            headerStyle={{ padding: '0 10px' }}
-                            className="r-doc-demo-tab r-height-100"
-                            style={{ '--el-tabs-header-margin-bottom': '0px' }}
-                            contentStyle={{ height: 'calc(100% - 40px)' }}
-                        >
-                            {files.map(item => (
-                                <ElTabPane
-                                    key={item[0]}
-                                    name={item[0]}
-                                    title={item[0]}
-                                    onTabShow={() => {
-                                        setActiveName(item[0]);
-                                    }}
-                                    className="r-height-100"
-                                >
-                                    <SourceCode fileName={item[0]} content={item[1]} expand={expand} activeName={activeName} setHeight={setHeight} />
-                                </ElTabPane>
-                            ))}
-                        </ElTabs>
-                    ) : (
-                        <SourceCode fileName={files[0][0]} content={files[0][1]} expand={expand} setHeight={setHeight} />
-                    )}
-                </div>
                 <div ref={control} className={classNames('demo-block-control')} onClick={() => setExpand(!expand)}>
                     <BlockControl ref={blockControl} expand={expand} />
                     <div className="control-button-container">
@@ -193,6 +162,37 @@ const Previewer: FC<IPreviewerProps> = props => {
                             </span>
                         </ElTooltip>
                     </div>
+                </div>
+                <div ref={meta} className="meta">
+                    {props.description && (
+                        <div className="description" ref={description}>
+                            {props.description}
+                        </div>
+                    )}
+                    {files?.length > 1 ? (
+                        <ElTabs
+                            headerStyle={{ padding: '0 10px' }}
+                            className="r-doc-demo-tab r-height-100"
+                            style={{ '--el-tabs-header-margin-bottom': '0px' }}
+                            contentStyle={{ height: 'calc(100% - 40px)' }}
+                        >
+                            {files.map(item => (
+                                <ElTabPane
+                                    key={item[0]}
+                                    name={item[0]}
+                                    title={item[0]}
+                                    onTabShow={() => {
+                                        setActiveName(item[0]);
+                                    }}
+                                    className="r-height-100"
+                                >
+                                    <SourceCode fileName={item[0]} content={item[1]} expand={expand} activeName={activeName} setHeight={setHeight} />
+                                </ElTabPane>
+                            ))}
+                        </ElTabs>
+                    ) : (
+                        <SourceCode fileName={files[0][0]} content={files[0][1]} expand={expand} setHeight={setHeight} />
+                    )}
                 </div>
             </div>
         </>

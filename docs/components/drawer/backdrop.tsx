@@ -16,27 +16,27 @@ const App = () => {
     return (
         <>
             <ElButton onClick={() => setDialogB(true)}>无背景的对话框</ElButton>
-            <ElDrawer backdrop={false} visible={dialogB} onClose={handleCloseB}>
-                <ElDrawer.Header>标题</ElDrawer.Header>
-                <ElDrawer.Body>
+            <ElDrawer modal={false} visible={dialogB} close={handleCloseB}>
+                <ElDrawer.header>标题</ElDrawer.header>
+                <ElDrawer.body>
                     <ElSkeleton.Paragraph rows={4}></ElSkeleton.Paragraph>
-                </ElDrawer.Body>
-                <ElDrawer.Footer>
+                </ElDrawer.body>
+                <ElDrawer.footer>
                     <ElButton type="primary">确定</ElButton>
                     <ElButton onClick={handleCloseB}>取消</ElButton>
-                </ElDrawer.Footer>
+                </ElDrawer.footer>
             </ElDrawer>
 
             <ElButton onClick={() => setDialogC(true)}>点击背景不能关闭的对话框</ElButton>
-            <ElDrawer backdrop={'static'} visible={dialogC} onClose={handleCloseC}>
-                <ElDrawer.Header>标题</ElDrawer.Header>
-                <ElDrawer.Body>
+            <ElDrawer modal={'static'} visible={dialogC} close={handleCloseC}>
+                <ElDrawer.header>标题</ElDrawer.header>
+                <ElDrawer.body>
                     <ElSkeleton.Paragraph rows={4}></ElSkeleton.Paragraph>
-                </ElDrawer.Body>
-                <ElDrawer.Footer>
+                </ElDrawer.body>
+                <ElDrawer.footer>
                     <ElButton type="primary">确定</ElButton>
                     <ElButton onClick={handleCloseC}>取消</ElButton>
-                </ElDrawer.Footer>
+                </ElDrawer.footer>
             </ElDrawer>
         </>
     );

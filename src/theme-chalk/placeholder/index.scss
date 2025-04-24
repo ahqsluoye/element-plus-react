@@ -1,18 +1,18 @@
 @use '../common/var';
 
-.#{$namespace}-placeholder {
+.#{$namespace}-skeleton {
     --#{$namespace}-skeleton-color: var(--#{$namespace}-fill-color);
     --#{$namespace}-skeleton-to-color: var(--#{$namespace}-fill-color-darker);
 }
 
 .is-dark {
-    .#{$namespace}-placeholder {
+    .#{$namespace}-skeleton {
         --#{$namespace}-skeleton-color: #3c3f43;
         --#{$namespace}-skeleton-to-color: #484c50;
     }
 }
 
-.#{$namespace}-placeholder {
+.#{$namespace}-skeleton {
     -webkit-box-pack: start;
     -ms-flex-pack: start;
     -webkit-box-align: start;
@@ -38,33 +38,18 @@
             }
 
             &-image {
-                width: 80px;
-                height: 60px;
-                position: relative;
-                overflow: hidden;
+                width: 200px;
+                height: 200px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 0;
 
-                &::after {
-                    content: '';
-                    width: 0;
-                    height: 0;
-                    left: 10px;
-                    bottom: 10px;
-                    position: absolute;
-                    border-bottom: 36px solid;
-                    border-left: 20px solid transparent;
-                    border-right: 30px solid transparent;
-                }
-
-                &::before {
-                    content: '';
-                    width: 0;
-                    height: 0;
-                    left: 40px;
-                    bottom: 10px;
-                    position: absolute;
-                    border-bottom: 22px solid;
-                    border-left: 16px solid transparent;
-                    border-right: 16px solid transparent;
+                & > svg {
+                    color: var(--el-border-color);
+                    fill: currentColor;
+                    width: 22%;
+                    height: 22%;
                 }
             }
 
@@ -81,7 +66,7 @@
         &-rows {
             width: 100%;
 
-            & > p {
+            .#{$namespace}-skeleton__item {
                 background-color: var(--#{$namespace}-skeleton-color);
                 border-radius: 4px;
             }
@@ -113,17 +98,17 @@
     }
 
     &-active {
-        &.#{$namespace}-placeholder-graph,
-        .#{$namespace}-placeholder-paragraph-graph-image,
-        .#{$namespace}-placeholder-grid-col > p,
-        .#{$namespace}-placeholder-paragraph-rows > p {
+        &.#{$namespace}-skeleton-graph,
+        .#{$namespace}-skeleton-paragraph-graph-image,
+        .#{$namespace}-skeleton-grid-col > p,
+        .#{$namespace}-skeleton-paragraph-rows > p {
             background: linear-gradient(-45deg, var(--#{$namespace}-skeleton-color) 25%, var(--#{$namespace}-skeleton-to-color) 37%, var(--#{$namespace}-skeleton-color) 63%);
             background-size: 400% 100% !important;
-            animation: placeholder-active 1.4s ease infinite;
+            animation: skeleton-active 1.4s ease infinite;
         }
     }
 
-    @keyframes placeholder-active {
+    @keyframes skeleton-active {
         0% {
             background-position: 100% 50%;
         }

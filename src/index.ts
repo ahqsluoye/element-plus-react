@@ -157,8 +157,8 @@ export type { TabPaneProps, TabsPaneContext, TabsProps } from './Tabs';
 export { Empty as ElEmpty } from './Empty';
 export type { IEmptyProps } from './Empty';
 
-export { Skeleton as ElSkeleton } from './Skeleton';
-export type { Skeleton as PlaceholderGraphProps, PlaceholderGridProps, PlaceholderParagraphProps } from './Skeleton';
+export { Skeleton as ElSkeleton, SkeletonItem as ElSkeletonItem } from './Skeleton';
+export type { SkeletonItemProps, SkeletonProps } from './Skeleton';
 
 /* Feedback 反馈组件 */
 export { Dialog as ElDialog } from './Dialog';

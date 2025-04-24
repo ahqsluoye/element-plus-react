@@ -5,7 +5,6 @@ import { createPortal } from 'react-dom';
 import Transition from '../Transition/Transition';
 import { PopupManager, addUnit } from '../Util';
 import { useClassNames, useControlled } from '../hooks';
-import { namespace } from '../hooks/prefix';
 import { ComponentChildren } from '../types/common';
 import DialogBody from './DialogBody';
 import { DialogContext } from './DialogContext';
@@ -113,13 +112,13 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
                     return;
                 }
 
-                if (!closeOnClickModal) {
+                if (closeOnClickModal) {
+                    doClose();
+                } else {
                     addClass(dialogRef.current, b('dialog-shake', false));
                     setTimeout(() => {
                         removeClass(dialogRef.current, b('dialog-shake', false));
                     }, 300);
-                } else if (modal === true) {
-                    doClose();
                 }
             });
         }
@@ -142,7 +141,7 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
     useImperativeHandle(ref, () => wrapperRef.current);
 
     return (
-        <DialogContext.Provider value={{ backdrop: modal, setVisible, isControlled, doClose, center, overflow, haveTitle: haveTitle.current, haveFooter: haveFooter.current }}>
+        <DialogContext.Provider value={{ modal: modal, setVisible, isControlled, doClose, center, overflow, haveTitle: haveTitle.current, haveFooter: haveFooter.current }}>
             {/* {backdrop &&
                 createPortal(
                     <Transition
@@ -213,8 +212,8 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
                                 style={{
                                     ...props.style,
                                     // @ts-ignore
-                                    [`--${namespace}-dialog-width`]: fullscreen || classPrefix !== 'dialog' ? '' : addUnit(width),
-                                    [`--${namespace}-dialog-margin-top`]: addUnit(top),
+                                    ['--el-dialog-width']: fullscreen || classPrefix !== 'dialog' ? '' : addUnit(width),
+                                    ['--el-dialog-margin-top']: addUnit(top),
                                 }}
                                 ref={dialogRef}
                             >

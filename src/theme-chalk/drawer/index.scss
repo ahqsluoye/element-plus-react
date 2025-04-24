@@ -10,7 +10,7 @@
 }
 
 .#{$namespace}-drawer {
-    --#{$namespace}-drawer-width: auto;
+    --#{$namespace}-drawer-width: 30%;
     --#{$namespace}-drawer-height: 100%;
     --#{$namespace}-drawer-margin-top: 30px;
     --#{$namespace}-drawer-bg-color: var(--#{$namespace}-bg-color-overlay);
@@ -40,60 +40,28 @@
 .#{$namespace}-drawer-right {
     top: 0;
     --#{$namespace}-drawer-height: 100%;
-
-    &.#{$namespace}-drawer-large {
-        --#{$namespace}-drawer-width: 969px;
-    }
-
-    &.#{$namespace}-drawer-md {
-        --#{$namespace}-drawer-width: 800px;
-    }
-
-    &.#{$namespace}-drawer-small {
-        --#{$namespace}-drawer-width: 600px;
-    }
-
-    &.#{$namespace}-drawer-xs {
-        --#{$namespace}-drawer-width: 400px;
-    }
 }
 
 .#{$namespace}-drawer-top,
 .#{$namespace}-drawer-bottom {
     --#{$namespace}-drawer-width: 100%;
-
-    &.#{$namespace}-drawer-large {
-        --#{$namespace}-drawer-height: 568px;
-    }
-
-    &.#{$namespace}-drawer-md {
-        --#{$namespace}-drawer-height: 480px;
-    }
-
-    &.#{$namespace}-drawer-small {
-        --#{$namespace}-drawer-height: 400px;
-    }
-
-    &.#{$namespace}-drawer-xs {
-        --#{$namespace}-drawer-height: 290px;
-    }
 }
 
-.#{$namespace}-drawer-full {
-    &.#{$namespace}-drawer-top,
-    &.#{$namespace}-drawer-bottom {
-        --#{$namespace}-drawer-height: 100%;
+// .#{$namespace}-drawer-full {
+//     &.#{$namespace}-drawer-top,
+//     &.#{$namespace}-drawer-bottom {
+//         --#{$namespace}-drawer-height: 100%;
 
-        .#{$namespace}-drawer-content {
-            --#{$namespace}-drawer-height: 100%;
-        }
-    }
+//         .#{$namespace}-drawer-content {
+//             --#{$namespace}-drawer-height: 100%;
+//         }
+//     }
 
-    &.#{$namespace}-drawer-left,
-    &.#{$namespace}-drawer-right {
-        --#{$namespace}-drawer-width: calc(100% - 60px);
-    }
-}
+//     &.#{$namespace}-drawer-left,
+//     &.#{$namespace}-drawer-right {
+//         --#{$namespace}-drawer-width: calc(100% - 60px);
+//     }
+// }
 
 .#{$namespace}-drawer-right {
     right: 0;
@@ -156,6 +124,13 @@
 }
 
 .#{$namespace}-drawer-header {
+    align-items: center;
+    color: #72767b;
+    display: flex;
+    margin-bottom: 15px;
+    padding: var(--el-drawer-padding-primary);
+    padding-bottom: 0;
+
     &::before,
     &::after {
         content: ' '; // 1
@@ -166,45 +141,66 @@
         clear: both;
     }
 
-    padding: 15px 20px;
+    & > :first-child {
+        flex: 1;
+    }
 
     &.is-border {
         border-bottom: 1px solid var(--#{$namespace}-border-color);
     }
 
     .#{$namespace}-drawer-header-close {
-        background: transparent;
+        display: inline-flex;
         border: none;
         cursor: pointer;
-        position: absolute;
-        right: 20px;
-        top: 12px;
-        font-size: 16px;
-        line-height: 1.6666666667;
-        color: var(--#{$namespace}-color-info);
-        width: 20px;
-        padding: 0 4px;
+        font-size: var(--el-font-size-extra-large);
+        color: inherit;
+        background-color: transparent;
+        outline: none;
+
+        &:focus i,
+        &:hover i {
+            color: var(--el-color-primary);
+        }
+
+        // background: transparent;
+        // border: none;
+        // cursor: pointer;
+        // position: absolute;
+        // right: 20px;
+        // top: 12px;
+        // font-size: 16px;
+        // line-height: 1.6666666667;
+        // color: var(--#{$namespace}-color-info);
+        // width: 20px;
+        // padding: 0 4px;
     }
 }
 
 .#{$namespace}-drawer-title {
-    font-weight: normal;
-    color: var(--#{$namespace}-text-color-primary);
-    display: block;
-    font-size: 16px;
-    line-height: 1.25;
-
     margin: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
+    flex: 1;
+    line-height: inherit;
+    font-size: 16px;
+
+    // font-weight: normal;
+    // color: var(--#{$namespace}-text-color-primary);
+    // display: block;
+    // font-size: 16px;
+    // line-height: 1.25;
+
+    // margin: 0;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+    // white-space: nowrap;
+    // width: 100%;
 }
 
 .#{$namespace}-drawer-body {
     position: relative;
     flex: 1;
     overflow: hidden;
+    padding: 20px;
 }
 
 .#{$namespace}-drawer-footer {

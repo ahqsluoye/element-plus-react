@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
-import React, { RefObject, forwardRef, useEffect, useRef } from 'react';
+import React, { RefObject, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Transition from '../Transition/Transition';
-import { PopupManager, mergeDefaultProps } from '../Util';
+import { PopupManager, addUnit, mergeDefaultProps } from '../Util';
 import { useClassNames, useControlled } from '../hooks';
 import { namespace } from '../hooks/prefix';
 import DrawerBody from './DrawerBody';
@@ -15,15 +15,26 @@ import { DrawerProps } from './typings';
 function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
     props = mergeDefaultProps(
         {
-            placement: 'right',
-            backdrop: true,
-            size: 'small',
+            direction: 'right',
+            modal: true,
+            closeOnClickModal: true,
+            withHeader: true,
+            lockScroll: true,
+            size: '30%',
         },
         props,
     );
-    const { backdrop, size, placement, children, onClose, classPrefix = 'drawer' } = props;
+    const { modal, closeOnClickModal, title, withHeader, size, direction, children, close, beforeClose, showClose, border, classPrefix = 'drawer', lockScroll } = props;
     const { b, wb } = useClassNames(classPrefix);
-    const [visible, setVisible, isControlled] = useControlled(props.visible, props.defaultVisible);
+    const [visible, setVisible] = useControlled(props.visible, props.defaultVisible);
+
+    const sizeStyle = useMemo(() => {
+        if (['left', 'right'].includes(direction)) {
+            return { '--el-drawer-width': addUnit(size) };
+        } else if (['top', 'bottom'].includes(direction)) {
+            return { '--el-drawer-height': addUnit(size) };
+        }
+    }, [direction, size]);
 
     // 模态框容器div
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -32,9 +43,30 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
     // 遮罩div
     const backdropRef = useRef<HTMLDivElement>(null);
 
+    const [zIndex, setZIndex] = useState({ modal: 1, drawer: 1 });
+
+    const doClose = useCallback(() => {
+        if (beforeClose) {
+            beforeClose?.((value: boolean) => {
+                if (value) {
+                    return;
+                }
+                setVisible(false);
+                close?.();
+            });
+        } else {
+            setVisible(false);
+            close?.();
+        }
+    }, [beforeClose, close, setVisible]);
+
     /**关闭对话框 */
     useEffect(() => {
         if (visible) {
+            setZIndex({
+                modal: PopupManager.nextZIndex(),
+                drawer: PopupManager.nextZIndex(),
+            });
             let mousedown: MouseEvent;
             const shadowRef = ref?.current ?? wrapperRef?.current;
             shadowRef?.addEventListener('mousedown', (e: MouseEvent) => (mousedown = e));
@@ -48,10 +80,9 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
                     return;
                 }
 
-                if (backdrop === true) {
-                    setVisible(false);
-                    onClose?.();
-                } else if (backdrop === 'static') {
+                if (closeOnClickModal) {
+                    doClose();
+                } else {
                     addClass(drawerRef.current, `${namespace}-drawer-shake`);
                     setTimeout(() => {
                         removeClass(drawerRef.current, `${namespace}-drawer-shake`);
@@ -59,11 +90,11 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
                 }
             });
         }
-    }, [b, backdrop, onClose, ref, setVisible, visible]);
+    }, [b, closeOnClickModal, modal, close, ref, setVisible, visible, doClose]);
 
     return (
-        <DrawerContext.Provider value={{ backdrop, setVisible, isControlled, onClose }}>
-            {backdrop &&
+        <DrawerContext.Provider value={{ doClose }}>
+            {modal &&
                 createPortal(
                     <Transition
                         nodeRef={backdropRef}
@@ -78,7 +109,7 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
                         }}
                         beforeLeave={() => removeClass(backdropRef.current, `${namespace}-anim-in`)}
                     >
-                        <div className={classNames(b`backdrop`, `${namespace}-anim-fade`)} style={{ zIndex: PopupManager.nextZIndex() }} ref={backdropRef} />
+                        <div className={classNames(b`backdrop`, `${namespace}-anim-fade`)} style={{ zIndex: zIndex.modal }} ref={backdropRef} />
                     </Transition>,
                     document.body,
                 )}
@@ -93,24 +124,47 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
                     onEnter={() => {
                         props.onOpen?.();
                         props.onEnter?.();
+                        if (lockScroll) {
+                            addClass(document.body, b('popup-parent--hidden', false));
+                        }
+                    }}
+                    afterEnter={() => {
+                        props.afterEnter?.();
+                        props.onOpened?.();
                     }}
                     beforeLeave={() => {
                         removeClass(drawerRef.current, `${namespace}-anim-slide-in`);
                         addClass(drawerRef.current, `${namespace}-anim-slide-out`);
                         props.beforeLeave?.();
                     }}
-                    onLeave={props.onLeave}
-                    afterLeave={props.afterLeave}
+                    onLeave={() => {
+                        props.onClose?.();
+                        props.onLeave?.();
+                    }}
+                    afterLeave={() => {
+                        props.afterLeave?.();
+                        props.onClosed?.();
+                        if (lockScroll) {
+                            removeClass(document.body, b('popup-parent--hidden', false));
+                        }
+                    }}
                     duration={300}
                 >
-                    <div className={classNames(b`wrapper`, props.className)} style={{ ...props.style, zIndex: PopupManager.nextZIndex() }} ref={ref || wrapperRef}>
+                    <div className={classNames(b`wrapper`, props.className)} style={{ ...props.style, zIndex: zIndex.drawer }} ref={ref || wrapperRef}>
                         <div
-                            className={classNames(wb(size, placement), `${namespace}-anim-slide-in`, `${namespace}-anim-${placement}`)}
-                            style={{ display: 'block' }}
+                            className={classNames(wb(direction), `${namespace}-anim-slide-in`, `${namespace}-anim-${direction}`)}
+                            style={{ display: 'block', ...sizeStyle }}
                             ref={drawerRef}
                         >
                             <div className={b`dialog`}>
-                                <div className={b`content`}>{children}</div>
+                                <div className={b`content`}>
+                                    {withHeader ? (
+                                        <DrawerHeader classPrefix={classPrefix} showClose={showClose} border={border}>
+                                            {title}
+                                        </DrawerHeader>
+                                    ) : null}
+                                    {children}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -127,17 +181,14 @@ type InternalType = typeof Comp;
 
 interface CompInterface extends InternalType {
     displayName?: string;
-    defaultProps?: Partial<DrawerProps>;
-    Header: typeof DrawerHeader;
-    Body: typeof DrawerBody;
-    Footer: typeof DrawerFooter;
+    body: typeof DrawerBody;
+    footer: typeof DrawerFooter;
 }
 
 const Drawer = Comp as CompInterface;
 
-Drawer.Header = DrawerHeader;
-Drawer.Body = DrawerBody;
-Drawer.Footer = DrawerFooter;
+Drawer.body = DrawerBody;
+Drawer.footer = DrawerFooter;
 
 Drawer.displayName = 'Drawer';
 

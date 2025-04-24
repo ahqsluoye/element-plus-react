@@ -5,12 +5,12 @@ const App = () => {
     return (
         <>
             <p>Default:</p>
-            <ElSkeleton.Paragraph style={{ marginTop: 30 }} />
+            <ElSkeleton style={{ marginTop: 30 }} />
             <ElDivider />
-            <p>You can also add a round or square icon to the left:</p>
-            <ElSkeleton.Paragraph style={{ marginTop: 30 }} graph="circle" />
-            <ElSkeleton.Paragraph style={{ marginTop: 30 }} graph="square" />
-            <ElSkeleton.Paragraph style={{ marginTop: 30 }} graph="image" />
+            <p>You can also add a round or rect icon to the left:</p>
+            <ElSkeleton style={{ marginTop: 30 }} variant="circle" rows={2} />
+            <ElSkeleton style={{ marginTop: 30 }} variant="rect" rows={2} />
+            <ElSkeleton style={{ marginTop: 30 }} variant="image" rows={6} />
         </>
     );
 };
