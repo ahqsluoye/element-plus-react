@@ -51,48 +51,36 @@ Drawer 的内容是懒渲染的，即在第一次被打开之前，传入的内�
 
 ## Drawer 属性
 
-| 属性名                | 说明                                                                                                                       | 类型                                 | 可选值                | 默认值 |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------------------- | ------ |
-| visible               | 是否显示 Drawer（可控）                                                                                                    | boolean                              | —                     | false  |
-| defaultVisible        | 默认是否显示 Drawer（不可控）                                                                                              | boolean                              | —                     | false  |
-| append-to-body        | Drawer 自身是否插入至 body 元素上。嵌套的 Drawer 必须指定该属性并赋值为 **true**                                           | boolean                              | —                     | false  |
-| lock-scroll           | 是否在 Drawer 出现时将 body 滚动锁定                                                                                       | boolean                              | —                     | true   |
-| before-close          | 关闭前的回调，会暂停 Drawer 的关闭                                                                                         | function(done)，done 用于关闭 Drawer | —                     | —      |
-| close-on-click-modal  | 是否可以通过点击 modal 关闭 Drawer                                                                                         | boolean                              | —                     | true   |
-| close-on-press-escape | 是否可以通过按下 ESC 关闭 Drawer                                                                                           | boolean                              | —                     | true   |
-| open-delay            | Drawer 打开的延时时间，单位毫秒                                                                                            | number                               | —                     | 0      |
-| close-delay           | Drawer 关闭的延时时间，单位毫秒                                                                                            | number                               | —                     | 0      |
-| custom-class          | Drawer 的自定义类名                                                                                                        | string                               | —                     | —      |
-| destroy-on-close      | 控制是否在关闭 Drawer 之后将子元素全部销毁                                                                                 | boolean                              | -                     | false  |
-| modal                 | 是否需要遮罩层                                                                                                             | boolean                              | —                     | true   |
-| direction             | Drawer 打开的方向                                                                                                          | Direction                            | rtl / ltr / ttb / btt | rtl    |
-| show-close            | 是否显示关闭按钮                                                                                                           | boolean                              | —                     | true   |
-| size                  | Drawer 窗体的大小, 当使用 `number` 类型时, 以像素为单位, 当使用 `string` 类型时, 请传入 'x%', 否则便会以 `number` 类型解释 | number / string                      | -                     | '30%'  |
-| title                 | Drawer 的标题，也可通过具名 slot （见下表）传入                                                                            | string                               | —                     | —      |
-| with-header           | 控制是否显示 header 栏, 默认为 true, 当此项为 false 时, title attribute 和 title slot 均不生效                             | boolean                              | -                     | true   |
-| modal-class           | 遮罩层的自定义类名                                                                                                         | string                               | -                     | -      |
-| z-index               | 设置 z-index                                                                                                               | number                               | -                     | -      |
+| 属性名            | 说明                                                                                                                       | 类型                                                | 默认值        |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | ------------- |
+| visible           | 是否显示 Drawer（可控**必填项**）                                                                                          | `boolean`                                           | false         |
+| defaultVisible    | 默认是否显示 Drawer（不可控）                                                                                              | `boolean`                                           | false         |
+| close             | 关闭 Drawer 方法（**必填项**）                                                                                             | <Enum type="Function">() => void</Enum>             |               |
+| lockScroll        | 是否在 Drawer 出现时将 body 滚动锁定                                                                                       | `boolean`                                           | true          |
+| beforeClose       | 关闭前的回调，会暂停 Drawer 的关闭                                                                                         | <Enum type="Function">(done: DoneFn) => void</Enum> | —             |
+| closeOnClickModal | 是否可以通过点击 modal 关闭 Drawer                                                                                         | `boolean`                                           | true          |
+| className         | Drawer 的自定义类名                                                                                                        | string                                              | —             |
+| modal             | 是否需要遮罩层                                                                                                             | `boolean`                                           | true          |
+| direction         | Drawer 打开的方向                                                                                                          | <Enum>top \| bottom \| right \| left                | right </Enum> |
+| showClose         | 是否显示关闭按钮                                                                                                           | `boolean`                                           | true          |
+| border            | 标题是否有边框                                                                                                             | `boolean`                                           | true          |
+| size              | Drawer 窗体的大小, 当使用 `number` 类型时, 以像素为单位, 当使用 `string` 类型时, 请传入 'x%', 否则便会以 `number` 类型解释 | `number` / `string`                                 | '30%'         |
+| title             | Drawer 的标题                                                                                                              | `string` \| `ReactElement`                          | —             |
+| withHeader        | 控制是否显示 header 栏, 默认为 true, 当此项为 false 时, title 属性不生效                                                   | `boolean`                                           | true          |
+| modalClassName    | 遮罩层的自定义类名                                                                                                         | `string`                                            | -             |
 
-## Drawer Slots
+### 子组件
 
-| 插槽名 | 说明                                                    |
-| ------ | ------------------------------------------------------- |
-| —      | Drawer 的内容                                           |
-| header | Drawer 标题的内容；会替换标题部分，但不会移除关闭按钮。 |
-| title  | 与 header 作用相同 请使用 header                        |
-| footer | Drawer 页脚部分                                         |
-
-## Drawer Methods
-
-| 名称        | 说明                                                   |
-| ----------- | ------------------------------------------------------ |
-| handleClose | 用于关闭 Drawer, 该方法会调用传入的 `beforeClose` 方法 |
+| 组件名          | 说明                    |
+| --------------- | ----------------------- |
+| ElDrawer.body   | Dialog 的内容           |
+| ElDrawer.footer | Dialog 按钮操作区的内容 |
 
 ## Drawer 事件
 
-| 事件名 | 说明                        | 参数 |
-| ------ | --------------------------- | ---- |
-| open   | Drawer 打开的回调           | —    |
-| opened | Drawer 打开动画结束时的回调 | —    |
-| close  | Drawer 关闭的回调           | —    |
-| closed | Drawer 关闭动画结束时的回调 | —    |
+| 事件名   | 说明                        | Type                                    |
+| -------- | --------------------------- | --------------------------------------- |
+| onOpen   | Dialog 打开的回调           | <Enum type="Function">() => void</Enum> |
+| onOpened | Dialog 打开动画结束时的回调 | <Enum type="Function">() => void</Enum> |
+| onClose  | Dialog 关闭的回调           | <Enum type="Function">() => void</Enum> |
+| onClosed | Dialog 关闭动画结束时的回调 | <Enum type="Function">() => void</Enum> |

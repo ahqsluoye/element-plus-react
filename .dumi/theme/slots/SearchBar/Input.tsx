@@ -11,39 +11,39 @@ type InputProps = {
 } & Pick<NativeInputProps, 'onFocus' | 'onBlur'>;
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const intl = useIntl();
+    const intl = useIntl();
 
-  const imeWaiting = useRef(false);
-  const nativeInputRef = useRef<HTMLInputElement>(null);
+    const imeWaiting = useRef(false);
+    const nativeInputRef = useRef<HTMLInputElement>(null);
 
-  useImperativeHandle(ref, () => nativeInputRef.current!);
+    useImperativeHandle(ref, () => nativeInputRef.current!);
 
-  return (
-    <input
-      className="dumi-default-search-bar-input"
-      onCompositionStart={() => (imeWaiting.current = true)}
-      onCompositionEnd={(ev) => {
-        imeWaiting.current = false;
-        // special case: press Enter open IME panel will not trigger onChange
-        props.onChange(ev.currentTarget.value);
-      }}
-      onFocus={props.onFocus}
-      onBlur={props.onBlur}
-      onKeyDown={(ev) => {
-        if (['ArrowDown', 'ArrowUp'].includes(ev.key)) ev.preventDefault();
-        // esc to blur input
-        if (ev.key === 'Escape' && !imeWaiting.current) ev.currentTarget.blur();
-      }}
-      onChange={(ev) => {
-        // wait for onCompositionEnd event be triggered
-        setTimeout(() => {
-          if (!imeWaiting.current) {
-            props.onChange(ev.target.value);
-          }
-        }, 1);
-      }}
-      placeholder={intl.formatMessage({ id: 'header.search.placeholder' })}
-      ref={nativeInputRef}
-    />
-  );
+    return (
+        <input
+            className="dumi-default-search-bar-input"
+            onCompositionStart={() => (imeWaiting.current = true)}
+            onCompositionEnd={ev => {
+                imeWaiting.current = false;
+                // special case: press Enter open IME panel will not trigger onChange
+                props.onChange(ev.currentTarget.value);
+            }}
+            onFocus={props.onFocus}
+            onBlur={props.onBlur}
+            onKeyDown={ev => {
+                if (['ArrowDown', 'ArrowUp'].includes(ev.key)) { ev.preventDefault(); }
+                // esc to blur input
+                if (ev.key === 'Escape' && !imeWaiting.current) { ev.currentTarget.blur(); }
+            }}
+            onChange={ev => {
+                // wait for onCompositionEnd event be triggered
+                setTimeout(() => {
+                    if (!imeWaiting.current) {
+                        props.onChange(ev.target.value);
+                    }
+                }, 1);
+            }}
+            placeholder={intl.formatMessage({ id: 'header.search.placeholder' })}
+            ref={nativeInputRef}
+        />
+    );
 });

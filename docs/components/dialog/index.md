@@ -74,24 +74,27 @@ Dialog 的内容是懒渲染的——在被打开之前，内容 不会被立即
 
 ### Attributes
 
-| 属性名            | 说明                                                                                            | 类型                                                 | 默认  |
-| ----------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ----- |
-| visible           | 是否显示 Dialog                                                                                 | `boolean`                                            | —     |
-| title             | Dialog 对话框 Dialog 的标题， 也可通过具名 slot （见下表）传入                                  | `string`                                             | ''    |
-| width             | 对话框的宽度，默认值为 50%                                                                      | `string` / `number`                                  | ''    |
-| fullscreen        | 是否为全屏 Dialog                                                                               | `boolean`                                            | false |
-| top               | dialog CSS 中的 margin-top 值，默认为 15vh                                                      | `string`                                             | ''    |
-| modal             | 是否需要遮罩层                                                                                  | `boolean`                                            | true  |
-| className         | 遮罩的自定义类名                                                                                | `string`                                             | —     |
-| lockScroll        | 是否在 Dialog 出现时将 body 滚动锁定                                                            | `boolean`                                            | true  |
-| closeOnClickModal | 是否可以通过点击 modal 关闭 Dialog                                                              | `boolean`                                            | true  |
-| showClose         | 是否显示关闭按钮                                                                                | `boolean`                                            | true  |
-| beforeClose       | 关闭前的回调，会暂停 Dialog 的关闭. 回调函数内执行 done 参数方法的时候才是真正关闭对话框的时候. | <Enum type="Function">(done: DoneFn) => void</Enum>` | —     |
-| draggable         | 为 Dialog 启用可拖拽功能                                                                        | `boolean`                                            | false |
-| center            | 是否让 Dialog 的 header 和 footer 部分居中排列                                                  | `boolean`                                            | false |
-| alignCenter       | 是否水平垂直对齐对话框                                                                          | `boolean`                                            | false |
-| unmountOnExit     | 当关闭 Dialog 时，销毁其中的元素                                                                | `boolean`                                            | false |
-| zIndex            | 和原生的 CSS 的 z-index 相同，改变 z 轴的顺序                                                   | `number`                                             | —     |
+| 属性名            | 说明                                                                                            | 类型                                                | 默认  |
+| ----------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------- | ----- |
+| visible           | 是否显示 Dialog（可控**必填项**）                                                               | `boolean`                                           | —     |
+| defaultVisible    | 默认是否显示 Dialog                                                                             | `boolean`                                           | —     |
+| close             | 关闭 Dialog 方法（**必填项**）                                                                  | <Enum type="Function">() => void</Enum>             |       |
+| close             | 默认是否显示 Dialog                                                                             | `boolean`                                           | —     |
+| title             | Dialog 对话框 Dialog 的标题                                                                     | `string`                                            | ''    |
+| width             | 对话框的宽度，默认值为 50%                                                                      | `string` / `number`                                 | ''    |
+| fullscreen        | 是否为全屏 Dialog                                                                               | `boolean`                                           | false |
+| top               | dialog CSS 中的 margin-top 值，默认为 15vh                                                      | `string`                                            | ''    |
+| modal             | 是否需要遮罩层                                                                                  | `boolean`                                           | true  |
+| className         | 遮罩的自定义类名                                                                                | `string`                                            | —     |
+| lockScroll        | 是否在 Dialog 出现时将 body 滚动锁定                                                            | `boolean`                                           | true  |
+| closeOnClickModal | 是否可以通过点击 modal 关闭 Dialog                                                              | `boolean`                                           | true  |
+| showClose         | 是否显示关闭按钮                                                                                | `boolean`                                           | true  |
+| beforeClose       | 关闭前的回调，会暂停 Dialog 的关闭. 回调函数内执行 done 参数方法的时候才是真正关闭对话框的时候. | <Enum type="Function">(done: DoneFn) => void</Enum> | —     |
+| draggable         | 为 Dialog 启用可拖拽功能                                                                        | `boolean`                                           | false |
+| center            | 是否让 Dialog 的 header 和 footer 部分居中排列                                                  | `boolean`                                           | false |
+| alignCenter       | 是否水平垂直对齐对话框                                                                          | `boolean`                                           | false |
+| unmountOnExit     | 当关闭 Dialog 时，销毁其中的元素                                                                | `boolean`                                           | false |
+| zIndex            | 和原生的 CSS 的 z-index 相同，改变 z 轴的顺序                                                   | `number`                                            | —     |
 
 ### 子组件
 

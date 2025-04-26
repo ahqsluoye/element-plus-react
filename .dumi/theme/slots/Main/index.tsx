@@ -3,7 +3,8 @@ import { isNotEmpty } from '@qsxy/element-plus-react';
 import classNames from 'classnames';
 import { addStyle } from 'dom-lib';
 import { useRouteMeta, useSidebarData, useTabMeta } from 'dumi';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { uniqBy } from 'lodash';
+import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import './style.scss';
 
@@ -39,26 +40,95 @@ const Main = props => {
     const isIconList = useMemo(() => location.pathname.endsWith('icon-list'), [location.pathname]);
 
     const markerRef = useRef(null);
+    const displayRef = useRef<IntersectionObserverEntry[]>([]);
+    const timeRef = useRef(null);
+    const initRef = useRef(null);
 
     const [active, setActive] = useState('');
 
+    const observer = useMemo(
+        () =>
+            new IntersectionObserver(
+                (entries: IntersectionObserverEntry[]) => {
+                    if (displayRef.current.length === 0) {
+                        displayRef.current = entries.filter(item => item.isIntersecting);
+                    }
+                    entries.forEach(item => {
+                        if (item.isIntersecting) {
+                            displayRef.current.push(item);
+                        } else {
+                            displayRef.current = displayRef.current.filter(displayItem => item.target.id !== displayItem.target.id);
+                        }
+                    });
+                    displayRef.current = uniqBy(displayRef.current, item => item.target.id).sort(
+                        (a, b) => a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top,
+                    );
+
+                    if (displayRef.current.length > 0) {
+                        const id = displayRef.current[0].target.id;
+                        setActive(id);
+                        const index = (tab?.toc || toc).filter(item => item.depth > 1).findIndex(item => item.id === id);
+                        addStyle(markerRef.current, { top: 36 + 28.5 * index + 'px' });
+                    }
+                },
+                {
+                    // root: document.getElementById('root'),
+                    rootMargin: '-80px',
+                    // threshold: [0, 1],
+                },
+            ),
+        [toc],
+    );
+
     const onActive = useCallback(
         (id: string) => {
+            observer.disconnect();
             setActive(id);
             const index = (tab?.toc || toc).filter(item => item.depth > 1).findIndex(item => item.id === id);
             addStyle(markerRef.current, { top: 36 + 28.5 * index + 'px' });
             (document.documentElement || document.body).scrollTo({ top: getOffsetTopByBody(document.getElementById(id)) - 55, left: 0, behavior: 'instant' });
+            document.querySelectorAll('h2').forEach(item => {
+                observer.observe(item);
+            });
         },
-        [tab?.toc, toc],
+        [tab?.toc, toc, observer],
     );
 
-    useEffect(() => {
-        setActive('');
+    const init = () => {
+        timeRef.current = setInterval(() => {
+            if (initRef.current) {
+                clearInterval(timeRef.current);
+            }
+            toc.filter(item => item.depth > 1).forEach(item => {
+                if (document.getElementById(item.id)) {
+                    observer.observe(document.getElementById(item.id));
+                    initRef.current = true;
+                }
+            });
+        }, 200);
+    };
+
+    useLayoutEffect(() => {
+        displayRef.current = [];
+        initRef.current = false;
+        timeRef.current = null;
         if (markerRef.current) addStyle(markerRef.current, { top: 36 + 'px' });
-    }, [location.pathname]);
+        init();
+        // requestAnimationFrame(() => {
+        //     console.log(toc, document.querySelectorAll('h2'));
+        //     toc.filter(item => item.depth > 1).forEach(item => {
+        //         observer.observe(document.getElementById(item.id));
+        //     });
+        //     // document.querySelectorAll('h2').forEach(item => {
+        //     //     observer.observe(item);
+        //     // });
+        // });
+
+        return () => observer.disconnect();
+    }, [toc]);
 
     return (
-        <main className={classNames('page-content', { 'has-sidebar': showSidebar })}>
+        <main id="page-content" className={classNames('page-content', { 'has-sidebar': showSidebar })}>
             <div className="doc-content-wrapper">
                 <div className="doc-content-container" style={{ flex: isIconList ? 1 : 'unset' }}>
                     <div className="doc-content" style={{ position: 'relative' }}>

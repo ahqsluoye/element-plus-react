@@ -17,6 +17,7 @@
     "lint": "npm run lint:es && npm run lint:css",
     "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
     "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
+    "lint:dumi": "eslint \".dumi/**/*.{js,jsx,ts,tsx}\" --fix",
     "doc": "tsc ./doc.ts && node ./doc.js",
     "publish": "npm run build && npm publish ./packages --scope=@qsxy --access=public --registry https://registry.npmjs.org/",
     "prepublishOnly": "father doctor && npm run build",

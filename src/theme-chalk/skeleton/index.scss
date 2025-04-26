@@ -100,8 +100,8 @@
     &-active {
         &.#{$namespace}-skeleton-graph,
         .#{$namespace}-skeleton-paragraph-graph-image,
-        .#{$namespace}-skeleton-grid-col > p,
-        .#{$namespace}-skeleton-paragraph-rows > p {
+        .#{$namespace}-skeleton-grid-col .#{$namespace}-skeleton__item,
+        .#{$namespace}-skeleton-paragraph-rows .#{$namespace}-skeleton__item {
             background: linear-gradient(-45deg, var(--#{$namespace}-skeleton-color) 25%, var(--#{$namespace}-skeleton-to-color) 37%, var(--#{$namespace}-skeleton-color) 63%);
             background-size: 400% 100% !important;
             animation: skeleton-active 1.4s ease infinite;

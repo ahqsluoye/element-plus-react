@@ -29,5 +29,5 @@
             "@qsxy/element-plus-react/*": ["src/*", "*"]
         }
     },
-    "include": [".dumirc.ts", "src/**/*", "docs/**/*"]
+    "include": [".dumirc.ts", "src/**/*", "docs/**/*", ".dumi/**/*"]
 }

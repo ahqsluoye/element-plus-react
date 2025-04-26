@@ -2,9 +2,9 @@ import { ReactElement } from 'react';
 import { BaseProps, NativeProps } from '../types/common';
 
 export interface SkeletonProps extends BaseProps, NativeProps {
-    /** 是否显示模态框（可控） */
+    /** 是否显示骨架屏（可控） */
     visible?: boolean;
-    /** 默认是否显示模态框 */
+    /** 默认是否显示骨架屏 */
     defaultVisible?: boolean;
     /** 骨架屏段落数量 */
     rows?: number;

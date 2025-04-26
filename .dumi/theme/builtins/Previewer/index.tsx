@@ -146,7 +146,7 @@ const Previewer: FC<IPreviewerProps> = props => {
                                                 ...props.asset.dependencies,
                                                 ['index.tsx']: {
                                                     type: 'FILE',
-                                                    value: "import '@qsxy/element-plus-react/dist/index.css';\n" + props.asset.dependencies['index.tsx'].value,
+                                                    value: 'import \'@qsxy/element-plus-react/dist/index.css\';\n' + props.asset.dependencies['index.tsx'].value,
                                                 },
                                             },
                                         },

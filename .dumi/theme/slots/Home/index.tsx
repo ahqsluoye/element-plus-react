@@ -28,7 +28,7 @@ const layerBase: CSSProperties = {
 const Home = () => {
     const { frontmatter } = useRouteMeta();
 
-    if (!('hero' in frontmatter)) return null;
+    if (!('hero' in frontmatter)) { return null; }
     // const parallax = useParallax({
     //     speed: -10,
     // });
@@ -66,53 +66,53 @@ const Home = () => {
     // );
 
     return (
-      <main id="page-content" className="page-content">
-        <div className="hero-content">
-          <div style={{ position: 'relative' }}>
-            <div>
-              <div className="home-page">
-                <div className="banner text-center">
-                  <div className="banner-desc mt-4">
-                    <h1>Element Plus React</h1>
-                    <p className="t-2">
+        <main id="page-content" className="page-content">
+            <div className="hero-content">
+                <div style={{ position: 'relative' }}>
+                    <div>
+                        <div className="home-page">
+                            <div className="banner text-center">
+                                <div className="banner-desc mt-4">
+                                    <h1>Element Plus React</h1>
+                                    <p className="t-2">
                       基于 React，面向设计师和开发者的组件库
-                    </p>
-                  </div>
-                </div>
-                <div className="jumbotron">
-                  <div
-                    className="parallax-container"
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      transition: 'all 0.3s ease-out 0s',
-                      position: 'relative',
-                      perspective: 300,
-                    }}
-                  >
-                    <div
-                      style={{
-                        height: '30rem',
-                        width: '100%',
-                        transition: 'all 0.3s ease-out 0s',
-                        transform: 'rotateX(0.444916deg) rotateY(-0.245911deg)',
-                      }}
-                    >
-                      <ScreenSvg />
-                      <PeopleSvg className="cursor-pointer" />
-                      <LeftLayerSvg />
-                      <LeftBottomSvg />
-                      <RightSvg />
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="jumbotron">
+                                <div
+                                    className="parallax-container"
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        transition: 'all 0.3s ease-out 0s',
+                                        position: 'relative',
+                                        perspective: 300,
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            height: '30rem',
+                                            width: '100%',
+                                            transition: 'all 0.3s ease-out 0s',
+                                            transform: 'rotateX(0.444916deg) rotateY(-0.245911deg)',
+                                        }}
+                                    >
+                                        <ScreenSvg />
+                                        <PeopleSvg className="cursor-pointer" />
+                                        <LeftLayerSvg />
+                                        <LeftBottomSvg />
+                                        <RightSvg />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </main>
+        </main>
     );
 };
 

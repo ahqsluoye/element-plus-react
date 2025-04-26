@@ -29,6 +29,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
             confirmButtonClass,
             buttonSize,
             buttonPosition = 'right',
+            draggable,
             overflow,
             showInput,
             inputType,
@@ -41,6 +42,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
             className,
             style,
             padding,
+            roundButton,
             ...rest
         } = options;
         const { e, bm } = useClassNames(classPrefix);
@@ -173,6 +175,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
                 // @ts-ignore
                 style={{ ...style, [`--${namespace}-messagebox-width`]: addUnit(width) }}
                 modal
+                draggable={draggable}
                 overflow={overflow}
                 showClose={showClose}
                 title={title}
@@ -204,12 +207,19 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
                 {(showCancelButton || showConfirmButton) && (
                     <Dialog.footer classPrefix={classPrefix} position={buttonPosition}>
                         {showCancelButton && (
-                            <Button className={cancelButtonClass} size={buttonSize} onClick={() => handleAction('cancel')}>
+                            <Button className={cancelButtonClass} size={buttonSize} round={roundButton} onClick={() => handleAction('cancel')}>
                                 {cancelButtonText}
                             </Button>
                         )}
                         {showConfirmButton && (
-                            <Button className={confirmButtonClass} type="primary" size={buttonSize} loading={confirmButtonLoading} onClick={() => handleAction('confirm')}>
+                            <Button
+                                className={confirmButtonClass}
+                                type="primary"
+                                size={buttonSize}
+                                round={roundButton}
+                                loading={confirmButtonLoading}
+                                onClick={() => handleAction('confirm')}
+                            >
                                 {confirmButtonText}
                             </Button>
                         )}

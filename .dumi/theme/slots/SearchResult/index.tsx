@@ -147,7 +147,7 @@ const SearchResult: FC<{
                 (document.activeElement as HTMLInputElement).blur();
             }}
         >
-            {Boolean(props.data.length || props.loading) ? (
+            {props.data.length || props.loading ? (
                 <dl>
                     {data.map((item, i) =>
                         item.type === 'title' ? (
