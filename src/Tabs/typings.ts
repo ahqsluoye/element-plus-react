@@ -36,6 +36,8 @@ export interface TabsProps extends BaseProps, NativeProps<'--el-tabs-header-heig
     onTabAdd?: () => void;
     /** 点击 tab 移除按钮时触发 */
     onTabRemove?: (name: TabPaneName | undefined) => void;
+    /** `activeName` 改变时触发 */
+    onTabChange?: (name: TabPaneName | undefined) => void;
     /** 鼠标右键点击 tab 时触发 */
     formatter?: (name: TabPaneName | undefined) => void;
 }

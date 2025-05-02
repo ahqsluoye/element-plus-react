@@ -5,7 +5,7 @@ const App = () => {
     return (
         <ElButton
             onClick={() => {
-                ElMessage({ message: '只是一条消息提示', grouping: true, duration: 0 });
+                ElMessage({ message: '只是一条消息提示', grouping: true });
             }}
         >
             打开消息提示

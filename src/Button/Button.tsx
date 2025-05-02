@@ -28,6 +28,7 @@ const InternalButton = (props: ButtonProps, ref: Ref<ButtonRef>) => {
         loadingSlot,
         nativeType = 'button',
         icon = false,
+        iconProps = {},
         onClick,
         ...rest
     } = props;
@@ -77,7 +78,7 @@ const InternalButton = (props: ButtonProps, ref: Ref<ButtonRef>) => {
             }}
         >
             {loading && spin}
-            {icon && !loading && typeof icon === 'string' ? <Icon name={icon} /> : null}
+            {icon && !loading && typeof icon === 'string' ? <Icon name={icon} {...iconProps} /> : null}
             {children}
         </button>
     );

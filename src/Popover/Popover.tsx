@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useImperativeHandle, useRef } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
 import { TooltipRef } from '../Tooltip/typings';
-import { mergeDefaultProps } from '../Util';
+import { addUnit, mergeDefaultProps } from '../Util';
 import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames } from '../hooks';
 import { PopoverProps } from './typings';
 
@@ -48,8 +48,8 @@ const Popover = memo(
             <Tooltip
                 ref={tooltipRef}
                 classPrefix={classPrefix}
-                popperClass={classNames(b(), { [m`plain`]: plain })}
-                popperStyle={{ width }}
+                popperClass={classNames(b(), { [m`plain`]: plain }, props.className)}
+                popperStyle={{ width: addUnit(width), ...props.style }}
                 triggerRef={props.children}
                 enterable
                 effect="light"

@@ -114,14 +114,16 @@ const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref)
         <Transition nodeRef={notificationRef} name={b('notification-fade', false)} visible={visible} display="flex" afterLeave={afterLeave}>
             <div
                 ref={notificationRef}
-                className={classNames(b(), position.indexOf('right') > 1 ? 'right' : 'left')}
+                className={classNames(b(), position.indexOf('right') > 1 ? 'right' : 'left', props.className)}
                 style={{
                     [verticalProperty]: offset,
                     zIndex: PopupManager.nextZIndex(),
+                    ...props.style,
                 }}
                 // 鼠标悬浮停止自动关闭
                 onMouseEnter={clearTimer}
                 onMouseLeave={startTimer}
+                onClick={props.onClick}
             >
                 {(type || iconClass) && <i className={classNames(e`icon`, typeClass, iconClass)} />}
                 <div className={classNames(e`group`, { 'is-with-icon': typeClass || iconClass })}>

@@ -7,6 +7,7 @@ import {
     ElDrawer,
     ElForm,
     ElInput,
+    ElOption,
     ElRadio,
     ElRadioGroup,
     ElRow,
@@ -37,8 +38,8 @@ const App = () => {
                         </ElForm.Item>
                         <ElForm.Item name="region" label="活动区域">
                             <ElSelect placeholder="请选择活动区域">
-                                <ElSelect.Option label="区域一" value="shanghai" />
-                                <ElSelect.Option label="区域二" value="beijing" />
+                                <ElOption label="区域一" value="shanghai" />
+                                <ElOption label="区域二" value="beijing" />
                             </ElSelect>
                         </ElForm.Item>
                         <ElForm.Item label="活动时间">

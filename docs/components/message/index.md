@@ -92,18 +92,18 @@ const { appContext } = getCurrentInstance()!;
 
 ### Message 配置项
 
-| 属性          | 说明                                                     | 类型                                                               | 默认值   |
-| ------------- | -------------------------------------------------------- | ------------------------------------------------------------------ | -------- |
-| `message`     | 消息文字                                                 | `string \| React.ReactElement`                                     | —        |
-| `type`        | 消息类型                                                 | <Enum>'success' \| 'warning' \| 'info' \| 'error'</Enum>           | `'info'` |
-| `icon`        | 自定义图标，该属性会覆盖 `type` 的图标。                 | `string \| Component`                                              | —        |
-| `customClass` | 自定义类名                                               | `string`                                                           | —        |
-| `duration`    | 显示时间，单位为毫秒。 设为 0 则不会自动关闭             | `number`                                                           | `3000`   |
-| `showClose`   | 是否显示关闭按钮                                         | `boolean`                                                          | `false`  |
-| `center`      | 文字是否居中                                             | `boolean`                                                          | `false`  |
-| `onClose`     | 关闭时的回调函数, 参数为被关闭的 message 实例            | <Enum type="Function">(el?: RefObject<HTMLElement>) => void</Enum> | —        |
-| `offset`      | Message 距离窗口顶部的偏移量                             | `number`                                                           | `20`     |
-| `grouping`    | 合并内容相同的消息，不支持 React.ReactElement 类型的消息 | `boolean`                                                          | `false`  |
+| 属性        | 说明                                                     | 类型                                                               | 默认值   |
+| ----------- | -------------------------------------------------------- | ------------------------------------------------------------------ | -------- |
+| message     | 消息文字                                                 | `string \| React.ReactElement`                                     | —        |
+| type        | 消息类型                                                 | <Enum>'success' \| 'warning' \| 'info' \| 'error'</Enum>           | `'info'` |
+| icon        | 自定义图标，该属性会覆盖 `type` 的图标。                 | `string \| Component`                                              | —        |
+| customClass | 自定义类名                                               | `string`                                                           | —        |
+| duration    | 显示时间，单位为毫秒。 设为 0 则不会自动关闭             | `number`                                                           | `3000`   |
+| showClose   | 是否显示关闭按钮                                         | `boolean`                                                          | `false`  |
+| center      | 文字是否居中                                             | `boolean`                                                          | `false`  |
+| onClose     | 关闭时的回调函数, 参数为被关闭的 message 实例            | <Enum type="Function">(el?: RefObject<HTMLElement>) => void</Enum> | —        |
+| offset      | Message 距离窗口顶部的偏移量                             | `number`                                                           | `20`     |
+| grouping    | 合并内容相同的消息，不支持 React.ReactElement 类型的消息 | `boolean`                                                          | `false`  |
 
 ### Message 方法
 

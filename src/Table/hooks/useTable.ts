@@ -8,15 +8,8 @@ import { flatTreeData } from '../treeUtil';
 import { TableColumnCtx, TableColumnProps, TableProps, TableRefs, TreeNode } from '../typings';
 import { TableIdManager, getRowIdentity } from '../util';
 
-/**
- * @author	Parker
- * @CreateTime	2022/9/11 12:24:23
- * @LastEditor	Parker
- * @LastEditor	Parker
- * @ModifyTime	2022/11/19 23:23:42
- */
 export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs, tableId: string) => {
-    const getChildren = useChildrenInstance<TableColumnProps<T>>('TableColumn');
+    const getChildren = useChildrenInstance<TableColumnProps<T>>('ElTableColumn');
     const _children = getChildren(props.children);
 
     const maxLevel = useRef<number>(0);

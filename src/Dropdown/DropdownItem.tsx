@@ -31,6 +31,6 @@ const DropdownItem: FC<DropdownItemProps> = props => {
     );
 };
 
-DropdownItem.displayName = 'DropdownItem';
+DropdownItem.displayName = 'ElDropdownItem';
 
 export default DropdownItem;

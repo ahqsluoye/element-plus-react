@@ -24,8 +24,6 @@ export interface NotificationProps extends BaseProps, NativeProps, AnimationEven
     title?: string;
     /** 通知栏正文内容 */
     message?: string | React.ReactElement;
-    /** 是否将 message 属性作为 HTML 片段处理 */
-    dangerouslyUseHTMLString?: boolean; // default false
     /** 通知的类型	 */
     type?: 'success' | 'warning' | 'info' | 'error' | '';
     /** 显示时间, 单位为毫秒。 值为 0 则不会自动关闭 */

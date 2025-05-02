@@ -53,6 +53,6 @@ const Option = forwardRef<HTMLLIElement, SelectOptionProps>((props, ref) => {
     );
 });
 
-Option.displayName = 'Select.Option';
+Option.displayName = 'ElOption';
 
 export default Option;

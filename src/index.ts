@@ -49,7 +49,7 @@ export type { InputProps, InputRangeProps, InputRef, TextareaProps, TextareaRef 
 export { InputNumber as ElInputNumber } from './InputNumber';
 export type { InputNumberProps, InputNumberRef } from './InputNumber';
 
-export { Select as ElSelect } from './Select';
+export { Option as ElOption, OptionGroup as ElOptionGroup, Select as ElSelect } from './Select';
 export type { SelectOptionGroupProps, SelectOptionProps, SelectProps, SelectRef } from './Select';
 
 export { Calendar, CalendarContext } from './Calendar';

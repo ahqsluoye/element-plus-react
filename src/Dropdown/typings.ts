@@ -24,26 +24,24 @@ export interface DropdownProps extends BaseProps<React.ReactElement>, NativeProp
     onMouseLeave?: (e?: React.MouseEvent<any>) => void;
     /** 点击菜单项触发的事件回调 */
     onClick?: (command: string | number | object) => void;
-
     /** 下拉框出现/隐藏时触发: 出现则为 true，隐藏则为 false */
-    visiblechange?: (visible: boolean) => void;
+    onVisiblechange?: (visible: boolean) => void;
 }
 
 export interface DropdownMenuProps extends BaseProps, NativeProps {
     classPrefix?: string;
+    /** 菜单最大高度 */
+    maxHeight?: number;
 }
 
 /** Dropdown-Item 属性 */
 export interface DropdownItemProps extends BaseProps, NativeProps {
     /** 派发到command回调函数的指令参数 */
     command?: string | number | object;
-
     /** 是否禁用*/
     disabled?: boolean;
-
     /** 是否显示分隔符 */
     divided?: boolean;
-
     /** 是否为激活状态 */
     active?: boolean;
 }

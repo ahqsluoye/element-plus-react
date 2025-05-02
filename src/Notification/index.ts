@@ -13,14 +13,6 @@ const notifications: Record<Position, NotificationQueue> = {
 const GAP_SIZE = 16;
 let seed = 1;
 
-/**
- * 通知组件
- * @author	Parker
- * @CreateTime	2022/3/10 12:45:48
- * @LastEditor	Parker
- * @ModifyTime	2022/5/3 13:43:28
- * @Description	Element Plus 通知组件魔改过来的，源代码见：https://github.com/element-plus/element-plus
- */
 export const Notification: INotification = function (options: NotificationProps) {
     const position = options.position || 'top-right';
 

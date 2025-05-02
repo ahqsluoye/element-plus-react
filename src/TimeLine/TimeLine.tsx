@@ -14,4 +14,6 @@ const TimeLine: FC<TimeLineProps> = props => {
     );
 };
 
+TimeLine.displayName = 'ElTimeLine';
+
 export default TimeLine;

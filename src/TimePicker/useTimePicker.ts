@@ -1,11 +1,4 @@
-/**
- * @author	Element Plus
- * @CreateTime	2022/4/1 09:09:12
- * @LastEditor	Parker
- * @ModifyTime	2022/4/6 14:44:01
- * @Description	Element Plus 时间选择面板工具类，见https://github.com/element-plus/element-plus
- */
-
+// Element Plus 时间选择面板工具类
 import filter from 'lodash/filter';
 import { Compare, DisabledHours, DisabledMinutes, DisabledSeconds, RoleType } from './typings';
 

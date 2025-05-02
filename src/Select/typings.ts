@@ -8,7 +8,7 @@ export type SelectRef = {
     inputInstance?: RefObject<InputRef>;
     searchInstance?: RefObject<InputRef>;
     popperInstRef: RefObject<PopperOptionRef>;
-    label: string;
+    selectedLabel: string | string[];
     setLabel: (label: string) => void;
     getValue: () => ValueType;
     setValue: (value: ValueType) => void;
@@ -43,6 +43,8 @@ export interface SelectProps<V = ValueType> extends Omit<FormControlBaseProps<V>
     loadingText?: React.ReactElement | string;
     /**  */
     max?: boolean;
+    /** 下拉菜单的内容是否有箭头 */
+    showArrow?: boolean;
     /**  */
     required?: boolean;
     /** 表单校验错误提示 */
@@ -71,8 +73,18 @@ export interface SelectProps<V = ValueType> extends Omit<FormControlBaseProps<V>
     size?: TypeAttributes.Size;
     /** 是否追加到body下 */
     appendToBody?: boolean;
+    /** 标签类型 */
+    tagType?: TypeAttributes.Appearance;
+    /** 标签效果 */
+    tagEffect?: 'light' | 'dark' | 'plain';
     /** 选中值发生变化时触发 */
     onChange?: (value: ValueType, label?: string | (string | number)[]) => void;
+    /** 下拉框出现/隐藏时触发   */
+    onVisibleChange?: (visible: boolean) => void;
+    /** 多选模式下移除tag时触发/隐藏时触发   */
+    onRemoveTag?: (tagValue: any) => void;
+    /** 可清空的单选模式下用户点击清空按钮时触发  */
+    onClear?: () => void;
     /** 数据加载成功时调用 */
     onLoadSuccess?: (value: ValueType, label?: (string | number | undefined)[]) => void;
 }

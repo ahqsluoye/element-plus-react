@@ -5,7 +5,6 @@ const App = () => {
     return (
         <>
             <ElButton
-                type="primary"
                 onClick={() =>
                     ElNotification({
                         title: '自定义位置',
@@ -17,7 +16,6 @@ const App = () => {
                 右上角
             </ElButton>
             <ElButton
-                type="primary"
                 onClick={() =>
                     ElNotification({
                         title: '自定义位置',
@@ -30,7 +28,6 @@ const App = () => {
                 右下角
             </ElButton>
             <ElButton
-                type="primary"
                 onClick={() =>
                     ElNotification({
                         title: '自定义位置',
@@ -43,7 +40,6 @@ const App = () => {
                 左下角
             </ElButton>
             <ElButton
-                type="primary"
                 onClick={() =>
                     ElNotification({
                         title: '自定义位置',

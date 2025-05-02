@@ -4,6 +4,7 @@ import {
     ElIcon,
     ElInput,
     ElMessage,
+    ElOption,
     ElPagination,
     ElScrollbar,
     ElSelect,
@@ -284,9 +285,9 @@ const IconList = () => {
                         onClear={onClear}
                         prepend={
                             <ElSelect value={searchType} placeholder="请选择" style={{ width: 130 }} onChange={onChangeType} clearable={false}>
-                                <ElSelect.Option label="关键词" value="1"></ElSelect.Option>
-                                <ElSelect.Option label="Unicode" value="2"></ElSelect.Option>
-                                <ElSelect.Option label="名称" value="3"></ElSelect.Option>
+                                <ElOption label="关键词" value="1"></ElOption>
+                                <ElOption label="Unicode" value="2"></ElOption>
+                                <ElOption label="名称" value="3"></ElOption>
                             </ElSelect>
                         }
                     />
@@ -307,7 +308,7 @@ const IconList = () => {
                     </div>
                 </div>
 
-                <div className="r-icons-container" style={{ height }}>
+                <div className="r-icons-container" style={{ height: 'calc(100vh - 300px)' }}>
                     <div className="r-left">
                         <div className="r-title">图标分类</div>
                         <ul className="r-icon-ul">

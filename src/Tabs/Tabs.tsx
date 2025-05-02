@@ -2,15 +2,15 @@ import classNames from 'classnames';
 import { addClass, addStyle, hasClass, removeClass } from 'dom-lib';
 import forEach from 'lodash/forEach';
 import omit from 'lodash/omit';
-import React, { Children, FC, Ref, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Children, Ref, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Icon from '../Icon/Icon';
 import { isEmpty } from '../Util';
 import { useChildrenInstance, useClassNames, useControlled } from '../hooks';
 import { TabsContext } from './TabsContext';
 import { Navs, Scrollable, TabPaneProps, TabsProps } from './typings';
 
-const Tabs: FC<TabsProps> = forwardRef((props: TabsProps, ref?: Ref<HTMLDivElement>) => {
-    const { type, tabPosition = 'top', stretch, classPrefix = 'tabs', children, onTabClick, beforeLeave, center, editable, addable, closable, onTabRemove } = props;
+const Tabs = forwardRef((props: TabsProps, ref?: Ref<HTMLDivElement>) => {
+    const { type, tabPosition = 'top', stretch, classPrefix = 'tabs', children, onTabClick, onTabChange, beforeLeave, center, editable, addable, closable, onTabRemove } = props;
     const [activeName, setActiveName] = useControlled(props.activeName, props.defaultActiveName);
     const { b, m, e, is } = useClassNames(classPrefix);
 
@@ -44,7 +44,7 @@ const Tabs: FC<TabsProps> = forwardRef((props: TabsProps, ref?: Ref<HTMLDivEleme
     // const [barStyle, setBarStyle] = useState<JSX.CSSProperties>({});
 
     /** 获取子组件 */
-    const getTabPaneInstance = useChildrenInstance<TabPaneProps>('TabPane');
+    const getTabPaneInstance = useChildrenInstance<TabPaneProps>('ElTabPane');
 
     /** 获取TabPane组件中的配置数据 */
     const navs: Navs[] = useMemo(() => {
@@ -205,12 +205,15 @@ const Tabs: FC<TabsProps> = forwardRef((props: TabsProps, ref?: Ref<HTMLDivEleme
         //     [sizeName === 'offsetWidth' ? 'width' : 'height']: `${tabSize}px`,
         //     transform: `translate${sizeDir}(${offset}px)`,
         // });
-    }, [sizeName, children]);
+    }, [sizeName, e, children]);
 
     /** 激活标签页 */
     const changeCurrentName = useCallback(
         (item: Navs) => {
             setActiveName(item?.name);
+            if (item?.name && activeName !== item.name) {
+                onTabChange?.(item.name);
+            }
             onTabClick?.({
                 paneName: item?.name,
                 active: item?.active,
@@ -219,7 +222,7 @@ const Tabs: FC<TabsProps> = forwardRef((props: TabsProps, ref?: Ref<HTMLDivEleme
                 props: item.props,
             });
         },
-        [onTabClick, setActiveName],
+        [activeName, onTabChange, onTabClick, setActiveName],
     );
 
     /**
@@ -344,6 +347,6 @@ const Tabs: FC<TabsProps> = forwardRef((props: TabsProps, ref?: Ref<HTMLDivEleme
     );
 });
 
-Tabs.displayName = 'Tabs';
+Tabs.displayName = 'ElTabs';
 
 export default Tabs;

@@ -5,7 +5,6 @@ const App = () => {
     return (
         <>
             <ElButton
-                type="primary"
                 onClick={() =>
                     ElNotification.info({
                         title: '标题名称',
@@ -17,7 +16,6 @@ const App = () => {
                 可自动关闭
             </ElButton>
             <ElButton
-                type="primary"
                 onClick={() =>
                     ElNotification.info({
                         title: '提示',

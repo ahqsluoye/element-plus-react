@@ -25,10 +25,6 @@ export const popperAllProps = [
 
 /**
  * Returns an array of objects consisting of: props of html input element and rest.
- * @author	Parker
- * @CreateTime	2022/4/8 17:46:40
- * @LastEditor	Parker
- * @ModifyTime	2025/2/22 11:48:08
  * @param {object} props A ReactElement props object
  * @param {Object} [options={}]
  * @param {Array} [options.htmlProps] An array of html input props

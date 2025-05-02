@@ -5,6 +5,6 @@ const DescriptionsItem = (props: DescriptionsItemProps) => {
     return null;
 };
 
-DescriptionsItem.displayName = 'DescriptionsItem';
+DescriptionsItem.displayName = 'ElDescriptionsItem';
 
 export default DescriptionsItem;

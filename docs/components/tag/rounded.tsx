@@ -20,7 +20,7 @@ const App = () => {
         <>
             <div className="tag-group my-2 flex flex-wrap gap-1 items-center">
                 {items.map(item => (
-                    <ElTag key={item.type} type={item.type} theme="dark" round className="mx-1">
+                    <ElTag key={item.type} type={item.type} effect="dark" round className="mx-1">
                         {item.label}
                     </ElTag>
                 ))}
@@ -28,7 +28,7 @@ const App = () => {
 
             <div className="tag-group my-2 flex flex-wrap gap-1 items-center">
                 {items.map(item => (
-                    <ElTag key={item.type} type={item.type} theme="light" round className="mx-1">
+                    <ElTag key={item.type} type={item.type} effect="light" round className="mx-1">
                         {item.label}
                     </ElTag>
                 ))}
@@ -36,7 +36,7 @@ const App = () => {
 
             <div className="tag-group my-2 flex flex-wrap gap-1 items-center">
                 {items.map(item => (
-                    <ElTag key={item.type} type={item.type} theme="plain" round className="mx-1">
+                    <ElTag key={item.type} type={item.type} effect="plain" round className="mx-1">
                         {item.label}
                     </ElTag>
                 ))}

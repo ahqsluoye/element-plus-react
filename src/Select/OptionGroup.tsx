@@ -24,6 +24,6 @@ const OptionGroup: FC<SelectOptionGroupProps> = forwardRef<HTMLUListElement, Sel
     );
 });
 
-OptionGroup.displayName = 'OptionGroup';
+OptionGroup.displayName = 'ElOptionGroup';
 
 export default OptionGroup;

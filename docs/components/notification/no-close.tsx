@@ -4,7 +4,6 @@ import React from 'react';
 const App = () => {
     return (
         <ElButton
-            type="primary"
             onClick={() =>
                 ElNotification({
                     title: 'info',

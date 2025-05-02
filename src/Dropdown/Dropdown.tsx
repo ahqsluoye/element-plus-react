@@ -26,7 +26,7 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
         trigger,
         hideOnClick,
         onClick,
-        visiblechange,
+        onVisiblechange,
         onEnter,
         onMouseEnter,
         onMouseLeave,
@@ -44,18 +44,18 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
     const handleMouseEnter = useCallback(
         (event: React.MouseEvent<any>) => {
             onMouseEnter?.(event);
-            visiblechange?.(true);
+            onVisiblechange?.(true);
         },
-        [onMouseEnter, visiblechange],
+        [onMouseEnter, onVisiblechange],
     );
 
     /** 隐藏 */
     const handleMouseLeave = useCallback(
         (event: React.MouseEvent<any>) => {
             onMouseLeave?.(event);
-            visiblechange?.(false);
+            onVisiblechange?.(false);
         },
-        [onMouseLeave, visiblechange],
+        [onMouseLeave, onVisiblechange],
     );
 
     useImperativeHandle(ref, () => ({
@@ -89,6 +89,6 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
     );
 });
 
-Dropdown.displayName = 'Dropdown';
+Dropdown.displayName = 'ElDropdown';
 
 export default Dropdown;

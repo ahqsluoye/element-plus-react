@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { ElButton, ElDatePicker, ElForm, ElInput, ElLink, ElMessage, ElSelect, ElTooltip } from '@qsxy/element-plus-react';
+import { ElButton, ElDatePicker, ElForm, ElInput, ElLink, ElMessage, ElOption, ElSelect, ElTooltip } from '@qsxy/element-plus-react';
 import React, { useCallback } from 'react';
 
 const App = () => {
@@ -37,8 +37,8 @@ const App = () => {
                         prepend={
                             <ElForm.Item name={['address', 'province']} noStyle rules={[{ required: true, message: '省份不可为空' }]}>
                                 <ElSelect placeholder="选择省份" style={{ width: 140 }}>
-                                    <ElSelect.Option value="Zhejiang" label="浙江" />
-                                    <ElSelect.Option value="Jiangsu" label="江苏" />
+                                    <ElOption value="Zhejiang" label="浙江" />
+                                    <ElOption value="Jiangsu" label="江苏" />
                                 </ElSelect>
                             </ElForm.Item>
                         }

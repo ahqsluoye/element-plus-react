@@ -3,10 +3,6 @@ import { ComponentChildren } from '../types/common';
 
 /**
  * 获取特定名称的子组件
- * @author	Parker
- * @CreateTime	2022/3/30下午2:08:36
- * @LastEditor	Parker
- * @ModifyTime	2022/9/23 14:44:20
  * @param componentChildren 子组件
  * @param compName 目标组件名称 （`displayName`属性）
  * @param virtualCompName 子组件中的需要继续乡下递归查找的组件名称（`displayName`属性）

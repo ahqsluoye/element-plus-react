@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconName } from '../Icon';
+import { IconName, IconProps } from '../Icon';
 import { BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export interface ButtonProps
@@ -57,6 +57,8 @@ export interface ButtonProps
     dark?: boolean;
     /** 自定义图标 */
     icon?: IconName | boolean;
+    /** 自定义图标设置 */
+    iconProps?: Omit<IconProps, 'name'>;
     /** 自定义颜色 */
     color?: string;
     /** Format button to appear inside a content bloc */

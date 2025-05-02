@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { ElButton, ElForm, ElInput, ElSelect, useForm } from '@qsxy/element-plus-react';
+import { ElButton, ElForm, ElInput, ElOption, ElSelect, useForm } from '@qsxy/element-plus-react';
 import React, { useCallback } from 'react';
 
 const App = () => {
@@ -16,8 +16,8 @@ const App = () => {
             </ElForm.Item>
             <ElForm.Item name="region" label="活动区域">
                 <ElSelect placeholder="活动区域">
-                    <ElSelect.Option label="区域一" value="shanghai" />
-                    <ElSelect.Option label="区域二" value="beijing" />
+                    <ElOption label="区域一" value="shanghai" />
+                    <ElOption label="区域二" value="beijing" />
                 </ElSelect>
             </ElForm.Item>
             <ElForm.Item>

@@ -4,7 +4,6 @@ import { PopperOptions } from '../Popper';
 import { BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export interface PopconfirmProps extends BaseProps<React.ReactElement>, NativeProps, PopperOptions {
-    classPrefix?: string;
     /** 显示的内容 */
     title: string;
     /** 确认按钮文字 */
@@ -21,6 +20,8 @@ export interface PopconfirmProps extends BaseProps<React.ReactElement>, NativePr
     iconColor?: string;
     /** 是否隐藏 Icon */
     hideIcon?: boolean;
+    /** 弹层宽度，最小宽度 150px  */
+    width?: number;
     /** 点击确认按钮时触发 */
     onConfirm?: () => void;
     /** 点击取消按钮时触发 */

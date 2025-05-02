@@ -15,13 +15,6 @@ export interface PredefineRef {
     update: () => void;
 }
 
-/**
- * @author	Parker
- * @CreateTime	2022/5/14 19:24:19
- * @LastEditor	Parker
- * @ModifyTime	2025/2/22 19:59:12
- * @Description	Element Plus 颜色选择器组件魔改过来的，源代码见：https://github.com/element-plus/element-plus
- */
 const Predefine = forwardRef<PredefineRef, Props>((props, ref) => {
     const { color, colors, onChange } = props;
     const { b, e } = useClassNames('color-predefine');

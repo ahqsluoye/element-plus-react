@@ -1,4 +1,4 @@
-import { ElButton, ElSelect } from '@qsxy/element-plus-react';
+import { ElButton, ElOption, ElSelect } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
         <div>
             <ElSelect loading={loading} style={{ width: 300, marginRight: 20 }}>
                 {data.map(item => {
-                    return <ElSelect.Option value={item.value} label={item.label} key={item.value} />;
+                    return <ElOption value={item.value} label={item.label} key={item.value} />;
                 })}
             </ElSelect>
             <ElButton

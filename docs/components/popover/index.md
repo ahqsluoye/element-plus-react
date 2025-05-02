@@ -49,45 +49,35 @@ Popover 弹出框提供 9 种展示位置。
 
  -->
 
-## 属性
+## API
 
-| 属性名                    | 说明                                                                                                                                        | 类型            | 可选值                                                                                                    | 默认值                                                                     |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| trigger                   | 触发方式                                                                                                                                    | string          | click/focus/hover/contextmenu                                                                             | click                                                                      |
-| title                     | 标题                                                                                                                                        | string          | —                                                                                                         | —                                                                          |
-| effect                    | Tooltip 主题，Element Plus 内置了 `dark` / `light` 两种主题                                                                                 | string          | string                                                                                                    | light                                                                      |
-| content                   | 显示的内容，也可以通过写入默认 `slot` 修改显示内容                                                                                          | string          | —                                                                                                         | —                                                                          |
-| width                     | 宽度                                                                                                                                        | string / number | —                                                                                                         | 最小宽度 150px                                                             |
-| placement                 | 出现位置                                                                                                                                    | string          | top/top-start/top-end/bottom/bottom-start/bottom-end/left/left-start/left-end/right/right-start/right-end | bottom                                                                     |
-| disabled                  | Popover 是否可用                                                                                                                            | boolean         | —                                                                                                         | false                                                                      |
-| visible / v-model:visible | Popover 是否显示                                                                                                                            | Boolean         | —                                                                                                         | false                                                                      |
-| offset                    | 出现位置的偏移量                                                                                                                            | number          | —                                                                                                         | 0                                                                          |
-| transition                | 定义渐变动画                                                                                                                                | string          | —                                                                                                         | el-fade-in-linear                                                          |
-| show-arrow                | 是否显示 Tooltip 箭头， 欲了解更多信息，请参考 [ElPopper](https://github.com/element-plus/element-plus/tree/dev/packages/components/popper) | boolean         | —                                                                                                         | true                                                                       |
-| popper-options            | [popper.js](https://popper.js.org/docs/v2/) 的参数                                                                                          | object          | 详情参考 [popper.js](https://popper.js.org/docs/v2/)                                                      | `{modifiers: [{name: 'computeStyles',options: {gpuAcceleration: false}}]}` |
-| popper-class              | 为 popper 添加类名                                                                                                                          | string          | —                                                                                                         | —                                                                          |
-| popper-style              | 为 popper 自定义样式                                                                                                                        | string / object | —                                                                                                         | —                                                                          |
-| show-after                | 在触发后多久显示内容，单位毫秒                                                                                                              | number          | —                                                                                                         | 0                                                                          |
-| hide-after                | 延迟关闭，单位毫秒                                                                                                                          | number          | —                                                                                                         | 200                                                                        |
-| auto-close                | tooltip 出现后自动隐藏延时，单位毫秒                                                                                                        | number          | —                                                                                                         | 0                                                                          |
-| tabindex                  | Popover 组件的 [tabindex](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/tabindex)                                     | number          | —                                                                                                         | —                                                                          |
-| teleported                | 是否将 popover 的下拉列表插入至 body 元素                                                                                                   | boolean         | true / false                                                                                              | true                                                                       |
-| persistent                | 当 popover 组件长时间不触发且 `persistent` 属性设置为 `false` 时, popover 将会被删除                                                        | boolean         | —                                                                                                         | true                                                                       |
+### 属性
 
-## Slots
+| 属性名        | 说明                                                                                                               | 类型                                                                                                                                                                            | Default   |
+| ------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| trigger       | 触发方式                                                                                                           | <Enum>'click' \| 'hover' \| 'contextmenu'</Enum>                                                                                                                                | hover     |
+| title         | 标题                                                                                                               | `string`                                                                                                                                                                        | —         |
+| effect        | Tooltip 主题，Element Plus 内置了 `dark` / `light` 两种主题                                                        | <Enum>'dark' \| 'light'</Enum> / `string`                                                                                                                                       | light     |
+| content       | 显示的内容                                                                                                         | `string`                                                                                                                                                                        | ''        |
+| width         | 宽度                                                                                                               | `string` / `number`                                                                                                                                                             | 150       |
+| placement     | 出现位置                                                                                                           | <Enum>'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'</Enum> | bottom    |
+| disabled      | Popover 是否可用                                                                                                   | `boolean`                                                                                                                                                                       | false     |
+| visible       | Popover 是否显示                                                                                                   | `boolean` / `null`                                                                                                                                                              | null      |
+| offset        | 浮层偏移量, `Popover` 是在 `Tooltip`,基础上开发的， `Popover`的 offset 是 `undefined`, 但`Tooltip` 的 offset 是 12 | `number`                                                                                                                                                                        | undefined |
+| showArrow     | 是否显示 Tooltip 箭头                                                                                              | `boolean`                                                                                                                                                                       | true      |
+| popperOptions | [popper.js](https://popper.js.org/docs/v2/) 的参数                                                                 | `object`                                                                                                                                                                        |           |
+| popperClass   | 为 popper 添加类名                                                                                                 | `string`                                                                                                                                                                        | —         |
+| popperStyle   | 为 popper 自定义样式                                                                                               | `string` / `object`                                                                                                                                                             | —         |
+| showAfter     | 在触发后多久显示内容，单位毫秒                                                                                     | `number`                                                                                                                                                                        | 0         |
+| hideAfter     | 延迟关闭，单位毫秒                                                                                                 | `number`                                                                                                                                                                        | 200       |
 
-| 插槽名    | 说明                          |
-| --------- | ----------------------------- |
-| —         | Popover 内嵌 HTML 文本        |
-| reference | 触发 Popover 显示的 HTML 元素 |
+### 事件
 
-## 事件
-
-| 事件名       | 说明                   | 回调参数 |
-| ------------ | ---------------------- | -------- |
-| show         | 显示时触发             | —        |
-| before-enter | 显示动画播放前触发     | —        |
-| after-enter  | 显示动画播放完毕后触发 | —        |
-| hide         | 隐藏时触发             | —        |
-| before-leave | 隐藏动画播放前触发     | —        |
-| after-leave  | 隐藏动画播放完毕后触发 | —        |
+| 事件名      | 说明                   | 回调参数 |
+| ----------- | ---------------------- | -------- |
+| beforeEnter | 显示动画播放前触发     | —        |
+| onEnter     | 显示动画播放时触发     | —        |
+| afterEnter  | 显示动画播放完毕后触发 | —        |
+| beforeLeave | 隐藏动画播放前触发     | —        |
+| onLeave     | 隐藏动画播放时触发     | —        |
+| afterLeave  | 隐藏动画播放完毕后触发 | —        |

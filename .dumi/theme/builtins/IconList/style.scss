@@ -197,9 +197,10 @@
 .r-copy-code,
 .r-codeblock {
     background: var(--el-fill-color-light);
-    padding: 7px 14px;
+    // padding: 7px 14px;
     border-radius: 0.75em;
     cursor: pointer;
+    position: relative;
 }
 
 .r-copy-item {

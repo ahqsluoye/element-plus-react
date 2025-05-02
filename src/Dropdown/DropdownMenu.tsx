@@ -1,18 +1,18 @@
 import classNames from 'classnames';
 import noop from 'lodash/noop';
-import React, { FC, useContext } from 'react';
+import React, { useContext } from 'react';
 import Scrollbar from '../Scrollbar/Scrollbar';
 import { TooltipContext } from '../Tooltip/TooltipContext';
 import { useClassNames } from '../hooks';
 import { DropdownMenuProps } from './typings';
 
-const DropdownMenu: FC<DropdownMenuProps> = props => {
-    const { classPrefix = 'dropdown' } = props;
+const DropdownMenu = (props: DropdownMenuProps) => {
+    const { classPrefix = 'dropdown', maxHeight } = props;
     const { b, e } = useClassNames(classPrefix);
     const { onMouseEnter, onMouseLeave, trigger } = useContext(TooltipContext);
 
     return (
-        <Scrollbar viewClass={e`list`}>
+        <Scrollbar viewClass={e`list`} height={maxHeight}>
             <ul
                 onMouseEnter={trigger === 'hover' ? onMouseEnter : noop}
                 onMouseLeave={trigger === 'hover' ? onMouseLeave : noop}
@@ -25,6 +25,6 @@ const DropdownMenu: FC<DropdownMenuProps> = props => {
     );
 };
 
-DropdownMenu.displayName = 'DropdownMenu';
+DropdownMenu.displayName = 'ElDropdownMenu';
 
 export default DropdownMenu;

@@ -42,4 +42,6 @@ const TimeLineItem: FC<TimeLineItemProps> = props => {
     );
 };
 
+TimeLineItem.displayName = 'ElTimeLineItem';
+
 export default TimeLineItem;

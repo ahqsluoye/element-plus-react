@@ -3,7 +3,21 @@ import { PopperOptions } from '../Popper';
 import { TransitionProps } from '../Transition';
 import { AnimationEventProps, BaseProps, NativeProps } from '../types/common';
 
-export interface PopoverProps extends BaseProps<React.ReactElement>, NativeProps, PopperOptions, AnimationEventProps, Omit<TransitionProps, 'children'> {
+export interface PopoverProps
+    extends BaseProps<React.ReactElement>,
+        NativeProps<
+            | '--el-popover-bg-color'
+            | '--el-popover-font-size'
+            | '--el-popover-border-color'
+            | '--el-popover-padding'
+            | '--el-popover-title-font-size'
+            | '--el-popover-title-text-color'
+            | '--el-popover-text-color'
+            | '--el-popover-border-radius'
+        >,
+        PopperOptions,
+        AnimationEventProps,
+        Omit<TransitionProps, 'children'> {
     /** 触发下拉的行为 */
     trigger?: 'hover' | 'click' | 'contextmenu';
     /** 标题 */

@@ -21,12 +21,12 @@ const App = () => {
             <div className="tag-group my-2 flex flex-wrap gap-1 items-center">
                 <span className="tag-group__title m-1 line-height-2">Dark</span>
                 {items.map(item => (
-                    <ElTag key={item.type} type={item.type} theme="dark" className="mx-1">
+                    <ElTag key={item.type} type={item.type} effect="dark" className="mx-1">
                         {item.label}
                     </ElTag>
                 ))}
                 {items.map(item => (
-                    <ElTag key={item.label} type={item.type} theme="dark" closable className="mx-1">
+                    <ElTag key={item.label} type={item.type} effect="dark" closable className="mx-1">
                         {item.label}
                     </ElTag>
                 ))}
@@ -35,12 +35,12 @@ const App = () => {
             <div className="tag-group my-2 flex flex-wrap gap-1 items-center">
                 <span className="tag-group__title m-1 line-height-2">Light</span>
                 {items.map(item => (
-                    <ElTag key={item.type} type={item.type} theme="light" className="mx-1">
+                    <ElTag key={item.type} type={item.type} effect="light" className="mx-1">
                         {item.label}
                     </ElTag>
                 ))}
                 {items.map(item => (
-                    <ElTag key={item.label} type={item.type} theme="light" closable className="mx-1">
+                    <ElTag key={item.label} type={item.type} effect="light" closable className="mx-1">
                         {item.label}
                     </ElTag>
                 ))}
@@ -49,12 +49,12 @@ const App = () => {
             <div className="tag-group my-2 flex flex-wrap gap-1 items-center">
                 <span className="tag-group__title m-1 line-height-2">Plain</span>
                 {items.map(item => (
-                    <ElTag key={item.type} type={item.type} theme="plain" className="mx-1">
+                    <ElTag key={item.type} type={item.type} effect="plain" className="mx-1">
                         {item.label}
                     </ElTag>
                 ))}
                 {items.map(item => (
-                    <ElTag key={item.label} type={item.type} theme="plain" closable className="mx-1">
+                    <ElTag key={item.label} type={item.type} effect="plain" closable className="mx-1">
                         {item.label}
                     </ElTag>
                 ))}

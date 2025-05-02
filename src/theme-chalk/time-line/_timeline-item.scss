@@ -59,7 +59,7 @@
 @each $type in (success, warning, danger, info) {
     .#{$namespace}-timeline-item__node--#{$type} {
         background-color: var(--#{$namespace}-color-#{$type});
-        border-color: var(--#{$namespace}-color#{$type});
+        border-color: var(--#{$namespace}-color-#{$type});
     }
 }
 

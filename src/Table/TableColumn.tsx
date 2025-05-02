@@ -7,7 +7,7 @@ export interface TableColumnRef {
 }
 
 const TableColumn: FC<TableColumnProps<any>> = props => {
-    const getChildren = useChildrenInstance<TableColumnProps<any>>('TableColumn');
+    const getChildren = useChildrenInstance<TableColumnProps<any>>('ElTableColumn');
     if (props.children instanceof Function) {
         return <div />;
     } else {
@@ -16,6 +16,6 @@ const TableColumn: FC<TableColumnProps<any>> = props => {
     }
 };
 
-TableColumn.displayName = 'TableColumn';
+TableColumn.displayName = 'ElTableColumn';
 
 export default TableColumn;

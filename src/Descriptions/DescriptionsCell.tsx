@@ -8,10 +8,11 @@ interface Props {
     cell: React.ReactElement<DescriptionsItemProps>;
     tag: string;
     type: string;
+    _key: string;
 }
 
-const DescriptionsCell = ({ cell, tag, type }: Props) => {
-    const { label, span, align, labelAlign, className, labelClassName, width, minWidth, children } = cell.props;
+const DescriptionsCell = memo(({ cell, tag, type, _key }: Props) => {
+    const { label, span = 1, align, labelAlign, className, labelClassName, width, minWidth, children } = cell.props;
     const { direction, border } = useContext(DescriptionsContext);
     const { e, is } = useClassNames('descriptions');
 
@@ -26,6 +27,7 @@ const DescriptionsCell = ({ cell, tag, type }: Props) => {
             return createElement(
                 tag,
                 {
+                    key: _key,
                     style,
                     className: classNames(e`cell`, e`label`, is({ 'bordered-label': border, 'vertical-label': isVertical, [labelAlign]: labelAlign }), labelClassName),
                     colSpan: isVertical ? span : 1,
@@ -36,6 +38,7 @@ const DescriptionsCell = ({ cell, tag, type }: Props) => {
             return createElement(
                 tag,
                 {
+                    key: _key,
                     style,
                     className: classNames(e`cell`, e`content`, is({ 'bordered-label': border, 'vertical-label': isVertical, [align]: align }), className),
                     colSpan: isVertical ? span : span * 2 - 1,
@@ -46,18 +49,19 @@ const DescriptionsCell = ({ cell, tag, type }: Props) => {
             return createElement(
                 'td',
                 {
+                    key: _key,
                     style,
                     className: classNames(e`cell`, is({ [align]: align })),
                     colSpan: span,
                 },
                 [
-                    createElement('span', { className: classNames(e`label`, labelClassName) }, label),
-                    createElement('span', { className: classNames(e`content`, className) }, children),
+                    createElement('span', { key: _key + '1', className: classNames(e`label`, labelClassName) }, label),
+                    createElement('span', { key: _key + '2', className: classNames(e`content`, className) }, children),
                 ],
             );
     }
-};
+});
 
-DescriptionsCell.displayName = 'DescriptionsCell';
+DescriptionsCell.displayName = 'ElDescriptionsCell';
 
-export default memo(DescriptionsCell);
+export default DescriptionsCell;

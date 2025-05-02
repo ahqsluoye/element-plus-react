@@ -50,6 +50,6 @@ const TabPane = forwardRef<HTMLDivElement, TabPaneProps>((props, ref) => {
     }
 });
 
-TabPane.displayName = 'TabPane';
+TabPane.displayName = 'ElTabPane';
 
 export default TabPane;

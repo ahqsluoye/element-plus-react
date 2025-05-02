@@ -12,6 +12,7 @@ import Popper from '../Popper/Popper';
 import { PopperOptionRef } from '../Popper/typings';
 import { Tag } from '../Tag';
 import Tooltip from '../Tooltip/Tooltip';
+import { TooltipRef } from '../Tooltip/typings';
 import { isNotEmpty, mergeDefaultProps } from '../Util';
 import { partitionAnimationProps, partitionHTMLProps, partitionPopperPropsUtils, useChildrenInstance, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import SelectDropdown from './SelectDropdown';
@@ -28,6 +29,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                     <Icon prefix="fas" name="spinner" spin /> 加载中...
                 </span>
             ),
+            showArrow: true,
             clearable: true,
             filterable: false,
             error: false,
@@ -36,6 +38,8 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
             maxWidth: 500,
             collapseTagsTooltip: true,
             maxCollapseTags: 1,
+            tagType: 'info',
+            tagEffect: 'light',
         },
         props,
     );
@@ -50,6 +54,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
     const selectDropdownRef = useRef<SelectDropdownRef>(null);
     const inputInstance = useRef<InputRef>(null);
     const searchInstance = useRef<InputRef>(null);
+    const tagTooltipRef = useRef<TooltipRef>(null);
 
     const {
         filterable,
@@ -60,6 +65,9 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
         collapseTags = false,
         maxCollapseTags,
         collapseTagsTooltip,
+        tagType,
+        tagEffect,
+        showArrow,
         collapseTips,
         filterMethod,
         onChange,
@@ -69,6 +77,9 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
         prepend,
         append,
         onLoadSuccess,
+        onVisibleChange,
+        onRemoveTag,
+        onClear: onClearProp,
         ...rest
     } = props;
     const [htmlInputProps] = partitionHTMLProps(rest);
@@ -104,7 +115,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
     }, [createItem, multiValue, multiple, props.placeholder]);
 
     /** 获取所有的option组件 */
-    const getOptionInstance = useChildrenInstance<SelectOptionGroupProps | SelectOptionProps, SelectOptionProps>('Select.Option', 'OptionGroup');
+    const getOptionInstance = useChildrenInstance<SelectOptionGroupProps | SelectOptionProps, SelectOptionProps>('ElOption', 'ElOptionGroup');
 
     const optionData = useMemo(() => {
         if (props.children) {
@@ -186,8 +197,14 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
             const res = filter(multiValue, item1 => item1 !== item);
             setValue(res);
             onChange?.(res, multiLabel);
+            onRemoveTag?.(item);
+            setTimeout(() => {
+                if (tagTooltipRef.current) {
+                    tagTooltipRef.current.updatePopper();
+                }
+            }, 50);
         },
-        [multiLabel, multiValue, onChange, setValue],
+        [multiLabel, multiValue, onChange, onRemoveTag, setValue],
     );
 
     /** 重置值 */
@@ -197,7 +214,8 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
         selectDropdownRef.current?.hover('');
         onChange?.(multiple ? [] : '', multiple ? [] : '');
         setCreateItem('');
-    }, [multiple, onChange, setValue]);
+        onClearProp?.();
+    }, [multiple, onChange, onClearProp, setValue]);
 
     /** 选中项回调 */
     const onChoose = useCallback(
@@ -239,6 +257,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
         if (visible && filterable && !allowCreate) {
             searchInstance.current?.focus();
         }
+        onVisibleChange?.(visible);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visible]);
 
@@ -251,13 +270,15 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
 
     /** 多选框选择选项后，动态调整input框高度 */
     useEffect(() => {
-        if (wrapperRef.current) {
-            const height = wrapperRef.current?.clientHeight + 4;
-            setInputHeight(height <= 32 ? 32 : height + 32);
-        }
-        if (popperInstRef.current && popperInstRef.current.update) {
-            popperInstRef.current?.update();
-        }
+        setTimeout(() => {
+            if (wrapperRef.current) {
+                const height = wrapperRef.current?.clientHeight + 4;
+                setInputHeight(height <= 32 ? 32 : height);
+            }
+            if (popperInstRef.current && popperInstRef.current.update) {
+                popperInstRef.current?.update();
+            }
+        }, 50);
     }, [multiValue]);
 
     /** 初次加载时反显选中文本 */
@@ -281,7 +302,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
 
     useImperativeHandle(ref, () => ({
         popperInstRef,
-        label,
+        selectedLabel: label,
         setLabel,
         inputInstance,
         searchInstance,
@@ -291,9 +312,6 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
         clear: onClear,
         setVisible,
     }));
-
-    // @ts-ignore
-    useImperativeHandle(ref, () => containerRef.current);
 
     return (
         <div className={classNames(b(), e`default`, is({ disabled }), m({ [size]: size }), props.className)} style={append || prepend ? {} : props.style} ref={containerRef}>
@@ -307,20 +325,37 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                         <div className={classNames(b`tags-wrapper`, 'has-prefix')} onClick={onClick} ref={wrapperRef}>
                             {(collapseTags ? multiLabel.slice(0, maxCollapseTags) : multiLabel).map((item, i) => {
                                 return (
-                                    <Tag type="info" key={multiValue[i]} closable={!disabled} onClick={onClick} onClose={() => onCloseTag(multiValue[i])} disableTransitions>
+                                    <Tag
+                                        type={tagType}
+                                        key={multiValue[i]}
+                                        closable={!disabled}
+                                        effect={tagEffect}
+                                        onClick={onClick}
+                                        onClose={() => onCloseTag(multiValue[i])}
+                                        disableTransitions
+                                    >
                                         {item}
                                     </Tag>
                                 );
                             })}
                             {collapseTags && multiValue?.length > maxCollapseTags && (
                                 <Tooltip
+                                    ref={tagTooltipRef}
                                     popperClass={e`tooltip`}
                                     placement="top"
                                     disabled={!collapseTagsTooltip}
                                     content={
                                         <>
-                                            {multiLabel.slice(maxCollapseTags, multiLabel.length).map(item => (
-                                                <Tag key={item} type="info" disableTransitions>
+                                            {multiLabel.slice(maxCollapseTags, multiLabel.length).map((item, i) => (
+                                                <Tag
+                                                    key={item}
+                                                    type={tagType}
+                                                    disableTransitions
+                                                    closable={!disabled}
+                                                    effect={tagEffect}
+                                                    onClick={onClick}
+                                                    onClose={() => onCloseTag(multiValue[i + maxCollapseTags])}
+                                                >
                                                     {item}
                                                 </Tag>
                                             ))}
@@ -329,7 +364,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                                     effect="light"
                                     enterable
                                 >
-                                    <Tag type="info" onClick={onClick} disableTransitions>
+                                    <Tag type={tagType} onClick={onClick} disableTransitions effect={tagEffect}>
                                         {collapseTips ? collapseTips(multiLabel.length - maxCollapseTags, multiLabel.length) : `+ ${multiLabel.length - maxCollapseTags}`}
                                     </Tag>
                                 </Tooltip>
@@ -434,6 +469,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                 placement={'bottom-start'}
                 transitionAppear
                 unmountOnExit
+                showArrow={showArrow}
                 {...transitionProps}
                 {...popperProps}
             >

@@ -16,13 +16,6 @@ export interface AlphaSliderRef {
     update: () => void;
 }
 
-/**
- * @author	Parker
- * @CreateTime	2022/5/14 18:16:52
- * @LastEditor	Parker
- * @ModifyTime	2022/5/14 22:17:13
- * @Description	Element Plus 颜色选择器组件魔改过来的，源代码见：https://github.com/element-plus/element-plus
- */
 const AlphaSlider = forwardRef<AlphaSliderRef, Props>((props, ref) => {
     const { color, vertical, onChange } = props;
     const { b, e, is } = useClassNames('color-alpha-slider');

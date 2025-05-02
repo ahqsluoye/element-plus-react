@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconName } from '../Icon';
-import { BaseProps, NativeProps } from '../types/common';
+import { BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export type TimeLineProps = BaseProps &
     NativeProps<
@@ -24,7 +24,7 @@ export type TimeLineItemProps = BaseProps &
         /** 时间戳位置 */
         placement?: 'top' | 'bottom';
         /** 节点类型 */
-        type?: 'primary' | 'success' | 'warning' | 'error' | 'info';
+        type?: TypeAttributes.Appearance;
         /** 节点颜色 */
         color?: string;
         /** 节点尺寸 */

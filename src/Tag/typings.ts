@@ -17,7 +17,7 @@ export interface TagProps extends Omit<TooltipBaseProps<HTMLSpanElement>, 'onCli
     /** 尺寸 */
     size?: TypeAttributes.Size;
     /** 主题 */
-    theme?: 'dark' | 'light' | 'plain';
+    effect?: 'dark' | 'light' | 'plain';
     /** 点击 Tag 时触发的事件 */
     onClick?: (e?: React.MouseEvent<HTMLSpanElement>) => void;
     /** 关闭 Tag 时触发的事件 */

@@ -7,10 +7,6 @@ export const animationAllProps = ['transitionAppear', 'unmountOnExit', 'beforeEn
 
 /**
  * Returns an array of objects consisting of: props of html input element and rest.
- * @author	Parker
- * @CreateTime	2022/4/8 17:46:40
- * @LastEditor	Parker
- * @ModifyTime	2022/4/22 15:38:45
  * @param {object} props A ReactElement props object
  * @param {Object} [options={}]
  * @param {Array} [options.htmlProps] An array of html input props

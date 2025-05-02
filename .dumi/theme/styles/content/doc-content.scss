@@ -24,11 +24,11 @@
         padding: 48px 32px;
     }
     @include respond-to('xxl') {
-        padding: 64px 0 48px 64px;
+        padding: 64px 0 15px 64px;
         display: flex;
     }
     @include respond-to('max') {
-        padding: 64px 0 48px 64px;
+        padding: 64px 0 15px 64px;
         display: flex;
     }
 }

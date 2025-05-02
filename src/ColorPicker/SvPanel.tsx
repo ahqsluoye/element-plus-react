@@ -14,13 +14,6 @@ export interface SvPanelRef {
     update: () => void;
 }
 
-/**
- * @author	Parker
- * @CreateTime	2022/5/14 16:16:37
- * @LastEditor	Parker
- * @ModifyTime	2022/11/20 11:54:52
- * @Description	Element Plus 颜色选择器组件魔改过来的，源代码见：https://github.com/element-plus/element-plus
- */
 const SvPanel = forwardRef<SvPanelRef, Props>((props, ref) => {
     const { color, onChange } = props;
     const { b, e } = useClassNames('color-svpanel');

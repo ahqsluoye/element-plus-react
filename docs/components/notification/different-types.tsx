@@ -5,7 +5,6 @@ const App = () => {
     return (
         <>
             <ElButton
-                type="primary"
                 onClick={() =>
                     ElNotification({
                         title: '消息',
@@ -18,7 +17,6 @@ const App = () => {
                 消息
             </ElButton>
             <ElButton
-                type="success"
                 onClick={() =>
                     ElNotification({
                         title: '成功',
@@ -31,7 +29,6 @@ const App = () => {
                 成功
             </ElButton>
             <ElButton
-                type="warning"
                 onClick={() =>
                     ElNotification.warning({
                         title: '警告',
@@ -43,7 +40,6 @@ const App = () => {
                 警告
             </ElButton>
             <ElButton
-                type="danger"
                 onClick={() =>
                     ElNotification.error({
                         title: '错误',

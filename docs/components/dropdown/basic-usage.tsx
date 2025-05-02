@@ -1,4 +1,4 @@
-import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon } from '@qsxy/element-plus-react';
+import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon, ElLink } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {
@@ -16,10 +16,10 @@ const App = () => {
                 </ElDropdownMenu>
             }
         >
-            <span className="el-dropdown-link">
+            <ElLink type="primary">
                 下拉菜单
                 <ElIcon name="angle-down" style={{ paddingLeft: 5 }} />
-            </span>
+            </ElLink>
         </ElDropdown>
     );
 };
