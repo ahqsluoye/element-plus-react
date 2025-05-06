@@ -8,16 +8,16 @@ const ImgEmpty = () => {
         <svg viewBox="0 0 79 86" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             <defs>
                 <linearGradient id={ids[0]} x1="38.8503086%" y1="0%" x2="61.1496914%" y2="100%">
-                    <stop stop-color="var(--el-empty-fill-color-1)" offset="0%" />
-                    <stop stop-color="var(--el-empty-fill-color-4)" offset="100%" />
+                    <stop stopColor="var(--el-empty-fill-color-1)" offset="0%" />
+                    <stop stopColor="var(--el-empty-fill-color-4)" offset="100%" />
                 </linearGradient>
                 <linearGradient id={ids[1]} x1="0%" y1="9.5%" x2="100%" y2="90.5%">
-                    <stop stop-color="var(--el-empty-fill-color-1)" offset="0%" />
-                    <stop stop-color="var(--el-empty-fill-color-6)" offset="100%" />
+                    <stop stopColor="var(--el-empty-fill-color-1)" offset="0%" />
+                    <stop stopColor="var(--el-empty-fill-color-6)" offset="100%" />
                 </linearGradient>
                 <rect id="path-3-1" x="0" y="0" width="17" height="36" />
             </defs>
-            <g id="Illustrations" stroke="none" stroke-width="1" fill="none" fillRule="evenodd">
+            <g id="Illustrations" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g id="B-type" transform="translate(-1268.000000, -535.000000)">
                     <g id="Group-2" transform="translate(1268.000000, 535.000000)">
                         <path

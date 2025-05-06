@@ -1,4 +1,5 @@
 import React, { FC, useCallback, useMemo, useState } from 'react';
+import ElOption from '../Select/Option';
 import Select from '../Select/Select';
 import { useClassNames } from '../hooks';
 
@@ -86,7 +87,7 @@ const Options: FC<Props> = props => {
                     onChange={handleChangeSize}
                 >
                     {pageSizeOptions.map((opt, i) => (
-                        <Select.Option key={i} value={opt} label={`${opt} 条/页`} />
+                        <ElOption key={i} value={opt} label={`${opt} 条/页`} />
                     ))}
                 </Select>
             )

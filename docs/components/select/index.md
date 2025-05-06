@@ -39,7 +39,7 @@ lang: zh-CN
 
 多选选择器使用 tag 组件来展示已选中的选项。
 
-为 `ElSelect` 设置 `multiple` 属性即可启用多选， 此时 `value` 的值为当前选中值所组成的数组。 默认情况下选中值会以 Tag 组件的形式展现， 你也可以设置 `collapseTags` 属性将它们合并为一段文字。 您可以使用 `collapse-tags-tooltip` 属性来启用鼠标悬停折叠文字以显示具体所选值的行为。
+为 `ElSelect` 设置 `multiple` 属性即可启用多选， 此时 `value` 的值为当前选中值所组成的数组。 默认情况下选中值会以 Tag 组件的形式展现， 你也可以设置 `collapseTags` 属性将它们合并为一段文字。 您可以使用 `collapseTagsTooltip` 属性来启用鼠标悬停折叠文字以显示具体所选值的行为。
 
 <code src="./multiple.tsx"></code>
 
@@ -47,7 +47,7 @@ lang: zh-CN
 
 你可以自定义如何来渲染每一个选项。
 
-将自定义的 HTML 模板插入 `ElOption` 的 slot 中即可。
+将自定义的 HTML 模板用 `ElOption` 包裹即可。
 
 <code src="./custom-template.tsx"></code>
 
@@ -79,15 +79,17 @@ lang: zh-CN
 
 创建并选中未包含在初始选项中的条目。
 
-通过使用 `allowCreate` 属性，用户可以通过输入框创建新项目。 为了使 `allowCreate` 正常工作， `filterable` 的值必须为 `true`。 本例还使用了 `default-first-option` 属性， 在该属性为 `true` 的情况下，按下回车就可以选中当前选项列表中的第一个选项，无需使用鼠标或键盘方向键进行定位。
+通过使用 `allowCreate` 属性，用户可以通过输入框创建新项目。
+
+ <!-- 本例还使用了 `default-first-option` 属性， 在该属性为 `true` 的情况下，按下回车就可以选中当前选项列表中的第一个选项，无需使用鼠标或键盘方向键进行定位。 -->
 
 <code src="./allow-create.tsx"></code>
 
-:::info{title=TIP}
+<!-- :::info{title=TIP}
 
 如果 Select 的绑定值为对象类型，请务必指定 `valueKey` 作为它的唯一性标识。
 
-:::
+::: -->
 
 ## Select API
 

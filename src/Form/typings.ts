@@ -11,7 +11,7 @@ type RenderProps = (values: Store, form: FormInstance) => React.ReactElement;
 
 export type FormRules = Record<string, Rule[] | Record<string, Rule[]>>;
 
-export interface FormProps<Values = any> extends BaseFormProps {
+export interface FormProps<Values = Store> extends BaseFormProps {
     /** 经 Form.useForm() 创建的 form 控制实例，不提供时会自动创建 */
     form?: FormInstance<Values>;
 
@@ -37,7 +37,7 @@ export interface FormProps<Values = any> extends BaseFormProps {
     /** 配置 Form.Item 的 colon 的默认值。表示是否显示 label 后面的冒号 */
     colon?: boolean;
     /** 表单默认值，只有初始化以及重置时生效 */
-    initialValues?: Store;
+    initialValues?: Values;
     /** 表单域标签的位置， 如果值为 left 或者 right 时，则需要设置 label-width */
     labelPosition?: 'left' | 'right' | 'top';
     /** 表单域标签的宽度，例如 '50px'。 作为 Form 直接子元素的 form-item 会继承该值。 支持 auto。 */

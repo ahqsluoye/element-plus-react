@@ -9,7 +9,7 @@ lang: zh-CN
 
 ## 基础用法
 
-要使用它，只需要在 `<el-input-number>` 元素中使用 `vModel` 绑定变量即可，变量的初始值即为默认值。
+要使用它，只需要在 `<ElInputNumber >` 元素中使用 `value` 绑定变量即可，变量的初始值即为默认值。
 
 <code src="./basic.tsx"></code>
 

@@ -79,18 +79,18 @@ const TableHeaderCell = (p: Props) => {
     const handleSort = useCallback(
         (_sort?: 'ascending' | 'descending' | null) => {
             if (column.sortable === 'custom' && sortProp && _sort) {
-                const _data = onSortChange?.({ column, prop: sortProp, order: _sort });
-                if (_data && _data instanceof Array) {
-                    try {
-                        setData(mergeTreeData(initialData.current, treeNodes.current, treeProps, rowKey));
-                    } catch (error) {
-                        // eslint-disable-next-line no-console
-                        console.warn('warning： 返回的数据似乎有问题');
-                    }
-                } else {
-                    // eslint-disable-next-line no-console
-                    console.warn('warning： 返回的数据格式有问题');
-                }
+                onSortChange?.({ column, prop: sortProp, order: _sort });
+                // if (_data && _data instanceof Array) {
+                //     try {
+                //         setData(mergeTreeData(initialData.current, treeNodes.current, treeProps, rowKey));
+                //     } catch (error) {
+                //         // eslint-disable-next-line no-console
+                //         console.warn('warning： 返回的数据似乎有问题');
+                //     }
+                // } else {
+                //     // eslint-disable-next-line no-console
+                //     console.warn('warning： 返回的数据格式有问题');
+                // }
             } else if (column.sortMethod) {
                 const _data = initialData.current.sort((a, b) => column.sortMethod(a, b));
                 setData(mergeTreeData(_data, treeNodes.current, treeProps, rowKey));

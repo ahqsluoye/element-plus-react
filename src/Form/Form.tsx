@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import omit from 'lodash/omit';
-import React, { FC, forwardRef, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { ForwardedRef, forwardRef, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import FieldContext, { HOOK_MARK } from './FieldContext';
@@ -12,17 +12,9 @@ import useForm from './useForm';
 import useWatch from './useWatch';
 import { isSimilar } from './utils/valueUtil';
 
-interface FormComponent extends FC<FormProps> {
-    FormProvider: typeof FormProvider;
-    Item: typeof Field;
-    List: typeof List;
-    useForm: typeof useForm;
-    useWatch: typeof useWatch;
-}
-
 type RenderProps = (values: Store, form: FormInstance) => React.ReactElement;
 
-const Form: FormComponent = forwardRef<FormInstance, FormProps>((props, ref) => {
+function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: ForwardedRef<FormInstance<RecordType>>) {
     props = mergeDefaultProps(
         {
             inline: false,
@@ -100,7 +92,7 @@ const Form: FormComponent = forwardRef<FormInstance, FormProps>((props, ref) => 
             formContext.triggerFormFinish(name, values);
 
             if (onFinish) {
-                onFinish(values);
+                onFinish(values as RecordType);
             }
         },
         onFinishFailed,
@@ -193,7 +185,22 @@ const Form: FormComponent = forwardRef<FormInstance, FormProps>((props, ref) => 
             {wrapperNode}
         </Comp>
     );
-}) as unknown as FormComponent;
+}
+
+const ForwardForm = forwardRef(InternalForm) as <RecordType = Store>(props: FormProps<RecordType> & { ref?: ForwardedRef<FormInstance<RecordType>> }) => React.ReactElement;
+
+type InternalFormType = typeof ForwardForm;
+
+interface FormInterface extends InternalFormType {
+    displayName?: string;
+    FormProvider: typeof FormProvider;
+    Item: typeof Field;
+    List: typeof List;
+    useForm: typeof useForm;
+    useWatch: typeof useWatch;
+}
+
+const Form = ForwardForm as FormInterface;
 
 Form.FormProvider = FormProvider;
 Form.Item = Field;

@@ -157,7 +157,7 @@ export interface TableEvents<T> {
     /** 当某一列的表头被鼠标右键点击时触发该事件  */
     onHeaderContextmenu?: (column: TableColumnCtx<T>, event: React.MouseEvent<Element>) => void;
     /** 当表格的排序条件发生变化的时候会触发该事件  */
-    onSortChange?: (data: { column: TableColumnCtx<T>; prop: string; order: 'ascending' | 'descending' }) => T[];
+    onSortChange?: (data: { column: TableColumnCtx<T>; prop: string; order: 'ascending' | 'descending' }) => void;
     /** column 的 key， 如果需要使用 filterChange 事件，则需要此属性标识是哪个 column 的筛选条件  */
     onFilterChange?: (filters: any) => void;
     /** 当表格的当前行发生变化的时候会触发该事件，如果要高亮当前行，请打开表格的 highlightCurrentRow 属性  */

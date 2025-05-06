@@ -41,6 +41,6 @@ const Empty: FC<IEmptyProps> = props => {
     );
 };
 
-Empty.displayName = 'Empty';
+Empty.displayName = 'ElEmpty';
 
 export default Empty;
