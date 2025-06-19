@@ -55,7 +55,7 @@ lang: zh-CN
 
 你可以为选项进行分组来区分不同的选项
 
-使用 `el-option-group` 对备选项进行分组，它的 `label` 属性为分组名
+使用 `ElOptionGroup` 对备选项进行分组，它的 `label` 属性为分组名
 
 <code src="./grouping.tsx"></code>
 
@@ -71,7 +71,7 @@ lang: zh-CN
 
 输入关键字以从远程服务器中查找数据。
 
-从服务器搜索数据，输入关键字进行查找。为了启用远程搜索，需要将`filterable`和`remote`设置为`true`，同时传入一个`remoteMethod`。 `remoteMethod`为一个`Function`，它会在输入值发生变化时调用，参数为当前输入值。 需要注意的是，如果 `ElOption` 是通过 `vFor` 指令渲染出来的，此时需要为 `ElOption` 添加 `key` 属性， 且其值需具有唯一性，比如这个例子中的 `item.value`。
+从服务器搜索数据，输入关键字进行查找。为了启用远程搜索，需要将`filterable`和`remote`设置为`true`，同时传入一个`remoteMethod`。 `remoteMethod`为一个`Function`，它会在输入值发生变化时调用，参数为当前输入值。
 
 <code src="./remote-search.tsx"></code>
 

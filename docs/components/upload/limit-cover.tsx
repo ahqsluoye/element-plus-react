@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { ElButton, ElUpload, UploadProps, UploadRawFile, UploadRef, genFileId } from '@qsxy/element-plus-react';
 import React, { useRef } from 'react';
 

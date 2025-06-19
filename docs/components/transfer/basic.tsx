@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { ElTransfer } from '@qsxy/element-plus-react';
 import React, { useMemo, useState } from 'react';
 

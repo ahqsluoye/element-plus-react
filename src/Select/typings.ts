@@ -73,6 +73,10 @@ export interface SelectProps<V = ValueType> extends Omit<FormControlBaseProps<V>
     size?: TypeAttributes.Size;
     /** 是否追加到body下 */
     appendToBody?: boolean;
+    /** 其中的选项是否从服务器远程加载 */
+    remote?: boolean;
+    /** 自定义搜索方法 */
+    remoteMethod?: (searchText: string) => void;
     /** 标签类型 */
     tagType?: TypeAttributes.Appearance;
     /** 标签效果 */
@@ -119,6 +123,7 @@ export interface SelectDropdownProps extends SelectProps {
 
 export interface SelectDropdownRef {
     clear: () => void;
+    onEnter: () => void;
     hover: (value: ValueType) => void;
     scrollToSelected: () => void;
 }

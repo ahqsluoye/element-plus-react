@@ -4,6 +4,7 @@ import React, { Children, ComponentType, cloneElement, forwardRef, useCallback, 
 import scrollIntoView from 'scroll-into-view-if-needed';
 import { Divider } from '../Divider';
 import Icon from '../Icon/Icon';
+import { InputRef } from '../Input';
 import Input from '../Input/Input';
 import Scrollbar from '../Scrollbar/Scrollbar';
 import { isEmpty, isNotEmpty } from '../Util';
@@ -18,6 +19,8 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
         filterable,
         multiple = false,
         filterMethod,
+        remote = false,
+        remoteMethod,
         loadingText,
         noMatchText,
         noDataText,
@@ -31,11 +34,14 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
     } = props;
     const { b, e, be, is } = useClassNames('select');
     const ulRef = useRef<HTMLUListElement>(null);
+    const remoteSearchRef = useRef<InputRef>(null);
 
     // 下拉项高亮
     const [hover, setHover] = useState(value);
     // 搜索关键词
     const [searchText, setSearchText] = useState('');
+    // const [remoteSearch, setRemoteSearch] = useState('');
+    // const remoteSearch = useMemo(() => searchInstance.current?.getValue(), [searchInstance]);
 
     /** 搜索时 */
     useEffect(() => {
@@ -66,6 +72,14 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
         [searchText],
     );
 
+    /** 搜索 */
+    const onRemote = useCallback(
+        (val: string) => {
+            remoteMethod?.(val);
+        },
+        [remoteMethod],
+    );
+
     const filterAction = useCallback(
         (p: SelectOptionProps) => {
             if (isNotEmpty(searchText) && isNotEmpty(p.value)) {
@@ -94,8 +108,21 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
         }
     }, []);
 
+    // useEffect(() => {
+    //     if (remoteSearch == '') {
+    //         remoteMethod?.('');
+    //     }
+    // }, [remoteSearch]);
+
     useImperativeHandle(ref, () => ({
-        clear: () => setSearchText(''),
+        clear: () => {
+            setSearchText('');
+            remoteMethod?.('');
+        },
+        onEnter: () => {
+            searchInstance.current?.focus();
+            remoteSearchRef.current?.focus();
+        },
         hover: setHover,
         scrollToSelected,
     }));
@@ -193,21 +220,37 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
     return (
         <div className={classNames(b`dorpdown`, is({ multiple }))} onClick={event => event.stopPropagation()} ref={contentRef}>
             <>
-                {filterable && (
+                {filterable && !remote ? (
                     <div className={e`search`} onClick={event => event.stopPropagation()}>
                         <Input
                             ref={searchInstance}
                             placeholder="请输入关键词"
                             clearable
                             plain
-                            debounceInput
+                            // debounceInput
                             onClear={onClearSearch}
                             onChange={onSearch}
                             prefix={<Icon prefix="fal" name="search" />}
                         />
                         <Divider style={{ margin: 0 }} />
                     </div>
-                )}
+                ) : null}
+                {filterable && remote ? (
+                    <div className={e`search`} onClick={event => event.stopPropagation()}>
+                        <Input
+                            ref={remoteSearchRef}
+                            // value={remoteSearch}
+                            placeholder="请输入关键词"
+                            clearable
+                            plain
+                            debounceInput
+                            onClear={() => onRemote('')}
+                            onChange={onRemote}
+                            prefix={<Icon prefix="fal" name="search" />}
+                        />
+                        <Divider style={{ margin: 0 }} />
+                    </div>
+                ) : null}
                 <SelectContext.Provider value={{ value, onChoose, hover, setHover, multiple }}>
                     <Scrollbar wrapClass={be('dropdown', 'wrap')}>
                         <ul className={be('dropdown', 'list')} ref={ulRef}>

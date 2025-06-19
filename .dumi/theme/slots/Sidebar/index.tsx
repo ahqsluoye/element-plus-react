@@ -15,6 +15,7 @@ const Sidebar: FC = memo(() => {
         setActive(location.pathname);
         const node = document.querySelector(`[href="${location.pathname}"]`);
         if (node) {
+            console.log(node);
             scrollIntoView(node, {
                 scrollMode: 'if-needed',
                 block: 'center',

@@ -117,6 +117,7 @@ export interface MessageBoxMethod {
 
 export interface MessageBoxRef {
     ref: RefObject<HTMLDivElement>;
+    inputValue?: string;
     /** 关闭方法 */
     close: () => void;
     /** 设置确认按钮是否加载状态 */

@@ -9,6 +9,9 @@ const App = () => {
                     confirmButtonText: '确定',
                     inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
                     inputErrorMessage: '邮箱格式不正确',
+                    beforeClose(action, done, ref) {
+                        console.log(action, done, ref);
+                    },
                 })
                     .then(({ value }) => {
                         ElMessage({

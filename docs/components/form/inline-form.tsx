@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { ElButton, ElForm, ElInput, ElOption, ElSelect, useForm } from '@qsxy/element-plus-react';
 import React, { useCallback } from 'react';
 

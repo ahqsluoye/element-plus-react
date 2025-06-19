@@ -159,6 +159,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                 }
                 selectDropdownRef.current?.scrollToSelected();
                 onEnter?.(node);
+                selectDropdownRef.current?.onEnter();
             }
         },
         [be, onEnter, popperStyle, props.maxWidth, visible],

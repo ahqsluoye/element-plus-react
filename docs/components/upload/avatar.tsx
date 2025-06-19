@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ElIcon, ElMessage, ElUpload, UploadProps } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 import './avatar.scss';

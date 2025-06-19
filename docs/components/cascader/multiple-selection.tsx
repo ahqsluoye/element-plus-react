@@ -19,7 +19,6 @@ const App = () => {
             ]}
             collapseTips={num => `鼠标悬浮查看更多（+${num}）`}
             onChange={(value, l, label) => {
-                // eslint-disable-next-line no-console
                 console.log(value, l, label);
             }}
         />

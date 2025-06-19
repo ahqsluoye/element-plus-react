@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { ElTreeSelect } from '@qsxy/element-plus-react';
 import cloneDeep from 'lodash/cloneDeep';
 import React from 'react';

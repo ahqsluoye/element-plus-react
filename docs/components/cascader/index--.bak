@@ -30,7 +30,6 @@ const propsData = useMemo(
 ['showAllLevels', '输入框中是否显示选中值的完整路径', 'boolean', '—', 'true'],
 // ['collapseTags', '多选模式下是否折叠 Tag', 'boolean', '-', 'false'],
 // ['collapseTagsTooltip', '当鼠标悬停于折叠标签的文本时，是否显示所有选中的标签。 要使用此属性，collapse-tags 属性必须设定为 true', 'boolean', '-', 'false'],
-// eslint-disable-next-line quotes
 ['separator', '用于分隔选项的字符', 'string', '—', "'/'"],
 // ['filterable', '该选项是否可以被搜索', 'boolean', '—', '—'],
 // ['filterMethod', '自定义搜索逻辑，第一个参数是 node，第二个参数是 keyword，返回的布尔值表示是否保留该选项', 'function(node, keyword)', '-', '-'],

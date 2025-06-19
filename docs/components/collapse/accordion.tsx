@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { ElCollapse, ElCollapseItem } from '@qsxy/element-plus-react';
 import React, { useCallback, useState } from 'react';
 

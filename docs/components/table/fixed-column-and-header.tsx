@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { ElTable, ElTableColumn, ElTag, RenderCell } from '@qsxy/element-plus-react';
 import React from 'react';
 

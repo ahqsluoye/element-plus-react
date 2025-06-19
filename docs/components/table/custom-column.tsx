@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { ElButton, ElIcon, ElPopover, ElTable, ElTableColumn, ElTag, RenderCell, TableColumnCtx } from '@qsxy/element-plus-react';
 import React, { useCallback } from 'react';
 import { tableData } from './data';

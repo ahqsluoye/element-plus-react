@@ -27,6 +27,7 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
         alignCenter,
         draggable,
         fullscreen,
+        headerClass,
         top,
         close,
         beforeClose,
@@ -217,7 +218,7 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
                                 }}
                                 ref={dialogRef}
                             >
-                                <DialogHeader ref={headerRef} classPrefix={classPrefix} showClose={showClose} border={border}>
+                                <DialogHeader ref={headerRef} classPrefix={classPrefix} showClose={showClose} border={border} headerClass={headerClass}>
                                     {title}
                                 </DialogHeader>
                                 {children}

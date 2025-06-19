@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { ElDialog, ElIcon, ElUpload, UploadFile } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 

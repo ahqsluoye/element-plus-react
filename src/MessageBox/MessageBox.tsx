@@ -161,6 +161,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
             get ref() {
                 return containerRef;
             },
+            inputValue,
             close: done,
             setConfirmButtonLoading,
             setConfirmButtonText,

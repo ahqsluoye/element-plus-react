@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-console */
 import { ElTable, ElTableColumn, TableColumnCtx } from '@qsxy/element-plus-react';
 import React, { useCallback } from 'react';
 
