@@ -8,10 +8,8 @@ const App = () => {
 
     return (
         <div>
-            <ElPagination size="small" total={50} style={{ marginBottom: 20 }} />
-            <ElPagination size="small" total={50} showSizeChanger showQuickJumper style={{ marginBottom: 20 }} />
-            <ElPagination size="small" total={50} showTotal={showTotal} style={{ marginBottom: 20 }} />
-            <ElPagination total={50} showTotal={showTotal} showSizeChanger showQuickJumper />
+            <ElPagination size="small" layout="prev, pager, next" total={50} style={{ marginBottom: 20 }} />
+            <ElPagination size="small" background layout="prev, pager, next" total={50} showSizeChanger showQuickJumper style={{ marginBottom: 20 }} />
         </div>
     );
 };

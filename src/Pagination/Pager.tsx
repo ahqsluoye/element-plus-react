@@ -4,8 +4,8 @@ import { useClassNames } from '../hooks';
 import { PagerProps } from './typings';
 
 const Pager: FC<PagerProps> = props => {
-    const { classPrefix = 'pagination-item', page, showTitle, active, onClick, itemRender } = props;
-    const { b } = useClassNames(classPrefix);
+    const { classPrefix = 'pagination-item', page, active, disabled, onClick } = props;
+    const { b, is } = useClassNames(classPrefix);
 
     const handleClick = () => {
         onClick?.(page);
@@ -13,12 +13,10 @@ const Pager: FC<PagerProps> = props => {
 
     return (
         <li
-            title={showTitle ? page + '' : undefined}
             className={classNames(
-                b(),
-                b`${page}`,
+                'number',
+                is({ active, disabled }),
                 {
-                    [b`active`]: active,
                     [b`disabled`]: !page,
                 },
                 props.className,
@@ -26,7 +24,7 @@ const Pager: FC<PagerProps> = props => {
             onClick={handleClick}
             tabIndex={0}
         >
-            {itemRender?.(page, 'page', <a rel="nofollow">{page}</a>)}
+            {page}
         </li>
     );
 };

@@ -1,515 +1,303 @@
 @use '../common/var';
 
 .#{$namespace}-pagination {
-    --#{$namespace}-pagination-bg-color: var(--#{$namespace}-fill-color-blank);
-    --#{$namespace}-pagination-text-color: var(--#{$namespace}-text-color-primary);
-    --#{$namespace}-pagination-border-radius: 3px;
-    --#{$namespace}-pagination-button-color: var(--#{$namespace}-text-color-primary);
-    --#{$namespace}-pagination-button-width: 32px;
-    --#{$namespace}-pagination-button-height: 32px;
-    --#{$namespace}-pagination-button-disabled-color: var(--#{$namespace}-text-color-placeholder);
-    --#{$namespace}-pagination-button-disabled-bg-color: var(--#{$namespace}-disabled-bg-color);
-    --#{$namespace}-pagination-button-bg-color: var(--#{$namespace}-fill-color);
-    --#{$namespace}-pagination-hover-color: var(--#{$namespace}-color-primary);
-    --#{$namespace}-pagination-height-extra-small: 24px;
-    --#{$namespace}-pagination-line-height-extra-small: var(--#{$namespace}-pagination-height-extra-small);
-    --#{$namespace}-input-hover-border-color: var(--#{$namespace}-border-color-hover);
-    --#{$namespace}-input-border-color: var(--#{$namespace}-border-color);
-    --#{$namespace}-input-bg-color: var(--#{$namespace}-fill-color-blank);
-    --#{$namespace}-input-text-color: var(--#{$namespace}-text-color-regular);
-    color: var(--#{$namespace}-pagination-text-color);
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-    font-variant: tabular-nums;
-    line-height: 1.5715;
-    list-style: none;
-    font-feature-settings: 'tnum';
+    --el-pagination-font-size: 14px;
+    --el-pagination-bg-color: var(--el-fill-color-blank);
+    --el-pagination-text-color: var(--el-text-color-primary);
+    --el-pagination-border-radius: 2px;
+    --el-pagination-button-color: var(--el-text-color-primary);
+    --el-pagination-button-width: 32px;
+    --el-pagination-button-height: 32px;
+    --el-pagination-button-disabled-color: var(--el-text-color-placeholder);
+    --el-pagination-button-disabled-bg-color: var(--el-fill-color-blank);
+    --el-pagination-button-bg-color: var(--el-fill-color);
+    --el-pagination-hover-color: var(--el-color-primary);
+    --el-pagination-font-size-small: 12px;
+    --el-pagination-button-width-small: 24px;
+    --el-pagination-button-height-small: 24px;
+    --el-pagination-button-width-large: 40px;
+    --el-pagination-button-height-large: 40px;
+    --el-pagination-item-gap: 16px;
+    white-space: nowrap;
+    color: var(--el-pagination-text-color);
+    font-size: var(--el-pagination-font-size);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
 
-    ul,
-    ol {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-
-    &::after {
-        display: block;
-        clear: both;
-        height: 0;
-        overflow: hidden;
-        visibility: hidden;
-        content: ' ';
-    }
-
-    &-total-text {
-        display: inline-block;
-        height: 32px;
-        margin-right: 8px;
-        line-height: 32px - 2px;
-        vertical-align: middle;
-    }
-
-    &-item {
-        background-color: var(--#{$namespace}-pagination-bg-color);
-        display: inline-block;
-        min-width: 32px;
-        height: 32px;
-        margin-right: 8px;
-        font-family: -apple-system, BlinkMacSystemFont, segoe ui, Roboto, helvetica neue, Arial, noto sans, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol,
-            noto color emoji;
-        line-height: 32px - 2px;
+    .el-input__inner {
         text-align: center;
-        vertical-align: middle;
-        list-style: none;
-        border: 1px solid;
-        border-color: var(--#{$namespace}-border-color);
-        border-radius: 2px;
-        outline: 0;
+        -moz-appearance: textfield;
+    }
+
+    .el-select {
+        width: 128px;
+    }
+
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: var(--el-pagination-font-size);
+        min-width: var(--el-pagination-button-width);
+        height: var(--el-pagination-button-height);
+        line-height: var(--el-pagination-button-height);
+        color: var(--el-pagination-button-color);
+        background: var(--el-pagination-bg-color);
+        padding: 0 4px;
+        border: none;
+        border-radius: var(--el-pagination-border-radius);
         cursor: pointer;
-        user-select: none;
-
-        a {
-            color: var(--#{$namespace}-text-color-regular);
-            display: block;
-            padding: 0 6px;
-            transition: none;
-
-            &:hover {
-                text-decoration: none;
-            }
-        }
-
-        &:focus-visible,
-        &:hover {
-            border-color: var(--btn-border-color);
-            transition: all 0.3s;
-
-            a {
-                color: var(--#{$namespace}-color-primary);
-            }
-        }
-
-        &-active {
-            font-weight: 500;
-            background: var(--#{$namespace}-bg-color-primary, var(--#{$namespace}-color-primary));
-            border-color: var(--btn-border-color);
-
-            a {
-                color: #ffffff;
-            }
-
-            &:focus-visible,
-            &:hover {
-                border-color: var(--btn-border-color);
-            }
-
-            &:focus-visible a,
-            &:hover a {
-                color: #ffffff;
-            }
-        }
-    }
-
-    &-jump-prev,
-    &-jump-next {
-        outline: 0;
-
-        .#{$namespace}-pagination-item-container {
-            position: relative;
-
-            .#{$namespace}-pagination-item-link-icon {
-                color: var(--#{$namespace}-color-primary);
-                font-size: 12px;
-                letter-spacing: -1px;
-                opacity: 0;
-                transition: all 0.2s;
-
-                &-svg {
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
-                    margin: auto;
-                }
-            }
-
-            .#{$namespace}-pagination-item-ellipsis {
-                color: #c0c4cc;
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                display: block;
-                margin: auto;
-                font-family: Arial, Helvetica, sans-serif;
-                letter-spacing: 2px;
-                text-align: center;
-                text-indent: 0.13em;
-                opacity: 1;
-                transition: all 0.2s;
-            }
-        }
-
-        &:focus-visible,
-        &:hover {
-            .#{$namespace}-pagination-item-link-icon {
-                opacity: 1;
-                color: var(--#{$namespace}-color-primary);
-            }
-            .#{$namespace}-pagination-item-ellipsis {
-                opacity: 0;
-            }
-        }
-    }
-
-    &-prev,
-    &-jump-prev,
-    &-jump-next {
-        margin-right: 8px;
-    }
-
-    &-prev,
-    &-next,
-    &-jump-prev,
-    &-jump-next {
-        color: var(--#{$namespace}-text-color-regular);
-        display: inline-block;
-        min-width: 32px;
-        height: 32px;
-        font-family: $fa-font-family;
-        line-height: 32px;
         text-align: center;
-        vertical-align: middle;
-        list-style: none;
-        border-radius: 2px;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
+        box-sizing: border-box;
 
-    &-prev,
-    &-next {
-        font-family: Arial, Helvetica, sans-serif;
-        outline: 0;
-
-        button {
-            color: var(--#{$namespace}-text-color-regular);
-            cursor: pointer;
-            user-select: none;
+        * {
+            pointer-events: none;
         }
 
-        &:hover button {
-            border-color: var(--#{$namespace}-color-primary);
-        }
-
-        .#{$namespace}-pagination-item-link {
-            background-color: var(--#{$namespace}-pagination-bg-color);
-            display: block;
-            width: 100%;
-            height: 100%;
-            padding: 0;
-            font-size: 12px;
-            text-align: center;
-            border: 1px solid;
-            border-color: var(--#{$namespace}-border-color);
-            border-radius: 2px;
+        &:focus {
             outline: none;
-            transition: all 0.3s;
-
-            i {
-                font-size: 20px;
-            }
         }
 
-        &:focus-visible .#{$namespace}-pagination-item-link,
-        &:hover .#{$namespace}-pagination-item-link {
-            color: var(--#{$namespace}-color-primary);
-            border-color: var(--#{$namespace}-color-primary);
+        &:hover {
+            color: var(--el-pagination-hover-color);
         }
-    }
 
-    // &-prev button:after {
-    //     content: '‹';
-    //     display: block;
-    // }
+        &.is-active {
+            color: var(--el-pagination-hover-color);
+            cursor: default;
+            font-weight: 700;
+        }
 
-    // &-next button:after {
-    //     content: '›';
-    //     display: block;
-    // }
+        &.is-active.is-disabled {
+            font-weight: 700;
+            color: var(--el-text-color-secondary);
+        }
 
-    &-disabled {
-        &,
-        &:hover,
+        &:disabled,
+        &.is-disabled {
+            color: var(--el-pagination-button-disabled-color);
+            background-color: var(--el-pagination-button-disabled-bg-color);
+            cursor: not-allowed;
+        }
+
         &:focus-visible {
-            cursor: not-allowed;
-
-            .#{$namespace}-pagination-item-link {
-                color: var(--#{$namespace}-pagination-button-disabled-color);
-                border-color: var(--#{$namespace}-border-color-light);
-                cursor: not-allowed;
-                background: var(--#{$namespace}-pagination-button-disabled-bg-color);
-            }
+            outline: 1px solid var(--el-pagination-hover-color);
+            outline-offset: -1px;
         }
     }
 
-    &-slash {
-        margin: 0 10px 0 5px;
+    .btn-prev .el-icon,
+    .btn-next .el-icon {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        width: inherit;
     }
 
-    &-options {
-        display: inline-block;
-        margin-left: 16px;
-        vertical-align: middle;
-
-        // IE11 css hack. `*::-ms-backdrop,` is a must have
-        @media all and (-ms-high-contrast: none) {
-            *::-ms-backdrop,
-            & {
-                vertical-align: top;
-            }
+    .el-pagination-item {
+        &:first-child,
+        &.is-simple {
+            margin-left: 0 !important;
         }
 
-        &-size-changer.#{$namespace}-select {
-            display: inline-block;
-            width: 110px;
-        }
-
-        &-quick-jumper {
-            display: inline-block;
-            height: 28px;
-            margin-left: 8px;
-            line-height: 28px;
-            vertical-align: top;
-
-            input {
-                width: 50px;
-                height: 28px;
-                margin: 0 8px;
-                font-family: 'PingFang-SC-Regular', 'PingFang SC', sans-serif;
-                background-color: var(--#{$namespace}-input-bg-color, var(--#{$namespace}-fill-color-blank));
-                background-image: none;
-                border-radius: 4px;
-                box-sizing: border-box;
-                color: var(--#{$namespace}-input-text-color, var(--#{$namespace}-text-color-regular));
-                display: inline-block;
-                height: 32px;
-                line-height: 32px;
-                font-size: inherit;
-                outline: none;
-                padding: 0 10px;
-                transition: box-shadow 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-                box-shadow: 0 0 0 1px var(--#{$namespace}-input-border-color, var(--#{$namespace}-border-color)) inset;
-                border: none;
-
-                &:hover {
-                    box-shadow: 0 0 0 1px var(--#{$namespace}-input-hover-border-color) inset;
-                }
-
-                &:focus {
-                    outline: none;
-                    box-shadow: 0 0 0 1px var(--#{$namespace}-color-primary) inset;
-                }
-
-                &:disabled {
-                    color: var(--#{$namespace}-disabled-text-color);
-                    background: var(--#{$namespace}-disabled-bg-color);
-                    box-shadow: 0 0 0 1px var(--#{$namespace}-border-color-light) inset;
-                    cursor: not-allowed;
-                }
-            }
+        &:last-child {
+            margin-right: 0 !important;
         }
     }
 
-    &-simple &-prev,
-    &-simple &-next {
-        height: 24px;
-        line-height: 24px;
-        vertical-align: top;
-
-        .#{$namespace}-pagination-item-link {
-            height: 24px;
-            line-height: 24px;
-            background-color: transparent;
-            border: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            &::after {
-                height: 24px;
-                line-height: 24px;
-            }
-        }
+    .btn-prev {
+        margin-left: var(--el-pagination-item-gap);
     }
 
-    &-simple {
-        .#{$namespace}-pagination-simple-pager {
-            display: inline-block;
-            height: 24px;
-            margin-right: 8px;
-
-            input {
-                background-color: var(--#{$namespace}-input-bg-color, var(--#{$namespace}-fill-color-blank));
-                box-sizing: border-box;
-                height: 100%;
-                margin-right: 8px;
-                padding: 0 6px;
-                text-align: center;
-                border: 1px solid;
-                border-color: var(--#{$namespace}-input-border-color, var(--#{$namespace}-border-color));
-                border-radius: 2px;
-                outline: none;
-                transition: border-color 0.3s;
-
-                &:hover {
-                    border-color: var(--#{$namespace}-color-primary);
-                }
-
-                &:focus {
-                    border-color: var(--#{$namespace}-color-primary);
-                    // box-shadow: 0 0 0 2px var(--#{$namespace}-color-primary);
-                }
-
-                &[disabled] {
-                    color: var(--#{$namespace}-disabled-text-color);
-                    background: var(--#{$namespace}-disabled-bg-color);
-                    border-color: var(--#{$namespace}-border-color-light);
-                    cursor: not-allowed;
-                }
-            }
-        }
-    }
-
-    &.mini &-total-text,
-    &.mini &-simple-pager {
-        height: 24px;
-        line-height: 24px;
-    }
-
-    &.mini &-item {
-        min-width: 24px;
-        height: 24px;
-        margin: 0;
-        line-height: 24px - 2px;
-    }
-
-    &.mini &-item:not(&-item-active) {
-        background: transparent;
-        border-color: transparent;
-    }
-
-    &.mini &-prev,
-    &.mini &-next {
-        min-width: 24px;
-        height: 24px;
-        margin: 0;
-        line-height: 24px;
-    }
-
-    &.mini &-prev &-item-link,
-    &.mini &-next &-item-link {
-        background: transparent;
-        border-color: transparent;
-
-        &::after {
-            height: 24px;
-            line-height: 24px;
-        }
-    }
-
-    &.mini &-jump-prev,
-    &.mini &-jump-next {
-        height: 24px;
-        margin-right: 0;
-        line-height: 24px;
-    }
-
-    &.mini &-options {
-        margin-left: 2px;
-
-        &-size-changer {
-            top: 0px;
+    &.is-background {
+        .btn-prev,
+        .btn-next,
+        li {
+            margin: 0 4px;
+            background-color: var(--el-pagination-button-bg-color);
         }
 
-        &-quick-jumper {
-            height: 24px;
-            line-height: 24px;
-
-            input {
-                // .input-small();
-
-                width: 44px;
-                height: 24px;
-            }
-        }
-    }
-
-    // ============================ Disabled ============================
-    &.#{$namespace}-pagination-disabled {
-        cursor: not-allowed;
-
-        .#{$namespace}-pagination-item {
-            background: var(--#{$namespace}-disabled-bg-color);
-            border-color: var(--#{$namespace}-border-color-light);
-            cursor: not-allowed;
-
-            a {
-                background: transparent;
-                color: var(--#{$namespace}-disabled-text-color);
-                border: none;
-                cursor: not-allowed;
-            }
-
-            &-active {
-                background: var(--#{$namespace}-bg-color-primary, var(--#{$namespace}-color-primary));
-                border-color: var(--#{$namespace}-border-color-light);
-                opacity: 0.5;
-
-                a {
-                    color: #ffffff;
-                }
-            }
+        .btn-prev.is-active,
+        .btn-next.is-active,
+        li.is-active {
+            background-color: var(--el-color-primary);
+            color: var(--el-color-white);
         }
 
-        .#{$namespace}-pagination-item-link {
-            color: var(--#{$namespace}-disabled-text-color);
-            background: var(--#{$namespace}-disabled-bg-color);
-            border-color: var(--#{$namespace}-border-color-light);
-            cursor: not-allowed;
-
-            .#{$namespace}-pagination-simple {
-                background: transparent;
-            }
+        .btn-prev:disabled,
+        .btn-prev.is-disabled,
+        .btn-next:disabled,
+        .btn-next.is-disabled,
+        li:disabled,
+        li.is-disabled {
+            color: var(--el-text-color-placeholder);
+            background-color: var(--el-disabled-bg-color);
         }
 
-        .#{$namespace}-pagination-simple-pager {
-            color: #c0c4cc;
+        .btn-prev:disabled.is-active,
+        .btn-prev.is-disabled.is-active,
+        .btn-next:disabled.is-active,
+        .btn-next.is-disabled.is-active,
+        li:disabled.is-active,
+        li.is-disabled.is-active {
+            color: var(--el-text-color-secondary);
+            background-color: var(--el-fill-color-dark);
         }
 
-        .#{$namespace}-pagination-item-link-icon {
-            opacity: 0;
-        }
-
-        .#{$namespace}-pagination-item-ellipsis {
-            opacity: 1;
+        .btn-prev {
+            margin-left: var(--el-pagination-item-gap);
         }
     }
 }
 
-@media only screen and (max-width: 992px) {
-    .#{$namespace}-pagination-item {
-        &-after-jump-prev,
-        &-before-jump-next {
-            display: none;
-        }
+.el-pagination__sizes,
+.el-pagination__total {
+    margin-left: var(--el-pagination-item-gap);
+    font-weight: 400;
+    color: var(--el-text-color-regular);
+}
+
+.el-pagination__total[disabled='true'] {
+    color: var(--el-text-color-placeholder);
+}
+
+.el-pagination__jump {
+    display: flex;
+    align-items: center;
+    margin-left: var(--el-pagination-item-gap);
+    font-weight: 400;
+    color: var(--el-text-color-regular);
+}
+
+.el-pagination__jump[disabled='true'] {
+    color: var(--el-text-color-placeholder);
+}
+
+.el-pagination__goto {
+    margin-right: 8px;
+}
+
+.el-pagination__editor {
+    text-align: center;
+    box-sizing: border-box;
+
+    &.el-input {
+        width: 56px;
+    }
+
+    .el-input__inner::-webkit-inner-spin-button,
+    .el-input__inner::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
     }
 }
 
-@media only screen and (max-width: 576px) {
-    .#{$namespace}-pagination-options {
-        display: none;
+.el-pagination__classifier {
+    margin-left: 8px;
+}
+
+.el-pagination__rightwrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.el-pagination--small {
+    .btn-prev,
+    .btn-next,
+    .el-pager li {
+        height: var(--el-pagination-button-height-small);
+        line-height: var(--el-pagination-button-height-small);
+        font-size: var(--el-pagination-font-size-small);
+        min-width: var(--el-pagination-button-width-small);
+    }
+
+    span:not([class*='suffix']),
+    button {
+        font-size: var(--el-pagination-font-size-small);
+    }
+
+    .el-select {
+        width: 100px;
+    }
+}
+
+.el-pagination--large {
+    .btn-prev,
+    .btn-next,
+    .el-pager li {
+        height: var(--el-pagination-button-height-large);
+        line-height: var(--el-pagination-button-height-large);
+        min-width: var(--el-pagination-button-width-large);
+    }
+
+    .el-select {
+        width: 160px;
+    }
+}
+
+.#{$namespace}-pager {
+    -webkit-user-select: none;
+    user-select: none;
+    list-style: none;
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+
+    li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: var(--el-pagination-font-size);
+        min-width: var(--el-pagination-button-width);
+        height: var(--el-pagination-button-height);
+        line-height: var(--el-pagination-button-height);
+        color: var(--el-pagination-button-color);
+        background: var(--el-pagination-bg-color);
+        padding: 0 4px;
+        border: none;
+        border-radius: var(--el-pagination-border-radius);
+        cursor: pointer;
+        text-align: center;
+        box-sizing: border-box;
+
+        * {
+            pointer-events: none;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            color: var(--el-pagination-hover-color);
+        }
+
+        &.is-active {
+            color: var(--el-pagination-hover-color);
+            cursor: default;
+            font-weight: 700;
+        }
+
+        &.is-active.is-disabled {
+            font-weight: 700;
+            color: var(--el-text-color-secondary);
+        }
+
+        &:disabled,
+        &.is-disabled {
+            color: var(--el-pagination-button-disabled-color);
+            background-color: var(--el-pagination-button-disabled-bg-color);
+            cursor: not-allowed;
+        }
+
+        &:focus-visible {
+            outline: 1px solid var(--el-pagination-hover-color);
+            outline-offset: -1px;
+        }
     }
 }

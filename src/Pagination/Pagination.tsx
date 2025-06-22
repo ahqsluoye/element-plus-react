@@ -1,9 +1,11 @@
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
-import React, { cloneElement, createElement, forwardRef, isValidElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, isValidElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from '../Button/Button';
+import { useConfigProvider } from '../ConfigProvider';
 import Icon from '../Icon/Icon';
-import { mergeDefaultProps } from '../Util';
+import { isNotEmpty, mergeDefaultProps } from '../Util';
 import { useClassNames, useControlled } from '../hooks';
 import Options from './Options';
 import Pager from './Pager';
@@ -13,15 +15,18 @@ import { calculatePage, isValid } from './util';
 const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
     props = mergeDefaultProps(
         {
-            defaultCurrent: 1,
+            defaultCurrentPage: 1,
             total: 0,
+            size: 'default',
             defaultPageSize: 10,
             hideOnSinglePage: false,
-            showPrevNextJumpers: true,
             showQuickJumper: false,
-            showLessItems: false,
+            pageSizes: [10, 20, 30, 40, 50, 100],
             showTitle: true,
-            itemRender: (page, type, element) => element,
+            pagerCount: 7,
+            layout: 'prev, pager, next, jumper, ->, total',
+            prevIcon: 'angle-left',
+            nextIcon: 'angle-right',
         },
         props,
     );
@@ -33,58 +38,40 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
         hideOnSinglePage,
         total,
         showQuickJumper,
-        showLessItems,
         size,
+        prevText,
+        prevIcon,
+        pagerCount,
+        nextText,
+        nextIcon,
         showTitle,
         showTotal,
+        layout,
         simple,
-        itemRender,
-        showPrevNextJumpers,
-        pageSizeOptions,
-        showSizeChanger,
+        background,
+        pageSizes,
         onChange,
-        onShowSizeChange,
+        onSizeChange,
     } = props;
 
-    const { b } = useClassNames(classPrefix);
+    const { b, is, m, e } = useClassNames(classPrefix);
+    const { t } = useTranslation();
+    const { locale } = useConfigProvider();
 
-    const [current, setCurrent] = useControlled<number>(props.current, props.defaultCurrent);
+    const [current, setCurrent] = useControlled<number>(props.currentPage, props.defaultCurrentPage);
     const [pageSize, setPageSize] = useControlled<number>(props.pageSize, props.defaultPageSize);
     const [hoverJumpPrev, setHoverJumpPrev] = useState(false);
     const [hoverJumpNext, setHoverJumpNext] = useState(false);
     const [inputValue, setInputValue] = useState(current);
 
-    const containerRef = useRef<HTMLUListElement>(null);
-
-    const prevIcon = useMemo(
-        () => (
-            <Button className={b`item-link`}>
-                <Icon name="angle-left" prefix="fal" />
-            </Button>
-        ),
-        [b],
-    );
-
-    const nextIcon = useMemo(
-        () => (
-            <Button className={b`item-link`}>
-                <Icon name="angle-right" prefix="fal" />
-            </Button>
-        ),
-        [b],
-    );
-
-    const jumpPrevIcon = useMemo(() => <Icon name="ellipsis" className={b`item-link`} />, [b]);
-    const jumpNextIcon = useMemo(() => <Icon name="ellipsis" className={b`item-link`} />, [b]);
-
-    // const paginationNode = useRef<HTMLUListElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useMount(() => {
         const hasOnChange = !!onChange;
-        const hasCurrent = 'current' in props;
+        const hasCurrent = 'currentPage' in props;
         if (hasCurrent && !hasOnChange) {
             // eslint-disable-next-line no-console
-            console.warn('Warning: You provided a `current` prop to a Pagination component without an `onChange` handler. This will render a read-only component.');
+            console.warn('Warning: You provided a `currentPage` prop to a Pagination component without an `onChange` handler. This will render a read-only component.');
         }
 
         const _current = Math.min(current, calculatePage(pageSize, undefined, total));
@@ -122,54 +109,16 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageSize, total]);
 
-    /** 页码按钮 */
-    const getItemIcon = useCallback(
-        (icon?: React.ReactElement) => {
-            return typeof icon === 'function' ? createElement(icon, { ...props }) : icon || <button type="button" className={b`item-link`} />;
-        },
-        [b, props],
-    );
-
     /** 是否有上一页 */
     const hasPrev = useMemo(() => current > 1, [current]);
 
     /** 是否有下一页 */
     const hasNext = useMemo(() => current < calculatePage(undefined, { pageSize }, total), [current, pageSize, total]);
 
-    /** 向前快速跳转几页页码 */
-    const jumpPrevPage = useMemo(() => Math.max(1, current - (showLessItems ? 3 : 5)), [current, showLessItems]);
-
-    /** 向后快速跳转几页页码 */
-    const jumpNextPage = useMemo(() => Math.min(calculatePage(undefined, { pageSize }, total), current + (showLessItems ? 3 : 5)), [current, pageSize, total, showLessItems]);
-
     const allPages = useMemo(() => calculatePage(undefined, { pageSize }, total), [pageSize, total]);
 
-    /** 上一页按钮 */
-    const prevPage = useMemo(() => {
-        const prev = current - 1 > 0 ? current - 1 : 0;
-        const prevButton = itemRender?.(prev, 'prev', getItemIcon(prevIcon));
-        return isValidElement(prevButton) ? cloneElement(prevButton, { disabled: !hasPrev }) : prevButton;
-    }, [current, getItemIcon, hasPrev, itemRender, prevIcon]);
-
-    /** 下一页按钮 */
-    const nextPage = useMemo(() => {
-        const next = current + 1 < allPages ? current + 1 : allPages;
-        const nextButton = itemRender?.(next, 'next', getItemIcon(nextIcon));
-        return isValidElement(nextButton) ? cloneElement(nextButton, { disabled: !hasNext }) : nextButton;
-    }, [allPages, current, getItemIcon, hasNext, itemRender, nextIcon]);
-
-    /** 分页描述 */
-    const totalText = useMemo(
-        () =>
-            typeof showTotal === 'function' ? (
-                <li className={b`total-text`}>{showTotal(total, [total === 0 ? 0 : (current - 1) * pageSize + 1, current * pageSize > total ? total : current * pageSize])}</li>
-            ) : null,
-        [b, current, pageSize, showTotal, total],
-    );
-
-    const prevDisabled = useMemo(() => !hasPrev || !allPages, [allPages, hasPrev]);
-    const nextDisabled = useMemo(() => !hasNext || !allPages, [allPages, hasNext]);
-    const pageBufferSize = useMemo(() => (showLessItems ? 1 : 2), [showLessItems]);
+    const prevDisabled = useMemo(() => !hasPrev || !allPages || disabled, [allPages, disabled, hasPrev]);
+    const nextDisabled = useMemo(() => !hasNext || !allPages || disabled, [allPages, disabled, hasNext]);
 
     const handleChange = useCallback(
         (p: number) => {
@@ -192,13 +141,13 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
         [current, disabled, onChange, pageSize, setCurrent, total],
     );
 
-    const prev = useCallback(() => {
+    const handlePrev = useCallback(() => {
         if (hasPrev) {
             handleChange(current - 1);
         }
     }, [current, handleChange, hasPrev]);
 
-    const next = useCallback(() => {
+    const handleNext = useCallback(() => {
         if (hasNext) {
             handleChange(current + 1);
         }
@@ -226,7 +175,7 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
             const newCurrent = calculatePage(_size, { pageSize }, total);
             let _current = current > newCurrent ? newCurrent : current;
             // // fix the issue:
-            // // Once 'total' is 0, 'current' in 'onShowSizeChange' is 0, which is not correct.
+            // // Once 'total' is 0, 'current' in 'onSizeChange' is 0, which is not correct.
             if (newCurrent === 0) {
                 _current = current;
             }
@@ -241,24 +190,16 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
                 }
             }
 
-            onShowSizeChange?.(_current, _size);
+            onSizeChange?.(_current, _size);
             onChange?.(_current, _size);
         },
-        [current, onChange, onShowSizeChange, pageSize, props, setCurrent, setPageSize, total],
+        [current, onChange, onSizeChange, pageSize, props, setCurrent, setPageSize, total],
     );
-
-    /** 是否展示 pageSize 切换器，当 total 大于 50 时默认为 true */
-    const getShowSizeChanger = useMemo(() => {
-        if (typeof showSizeChanger !== 'undefined') {
-            return showSizeChanger;
-        }
-        return total > 50;
-    }, [showSizeChanger, total]);
 
     /** 获取输入的跳转页码 */
     const getValidValue = useCallback(
-        (e: any) => {
-            const inputVal = (e.target as HTMLInputElement).value;
+        (event: any) => {
+            const inputVal = (event.target as HTMLInputElement).value;
             const _allPages = calculatePage(undefined, { pageSize }, total);
             let value: number;
             if (inputVal === '') {
@@ -276,23 +217,23 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
         [current, pageSize, total],
     );
 
-    const handleKeyDown = useCallback((e: any) => {
-        if (!['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'ArrowLeft', 'ArrowRight', 'Backspace', 'Delete'].includes(e.key)) {
-            e.preventDefault();
+    const handleKeyDown = useCallback((event: any) => {
+        if (!['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'ArrowLeft', 'ArrowRight', 'Backspace', 'Delete'].includes(event.key)) {
+            event.preventDefault();
         }
     }, []);
 
     const handleKeyUp = useCallback(
-        (e: any) => {
-            const value = getValidValue(e);
+        (event: any) => {
+            const value = getValidValue(event);
             if (value !== inputValue) {
                 setInputValue(value === 0 ? 1 : value);
             }
-            if (e.key === 'Enter') {
+            if (event.key === 'Enter') {
                 handleChange(value);
-            } else if (e.key === 'ArrowDown') {
+            } else if (event.key === 'ArrowDown') {
                 handleChange(value - 1);
-            } else if (e.key === 'ArrowUp') {
+            } else if (event.key === 'ArrowUp') {
                 handleChange(value + 1);
             }
         },
@@ -300,8 +241,8 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
     );
 
     const handleBlur = useCallback(
-        (e: any) => {
-            const value = getValidValue(e);
+        (event: any) => {
+            const value = getValidValue(event);
             handleChange(value);
         },
         [getValidValue, handleChange],
@@ -314,113 +255,142 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
         setPageSize: changePageSize,
     }));
 
+    /** 上一页按钮 */
+    const prevPage = useMemo(() => {
+        let comp = null;
+        if (isNotEmpty(prevIcon)) {
+            if (typeof prevIcon === 'string') {
+                comp = <Icon name={prevIcon} prefix="fal" />;
+            } else if (isValidElement(prevIcon)) {
+                comp = prevIcon;
+            }
+        } else if (isNotEmpty(prevText)) {
+            comp = prevText;
+        }
+        return (
+            <button key="btn-prev" onClick={handlePrev} className={classNames('btn-prev', b`item`)} aria-disabled={prevDisabled} disabled={prevDisabled}>
+                {comp}
+            </button>
+        );
+    }, [b, handlePrev, prevDisabled, prevIcon, prevText]);
+
+    /** 下一页按钮 */
+    const nextPage = useMemo(() => {
+        let comp = null;
+        if (isNotEmpty(nextIcon)) {
+            if (typeof nextIcon === 'string') {
+                comp = <Icon name={nextIcon} prefix="fal" />;
+            } else if (isValidElement(nextIcon)) {
+                comp = nextIcon;
+            }
+        } else if (isNotEmpty(nextText)) {
+            comp = nextText;
+        }
+
+        return (
+            <button key="btn-next" onClick={handleNext} className={classNames('btn-next', b`item`)} aria-disabled={nextDisabled} disabled={nextDisabled}>
+                {comp}
+            </button>
+        );
+    }, [b, handleNext, nextDisabled, nextIcon, nextText]);
+
+    /** 分页描述 */
+    const totalText = useMemo(
+        () =>
+            typeof showTotal === 'function' ? (
+                <span className={classNames(e`total`, b`item`)}>
+                    {showTotal(total, [total === 0 ? 0 : (current - 1) * pageSize + 1, current * pageSize > total ? total : current * pageSize])}
+                </span>
+            ) : (
+                <span className={classNames(e`total`, b`item`)}>
+                    {t('el.pagination.total', {
+                        lng: locale,
+                        total,
+                    })}
+                </span>
+            ),
+        [b, current, e, locale, pageSize, showTotal, t, total],
+    );
+
     /** 页码 */
     const pagerList = useMemo(() => {
-        if (allPages <= 3 + pageBufferSize * 2) {
-            const pagerProps = {
-                onClick: handleChange,
-                showTitle,
-                itemRender,
-            };
-            if (!allPages) {
-                return [<Pager {...pagerProps} key="noPager" page={1} className={b`item-disabled`} />];
+        const halfPagerCount = (pagerCount - 1) / 2;
+        let showPrevMore = false;
+        let showNextMore = false;
+        if (allPages > pagerCount) {
+            if (current > pagerCount - halfPagerCount) {
+                showPrevMore = true;
             }
-            return new Array(allPages).fill(0).map((_, i) => {
-                const active = current === i + 1;
-                return <Pager {...pagerProps} key={i + 1} page={i + 1} active={active} />;
-            });
-        } else {
-            const _pagerList = [];
-            const prevItemTitle = showLessItems ? '向前 3 页' : '向前 5 页';
-            const nextItemTitle = showLessItems ? '向后 3 页' : '向后 5 页';
-            const jumpPrev = (
-                <li
-                    title={showTitle ? prevItemTitle : undefined}
-                    key="prev"
-                    onClick={() => handleChange(jumpPrevPage)}
-                    tabIndex={0}
-                    className={classNames(b`jump-prev`, {
-                        [b`jump-prev-custom-icon`]: !!jumpPrevIcon,
-                    })}
-                    onMouseEnter={() => setHoverJumpPrev(true)}
-                    onMouseLeave={() => setHoverJumpPrev(false)}
-                >
-                    {itemRender?.(jumpPrevPage, 'jump-prev', getItemIcon(hoverJumpPrev ? <Icon name="angles-left" className={b`item-link-icon`} /> : jumpPrevIcon))}
-                </li>
-            );
-            const jumpNext = (
-                <li
-                    title={showTitle ? nextItemTitle : undefined}
-                    key="next"
-                    tabIndex={0}
-                    onClick={() => handleChange(jumpNextPage)}
-                    className={classNames(b`jump-next`, {
-                        [b`jump-next-custom-icon`]: !!jumpNextIcon,
-                    })}
-                    onMouseEnter={() => setHoverJumpNext(true)}
-                    onMouseLeave={() => setHoverJumpNext(false)}
-                >
-                    {itemRender?.(jumpNextPage, 'jump-next', getItemIcon(hoverJumpNext ? <Icon name="angles-right" className={b`item-link-icon`} /> : jumpNextIcon))}
-                </li>
-            );
-            const lastPager = <Pager onClick={handleChange} key={allPages} page={allPages} active={false} showTitle={showTitle} itemRender={itemRender} />;
-            const firstPager = <Pager onClick={handleChange} key={1} page={1} active={false} showTitle={showTitle} itemRender={itemRender} />;
-
-            let left = Math.max(1, current - pageBufferSize);
-            let right = Math.min(current + pageBufferSize, allPages);
-
-            if (current - 1 <= pageBufferSize) {
-                right = 1 + pageBufferSize * 2;
+            if (current < allPages - halfPagerCount) {
+                showNextMore = true;
             }
-
-            if (allPages - current <= pageBufferSize) {
-                left = allPages - pageBufferSize * 2;
-            }
-
-            for (let i = left; i <= right; i += 1) {
-                const active = current === i;
-                _pagerList.push(<Pager onClick={handleChange} key={i} page={i} active={active} showTitle={showTitle} itemRender={itemRender} />);
-            }
-
-            if (current - 1 >= pageBufferSize * 2 && current !== 1 + 2) {
-                _pagerList[0] = cloneElement(_pagerList[0], {
-                    className: b`item-after-jump-prev`,
-                });
-                showPrevNextJumpers && _pagerList.unshift(jumpPrev);
-            }
-            if (allPages - current >= pageBufferSize * 2 && current !== allPages - 2) {
-                _pagerList[_pagerList.length - 1] = cloneElement(_pagerList[_pagerList.length - 1], {
-                    className: b`item-before-jump-next`,
-                });
-                showPrevNextJumpers && _pagerList.push(jumpNext);
-            }
-
-            if (left !== 1) {
-                _pagerList.unshift(firstPager);
-            }
-            if (right !== allPages) {
-                _pagerList.push(lastPager);
-            }
-            return _pagerList;
         }
-    }, [
-        allPages,
-        pageBufferSize,
-        handleChange,
-        showTitle,
-        itemRender,
-        b,
-        current,
-        showLessItems,
-        jumpPrevIcon,
-        jumpPrevPage,
-        getItemIcon,
-        hoverJumpPrev,
-        jumpNextIcon,
-        jumpNextPage,
-        hoverJumpNext,
-        showPrevNextJumpers,
-    ]);
+
+        const jumpPrev = (
+            <li
+                key="prev"
+                onClick={() => handleChange(current - (pagerCount - 2))}
+                tabIndex={0}
+                className={classNames(b`jump-prev`, b`jump-prev-custom-icon`, is({ disabled }))}
+                onMouseEnter={() => setHoverJumpPrev(true)}
+                onMouseLeave={() => setHoverJumpPrev(false)}
+            >
+                {hoverJumpPrev ? <Icon name="angles-left" /> : <Icon name="ellipsis" />}
+            </li>
+        );
+        const jumpNext = (
+            <li
+                key="next"
+                tabIndex={0}
+                onClick={() => handleChange(current + pagerCount - 2)}
+                className={classNames(b`jump-next`, b`jump-next-custom-icon`, is({ disabled }))}
+                onMouseEnter={() => setHoverJumpNext(true)}
+                onMouseLeave={() => setHoverJumpNext(false)}
+            >
+                {hoverJumpNext ? <Icon name="angles-right" /> : <Icon name="ellipsis" />}
+            </li>
+        );
+        const _pagerList = [];
+        if (allPages > 0) {
+            _pagerList.push(<Pager onClick={handleChange} key={1} page={1} active={current === 1} disabled={disabled} />);
+        }
+        if (showPrevMore && !showNextMore) {
+            _pagerList.push(jumpPrev);
+            const startPage = allPages - (pagerCount - 2);
+            for (let i = startPage; i < allPages; i++) {
+                const active = current === i;
+                _pagerList.push(<Pager onClick={handleChange} key={i} page={i} active={active} disabled={disabled} />);
+            }
+        } else if (!showPrevMore && showNextMore) {
+            for (let i = 2; i < pagerCount; i++) {
+                const active = current === i;
+                _pagerList.push(<Pager onClick={handleChange} key={i} page={i} active={active} disabled={disabled} />);
+            }
+            _pagerList.push(jumpNext);
+        } else if (showPrevMore && showNextMore) {
+            _pagerList.push(jumpPrev);
+            const offset = Math.floor(pagerCount / 2) - 1;
+            for (let i = current - offset; i <= current + offset; i++) {
+                const active = current === i;
+                _pagerList.push(<Pager onClick={handleChange} key={i} page={i} active={active} disabled={disabled} />);
+            }
+            _pagerList.push(jumpNext);
+        } else {
+            for (let i = 2; i < allPages; i++) {
+                const active = current === i;
+                _pagerList.push(<Pager onClick={handleChange} key={i} page={i} active={active} disabled={disabled} />);
+            }
+        }
+        if (allPages > 1) {
+            const active = current === allPages;
+            _pagerList.push(<Pager onClick={handleChange} key={allPages} page={allPages} active={active} disabled={disabled} />);
+        }
+        return (
+            <ul key="pager" className={b('pager', false)}>
+                {_pagerList}
+            </ul>
+        );
+    }, [pagerCount, allPages, b, is, disabled, hoverJumpPrev, hoverJumpNext, current, handleChange]);
 
     /** 跳页 */
     const gotoButton = useMemo(() => {
@@ -448,88 +418,118 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
         }
     }, [allPages, b, current, handleGoTO, showQuickJumper, showTitle, simple]);
 
+    const sizes = useCallback(
+        (type: 'sizes' | 'jumper') => (
+            <Options
+                disabled={disabled}
+                rootPrefixCls={classPrefix}
+                changeSize={changePageSize}
+                current={current}
+                pageSize={pageSize}
+                pageSizeOptions={pageSizes}
+                quickGo={handleChange}
+                goButton={(typeof showQuickJumper !== 'boolean' && showQuickJumper?.goButton) ?? false}
+                size={size}
+                simple={simple}
+                type={type}
+            />
+        ),
+        [changePageSize, classPrefix, current, disabled, handleChange, pageSize, pageSizes, showQuickJumper, simple, size],
+    );
+
+    const content = useMemo(
+        () =>
+            layout
+                .split(',')
+                .filter(item => !!item)
+                .map(item => {
+                    switch (item.trim()) {
+                        case 'prev':
+                            return prevPage;
+                        case 'pager':
+                            return pagerList;
+                        case 'next':
+                            return nextPage;
+                        case 'total':
+                            return totalText;
+                        case 'sizes':
+                            return sizes('sizes');
+                        case 'jumper':
+                            return sizes('jumper');
+
+                        default:
+                            return null;
+                    }
+                }),
+        [layout, nextPage, pagerList, prevPage, sizes, totalText],
+    );
+
+    const simplePage = useMemo(
+        () => (
+            <>
+                {prevPage}
+                {sizes('jumper')}
+                {nextPage}
+            </>
+        ),
+        [nextPage, prevPage, sizes],
+    );
+
     if (hideOnSinglePage === true && total <= pageSize) {
         return null;
     }
 
-    // 简单分页
-    if (simple) {
-        return (
-            <ul className={classNames(b(), b`simple`, { [b`disabled`]: disabled }, className)} style={style} ref={containerRef}>
-                <li
-                    title={showTitle ? '上一页' : undefined}
-                    onClick={prev}
-                    className={classNames(b`prev`, {
-                        [b`disabled`]: !hasPrev,
-                    })}
-                >
-                    {prevPage}
-                </li>
-                <li title={showTitle ? `${current}/${allPages}` : undefined} className={b`simple-pager`}>
-                    <input type="text" value={inputValue} disabled={disabled} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} onChange={handleKeyUp} onBlur={handleBlur} size={3} />
-                    <span className={b`slash`}>/</span>
-                    {allPages}
-                </li>
-                <li
-                    title={showTitle ? '下一页' : undefined}
-                    onClick={next}
-                    className={classNames(b`next`, {
-                        [b`disabled`]: !hasNext,
-                    })}
-                >
-                    {nextPage}
-                </li>
-                {gotoButton}
-            </ul>
-        );
-    }
+    // // 简单分页
+    // if (simple) {
+    //     return (
+    //         <ul className={classNames(b(), b`simple`, { [b`disabled`]: disabled }, className)} style={style} ref={containerRef}>
+    //             <li
+    //                 title={showTitle ? '上一页' : undefined}
+    //                 onClick={handlePrev}
+    //                 className={classNames(b`prev`, {
+    //                     [b`disabled`]: !hasPrev,
+    //                 })}
+    //             >
+    //                 {prevPage}
+    //             </li>
+    //             <li title={showTitle ? `${current}/${allPages}` : undefined} className={b`simple-pager`}>
+    //                 <input type="text" value={inputValue} disabled={disabled} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} onChange={handleKeyUp} onBlur={handleBlur} size={3} />
+    //                 <span className={b`slash`}>/</span>
+    //                 {allPages}
+    //             </li>
+    //             <li
+    //                 title={showTitle ? '下一页' : undefined}
+    //                 onClick={handleNext}
+    //                 className={classNames(b`next`, {
+    //                     [b`disabled`]: !hasNext,
+    //                 })}
+    //             >
+    //                 {nextPage}
+    //             </li>
+    //             {gotoButton}
+    //         </ul>
+    //     );
+    // }
 
     return (
-        <ul
-            className={classNames(b(), className, {
-                [b`disabled`]: disabled || total === 0,
-                mini: size === 'small',
-            })}
+        <div
+            className={classNames(
+                b(),
+                className,
+                {
+                    [b`disabled`]: disabled || total === 0,
+                },
+                is({ background }),
+                m(size),
+            )}
             style={style}
             ref={containerRef}
         >
-            {totalText}
-            <li
-                title={showTitle ? '上一页' : undefined}
-                onClick={prev}
-                className={classNames(b`prev`, {
-                    [b`disabled`]: prevDisabled,
-                })}
-                aria-disabled={prevDisabled}
-            >
-                {prevPage}
-            </li>
-            {pagerList}
-            <li
-                title={showTitle ? '下一页' : undefined}
-                onClick={next}
-                className={classNames(b`next`, {
-                    [b`disabled`]: nextDisabled,
-                })}
-                aria-disabled={nextDisabled}
-            >
-                {nextPage}
-            </li>
-            <Options
-                disabled={disabled}
-                rootPrefixCls={classPrefix}
-                changeSize={getShowSizeChanger ? changePageSize : null}
-                current={current}
-                pageSize={pageSize}
-                pageSizeOptions={pageSizeOptions}
-                quickGo={shouldDisplayQuickJumper ? handleChange : undefined}
-                goButton={(typeof showQuickJumper !== 'boolean' && showQuickJumper?.goButton) ?? false}
-                mini={size === 'small'}
-            />
-        </ul>
+            {simple ? simplePage : content}
+        </div>
     );
 });
 
-Pagination.displayName = 'Pagination';
+Pagination.displayName = 'ElPagination';
 
 export default Pagination;

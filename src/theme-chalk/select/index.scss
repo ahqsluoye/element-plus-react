@@ -12,7 +12,8 @@
 .#{$namespace}-select {
     display: inline-block;
     position: relative;
-    line-height: 32px;
+    // height: 32px;
+    // line-height: 32px;
     font-size: 14px;
     zoom: 1;
     *display: inline;
@@ -54,13 +55,15 @@
     }
 }
 
-.#{$namespace}-select--large {
-    line-height: var(--#{$namespace}-component-size-large);
-}
+// .#{$namespace}-select--large {
+//     height: var(--#{$namespace}-component-size-large);
+//     line-height: var(--#{$namespace}-component-size-large);
+// }
 
-.#{$namespace}-select--small {
-    line-height: var(--#{$namespace}-component-size-small);
-}
+// .#{$namespace}-select--small {
+//     height: var(--#{$namespace}-component-size-small);
+//     line-height: var(--#{$namespace}-component-size-small);
+// }
 
 .#{$namespace}-select__tags {
     position: absolute;

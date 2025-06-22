@@ -1,3 +1,5 @@
+import './locale/i18n';
+
 /* Basic 基础组件 */
 export { Link as ElLink } from './Link';
 export type { LinkProps as ElLinkProps } from './Link';

@@ -4,9 +4,7 @@ import React from 'react';
 const App = () => {
     return (
         <div>
-            <ElPagination showQuickJumper total={500} />
-            <br />
-            <ElPagination showQuickJumper defaultCurrent={2} total={500} disabled />
+            <ElPagination background layout="prev, pager, next" total={1000} />
         </div>
     );
 };

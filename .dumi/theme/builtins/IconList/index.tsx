@@ -355,7 +355,7 @@ const IconList = () => {
                                         total={self.length}
                                         pageSize={50}
                                         showSizeChanger={false}
-                                        current={pageNum}
+                                        currentPage={pageNum}
                                         onChange={current => setPageNum(current)}
                                         showTotal={total => `共${total}个图标`}
                                     />

@@ -90,7 +90,7 @@ const ListBody: FC<TransferListBodyProps<RecordType>> = props => {
                     className={b`pagination`}
                     total={filteredRenderItems.length}
                     pageSize={mergedPagination.pageSize}
-                    current={current}
+                    currentPage={current}
                     onChange={onPageChange}
                 />
             );

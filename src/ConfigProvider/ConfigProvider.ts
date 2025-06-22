@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 
 export interface ConfigProviderProps {
     /** 对按钮进行配置 */
@@ -21,14 +21,18 @@ export interface ConfigProviderProps {
     popper?: {
         appendTo?: HTMLElement;
     };
+    locale?: 'en' | 'zh-CN';
 }
 const ConfigProvider = createContext<ConfigProviderProps>({
     // message: { max: Infinity },
     inputNumber: {
         controlsPositionRight: false,
     },
+    locale: 'zh-CN',
     popper: {},
 });
+
+export const useConfigProvider = () => useContext(ConfigProvider);
 
 ConfigProvider.displayName = 'ConfigProvider';
 

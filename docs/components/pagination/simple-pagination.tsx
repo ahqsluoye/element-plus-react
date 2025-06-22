@@ -4,9 +4,9 @@ import React from 'react';
 const App = () => {
     return (
         <div>
-            <ElPagination simple defaultCurrent={2} total={50} />
+            <ElPagination simple defaultCurrentPage={2} total={50} />
             <br />
-            <ElPagination disabled simple defaultCurrent={2} total={50} />
+            <ElPagination disabled simple defaultCurrentPage={2} total={50} />
         </div>
     );
 };

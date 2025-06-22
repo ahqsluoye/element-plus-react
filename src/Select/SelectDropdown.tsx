@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import trim from 'lodash/trim';
 import React, { Children, ComponentType, cloneElement, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import scrollIntoView from 'scroll-into-view-if-needed';
 import { Divider } from '../Divider';
 import Icon from '../Icon/Icon';
 import { InputRef } from '../Input';
@@ -99,13 +98,13 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
     );
 
     const scrollToSelected = useCallback(() => {
-        const node = ulRef.current?.querySelectorAll('.selected');
-        if (node && node.length > 0) {
-            scrollIntoView(node[0], {
-                scrollMode: 'if-needed',
-                block: 'center',
-            });
-        }
+        // const node = ulRef.current?.querySelectorAll('.selected');
+        // if (node && node.length > 0) {
+        //     scrollIntoView(node[0], {
+        //         scrollMode: 'if-needed',
+        //         block: 'center',
+        //     });
+        // }
     }, []);
 
     // useEffect(() => {
@@ -120,8 +119,10 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
             remoteMethod?.('');
         },
         onEnter: () => {
-            searchInstance.current?.focus();
-            remoteSearchRef.current?.focus();
+            setTimeout(() => {
+                searchInstance.current?.focus();
+                remoteSearchRef.current?.focus();
+            }, 500);
         },
         hover: setHover,
         scrollToSelected,

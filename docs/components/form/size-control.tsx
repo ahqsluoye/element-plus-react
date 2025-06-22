@@ -21,7 +21,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 const App = () => {
     const [formInstance] = useForm();
     const [disabled, setDisabled] = useState(false);
-    const [size, setSize] = useState<TypeAttributes.Size>('');
+    const [size, setSize] = useState<TypeAttributes.Size>('default');
     const [labelPosition, setLabelPosition] = useState<'left' | 'right' | 'top'>('right');
 
     const initialValues = useMemo(() => {
