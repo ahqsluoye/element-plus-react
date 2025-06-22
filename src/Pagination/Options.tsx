@@ -13,6 +13,8 @@ interface Props {
     quickGo?: (val: number) => void;
     rootPrefixCls?: string;
     pageSize: number;
+    /** 默认的每页条数 */
+    defaultPageSize?: number;
     pageSizeOptions?: Array<number>;
     selectComponentClass?: string;
     selectPrefixCls?: string;
@@ -25,7 +27,7 @@ interface Props {
 }
 
 const Options: FC<Props> = props => {
-    const { rootPrefixCls, changeSize, quickGo, current, goButton, disabled, simple, pageSizeOptions: _pageSizeOptions, pageSize, type, size } = props;
+    const { rootPrefixCls, changeSize, quickGo, current, goButton, disabled, simple, pageSizeOptions: _pageSizeOptions, pageSize, defaultPageSize, type, size } = props;
     const [goInputText, setGoInputText] = useState('');
     const { b, e, is } = useClassNames(rootPrefixCls);
     const { t } = useTranslation();
@@ -90,7 +92,8 @@ const Options: FC<Props> = props => {
                     className={b`size-changer`}
                     clearable={false}
                     size={size}
-                    defaultValue={pageSize || _pageSizeOptions[0]}
+                    value={pageSize}
+                    defaultValue={defaultPageSize || _pageSizeOptions[0]}
                     onChange={handleChangeSize}
                 >
                     {pageSizeOptions.map((opt, i) => (
@@ -99,30 +102,16 @@ const Options: FC<Props> = props => {
                 </Select>
             )
         );
-    }, [changeSize, disabled, b, size, pageSize, _pageSizeOptions, handleChangeSize, pageSizeOptions, t, locale]);
+    }, [changeSize, disabled, b, size, pageSize, defaultPageSize, _pageSizeOptions, handleChangeSize, pageSizeOptions, t, locale]);
 
     useEffect(() => setGoInputText(current + ''), [current]);
 
     const goInput = useMemo(() => {
-        // let gotoButton;
-        // if (goButton) {
-        //     gotoButton =
-        //         typeof goButton === 'boolean' ? (
-        //             <button type="button" onClick={go} onKeyUp={go} disabled={disabled} className={b`quick-jumper-button`}>
-        //                 确定
-        //             </button>
-        //         ) : (
-        //             <span onClick={go} onKeyUp={go}>
-        //                 {goButton}
-        //             </span>
-        //         );
-        // }
         return (
             <>
                 {simple ? null : <span className={e`goto`}>{t('el.pagination.goto', { lng: locale })}</span>}
                 <ElInput className={e`editor`} disabled={disabled} value={goInputText} size={size} onChange={handleChange} onKeyUp={go} placeholder="" clearable={false} />
                 {simple ? null : <span className={e`classifier`}>{t('el.pagination.pageClassifier', { lng: locale })}</span>}
-                {/* {gotoButton} */}
             </>
         );
     }, [disabled, e, go, goInputText, handleChange, locale, simple, size, t]);

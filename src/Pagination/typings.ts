@@ -47,17 +47,15 @@ export interface PaginationProps extends BaseProps, NativeProps {
     /** 只有一页时是否隐藏分页器 */
     hideOnSinglePage?: boolean;
     /** 是否可以快速跳转至某页 */
-    showQuickJumper?: boolean | { goButton: React.ReactElement };
+    // showQuickJumper?: boolean;
     /** 用于显示数据总量和当前数据顺序 */
     showTotal?: (total: number, [from, to]: [number, number]) => React.ReactElement | boolean | string;
-    /** 是否显示原生 tooltip 页码提示 */
-    showTitle?: boolean;
+    /** currentPage 改变时触发 */
+    // onCurrentChange?: (current?: number) => void;
     /** pageSize 变化的回调 */
-    onSizeChange?: (current?: number, size?: number) => void;
-    /** 用于自定义页码的结构，可用于优化 SEO */
-    itemRender?: (page: number, type: PageType, element: React.ReactElement) => React.ReactElement<{ disabled?: boolean }>;
+    onSizeChange?: (pageSize: number, currentPage: number) => void;
     /** 页码或 pageSize 改变的回调，参数是改变后的页码及每页条数 */
-    onChange?: (current: number, pageSize: number) => void;
+    onChange?: (currentPage: number, pageSize: number) => void;
     /** 当添加该属性时，显示为简单分页 */
     simple?: boolean;
 }

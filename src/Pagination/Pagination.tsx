@@ -2,7 +2,6 @@ import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, isValidElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '../Button/Button';
 import { useConfigProvider } from '../ConfigProvider';
 import Icon from '../Icon/Icon';
 import { isNotEmpty, mergeDefaultProps } from '../Util';
@@ -20,9 +19,8 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
             size: 'default',
             defaultPageSize: 10,
             hideOnSinglePage: false,
-            showQuickJumper: false,
+            // showQuickJumper: false,
             pageSizes: [10, 20, 30, 40, 50, 100],
-            showTitle: true,
             pagerCount: 7,
             layout: 'prev, pager, next, jumper, ->, total',
             prevIcon: 'angle-left',
@@ -37,14 +35,13 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
         disabled,
         hideOnSinglePage,
         total,
-        showQuickJumper,
+        // showQuickJumper,
         size,
         prevText,
         prevIcon,
         pagerCount,
         nextText,
         nextIcon,
-        showTitle,
         showTotal,
         layout,
         simple,
@@ -162,13 +159,6 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
         [current, handleChange, inputValue],
     );
 
-    const shouldDisplayQuickJumper = useMemo(() => {
-        if (total <= pageSize) {
-            return false;
-        }
-        return showQuickJumper;
-    }, [pageSize, showQuickJumper, total]);
-
     /** 改变每页条数 */
     const changePageSize = useCallback(
         (_size: number) => {
@@ -190,7 +180,7 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
                 }
             }
 
-            onSizeChange?.(_current, _size);
+            onSizeChange?.(_size, _current);
             onChange?.(_current, _size);
         },
         [current, onChange, onSizeChange, pageSize, props, setCurrent, setPageSize, total],
@@ -392,32 +382,6 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
         );
     }, [pagerCount, allPages, b, is, disabled, hoverJumpPrev, hoverJumpNext, current, handleChange]);
 
-    /** 跳页 */
-    const gotoButton = useMemo(() => {
-        if (simple) {
-            if (typeof showQuickJumper === 'boolean') {
-                return (
-                    showQuickJumper && (
-                        <Button nativeType="button" onClick={handleGoTO}>
-                            确定
-                        </Button>
-                    )
-                );
-            } else if (showQuickJumper?.goButton) {
-                return (
-                    <span onClick={handleGoTO} onKeyUp={handleGoTO}>
-                        {showQuickJumper.goButton}
-                    </span>
-                );
-            }
-            return (
-                <li title={showTitle ? `跳至${current}/${allPages}` : undefined} className={b`simple-pager`}>
-                    {gotoButton}
-                </li>
-            );
-        }
-    }, [allPages, b, current, handleGoTO, showQuickJumper, showTitle, simple]);
-
     const sizes = useCallback(
         (type: 'sizes' | 'jumper') => (
             <Options
@@ -428,41 +392,60 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
                 pageSize={pageSize}
                 pageSizeOptions={pageSizes}
                 quickGo={handleChange}
-                goButton={(typeof showQuickJumper !== 'boolean' && showQuickJumper?.goButton) ?? false}
                 size={size}
                 simple={simple}
                 type={type}
             />
         ),
-        [changePageSize, classPrefix, current, disabled, handleChange, pageSize, pageSizes, showQuickJumper, simple, size],
+        [changePageSize, classPrefix, current, disabled, handleChange, pageSize, pageSizes, simple, size],
     );
 
-    const content = useMemo(
-        () =>
-            layout
-                .split(',')
-                .filter(item => !!item)
-                .map(item => {
-                    switch (item.trim()) {
-                        case 'prev':
-                            return prevPage;
-                        case 'pager':
-                            return pagerList;
-                        case 'next':
-                            return nextPage;
-                        case 'total':
-                            return totalText;
-                        case 'sizes':
-                            return sizes('sizes');
-                        case 'jumper':
-                            return sizes('jumper');
+    const content = useMemo(() => {
+        let haveRightWrapper = false;
+        const rootChildren = [];
+        const rightWrapperChildren = [];
+        const components = layout
+            .split(',')
+            .filter(item => !!item)
+            .map(item => {
+                switch (item.trim()) {
+                    case 'prev':
+                        return prevPage;
+                    case 'pager':
+                        return pagerList;
+                    case 'next':
+                        return nextPage;
+                    case 'total':
+                        return totalText;
+                    case 'sizes':
+                        return sizes('sizes');
+                    case 'jumper':
+                        return sizes('jumper');
+                    case '->':
+                        return '->';
 
-                        default:
-                            return null;
-                    }
-                }),
-        [layout, nextPage, pagerList, prevPage, sizes, totalText],
-    );
+                    default:
+                        return null;
+                }
+            });
+        components.forEach(c => {
+            if (c === '->') {
+                haveRightWrapper = true;
+                return;
+            }
+            if (!haveRightWrapper) {
+                rootChildren.push(c);
+            } else {
+                rightWrapperChildren.push(c);
+            }
+        });
+        return (
+            <>
+                {rootChildren}
+                {rightWrapperChildren.length > 0 ? <div className={e`rightwrapper`}>{rightWrapperChildren}</div> : null}
+            </>
+        );
+    }, [e, layout, nextPage, pagerList, prevPage, sizes, totalText]);
 
     const simplePage = useMemo(
         () => (
@@ -478,38 +461,6 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
     if (hideOnSinglePage === true && total <= pageSize) {
         return null;
     }
-
-    // // 简单分页
-    // if (simple) {
-    //     return (
-    //         <ul className={classNames(b(), b`simple`, { [b`disabled`]: disabled }, className)} style={style} ref={containerRef}>
-    //             <li
-    //                 title={showTitle ? '上一页' : undefined}
-    //                 onClick={handlePrev}
-    //                 className={classNames(b`prev`, {
-    //                     [b`disabled`]: !hasPrev,
-    //                 })}
-    //             >
-    //                 {prevPage}
-    //             </li>
-    //             <li title={showTitle ? `${current}/${allPages}` : undefined} className={b`simple-pager`}>
-    //                 <input type="text" value={inputValue} disabled={disabled} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} onChange={handleKeyUp} onBlur={handleBlur} size={3} />
-    //                 <span className={b`slash`}>/</span>
-    //                 {allPages}
-    //             </li>
-    //             <li
-    //                 title={showTitle ? '下一页' : undefined}
-    //                 onClick={handleNext}
-    //                 className={classNames(b`next`, {
-    //                     [b`disabled`]: !hasNext,
-    //                 })}
-    //             >
-    //                 {nextPage}
-    //             </li>
-    //             {gotoButton}
-    //         </ul>
-    //     );
-    // }
 
     return (
         <div

@@ -45,56 +45,46 @@ lang: zh-CN
 
 此示例是一个完整的用例。 使用了 `sizeChange` 和 `currentChange` 事件来处理页码大小和当前页变动时候触发的事件。 `pageSizes` 接受一个整数类型的数组，数组元素为展示的选择每页显示个数的选项， `[100, 200, 300, 400]` 表示四个选项，每页显示 100 个，200 个，300 个或者 400 个。
 
-<code src="./more-elements.tsx"></code> 
+<code src="./more-elements.tsx"></code>
 
-## 属性
+## API
 
-| 属性名                              | 说明                                                                                                                         | 类型                                                                              | 默认值                               |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------ |
-| small                               | 是否使用小型分页样式                                                                                                         | `boolean` | false                                |
-| background                          | 是否为分页按钮添加背景色                                                                                                     | `boolean` | false                                |
-| page-size / v-model:page-size       | 每页显示条目个数                                                                                                             | `number` | 10                                   |
-| default-page-size                   | 每页显示条目数的初始值                                                                                                       | `number` | -                                    |
-| total                               | 总条目数                                                                                                                     | `number` | —                                    |
-| page-count                          | 总页数， `total` 和 `pageCount` 设置任意一个就可以达到显示页码的功能；如果要支持 `pageSizes` 的更改，则需要使用 `total` 属性 | `number` | —                                    |
-| pager-count                         | 设置最大页码按钮数。 页码按钮的数量，当总页数超过该值时会折叠                                                                | `number`  `5 \| 7 \| 9 \| 11 \| 13 \| 15 \| 17 \| 19 \| 21` | 7                                    |
-| current-page / v-model:current-page | 当前页数                                                                                                                     | `number` | 1                                    |
-| default-current-page                | 当前页数的初始值                                                                                                             | `number` | -                                    |
-| layout                              | 组件布局，子组件名用逗号分隔                                                                                                 | `string`  `string (consists of sizes, prev, pager, next, jumper, ->, total, slot)` | prev, pager, next, jumper, ->, total |
-| page-sizes                          | 每页显示个数选择器的选项设置                                                                                                 | ` array`  `number[] ` | [10, 20, 30, 40, 50, 100]            |
-| popper-class                        | 每页显示个数选择器的下拉框类名                                                                                               | `string` | —                                    |
-| prev-text                           | 替代图标显示的上一页文字                                                                                                     | `string` | —                                    |
-| prev-icon                           | 上一页的图标， 比 `prevText` 优先级更高                                                                                      | `string` / `Component` | ArrowLeft                            |
-| next-text                           | 替代图标显示的下一页文字                                                                                                     | `string` | —                                    |
-| next-icon                           | 下一页的图标， 比 `nextText` 优先级更高                                                                                      | `string` / `Component` | ArrowRight                           |
-| disabled                            | 是否禁用分页                                                                                                                 | `boolean` | false                                |
-| hide-on-single-page                 | 只有一页时是否隐藏                                                                                                           | `boolean` | -                                    |
+### 属性
+
+| 属性名             | 说明                                                          | 类型                                                                                                                  | 默认值                               |
+| ------------------ | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| size               | 分页大小                                                      | <Enum>'large' \| 'default' \| 'small'</Enum>                                                                          | —                                    |
+| background         | 是否为分页按钮添加背景色                                      | `boolean`                                                                                                             | false                                |
+| pageSize           | 每页显示条目个数                                              | `number`                                                                                                              | 10                                   |
+| defaultPageSize    | 每页默认的条目个数，不设置时默认为 10                         | `number`                                                                                                              | -                                    |
+| total              | 总条目数                                                      | `number`                                                                                                              | —                                    |
+| pagerCount         | 设置最大页码按钮数。 页码按钮的数量，当总页数超过该值时会折叠 | `number`                                                                                                              | 7                                    |
+| currentPage        | 当前页数                                                      | `number`                                                                                                              | 1                                    |
+| defaultCurrentPage | 当前页数的初始值，不设置时默认为 1                            | `number`                                                                                                              | -                                    |
+| layout             | 组件布局，子组件名用逗号分隔                                  | <Enum type="string"> `string (consists of sizes, prev, pager, next, jumper, ->, total)` </Enum>                       | prev, pager, next, jumper, ->, total |
+| pageSizes          | 每页显示个数选择器的选项设置                                  | ` array` `number[] `                                                                                                  | [10, 20, 30, 40, 50, 100]            |
+| prevText           | 替代图标显示的上一页文字                                      | `string`                                                                                                              | —                                    |
+| prevIcon           | 上一页的图标， 比 `prevText` 优先级更高                       | `string` / `Component`                                                                                                | angle-left                           |
+| nextText           | 替代图标显示的下一页文字                                      | `string`                                                                                                              | —                                    |
+| nextIcon           | 下一页的图标， 比 `nextText` 优先级更高                       | `string` / `Component`                                                                                                | angle-right                          |
+| disabled           | 是否禁用分页                                                  | `boolean`                                                                                                             | false                                |
+| hideOnSinglePage   | 只有一页时是否隐藏                                            | `boolean`                                                                                                             | false                                |
+| simple             | 当添加该属性时，显示为简单分页                                | `boolean`                                                                                                             | false                                |
+| showTotal          | 用于显示数据总量和当前数据顺序                                | <Enum type="Function">(total: number, [from, to]: [number, number]) => React.ReactElement \| boolean \| string</Enum> | —                                    |
+
+:::error{title=WARNING}
 
 我们现在会检查一些不合理的用法，如果发现分页器未显示，可以核对是否违反以下情形：
 
-*   `total` 和 `pageCount` 必须传一个，不然组件无法判断总页数；优先使用 `pageCount`; 
-*   如果传入了 `currentPage`，必须监听 `currentPage` 变更的事件（`@update:current-page`），否则分页切换不起作用；
-*   如果传入了 `pageSize`，且布局包含 page-size 选择器（即 `layout` 包含 `sizes`），必须监听 `pageSize` 变更的事件（`@update:page-size`），否则分页大小的变化将不起作用。
+-   `total` 必须传，不然组件无法判断总页数；
+-   如果传入了 `currentPage`，必须监听 `currentPage` 变更的事件（`onChange`），否则分页切换不起作用；
+-   如果传入了 `pageSize`，且布局包含 pageSize 选择器（即 `layout` 包含 `sizes`），必须监听 `pageSize` 变更的事件（`onSizeChange`），否则分页大小的变化将不起作用。
 
 :::
 
-## 事件
+### 事件
 
-| 事件名         | 说明                               | 类型                                                 |
-| -------------- | ---------------------------------- | ---------------------------------------------------- |
-| size-change    | `pageSize` 改变时触发              | <Enum type='Function'>(value: number) => void</Enum> |
-| current-change | `currentPage` 改变时触发           | <Enum type='Function'>(value: number) => void</Enum> |
-| prev-click     | 用户点击上一页按钮改变当前页时触发 | <Enum type='Function'>(value: number) => void</Enum> |
-| next-click     | 用户点击下一页按钮改变当前页时触发 | <Enum type='Function'>(value: number) => void</Enum> |
-
-:::error
-
-以上事件不推荐使用（但由于兼容的原因仍然支持，在以后的版本中将会被删除）；如果要监听 current-page 和 page-size 的改变，使用 `vModel` 双向绑定是个更好的选择。
-
-:::
-
-## Slots
-
-| 名称    | 说明                                               |
-| ------- | -------------------------------------------------- |
-| default | 自定义内容 设置文案，需要在 `layout` 中列出 `slot` |
+| 事件名       | 说明                     | 类型                                                                         |
+| ------------ | ------------------------ | ---------------------------------------------------------------------------- |
+| onSizeChange | `pageSize` 改变时触发    | <Enum type='Function'>(pageSize: number, currentPage: number) => void</Enum> |
+| onChange     | `currentPage` 改变时触发 | <Enum type='Function'>(currentPage: number, pageSize: number) => void</Enum> |

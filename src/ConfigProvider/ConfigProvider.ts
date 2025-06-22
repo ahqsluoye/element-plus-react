@@ -28,7 +28,7 @@ const ConfigProvider = createContext<ConfigProviderProps>({
     inputNumber: {
         controlsPositionRight: false,
     },
-    locale: 'zh-CN',
+    locale: 'en',
     popper: {},
 });
 

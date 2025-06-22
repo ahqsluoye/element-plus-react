@@ -7,15 +7,14 @@ const App = () => {
     const [disabled, setDisabled] = useState(false);
 
     const [pageSize2, setPageSize2] = useState(100);
-    const [pageSize3, setPageSize3] = useState(100);
     const [pageSize4, setPageSize4] = useState(100);
 
-    const handleSizeChange2 = (current: number, pageSize: number) => {
+    const handleSizeChange2 = (pageSize: number) => {
         console.log(`${pageSize} items per page`);
         setPageSize2(pageSize);
     };
 
-    const handleSizeChange4 = (current: number, pageSize: number) => {
+    const handleSizeChange4 = (pageSize: number) => {
         console.log(`${pageSize} items per page`);
         setPageSize4(pageSize);
     };
@@ -69,7 +68,10 @@ const App = () => {
                     size={size}
                     disabled={disabled}
                     background={value}
-                    layout="total, sizes, prev, pager, next, jumper"
+                    showTotal={(total: number, [from, to]: [number, number]) => {
+                        return `显示第 ${from} 到第 ${to} 条记录，总共 ${total} 条记录`;
+                    }}
+                    layout="total, ->, sizes, prev, pager, next, jumper"
                     total={1000}
                     onSizeChange={handleSizeChange4}
                 />
