@@ -1,0 +1,303 @@
+@use './common/var';
+
+.#{$namespace}-pagination {
+    --#{$namespace}-pagination-font-size: 14px;
+    --#{$namespace}-pagination-bg-color: var(--#{$namespace}-fill-color-blank);
+    --#{$namespace}-pagination-text-color: var(--#{$namespace}-text-color-primary);
+    --#{$namespace}-pagination-border-radius: 2px;
+    --#{$namespace}-pagination-button-color: var(--#{$namespace}-text-color-primary);
+    --#{$namespace}-pagination-button-width: 32px;
+    --#{$namespace}-pagination-button-height: 32px;
+    --#{$namespace}-pagination-button-disabled-color: var(--#{$namespace}-text-color-placeholder);
+    --#{$namespace}-pagination-button-disabled-bg-color: var(--#{$namespace}-fill-color-blank);
+    --#{$namespace}-pagination-button-bg-color: var(--#{$namespace}-fill-color);
+    --#{$namespace}-pagination-hover-color: var(--#{$namespace}-color-primary);
+    --#{$namespace}-pagination-font-size-small: 12px;
+    --#{$namespace}-pagination-button-width-small: 24px;
+    --#{$namespace}-pagination-button-height-small: 24px;
+    --#{$namespace}-pagination-button-width-large: 40px;
+    --#{$namespace}-pagination-button-height-large: 40px;
+    --#{$namespace}-pagination-item-gap: 16px;
+    white-space: nowrap;
+    color: var(--#{$namespace}-pagination-text-color);
+    font-size: var(--#{$namespace}-pagination-font-size);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+
+    .#{$namespace}-input__inner {
+        text-align: center;
+        -moz-appearance: textfield;
+    }
+
+    .#{$namespace}-select {
+        width: 128px;
+    }
+
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: var(--#{$namespace}-pagination-font-size);
+        min-width: var(--#{$namespace}-pagination-button-width);
+        height: var(--#{$namespace}-pagination-button-height);
+        line-height: var(--#{$namespace}-pagination-button-height);
+        color: var(--#{$namespace}-pagination-button-color);
+        background: var(--#{$namespace}-pagination-bg-color);
+        padding: 0 4px;
+        border: none;
+        border-radius: var(--#{$namespace}-pagination-border-radius);
+        cursor: pointer;
+        text-align: center;
+        box-sizing: border-box;
+
+        * {
+            pointer-events: none;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            color: var(--#{$namespace}-pagination-hover-color);
+        }
+
+        &.is-active {
+            color: var(--#{$namespace}-pagination-hover-color);
+            cursor: default;
+            font-weight: 700;
+        }
+
+        &.is-active.is-disabled {
+            font-weight: 700;
+            color: var(--#{$namespace}-text-color-secondary);
+        }
+
+        &:disabled,
+        &.is-disabled {
+            color: var(--#{$namespace}-pagination-button-disabled-color);
+            background-color: var(--#{$namespace}-pagination-button-disabled-bg-color);
+            cursor: not-allowed;
+        }
+
+        &:focus-visible {
+            outline: 1px solid var(--#{$namespace}-pagination-hover-color);
+            outline-offset: -1px;
+        }
+    }
+
+    .btn-prev .#{$namespace}-icon,
+    .btn-next .#{$namespace}-icon {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        width: inherit;
+    }
+
+    .#{$namespace}-pagination-item {
+        &:first-child,
+        &.is-simple {
+            margin-left: 0 !important;
+        }
+
+        &:last-child {
+            margin-right: 0 !important;
+        }
+    }
+
+    .btn-prev {
+        margin-left: var(--#{$namespace}-pagination-item-gap);
+    }
+
+    &.is-background {
+        .btn-prev,
+        .btn-next,
+        li {
+            margin: 0 4px;
+            background-color: var(--#{$namespace}-pagination-button-bg-color);
+        }
+
+        .btn-prev.is-active,
+        .btn-next.is-active,
+        li.is-active {
+            background-color: var(--#{$namespace}-color-primary);
+            color: var(--#{$namespace}-color-white);
+        }
+
+        .btn-prev:disabled,
+        .btn-prev.is-disabled,
+        .btn-next:disabled,
+        .btn-next.is-disabled,
+        li:disabled,
+        li.is-disabled {
+            color: var(--#{$namespace}-text-color-placeholder);
+            background-color: var(--#{$namespace}-disabled-bg-color);
+        }
+
+        .btn-prev:disabled.is-active,
+        .btn-prev.is-disabled.is-active,
+        .btn-next:disabled.is-active,
+        .btn-next.is-disabled.is-active,
+        li:disabled.is-active,
+        li.is-disabled.is-active {
+            color: var(--#{$namespace}-text-color-secondary);
+            background-color: var(--#{$namespace}-fill-color-dark);
+        }
+
+        .btn-prev {
+            margin-left: var(--#{$namespace}-pagination-item-gap);
+        }
+    }
+}
+
+.#{$namespace}-pagination__sizes,
+.#{$namespace}-pagination__total {
+    margin-left: var(--#{$namespace}-pagination-item-gap);
+    font-weight: 400;
+    color: var(--#{$namespace}-text-color-regular);
+}
+
+.#{$namespace}-pagination__total[disabled='true'] {
+    color: var(--#{$namespace}-text-color-placeholder);
+}
+
+.#{$namespace}-pagination__jump {
+    display: flex;
+    align-items: center;
+    margin-left: var(--#{$namespace}-pagination-item-gap);
+    font-weight: 400;
+    color: var(--#{$namespace}-text-color-regular);
+}
+
+.#{$namespace}-pagination__jump[disabled='true'] {
+    color: var(--#{$namespace}-text-color-placeholder);
+}
+
+.#{$namespace}-pagination__goto {
+    margin-right: 8px;
+}
+
+.#{$namespace}-pagination__editor {
+    text-align: center;
+    box-sizing: border-box;
+
+    &.#{$namespace}-input {
+        width: 56px;
+    }
+
+    .#{$namespace}-input__inner::-webkit-inner-spin-button,
+    .#{$namespace}-input__inner::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+.#{$namespace}-pagination__classifier {
+    margin-left: 8px;
+}
+
+.#{$namespace}-pagination__rightwrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.#{$namespace}-pagination--small {
+    .btn-prev,
+    .btn-next,
+    .#{$namespace}-pager li {
+        height: var(--#{$namespace}-pagination-button-height-small);
+        line-height: var(--#{$namespace}-pagination-button-height-small);
+        font-size: var(--#{$namespace}-pagination-font-size-small);
+        min-width: var(--#{$namespace}-pagination-button-width-small);
+    }
+
+    span:not([class*='suffix']),
+    button {
+        font-size: var(--#{$namespace}-pagination-font-size-small);
+    }
+
+    .#{$namespace}-select {
+        width: 100px;
+    }
+}
+
+.#{$namespace}-pagination--large {
+    .btn-prev,
+    .btn-next,
+    .#{$namespace}-pager li {
+        height: var(--#{$namespace}-pagination-button-height-large);
+        line-height: var(--#{$namespace}-pagination-button-height-large);
+        min-width: var(--#{$namespace}-pagination-button-width-large);
+    }
+
+    .#{$namespace}-select {
+        width: 160px;
+    }
+}
+
+.#{$namespace}-pager {
+    -webkit-user-select: none;
+    user-select: none;
+    list-style: none;
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+
+    li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: var(--#{$namespace}-pagination-font-size);
+        min-width: var(--#{$namespace}-pagination-button-width);
+        height: var(--#{$namespace}-pagination-button-height);
+        line-height: var(--#{$namespace}-pagination-button-height);
+        color: var(--#{$namespace}-pagination-button-color);
+        background: var(--#{$namespace}-pagination-bg-color);
+        padding: 0 4px;
+        border: none;
+        border-radius: var(--#{$namespace}-pagination-border-radius);
+        cursor: pointer;
+        text-align: center;
+        box-sizing: border-box;
+
+        * {
+            pointer-events: none;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            color: var(--#{$namespace}-pagination-hover-color);
+        }
+
+        &.is-active {
+            color: var(--#{$namespace}-pagination-hover-color);
+            cursor: default;
+            font-weight: 700;
+        }
+
+        &.is-active.is-disabled {
+            font-weight: 700;
+            color: var(--#{$namespace}-text-color-secondary);
+        }
+
+        &:disabled,
+        &.is-disabled {
+            color: var(--#{$namespace}-pagination-button-disabled-color);
+            background-color: var(--#{$namespace}-pagination-button-disabled-bg-color);
+            cursor: not-allowed;
+        }
+
+        &:focus-visible {
+            outline: 1px solid var(--#{$namespace}-pagination-hover-color);
+            outline-offset: -1px;
+        }
+    }
+}

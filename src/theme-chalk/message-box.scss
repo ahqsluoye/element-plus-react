@@ -1,0 +1,184 @@
+@use './common/var';
+
+.#{$namespace}-message-box {
+    --#{$namespace}-messagebox-title-color: var(--#{$namespace}-text-color-primary);
+    --#{$namespace}-messagebox-width: 420px;
+    --#{$namespace}-messagebox-border-radius: 4px;
+    --#{$namespace}-messagebox-box-shadow: var(--#{$namespace}-box-shadow);
+    --#{$namespace}-messagebox-font-size: var(--#{$namespace}-font-size-large);
+    --#{$namespace}-messagebox-content-font-size: var(--#{$namespace}-font-size-base);
+    --#{$namespace}-messagebox-content-color: var(--#{$namespace}-text-color-regular);
+    --#{$namespace}-messagebox-error-font-size: 12px;
+    --#{$namespace}-messagebox-padding-primary: 12px;
+    --#{$namespace}-messagebox-font-line-height: var(--#{$namespace}-font-line-height-primary);
+}
+
+.#{$namespace}-message-box {
+    display: inline-block;
+    position: relative;
+    max-width: var(--#{$namespace}-messagebox-width);
+    width: 100%;
+    padding: var(--#{$namespace}-messagebox-padding-primary);
+    vertical-align: middle;
+    background-color: var(--#{$namespace}-bg-color);
+    border-radius: var(--#{$namespace}-messagebox-border-radius);
+    font-size: var(--#{$namespace}-messagebox-font-size);
+    box-shadow: var(--#{$namespace}-messagebox-box-shadow);
+    text-align: left;
+    overflow: hidden;
+    backface-visibility: hidden;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+
+    &:focus {
+        outline: none !important;
+    }
+
+    &.is-draggable .#{$namespace}-message-box__header {
+        cursor: move;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+}
+
+.#{$namespace}-message-box__header {
+    padding-bottom: var(--#{$namespace}-messagebox-padding-primary);
+
+    &.show-close {
+        padding-right: calc(var(--#{$namespace}-messagebox-padding-primary) + var(--#{$namespace}-message-close-size, 16px));
+    }
+}
+
+.#{$namespace}-message-box__title {
+    font-size: var(--#{$namespace}-messagebox-font-size);
+    line-height: var(--#{$namespace}-messagebox-font-line-height);
+    color: var(--#{$namespace}-messagebox-title-color);
+}
+
+.#{$namespace}-message-box__headerbtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: var(--#{$namespace}-message-close-size, 16px);
+    cursor: pointer;
+
+    .#{$namespace}-message-box__close {
+        color: var(--#{$namespace}-color-info);
+        font-size: inherit;
+    }
+
+    &:focus .#{$namespace}-message-box__close,
+    &:hover .#{$namespace}-message-box__close {
+        color: var(--#{$namespace}-color-primary);
+    }
+}
+
+.#{$namespace}-message-box__body {
+    color: var(--#{$namespace}-messagebox-content-color);
+    font-size: var(--#{$namespace}-messagebox-content-font-size);
+}
+
+.#{$namespace}-message-box__container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.#{$namespace}-message-box__input {
+    padding-top: 12px;
+
+    div.invalid > input {
+        border-color: var(--#{$namespace}-color-error);
+    }
+
+    div.invalid > input:focus {
+        border-color: var(--#{$namespace}-color-error);
+    }
+}
+
+.#{$namespace}-message-box__status {
+    font-size: 24px;
+
+    // &::before {
+    //     // 防止图标切割
+    //     padding-left: 1px;
+    // }
+
+    // &.#{$namespace}-icon {
+    //     // 防止 #{$namespace}-icon 的position样式覆盖
+    //     position: absolute;
+    // }
+
+    // & + .#{$namespace}-message-box__message {
+    //     padding-left: 36px;
+    //     padding-right: 12px;
+    //     word-break: break-word;
+    // }
+
+    @each $type in (success, info, warning, error) {
+        &.#{$namespace}-message-box-icon--#{$type} {
+            --#{$namespace}-messagebox-color: var(--#{$namespace}-color-#{$type});
+            color: var(--#{$namespace}-messagebox-color);
+        }
+    }
+}
+
+.#{$namespace}-message-box__message {
+    margin: 0;
+
+    & p {
+        margin: 0;
+        line-height: var(--#{$namespace}-messagebox-font-line-height);
+    }
+}
+
+.#{$namespace}-message-box__errormsg {
+    color: var(--#{$namespace}-color-error);
+    font-size: var(--#{$namespace}-messagebox-error-font-size);
+    line-height: var(--#{$namespace}-messagebox-font-line-height);
+}
+
+.#{$namespace}-message-box__footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: var(--#{$namespace}-messagebox-padding-primary);
+}
+
+.#{$namespace}-message-box--cente {
+    .#{$namespace}-message-box__title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .#{$namespace}-message-box__status {
+        font-size: inherit;
+    }
+
+    .#{$namespace}-message-box__btns,
+    .#{$namespace}-message-box__container {
+        justify-content: center;
+    }
+}
+
+// .#{$namespace}-message-box__container {
+//     position: relative;
+// }
+
+// .#{$namespace}-message-box__message {
+//     margin: 0;
+
+//     & p {
+//         margin: 0;
+//         line-height: 24px;
+//     }
+// }

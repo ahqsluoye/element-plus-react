@@ -1,0 +1,50 @@
+@use './common/var';
+
+.#{$namespace}-avatar {
+    --#{$namespace}-avatar-text-color: var(--#{$namespace}-color-white);
+    --#{$namespace}-avatar-bg-color: var(--#{$namespace}-text-color-disabled);
+    --#{$namespace}-avatar-text-size: 14px;
+    --#{$namespace}-avatar-icon-size: 18px;
+    --#{$namespace}-avatar-border-radius: var(--#{$namespace}-border-radius-base);
+    --#{$namespace}-avatar-size-large: 56px;
+    --#{$namespace}-avatar-size-small: 24px;
+    --#{$namespace}-avatar-size: 40px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    text-align: center;
+    overflow: hidden;
+    outline: none;
+    color: var(--#{$namespace}-avatar-text-color);
+    background: var(--#{$namespace}-avatar-bg-color);
+    width: var(--#{$namespace}-avatar-size);
+    height: var(--#{$namespace}-avatar-size);
+    font-size: var(--#{$namespace}-avatar-text-size);
+}
+
+.#{$namespace}-avatar > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.#{$namespace}-avatar--circle {
+    border-radius: 50%;
+}
+
+.#{$namespace}-avatar--square {
+    border-radius: var(--#{$namespace}-avatar-border-radius);
+}
+
+.#{$namespace}-avatar--icon {
+    font-size: var(--#{$namespace}-avatar-icon-size);
+}
+
+.#{$namespace}-avatar--small {
+    --#{$namespace}-avatar-size: 24px;
+}
+
+.#{$namespace}-avatar--large {
+    --#{$namespace}-avatar-size: 56px;
+}

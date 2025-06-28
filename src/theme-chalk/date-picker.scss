@@ -1,0 +1,253 @@
+@use './common/var';
+
+@use 'sass:map';
+
+$input-height: () !default;
+$input-height: map.merge(
+    (
+        'large': var(--#{$namespace}-component-size-large),
+        'default': 32px,
+        'small': var(--#{$namespace}-component-size-small),
+    ),
+    $input-height
+);
+
+$input-line-height: () !default;
+$input-line-height: map.merge(
+    (
+        'large': var(--#{$namespace}-component-size-large),
+        'default': 32px,
+        'small': var(--#{$namespace}-component-size-small),
+    ),
+    $input-line-height
+);
+
+$input-font-size: () !default;
+$input-font-size: map.merge(
+    (
+        'large': 14px,
+        'default': 14px,
+        'small': 12px,
+    ),
+    $input-font-size
+);
+
+@mixin placeholder {
+    &::-webkit-input-placeholder {
+        color: var(--#{$namespace}-text-color-placeholder);
+    }
+    &:-moz-placeholder {
+        color: var(--#{$namespace}-text-color-placeholder);
+    }
+    &::-moz-placeholder {
+        color: var(--#{$namespace}-text-color-placeholder);
+    }
+    &:-ms-input-placeholder {
+        color: var(--#{$namespace}-text-color-placeholder);
+    }
+}
+
+.#{$namespace}-date-editor {
+    // --#{$namespace}-input-text-color: var(--#{$namespace}-text-color-regular);
+    // --#{$namespace}-input-border: var(--#{$namespace}-border);
+    // --#{$namespace}-input-hover-border: var(--#{$namespace}-border-color-hover);
+    // --#{$namespace}-input-focus-border: var(--#{$namespace}-color-primary);
+    // --#{$namespace}-input-transparent-border: 0 0 0 1px transparent inset;
+    // --#{$namespace}-input-border-color: var(--#{$namespace}-border-color);
+    // --#{$namespace}-input-border-radius: var(--#{$namespace}-border-radius-base);
+    // --#{$namespace}-input-bg-color: var(--#{$namespace}-fill-color-blank);
+    // --#{$namespace}-input-icon-color: var(--#{$namespace}-text-color-placeholder);
+    // --#{$namespace}-input-placeholder-color: var(--#{$namespace}-text-color-placeholder);
+    --#{$namespace}-input-hover-border-color: var(--#{$namespace}-border-color-hover);
+    // --#{$namespace}-input-clear-hover-color: var(--#{$namespace}-text-color-secondary);
+    // --#{$namespace}-input-focus-border-color: var(--#{$namespace}-color-primary);
+}
+
+.#{$namespace}-date-editor {
+    position: relative;
+    display: inline-block;
+    text-align: left;
+
+    // &.#{$namespace}-input,
+    // &.#{$namespace}-input__wrapper {
+    //     width: 250px;
+    // }
+
+    // .#{$namespace}-date-editor--monthrange {
+    //     &.#{$namespace}-input,
+    //     &.#{$namespace}-input__wrapper {
+    //         width: 300px;
+    //     }
+    // }
+
+    // .#{$namespace}-date-editor--daterange,
+    // .#{$namespace}-date-editor--timerange {
+    //     &.#{$namespace}-input,
+    //     &.#{$namespace}-input__wrapper {
+    //         width: 350px;
+    //     }
+    // }
+
+    // .#{$namespace}-date-editor--datetimerange {
+    //     &.#{$namespace}-input,
+    //     &.#{$namespace}-input__wrapper {
+    //         width: 400px;
+    //     }
+    // }
+
+    .#{$namespace}-date-editor--dates {
+        .#{$namespace}-input__wrapper {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .close-icon {
+        cursor: pointer;
+    }
+
+    .clear-icon {
+        cursor: pointer;
+
+        &:hover {
+            color: #909399;
+        }
+    }
+
+    .#{$namespace}-range__icon {
+        height: inherit;
+        font-size: 14px;
+        color: var(--#{$namespace}-text-color-placeholder);
+        float: left;
+    }
+
+    .#{$namespace}-range-input {
+        appearance: none;
+        border: none;
+        outline: none;
+        display: inline-block;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 39%;
+        text-align: center;
+        font-size: 14px;
+        background: transparent;
+        color: var(--#{$namespace}-text-color-regular);
+
+        @include placeholder();
+    }
+
+    .#{$namespace}-range-separator {
+        flex: 1;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding: 0 5px;
+        margin: 0;
+        font-size: 14px;
+        word-break: break-all;
+        color: var(--#{$namespace}-text-color-primary);
+    }
+
+    .#{$namespace}-range__close-icon {
+        font-size: 14px;
+        color: var(--#{$namespace}-text-color-placeholder);
+        height: inherit;
+        width: unset;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--#{$namespace}-color-primary);
+        }
+
+        svg {
+            vertical-align: middle;
+        }
+
+        &--hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+}
+
+.#{$namespace}-range-editor {
+    &.#{$namespace}-input__wrapper {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3px 10px;
+        background-color: var(--#{$namespace}-input-bg-color, var(--#{$namespace}-fill-color-blank));
+        background-image: none;
+        transition: box-shadow 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+        height: map.get($input-height, default);
+        flex-grow: unset;
+    }
+
+    .#{$namespace}-icon {
+        height: 1em;
+    }
+
+    .#{$namespace}-range-input {
+        line-height: 1;
+    }
+
+    &.is-active {
+        box-shadow: 0 0 0 1px var(--#{$namespace}-color-primary) inset;
+
+        &:hover {
+            box-shadow: 0 0 0 1px var(--#{$namespace}-color-primary) inset;
+        }
+    }
+
+    &.is-disabled {
+        background-color: var(--#{$namespace}-disabled-bg-color);
+        border-color: var(--#{$namespace}-border-color-light);
+        color: var(--#{$namespace}-disabled-text-color);
+        cursor: not-allowed;
+
+        &:hover,
+        &:focus {
+            border-color: var(--#{$namespace}-border-color-light);
+        }
+
+        input {
+            // background-color: #f5f7fa;
+            color: var(--#{$namespace}-disabled-text-color);
+            cursor: not-allowed;
+
+            // &::placeholder {
+            //     color: #c0c4cc;
+            // }
+        }
+
+        .#{$namespace}-range-separator {
+            color: var(--#{$namespace}-disabled-text-color);
+        }
+
+        &:hover {
+            box-shadow: 0 0 0 1px var(--#{$namespace}-input-border-color, var(--#{$namespace}-border-color)) inset;
+        }
+    }
+}
+
+@each $size in (large, small) {
+    .#{$namespace}-range-editor--#{$size} {
+        line-height: map.get($input-height, $size);
+
+        &.#{$namespace}-input__wrapper {
+            height: map.get($input-height, $size);
+        }
+
+        .#{$namespace}-range-separator {
+            line-height: map.get($input-line-height, $size);
+            font-size: map.get($input-font-size, $size);
+        }
+
+        .#{$namespace}-range-input {
+            font-size: map.get($input-font-size, $size);
+        }
+    }
+}

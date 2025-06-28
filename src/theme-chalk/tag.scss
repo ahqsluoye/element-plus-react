@@ -1,0 +1,203 @@
+@use 'sass:map';
+@use './common/var';
+
+@function joinVarName($list) {
+    $name: '';
+    @each $item in $list {
+        @if $item != '' {
+            $name: $name + '-' + $item;
+        }
+    }
+    @return $name;
+}
+
+$tag-border-width: 1px;
+
+$tag-height: () !default;
+$tag-height: map.merge(
+    (
+        'large': 32px,
+        'default': 24px,
+        'small': 20px,
+    ),
+    $tag-height
+);
+
+$tag-padding: () !default;
+$tag-padding: map.merge(
+    (
+        'large': 12px,
+        'default': 10px,
+        'small': 8px,
+    ),
+    $tag-padding
+);
+
+$tag-icon-size: () !default;
+$tag-icon-size: map.merge(
+    (
+        'large': 16px,
+        'default': 14px,
+        'small': 12px,
+    ),
+    $tag-icon-size
+);
+
+$tag-icon-span-gap: () !default;
+$tag-icon-span-gap: map.merge(
+    (
+        'large': 8px,
+        'default': 6px,
+        'small': 4px,
+    ),
+    $tag-icon-span-gap
+);
+
+@mixin genTheme($backgroundColorWeight, $borderColorWeight, $hoverColorWeight) {
+    --#{$namespace}-tag-bg-color: var(--#{$namespace}-color-primary#{joinVarName($backgroundColorWeight)});
+    --#{$namespace}-tag-border-color: var(--#{$namespace}-color-primary#{joinVarName($borderColorWeight)});
+    --#{$namespace}-tag-hover-color: var(--#{$namespace}-color-primary#{joinVarName($hoverColorWeight)});
+
+    @each $type in success, warning, error, danger, info {
+        &.#{$namespace}-tag--#{$type} {
+            --#{$namespace}-tag-bg-color: var(--#{$namespace}-color#{joinVarName(($type, $backgroundColorWeight))});
+            --#{$namespace}-tag-border-color: var(--#{$namespace}-color#{joinVarName(($type, $borderColorWeight))});
+            --#{$namespace}-tag-hover-color: var(--#{$namespace}-color#{joinVarName(($type, $hoverColorWeight))});
+        }
+    }
+}
+
+.#{$namespace}-tag {
+    --#{$namespace}-tag-font-size: 12px;
+    --#{$namespace}-tag-border-radius: 4px;
+    --#{$namespace}-tag-border-radius-rounded: 9999px;
+}
+
+.#{$namespace}-tag {
+    @include genTheme('light-9', 'light-8', '');
+    --#{$namespace}-tag-text-color: var(--#{$namespace}-color-primary);
+    @each $type in success, warning, error, danger, info {
+        &.#{$namespace}-tag--#{$type} {
+            --#{$namespace}-tag-text-color: var(--#{$namespace}-color-#{$type});
+        }
+    }
+
+    &.is-hit {
+        border-color: var(--#{$namespace}-color-primary);
+    }
+
+    &.is-round {
+        border-radius: var(--#{$namespace}-tag-border-radius-rounded);
+    }
+
+    .#{$namespace}-tag__close {
+        color: var(--#{$namespace}-tag-text-color);
+        &:hover {
+            color: var(--#{$namespace}-color-white);
+            background-color: var(--#{$namespace}-tag-hover-color);
+        }
+    }
+
+    background-color: var(--#{$namespace}-tag-bg-color);
+    border-color: var(--#{$namespace}-tag-border-color);
+    color: var(--#{$namespace}-tag-text-color);
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    height: map.get($tag-height, 'default');
+    padding: 0 map.get($tag-padding, 'default') - 1px;
+    font-size: 12px;
+    line-height: 1;
+    border-width: $tag-border-width;
+    border-style: solid;
+    border-radius: var(--#{$namespace}-tag-border-radius);
+    box-sizing: border-box;
+    white-space: nowrap;
+    --#{$namespace}-icon-size: 14px;
+
+    $svg-margin-size: 1px;
+    .#{$namespace}-icon {
+        border-radius: 50%;
+        cursor: pointer;
+
+        font-size: calc(#{var(--#{$namespace}-icon-size)} - #{$svg-margin-size * 2});
+        height: var(--#{$namespace}-icon-size);
+        width: var(--#{$namespace}-icon-size);
+
+        text-align: center;
+        position: relative;
+        line-height: var(--#{$namespace}-icon-size);
+        vertical-align: middle;
+        right: -5px;
+
+        svg {
+            margin: 1px;
+        }
+    }
+
+    .#{$namespace}-tag__close {
+        margin-left: map.get($tag-icon-span-gap, 'default');
+    }
+
+    &.is-closable {
+        padding-right: map.get($tag-icon-span-gap, 'default') - 1px;
+    }
+
+    @each $type in success, warning, error, danger, info {
+        &.#{$namespace}-tag--#{$type} {
+            &.is-hit {
+                border-color: var(--#{$namespace}-color-#{$type});
+            }
+        }
+    }
+}
+
+.#{$namespace}-tag--dark {
+    @include genTheme('', '', 'light-3');
+    --#{$namespace}-tag-text-color: var(--#{$namespace}-color-white);
+
+    @each $type in success, warning, error, danger, info {
+        &.#{$namespace}-tag--#{$type} {
+            --#{$namespace}-tag-text-color: var(--#{$namespace}-color-white);
+        }
+    }
+}
+
+.#{$namespace}-tag--plain {
+    --#{$namespace}-tag-bg-color: var(--#{$namespace}-fill-color-blank);
+    --#{$namespace}-tag-border-color: var(--#{$namespace}-color-primary-light-5);
+    --#{$namespace}-tag-hover-color: var(--#{$namespace}-color-primary);
+
+    @each $type in success, warning, error, danger, info {
+        &.#{$namespace}-tag--#{$type} {
+            --#{$namespace}-tag-bg-color: var(--#{$namespace}-fill-color-blank);
+            --#{$namespace}-tag-border-color: var(--#{$namespace}-color#{joinVarName(($type, 'light-5'))});
+            --#{$namespace}-tag-hover-color: var(--#{$namespace}-color#{joinVarName(($type, 'light-5'))});
+        }
+    }
+}
+
+@each $size in (large, default, small) {
+    .#{$namespace}-tag--#{$size} {
+        padding: 0 map.get($tag-padding, $size) - $tag-border-width;
+        height: map.get($tag-height, $size);
+
+        --#{$namespace}-icon-size: #{map.get($tag-icon-size, $size)};
+
+        .#{$namespace}-tag__close {
+            margin-left: map.get($tag-icon-span-gap, $size);
+        }
+
+        &.is-closable {
+            padding-right: map.get($tag-icon-span-gap, $size) - 1px;
+        }
+    }
+}
+
+.#{$namespace}-tag--small {
+    .#{$namespace}-icon-close {
+        transform: scale(0.8);
+    }
+}

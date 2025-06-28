@@ -12,12 +12,14 @@
 
 /* Form 表单组件 */
 @import './cascader';
-@import './carousel/';
+@import './cascader-panel';
+@import './carousel';
 @import './checkbox';
 @import './checkbox-button';
 @import './checkbox-group';
 @import './color-picker';
 @import './radio';
+@import './radio-button';
 @import './radio-group';
 @import './input';
 @import './input-number';
@@ -25,6 +27,7 @@
 @import './calendar';
 @import './date-picker';
 @import './date-time-picker';
+@import './time-range-picker';
 @import './time-picker';
 @import './switch';
 @import './transfer';
@@ -32,15 +35,17 @@
 @import './upload';
 
 /* Data 数据展示 */
-@import './avatar/';
+@import './avatar';
 @import './badge';
 @import './card';
 @import './collapse';
 @import './descriptions';
+@import './descriptions-item';
 @import './pagination';
 @import './progress';
 @import './table';
 @import './time-line';
+@import './timeline-item';
 @import './tree';
 @import './tree-select';
 @import './tag';

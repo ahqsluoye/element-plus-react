@@ -1,0 +1,33 @@
+@use './common/var';
+
+.#{$namespace}-checkbox-group {
+    font-size: 0;
+    line-height: 0;
+    // display: inline-flex;
+    // flex-wrap: wrap;
+    // align-items: center;
+    // position: relative;
+    // min-height: 32px;
+    // flex-direction: column;
+    // align-items: flex-start;
+
+    // &.#{$namespace}-checkbox-group-inline {
+    //     flex-direction: row;
+    //     line-height: 32px;
+    //     align-items: center;
+    // }
+
+    // &.#{$namespace}-checkbox-group--large {
+    //     min-height: var(--#{$namespace}-component-size-large);
+    //     &.#{$namespace}-checkbox-group-inline {
+    //         line-height: var(--#{$namespace}-component-size-large);
+    //     }
+    // }
+
+    // &.#{$namespace}-checkbox-group--small {
+    //     min-height: var(--#{$namespace}-component-size-small);
+    //     &.#{$namespace}-checkbox-group-inline {
+    //         line-height: var(--#{$namespace}-component-size-small);
+    //     }
+    // }
+}

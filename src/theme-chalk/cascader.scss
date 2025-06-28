@@ -1,0 +1,239 @@
+@use './common/var';
+
+.#{$namespace}-cascader {
+    display: inline-block;
+    position: relative;
+    font-size: 14px;
+    line-height: 32px;
+    outline: none;
+    width: 100%;
+
+    // &:not(.is-disabled):hover {
+    //     .#{$namespace}-input__wrapper {
+    //         cursor: pointer;
+    //         box-shadow: 0 0 0 1px var(--#{$namespace}-border-color-hover) inset;
+    //     }
+    // }
+
+    .#{$namespace}-input {
+        cursor: pointer;
+
+        .#{$namespace}-input__wrapper {
+            text-overflow: ellipsis;
+
+            &:focus {
+                box-shadow: 0 0 0 1px var(--#{$namespace}-color-primary) inset;
+            }
+        }
+
+        .#{$namespace}-input__suffix-inner {
+            .#{$namespace}-icon {
+                // height: calc(100% - 2px);
+
+                svg {
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        .icon-arrow-down {
+            transition: transform 0.3s;
+            font-size: 14px;
+
+            &.is-reverse {
+                transform: rotateZ(180deg);
+            }
+        }
+
+        .icon-circle-close:hover {
+            color: #909399;
+        }
+
+        &.is-focus {
+            .#{$namespace}-input__wrapper {
+                box-shadow: 0 0 0 1px var(--#{$namespace}-color-primary) inset;
+            }
+        }
+    }
+
+    // @each $size in (large, small) {
+    //   @include m($size) {
+    //     font-size: map.get($input-font-size, $size);
+    //     line-height: map.get($input-height, $size);
+    //   }
+    // }
+
+    &.is-disabled {
+        .#{$namespace}-cascader__label {
+            z-index: 2;
+            color: var(--#{$namespace}-disabled-text-color);
+        }
+    }
+
+    &.#{$namespace}-cascader--large {
+        line-height: var(--#{$namespace}-component-size-large);
+    }
+
+    &.#{$namespace}-cascader--small {
+        line-height: var(--#{$namespace}-component-size-small);
+    }
+}
+
+.#{$namespace}-cascader__dropdown {
+    font-size: 14px;
+    border-radius: 4px;
+
+    &.#{$namespace}-popper[role='tooltip'] {
+        background-color: var(--#{$namespace}-bg-color-overlay);
+        border: 1px solid var(--#{$namespace}-border-color);
+        box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    &.#{$namespace}-popper[role='tooltip'] .#{$namespace}-popper__arrow:before {
+        border: 1px solid var(--#{$namespace}-border-color);
+    }
+
+    &.#{$namespace}-popper[role='tooltip'][data-popper-placement^='top'] .#{$namespace}-popper__arrow:before {
+        border-top-color: transparent;
+        border-left-color: transparent;
+    }
+
+    &.#{$namespace}-popper[role='tooltip'][data-popper-placement^='bottom'] .#{$namespace}-popper__arrow:before {
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+    }
+
+    &.#{$namespace}-popper[role='tooltip'][data-popper-placement^='left'] .#{$namespace}-popper__arrow:before {
+        border-left-color: transparent;
+        border-bottom-color: transparent;
+    }
+
+    &.#{$namespace}-popper[role='tooltip'][data-popper-placement^='right'] .#{$namespace}-popper__arrow:before {
+        border-right-color: transparent;
+        border-top-color: transparent;
+    }
+
+    &.#{$namespace}-popper {
+        box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+    }
+}
+
+.#{$namespace}-cascader__trigger {
+    cursor: pointer;
+}
+
+.#{$namespace}-cascader__tags {
+    position: absolute;
+    left: 0;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    line-height: normal;
+    text-align: left;
+    box-sizing: border-box;
+    z-index: 1;
+
+    .#{$namespace}-tag {
+        display: inline-flex;
+        align-items: center;
+        max-width: 100%;
+        margin: 2px 0 2px 6px;
+        text-overflow: ellipsis;
+        background: #f0f2f5;
+
+        &:not(.is-hit) {
+            border-color: transparent;
+        }
+
+        & > span {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .#{$namespace}-icon-close {
+            flex: none;
+            background-color: #a8abb2;
+            color: #ffffff;
+
+            &:hover {
+                background-color: #909399;
+            }
+        }
+    }
+}
+
+.#{$namespace}-cascader__collapse-tags {
+    white-space: normal;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.#{$namespace}-cascader__collapse-tag {
+    line-height: inherit;
+    height: inherit;
+    display: flex;
+}
+
+.#{$namespace}-cascader__suggestion-panel {
+    border-radius: 4px;
+}
+
+.#{$namespace}-cascader__suggestion-list {
+    max-height: 204px;
+    margin: 0;
+    padding: 6px 0;
+    font-size: 14px;
+    color: #606266;
+    text-align: center;
+}
+
+.#{$namespace}-cascader__suggestion-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 34px;
+    padding: 0 15px;
+    text-align: left;
+    outline: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        background: #f5f7fa;
+    }
+
+    &.is-checked {
+        color: var(--#{$namespace}-color-primary);
+        font-weight: bold;
+    }
+
+    & > span {
+        margin-right: 10px;
+    }
+}
+
+.#{$namespace}-cascader__empty-text {
+    margin: 10px 0;
+    color: #a8abb2;
+}
+
+// .#{$namespace}-cascader__search-input {
+//     flex: 1;
+//     height: 28px;
+//     min-width: 60px;
+//     margin: 2px 0 2px map.get($input-padding-horizontal, 'default')-$border-width;
+//     padding: 0;
+//     color: var(--#{$namespace}-cascader-menu-text-color);
+//     border: none;
+//     outline: none;
+//     box-sizing: border-box;
+
+//     &::placeholder {
+//         color: var(--#{$namespace}-text-color-placeholder);
+//     }
+// }

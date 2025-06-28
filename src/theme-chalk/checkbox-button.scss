@@ -1,0 +1,117 @@
+@use './common/var';
+
+.#{$namespace}-checkbox-button {
+    --#{$namespace}-checkbox-button-checked-bg-color: var(--#{$namespace}-color-primary);
+    --#{$namespace}-checkbox-button-checked-text-color: var(--#{$namespace}-color-white);
+    --#{$namespace}-checkbox-button-checked-border-color: var(--#{$namespace}-color-primary);
+}
+
+.#{$namespace}-checkbox-button {
+    position: relative;
+    display: inline-block;
+
+    &.is-checked {
+        & .#{$namespace}-checkbox-button__inner {
+            color: var(--#{$namespace}-checkbox-button-checked-text-color);
+            background-color: var(--#{$namespace}-checkbox-button-checked-bg-color);
+            border-color: var(--#{$namespace}-checkbox-button-checked-border-color);
+            box-shadow: -1px 0 0 0 var(--#{$namespace}-color-primary-light-7);
+        }
+        &:first-child .#{$namespace}-checkbox-button__inner {
+            border-left-color: var(--#{$namespace}-checkbox-button-checked-border-color);
+        }
+    }
+
+    &.is-disabled {
+        & .#{$namespace}-checkbox-button__inner {
+            color: var(--#{$namespace}-disabled-text-color);
+            cursor: not-allowed;
+            background-image: none;
+            background-color: var(--#{$namespace}-button-disabled-bg-color, var(--#{$namespace}-fill-color-blank));
+            border-color: var(--#{$namespace}-button-disabled-border-color, var(--#{$namespace}-border-color-light));
+            box-shadow: none;
+        }
+        &:first-child .#{$namespace}-checkbox-button__inner {
+            border-left-color: var(--#{$namespace}-button-disabled-border-color, var(--#{$namespace}-border-color-light));
+        }
+    }
+
+    &:first-child {
+        .#{$namespace}-checkbox-button__inner {
+            border-left: var(--#{$namespace}-border);
+            border-top-left-radius: var(--#{$namespace}-border-radius-base);
+            border-bottom-left-radius: var(--#{$namespace}-border-radius-base);
+            box-shadow: none !important;
+        }
+    }
+
+    &.is-focus {
+        & .#{$namespace}-checkbox-button__inner {
+            border-color: var(--#{$namespace}-checkbox-button-checked-border-color);
+        }
+    }
+
+    &:last-child {
+        .#{$namespace}-checkbox-button__inner {
+            border-top-right-radius: var(--#{$namespace}-border-radius-base);
+            border-bottom-right-radius: var(--#{$namespace}-border-radius-base);
+        }
+    }
+}
+
+.#{$namespace}-checkbox-button__inner {
+    display: inline-block;
+    line-height: 1;
+    font-weight: var(--#{$namespace}-checkbox-font-weight);
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background: var(--#{$namespace}-button-bg-color, var(--#{$namespace}-fill-color-blank));
+    border: var(--#{$namespace}-border);
+    border-left-color: transparent;
+    color: var(--#{$namespace}-button-text-color, var(--#{$namespace}-text-color-regular));
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    position: relative;
+    transition: var(--#{$namespace}-transition-all);
+    -webkit-user-select: none;
+    user-select: none;
+    padding: 8px 15px;
+    font-size: var(--#{$namespace}-font-size-base);
+    border-radius: 0;
+
+    &:hover {
+        color: var(--#{$namespace}-color-primary);
+    }
+
+    & [class*='#{$namespace}-icon-'] {
+        line-height: 0.9;
+
+        & + span {
+            margin-left: 5px;
+        }
+    }
+}
+
+.#{$namespace}-checkbox-button__original {
+    opacity: 0;
+    outline: none;
+    position: absolute;
+    margin: 0;
+    z-index: -1;
+}
+
+.#{$namespace}-checkbox-button--large .#{$namespace}-checkbox-button__inner {
+    padding: 12px 19px;
+    font-size: var(--#{$namespace}-font-size-base);
+    border-radius: 0;
+}
+
+.#{$namespace}-checkbox-button--small .#{$namespace}-checkbox-button__inner {
+    padding: 5px 11px;
+    font-size: 12px;
+    border-radius: 0;
+}

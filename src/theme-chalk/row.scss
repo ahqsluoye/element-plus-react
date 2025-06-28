@@ -1,0 +1,30 @@
+@use './common/var';
+
+.#{$namespace}-row {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    box-sizing: border-box;
+
+    &.is-justify-center {
+        justify-content: center;
+    }
+    &.is-justify-end {
+        justify-content: flex-end;
+    }
+    &.is-justify-space-between {
+        justify-content: space-between;
+    }
+    &.is-justify-space-around {
+        justify-content: space-around;
+    }
+    &.is-justify-space-evenly {
+        justify-content: space-evenly;
+    }
+    &.is-align-middle {
+        align-items: center;
+    }
+    &.is-align-bottom {
+        align-items: flex-end;
+    }
+}

@@ -1,0 +1,184 @@
+@use './common/var';
+
+.#{$namespace}-cascader-panel {
+    --#{$namespace}-cascader-menu-text-color: var(--#{$namespace}-text-color-regular);
+    --#{$namespace}-cascader-menu-selected-text-color: var(--#{$namespace}-color-primary);
+    // --#{$namespace}-cascader-menu-fill: var(--#{$namespace}-bg-color-overlay);
+    --#{$namespace}-cascader-menu-border: solid 1px var(--#{$namespace}-border-color-light);
+    // --#{$namespace}-cascader-menu-shadow: var(--#{$namespace}-box-shadow-light);
+    --#{$namespace}-cascader-node-background-hover: var(--#{$namespace}-fill-color-light);
+    --#{$namespace}-cascader-node-color-disabled: var(--#{$namespace}-text-color-placeholder);
+    --#{$namespace}-cascader-color-empty: var(--#{$namespace}-text-color-placeholder);
+    // --#{$namespace}-cascader-tag-background: var(--#{$namespace}-fill-color);
+}
+
+.#{$namespace}-cascader-panel {
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    font-size: 14px;
+
+    &.is-bordered {
+        border: var(--#{$namespace}-cascader-menu-border);
+        border-radius: 4px;
+    }
+
+    .#{$namespace}-tree.#{$namespace}-tree-directory .#{$namespace}-tree-treenode-selected:hover,
+    .#{$namespace}-tree.#{$namespace}-tree-directory .#{$namespace}-tree-treenode-selected {
+        background: transparent !important;
+    }
+
+    .#{$namespace}-tree.#{$namespace}-tree-directory .#{$namespace}-tree-treenode:hover {
+        background: var(--#{$namespace}-tree-node-hover-bg-color);
+    }
+}
+
+.#{$namespace}-cascader__search {
+    padding: 0 7px;
+}
+
+.#{$namespace}-cascader__panels {
+    display: flex;
+}
+
+.#{$namespace}-cascader-menu {
+    min-width: 180px;
+    box-sizing: border-box;
+    color: var(--#{$namespace}-cascader-menu-text-color);
+    border-right: var(--#{$namespace}-cascader-menu-border);
+
+    &.is-list {
+        width: 100%;
+    }
+
+    &.is-tree + .is-list {
+        width: unset;
+    }
+
+    &:last-child {
+        border-right: none;
+
+        .#{$namespace}-cascader-node {
+            padding-right: 20px;
+        }
+    }
+
+    .#{$namespace}-cascader-menu__wrap {
+        // Raise the priority
+        &.#{$namespace}-scrollbar__wrap {
+            height: 250px;
+        }
+    }
+
+    .#{$namespace}-cascader-menu__list {
+        position: relative;
+        min-height: 100%;
+        margin: 0;
+        padding: 6px 0;
+        list-style: none;
+        box-sizing: border-box;
+
+        &.#{$namespace}-no-data {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #909399;
+            height: 100%;
+        }
+    }
+
+    .#{$namespace}-cascader-menu__hover-zone {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .#{$namespace}-cascader-menu__empty-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #a8abb2;
+    }
+}
+
+.#{$namespace}-cascader-node {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 30px 0 15px;
+    height: 34px;
+    line-height: 34px;
+    outline: none;
+    transition: background-color 0.3s;
+
+    &.is-selectable.in-active-path {
+        color: #606266;
+    }
+
+    &.in-active-path,
+    &.is-selectable.in-checked-path,
+    &.is-active {
+        color: var(--#{$namespace}-cascader-menu-selected-text-color);
+        font-weight: 700;
+    }
+
+    &:not(.is-disabled) {
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            background: var(--#{$namespace}-cascader-node-background-hover);
+        }
+    }
+
+    &.is-disabled {
+        color: var(--#{$namespace}-disabled-text-color);
+        cursor: not-allowed;
+    }
+
+    .#{$namespace}-cascader-node__prefix {
+        position: absolute;
+        left: 10px;
+    }
+
+    .#{$namespace}-cascader-node__postfix {
+        position: absolute;
+        right: 10px;
+    }
+
+    .#{$namespace}-cascader-node__label {
+        flex: 1;
+        text-align: left;
+        padding: 0 8px 0 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    > .#{$namespace}-checkbox {
+        margin-right: 8px;
+
+        .#{$namespace}-checkbox__label {
+            padding-left: 0;
+        }
+    }
+}
+
+.#{$namespace}-tree-title {
+    .#{$namespace}-cascader-node {
+        padding: 0 30px 0 0px !important;
+        height: 28px !important;
+        line-height: 28px !important;
+        margin-left: -6px;
+    }
+
+    .#{$namespace}-cascader-node:not(.is-disabled):hover,
+    .#{$namespace}-cascader-node:not(.is-disabled):focus {
+        background: transparent;
+    }
+}

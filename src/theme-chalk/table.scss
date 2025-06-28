@@ -1,0 +1,714 @@
+@use './common/var';
+
+@use 'sass:map';
+
+.#{$namespace}-table {
+    --#{$namespace}-table-border-color: var(--#{$namespace}-border-color-lighter);
+    --#{$namespace}-table-border: 1px solid var(--#{$namespace}-table-border-color);
+    --#{$namespace}-table-text-color: var(--#{$namespace}-text-color-regular);
+    --#{$namespace}-table-header-text-color: var(--#{$namespace}-text-color-secondary);
+    --#{$namespace}-table-row-hover-bg-color: var(--#{$namespace}-fill-color-light);
+    --#{$namespace}-table-row-strip-bg-color: var(--#{$namespace}-fill-color-lighter);
+    --#{$namespace}-table-current-row-bg-color: var(--#{$namespace}-color-primary-light-9);
+    --#{$namespace}-table-header-bg-color: var(--#{$namespace}-bg-color);
+    --#{$namespace}-table-fixed-box-shadow: var(--#{$namespace}-box-shadow-light);
+    --#{$namespace}-table-bg-color: var(--#{$namespace}-fill-color-blank);
+    --#{$namespace}-table-tr-bg-color: var(--#{$namespace}-fill-color-blank);
+    --#{$namespace}-table-expanded-cell-bg-color: var(--#{$namespace}-fill-color-blank);
+    --#{$namespace}-table-fixed-left-column: inset 10px 0 10px -10px rgba(0, 0, 0, 0.15);
+    --#{$namespace}-table-fixed-right-column: inset -10px 0 10px -10px rgba(0, 0, 0, 0.15);
+    --#{$namespace}-table-min-height: 100px;
+}
+
+.#{$namespace}-table {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-height: var(--#{$namespace}-table-min-height);
+    height: fit-content;
+    overflow: hidden;
+    color: var(--#{$namespace}-table-text-color);
+    font-size: 14px;
+    background-color: var(--#{$namespace}-table-bg-color);
+
+    &.has-footer {
+        &.#{$namespace}-table--scrollable-y,
+        &.#{$namespace}-table--fluid-height {
+            tr:last-child td.#{$namespace}-table__cell {
+                border-bottom-color: transparent;
+            }
+        }
+    }
+
+    thead {
+        color: var(--#{$namespace}-table-header-text-color);
+        font-weight: 500;
+
+        &.is-group {
+            th.#{$namespace}-table__cell {
+                background: var(--#{$namespace}-fill-color-light);
+            }
+        }
+    }
+
+    .#{$namespace}-table__cell {
+        position: relative;
+        z-index: 1;
+        box-sizing: border-box;
+        min-width: 0;
+        // padding: 8px 0;
+        text-align: left;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+        &.is-center {
+            text-align: center;
+        }
+
+        &.is-right {
+            text-align: right;
+        }
+
+        &.gutter {
+            width: 15px;
+            padding: 0;
+            border-right-width: 0;
+            border-bottom-width: 0;
+        }
+
+        &.is-hidden {
+            & > * {
+                visibility: hidden;
+            }
+        }
+    }
+
+    .#{$namespace}-table__cell-content {
+        box-sizing: border-box;
+        // height: 40px;
+        padding: 8px 12px;
+        overflow: hidden;
+        line-height: 22px;
+        white-space: normal;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        /* padding: 8px 0; */
+
+        &.#{$namespace}-tooltip {
+            min-width: 50px;
+            white-space: nowrap;
+        }
+    }
+
+    tr {
+        background-color: var(--#{$namespace}-table-tr-bg-color);
+
+        input[type='checkbox'] {
+            margin: 0;
+        }
+    }
+
+    th.#{$namespace}-table__cell.is-leaf,
+    td.#{$namespace}-table__cell {
+        border-bottom: var(--#{$namespace}-table-border);
+    }
+
+    th.#{$namespace}-table__cell.is-sortable {
+        cursor: pointer;
+    }
+
+    th.#{$namespace}-table__cell {
+        background-color: var(--#{$namespace}-table-header-bg-color);
+        user-select: none;
+
+        > .#{$namespace}-table__cell-content.highlight {
+            color: var(--#{$namespace}-color-primary);
+        }
+
+        &.required > div::before {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin-right: 5px;
+            vertical-align: middle;
+            background: #ff4d51;
+            border-radius: 50%;
+            content: '';
+        }
+    }
+
+    td.#{$namespace}-table__cell {
+        div {
+            box-sizing: border-box;
+        }
+
+        &.gutter {
+            width: 0;
+        }
+    }
+
+    &.is-scrolling-left {
+        .#{$namespace}-table-fixed-column--right.is-first-column {
+            &::before {
+                box-shadow: var(--#{$namespace}-table-fixed-right-column);
+            }
+        }
+        &.#{$namespace}-table--border {
+            .#{$namespace}-table-fixed-column--left {
+                &.is-last-column {
+                    &.#{$namespace}-table__cell {
+                        border-right: var(--#{$namespace}-table-border);
+                    }
+                }
+            }
+        }
+        th.#{$namespace}-table-fixed-column--left {
+            background-color: var(--#{$namespace}-table-header-bg-color);
+        }
+    }
+
+    &.is-scrolling-right {
+        .#{$namespace}-table-fixed-column--left.is-last-column {
+            &::before {
+                box-shadow: var(--#{$namespace}-table-fixed-left-column);
+            }
+        }
+        .#{$namespace}-table-fixed-column--left.is-last-column.#{$namespace}-table__cell {
+            border-right: none;
+        }
+        th.#{$namespace}-table-fixed-column--right {
+            background-color: var(--#{$namespace}-table-header-bg-color);
+        }
+    }
+
+    &.is-scrolling-middle {
+        .#{$namespace}-table-fixed-column--left.is-last-column.#{$namespace}-table__cell {
+            border-right: none;
+        }
+        .#{$namespace}-table-fixed-column--right.is-first-column {
+            &::before {
+                box-shadow: var(--#{$namespace}-table-fixed-right-column);
+            }
+        }
+        .#{$namespace}-table-fixed-column--left.is-last-column {
+            &::before {
+                box-shadow: var(--#{$namespace}-table-fixed-left-column);
+            }
+        }
+    }
+
+    &.is-scrolling-none {
+        .#{$namespace}-table-fixed-column--left,
+        .#{$namespace}-table-fixed-column--right {
+            &.is-first-column,
+            &.is-last-column {
+                &::before {
+                    box-shadow: none;
+                }
+            }
+        }
+
+        th.#{$namespace}-table-fixed-column--left,
+        th.#{$namespace}-table-fixed-column--right {
+            background-color: var(--#{$namespace}-table-header-bg-color);
+        }
+    }
+
+    .caret-wrapper {
+        position: relative;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        width: 24px;
+        height: 14px;
+        overflow: initial;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    .sort-caret {
+        position: absolute;
+        left: 7px;
+        width: 0;
+        height: 0;
+        border: solid 5px transparent;
+
+        &.ascending {
+            top: -5px;
+            border-bottom-color: var(--#{$namespace}-text-color-placeholder);
+        }
+
+        &.descending {
+            bottom: -3px;
+            border-top-color: var(--#{$namespace}-text-color-placeholder);
+        }
+    }
+
+    .ascending .sort-caret.ascending {
+        border-bottom-color: var(--#{$namespace}-color-primary);
+    }
+
+    .descending .sort-caret.descending {
+        border-top-color: var(--#{$namespace}-color-primary);
+    }
+
+    .hidden-columns {
+        position: absolute;
+        z-index: -1;
+        visibility: hidden;
+    }
+
+    [class*='#{$namespace}-table__row--level'] {
+        .#{$namespace}-table__expand-icon {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin-right: 8px;
+            line-height: 12px;
+            text-align: center;
+        }
+    }
+
+    .#{$namespace}-table {
+        &.#{$namespace}-table--border {
+            .#{$namespace}-table__cell {
+                border-right: var(--#{$namespace}-table-border);
+            }
+        }
+    }
+
+    &:not(.#{$namespace}-table--border) {
+        .#{$namespace}-table__cell {
+            border-right: none;
+        }
+
+        & > .#{$namespace}-table__inner-wrapper {
+            &::after {
+                content: none;
+            }
+        }
+
+        .#{$namespace}-table__inner-wrapper,
+        .#{$namespace}-table__footer-wrapper {
+            tr:first-child {
+                td,
+                th {
+                    &:first-child {
+                        border-left: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.#{$namespace}-table__inner-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: var(--#{$namespace}-table-min-height);
+    // 表格底部伪 border，总是有的
+    &::before {
+        bottom: 0px;
+        left: 0;
+        z-index: 3;
+        width: 100%;
+        height: 1px;
+    }
+}
+
+// when data is empty
+.#{$namespace}-table__empty-block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 60px;
+    text-align: center;
+}
+
+.#{$namespace}-table__empty-text {
+    width: 50%;
+    color: var(--#{$namespace}-text-color-secondary);
+    // min-height doesn't work in IE10 and IE11 https://github.com/philipwalton/flexbugs#3-min-height-on-a-flex-container-wont-apply-to-its-flex-items
+    // set empty text line height up to contrainer min-height as workaround.
+    line-height: 60px;
+}
+
+// expand the row
+.#{$namespace}-table__expand-column {
+    .#{$namespace}-table__cell-content {
+        padding: 0;
+        text-align: center;
+        user-select: none;
+    }
+}
+
+.#{$namespace}-table__expand-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    color: var(--#{$namespace}-text-color-regular);
+    font-size: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+
+    & > .#{$namespace}-icon {
+        font-size: 12px;
+    }
+}
+
+.#{$namespace}-table__expand-icon--expanded {
+    transform: rotate(90deg);
+}
+
+.#{$namespace}-table__expanded-cell {
+    background-color: var(--#{$namespace}-table-expanded-cell-bg-color);
+
+    // increase the weight purely
+    &[class*='#{$namespace}-table__cell-content'] {
+        padding: 20px 50px;
+    }
+
+    &:hover {
+        background-color: transparent !important;
+    }
+}
+
+.#{$namespace}-table__placeholder {
+    display: inline-block;
+    width: 20px;
+}
+
+.#{$namespace}-table__append-wrapper {
+    // avoid overlapping margin https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing
+    overflow: hidden;
+}
+
+.#{$namespace}-table--fit {
+    border-right: 0;
+    border-bottom: 0;
+
+    .#{$namespace}-table__cell.gutter {
+        border-right-width: 1px;
+    }
+}
+
+.#{$namespace}-table--large {
+    font-size: var(--#{$namespace}-font-size-base);
+    .#{$namespace}-table__cell {
+        padding: 12px 0;
+    }
+    .#{$namespace}-table__cell-content {
+        padding: 0 16px;
+    }
+}
+.#{$namespace}-table--small {
+    font-size: 12px;
+    .#{$namespace}-table__cell {
+        padding: 4px 0;
+    }
+    .#{$namespace}-table__cell-content {
+        padding: 0 8px;
+    }
+}
+
+.#{$namespace}-table__footer-wrapper {
+    border-top: var(--#{$namespace}-table-border);
+}
+
+// 拥有多级表头
+.#{$namespace}-table--group,
+.#{$namespace}-table--border {
+    &__inner-wrapper,
+    &__footer-wrapper {
+        tr:first-child {
+            td,
+            th {
+                &:first-child {
+                    border-left: var(--#{$namespace}-table-border);
+                }
+            }
+        }
+    }
+}
+
+.#{$namespace}-table--border .#{$namespace}-table__inner-wrapper::after,
+.#{$namespace}-table--border::after,
+.#{$namespace}-table--border::before,
+.#{$namespace}-table__inner-wrapper::before {
+    position: absolute;
+    z-index: 3;
+    background-color: var(--#{$namespace}-table-border-color);
+    content: '';
+}
+
+// table--border
+.#{$namespace}-table--border {
+    .#{$namespace}-table__inner-wrapper {
+        &::after {
+            top: 0;
+            left: 0;
+            z-index: 3;
+            width: 100%;
+            height: 1px;
+        }
+    }
+
+    &::before {
+        top: -1px;
+        left: 0;
+        z-index: 3;
+        width: 1px;
+        height: 100%;
+    }
+
+    &::after {
+        top: -1px;
+        right: 0;
+        z-index: 3;
+        width: 1px;
+        height: 100%;
+    }
+
+    .#{$namespace}-table--border__inner-wrapper {
+        border-right: none;
+        border-bottom: none;
+    }
+
+    .#{$namespace}-table--border__footer-wrapper {
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .#{$namespace}-table__cell {
+        border-right: var(--#{$namespace}-table-border);
+    }
+
+    th.#{$namespace}-table__cell.gutter:last-of-type {
+        border-bottom: var(--#{$namespace}-table-border);
+        border-bottom-width: 1px;
+    }
+
+    & th.#{$namespace}-table__cell {
+        border-bottom: var(--#{$namespace}-table-border);
+    }
+}
+
+.#{$namespace}-table--hidden {
+    visibility: hidden;
+}
+
+.#{$namespace}-table__header-wrapper,
+.#{$namespace}-table__body-wrapper,
+.#{$namespace}-table__footer-wrapper {
+    width: 100%;
+    tr {
+        td,
+        th {
+            &.#{$namespace}-table-fixed-column--left,
+            &.#{$namespace}-table-fixed-column--right {
+                position: sticky !important;
+                z-index: 2;
+                background: var(--#{$namespace}-bg-color);
+                &.is-last-column,
+                &.is-first-column {
+                    &::before {
+                        position: absolute;
+                        top: 0px;
+                        bottom: -1px;
+                        width: 10px;
+                        overflow-x: hidden;
+                        overflow-y: hidden;
+                        box-shadow: none;
+                        content: '';
+                        pointer-events: none;
+                        touch-action: none;
+                    }
+                }
+                &.is-first-column {
+                    &::before {
+                        left: -10px;
+                    }
+                }
+                &.is-last-column {
+                    &::before {
+                        right: -10px;
+                        box-shadow: none;
+                    }
+                }
+            }
+            &.#{$namespace}-table__fixed-right-patch {
+                position: sticky !important;
+                right: 0;
+                z-index: 2;
+                background: #fff;
+            }
+        }
+    }
+}
+
+.#{$namespace}-table__header-wrapper {
+    flex-shrink: 0;
+    tr {
+        th {
+            &.#{$namespace}-table-fixed-column--left,
+            &.#{$namespace}-table-fixed-column--right {
+                background-color: var(--#{$namespace}-table-header-bg-color);
+            }
+        }
+    }
+}
+
+.#{$namespace}-table__header,
+.#{$namespace}-table__body,
+.#{$namespace}-table__footer {
+    table-layout: fixed;
+    border-collapse: separate;
+}
+
+.#{$namespace}-table__header-wrapper,
+.#{$namespace}-table__footer-wrapper {
+    overflow: hidden;
+
+    & tbody td.#{$namespace}-table__cell {
+        color: var(--#{$namespace}-table-text-color);
+        background-color: var(--#{$namespace}-table-row-hover-bg-color);
+    }
+}
+
+.#{$namespace}-table__header-wrapper,
+.#{$namespace}-table__body-wrapper {
+    .#{$namespace}-table-column--selection {
+        > .#{$namespace}-table__cell-content {
+            display: inline-flex;
+            align-items: center;
+            height: 23px;
+        }
+        .#{$namespace}-checkbox {
+            height: unset;
+            margin-right: 0;
+        }
+    }
+}
+
+.#{$namespace}-table__body-wrapper {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+
+    .#{$namespace}-scrollbar__bar {
+        z-index: 2;
+    }
+}
+
+.#{$namespace}-table--striped {
+    & .#{$namespace}-table__body {
+        & tr.#{$namespace}-table__row--striped {
+            td.#{$namespace}-table__cell {
+                background: var(--#{$namespace}-table-row-strip-bg-color);
+            }
+
+            &.current-row td.#{$namespace}-table__cell {
+                background-color: var(--#{$namespace}-table-current-row-bg-color);
+            }
+        }
+    }
+}
+
+.#{$namespace}-table__body {
+    tr.hover-row {
+        &,
+        &.#{$namespace}-table__row--striped {
+            &,
+            &.current-row {
+                > td.#{$namespace}-table__cell {
+                    background-color: var(--#{$namespace}-table-row-hover-bg-color);
+                }
+            }
+        }
+    }
+
+    tr.current-row > td.#{$namespace}-table__cell {
+        background-color: var(--#{$namespace}-table-current-row-bg-color);
+    }
+}
+
+.#{$namespace}-table__column-resize-proxy {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 200px;
+    z-index: 10;
+    width: 0;
+    border-left: 1px solid var(--#{$namespace}-color-primary, var(--#{$namespace}-table-border-color));
+}
+
+.#{$namespace}-table__column-filter-trigger {
+    display: inline-block;
+    cursor: pointer;
+
+    & i {
+        color: var(--#{$namespace}-color-info);
+        font-size: 14px;
+        vertical-align: middle;
+    }
+}
+
+.#{$namespace}-table__border-left-patch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 1px;
+    height: 100%;
+    background-color: var(--#{$namespace}-table-border-color);
+}
+
+.#{$namespace}-table__border-bottom-patch {
+    position: absolute;
+    left: 0;
+    z-index: 3;
+    height: 1px;
+    background-color: var(--#{$namespace}-table-border-color);
+}
+
+.#{$namespace}-table__border-right-patch {
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    width: 1px;
+    height: 100%;
+    background-color: var(--#{$namespace}-table-border-color);
+}
+
+.#{$namespace}-table--enable-row-transition {
+    .#{$namespace}-table__body td.#{$namespace}-table__cell {
+        transition: background-color 0.25s ease;
+    }
+}
+
+.#{$namespace}-table--enable-row-hover {
+    .#{$namespace}-table__body tr:hover > td.#{$namespace}-table__cell {
+        background-color: var(--#{$namespace}-table-row-hover-bg-color);
+    }
+}
+
+.#{$namespace}-table--hidden-div {
+    position: absolute;
+    visibility: hidden;
+}
+
+.#{$namespace}-table__loading {
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+}

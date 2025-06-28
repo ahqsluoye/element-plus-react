@@ -1,0 +1,44 @@
+@use './common/var';
+
+.#{$namespace}-card {
+    --#{$namespace}-card-border-color: var(--#{$namespace}-border-color-light);
+    --#{$namespace}-card-border-radius: 4px;
+    --#{$namespace}-card-padding: 20px;
+    --#{$namespace}-card-bg-color: var(--#{$namespace}-fill-color-blank);
+}
+
+.#{$namespace}-card {
+    border-radius: var(--#{$namespace}-card-border-radius);
+    border: 1px solid var(--#{$namespace}-card-border-color);
+    background-color: var(--#{$namespace}-card-bg-color);
+    overflow: hidden;
+    color: var(--#{$namespace}-text-color-primary);
+    transition: 0.3s;
+
+    &.is-always-shadow {
+        box-shadow: var(--#{$namespace}-box-shadow-light);
+    }
+
+    &.is-hover-shadow {
+        &:hover,
+        &:focus {
+            box-shadow: var(--#{$namespace}-box-shadow-light);
+        }
+    }
+}
+
+.#{$namespace}-card__header {
+    padding: calc(#{var(--#{$namespace}-card-padding)} - 2px) var(--#{$namespace}-card-padding);
+    border-bottom: 1px solid var(--#{$namespace}-card-border-color);
+    box-sizing: border-box;
+}
+
+.#{$namespace}-card__body {
+    padding: var(--#{$namespace}-card-padding);
+}
+
+.#{$namespace}-card__footer {
+    border-top: 1px solid var(--#{$namespace}-card-border-color);
+    box-sizing: border-box;
+    padding: calc(var(--#{$namespace}-card-padding) - 2px) var(--#{$namespace}-card-padding);
+}

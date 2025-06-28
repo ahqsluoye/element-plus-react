@@ -1,0 +1,99 @@
+@use './common/var';
+.#{$namespace}-link {
+    --#{$namespace}-link-font-size: 14px;
+    --#{$namespace}-link-font-weight: 500;
+    --#{$namespace}-link-text-color: var(--#{$namespace}-text-color-regular, #555555);
+    --#{$namespace}-link-hover-text-color: var(--#{$namespace}-color-primary);
+    --#{$namespace}-link-disabled-text-color: var(--#{$namespace}-text-color-placeholder);
+}
+
+.#{$namespace}-link {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    position: relative;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: var(--#{$namespace}-link-font-size);
+    font-weight: var(--#{$namespace}-link-font-weight);
+
+    color: var(--#{$namespace}-link-text-color);
+
+    &:hover {
+        color: var(--#{$namespace}-link-hover-text-color);
+    }
+
+    &.is-underline {
+        &:hover:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 0;
+            bottom: 0;
+            border-bottom: 1px solid var(--#{$namespace}-link-hover-text-color);
+        }
+    }
+
+    &.is-disabled {
+        color: var(--#{$namespace}-link-disabled-text-color);
+        cursor: not-allowed;
+    }
+
+    & [class*='#{$namespace}-icon-'] {
+        & + span {
+            margin-left: 5px;
+        }
+    }
+
+    &.#{$namespace}-link--default {
+        &:after {
+            border-color: var(--#{$namespace}-link-hover-text-color);
+        }
+    }
+
+    .#{$namespace}-link__inner {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    @each $type in primary {
+        &.#{$namespace}-link--#{$type} {
+            --#{$namespace}-link-text-color: var(--#{$namespace}-color-primary);
+            --#{$namespace}-link-hover-text-color: var(--#{$namespace}-color-primary-light-3);
+            --#{$namespace}-link-disabled-text-color: var(--#{$namespace}-color-primary-light-5);
+
+            &:after {
+                border-color: var(--#{$namespace}-link-text-color);
+            }
+
+            &.is-underline {
+                &:hover:after {
+                    border-color: var(--#{$namespace}-link-text-color);
+                }
+            }
+        }
+    }
+    @each $type in success, warning, error, info {
+        &.#{$namespace}-link--#{$type} {
+            --#{$namespace}-link-text-color: var(--#{$namespace}-color-#{$type});
+            --#{$namespace}-link-hover-text-color: var(--#{$namespace}-color-#{$type}-light-3);
+            --#{$namespace}-link-disabled-text-color: var(--#{$namespace}-color-#{$type}-light-5);
+
+            &:after {
+                border-color: var(--#{$namespace}-link-text-color);
+            }
+
+            &.is-underline {
+                &:hover:after {
+                    border-color: var(--#{$namespace}-link-text-color);
+                }
+            }
+        }
+    }
+}

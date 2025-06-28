@@ -1,0 +1,54 @@
+@use './common/var';
+
+.#{$namespace}-popover {
+    --#{$namespace}-popover-bg-color: var(--#{$namespace}-bg-color-overlay);
+    --#{$namespace}-popover-font-size: var(--#{$namespace}-font-size-base);
+    --#{$namespace}-popover-border-color: var(--#{$namespace}-border-color);
+    --#{$namespace}-popover-padding: 12px;
+    // --#{$namespace}-popover-padding-large: 18px 20px;
+    --#{$namespace}-popover-title-font-size: 16px;
+    --#{$namespace}-popover-title-text-color: var(--#{$namespace}-text-color-primary);
+    --#{$namespace}-popover-text-color: var(--#{$namespace}-text-color-regular);
+    --#{$namespace}-popover-border-radius: 4px;
+}
+
+.#{$namespace}-popover {
+    &.#{$namespace}-popper {
+        background: var(--#{$namespace}-popover-bg-color);
+        min-width: 150px;
+        border-radius: 4px;
+        border: 1px solid var(--#{$namespace}-popover-border-color);
+        padding: var(--#{$namespace}-popover-padding);
+        z-index: 2000;
+        color: var(--#{$namespace}-popover-text-color);
+        line-height: 1.4;
+        text-align: justify;
+        font-size: 14px;
+        box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+        word-break: break-all;
+        cursor: text;
+    }
+
+    &:focus:active,
+    &:focus {
+        outline-width: 0;
+    }
+}
+
+.#{$namespace}-popover--plain {
+    padding: 18px 20px;
+}
+
+.#{$namespace}-popover__title {
+    color: var(--#{$namespace}-popover-title-text-color);
+    font-size: var(--#{$namespace}-popover-title-font-size);
+    line-height: 1;
+    margin-bottom: 12px;
+}
+
+.#{$namespace}-popover__reference {
+    &:focus:not(.focusing),
+    &:focus:hover {
+        outline-width: 0;
+    }
+}

@@ -1,0 +1,109 @@
+@use './common/var';
+
+.#{$namespace}-time-spinner {
+    &.has-seconds {
+        .#{$namespace}-time-spinner__wrapper {
+            width: 33.3%;
+        }
+    }
+}
+.#{$namespace}-time-spinner__wrapper {
+    max-height: 192px;
+    overflow: auto;
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    position: relative;
+
+    .#{$namespace}-scrollbar__wrap:not(.#{$namespace}-scrollbar__wrap--hidden-default) {
+        padding-bottom: 15px;
+    }
+
+    // &.is-arrow {
+    //     box-sizing: border-box;
+    //     text-align: center;
+    //     overflow: hidden;
+
+    //     .#{$namespace}-time-spinner__list {
+    //         transform: translateY(-32px);
+    //     }
+
+    //     .#{$namespace}-time-spinner__item:hover:not(.is-disabled):not(.is-active) {
+    //         background: #ffffff;
+    //         cursor: default;
+    //     }
+    // }
+}
+
+// .#{$namespace}-time-spinner__arrow {
+//     font-size: 12px;
+//     color: #909399;
+//     position: absolute;
+//     left: 0;
+//     width: 100%;
+//     z-index: 1;
+//     text-align: center;
+//     height: 30px;
+//     line-height: 30px;
+//     cursor: pointer;
+
+//     &:hover {
+//         color: var(--#{$namespace}-color-primary);
+//     }
+
+//     &.arrow-up {
+//         top: 10px;
+//     }
+
+//     &.arrow-down {
+//         bottom: 10px;
+//     }
+// }
+
+.#{$namespace}-time-spinner__input {
+    &.#{$namespace}-input {
+        width: 70%;
+
+        .#{$namespace}-input__inner {
+            padding: 0;
+            text-align: center;
+        }
+    }
+}
+
+.#{$namespace}-time-spinner__list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+
+    &::after,
+    &::before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 80px;
+    }
+}
+
+.#{$namespace}-time-spinner__item {
+    height: 32px;
+    line-height: 32px;
+    font-size: 12px;
+    color: var(--#{$namespace}-text-color-regular);
+
+    &:hover:not(.is-disabled):not(.is-active) {
+        background: var(--#{$namespace}-fill-color-light);
+        cursor: pointer;
+    }
+
+    &.is-active:not(.is-disabled) {
+        color: var(--#{$namespace}-text-color-primary);
+        font-weight: bold;
+    }
+
+    &.is-disabled {
+        color: var(--#{$namespace}-text-color-placeholder);
+        cursor: not-allowed;
+    }
+}

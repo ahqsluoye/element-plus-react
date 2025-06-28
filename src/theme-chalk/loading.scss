@@ -1,0 +1,94 @@
+@use './common/var';
+
+.#{$namespace}-loading-parent--relative {
+    position: relative !important;
+}
+
+.#{$namespace}-loading-parent--hidden {
+    overflow: hidden !important;
+}
+
+.#{$namespace}-loading-mask {
+    position: absolute;
+    z-index: 2000;
+    background-color: rgba(0, 0, 0, 0.6);
+    margin: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: opacity 0.3s;
+
+    &.is-fullscreen {
+        position: fixed;
+
+        .#{$namespace}-loading-spinner {
+            margin-top: -21px;
+
+            .circular {
+                height: 50px;
+                width: 50px;
+            }
+        }
+    }
+}
+
+.#{$namespace}-loading-spinner {
+    top: 50%;
+    margin-top: -21px;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+
+    .#{$namespace}-loading-text {
+        color: var(--#{$namespace}-color-primary);
+        margin: 3px 0;
+        font-size: 14px;
+    }
+
+    .circular {
+        display: inline;
+        height: 42px;
+        width: 42px;
+        animation: loading-rotate 2s linear infinite;
+    }
+
+    .path {
+        animation: loading-dash 1.5s ease-in-out infinite;
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: 0;
+        stroke-width: 2;
+        stroke: var(--#{$namespace}-color-primary);
+        stroke-linecap: round;
+    }
+
+    i {
+        color: var(--#{$namespace}-color-primary);
+    }
+}
+
+.#{$namespace}-loading-fade-enter-from,
+.#{$namespace}-loading-fade-leave-to {
+    opacity: 0;
+}
+
+@keyframes loading-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes loading-dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -40px;
+    }
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -120px;
+    }
+}

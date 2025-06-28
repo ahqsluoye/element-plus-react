@@ -1,0 +1,378 @@
+@use './common/var';
+
+@use 'sass:map';
+
+$form-item-margin-bottom: () !default;
+$form-item-margin-bottom: map.merge(
+    (
+        'large': 22px,
+        'default': 18px,
+        'small': 12px,
+    ),
+    $form-item-margin-bottom
+);
+
+$form-item-line-height: () !default;
+$form-item-line-height: map.merge(
+    (
+        'large': var(--#{$namespace}-component-size-large),
+        'default': 32px,
+        'small': var(--#{$namespace}-component-size-small),
+    ),
+    $form-item-line-height
+);
+
+$form-item-error-padding-top: () !default;
+$form-item-error-padding-top: map.merge(
+    (
+        'large': 4px,
+        'default': 2px,
+        'small': 2px,
+    ),
+    $form-item-error-padding-top
+);
+
+$form-item-label-top-line-height: () !default;
+$form-item-label-top-line-height: map.merge(
+    (
+        'large': 22px,
+        'default': 22px,
+        'small': 20px,
+    ),
+    $form-item-label-top-line-height
+);
+
+$form-item-label-top-margin-bottom: () !default;
+$form-item-label-top-margin-bottom: map.merge(
+    (
+        'large': 12px,
+        'default': 8px,
+        'small': 4px,
+    ),
+    $form-item-label-top-margin-bottom
+);
+
+$--label-width: 100px;
+$--gorup-item-width: 400px;
+
+.#{$namespace}-form {
+    --#{$namespace}-form-label-font-size: 14px;
+
+    @each $size in (large, default, small) {
+        .#{$namespace}-form--#{$size} {
+            &.#{$namespace}-form--label-top {
+                .#{$namespace}-form-item {
+                    .#{$namespace}-form-item__label {
+                        margin-bottom: #{map.get($form-item-label-top-margin-bottom, $size)};
+                        line-height: #{map.get($form-item-label-top-line-height, $size)};
+                    }
+                }
+            }
+        }
+    }
+}
+
+.#{$namespace}-form--label-left {
+    // margin: 0 auto;
+
+    .#{$namespace}-form-item__label {
+        justify-content: flex-start;
+    }
+}
+
+// 文字在上表单布局
+.#{$namespace}-form--label-top {
+    // margin: 0 auto;
+
+    .#{$namespace}-form-item {
+        display: block;
+    }
+
+    .#{$namespace}-form-item__label {
+        display: block;
+        height: auto;
+        text-align: left;
+        margin-bottom: #{map.get($form-item-label-top-margin-bottom, 'default')};
+        line-height: #{map.get($form-item-label-top-line-height, 'default')};
+    }
+
+    // .#{$namespace}-form-item {
+    //     &.pure-content {
+    //         .#{$namespace}-form-item__content {
+    //             margin-left: 0px;
+    //             // margin-top: 32px;
+    //         }
+    //     }
+    // }
+
+    &.is-flat {
+        .#{$namespace}-form-item {
+            display: inline-block;
+            padding-right: 16px;
+            width: 100%;
+            vertical-align: top;
+        }
+    }
+}
+
+// 内联表单
+.#{$namespace}-form--inline {
+    display: flex;
+    flex-wrap: wrap;
+
+    // 多行form对齐label
+    &.#{$namespace}-form--label-width {
+        .#{$namespace}-form-item__label {
+            min-width: 100px;
+        }
+    }
+
+    .#{$namespace}-form-item {
+        display: inline-flex;
+        display: inline-block\0;
+        margin-right: 16px;
+        margin-bottom: 15px;
+        vertical-align: top;
+
+        &::before {
+            display: table;
+            content: '';
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .#{$namespace}-form-item__label {
+        float: none;
+        display: inline-block;
+        padding-right: 12px;
+        // min-width: 68px;
+        max-width: 200px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-left: 0;
+        margin-bottom: 0px;
+        text-align: left;
+    }
+
+    .#{$namespace}-form-item__content {
+        display: inline-block;
+        vertical-align: top;
+
+        // button {
+        //     min-width: 100px;
+        // }
+
+        & > .#{$namespace}-input,
+        & > .#{$namespace}-select {
+            width: 140px;
+        }
+
+        & > .#{$namespace}-input-group.#{$namespace}-input-group--append,
+        & > .#{$namespace}-input-group.#{$namespace}-input-group--prepend {
+            & > .#{$namespace}-input__wrapper,
+            & > .#{$namespace}-select {
+                width: 140px;
+                min-width: 0; //火狐兼容
+
+                &.#{$namespace}-range-editor {
+                    width: 250px;
+                }
+            }
+        }
+    }
+}
+
+// 文字在右表单布局
+.#{$namespace}-form--label-right {
+    // margin: 0 auto;
+
+    .#{$namespace}-form-item__label {
+        // width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    // &.is-flat {
+    //     .#{$namespace}-form-item {
+    //         display: inline-block;
+    //         padding-right: 16px;
+    //         width: 100%;
+    //         vertical-align: top;
+    //     }
+    // }
+}
+
+// 表单单项
+.#{$namespace}-form-item {
+    display: flex;
+    margin-bottom: #{map.get($form-item-margin-bottom, 'default')};
+
+    .#{$namespace}-form-item {
+        margin-bottom: 0;
+    }
+
+    .#{$namespace}-input__validateIcon {
+        display: none;
+    }
+
+    &.is-required {
+        &:not(.is-no-asterisk).asterisk-left > .el-form-item__label:before,
+        &:not(.is-no-asterisk).asterisk-left > .el-form-item__label-wrap > .el-form-item__label:before {
+            content: '*';
+            color: var(--el-color-danger);
+            margin-right: 4px;
+        }
+
+        &:not(.is-no-asterisk).asterisk-right > .el-form-item__label:after,
+        &:not(.is-no-asterisk).asterisk-right > .el-form-item__label-wrap > .el-form-item__label:after {
+            content: '*';
+            color: var(--el-color-danger);
+            margin-left: 4px;
+        }
+    }
+
+    &.#{$namespace}-form-item--label-top {
+        display: block;
+    }
+}
+
+@each $size in (large, default, small) {
+    .#{$namespace}-form-item--#{$size} {
+        margin-bottom: #{map.get($form-item-margin-bottom, $size)};
+
+        .#{$namespace}-form-item__label {
+            height: #{map.get($form-item-line-height, $size)};
+            line-height: #{map.get($form-item-line-height, $size)};
+        }
+        .#{$namespace}-form-item__content {
+            line-height: #{map.get($form-item-line-height, $size)};
+        }
+        .#{$namespace}-form-item__error {
+            padding-top: #{map.get($form-item-error-padding-top, $size)};
+        }
+        .#{$namespace}-form-item__warning {
+            padding-top: #{map.get($form-item-error-padding-top, $size)};
+        }
+    }
+}
+
+.#{$namespace}-form-item__label-wrap {
+    display: flex;
+}
+
+// 表单标签
+.#{$namespace}-form-item__label {
+    display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    flex: 0 0 auto;
+    font-size: 14px;
+    color: var(--#{$namespace}-text-color-regular);
+
+    height: #{map.get($form-item-line-height, 'default')};
+    line-height: #{map.get($form-item-line-height, 'default')};
+
+    padding: 0 12px 0 0;
+    box-sizing: border-box;
+
+    font-weight: normal;
+    vertical-align: middle;
+    float: inherit;
+    cursor: text;
+
+    .#{$namespace}-help-icon {
+        margin-left: 4px;
+        color: var(--#{$namespace}-color-info);
+        cursor: help;
+    }
+}
+
+.#{$namespace}-form-item__label--help {
+    margin-left: 5px;
+    cursor: pointer;
+    color: var(--#{$namespace}-color-info-light-3);
+}
+
+// 表单内容
+.#{$namespace}-form-item__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex: 1;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: #{map.get($form-item-line-height, 'default')};
+    position: relative;
+    min-width: 0;
+
+    .#{$namespace}-input-group {
+        vertical-align: top;
+    }
+
+    &::before,
+    &::after {
+        display: table;
+        content: '';
+    }
+
+    &.is-center {
+        justify-content: center;
+    }
+}
+
+.#{$namespace}-form-item__error {
+    color: var(--#{$namespace}-color-error);
+    font-size: 12px;
+    line-height: 1;
+    padding-top: #{map.get($form-item-error-padding-top, 'default')};
+    padding-left: 5px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    display: inline-block;
+    font-weight: normal;
+
+    .#{$namespace}-form-item__error--inline {
+        position: relative;
+        top: auto;
+        left: auto;
+        display: inline-block;
+        margin-left: 10px;
+    }
+}
+
+.#{$namespace}-form-item__warning {
+    color: var(--#{$namespace}-color-warning);
+    font-size: 12px;
+    line-height: 1;
+    padding-top: #{map.get($form-item-error-padding-top, 'default')};
+    padding-left: 5px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    display: inline-block;
+    font-weight: normal;
+
+    .#{$namespace}-form-item__warning--inline {
+        position: relative;
+        top: auto;
+        left: auto;
+        display: inline-block;
+        margin-left: 10px;
+    }
+}
+
+.#{$namespace}-form-item__nostyle {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    line-height: 0;
+}

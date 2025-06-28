@@ -1,0 +1,90 @@
+@use './common/var';
+
+.#{$namespace}-timeline-item {
+    position: relative;
+    padding-bottom: 20px;
+
+    & .#{$namespace}-timeline-item__icon {
+        color: var(--#{$namespace}-color-white);
+        font-size: var(--#{$namespace}-timeline-content-font-size-small);
+    }
+}
+
+.#{$namespace}-timeline-item__wrapper {
+    position: relative;
+    padding-left: 28px;
+    top: -3px;
+}
+
+.#{$namespace}-timeline-item__tail {
+    position: absolute;
+    left: 4px;
+    height: 100%;
+    border-left: 2px solid var(--#{$namespace}-timeline-node-color);
+}
+
+.#{$namespace}-timeline-item__node {
+    position: absolute;
+    background-color: var(--#{$namespace}-timeline-node-color);
+    border-color: var(--#{$namespace}-timeline-node-color);
+    border-radius: 50%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.is-hollow {
+        background: var(--#{$namespace}-color-white);
+        border-style: solid;
+        border-width: 2px;
+    }
+}
+
+.#{$namespace}-timeline-item__node--normal {
+    left: -1px;
+    width: var(--#{$namespace}-timeline-node-size-normal);
+    height: var(--#{$namespace}-timeline-node-size-normal);
+}
+.#{$namespace}-timeline-item__node--large {
+    left: -2px;
+    width: var(--#{$namespace}-timeline-node-size-large);
+    height: var(--#{$namespace}-timeline-node-size-large);
+}
+
+.#{$namespace}-timeline-item__node--primary {
+    background-color: var(--#{$namespace}-color-primary);
+    border-color: var(--#{$namespace}-color-primary);
+}
+
+@each $type in (success, warning, danger, info) {
+    .#{$namespace}-timeline-item__node--#{$type} {
+        background-color: var(--#{$namespace}-color-#{$type});
+        border-color: var(--#{$namespace}-color-#{$type});
+    }
+}
+
+.#{$namespace}-timeline-item__dot {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.#{$namespace}-timeline-item__content {
+    color: var(--#{$namespace}-timeline-content-color);
+    font-size: var(--#{$namespace}-timeline-content-font-size-large);
+}
+
+.#{$namespace}-timeline-item__timestamp {
+    color: var(--#{$namespace}-timeline-timestamp-color);
+    line-height: 1;
+    font-size: var(--#{$namespace}-timeline-content-font-size-small);
+
+    &.is-top {
+        margin-bottom: 8px;
+        padding-top: 4px;
+    }
+    &.is-bottom {
+        margin-top: 8px;
+    }
+}

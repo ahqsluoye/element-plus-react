@@ -56,6 +56,7 @@ const CheckboxGroup: FC<CheckboxGroupProps> = memo(
                         if (itemChecked) {
                             nextValue.push(itemValue);
                         } else {
+                            // @ts-ignore
                             remove(nextValue, i => shallowEqual(i, itemValue));
                         }
                     }
