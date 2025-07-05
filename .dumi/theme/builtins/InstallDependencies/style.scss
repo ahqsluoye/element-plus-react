@@ -1,0 +1,22 @@
+.el-tabs.markdown {
+    background: #f0f2f5;
+    border-radius: 4px;
+
+    .el-tabs__nav {
+        padding-left: 20px;
+    }
+
+    .dumi-default-source-code {
+        margin-top: 5px;
+    }
+
+    .language-bash {
+        .token {
+            &.plain {
+                --shiki-light: #032f62;
+                --shiki-dark: #9ecbff;
+                color: var(--shiki-light, inherit);
+            }
+        }
+    }
+}

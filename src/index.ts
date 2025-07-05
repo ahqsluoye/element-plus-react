@@ -2,20 +2,20 @@ import './locale/i18n';
 
 /* Basic 基础组件 */
 export { Link as ElLink } from './Link';
-export type { LinkProps as ElLinkProps } from './Link';
+export type { LinkProps } from './Link';
 
 export { Button as ElButton } from './Button';
 export type { ButtonGroupProps, ButtonProps } from './Button';
 
 export { Col as ElCol } from './Col';
-export type { ColProps as ElColProps } from './Col';
+export type { ColProps } from './Col';
 
 export { Icon as ElIcon } from './Icon';
 export type { IconName, IconPrefix, IconProps } from './Icon';
 export * from './Icon/IconList';
 
 export { Row as ElRow, RowContext } from './Row';
-export type { RowProps as ElRowProps } from './Row';
+export type { RowProps } from './Row';
 
 export { Scrollbar as ElScrollbar } from './Scrollbar';
 export type { BarProps, ScrollbarProps, ScrollbarRef } from './Scrollbar';
@@ -196,7 +196,24 @@ export type { DividerProps } from './Divider';
 
 /* 工具库与hooks */
 export { PopupManager, download, genFileId, generateTree, getScrollWidth, isEmpty, isNotEmpty, randomCode } from './Util';
-export * from './hooks';
+export {
+    htmlInputAttrs,
+    htmlInputEvents,
+    htmlInputProps,
+    partitionAnimationProps,
+    partitionHTMLProps,
+    partitionPopperPropsUtils,
+    partitionTreePropsUtils,
+    prefix,
+    useChildrenInstance,
+    useClassNames,
+    useClickOutside,
+    useComponentWillMount,
+    useControlled,
+    useDisabled,
+    useForceUpdate,
+    useSize,
+} from './hooks';
 
 /* 通用types */
 export type { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps, StandardProps, TooltipBaseProps, TypeAttributes } from './types/common';

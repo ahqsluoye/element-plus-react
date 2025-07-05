@@ -2,7 +2,7 @@ import { IThemeConfig } from 'dumi/dist/client/theme-api/types';
 
 export const NAV: IThemeConfig['nav'] = {
     'zh-CN': [
-        { title: '指南', link: '/guide', activePath: '/guide' },
+        { title: '指南', link: '/guide/installation', activePath: '/guide/installation' },
         {
             title: '组件',
             link: '/components/button',
@@ -20,6 +20,15 @@ export const NAV: IThemeConfig['nav'] = {
 };
 
 export const SIDEBAR: IThemeConfig['sidebar'] = {
+    '/guide': [
+        {
+            title: '基础',
+            children: [
+                { link: '/guide/installation', title: '安装' },
+                { link: '/guide/quickstart', title: '快速开始' },
+            ],
+        },
+    ],
     '/components': [
         {
             title: 'Basic 基础组件',
