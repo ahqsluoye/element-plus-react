@@ -28,6 +28,13 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
                 { link: '/guide/quickstart', title: '快速开始' },
             ],
         },
+        {
+            title: '进阶',
+            children: [
+                { link: '/guide/i18n', title: '国际化' },
+                { link: '/guide/theming', title: '主题' },
+            ],
+        },
     ],
     '/components': [
         {

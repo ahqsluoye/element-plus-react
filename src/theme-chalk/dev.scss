@@ -1,2 +1,10 @@
-$fa-font-path: '/fonts' !default;
-@import './index.scss';
+@use './common/var'
+    with(
+        $fa-font-path: '/fonts',
+        $colors: (
+            'primary': (
+                'base': green,
+            ),
+        )
+    );
+@use './index.scss';

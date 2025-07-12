@@ -1,6 +1,6 @@
 @use 'sass:math';
-@use '../common/var';
-@import './mixins';
+@use '../common/var' as *;
+@use './mixins' as *;
 
 [class*='#{$namespace}-col-'] {
     box-sizing: border-box;

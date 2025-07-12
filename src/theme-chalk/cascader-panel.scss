@@ -1,4 +1,4 @@
-@use './common/var';
+@use './common/var' as *;
 
 .#{$namespace}-cascader-panel {
     --#{$namespace}-cascader-menu-text-color: var(--#{$namespace}-text-color-regular);

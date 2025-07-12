@@ -1,4 +1,4 @@
-@use './common/var';
+@use './common/var' as *;
 
 // layuid动画，右侧滑入
 @keyframes rl {

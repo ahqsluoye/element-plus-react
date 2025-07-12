@@ -1,5 +1,7 @@
-@import 'functions';
-@import 'variables';
+@use 'sass:string';
+@use '../../common/var' as *;
+@use 'functions' as *;
+@use 'variables' as *;
 
 :root,
 :host {
@@ -22,6 +24,6 @@
 
 @each $name, $icon in $fa-brand-icons {
     .#{$fa-css-prefix}-#{$name}:before {
-        content: unquote('"#{ $icon }"');
+        content: string.unquote('"#{ $icon }"');
     }
 }

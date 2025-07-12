@@ -1,9 +1,9 @@
-@use '../common/var';
-@import './scss/index.scss';
-@import './scss/v4-shims.scss';
-@import './scss/regular.scss';
-@import './scss/light.scss';
-@import './scss/thin.scss';
-@import './scss/duotone.scss';
-@import './scss/brands.scss';
-@import './scss/solid.scss';
+@use './scss/index.scss';
+@use './scss/shims.scss';
+
+@use './scss/regular.scss';
+@use './scss/light.scss';
+@use './scss/thin.scss';
+@use './scss/duotone.scss';
+@use './scss/brands.scss';
+@use './scss/solid.scss';

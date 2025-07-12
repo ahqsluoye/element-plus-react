@@ -1,4 +1,4 @@
-@use './common/var';
+@use './common/var' as *;
 
 @use 'sass:map';
 @use 'sass:math';
@@ -97,7 +97,7 @@ $input-height: map.merge(
 
     @each $size in (large, small) {
         &.#{$namespace}-input-number--#{$size} {
-            line-height: #{map.get($input-height, $size) - 2};
+            line-height: calc(#{map.get($input-height, $size)} - 2px);
 
             .#{$namespace}-input-number__increase,
             .#{$namespace}-input-number__decrease {
@@ -106,8 +106,8 @@ $input-height: map.merge(
             }
 
             .#{$namespace}-input__wrapper {
-                padding-left: #{map.get($input-height, $size) + 7};
-                padding-right: #{map.get($input-height, $size) + 7};
+                padding-left: calc(#{map.get($input-height, $size)} + 7px);
+                padding-right: calc(#{map.get($input-height, $size)} + 7px);
             }
         }
     }

@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '../common/var';
+@use '../common/var' as *;
 
 // join var name
 // joinVarName(('button', 'text-color')) => '--el-button-text-color'
@@ -170,7 +170,7 @@
             //     'color',
             //     $type,
             //     'transparent',
-            // ),,,,,,,,,,,
+            // ),,,,,,,,,,,,
         ),
         'hover': (
             'text-color': (
@@ -184,7 +184,7 @@
             // 'border-color': (
             //     'color',
             //     $type,
-            // ),,,,,,,,,,,
+            // ),,,,,,,,,,,,
         ),
         'active': (
             'text-color': (

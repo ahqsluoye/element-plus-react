@@ -21,7 +21,7 @@
     "doc": "tsc ./doc.ts && node ./doc.js",
     "publish": "npm run build && npm publish ./packages --scope=@qsxy --access=public --registry https://registry.npmjs.org/",
     "prepublishOnly": "father doctor && npm run build",
-    "test": "npm run build && node copyLib.js"
+    "test": "gulp clean && npm run build && node copyLib.js"
   },
   "authors": [
     "ahqsluoye@126.com"
@@ -83,6 +83,7 @@
     "babel-plugin-prismjs": "^2.1.0",
     "circular-dependency-plugin": "^5.2.2",
     "clipboard-copy": "^4.0.1",
+    "dart-sass": "^1.25.0",
     "del": "^6.0.0",
     "dumi": "^2.4.13",
     "eslint": "^8.23.0",

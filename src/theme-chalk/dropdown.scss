@@ -1,4 +1,4 @@
-@use './common/var';
+@use './common/var' as *;
 
 .#{$namespace}-dropdown__popper {
     --#{$namespace}-dropdown-menu-box-shadow: var(--#{$namespace}-box-shadow-light);

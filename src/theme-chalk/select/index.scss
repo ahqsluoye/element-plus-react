@@ -1,4 +1,4 @@
-@use '../common/var';
+@use '../common/var' as *;
 
 .#{$namespace}-select {
     --#{$namespace}-select-border-color-hover: var(--#{$namespace}-border-color-hover);

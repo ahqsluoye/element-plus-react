@@ -1,4 +1,4 @@
-@use '../common/var';
+@use '../common/var' as *;
 
 .#{$namespace}-date-picker {
     --#{$namespace}-datepicker-text-color: var(--#{$namespace}-text-color-regular);

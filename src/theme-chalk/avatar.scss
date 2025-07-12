@@ -1,4 +1,4 @@
-@use './common/var';
+@use './common/var' as *;
 
 .#{$namespace}-avatar {
     --#{$namespace}-avatar-text-color: var(--#{$namespace}-color-white);

@@ -1,3 +1,5 @@
+@use 'variables' as *;
+@use 'sass:string';
 // specific duotone icon class definition
 // -------------------------
 
@@ -7,6 +9,6 @@ readers do not read off random characters that represent icons */
 @each $name, $icon in $fa-icons {
     .fad.#{$fa-css-prefix}-#{$name}::after,
     .#{$fa-css-prefix}-duotone.#{$fa-css-prefix}-#{$name}::after {
-        content: unquote('"#{ $icon }#{ $icon }"');
+        content: string.unquote('"#{ $icon }#{ $icon }"');
     }
 }

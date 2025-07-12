@@ -1,4 +1,4 @@
-@use './common/var';
+@use './common/var' as *;
 
 .#{$namespace}-radio {
     --#{$namespace}-radio-text-color: var(--#{$namespace}-text-color-regular);

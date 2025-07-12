@@ -219,5 +219,5 @@ export {
 export type { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps, StandardProps, TooltipBaseProps, TypeAttributes } from './types/common';
 
 /** 全局配置 */
-export { ConfigProvider } from './ConfigProvider';
+export { ConfigProvider as ElConfigProvider } from './ConfigProvider';
 export type { ConfigProviderProps } from './ConfigProvider';

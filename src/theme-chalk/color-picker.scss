@@ -1,4 +1,4 @@
-@use './common/var';
+@use './common/var' as *;
 @use 'sass:map';
 
 $color-picker-size: () !default;
@@ -233,8 +233,8 @@ $color-picker-size: (
             }
 
             .#{$namespace}-color-picker__mask {
-                height: map.get($color-picker-size, $size)-2px;
-                width: map.get($color-picker-size, $size)-2px;
+                height: calc(map.get($color-picker-size, $size) - 2px);
+                width: calc(map.get($color-picker-size, $size) - 2px);
             }
         }
     }

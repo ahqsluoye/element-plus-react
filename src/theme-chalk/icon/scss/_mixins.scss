@@ -1,3 +1,6 @@
+@use 'sass:string';
+@use 'variables' as *;
+@use 'functions' as *;
 // mixins
 // --------------------------
 
@@ -49,7 +52,7 @@
     @extend .fa-solid;
 
     &::before {
-        content: unquote('"#{ $fa-var }"');
+        content: string.unquote('"#{ $fa-var }"');
     }
 }
 
@@ -58,7 +61,7 @@
     @extend .fa-regular;
 
     &::before {
-        content: unquote('"#{ $fa-var }"');
+        content: string.unquote('"#{ $fa-var }"');
     }
 }
 
@@ -67,7 +70,7 @@
     @extend .fa-light;
 
     &::before {
-        content: unquote('"#{ $fa-var }"');
+        content: string.unquote('"#{ $fa-var }"');
     }
 }
 
@@ -76,7 +79,7 @@
     @extend .fa-thin;
 
     &::before {
-        content: unquote('"#{ $fa-var }"');
+        content: string.unquote('"#{ $fa-var }"');
     }
 }
 
@@ -85,10 +88,10 @@
     @extend .fa-duotone;
 
     &::before {
-        content: unquote('"#{ $fa-var }"');
+        content: string.unquote('"#{ $fa-var }"');
     }
     &::after {
-        content: unquote('"#{ $fa-var }#{ $fa-var }"');
+        content: string.unquote('"#{ $fa-var }#{ $fa-var }"');
     }
 }
 
@@ -97,6 +100,6 @@
     @extend .fa-brands;
 
     &::before {
-        content: unquote('"#{ $fa-var }"');
+        content: string.unquote('"#{ $fa-var }"');
     }
 }

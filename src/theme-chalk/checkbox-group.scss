@@ -1,4 +1,4 @@
-@use './common/var';
+@use './common/var' as *;
 
 .#{$namespace}-checkbox-group {
     font-size: 0;

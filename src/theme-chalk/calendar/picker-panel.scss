@@ -1,4 +1,4 @@
-@use '../common/var';
+@use '../common/var' as *;
 
 .#{$namespace}-picker-panel {
     color: var(--#{$namespace}-text-color-regular);

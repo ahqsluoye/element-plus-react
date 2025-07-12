@@ -1,72 +1,72 @@
 /* Basic 基础组件 */
-@import './common';
-@import './link';
-@import './button';
-@import './icon/fonts';
-@import './icon';
-@import './row';
-@import './col';
-@import './scrollbar';
-@import './popper';
-@import './transition';
+@use './common';
+@use './link';
+@use './button';
+@use './icon/fonts';
+@use './icon';
+@use './row';
+@use './col';
+@use './scrollbar';
+@use './popper';
+@use './transition';
 
-/* Form 表单组件 */
-@import './cascader';
-@import './cascader-panel';
-@import './carousel';
-@import './checkbox';
-@import './checkbox-button';
-@import './checkbox-group';
-@import './color-picker';
-@import './radio';
-@import './radio-button';
-@import './radio-group';
-@import './input';
-@import './input-number';
-@import './select';
-@import './calendar';
-@import './date-picker';
-@import './date-time-picker';
-@import './time-range-picker';
-@import './time-picker';
-@import './switch';
-@import './transfer';
-@import './form';
-@import './upload';
+// /* Form 表单组件 */
+@use './cascader';
+@use './cascader-panel';
+@use './carousel';
+@use './checkbox';
+@use './checkbox-button';
+@use './checkbox-group';
+@use './color-picker';
+@use './radio';
+@use './radio-button';
+@use './radio-group';
+@use './input';
+@use './input-number';
+@use './select';
+@use './calendar';
+@use './date-picker';
+@use './date-time-picker';
+@use './time-range-picker';
+@use './time-picker';
+@use './switch';
+@use './transfer';
+@use './form';
+@use './upload';
 
 /* Data 数据展示 */
-@import './avatar';
-@import './badge';
-@import './card';
-@import './collapse';
-@import './descriptions';
-@import './descriptions-item';
-@import './pagination';
-@import './progress';
-@import './table';
-@import './time-line';
-@import './timeline-item';
-@import './tree';
-@import './tree-select';
-@import './tag';
+@use './avatar';
+@use './badge';
+@use './card';
+@use './collapse';
+@use './descriptions';
+@use './descriptions-item';
+@use './pagination';
+@use './progress';
+@use './table';
+@use './time-line';
+@use './timeline-item';
+@use './tree';
+@use './tree-select';
+@use './tag';
 
 // /* Navigation 导航 */
-@import './breadcrumb';
-@import './dropdown';
-@import './tabs';
-@import './empty';
-@import './skeleton';
+@use './breadcrumb';
+@use './dropdown';
+@use './tabs';
+@use './empty';
+@use './skeleton';
 
 /* Feedback 反馈组件 */
-@import './dialog';
-@import './drawer';
-@import './loading';
-@import './message';
-@import './message-box';
-@import './notification';
-@import './tooltip';
-@import './popconfirm';
-@import './popover';
+@use './dialog';
+@use './drawer';
+@use './loading';
+@use './message';
+@use './message-box';
+@use './notification';
+@use './tooltip';
+@use './popconfirm';
+@use './popover';
 
 /* Others 其他 */
-@import './divider';
+@use './divider';

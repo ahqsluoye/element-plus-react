@@ -1,4 +1,4 @@
-@use './common/var';
+@use './common/var' as *;
 .#{$namespace}-link {
     --#{$namespace}-link-font-size: 14px;
     --#{$namespace}-link-font-weight: 500;

@@ -1,4 +1,4 @@
-@use './common/var';
+@use './common/var' as *;
 
 .#{$namespace}-collapse {
     --#{$namespace}-collapse-border-color: var(--#{$namespace}-border-color-lighter);

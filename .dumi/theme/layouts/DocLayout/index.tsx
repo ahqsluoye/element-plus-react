@@ -2,6 +2,7 @@ import Header from '@/theme/slots/Header';
 import Home from '@/theme/slots/Home';
 import Main from '@/theme/slots/Main';
 import Sidebar from '@/theme/slots/Sidebar';
+import { ElConfigProvider } from '@qsxy/element-plus-react';
 import '@qsxy/element-plus-react/theme-chalk/dev.scss';
 import { Helmet, useIntl, useRouteMeta, useSidebarData } from 'dumi';
 import React, { FC, memo } from 'react';
@@ -51,7 +52,9 @@ const DocLayout: FC = memo(() => {
                 <Home />
                 {showSidebar && <Sidebar />}
 
-                <Main />
+                <ElConfigProvider.Provider value={{ locale: 'zh-CN' }}>
+                    <Main />
+                </ElConfigProvider.Provider>
             </div>
         </>
     );

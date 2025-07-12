@@ -32,7 +32,9 @@ export default defineConfig({
     //     // 绝对路径
     //     `${__dirname}/.dumi/theme/plugin1.ts`,
     // ],
-    sassLoader: {},
+    sassLoader: {
+        // implementation: require('dart-sass'),
+    },
     // extraBabelPresets: [
     //     [
     //         '@babel/env',

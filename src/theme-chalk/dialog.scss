@@ -1,4 +1,4 @@
-@use './common/var';
+@use './common/var' as *;
 
 // Kill the scroll on the body
 .#{$namespace}-popup-parent--hidden {

@@ -94,7 +94,7 @@ Tooltip 可以作为单例，也就是是说你可以同时有多个触发同一
 
 ## 受控模式
 
-Tooltip 可以通过父组件使用 `:visible` 来控制它的显示与关闭。
+Tooltip 可以通过父组件使用 `visible` 来控制它的显示与关闭。
 
 <code src="./controlled.tsx"></code>
 

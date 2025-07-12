@@ -23,6 +23,7 @@ specifiers:
   circular-dependency-plugin: ^5.2.2
   classnames: ^2.5.1
   clipboard-copy: ^4.0.1
+  dart-sass: ^1.25.0
   dayjs: ^1.11.13
   del: ^6.0.0
   dom-lib: ^3.2.0
@@ -102,6 +103,7 @@ devDependencies:
   babel-plugin-prismjs: 2.1.0_prismjs@1.28.0
   circular-dependency-plugin: 5.2.2
   clipboard-copy: 4.0.1
+  dart-sass: 1.25.0
   del: 6.1.1
   dumi: 2.4.21_k5bgoa4ifexqotldpvszbmoipa
   eslint: 8.57.1
@@ -6200,6 +6202,15 @@ packages:
   /dargs/7.0.0:
     resolution: {integrity: sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==}
     engines: {node: '>=8'}
+    dev: true
+
+  /dart-sass/1.25.0:
+    resolution: {integrity: sha512-syNOAstJXAmvD3RifcDk3fiPMyYE2fY8so6w9gf2/wNlKpG0zyH+oiXubEYVOy1WAWkzOc72pbAxwx+3OU4JJA==}
+    engines: {node: '>=8.9.0'}
+    deprecated: This package has been renamed to 'sass'.
+    hasBin: true
+    dependencies:
+      chokidar: 3.6.0
     dev: true
 
   /data-uri-to-buffer/4.0.1:

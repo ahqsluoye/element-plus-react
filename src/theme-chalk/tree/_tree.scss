@@ -1,4 +1,4 @@
-@use '../common/var';
+@use '../common/var' as *;
 
 // @mixin antTreeSwitcherIcon($type: 'tree-default-open-icon') {
 .#{$namespace}-tree-switcher-icon {

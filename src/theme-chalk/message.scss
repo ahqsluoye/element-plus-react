@@ -1,4 +1,4 @@
-@use './common/var';
+@use './common/var' as *;
 
 .#{$namespace}-message {
     --#{$namespace}-message-bg-color: var(--#{$namespace}-color-info-light-9);

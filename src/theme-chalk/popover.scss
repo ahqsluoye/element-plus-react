@@ -1,4 +1,4 @@
-@use './common/var';
+@use './common/var' as *;
 
 .#{$namespace}-popover {
     --#{$namespace}-popover-bg-color: var(--#{$namespace}-bg-color-overlay);

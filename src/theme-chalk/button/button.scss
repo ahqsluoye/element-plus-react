@@ -1,7 +1,7 @@
-@use '../common/var';
+@use '../common/var' as *;
 
 @use 'sass:map';
-@import './mixins';
+@use './mixins' as *;
 
 $button-icon-span-gap: () !default;
 $button-icon-span-gap: map.merge(
