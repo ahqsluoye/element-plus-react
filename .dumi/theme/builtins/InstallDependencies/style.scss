@@ -1,5 +1,5 @@
 .el-tabs.markdown {
-    background: #f0f2f5;
+    background: var(--code-bg-color);
     border-radius: 4px;
 
     .el-tabs__nav {
@@ -13,10 +13,24 @@
     .language-bash {
         .token {
             &.plain {
-                --shiki-light: #032f62;
-                --shiki-dark: #9ecbff;
+                --shiki-light: rgba(0, 0, 0, 0.88);
                 color: var(--shiki-light, inherit);
             }
         }
+    }
+}
+
+.dark {
+    .el-tabs.markdown .language-bash {
+        .token.function {
+            color: #9ecbff !important;
+        }
+        .token.plain {
+            --shiki-light: #8590a0;
+        }
+    }
+
+    .dumi-default-source-code-copy {
+        background-color: #1b1b1f !important;
     }
 }

@@ -13,7 +13,7 @@ Element Plus 默认提供一套主题，CSS 命名采用 BEM 的风格，方便�
 
 ### 通过 SCSS 变量
 
-`theme-chalk` 使用 SCSS 编写而成。 你可以在 <ElLink href="https://github.com/ahqsluoye/element-plus-react/blob/main/src/theme-chalk/common/index.scss">src/theme-chalk/common/index.scss</ElLink> 文件中查找 SCSS 变量。
+`theme-chalk` 使用 SCSS 编写而成。 你可以在 <ElLink href="https://github.com/ahqsluoye/element-plus-react/blob/main/src/theme-chalk/common/var.scss">src/theme-chalk/common/var.scss</ElLink> 文件中查找 SCSS 变量。
 
 <!-- :::warning
 
@@ -74,19 +74,24 @@ $colors: map.deep-merge(
 
 ```scss [styles/element/index.scss]
 /* just override what you need */
-@use '@qsxy/element-plus-react/theme-chalk/common/var' with($fa-font-path: '~/node_modules/@qsxy/element-plus-react/theme-chalk/fonts');
-@use '@qsxy/element-plus-react/theme-chalk/index.scss';
-@use '@qsxy/element-plus-react/theme-chalk/common/index.scss' with (
-    $fa-font-path: '~/node_modules/@qsxy/element-plus-react/theme-chalk/fonts',
-    $colors: (
-        'primary': (
-            'base': green,
-        ),
-    )
-);
+@use '@qsxy/element-plus-react/theme-chalk/common/var' with(
+        // 字体文件路径必填
+        $fa-font-path: '~/node_modules/@qsxy/element-plus-react/theme-chalk/fonts',
+        // 其他变量可自定义
+        $colors:
+            (
+                'primary': (
+                    'base': green,
+                )
+            )
+    );
 
 // If you just import on demand, you can ignore the following content.
 // 如果你想导入所有样式:
+// @use '@qsxy/element-plus-react/theme-chalk/common/var'
+//     with(
+//         $fa-font-path: '~/node_modules/@qsxy/element-plus-react/theme-chalk/fonts',
+//     );
 // @use "@qsxy/element-plus-react/theme-chalk/index.scss" as *;
 ```
 
@@ -102,21 +107,23 @@ $colors: map.deep-merge(
 
 :::info{title=TIP}
 
-除此以外，你应该将你的 scss 文件与 element 变量的 scss 文件区分开来。 如果将它们混合在一起，`element-plus` 每次热更新都需要编译大量的 scss 文件，这将会导致编译速度变慢。
+除此以外，你应该将你的 scss 文件与 element 变量的 scss 文件区分开来。 如果将它们混合在一起，`element-plus-react` 每次热更新都需要编译大量的 scss 文件，这将会导致编译速度变慢。
 
 :::
 
 ```ts [main.ts]
-import { createApp } from 'vue';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import './styles/element/index.scss';
-import ElementPlus from 'element-plus';
-import App from './App.vue';
+import '@qsxy/element-plus-react/theme-chalk/index.scss';
+import App from './App';
 
-const app = createApp(App);
-app.use(ElementPlus);
+const renderDom = document.getElementById('root');
+const root = createRoot(renderDom);
+root.render(<App />);
 ```
 
-如果你正在使用 vite，并且你想在按需导入时自定义主题。
+<!-- 如果你正在使用 vite，并且你想在按需导入时自定义主题。
 
 使用 `scss.additionalData` 来编译所有应用 scss 变量的组件。
 
@@ -185,7 +192,7 @@ export default defineConfig({
         }),
     ],
 });
-```
+``` -->
 
 ### 通过 CSS 变量设置
 
@@ -215,8 +222,8 @@ CSS 变量是一个非常有用的功能，几乎所有浏览器都支持。 （
 
 如果你只想自定义一个特定的组件，只需为某些组件单独添加内联样式。
 
-```html
-<el-tag style="--el-tag-bg-color: red">Tag</el-tag>
+```ts
+<ElTag style={{ '--el-tag-bg-color': 'red' }}>Tag</ElTag>
 ```
 
 出于性能原因，更加推荐你在类名下添加自定义 css 变量，而不是在全局的 `:root` 下。
