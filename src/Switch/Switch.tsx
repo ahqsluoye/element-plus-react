@@ -32,6 +32,8 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
         inactiveValue,
         activeIcon,
         inactiveIcon,
+        activeAction,
+        inactiveAction,
         loading,
         className,
         style,
@@ -68,11 +70,14 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
         return active ? props.borderColor || currentColor : currentColor;
     }, [active, props.borderColor, currentColor]);
 
-    const handleChange = useCallback((): void => {
-        const val = active ? inactiveValue : activeValue;
-        setValue(val);
-        onChange?.(val, !active);
-    }, [active, activeValue, inactiveValue, onChange, setValue]);
+    const handleChange = useCallback(
+        (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
+            const val = active ? inactiveValue : activeValue;
+            setValue(val);
+            onChange?.(val, !active, event);
+        },
+        [active, activeValue, inactiveValue, onChange, setValue],
+    );
 
     const switchValue = useCallback(
         (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
@@ -82,7 +87,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
             }
 
             if (!beforeChange) {
-                handleChange();
+                handleChange(event);
                 onClick?.();
                 return;
             }
@@ -97,7 +102,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
                 shouldChange
                     .then(result => {
                         if (result) {
-                            handleChange();
+                            handleChange(event);
                             onClick?.();
                         }
                     })
@@ -105,7 +110,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
                         warning(false, event1);
                     });
             } else if (shouldChange) {
-                handleChange();
+                handleChange(event);
                 onClick?.();
             }
         },
@@ -137,6 +142,14 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
         return null;
     }, [active, activeIcon, activeText, e, em, is]);
 
+    const actions = useMemo(() => {
+        if (active && activeAction) {
+            return typeof activeIcon === 'string' ? <Icon name={activeIcon} /> : activeAction;
+        } else if (!active && inactiveAction) {
+            return typeof inactiveAction === 'string' ? <Icon name={inactiveAction} /> : inactiveAction;
+        }
+    }, [active, activeAction, activeIcon, inactiveAction]);
+
     return (
         <div
             className={classNames(b(), m({ [size]: size }), is({ disabled, checked: active }), className)}
@@ -164,15 +177,37 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
             <span className={e`core`} style={{ background: currentColor, borderColor, width }}>
                 {inlinePrompt && (
                     <div className={e`inner`}>
-                        {!active ? activeText && <span className="is-text">{activeText}</span> : typeof activeIcon === 'string' && <Icon className="is-icon" name={activeIcon} />}
+                        {!active
+                            ? (() => {
+                                  if (activeText) {
+                                      return <span className="is-text">{activeText}</span>;
+                                  } else if (activeIcon) {
+                                      if (typeof activeIcon === 'string') {
+                                          <Icon className="is-icon" name={activeIcon} />;
+                                      } else {
+                                          return activeIcon;
+                                      }
+                                  }
+                              })()
+                            : null}
                         {active
-                            ? inactiveText && <span className="is-text">{inactiveText}</span>
-                            : typeof inactiveIcon === 'string' && <Icon className="is-icon" name={inactiveIcon} />}
+                            ? (() => {
+                                  if (inactiveText) {
+                                      return <span className="is-text">{inactiveText}</span>;
+                                  } else if (inactiveIcon) {
+                                      if (typeof inactiveIcon === 'string') {
+                                          <Icon className="is-icon" name={inactiveIcon} />;
+                                      } else {
+                                          return inactiveIcon;
+                                      }
+                                  }
+                              })()
+                            : null}
                     </div>
                 )}
 
                 <div className={e`action`} style={{ color: currentColor }}>
-                    {loading ? <Icon name="spinner" spin /> : null}
+                    {loading ? <Icon name="spinner" spin /> : actions}
                 </div>
             </span>
             {!inlinePrompt && trueLabel}

@@ -60,7 +60,7 @@
 .dumi-default-table table {
     border-collapse: collapse;
     width: 100%;
-    background: #fff;
+    background: var(--bg-color);
     font-size: 14px;
     margin-bottom: 45px;
     line-height: 1.5em;
@@ -99,8 +99,18 @@
 
 .dumi-default-container.markdown[data-type='info'] {
     border-left: 5px solid var(--el-color-primary);
+    background: var(--block-tip-bg-color);
+
+    & > section {
+        color: var(--text-color);
+    }
 }
 
 .dumi-default-container.markdown[data-type='error'] {
     border-left: 5px solid var(--el-color-error);
+    background: var(--block-warning-bg-color);
+
+    & > section {
+        color: var(--text-color);
+    }
 }

@@ -23,6 +23,10 @@ export interface SwitchProps<V = ValueType>
     activeIcon?: IconName | React.ReactElement<any>;
     /** switch 的状态为 off 时的文字描述 */
     inactiveIcon?: IconName | React.ReactElement<any>;
+    /** on状态下显示的图标组件 */
+    activeAction?: IconName | React.ReactElement<any>;
+    /** off状态下显示的图标组件 */
+    inactiveAction?: IconName | React.ReactElement<any>;
     /** 当在 on 状态时的背景颜色 */
     activeColor?: string;
     /** off 状态时的背景颜色 */

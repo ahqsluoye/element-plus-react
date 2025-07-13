@@ -5,5 +5,7 @@
 
     @include respond-to('md') {
         display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

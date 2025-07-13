@@ -16,83 +16,83 @@ $scrollbar-size: 6px;
     --el-color-primary-#{$mode}-#{$number}: #{mix($mix-color, $--el-color-primary, math.percentage(math.div($number, 10)))};
 }
 
-.theme-default {
-    // 我是网站主色调
-    $--el-color-primary: #409eff;
-    --el-color-primary: #409eff;
-    // 我是主要按钮背景颜色
-    --el-bg-color-primary: #409eff;
-    // 我是默认按钮边框颜色
-    --btn-border-color: #48aff9;
+// .theme-default {
+//     // 我是网站主色调
+//     $--el-color-primary: #409eff;
+//     --el-color-primary: #409eff;
+//     // 我是主要按钮背景颜色
+//     --el-bg-color-primary: #409eff;
+//     // 我是默认按钮边框颜色
+//     --btn-border-color: #48aff9;
 
-    @each $i in (3, 5, 7, 8, 9) {
-        @include set-color-mix-level($i, 'light', $--el-color-primary, #ffffff);
-    }
+//     @each $i in (3, 5, 7, 8, 9) {
+//         @include set-color-mix-level($i, 'light', $--el-color-primary, #ffffff);
+//     }
 
-    @include set-color-mix-level(2, 'dark', $--el-color-primary, #000000);
+//     @include set-color-mix-level(2, 'dark', $--el-color-primary, #000000);
 
-    &.is-dark {
-        --el-color-primary: #{mix(#141414, $--el-color-primary, 5)};
+//     &.is-dark {
+//         --el-color-primary: #{mix(#141414, $--el-color-primary, 5)};
 
-        @each $i in (3, 5, 7, 8, 9) {
-            @include set-color-mix-level($i, 'light', $--el-color-primary, #141414);
-        }
+//         @each $i in (3, 5, 7, 8, 9) {
+//             @include set-color-mix-level($i, 'light', $--el-color-primary, #141414);
+//         }
 
-        @include set-color-mix-level(2, 'dark', $--el-color-primary, #141414);
-    }
-}
+//         @include set-color-mix-level(2, 'dark', $--el-color-primary, #141414);
+//     }
+// }
 
-.theme-grass_green {
-    // 我是网站主色调
-    $--el-color-primary: #1f9659;
-    --el-color-primary: #1f9659;
-    // 我是主要按钮背景颜色
-    --el-bg-color-primary: #1f9659;
-    // 我是默认按钮边框颜色
-    --btn-border-color: #94ca5b;
+// .theme-grass_green {
+//     // 我是网站主色调
+//     $--el-color-primary: #1f9659;
+//     --el-color-primary: #1f9659;
+//     // 我是主要按钮背景颜色
+//     --el-bg-color-primary: #1f9659;
+//     // 我是默认按钮边框颜色
+//     --btn-border-color: #94ca5b;
 
-    @each $i in (3, 5, 7, 8, 9) {
-        @include set-color-mix-level($i, 'light', $--el-color-primary, #ffffff);
-    }
+//     @each $i in (3, 5, 7, 8, 9) {
+//         @include set-color-mix-level($i, 'light', $--el-color-primary, #ffffff);
+//     }
 
-    @include set-color-mix-level(2, 'dark', $--el-color-primary, #000000);
+//     @include set-color-mix-level(2, 'dark', $--el-color-primary, #000000);
 
-    &.is-dark {
-        --el-color-primary: #{mix(#141414, $--el-color-primary, 5)};
+//     &.is-dark {
+//         --el-color-primary: #{mix(#141414, $--el-color-primary, 5)};
 
-        @each $i in (3, 5, 7, 8, 9) {
-            @include set-color-mix-level($i, 'light', $--el-color-primary, #141414);
-        }
+//         @each $i in (3, 5, 7, 8, 9) {
+//             @include set-color-mix-level($i, 'light', $--el-color-primary, #141414);
+//         }
 
-        @include set-color-mix-level(2, 'dark', $--el-color-primary, #141414);
-    }
-}
+//         @include set-color-mix-level(2, 'dark', $--el-color-primary, #141414);
+//     }
+// }
 
-.theme-red {
-    // 我是网站主色调
-    $--el-color-primary: #c8161b;
-    --el-color-primary: #c8161b;
-    // 我是主要按钮背景颜色
-    --el-bg-color-primary: #c8161b;
-    // 我是默认按钮边框颜色
-    --btn-border-color: #fa6a6e;
+// .theme-red {
+//     // 我是网站主色调
+//     $--el-color-primary: #c8161b;
+//     --el-color-primary: #c8161b;
+//     // 我是主要按钮背景颜色
+//     --el-bg-color-primary: #c8161b;
+//     // 我是默认按钮边框颜色
+//     --btn-border-color: #fa6a6e;
 
-    @each $i in (3, 5, 7, 8, 9) {
-        @include set-color-mix-level($i, 'light', $--el-color-primary, #ffffff);
-    }
+//     @each $i in (3, 5, 7, 8, 9) {
+//         @include set-color-mix-level($i, 'light', $--el-color-primary, #ffffff);
+//     }
 
-    @include set-color-mix-level(2, 'dark', $--el-color-primary, #000000);
+//     @include set-color-mix-level(2, 'dark', $--el-color-primary, #000000);
 
-    &.is-dark {
-        --el-color-primary: #{mix(#141414, $--el-color-primary, 5)};
+//     &.is-dark {
+//         --el-color-primary: #{mix(#141414, $--el-color-primary, 5)};
 
-        @each $i in (3, 5, 7, 8, 9) {
-            @include set-color-mix-level($i, 'light', $--el-color-primary, #141414);
-        }
+//         @each $i in (3, 5, 7, 8, 9) {
+//             @include set-color-mix-level($i, 'light', $--el-color-primary, #141414);
+//         }
 
-        @include set-color-mix-level(2, 'dark', $--el-color-primary, #141414);
-    }
-}
+//         @include set-color-mix-level(2, 'dark', $--el-color-primary, #141414);
+//     }
+// }
 
 .is-dark {
     // 我是高亮背景色

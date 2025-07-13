@@ -32,7 +32,7 @@
     "rules": {
         // 强制使用一致的缩进
         "indent": [
-            1,
+            0,
             4,
             {
                 "SwitchCase": 1

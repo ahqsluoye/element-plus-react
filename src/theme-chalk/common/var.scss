@@ -711,6 +711,7 @@ $button: () !default;
 $button: map.merge(
     (
         'font-weight': getCssVar('font-weight-primary'),
+        'border-style': solid,
         'border-color': getCssVar('border-color'),
         'bg-color': getCssVar('fill-color', 'blank'),
         'text-color': getCssVar('text-color', 'regular'),
