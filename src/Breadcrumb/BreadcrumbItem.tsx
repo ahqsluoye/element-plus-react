@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import React, { cloneElement, FC, memo, useCallback, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useClassNames } from '../hooks';
 import { isNotEmpty } from '../Util';
 import { BreadcrumbContext } from './Breadcrumb';
@@ -10,15 +9,14 @@ const BreadcrumbItem: FC<BreadcrumbItemProps> = memo(props => {
     const { classPrefix = 'breadcrumb', to, onClick } = props;
     const { e, is } = useClassNames(classPrefix);
     const { separator } = useContext(BreadcrumbContext);
-    const navigate = useNavigate();
 
     /** 点击链接跳转 */
     const onClickLink = useCallback(() => {
-        if (isNotEmpty(to)) {
-            navigate(typeof to === 'string' ? to : to?.path ?? '*');
-        }
+        // if (isNotEmpty(to)) {
+        //     navigate(typeof to === 'string' ? to : to?.path ?? '*');
+        // }
         onClick?.(to);
-    }, [navigate, onClick, to]);
+    }, [onClick, to]);
 
     return (
         <div className={classNames(e`item`, props.className)} style={props.style} onClick={onClickLink}>

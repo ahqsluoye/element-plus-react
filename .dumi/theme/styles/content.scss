@@ -114,3 +114,7 @@
         color: var(--text-color);
     }
 }
+
+.el-button {
+    transition: unset !important;
+}
