@@ -1,2 +1,2 @@
-$fa-font-path: '/element-plus-react/fonts' !default;
+@use './common/var' with($fa-font-path: '/element-plus-react/fonts');
 @use './index.scss';

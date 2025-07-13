@@ -1,10 +1,2 @@
-@use './common/var'
-    with(
-        $fa-font-path: '/fonts',
-        // $colors: (
-        //     'primary': (
-        //         'base': #1f9659,
-        //     ),
-        // )
-    );
+@use './common/var' with($fa-font-path: '/fonts');
 @use './index.scss';

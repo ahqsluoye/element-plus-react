@@ -26,43 +26,17 @@ element-plus-react 的 theme-chalk 使用 SCSS 编写，如果你的项目也使
 /_ 改变主题色变量 _/
 
 ```scss
-@use 'sass:math';
-
-@mixin set-color-mix-level($number, $mode: 'light', $--el-color-primary, $mix-color: #ffffff) {
-    --el-color-primary-#{$mode}-#{$number}: #{mix($mix-color, $--el-color-primary, math.percentage(math.div($number, 10)))};
-}
-
-// Theme color variable
-// 主题色变量
-$--el-color-primary: #4f8ffa;
-:root {
-    // Theme color variable
-    // 主题色变量
-    --el-color-primary: #4f8ffa;
-    // Theme background color variable (button class)
-    // 主题背景颜色变量（按钮类）
-    --el-bg-color-primary: #4f8ffa;
-    // Theme border color variable (button class)
-    // 主题边框颜色变量（按钮类）
-    --btn-border-color: #48aff9;
-
-    @each $i in (3, 5, 7, 8, 9) {
-        @include set-color-mix-level($i, 'light', $--el-color-primary, #ffffff);
-    }
-
-    @include set-color-mix-level(2, 'dark', $--el-color-primary, #000000);
-
-    // dark mode 暗黑模式
-    &.is-dark {
-        --el-color-primary: #{mix(#141414, $--el-color-primary, 5)};
-
-        @each $i in (3, 5, 7, 8, 9) {
-            @include set-color-mix-level($i, 'light', $--el-color-primary, #141414);
-        }
-
-        @include set-color-mix-level(2, 'dark', $--el-color-primary, #141414);
-    }
-}
+@use '@qsxy/element-plus-react/theme-chalk/common/var' with(
+        // 字体文件路径必填
+        $fa-font-path: '~/node_modules/@qsxy/element-plus-react/theme-chalk/fonts',
+        // 其他变量可自定义
+        $colors:
+            (
+                'primary': (
+                    'base': green,
+                )
+            )
+    );
 ```
 
 /_ Change icon font path variable, required _/
@@ -70,8 +44,7 @@ $--el-color-primary: #4f8ffa;
 /_ 改变 icon 字体路径变量，必需 _/
 
 ```scss
-$fa-font-path: '~@/assets/fonts';
-@import '@qsxy/element-plus-react/theme-chalk/index.scss';
+@use '@qsxy/element-plus-react/theme-chalk/common/var' with($fa-font-path: '~@/assets/fonts');
 ```
 
 ## Warm Reminder

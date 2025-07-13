@@ -118,3 +118,10 @@
 .el-button {
     transition: unset !important;
 }
+
+.dark {
+    .react-loading-skeleton {
+        --base-color: var(--el-skeleton-color);
+        --highlight-color: var(--el-skeleton-to-color);
+    }
+}
