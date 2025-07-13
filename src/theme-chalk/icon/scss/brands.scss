@@ -5,11 +5,11 @@
 
 :root,
 :host {
-    --#{$fa-css-prefix}-font-brands: normal 400 1em/1 'Font Awesome 6 Brands';
+    --#{$fa-css-prefix}-font-brands: normal 400 1em/1 '#{ $fa-style-family }';
 }
 
 @font-face {
-    font-family: 'Font Awesome 6 Brands';
+    font-family: #{$fa-style-family};
     font-style: normal;
     font-weight: 400;
     font-display: $fa-font-display;
@@ -18,7 +18,7 @@
 
 .fab,
 .#{$fa-css-prefix}-brands {
-    font-family: 'Font Awesome 6 Brands';
+    font-family: #{$fa-style-family};
     font-weight: 400;
 }
 

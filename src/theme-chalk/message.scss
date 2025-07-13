@@ -1,4 +1,5 @@
 @use './common/var' as *;
+@use './mixins/config' as *;
 
 .#{$namespace}-message {
     --#{$namespace}-message-bg-color: var(--#{$namespace}-color-info-light-9);

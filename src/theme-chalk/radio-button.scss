@@ -1,4 +1,4 @@
-@use './common/var' as *;
+@use './mixins/config' as *;
 
 .#{$namespace}-radio-button {
     --#{$namespace}-radio-button-checked-bg-color: var(--#{$namespace}-color-primary);

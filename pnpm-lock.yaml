@@ -58,6 +58,8 @@ specifiers:
   react-router-dom: ^6.22.1
   react-sortable-hoc: ^2.0.0
   resize-observer-polyfill: ^1.5.1
+  sass: ^1.89.2
+  sass-loader: ^16.0.5
   scroll-into-view-if-needed: ^3.1.0
   stylelint: ^14.9.1
   tslib: ^2.6.2
@@ -123,6 +125,8 @@ devDependencies:
   prismjs: 1.28.0
   react: 18.3.1
   react-dom: 18.3.1_react@18.3.1
+  sass: 1.89.2
+  sass-loader: 16.0.5_sass@1.89.2
   stylelint: 14.16.1
   tslib: 2.8.1
 

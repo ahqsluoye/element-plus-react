@@ -1,7 +1,7 @@
 @use 'sass:math';
 @use 'sass:map';
 @use 'sass:string';
-@use '../common/var' as *;
+@use '../mixins/config' as *;
 
 // Break-point
 $sm: 768px !default;

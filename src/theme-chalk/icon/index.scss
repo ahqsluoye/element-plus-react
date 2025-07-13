@@ -1,4 +1,4 @@
-@use '../common/var' as *;
+@use '../mixins/config' as *;
 
 .#{$namespace}-icon-loading {
     animation: rotating 2s linear infinite;

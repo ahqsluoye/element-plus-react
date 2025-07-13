@@ -1,4 +1,4 @@
-@use './common/var' as *;
+@use './mixins/config' as *;
 
 // layuid动画，右侧滑入
 @keyframes rl {

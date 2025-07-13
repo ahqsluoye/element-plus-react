@@ -1,4 +1,4 @@
-@use './common/var' as *;
+@use './mixins/config' as *;
 
 .#{$namespace}-progress {
     position: relative;

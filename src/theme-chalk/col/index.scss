@@ -1,5 +1,5 @@
 @use 'sass:math';
-@use '../common/var' as *;
+@use '../mixins/config' as *;
 @use './mixins' as *;
 
 [class*='#{$namespace}-col-'] {

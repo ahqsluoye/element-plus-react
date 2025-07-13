@@ -18,15 +18,20 @@ export default defineConfig({
         '@qsxy/element-plus-react': process.cwd() + '/src',
     },
     chainWebpack(config) {
-        config.module // 配置 file-loader
-            .rule('otf')
-            .test(/\.(woff|woff2|eot|ttf|otf)(\?v=\d+\.\d+\.\d+)?$/)
-            .use('file-loader')
-            .loader('file-loader')
-            .options({
-                publicPath: '../../../',
-                name: 'fonts/[name].[ext]',
-            });
+        // config.module // 配置 file-loader
+        //     .rule('otf')
+        //     .test(/\.(woff|woff2|eot|ttf|otf)(\?v=\d+\.\d+\.\d+)?$/)
+        //     .use('file-loader')
+        //     .loader('file-loader')
+        //     .options({
+        //         publicPath: '../../../',
+        //         name: 'fonts/[name].[ext]',
+        //     });
+        config.module
+            .rule('scss')
+            .test(/\.(css|scss|sass)$/i)
+            .use('sass-loader')
+            .loader('sass-loader');
     },
     // plugins: [
     //     // 绝对路径

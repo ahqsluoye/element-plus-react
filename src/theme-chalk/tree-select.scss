@@ -1,4 +1,4 @@
-@use './common/var' as *;
+@use './mixins/config' as *;
 
 .#{$namespace}-select-dropdown__list {
     .#{$namespace}-tree.#{$namespace}-tree-directory {

@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use './common/var' as *;
+@use './mixins/config' as *;
 
 .#{$namespace}-scrollbar {
     --#{$namespace}-scrollbar-opacity: 0.3;

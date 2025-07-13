@@ -1,4 +1,4 @@
-@use './common/var' as *;
+@use './mixins/config' as *;
 
 .#{$namespace}-skeleton {
     --#{$namespace}-skeleton-color: var(--#{$namespace}-fill-color);

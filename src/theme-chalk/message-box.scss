@@ -1,4 +1,4 @@
-@use './common/var' as *;
+@use './mixins/config' as *;
 
 .#{$namespace}-message-box {
     --#{$namespace}-messagebox-title-color: var(--#{$namespace}-text-color-primary);
