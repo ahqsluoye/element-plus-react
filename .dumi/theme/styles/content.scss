@@ -47,6 +47,14 @@
     color: var(--text-color-light);
 }
 
+.home-page .banner-desc h1 {
+    font-size: 48px;
+    font-weight: 800;
+    margin: 0;
+    color: var(--text-color);
+    font-family: Inter, sans-serif;
+}
+
 .r-doc-demo-tab {
     .r-tabs__content {
         height: calc(100% - 40px);
@@ -121,7 +129,7 @@
 
 .dark {
     .react-loading-skeleton {
-        --base-color: var(--el-skeleton-color);
-        --highlight-color: var(--el-skeleton-to-color);
+        --base-color: #303030;
+        --highlight-color: #424243;
     }
 }

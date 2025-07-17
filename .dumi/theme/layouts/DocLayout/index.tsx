@@ -4,7 +4,7 @@ import Main from '@/theme/slots/Main';
 import Sidebar from '@/theme/slots/Sidebar';
 import { ElConfigProvider } from '@qsxy/element-plus-react';
 import '@qsxy/element-plus-react/theme-chalk/dark/css-vars.scss';
-import '@qsxy/element-plus-react/theme-chalk/dev.scss';
+import '@qsxy/element-plus-react/theme-chalk/doc.scss';
 import { Helmet, useIntl, useRouteMeta, useSidebarData } from 'dumi';
 import React, { FC, memo } from 'react';
 import './style';
@@ -53,9 +53,11 @@ const DocLayout: FC = memo(() => {
                 <Home />
                 {showSidebar && <Sidebar />}
 
-                <ElConfigProvider.Provider value={{ locale: 'zh-CN' }}>
-                    <Main />
-                </ElConfigProvider.Provider>
+                {'hero' in fm ? null : (
+                    <ElConfigProvider.Provider value={{ locale: 'zh-CN' }}>
+                        <Main />
+                    </ElConfigProvider.Provider>
+                )}
             </div>
         </>
     );

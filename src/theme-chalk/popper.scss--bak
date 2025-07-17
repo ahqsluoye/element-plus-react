@@ -1,0 +1,86 @@
+@use './mixins/config' as *;
+
+.#{$namespace}-popper {
+    // display: flex;
+    // flex-direction: column;
+    // align-items: baseline;
+    background-color: var(--#{$namespace}-bg-color-overlay);
+    color: #333;
+    font-size: 14px;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid var(--#{$namespace}-border-color);
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    z-index: 100;
+
+    .#{$namespace}-popper__arrow:before {
+        border: 1px solid var(--#{$namespace}-border-color);
+        background: var(--#{$namespace}-bg-color-overlay);
+        right: 0;
+    }
+
+    &.is-dark {
+        background-color: var(--#{$namespace}-bg-color-overlay);
+        border: 1px solid var(--#{$namespace}-border-color);
+        color: #fafafa;
+
+        .#{$namespace}-popper__arrow:before {
+            background-color: var(--#{$namespace}-bg-color-overlay);
+            border: 1px solid var(--#{$namespace}-border-color);
+            right: 0;
+        }
+    }
+}
+
+.#{$namespace}-popper__arrow,
+.#{$namespace}-popper__arrow:before {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    z-index: -1;
+}
+
+.#{$namespace}-popper__arrow {
+    &:before {
+        content: ' ';
+        transform: rotate(45deg);
+        box-sizing: border-box;
+    }
+}
+
+.#{$namespace}-popper[data-popper-placement^='top'] .#{$namespace}-popper__arrow {
+    bottom: -6px;
+
+    &::before {
+        border-top-color: transparent;
+        border-left-color: transparent;
+    }
+}
+
+.#{$namespace}-popper[data-popper-placement^='bottom'] .#{$namespace}-popper__arrow {
+    top: -6px;
+
+    &::before {
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+    }
+}
+
+.#{$namespace}-popper[data-popper-placement^='left'] .#{$namespace}-popper__arrow {
+    right: -6px;
+
+    &::before {
+        border-left-color: transparent;
+        border-bottom-color: transparent;
+    }
+}
+
+.#{$namespace}-popper[data-popper-placement^='right'] .#{$namespace}-popper__arrow {
+    left: -6px;
+
+    &::before {
+        border-right-color: transparent;
+        border-top-color: transparent;
+    }
+}

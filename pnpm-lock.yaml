@@ -82,7 +82,6 @@ dependencies:
   react-i18next: 15.5.3_wmcauhhbnuvzxo7vceh3psqqry
   react-is: 19.1.0
   react-popper: 2.3.0_k46i3rdtqabbepls5b256fuiee
-  react-router-dom: 6.30.1_nnrd3gsncyragczmpvfhocinkq
   react-sortable-hoc: 2.0.0_nnrd3gsncyragczmpvfhocinkq
   resize-observer-polyfill: 1.5.1
   scroll-into-view-if-needed: 3.1.0
@@ -125,6 +124,7 @@ devDependencies:
   prismjs: 1.28.0
   react: 18.3.1
   react-dom: 18.3.1_react@18.3.1
+  react-router-dom: 6.30.1_nnrd3gsncyragczmpvfhocinkq
   sass: 1.89.2
   sass-loader: 16.0.5_sass@1.89.2
   stylelint: 14.16.1
@@ -3229,7 +3229,7 @@ packages:
   /@remix-run/router/1.23.0:
     resolution: {integrity: sha512-O3rHJzAQKamUz1fvE0Qaw0xSFqsA/yafi2iqeE0pvdFtCO1viYx8QL6f3Ln/aCCTLxs68SLf0KPM9eSeM8yBnA==}
     engines: {node: '>=14.0.0'}
-    dev: false
+    dev: true
 
   /@rushstack/node-core-library/4.3.0_@types+node@20.19.1:
     resolution: {integrity: sha512-JuNZ7lwaYQ4R1TugpryyWBn4lIxK+L7fF+muibFp0by5WklG22nsvH868fuBoZMLo5FqAs6WFOifNos4PJjWSA==}
@@ -12521,7 +12521,7 @@ packages:
       react: 18.3.1
       react-dom: 18.3.1_react@18.3.1
       react-router: 6.30.1_react@18.3.1
-    dev: false
+    dev: true
 
   /react-router/6.3.0_react@18.3.1:
     resolution: {integrity: sha512-7Wh1DzVQ+tlFjkeo+ujvjSqSJmkt1+8JO+T5xklPlgrh70y7ogx75ODRW0ThWhY7S+6yEDks8TYrtQe/aoboBQ==}
@@ -12540,7 +12540,7 @@ packages:
     dependencies:
       '@remix-run/router': 1.23.0
       react: 18.3.1
-    dev: false
+    dev: true
 
   /react-simple-code-editor/0.13.1_nnrd3gsncyragczmpvfhocinkq:
     resolution: {integrity: sha512-XYeVwRZwgyKtjNIYcAEgg2FaQcCZwhbarnkJIV20U2wkCU9q/CPFBo8nRXrK4GXUz3AvbqZFsZRrpUTkqqEYyQ==}

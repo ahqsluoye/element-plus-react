@@ -4,11 +4,11 @@
 
 :root,
 :host {
-    --#{$fa-css-prefix}-font-duotone: normal 900 1em/1 '#{ $fa-style-family }';
+    --#{$fa-css-prefix}-font-duotone: normal 900 1em/1 '#{ $fa-style-family } Duotone';
 }
 
 @font-face {
-    font-family: '#{ $fa-style-family }';
+    font-family: '#{ $fa-style-family } Duotone';
     font-style: normal;
     font-weight: 900;
     font-display: $fa-font-display;
@@ -18,7 +18,7 @@
 .fad,
 .#{$fa-css-prefix}-duotone {
     position: relative;
-    font-family: '#{ $fa-style-family }';
+    font-family: '#{ $fa-style-family } Duotone';
     font-weight: 900;
     letter-spacing: normal;
 }

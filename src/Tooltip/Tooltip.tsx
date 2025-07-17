@@ -156,7 +156,8 @@ const Tooltip = memo(
                     }}
                     onMouseEnter={enterable && trigger === 'hover' ? handleMouseEnter : noop}
                     onMouseLeave={enterable && trigger === 'hover' ? handleMouseLeave : noop}
-                    className={classNames(is(effect), props.popperClass, { [e`popper`]: classPrefix === 'tooltip' })}
+                    className={classNames(props.popperClass, { [e`popper`]: classPrefix === 'tooltip' })}
+                    effect={effect}
                     unmountOnExit={unmountOnExit}
                     {...popperProps}
                     {...transitionProps}

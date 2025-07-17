@@ -350,14 +350,17 @@ const IconList = () => {
                                         );
                                     })}
                                 </div>
-                                <div style={{ float: 'right', marginTop: 10 }}>
+                                <div style={{ marginTop: 10 }}>
                                     <ElPagination
+                                        background
+                                        layout="total, ->, prev, pager, next,sizes,  jumper"
                                         total={self.length}
                                         pageSize={50}
-                                        showSizeChanger={false}
                                         currentPage={pageNum}
                                         onChange={current => setPageNum(current)}
-                                        showTotal={total => `共${total}个图标`}
+                                        showTotal={(total: number, [from, to]: [number, number]) => {
+                                            return `显示第 ${from} 到第 ${to} 个图标，总共 ${total} 个图标`;
+                                        }}
                                     />
                                 </div>
                             </ElScrollbar>
