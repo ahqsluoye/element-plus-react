@@ -1,4 +1,5 @@
-import { Options, Placement, StrictModifiers } from '@popperjs/core';
+import { Options, Placement, State, StrictModifiers } from '@popperjs/core';
+import fromPairs from 'lodash/fromPairs';
 import { useMemo } from 'react';
 
 interface IUsePopperProps {
@@ -37,6 +38,33 @@ export default function usePopperOptions(props: IUsePopperProps, arrowElement) {
     }, [arrowElement, props.arrowOffset, props.gpuAcceleration, props.offset, props.placement, props.popperOptions]);
 }
 
+function deriveState(state: State) {
+    const elements = Object.keys(state.elements) as unknown as Array<keyof State['elements']>;
+
+    const styles = fromPairs(elements.map(element => [element, state.styles[element] || {}] as [string, State['styles'][keyof State['styles']]]));
+
+    const attributes = fromPairs(elements.map(element => [element, state.attributes[element]] as [string, State['attributes'][keyof State['attributes']]]));
+
+    return {
+        styles,
+        attributes,
+    };
+}
+
+const states = {
+    styles: {
+        popper: {
+            position: 'absolute',
+            left: '0',
+            top: '0',
+        },
+        arrow: {
+            position: 'absolute',
+        },
+    },
+    attributes: {},
+};
+
 export function buildModifier(props: ModifierProps, externalModifiers: StrictModifiers[] = []) {
     const { arrow, arrowOffset, offset, gpuAcceleration, placement } = props;
 
@@ -59,6 +87,17 @@ export function buildModifier(props: ModifierProps, externalModifiers: StrictMod
             },
         },
         {
+            name: 'updateState',
+            enabled: true,
+            phase: 'write',
+            fn: ({ state }) => {
+                const derivedState = deriveState(state);
+
+                Object.assign(states, derivedState);
+            },
+            requires: ['computeStyles'],
+        } as any,
+        {
             name: 'flip',
             options: {
                 padding: 5,
@@ -77,7 +116,8 @@ export function buildModifier(props: ModifierProps, externalModifiers: StrictMod
                 adaptive: gpuAcceleration,
             },
         },
-        { name: 'eventListeners', enabled: true, options: { scroll: true, resize: true } },
+        // { name: 'applyStyles', enabled: false },
+        { name: 'eventListeners', enabled: true, options: { scroll: false, resize: true } },
         // tippyModifier,
     ];
 

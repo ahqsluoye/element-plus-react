@@ -83,7 +83,7 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
                 { link: '/components/tag', title: 'Tag 标签' },
                 { link: '/components/time-line', title: 'Timeline 时间线' },
                 { link: '/components/tree', title: 'Tree 树形控件' },
-                { link: '/components/trees-elect', title: 'TreeSelect 树形选择' },
+                { link: '/components/treeselect', title: 'TreeSelect 树形选择' },
             ],
         },
         {
@@ -91,6 +91,7 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
             children: [
                 { link: '/components/breadcrumb', title: 'Breadcrumb 面包屑' },
                 { link: '/components/dropdown', title: 'Dropdown 下拉菜单' },
+                { link: '/components/menu', title: 'Menu 菜单' },
                 { link: '/components/tabs', title: 'Tabs 标签页' },
             ],
         },

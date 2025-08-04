@@ -33,6 +33,10 @@ export interface TransitionProps extends AnimationEventProps {
 
     name?: string;
 
+    disabled?: boolean;
+
+    cssTransition?: boolean;
+
     display?: string;
 
     /** Show the component; triggers the enter or exit animation */
@@ -266,7 +270,11 @@ class Transition extends Component<TransitionProps & ExtraProps, TransitionState
         if (status === STATUS.UNMOUNTED) {
             return null;
         }
-        const { children, className, name, ...rest } = this.props;
+
+        const { children, className, name, disabled, cssTransition, ...rest } = this.props;
+        if (disabled) {
+            return children;
+        }
         const childProps: any = omit(rest, [
             'animation',
             'className',
@@ -315,7 +323,7 @@ class Transition extends Component<TransitionProps & ExtraProps, TransitionState
                 style: {
                     // @ts-ignore
                     ...(child.props?.style || {}),
-                    display: this.state.status > 1 ? this.props.display ?? 'block' : 'none',
+                    display: this.state.status > 1 || cssTransition ? this.props.display ?? 'block' : 'none',
                 },
             });
         });

@@ -153,6 +153,8 @@ export type { BreadcrumbItemProps, BreadcrumbProps } from './Breadcrumb';
 export { Dropdown as ElDropdown, DropdownItem as ElDropdownItem, DropdownMenu as ElDropdownMenu } from './Dropdown';
 export type { DropdownItemProps, DropdownMenuProps, DropdownProps } from './Dropdown';
 
+export { Menu as ElMenu, MenuItem as ElMenuItem, MenuItemGroup as ElMenuItemGroup, SubMenu as ElSubMenu } from './Menu';
+
 export { TabPane as ElTabPane, Tabs as ElTabs } from './Tabs';
 export type { TabPaneProps, TabsPaneContext, TabsProps } from './Tabs';
 

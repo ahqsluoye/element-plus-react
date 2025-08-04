@@ -26,7 +26,6 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
         props,
     );
     const {
-        id = randomCode(5),
         visible,
         onDestroy,
         referenceElement,
@@ -44,6 +43,9 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
         ...rest
     } = props;
     const [transitionProps] = partitionAnimationProps(rest);
+
+    const id = useMemo(() => props.id ?? randomCode(5), [props.id]);
+    const zIndex = useMemo(() => PopupManager.nextZIndex(), []);
 
     const { b, e, is } = useClassNames('popper');
 
@@ -114,7 +116,7 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
                     className={classNames(b(), is(effect), popperClass)}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
-                    style={{ ...styles.popper, ...popperStyle, zIndex: PopupManager.nextZIndex() }}
+                    style={{ ...styles.popper, ...popperStyle, zIndex }}
                     {...attributes.popper}
                     ref={setPopperElement}
                 >

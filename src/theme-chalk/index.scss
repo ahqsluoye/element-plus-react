@@ -54,6 +54,9 @@
 // /* Navigation 导航 */
 @use './breadcrumb';
 @use './dropdown';
+@use './menu';
+@use './menu-item';
+@use './menu-item-group';
 @use './tabs';
 @use './empty';
 @use './skeleton';
