@@ -58,10 +58,6 @@
     box-sizing: border-box;
 
     @include m(vertical) {
-        // &.vertical-collapse-transition {
-        //     transition: width getCssVar('transition-duration');
-        // }
-
         &:not(.#{$namespace}-menu--collapse):not(.#{$namespace}-menu--popup-container) {
             & .#{$namespace}-menu-item,
             & .#{$namespace}-sub-menu__title,
@@ -277,6 +273,10 @@
         &:hover {
             background-color: getCssVar('menu-hover-bg-color');
         }
+    }
+
+    &.#{$namespace}-sub-menu__hide-arrow .el-sub-menu__title {
+        padding-right: var(--el-menu-base-level-padding);
     }
 
     & .#{$namespace}-menu {

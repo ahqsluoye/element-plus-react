@@ -96,7 +96,7 @@ const InternalRadio = (props: RadioProps, ref: RefObject<RadioRef>) => {
                         key={name}
                         {...htmlInputProps}
                         name={name}
-                        value={value}
+                        // value={value}
                         type="radio"
                         ref={inputRef}
                         className={e`hidden`}
@@ -112,7 +112,7 @@ const InternalRadio = (props: RadioProps, ref: RefObject<RadioRef>) => {
                 <span className={e`label`}>{children}</span>
             </label>
         ),
-        [b, checked, children, className, disabled, e, handleChange, htmlInputProps, is, m, name, readOnly, size, tooltipEvents, value],
+        [b, checked, children, className, disabled, e, handleChange, htmlInputProps, is, m, name, readOnly, size, tooltipEvents],
     );
 
     if (plaintext) {

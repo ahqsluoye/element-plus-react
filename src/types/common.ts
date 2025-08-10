@@ -14,14 +14,14 @@ export declare namespace TypeAttributes {
 
 export type ComponentChildren = React.ReactNode | React.ReactNode[];
 
-export interface FormControlBaseProps<ValueType = React.AllHTMLAttributes<HTMLInputElement>['value']> {
+export interface FormControlBaseProps<ValueType = string | number | boolean> {
     name?: string;
     /** 初始值 */
     defaultValue?: ValueType;
     /** 值（可控） */
     value?: ValueType;
     /** 选中值发生变化时触发 */
-    onChange?: (value: ValueType | boolean, event?: React.ChangeEvent<any>) => void;
+    onChange?: (value: ValueType, event?: React.ChangeEvent<any>) => void;
     /** 禁用 */
     disabled?: boolean;
     /** 尺寸 */

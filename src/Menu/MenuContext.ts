@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react';
 import { MenuItemRegistered, MenuProps, SubMenuProvider } from './typings';
 
-interface MenuContextProps extends Pick<MenuProps, 'menuTrigger' | 'onSelect' | 'onOpen' | 'onClose' | 'showTimeout' | 'hideTimeout'> {
+interface MenuContextProps extends Pick<MenuProps, 'menuTrigger' | 'onSelect' | 'onOpen' | 'onClose' | 'showTimeout' | 'hideTimeout' | 'popperOffset' | 'router'> {
     activeIndex?: string[];
     setActiveIndex?: (value: string[]) => void;
     handleSubMenuClick?: () => void;

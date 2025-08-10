@@ -1,7 +1,7 @@
 import React, { RefObject } from 'react';
 import { BaseProps, FormControlBaseProps, NativeProps } from '../types/common';
 
-export type ValueType = React.AllHTMLAttributes<HTMLInputElement>['value'];
+export type ValueType = string | number | boolean;
 
 export type RadioRef = {
     ref: RefObject<HTMLSpanElement>;

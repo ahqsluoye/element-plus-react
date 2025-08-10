@@ -13,7 +13,7 @@ const App = () => {
         <ElRow className="tac">
             <ElCol span={12}>
                 <h5 className="mb-2">Default colors</h5>
-                <ElMenu default-active="2" defaultOpeneds={['1-4']} onOpen={handleOpen} onClose={handleClose} style={{ width: 200, minHeight: 400 }}>
+                <ElMenu defaultActive="2" onOpen={handleOpen} onClose={handleClose} style={{ width: 200, minHeight: 400 }}>
                     <ElSubMenu
                         index="1"
                         title={
@@ -35,7 +35,7 @@ const App = () => {
                         </ElSubMenu>
                     </ElSubMenu>
                     <ElMenuItem index="2">
-                        <ElIcon name="cube" prefix="fal" />
+                        <ElIcon name="grid-2" prefix="fas" />
                         <span>Navigator Two</span>
                     </ElMenuItem>
                     <ElMenuItem index="3" disabled>
@@ -86,7 +86,7 @@ const App = () => {
                         </ElSubMenu>
                     </ElSubMenu>
                     <ElMenuItem index="2">
-                        <ElIcon name="cube" prefix="fal" />
+                        <ElIcon name="grid-2" prefix="fas" />
                         <span>Navigator Two</span>
                     </ElMenuItem>
                     <ElMenuItem index="3" disabled>

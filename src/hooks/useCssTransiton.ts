@@ -10,8 +10,9 @@ export interface CssTransitonProps {
     onLeave?: (el: HTMLElement) => void;
     afterLeave?: (el: HTMLElement) => void;
     beforeEnter?: (el: HTMLElement) => void;
-    onEnter?: (el: HTMLElement) => void;
+    onEnter?: (el: HTMLElement, done?: () => void) => void;
     afterEnter?: (el: HTMLElement) => void;
+    done?: () => void;
 }
 
 export enum STATUS {
@@ -24,7 +25,7 @@ export enum STATUS {
     AFTER_ENTER = 6,
 }
 const useCssTransiton = (props: CssTransitonProps) => {
-    const { nodeRef, visible, disabled, duration = 250, beforeLeave, onLeave, afterLeave, beforeEnter, onEnter, afterEnter } = props;
+    const { nodeRef, visible, disabled, duration = 250, beforeLeave, onLeave, afterLeave, beforeEnter, onEnter, afterEnter, done } = props;
     const [status, setStatus] = useState(STATUS.UNMOUNTED);
 
     const [mounted, setMounted] = useState(false);
@@ -39,7 +40,10 @@ const useCssTransiton = (props: CssTransitonProps) => {
                 startCssTransition();
             } else {
                 setMounted(true);
+                done?.();
             }
+        } else {
+            done?.();
         }
     }, [visible]);
 
@@ -61,7 +65,7 @@ const useCssTransiton = (props: CssTransitonProps) => {
             setStatus(STATUS.ENTER);
         } else if (status === STATUS.ENTER) {
             addStyle(nodeRef.current, { display: '' });
-            onEnter?.(nodeRef.current);
+            onEnter?.(nodeRef.current, done);
             setStatus(STATUS.AFTER_ENTER);
         } else if (status === STATUS.AFTER_ENTER) {
             afterEnter?.(nodeRef.current);

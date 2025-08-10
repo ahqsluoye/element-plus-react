@@ -86,7 +86,9 @@ const Tooltip = memo(
             },
             onOpen: handleMouseEnter,
             onClose: handleMouseLeave,
-            hide: handleMouseLeave,
+            hide: () => {
+                setVisible(false);
+            },
         }));
 
         return (

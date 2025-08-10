@@ -2,6 +2,11 @@ import React from 'react';
 import { IconName } from '../Icon';
 import { BaseProps, NativeProps } from '../types/common';
 
+export interface MenuRef {
+    open: MenuOpenEvent;
+    close: MenuCloseEvent;
+}
+
 export interface MenuProps
     extends BaseProps,
         NativeProps<
@@ -30,7 +35,7 @@ export interface MenuProps
     /** 是否省略多余的子项（仅在横向模式生效） */
     ellipsis?: boolean;
     /** 自定义省略图标 (仅在水平模式下可用)	 */
-    ellipsisIcon?: IconName | React.ReactElement;
+    ellipsisIcon?: string | React.ReactElement;
     /** 弹出层的偏移量(对所有子菜单有效) */
     popperOffset?: number;
     /** 默认打开的 subMenu 的 index 的数组 */
@@ -92,6 +97,8 @@ export interface MenuItemProps extends BaseProps, NativeProps {
     index: string;
     /** 是否禁用 */
     disabled?: boolean;
+    /** react-router-dom 路由位置参数 */
+    route?: string;
     /** 点击菜单项时回调函数, 参数为菜单项实例 */
     onClick?: (item: MenuItemRegistered) => void;
 }
@@ -107,19 +114,19 @@ export interface MenuItemGroupProps extends BaseProps, NativeProps {
  * @param item the selected menu item
  * @param routerResult result returned by `vue-router` if `router` is enabled
  */
-export type MenuSelectEvent = (index: string, indexPath: string[], item: MenuItemClicked, routerResult?: Promise<void | NavigationFailure>) => void;
+export type MenuSelectEvent = (index: string, indexPath: string[], item: MenuItemClicked) => void;
 
 /**
  * @param index index of expanded sub-menu
  * @param indexPath index path of expanded sub-menu
  */
-type MenuOpenEvent = (index: string, indexPath: string[]) => void;
+export type MenuOpenEvent = (index: string, indexPath: string[]) => void;
 
 /**
  * @param index index of collapsed sub-menu
  * @param indexPath index path of collapsed sub-menu
  */
-type MenuCloseEvent = (index: string, indexPath: string[]) => void;
+export type MenuCloseEvent = (index: string, indexPath: string[]) => void;
 
 export interface MenuItemRegistered {
     index: string;
@@ -130,7 +137,7 @@ export interface MenuItemRegistered {
 export interface MenuItemClicked {
     index: string;
     indexPath: string[];
-    route?: RouteLocationRaw;
+    route?: string;
 }
 
 export interface SubMenuProvider {

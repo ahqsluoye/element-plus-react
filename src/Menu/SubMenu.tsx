@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Icon from '../Icon/Icon';
 import Tooltip from '../Tooltip/Tooltip';
 import { TooltipRef } from '../Tooltip/typings';
@@ -12,10 +12,10 @@ import { SubMenuProps } from './typings';
 
 const SubMenu = (props: SubMenuProps) => {
     props = mergeDefaultProps({ popperOffset: 5 }, props);
-    const { classPrefix = 'sub-menu', title, index, popperClass, popperOffset, disabled } = props;
+    const { classPrefix = 'sub-menu', title, index, popperClass, disabled } = props;
     const { b: mb, m: mm } = useClassNames('menu');
     const { b, e, is } = useClassNames(classPrefix);
-    const { activeIndex, parentIndex, mode, menuTrigger, onOpen, onClose, addItems, addSubMenu, handleSubMenuClick, showTimeout, hideTimeout, themeStyle, ...ohter } =
+    const { activeIndex, parentIndex, mode, menuTrigger, onOpen, onClose, addItems, addSubMenu, handleSubMenuClick, showTimeout, hideTimeout, themeStyle, popperOffset, ...ohter } =
         useMenuContext();
 
     const [open, setOpen] = useState(false);
@@ -25,6 +25,7 @@ const SubMenu = (props: SubMenuProps) => {
 
     const tooltipRef = useRef<TooltipRef>();
     const ulRef = useRef<HTMLUListElement>(null);
+    const inited = useRef(false);
 
     const handleMouseEnter = useCallback(() => {
         setOpen(true);
@@ -44,13 +45,16 @@ const SubMenu = (props: SubMenuProps) => {
      * @returns {void}
      */
     const hideSubMenu = useCallback(() => {
-        handleSubMenuClick?.();
         tooltipRef.current?.hide();
+        handleSubMenuClick?.();
     }, [handleSubMenuClick]);
 
     const handleSubMenuItemClick = useCallback(
         (evt: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
             evt.stopPropagation();
+            if (disabled) {
+                return;
+            }
             if (mode === 'vertical') {
                 setOpen(!open);
                 if (!open) {
@@ -60,27 +64,35 @@ const SubMenu = (props: SubMenuProps) => {
                 }
             }
         },
-        [index, indexPath, mode, onClose, onOpen, open],
+        [disabled, index, indexPath, mode, onClose, onOpen, open],
     );
 
-    useLayoutEffect(() => {
-        addItems({ index, indexPath });
-        addSubMenu({
-            index,
-            indexPath,
-            openMenu(index, indexPath) {
-                setOpen(true);
-            },
-            closeMenu(index, indexPath) {
-                setOpen(false);
-            },
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    useEffect(() => {
+        if (!inited.current) {
+            inited.current = true;
+            addItems({ index, indexPath });
+            addSubMenu({
+                index,
+                indexPath,
+                openMenu(index, indexPath) {
+                    // if (mode === 'horizontal') {
+                    //     tooltipRef.current?.onOpen();
+                    // }
+                    setOpen(true);
+                },
+                closeMenu(index, indexPath) {
+                    // if (mode === 'horizontal') {
+                    //     tooltipRef.current?.hide();
+                    // }
+                    setOpen(false);
+                },
+            });
+        }
+    });
 
     return (
         <li
-            className={classNames(b(), is({ disabled, opened: open, active: activeIndex.includes(index) }), props.className)}
+            className={classNames(b(), is({ disabled, opened: open, active: activeIndex.includes(index) }), { [e`hide-arrow`]: index === '__el__more' }, props.className)}
             onClick={handleSubMenuItemClick}
             style={props.style}
             role="menuitem"
@@ -88,13 +100,14 @@ const SubMenu = (props: SubMenuProps) => {
             {mode === 'horizontal' ? (
                 <Tooltip
                     ref={tooltipRef}
+                    disabled={disabled}
                     className={e`title`}
-                    trigger={menuTrigger}
+                    trigger={level > 1 ? 'hover' : menuTrigger}
                     popperClass={classNames(is('pure'), popperClass)}
                     popperStyle={themeStyle}
-                    offset={popperOffset}
+                    offset={popperOffset ?? props.popperOffset}
                     showAfter={level > 1 ? 0 : showTimeout ?? props.showTimeout}
-                    hideAfter={level > 1 ? 0 : hideTimeout ?? props.hideTimeout}
+                    hideAfter={hideTimeout ?? props.hideTimeout}
                     unmountOnExit={false}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
@@ -111,6 +124,7 @@ const SubMenu = (props: SubMenuProps) => {
                                 showTimeout,
                                 hideTimeout,
                                 themeStyle,
+                                popperOffset,
                                 ...ohter,
                             }}
                         >
@@ -127,7 +141,7 @@ const SubMenu = (props: SubMenuProps) => {
                     effect="light"
                 >
                     <div>
-                        {title}{' '}
+                        {title}
                         <Icon className={e`icon-arrow`} name={level > 1 ? 'angle-right' : 'angle-down'} prefix="fal" style={{ transform: open ? 'rotateZ(180deg)' : 'none' }} />
                     </div>
                 </Tooltip>
@@ -140,6 +154,7 @@ const SubMenu = (props: SubMenuProps) => {
                     <Transition
                         name="el-menu-collapse"
                         nodeRef={ulRef}
+                        disabled={disabled}
                         duration={300}
                         visible={open}
                         beforeEnter={beforeEnter}
@@ -165,6 +180,7 @@ const SubMenu = (props: SubMenuProps) => {
                                     showTimeout,
                                     hideTimeout,
                                     themeStyle,
+                                    popperOffset,
                                     ...ohter,
                                 }}
                             >

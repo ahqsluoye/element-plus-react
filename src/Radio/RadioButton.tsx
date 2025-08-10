@@ -90,7 +90,7 @@ const RadioButton = forwardRef<RadioRef, RadioProps>((props, ref) => {
                 key={name}
                 {...htmlInputProps}
                 name={name}
-                value={value}
+                // value={value}
                 type="radio"
                 ref={inputRef}
                 className={e`original-radio`}

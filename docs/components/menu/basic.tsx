@@ -8,7 +8,7 @@ const App = () => {
 
     return (
         <>
-            <ElMenu className="el-menu-demo" mode="horizontal" defaultActive="2-4-1" onSelect={handleSelect}>
+            <ElMenu className="el-menu-demo" mode="horizontal" defaultActive="1" onSelect={handleSelect}>
                 <ElMenuItem index="1">Processing Center</ElMenuItem>
                 <ElSubMenu index="2" title="Workspace">
                     <ElMenuItem index="2-1">item one</ElMenuItem>

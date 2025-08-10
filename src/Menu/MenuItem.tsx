@@ -1,14 +1,17 @@
 import classNames from 'classnames';
 import React, { useCallback, useLayoutEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useClassNames } from '../hooks';
 import { useMenuContext } from './MenuContext';
 import { MenuItemProps } from './typings';
 
 const MenuItem = (props: MenuItemProps) => {
-    const { classPrefix = 'menu-item', index, disabled, onClick } = props;
+    const { classPrefix = 'menu-item', index, route, disabled, onClick } = props;
     const { b, is } = useClassNames(classPrefix);
 
-    const { handleSubMenuClick, activeIndex, setActiveIndex, parentIndex, addItems, onOpen, onSelect } = useMenuContext();
+    const { handleSubMenuClick, activeIndex, setActiveIndex, parentIndex, addItems, onOpen, onSelect, router } = useMenuContext();
+
+    const navigate = useNavigate();
 
     const indexPath = useMemo(() => [...parentIndex, index], [index, parentIndex]);
 
@@ -27,8 +30,11 @@ const MenuItem = (props: MenuItemProps) => {
             });
             onOpen?.(index, indexPath, { index, indexPath });
             onSelect?.(index, indexPath, { index, indexPath });
+            if (router) {
+                navigate?.(route ?? index);
+            }
         },
-        [activeIndex, disabled, handleSubMenuClick, index, indexPath, onClick, onOpen, onSelect, setActiveIndex],
+        [activeIndex, disabled, handleSubMenuClick, index, indexPath, navigate, onClick, onOpen, onSelect, route, router, setActiveIndex],
     );
 
     useLayoutEffect(() => {

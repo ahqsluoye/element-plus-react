@@ -5,14 +5,10 @@ export const beforeEnter = el => {
     el.style.opacity = '0.2';
 };
 
-export const onEnter = (el: HTMLElement) => {
+export const onEnter = (el: HTMLElement, done) => {
     addClass(el, `${namespace}-opacity-transition`);
     el.style.opacity = '1';
-    if (hasClass(el, `${namespace}-menu--collapse`)) {
-        removeClass(el, `${namespace}-menu--collapse`);
-    } else {
-        addClass(el, `${namespace}-menu--collapse`);
-    }
+    done?.();
 };
 
 export const afterEnter = (el: HTMLElement) => {

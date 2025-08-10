@@ -1,14 +1,13 @@
 import classNames from 'classnames';
 import React from 'react';
 import { useClassNames } from '../hooks';
-import { useMenuContext } from './MenuContext';
 import { MenuItemGroupProps } from './typings';
 
 const MenuItemGroup = (props: MenuItemGroupProps) => {
     const { classPrefix = 'menu-item-group', title } = props;
-    const { b, e, is } = useClassNames(classPrefix);
+    const { b, e } = useClassNames(classPrefix);
 
-    const { handleSubMenuClick, activeIndex, setActiveIndex, parentIndex, onSelect } = useMenuContext();
+    // const { handleSubMenuClick, activeIndex, setActiveIndex, parentIndex, onSelect } = useMenuContext();
 
     // const indexPath = useMemo(() => [...parentIndex, index], [index, parentIndex]);
 

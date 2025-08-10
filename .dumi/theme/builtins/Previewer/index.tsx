@@ -125,8 +125,8 @@ const Previewer: FC<IPreviewerProps> = props => {
             )} */}
             <div
                 className={classNames('demo-block', 'demo-zh-CN', `demo-${path}` /* , { hover: hovering } */)}
-                onMouseEnter={() => blockControl.current.onMouseEnter()}
-                onMouseLeave={() => blockControl.current.onMouseLeave()}
+                onMouseEnter={() => blockControl.current?.onMouseEnter()}
+                onMouseLeave={() => blockControl.current?.onMouseLeave()}
             >
                 <div className="source">
                     <div className="r-demo-source">{children}</div>
@@ -146,7 +146,7 @@ const Previewer: FC<IPreviewerProps> = props => {
                                                 ...props.asset.dependencies,
                                                 ['index.tsx']: {
                                                     type: 'FILE',
-                                                    value: 'import \'@qsxy/element-plus-react/dist/index.css\';\n' + props.asset.dependencies['index.tsx'].value,
+                                                    value: "import '@qsxy/element-plus-react/dist/index.css';\n" + props.asset.dependencies['index.tsx'].value,
                                                 },
                                             },
                                         },

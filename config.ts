@@ -41,6 +41,7 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
             title: 'Basic 基础组件',
             children: [
                 { link: '/components/button', title: 'Button 按钮' },
+                { link: '/components/container', title: 'Container 布局容器' },
                 { link: '/components/icon', title: 'Icon 图标' },
                 { link: '/components/icon-list', title: 'IconList 图标列表' },
                 { link: '/components/layout', title: 'Layout 布局' },

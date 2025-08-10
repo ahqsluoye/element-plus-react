@@ -11,7 +11,7 @@ const App = () => {
                 <ElRadio.Button value={true}>collapse</ElRadio.Button>
             </ElRadioGroup>
 
-            <ElMenu collapse={isCollapse} collapseTransition className="el-menu-vertical-demo">
+            <ElMenu defaultActive="2" collapse={isCollapse} collapseTransition className="el-menu-vertical-demo">
                 <ElSubMenu
                     index="1"
                     title={
@@ -33,7 +33,7 @@ const App = () => {
                     </ElSubMenu>
                 </ElSubMenu>
                 <ElMenuItem index="2">
-                    <ElIcon name="cube" prefix="fal" />
+                    <ElIcon name="grid-2" prefix="fas" />
                     <span>Navigator Two</span>
                 </ElMenuItem>
                 <ElMenuItem index="3" disabled>

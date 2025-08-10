@@ -98,6 +98,9 @@ export type { BadgeProps } from './Badge';
 export { Card as ElCard } from './Card';
 export type { CardProps } from './Card';
 
+export { Aside as ElAside, Container as ElContainer, Footer as ElFooter, Header as ElHeader, Main as ElMain } from './Container';
+export type { AsideProps, ContainerProps, FooterProps, HeaderProps, MainProps } from './Container';
+
 export { Carousel as ElCarousel, CarouselItem as ElCarouselItem } from './Carousel';
 export type { CarouselItemProps, CarouselProps, CarouselRef } from './Carousel';
 
@@ -154,6 +157,7 @@ export { Dropdown as ElDropdown, DropdownItem as ElDropdownItem, DropdownMenu as
 export type { DropdownItemProps, DropdownMenuProps, DropdownProps } from './Dropdown';
 
 export { Menu as ElMenu, MenuItem as ElMenuItem, MenuItemGroup as ElMenuItemGroup, SubMenu as ElSubMenu } from './Menu';
+export type { MenuCloseEvent, MenuItemClicked, MenuItemGroupProps, MenuItemProps, MenuItemRegistered, MenuOpenEvent, MenuProps, MenuRef, SubMenuProps } from './Menu';
 
 export { TabPane as ElTabPane, Tabs as ElTabs } from './Tabs';
 export type { TabPaneProps, TabsPaneContext, TabsProps } from './Tabs';
