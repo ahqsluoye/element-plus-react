@@ -1,15 +1,17 @@
 import React, { createContext, useContext } from 'react';
 import { MenuItemRegistered, MenuProps, SubMenuProvider } from './typings';
 
-interface MenuContextProps extends Pick<MenuProps, 'menuTrigger' | 'onSelect' | 'onOpen' | 'onClose' | 'showTimeout' | 'hideTimeout' | 'popperOffset' | 'router'> {
+interface MenuContextProps extends Pick<MenuProps, 'menuTrigger' | 'onSelect' | 'onOpen' | 'onClose' | 'showTimeout' | 'hideTimeout' | 'popperOffset' | 'router' | 'collapse'> {
     activeIndex?: string[];
     setActiveIndex?: (value: string[]) => void;
     handleSubMenuClick?: () => void;
     parentIndex?: string[];
-    addItems?: (menu: MenuItemRegistered) => void;
+    addMenuItem?: (menu: MenuItemRegistered) => void;
     addSubMenu?: (sub: SubMenuProvider) => void;
     /** 菜单展示模式 */
     mode?: 'horizontal' | 'vertical';
+    addItem?: (menu: SubMenuProvider) => void;
+    removeItem?: (menu: SubMenuProvider) => void;
     themeStyle?: React.CSSProperties &
         Partial<
             Record<
@@ -43,6 +45,8 @@ export const MenuContext = createContext<MenuContextProps>({
     onOpen: null,
     onClose: null,
     addSubMenu: null,
+    addItem: null,
+    removeItem: null,
     showTimeout: 300,
     hideTimeout: 300,
     themeStyle: {},

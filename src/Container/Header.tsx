@@ -9,7 +9,7 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>((props, ref) => {
 
     const { b } = useClassNames('header');
     return (
-        <header className={classNames(b(), props.className)} ref={ref} style={{ height: addUnit(props.height), ...props.style }}>
+        <header className={classNames(b(), props.className)} ref={ref} style={{ '--el-header-height': addUnit(props.height), ...props.style }}>
             {props.children}
         </header>
     );

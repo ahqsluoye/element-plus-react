@@ -1,7 +1,7 @@
 import { BaseProps, NativeProps } from '../types/common';
 
 export type AsideProps = BaseProps &
-    NativeProps & {
+    NativeProps<'--el-aside-width'> & {
         /**
          * 侧边栏宽度
          * @default '300px'
@@ -19,7 +19,7 @@ export type ContainerProps = BaseProps &
     };
 
 export type HeaderProps = BaseProps &
-    NativeProps & {
+    NativeProps<'--el-header-padding' | '--el-header-height'> & {
         /**
          * 顶栏高度
          * @default '60px'
@@ -30,7 +30,7 @@ export type HeaderProps = BaseProps &
 export type MainProps = BaseProps & NativeProps;
 
 export type FooterProps = BaseProps &
-    NativeProps & {
+    NativeProps<'--el-footer-padding' | '--el-footer-height'> & {
         /**
          * 底栏高度
          * @default '60px'

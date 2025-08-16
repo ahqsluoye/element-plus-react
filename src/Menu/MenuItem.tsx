@@ -1,5 +1,6 @@
+import { useMount } from 'ahooks';
 import classNames from 'classnames';
-import React, { useCallback, useLayoutEffect, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useClassNames } from '../hooks';
 import { useMenuContext } from './MenuContext';
@@ -9,7 +10,7 @@ const MenuItem = (props: MenuItemProps) => {
     const { classPrefix = 'menu-item', index, route, disabled, onClick } = props;
     const { b, is } = useClassNames(classPrefix);
 
-    const { handleSubMenuClick, activeIndex, setActiveIndex, parentIndex, addItems, onOpen, onSelect, router } = useMenuContext();
+    const { handleSubMenuClick, activeIndex, setActiveIndex, parentIndex, addMenuItem, onOpen, onSelect, router } = useMenuContext();
 
     const navigate = useNavigate();
 
@@ -37,10 +38,9 @@ const MenuItem = (props: MenuItemProps) => {
         [activeIndex, disabled, handleSubMenuClick, index, indexPath, navigate, onClick, onOpen, onSelect, route, router, setActiveIndex],
     );
 
-    useLayoutEffect(() => {
-        addItems({ index, indexPath });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    useMount(() => {
+        addMenuItem({ index, indexPath });
+    });
 
     return (
         <li className={classNames(b(), is({ disabled, active: activeIndex.includes(index) }), props.className)} style={props.style} role="menuitem" onClick={handleMenuItemClick}>
@@ -48,5 +48,7 @@ const MenuItem = (props: MenuItemProps) => {
         </li>
     );
 };
+
+MenuItem.displayName = 'ElMenuItem';
 
 export default MenuItem;

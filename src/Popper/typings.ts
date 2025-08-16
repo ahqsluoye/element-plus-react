@@ -27,6 +27,7 @@ export type PopperOptions = {
     popperStyle?: React.CSSProperties;
     effect?: 'light' | 'dark' | string;
     popperOptions?: Options;
+    fallbackPlacements?: Placement[] | ((placement?: Placement) => Placement[]);
 };
 
 export type PopperProps = {

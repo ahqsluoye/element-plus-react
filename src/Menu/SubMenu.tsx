@@ -1,5 +1,7 @@
+import { Placement } from '@popperjs/core';
+import { useMount } from 'ahooks';
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import Icon from '../Icon/Icon';
 import Tooltip from '../Tooltip/Tooltip';
 import { TooltipRef } from '../Tooltip/typings';
@@ -15,13 +17,47 @@ const SubMenu = (props: SubMenuProps) => {
     const { classPrefix = 'sub-menu', title, index, popperClass, disabled } = props;
     const { b: mb, m: mm } = useClassNames('menu');
     const { b, e, is } = useClassNames(classPrefix);
-    const { activeIndex, parentIndex, mode, menuTrigger, onOpen, onClose, addItems, addSubMenu, handleSubMenuClick, showTimeout, hideTimeout, themeStyle, popperOffset, ...ohter } =
-        useMenuContext();
+    const {
+        activeIndex,
+        parentIndex,
+        mode,
+        menuTrigger,
+        onOpen,
+        onClose,
+        addMenuItem,
+        addSubMenu,
+        handleSubMenuClick,
+        addItem,
+        removeItem,
+        showTimeout,
+        hideTimeout,
+        themeStyle,
+        popperOffset,
+        collapse,
+        ...ohter
+    } = useMenuContext();
 
     const [open, setOpen] = useState(false);
+    const [expand, setExpand] = useState(false);
 
     const indexPath = useMemo(() => [...parentIndex, index], [index, parentIndex]);
     const level = useMemo(() => indexPath.length, [indexPath.length]);
+
+    const self = useMemo(
+        () => ({
+            index,
+            indexPath,
+            openMenu() {
+                setOpen(true);
+                setExpand(true);
+            },
+            closeMenu() {
+                setOpen(false);
+                setExpand(false);
+            },
+        }),
+        [index, indexPath],
+    );
 
     const tooltipRef = useRef<TooltipRef>();
     const ulRef = useRef<HTMLUListElement>(null);
@@ -47,8 +83,13 @@ const SubMenu = (props: SubMenuProps) => {
     const hideSubMenu = useCallback(() => {
         tooltipRef.current?.hide();
         handleSubMenuClick?.();
-    }, [handleSubMenuClick]);
+        // 折叠模式下，index为子菜单，只能向上逐层打开父菜单
+        if (mode === 'vertical' && collapse) {
+            onOpen?.(index, indexPath, { index, indexPath });
+        }
+    }, [collapse, handleSubMenuClick, index, indexPath, mode, onOpen]);
 
+    /** 点击submenu事件 */
     const handleSubMenuItemClick = useCallback(
         (evt: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
             evt.stopPropagation();
@@ -56,48 +97,54 @@ const SubMenu = (props: SubMenuProps) => {
                 return;
             }
             if (mode === 'vertical') {
-                setOpen(!open);
-                if (!open) {
+                setExpand(!expand);
+                if (!expand) {
+                    addItem(self);
+                } else {
+                    removeItem(self);
+                }
+                if (!expand) {
                     onOpen?.(index, indexPath, { index, indexPath });
                 } else {
                     onClose?.(index, indexPath, { index, indexPath });
                 }
             }
         },
-        [disabled, index, indexPath, mode, onClose, onOpen, open],
+        [addItem, disabled, expand, index, indexPath, mode, onClose, onOpen, removeItem, self],
     );
 
-    useEffect(() => {
+    const placement = useMemo(() => {
+        if (mode === 'horizontal') {
+            return level > 1 ? 'right-start' : 'bottom-start';
+        }
+        return 'right-start';
+    }, [level, mode]);
+
+    const fallbackPlacements = useCallback((): Placement[] => {
+        if (mode === 'horizontal') {
+            return level > 1 ? ['right-end', 'right', 'left-start', 'left-end', 'left'] : ['bottom-end', 'bottom', 'top-start', 'top-end', 'top'];
+        } else {
+            return ['right-end', 'right', 'left-start', 'left-end', 'left'];
+        }
+    }, [level, mode]);
+
+    useMount(() => {
         if (!inited.current) {
             inited.current = true;
-            addItems({ index, indexPath });
-            addSubMenu({
-                index,
-                indexPath,
-                openMenu(index, indexPath) {
-                    // if (mode === 'horizontal') {
-                    //     tooltipRef.current?.onOpen();
-                    // }
-                    setOpen(true);
-                },
-                closeMenu(index, indexPath) {
-                    // if (mode === 'horizontal') {
-                    //     tooltipRef.current?.hide();
-                    // }
-                    setOpen(false);
-                },
-            });
+            addMenuItem({ index, indexPath });
+            addSubMenu(self);
         }
     });
 
     return (
         <li
-            className={classNames(b(), is({ disabled, opened: open, active: activeIndex.includes(index) }), { [e`hide-arrow`]: index === '__el__more' }, props.className)}
+            key={index}
+            className={classNames(b(), is({ disabled, opened: open || expand, active: activeIndex.includes(index) }), { [e`hide-arrow`]: index === '__el__more' }, props.className)}
             onClick={handleSubMenuItemClick}
             style={props.style}
             role="menuitem"
         >
-            {mode === 'horizontal' ? (
+            {mode === 'horizontal' || collapse ? (
                 <Tooltip
                     ref={tooltipRef}
                     disabled={disabled}
@@ -106,11 +153,12 @@ const SubMenu = (props: SubMenuProps) => {
                     popperClass={classNames(is('pure'), popperClass)}
                     popperStyle={themeStyle}
                     offset={popperOffset ?? props.popperOffset}
-                    showAfter={level > 1 ? 0 : showTimeout ?? props.showTimeout}
+                    showAfter={level > 1 || mode === 'vertical' ? 0 : showTimeout ?? props.showTimeout}
                     hideAfter={hideTimeout ?? props.hideTimeout}
                     unmountOnExit={false}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
+                    fallbackPlacements={fallbackPlacements}
                     content={
                         <MenuContext.Provider
                             value={{
@@ -119,16 +167,21 @@ const SubMenu = (props: SubMenuProps) => {
                                 mode,
                                 menuTrigger,
                                 handleSubMenuClick: hideSubMenu,
-                                addItems,
+                                addMenuItem,
                                 addSubMenu,
+                                addItem,
+                                removeItem,
                                 showTimeout,
                                 hideTimeout,
                                 themeStyle,
                                 popperOffset,
+                                collapse,
+                                onOpen,
+                                onClose,
                                 ...ohter,
                             }}
                         >
-                            <div className={classNames(mm`horizontal`, mm`popup-container`)}>
+                            <div className={classNames(mm(mode), mm`popup-container`)}>
                                 {/* @ts-ignore */}
                                 <ul className="el-menu el-menu--popup el-menu--popup-bottom-start" style={{ '--el-menu-level': level }}>
                                     {props.children}
@@ -137,7 +190,7 @@ const SubMenu = (props: SubMenuProps) => {
                         </MenuContext.Provider>
                     }
                     showArrow={false}
-                    placement={level > 1 ? 'right-start' : 'bottom-start'}
+                    placement={placement}
                     effect="light"
                 >
                     <div>
@@ -149,14 +202,14 @@ const SubMenu = (props: SubMenuProps) => {
                 <>
                     <div className={classNames(e`title`)}>
                         {title}
-                        <Icon className={e`icon-arrow`} name="angle-down" prefix="fal" style={{ transform: open ? 'rotateZ(180deg)' : 'none' }} />
+                        <Icon className={e`icon-arrow`} name="angle-down" prefix="fal" style={{ transform: expand ? 'rotateZ(180deg)' : 'none' }} />
                     </div>
                     <Transition
                         name="el-menu-collapse"
                         nodeRef={ulRef}
                         disabled={disabled}
                         duration={300}
-                        visible={open}
+                        visible={expand}
                         beforeEnter={beforeEnter}
                         onEnter={onEnter}
                         afterEnter={afterEnter}
@@ -174,13 +227,16 @@ const SubMenu = (props: SubMenuProps) => {
                                     menuTrigger,
                                     onOpen,
                                     onClose,
-                                    addItems,
+                                    addMenuItem,
                                     addSubMenu,
                                     handleSubMenuClick: hideSubMenu,
+                                    addItem,
+                                    removeItem,
                                     showTimeout,
                                     hideTimeout,
                                     themeStyle,
                                     popperOffset,
+                                    collapse,
                                     ...ohter,
                                 }}
                             >
@@ -193,5 +249,7 @@ const SubMenu = (props: SubMenuProps) => {
         </li>
     );
 };
+
+SubMenu.displayName = 'ElSubMenu';
 
 export default SubMenu;

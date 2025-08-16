@@ -55,6 +55,7 @@ const App = () => {
                     defaultActive="2"
                     onOpen={handleOpen}
                     onClose={handleClose}
+                    uniqueOpened
                     style={{
                         width: 200,
                         minHeight: 400,

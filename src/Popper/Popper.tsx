@@ -146,6 +146,7 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
             styles.popper,
             transitionProps,
             visible,
+            zIndex,
         ],
     );
 

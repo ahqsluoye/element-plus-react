@@ -34,6 +34,7 @@
 
     &:hover {
         background-color: getCssVar('menu-hover-bg-color');
+        color: getCssVar('menu-hover-text-color');
     }
 
     @include when(disabled) {

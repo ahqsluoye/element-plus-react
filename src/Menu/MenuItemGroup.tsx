@@ -37,4 +37,6 @@ const MenuItemGroup = (props: MenuItemGroupProps) => {
     );
 };
 
+MenuItemGroup.displayName = 'ElMenuItemGroup';
+
 export default MenuItemGroup;

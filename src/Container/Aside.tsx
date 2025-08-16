@@ -9,7 +9,7 @@ const Aside = forwardRef<HTMLDivElement, AsideProps>((props, ref) => {
 
     const { b } = useClassNames('aside');
     return (
-        <aside className={classNames(b(), props.className)} ref={ref} style={{ width: addUnit(props.width), ...props.style }}>
+        <aside className={classNames(b(), props.className)} ref={ref} style={{ '--el-aside-width': addUnit(props.width), ...props.style }}>
             {props.children}
         </aside>
     );

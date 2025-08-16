@@ -21,6 +21,7 @@ export const popperAllProps = [
     'appendToBody',
     'appendTo',
     'popperOptions',
+    'fallbackPlacements',
 ];
 
 /**

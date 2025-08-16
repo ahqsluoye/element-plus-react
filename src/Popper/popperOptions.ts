@@ -1,22 +1,23 @@
 import { Options, Placement, State, StrictModifiers } from '@popperjs/core';
 import fromPairs from 'lodash/fromPairs';
 import { useMemo } from 'react';
+import { PopperOptions } from './typings';
 
-interface IUsePopperProps {
+type IUsePopperProps = {
     popperOptions?: Options;
     arrowOffset?: number;
     offset?: number;
     placement?: Placement;
     gpuAcceleration?: boolean;
-}
+} & Pick<PopperOptions, 'fallbackPlacements'>;
 
-interface ModifierProps {
+type ModifierProps = {
     offset?: number;
     arrow?: HTMLElement;
     arrowOffset?: number;
     gpuAcceleration?: boolean;
     placement?: Placement;
-}
+} & Pick<PopperOptions, 'fallbackPlacements'>;
 
 export default function usePopperOptions(props: IUsePopperProps, arrowElement) {
     return useMemo(() => {
@@ -31,11 +32,12 @@ export default function usePopperOptions(props: IUsePopperProps, arrowElement) {
                     offset: props.offset,
                     gpuAcceleration: props.gpuAcceleration,
                     placement: props.placement,
+                    fallbackPlacements: props.fallbackPlacements,
                 },
                 props.popperOptions?.modifiers,
             ),
         };
-    }, [arrowElement, props.arrowOffset, props.gpuAcceleration, props.offset, props.placement, props.popperOptions]);
+    }, [arrowElement, props.arrowOffset, props.fallbackPlacements, props.gpuAcceleration, props.offset, props.placement, props.popperOptions]);
 }
 
 function deriveState(state: State) {
@@ -66,7 +68,7 @@ const states = {
 };
 
 export function buildModifier(props: ModifierProps, externalModifiers: StrictModifiers[] = []) {
-    const { arrow, arrowOffset, offset, gpuAcceleration, placement } = props;
+    const { arrow, arrowOffset, offset, gpuAcceleration, placement, fallbackPlacements } = props;
 
     const modifiers: Array<StrictModifiers> = [
         {
@@ -102,10 +104,17 @@ export function buildModifier(props: ModifierProps, externalModifiers: StrictMod
             options: {
                 padding: 5,
                 fallbackPlacements: (() => {
-                    if (placement === 'bottom-start') {
-                        return ['bottom', 'top-start', 'right', 'left'];
+                    if (fallbackPlacements) {
+                        if (typeof fallbackPlacements === 'function') {
+                            return fallbackPlacements(placement);
+                        }
+                        return fallbackPlacements;
+                    } else {
+                        if (placement === 'bottom-start') {
+                            return ['bottom', 'top-start', 'right', 'left'];
+                        }
+                        return ['bottom', 'top', 'right', 'left'];
                     }
-                    return ['bottom', 'top', 'right', 'left'];
                 })(),
             },
         },

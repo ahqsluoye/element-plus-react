@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import { pick } from 'lodash';
-import React, { Children, forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
+import React, { Children, forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { More } from '../Icon/IconList/More';
 import { mergeDefaultProps } from '../Util';
 import { useClassNames, useControlled } from '../hooks';
@@ -16,10 +16,10 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
     props = mergeDefaultProps(
         {
             mode: 'vertical',
-            showTimeout: 300,
+            showTimeout: 150,
             hideTimeout: 300,
             uniqueOpened: false,
-            collapseTransition: false,
+            collapseTransition: true,
             defaultOpeneds: [],
             ellipsis: false,
             router: false,
@@ -37,6 +37,7 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
         defaultOpeneds,
         collapseTransition,
         onSelect,
+        onOpen,
         onClose,
         menuTrigger,
         popperOffset,
@@ -46,12 +47,13 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
     const { b, m } = useClassNames(classPrefix);
 
     const [active, setActive] = useControlled(undefined, [defaultActive]);
-    // const [subMenu, setSubMenu] = useState<SubMenuProvider[]>([]);
+    const [_collapse, setCollapse] = useState(collapse);
     // const [, setItems] = useState<MenuItemRegistered[]>([]);
 
     const menuRef = useRef<HTMLUListElement>(null);
     const menuItemsRef = useRef<MenuItemRegistered[]>([]);
     const subMenuRef = useRef<SubMenuProvider[]>([]);
+    const openedMenus = useRef<Record<string, SubMenuProvider>>({});
 
     useCssTransiton({
         nodeRef: menuRef,
@@ -65,45 +67,83 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
         onEnter,
         afterEnter,
         done: () => {
+            setCollapse(collapse);
             if (collapse) {
-                subMenuRef.current.forEach(sub => {
-                    sub.closeMenu(sub.index, sub.indexPath);
-                });
                 addClass(menuRef.current, m`collapse`);
             } else {
                 removeClass(menuRef.current, m`collapse`);
+                subMenuRef.current.forEach(sub => {
+                    sub.closeMenu(sub.index, sub.indexPath);
+                });
+                for (const key in openedMenus.current) {
+                    if (Object.prototype.hasOwnProperty.call(openedMenus.current, key)) {
+                        const item = openedMenus.current[key];
+                        item.openMenu(item.index, item.indexPath);
+                    }
+                }
             }
         },
     });
 
     const { sliceIndex } = useEllipsis(menuRef, props);
 
-    const onOpen = useCallback(
+    const addItem = useCallback((menu: SubMenuProvider) => {
+        openedMenus.current = { ...openedMenus.current, [menu.index]: menu };
+    }, []);
+
+    const removeItem = useCallback((menu: SubMenuProvider) => {
+        delete openedMenus.current[menu.index];
+    }, []);
+
+    const handleOpenMenu = useCallback(
         (index: string, indexPath: string[], item: MenuItemClicked) => {
             if (mode === 'vertical') {
-                subMenuRef.current.forEach(sub => {
-                    if (sub.index === index) {
-                        sub.openMenu(index, indexPath);
-                    }
+                // 折叠模式下，index为子菜单，只能向上逐层打开父菜单
+                if (collapse) {
                     if (uniqueOpened) {
-                        if (sub.index !== index && !indexPath.includes(sub.index)) {
+                        subMenuRef.current.forEach(sub => {
                             sub.closeMenu(index, indexPath);
-                        }
+                            removeItem(sub);
+                        });
                     }
-                });
+                    indexPath.reduce((prev, e) => {
+                        subMenuRef.current.forEach(sub => {
+                            if (sub.index === e) {
+                                sub.openMenu(e, [...prev, e]);
+                                addItem(sub);
+                            }
+                        });
+                        return [...prev, e];
+                    }, []);
+                } else {
+                    // 正常模式，index为父菜单的index
+                    subMenuRef.current.forEach(sub => {
+                        if (sub.index === index) {
+                            sub.openMenu(index, indexPath);
+                            addItem(sub);
+                        }
+                        if (uniqueOpened) {
+                            if (sub.index !== index && !indexPath.includes(sub.index)) {
+                                sub.closeMenu(index, indexPath);
+                                removeItem(sub);
+                            }
+                        }
+                    });
+                }
             }
-            props.onOpen?.(index, indexPath, item);
+            onOpen?.(index, indexPath, item);
         },
-        [mode, props, uniqueOpened],
+        [addItem, collapse, mode, onOpen, removeItem, uniqueOpened],
     );
 
+    /** 激活菜单项 */
     const activeMenus = useCallback(() => {
         if (defaultActive) {
             const menu = menuItemsRef.current.find(item => item.index === defaultActive);
             if (menu && menu.indexPath.length > 1) {
                 setActive(menu.indexPath);
                 menu.indexPath.reduce((prev, item) => {
-                    onOpen(item, [...prev, item], { index: item, indexPath: [...prev, item] });
+                    handleOpenMenu(item, [...prev, item], { index: item, indexPath: [...prev, item] });
                     return [...prev, item];
                 }, []);
             }
@@ -113,12 +153,14 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
                 const sub = subMenuRef.current.find(item => item.index === keys);
                 if (sub) {
                     sub.openMenu(sub.index, sub.indexPath);
+                    addItem(sub);
                 }
             });
         }
-    }, [defaultActive, defaultOpeneds, onOpen, setActive]);
+    }, [addItem, defaultActive, defaultOpeneds, handleOpenMenu, setActive]);
 
-    const addItems = useCallback(
+    /** 添加子菜单 */
+    const addMenuItem = useCallback(
         (menu: MenuItemRegistered) => {
             const prev = menuItemsRef.current;
             if (!prev.some(item => item.index === menu.index)) {
@@ -132,6 +174,7 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
         [activeMenus],
     );
 
+    /** 添加父菜单 */
     const addSubMenu = useCallback(
         (sub: SubMenuProvider) => {
             const prev = subMenuRef.current;
@@ -143,31 +186,32 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
         [activeMenus],
     );
 
+    /** 展开菜单 */
     const open = useCallback(
         (index: string) => {
             const menu = subMenuRef.current.find(item => item.index === index);
             if (menu && menu.indexPath.length > 1) {
                 // setActive(menu.indexPath);
                 menu.indexPath.reduce((prev, item) => {
-                    onOpen(item, [...prev, item], { index: item, indexPath: [...prev, item] });
+                    handleOpenMenu(item, [...prev, item], { index: item, indexPath: [...prev, item] });
                     return [...prev, item];
                 }, []);
             }
-
-            // const sub = subMenuRef.current.find(item => item.index === index);
-            // if (sub) {
-            //     sub.openMenu(sub.index, sub.indexPath);
-            // }
         },
-        [onOpen],
+        [handleOpenMenu],
     );
 
-    const close = useCallback((index: string) => {
-        const sub = subMenuRef.current.find(item => item.index === index);
-        if (sub) {
-            sub.closeMenu(sub.index, sub.indexPath);
-        }
-    }, []);
+    /** 折叠菜单 */
+    const close = useCallback(
+        (index: string) => {
+            const sub = subMenuRef.current.find(item => item.index === index);
+            if (sub) {
+                sub.closeMenu(sub.index, sub.indexPath);
+                removeItem(sub);
+            }
+        },
+        [removeItem],
+    );
 
     useImperativeHandle(ref, () => ({ open, close }));
 
@@ -183,13 +227,16 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
                     showTimeout,
                     hideTimeout,
                     onSelect,
-                    onOpen,
+                    onOpen: handleOpenMenu,
                     onClose,
-                    addItems,
+                    addMenuItem,
                     addSubMenu,
+                    addItem,
+                    removeItem,
                     menuTrigger,
                     popperOffset,
                     router,
+                    collapse: _collapse,
                     themeStyle: pick(props.style ?? {}, [
                         '--el-menu-active-color',
                         '--el-menu-text-color',
@@ -223,5 +270,7 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
         </ul>
     );
 });
+
+Menu.displayName = 'ElMenu';
 
 export default Menu;
