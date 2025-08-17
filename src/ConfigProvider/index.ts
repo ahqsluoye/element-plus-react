@@ -1,2 +1,2 @@
-export { default as ConfigProvider, useConfigProvider } from './ConfigProvider';
-export type { ConfigProviderProps } from './ConfigProvider';
+export { default as ConfigProvider } from './ConfigProvider';
+export type { ConfigProviderProps } from './typings';

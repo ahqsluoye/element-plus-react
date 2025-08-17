@@ -3,8 +3,8 @@ import max from 'lodash/max';
 import min from 'lodash/min';
 import omit from 'lodash/omit';
 import toFinite from 'lodash/toFinite';
-import React, { forwardRef, memo, useCallback, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
-import { ConfigProvider } from '../ConfigProvider';
+import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Icon from '../Icon/Icon';
 import Input from '../Input/Input';
 import { InputRef } from '../Input/typings';
@@ -51,7 +51,7 @@ const InputNumber = memo(
         const disabled = useDisabled(props.disabled);
         const size = useSize(props.size);
 
-        const { inputNumber } = useContext(ConfigProvider);
+        const { inputNumber } = useConfigProvider();
 
         const valueRef = useRef(value);
         const containerRef = useRef<HTMLDivElement>(null);

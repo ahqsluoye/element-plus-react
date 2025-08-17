@@ -1,0 +1,27 @@
+import { BaseProps, TypeAttributes } from '../types/common';
+
+export interface ConfigProviderProps extends BaseProps {
+    /** 对按钮进行配置 */
+    button?: {
+        /** 自动在两个中文字符之间插入空格 */
+        autoInsertSpace?: boolean;
+    };
+    /** 全局组件大小 */
+    size?: TypeAttributes.Size;
+    /** 对消息进行配置 */
+    // message?: {
+    //     /** 可同时显示的消息最大数量 */
+    //     max?: number;
+    // };
+    /** 对数字输入框进行配置 */
+    inputNumber?: {
+        /** 控制按钮位置 */
+        controlsPositionRight?: boolean;
+        max?: number;
+        min?: number;
+    };
+    popper?: {
+        appendTo?: HTMLElement;
+    };
+    locale?: 'en' | 'zh-CN';
+}

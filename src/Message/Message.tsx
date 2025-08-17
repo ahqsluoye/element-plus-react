@@ -7,7 +7,7 @@ import { PopupManager, mergeDefaultProps } from '../Util';
 import { EVENT_CODE, TypeMap } from '../config/Constants';
 import { useClassNames } from '../hooks';
 import { MessageProps, MessageRef } from './typings';
-// import { ConfigProvider } from '../ConfigProvider';
+// import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 
 const Message = memo(
     forwardRef<MessageRef, MessageProps>((props, ref) => {

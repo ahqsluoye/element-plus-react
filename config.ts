@@ -50,6 +50,10 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
             ],
         },
         {
+            title: '配置组件',
+            children: [{ link: '/components/config-provider', title: 'Config Provider 全局配置' }],
+        },
+        {
             title: 'Form 表单组件',
             children: [
                 { link: '/components/cascader', title: 'Cascader 级联选择器' },

@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 import React, { Ref, RefObject, forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { Loading } from '../Loading';
 import Scrollbar from '../Scrollbar/Scrollbar';
 import { ScrollbarRef } from '../Scrollbar/typings';
@@ -16,6 +18,9 @@ import { TableProps, TableRef, TableRefs, TreeNode } from './typings';
 import { TableIdManager } from './util';
 
 function InternalTable<RecordType extends object = TreeNode>(props: TableProps<RecordType>, ref: RefObject<TableRef<RecordType>>) {
+    const { locale } = useConfigProvider();
+    const { t } = useTranslation();
+
     props = mergeDefaultProps(
         {
             data: [],
@@ -23,7 +28,9 @@ function InternalTable<RecordType extends object = TreeNode>(props: TableProps<R
             showHeader: true,
             tableLayout: 'fixed',
             style: {},
-            emptyText: '暂无数据',
+            emptyText: t('el.table.emptyText', {
+                lng: locale,
+            }),
             selectOnIndeterminate: true,
         },
         props,

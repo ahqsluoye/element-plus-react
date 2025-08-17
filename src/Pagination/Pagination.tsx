@@ -2,7 +2,7 @@ import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, isValidElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfigProvider } from '../ConfigProvider';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Icon from '../Icon/Icon';
 import { isNotEmpty, mergeDefaultProps } from '../Util';
 import { useClassNames, useControlled } from '../hooks';

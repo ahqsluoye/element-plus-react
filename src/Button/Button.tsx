@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { Ref, RefObject, forwardRef, memo, useContext, useImperativeHandle, useMemo, useRef } from 'react';
-import { ConfigProvider } from '../ConfigProvider';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Icon from '../Icon/Icon';
 import { isNotEmpty } from '../Util';
 import { partitionHTMLProps, useClassNames, useDisabled, useSize } from '../hooks';
@@ -11,7 +11,7 @@ import { useButtonCustomStyle } from './useButtonCustomStyle';
 
 const InternalButton = (props: ButtonProps, ref: Ref<ButtonRef>) => {
     const { disabled: groupDisabled, type: groupType, size: groupSize, bgColor, borderColor } = useContext(ButtonGroupContext);
-    const { button } = useContext(ConfigProvider);
+    const { button } = useConfigProvider();
     const {
         active,
         block,

@@ -2,7 +2,9 @@
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from '../Button/Button';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Input from '../Input/Input';
 import { InputRef } from '../Input/typings';
 import Popper from '../Popper/Popper';
@@ -25,6 +27,9 @@ const ColorPicker = memo(
         const { b, bm, be, is } = useClassNames(classPrefix);
         const disabled = useDisabled(props.disabled);
         const size = useSize(props.size);
+
+        const { locale } = useConfigProvider();
+        const { t } = useTranslation();
 
         const [value, setValue] = useControlled(props.value, props.defaultValue);
         const initialColor = useRef<string>(null);
@@ -204,10 +209,14 @@ const ColorPicker = memo(
                                 />
                             </span>
                             <Button size="small" type="primary" link className={be('dropdown', 'link-btn')} onClick={onClear}>
-                                重置
+                                {t('el.colorpicker.clear', {
+                                    lng: locale,
+                                })}
                             </Button>
                             <Button plain size="small" className={be('dropdown', 'btn')} onClick={confirmValue}>
-                                确定
+                                {t('el.colorpicker.confirm', {
+                                    lng: locale,
+                                })}
                             </Button>
                         </div>
                     </div>
