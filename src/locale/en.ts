@@ -86,6 +86,7 @@ export default {
             noMatch: 'No matching data',
             noData: 'No data',
             placeholder: 'Select',
+            search: 'keyword search',
         },
         mention: {
             loading: 'Loading',
@@ -98,6 +99,7 @@ export default {
             loading: 'Loading',
             placeholder: 'Select',
             noData: 'No data',
+            search: 'keyword search',
         },
         pagination: {
             goto: 'Go to',

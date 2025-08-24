@@ -1,8 +1,11 @@
 import classNames from 'classnames';
 import dayjs, { Dayjs, ManipulateType } from 'dayjs';
+import localeData from 'dayjs/plugin/localeData';
 import head from 'lodash/head';
 import last from 'lodash/last';
 import React, { FC, forwardRef, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { isNotEmpty } from '../Util';
 import { useClassNames } from '../hooks';
 import CalendarContext from './CalendarContext';
@@ -19,6 +22,10 @@ import YearRangePanel from './YearRangePanel';
 import { CalendarProps, DateRangeType, DateType, RangePosition, ValueRagne, ValueRagneTemp } from './typings';
 import { initDate } from './util';
 
+require('dayjs/locale/zh-cn');
+
+dayjs.extend(localeData);
+
 const Calendar: FC<CalendarProps> = forwardRef<HTMLDivElement, CalendarProps>((props, ref) => {
     const {
         initialValue,
@@ -33,6 +40,9 @@ const Calendar: FC<CalendarProps> = forwardRef<HTMLDivElement, CalendarProps>((p
         shortcuts,
     } = useContext(CalendarContext);
     const { wb, e } = useClassNames('picker-panel');
+
+    const { locale } = useConfigProvider();
+    const { t } = useTranslation();
 
     // 单日期的默认日期
     const [value, setValue] = useState(valueProp);
@@ -73,11 +83,11 @@ const Calendar: FC<CalendarProps> = forwardRef<HTMLDivElement, CalendarProps>((p
         if (view === 'year') {
             const curYear: number = currentDate.year();
             const position: number = currentDate.year() % 10;
-            return `${curYear - position} ~ ${curYear + (9 - position)}`;
+            return `${curYear - position} ${t('el.datepicker.year', { lng: locale })} - ${curYear + (9 - position)} ${t('el.datepicker.year', { lng: locale })}`;
         } else {
-            return currentDate.year() + '年';
+            return currentDate.year() + t('el.datepicker.year', { lng: locale });
         }
-    }, [currentDate, view]);
+    }, [currentDate, locale, t, view]);
 
     // 是否要选择月份
     const hasMonth = useMemo(() => {
@@ -294,7 +304,7 @@ const Calendar: FC<CalendarProps> = forwardRef<HTMLDivElement, CalendarProps>((p
                     {!isRange && (
                         <Header
                             year={currentYear}
-                            month={`${currentDate.month() + 1}月`}
+                            month={t(`el.datepicker.month${currentDate.month() + 1}`, { lng: locale })}
                             showMonth={['date', 'dates', 'week'].includes(view)}
                             border={['year', 'month'].includes(view)}
                             onToggleView={onToggleView}

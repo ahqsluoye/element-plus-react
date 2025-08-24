@@ -6,7 +6,6 @@ const App = () => {
         <ElButton
             onClick={() => {
                 ElMessageBox.alert('这是一段内容', '标题名称', {
-                    confirmButtonText: '确定',
                     callback: action => {
                         ElMessage({
                             type: 'info',

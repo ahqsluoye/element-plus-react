@@ -6,6 +6,8 @@ import max from 'lodash/max';
 import omit from 'lodash/omit';
 import trim from 'lodash/trim';
 import React, { FC, RefObject, forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { Divider } from '../Divider';
 import Icon from '../Icon/Icon';
 import Input from '../Input/Input';
@@ -25,6 +27,9 @@ import { useCascader } from './useCascader';
 
 const Cascader: FC<CascaderProps> = memo(
     forwardRef((props: CascaderProps, ref?: RefObject<CascaderRef>) => {
+        const { locale } = useConfigProvider();
+        const { t } = useTranslation();
+
         props = mergeDefaultProps(
             {
                 separator: '/',
@@ -39,7 +44,7 @@ const Cascader: FC<CascaderProps> = memo(
                     leafKey: 'leaf',
                 },
                 shouldSelect: () => true,
-                placeholder: '请选择',
+                placeholder: t('el.cascader.placeholder', { lng: locale }) || '请选择',
                 collapseTags: true,
                 collapseTagsTooltip: true,
                 maxCollapseTags: 1,
@@ -635,7 +640,7 @@ const Cascader: FC<CascaderProps> = memo(
                             <div className={e`search`} onClick={event => event.stopPropagation()}>
                                 <Input
                                     ref={searchInstance}
-                                    placeholder="请输入关键词"
+                                    placeholder={t('el.select.search', { lng: locale })}
                                     clearable
                                     plain
                                     debounceInput

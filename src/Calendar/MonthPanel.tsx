@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import React, { FC, useCallback, useContext, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { isEmpty, isNotEmpty } from '../Util';
 import { useClassNames } from '../hooks';
 import CalendarContext from './CalendarContext';
@@ -11,6 +13,19 @@ const MonthPanel: FC<MonthPanelProps> = props => {
     const { value, valueRange, onPickMonth } = props;
     const { e, b } = useClassNames('picker-panel');
     const { value: valueProp, dateType, disabledDate } = useContext(CalendarContext);
+
+    const { locale } = useConfigProvider();
+    const { t } = useTranslation();
+
+    const monthsI18n = useMemo(
+        () =>
+            dayjs()
+                .locale('en')
+                .localeData()
+                .monthsShort()
+                .map(_ => _.toLowerCase()),
+        [],
+    );
 
     // 当前日期
     const currentDate = useMemo(() => {
@@ -147,7 +162,7 @@ const MonthPanel: FC<MonthPanelProps> = props => {
                                     return (
                                         <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickMonth(cell)} onMouseEnter={() => onHoverDate(cell)}>
                                             <div>
-                                                <a className="cell">{cell.type === 'special' ? '00' : `${cell.text + 1}月`}</a>
+                                                <a className="cell">{t('el.datepicker.months.' + monthsI18n[cell.text], { lng: locale })}</a>
                                             </div>
                                         </td>
                                     );

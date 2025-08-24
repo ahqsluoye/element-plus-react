@@ -2,7 +2,7 @@
 
 ## 版本
 
-Element Plus React 目前还处于开发迭代中。 <ElLink href="https://www.npmjs.com/package/@qsxy/element-plus-react">Element Plus React version bad</ElLink>
+Element Plus React 目前还处于开发迭代中。 <ElLink href="https://www.npmjs.com/package/@qsxy/element-plus-react">Element Plus React version badge</ElLink>
 
 此外，在 dev 分支上的每个提交都将被发布到 <ElLink href="https://github.com/ahqsluoye/element-plus-react">GitHub</ElLink>
 

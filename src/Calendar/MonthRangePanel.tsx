@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import { Dayjs, ManipulateType } from 'dayjs';
 import React, { FC, useCallback, useContext, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { isEmpty, isNotEmpty } from '../Util';
 import { useClassNames } from '../hooks';
 import CalendarContext from './CalendarContext';
@@ -13,6 +15,9 @@ const MonthRangePanel: FC<DateRangePanelProps> = props => {
     const { value, valueRange, onPickDateRange, onHoverDate } = props;
     const { e, is } = useClassNames('date-range-picker');
     const { unlinkPanels } = useContext(CalendarContext);
+
+    const { t } = useTranslation();
+    const { locale } = useConfigProvider();
 
     const hoverDate = useRef<Dayjs>(null);
 
@@ -102,8 +107,8 @@ const MonthRangePanel: FC<DateRangePanelProps> = props => {
         <>
             <MonthPanel value={startDate} valueRange={valueRange} className={classNames(e`content`, is`left`)} onPickMonth={onPickMonth}>
                 <Header
-                    year={startDate.year() + '年'}
-                    month={`${startDate.month() + 1}月`}
+                    year={startDate.year() + t('el.datepicker.year', { lng: locale })}
+                    month={t(`el.datepicker.month${startDate.month() + 1}`, { lng: locale })}
                     showForward={!unlinkPanels}
                     plain={unlinkPanels}
                     prefix="date-range-picker"
@@ -119,8 +124,8 @@ const MonthRangePanel: FC<DateRangePanelProps> = props => {
             </MonthPanel>
             <MonthPanel value={endDate} valueRange={valueRange} className={classNames(e`content`, is`right`)} onPickMonth={onPickMonth}>
                 <Header
-                    year={endDate.year() + '年'}
-                    month={`${endDate.month() + 1}月`}
+                    year={endDate.year() + t('el.datepicker.year', { lng: locale })}
+                    month={t(`el.datepicker.month${endDate.month() + 1}`, { lng: locale })}
                     showBackward={!unlinkPanels}
                     plain={unlinkPanels}
                     prefix="date-range-picker"

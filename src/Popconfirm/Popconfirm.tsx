@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import React, { forwardRef, memo, useImperativeHandle, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from '../Button/Button';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Icon from '../Icon/Icon';
 import Tooltip from '../Tooltip/Tooltip';
 import { TooltipRef } from '../Tooltip/typings';
@@ -10,11 +12,14 @@ import { PopconfirmProps } from './typings';
 
 const Popconfirm = memo(
     forwardRef<TooltipRef, PopconfirmProps>((props, ref) => {
+        const { locale } = useConfigProvider();
+        const { t } = useTranslation();
+
         props = mergeDefaultProps(
             {
                 showArrow: true,
-                confirmButtonText: '确 定',
-                cancelButtonText: '取 消',
+                confirmButtonText: t('el.popconfirm.confirmButtonText', { lng: locale }),
+                cancelButtonText: t('el.popconfirm.cancelButtonText', { lng: locale }),
                 confirmButtonType: 'primary',
                 cancelButtonType: 'primary',
                 icon: 'circle-question',

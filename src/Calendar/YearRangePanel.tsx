@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import { Dayjs, ManipulateType } from 'dayjs';
 import React, { FC, useCallback, useContext, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { isEmpty, isNotEmpty } from '../Util';
 import { useClassNames } from '../hooks';
 import CalendarContext from './CalendarContext';
@@ -13,6 +15,9 @@ const YearRangePanel: FC<DateRangePanelProps> = props => {
     const { value, valueRange, onPickDateRange, onHoverDate } = props;
     const { e, is } = useClassNames('date-range-picker');
     const { unlinkPanels } = useContext(CalendarContext);
+
+    const { locale } = useConfigProvider();
+    const { t } = useTranslation();
 
     const hoverDate = useRef<Dayjs>(null);
 
@@ -57,7 +62,7 @@ const YearRangePanel: FC<DateRangePanelProps> = props => {
     const leftYear = useMemo(() => {
         const curYear: number = startDate.year();
         const position: number = startDate.year() % 10;
-        return `${curYear - position} ~ ${curYear + (9 - position)}`;
+        return `${curYear - position} ${t('el.datepicker.year', { lng: locale })} - ${curYear + (9 - position)} ${t('el.datepicker.year', { lng: locale })}`;
     }, [startDate]);
 
     // 当前年份

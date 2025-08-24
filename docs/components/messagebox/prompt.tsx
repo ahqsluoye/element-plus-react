@@ -6,11 +6,11 @@ const App = () => {
         <ElButton
             onClick={() => {
                 ElMessageBox.prompt('请输入邮箱', '提示', {
-                    confirmButtonText: '确定',
                     inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
                     inputErrorMessage: '邮箱格式不正确',
                     beforeClose(action, done, ref) {
                         console.log(action, done, ref);
+                        done();
                     },
                 })
                     .then(({ value }) => {

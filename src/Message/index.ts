@@ -1,5 +1,5 @@
 import { isValidElement, RefObject } from 'react';
-import { isEmpty } from '../Util';
+import { isEmpty, mergeDefaultProps } from '../Util';
 import Main from './Main';
 import { MessageHandle, MessageMethod, MessageParams, MessageProps, MessageQueue } from './typings';
 
@@ -7,14 +7,18 @@ export const instances: MessageQueue = [];
 let seed = 1;
 
 export const Message: MessageMethod = function (opts: MessageParams = {} as MessageParams): MessageHandle {
+    const ll = localStorage.getItem('__el__message__config__provider__');
+    const configProvider = ll ? JSON.parse(ll) : {};
     if (typeof opts === 'string' || isValidElement(opts)) {
         opts = {
+            ...configProvider,
             message: opts,
         };
     }
 
     if (isEmpty(opts)) {
         opts = {
+            ...configProvider,
             message: '',
         };
     }
@@ -34,18 +38,18 @@ export const Message: MessageMethod = function (opts: MessageParams = {} as Mess
         options.userOnClose = options.onClose;
     }
 
-    options = {
+    options = mergeDefaultProps(configProvider, {
         ...options,
         onClose: () => {
             close(id, userOnClose);
         },
         offset: verticalOffset,
         id,
-    };
+    });
 
     if (options.grouping && instances.length) {
         const instance = instances.find(inst => inst.current.message === options.message);
-        if (instance.current) {
+        if (instance?.current) {
             instance.current.setReapetNum();
             // instance.props.type = normalized.type;
             return {

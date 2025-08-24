@@ -1,11 +1,16 @@
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
+import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import { CardProps } from './typings';
 
 const Card = memo(
     forwardRef<HTMLDivElement, CardProps>((props, ref) => {
-        const { header, footer, bodyStyle, shadow = 'always', classPrefix = 'card' } = props;
+        const { card = {} } = useConfigProvider();
+        props = mergeDefaultProps({ shadow: card?.shadow ?? 'always' }, props);
+
+        const { header, footer, bodyStyle, shadow, classPrefix = 'card' } = props;
         const { b, e, is } = useClassNames(classPrefix);
         return (
             <div ref={ref} className={classNames(b(), is({ [`${shadow}-shadow`]: ['always', 'hover'].includes(shadow) }), props.className)} style={props.style}>

@@ -13,7 +13,9 @@ export interface LinkProps
     /** 链接类型 */
     type?: LinkType;
     /** 是否下划线  */
-    underline?: boolean;
+    underline?: 'always' | 'hover' | 'never';
+    /** 同原生 target 属性 */
+    target?: '_blank' | '_self' | '_parent' | '_top';
     /** 是否禁用状态  */
     disabled?: boolean;
     /** 图标组件 */

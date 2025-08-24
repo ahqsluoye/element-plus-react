@@ -11,12 +11,13 @@ import { useButtonCustomStyle } from './useButtonCustomStyle';
 
 const InternalButton = (props: ButtonProps, ref: Ref<ButtonRef>) => {
     const { disabled: groupDisabled, type: groupType, size: groupSize, bgColor, borderColor } = useContext(ButtonGroupContext);
-    const { button } = useConfigProvider();
+    const { button = {} } = useConfigProvider();
     const {
         active,
         block,
-        plain,
-        round,
+        type = button?.type ?? groupType ?? 'default',
+        plain = button?.plain ?? false,
+        round = button?.round ?? false,
         circle,
         link,
         text,
@@ -28,6 +29,7 @@ const InternalButton = (props: ButtonProps, ref: Ref<ButtonRef>) => {
         loadingSlot,
         nativeType = 'button',
         icon = false,
+        autoInsertSpace = button?.autoInsertSpace,
         iconProps = {},
         onClick,
         ...rest
@@ -41,8 +43,7 @@ const InternalButton = (props: ButtonProps, ref: Ref<ButtonRef>) => {
     const buttonStyle = useButtonCustomStyle({ color: bgColor, ...props }, cssVarBlock, cssVarName, cssVarBlockName);
 
     const spin = useMemo(() => loadingSlot ?? <Icon name={loadingIcon} className={classNames(b`spin`, is`loading`)} spin />, [loadingSlot, loadingIcon, b, is]);
-    const type = useMemo(() => groupType ?? (props.type || 'default'), [groupType, props.type]);
-    const autoInsertSpace = useMemo(() => props.autoInsertSpace ?? button?.autoInsertSpace ?? true, [button?.autoInsertSpace, props.autoInsertSpace]);
+    // const type = useMemo(() => groupType ?? (props.type || 'default'), [groupType, props.type]);
 
     const children = useMemo(() => {
         if (autoInsertSpace && typeof props.children === 'string' && props.children.length === 2 && /[\u4e00-\u9fa5]{2}/.test(props.children)) {

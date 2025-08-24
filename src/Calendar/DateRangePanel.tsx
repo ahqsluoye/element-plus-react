@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import { Dayjs, ManipulateType } from 'dayjs';
 import React, { FC, useCallback, useContext, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { isEmpty, isNotEmpty } from '../Util';
 import { useClassNames } from '../hooks';
 import CalendarContext from './CalendarContext';
@@ -15,6 +17,9 @@ const DateRangePanel: FC<DateRangePanelProps> = props => {
     const { unlinkPanels } = useContext(CalendarContext);
 
     const hoverDate = useRef<Dayjs>(null);
+
+    const { t } = useTranslation();
+    const { locale } = useConfigProvider();
 
     // 开始日期
     const startDate = useMemo(() => {
@@ -103,8 +108,8 @@ const DateRangePanel: FC<DateRangePanelProps> = props => {
         <>
             <DatePanel value={startDate} valueRange={valueRange} className={classNames(e`content`, is`left`)} onPickDate={handlePickDate}>
                 <Header
-                    year={startDate.year() + '年'}
-                    month={`${startDate.month() + 1}月`}
+                    year={startDate.year() + t('el.datepicker.year', { lng: locale })}
+                    month={t(`el.datepicker.month${startDate.month() + 1}`, { lng: locale })}
                     showForward={!unlinkPanels}
                     plain={unlinkPanels}
                     prefix="date-range-picker"
@@ -120,8 +125,8 @@ const DateRangePanel: FC<DateRangePanelProps> = props => {
             </DatePanel>
             <DatePanel value={endDate} valueRange={valueRange} className={classNames(e`content`, is`right`)} onPickDate={handlePickDate}>
                 <Header
-                    year={endDate.year() + '年'}
-                    month={`${endDate.month() + 1}月`}
+                    year={endDate.year() + t('el.datepicker.year', { lng: locale })}
+                    month={t(`el.datepicker.month${endDate.month() + 1}`, { lng: locale })}
                     showBackward={!unlinkPanels}
                     plain={unlinkPanels}
                     prefix="date-range-picker"

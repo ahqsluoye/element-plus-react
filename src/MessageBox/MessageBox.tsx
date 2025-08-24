@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import isString from 'lodash/isString';
 import React, { cloneElement, forwardRef, memo, RefObject, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from '../Button/Button';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Dialog from '../Dialog/Dialog';
 import { partitionAnimationProps, useClassNames, useControlled } from '../hooks';
 import { namespace } from '../hooks/prefix';
@@ -12,6 +14,9 @@ import { Action, MessageBoxRef, MessageState } from './typings';
 
 const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttributes<MessageBoxRef>> = memo(
     forwardRef<MessageBoxRef, MessageState>((props, ref) => {
+        const { locale } = useConfigProvider();
+        const { t } = useTranslation();
+
         const { boxType, onAction, options } = props;
         const {
             title,
@@ -24,7 +29,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
             beforeClose,
             showCancelButton = true,
             showConfirmButton = true,
-            cancelButtonText = '取消',
+            cancelButtonText = t('el.messagebox.cancel', { lng: locale }),
             cancelButtonClass,
             confirmButtonClass,
             buttonSize,
@@ -48,7 +53,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
         const { e, bm } = useClassNames(classPrefix);
         const [visible, setVisible] = useState(true);
         const [confirmButtonLoading, setConfirmButtonLoading] = useState(false);
-        const [confirmButtonText, setConfirmButtonText] = useState(options.confirmButtonText || '确定');
+        const [confirmButtonText, setConfirmButtonText] = useState(options.confirmButtonText || t('el.messagebox.confirm', { lng: locale }));
 
         const [inputValue, setInputValue] = useControlled(undefined, options.inputValue);
         const [editorErrorMessage, setEditorErrorMessage] = useState(inputErrorMessage);

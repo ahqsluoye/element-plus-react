@@ -33,11 +33,11 @@ const Header: FC<HeaderProps> = props => {
         <div className={classNames(e`header`, { [em('header', 'bordered')]: border })}>
             {showBackward && (
                 <div className={e`prev-btn`}>
-                    <Link disabled={disabledBackwards} className={classNames(iconClass, 'd-arrow-left')} onClick={onMoveBackwards}>
+                    <Link disabled={disabledBackwards} underline="never" className={classNames(iconClass, 'd-arrow-left')} onClick={onMoveBackwards}>
                         <Icon name="angles-left" />
                     </Link>
                     {showMonth && (
-                        <Link disabled={disabledBackward} className={classNames(iconClass, 'arrow-left')} onClick={onMoveBackward}>
+                        <Link disabled={disabledBackward} underline="never" className={classNames(iconClass, 'arrow-left')} onClick={onMoveBackward}>
                             <Icon name="angle-left" />
                         </Link>
                     )}
@@ -59,11 +59,11 @@ const Header: FC<HeaderProps> = props => {
             {showForward && (
                 <div className={e`next-btn`}>
                     {showMonth && (
-                        <Link disabled={disabledForward} className={classNames(iconClass, 'arrow-right')} onClick={onMoveForward}>
+                        <Link disabled={disabledForward} underline="never" className={classNames(iconClass, 'arrow-right')} onClick={onMoveForward}>
                             <Icon name="angle-right" />
                         </Link>
                     )}
-                    <Link disabled={disabledForwards} className={classNames(iconClass, 'd-arrow-right')} onClick={onMoveForwards}>
+                    <Link disabled={disabledForwards} underline="never" className={classNames(iconClass, 'd-arrow-right')} onClick={onMoveForwards}>
                         <Icon name="angles-right" />
                     </Link>
                 </div>

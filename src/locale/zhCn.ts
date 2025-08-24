@@ -85,6 +85,7 @@ export default {
             noMatch: '无匹配数据',
             noData: '无数据',
             placeholder: '请选择',
+            search: '请输入关键词',
         },
         dropdown: {
             toggleDropdown: '切换下拉选项',
@@ -97,6 +98,7 @@ export default {
             loading: '加载中',
             placeholder: '请选择',
             noData: '暂无数据',
+            search: '请输入关键词',
         },
         pagination: {
             goto: '前往',

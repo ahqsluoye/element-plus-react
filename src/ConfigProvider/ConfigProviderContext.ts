@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
-import { ConfigProviderProps } from './typings';
+import { ConfigProviderContextProps } from './typings';
 
-const ConfigProviderContext = createContext<ConfigProviderProps>({
+const ConfigProviderContext = createContext<ConfigProviderContextProps>({
     // message: { max: Infinity },
     inputNumber: {
         controlsPositionRight: false,

@@ -207,7 +207,7 @@ export function mergeDefaultProps<T>(defaultProps: Partial<T> = {}, target: T): 
             } else {
                 if (Object.prototype.toString.call(props[item]) === '[object Object]' && Object.prototype.toString.call(defaultProps[item]) === '[object Object]') {
                     //递归赋值
-                    props[item] = mergeDefaultProps(props[item], defaultProps[item]);
+                    props[item] = mergeDefaultProps(defaultProps[item], props[item]);
                 }
             }
         }

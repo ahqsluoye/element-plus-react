@@ -1,13 +1,16 @@
 import { useContext, useMemo } from 'react';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import FormContext from '../Form/FieldContext';
 import { FormItemContext } from '../Form/FormItemContext';
 import { TypeAttributes } from '../types/common';
 
 export const useSize = (fallback?: TypeAttributes.Size | (() => TypeAttributes.Size)) => {
-    const disabled = fallback instanceof Function ? fallback() : fallback;
+    const { size: globalSize } = useConfigProvider();
+
+    const size = fallback instanceof Function ? fallback() : fallback;
     const form = useContext(FormContext);
     const formItem = useContext(FormItemContext);
-    return useMemo(() => disabled || formItem?.size || form?.size || null, [disabled, form?.size, formItem?.size]);
+    return useMemo(() => size || formItem?.size || form?.size || globalSize || null, [size, form?.size, formItem?.size, globalSize]);
 };
 
 export const useDisabled = (fallback?: boolean | (() => boolean)) => {

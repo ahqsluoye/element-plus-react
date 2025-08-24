@@ -1,13 +1,15 @@
-@use './mixins/config' as *;
-.#{$namespace}-link {
-    --#{$namespace}-link-font-size: 14px;
-    --#{$namespace}-link-font-weight: 500;
-    --#{$namespace}-link-text-color: var(--#{$namespace}-text-color-regular, #555555);
-    --#{$namespace}-link-hover-text-color: var(--#{$namespace}-color-primary);
-    --#{$namespace}-link-disabled-text-color: var(--#{$namespace}-text-color-placeholder);
+@use 'sass:map';
+
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'mixins/utils' as *;
+@use 'common/var' as *;
+
+@include b(link) {
+    @include set-component-css-var('link', $link);
 }
 
-.#{$namespace}-link {
+@include b(link) {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
@@ -18,16 +20,11 @@
     outline: none;
     cursor: pointer;
     padding: 0;
-    font-size: var(--#{$namespace}-link-font-size);
-    font-weight: var(--#{$namespace}-link-font-weight);
+    font-size: getCssVar('link', 'font-size');
+    font-weight: getCssVar('link', 'font-weight');
+    color: getCssVar('link', 'text-color');
 
-    color: var(--#{$namespace}-link-text-color);
-
-    &:hover {
-        color: var(--#{$namespace}-link-hover-text-color);
-    }
-
-    &.is-underline {
+    @include when(hover-underline) {
         &:hover:after {
             content: '';
             position: absolute;
@@ -35,13 +32,28 @@
             right: 0;
             height: 0;
             bottom: 0;
-            border-bottom: 1px solid var(--#{$namespace}-link-hover-text-color);
+            border-bottom: 1px solid getCssVar('link', 'hover-text-color');
         }
     }
 
-    &.is-disabled {
-        color: var(--#{$namespace}-link-disabled-text-color);
-        cursor: not-allowed;
+    @include when(underline) {
+        &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 0;
+            bottom: 0;
+            border-bottom: 1px solid getCssVar('link', 'text-color');
+        }
+    }
+
+    &:hover {
+        color: getCssVar('link', 'hover-text-color');
+
+        &:after {
+            border-color: getCssVar('link', 'hover-text-color');
+        }
     }
 
     & [class*='#{$namespace}-icon-'] {
@@ -50,50 +62,26 @@
         }
     }
 
-    &.#{$namespace}-link--default {
-        &:after {
-            border-color: var(--#{$namespace}-link-hover-text-color);
-        }
-    }
-
-    .#{$namespace}-link__inner {
+    @include e(inner) {
         display: inline-flex;
         justify-content: center;
         align-items: center;
     }
 
-    @each $type in primary {
+    @each $type in $types {
         &.#{$namespace}-link--#{$type} {
-            --#{$namespace}-link-text-color: var(--#{$namespace}-color-primary);
-            --#{$namespace}-link-hover-text-color: var(--#{$namespace}-color-primary-light-3);
-            --#{$namespace}-link-disabled-text-color: var(--#{$namespace}-color-primary-light-5);
-
-            &:after {
-                border-color: var(--#{$namespace}-link-text-color);
-            }
-
-            &.is-underline {
-                &:hover:after {
-                    border-color: var(--#{$namespace}-link-text-color);
-                }
-            }
+            @include css-var-from-global(('link', 'text-color'), ('color', $type));
+            @include css-var-from-global(('link', 'hover-text-color'), ('color', $type, 'light-3'));
+            @include css-var-from-global(('link', 'disabled-text-color'), ('color', $type, 'light-5'));
         }
     }
-    @each $type in success, warning, error, info {
-        &.#{$namespace}-link--#{$type} {
-            --#{$namespace}-link-text-color: var(--#{$namespace}-color-#{$type});
-            --#{$namespace}-link-hover-text-color: var(--#{$namespace}-color-#{$type}-light-3);
-            --#{$namespace}-link-disabled-text-color: var(--#{$namespace}-color-#{$type}-light-5);
 
-            &:after {
-                border-color: var(--#{$namespace}-link-text-color);
-            }
+    @include when(disabled) {
+        color: getCssVar('link', 'disabled-text-color');
+        cursor: not-allowed;
 
-            &.is-underline {
-                &:hover:after {
-                    border-color: var(--#{$namespace}-link-text-color);
-                }
-            }
+        &:after {
+            border-color: getCssVar('link', 'disabled-text-color');
         }
     }
 }

@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import trim from 'lodash/trim';
 import React, { Children, ComponentType, cloneElement, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { Divider } from '../Divider';
 import Icon from '../Icon/Icon';
 import { InputRef } from '../Input';
@@ -34,6 +36,9 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
     const { b, e, be, is } = useClassNames('select');
     const ulRef = useRef<HTMLUListElement>(null);
     const remoteSearchRef = useRef<InputRef>(null);
+
+    const { locale } = useConfigProvider();
+    const { t } = useTranslation();
 
     // 下拉项高亮
     const [hover, setHover] = useState(value);
@@ -225,7 +230,7 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
                     <div className={e`search`} onClick={event => event.stopPropagation()}>
                         <Input
                             ref={searchInstance}
-                            placeholder="请输入关键词"
+                            placeholder={t('el.select.search', { lng: locale })}
                             clearable
                             plain
                             // debounceInput
@@ -241,7 +246,7 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
                         <Input
                             ref={remoteSearchRef}
                             // value={remoteSearch}
-                            placeholder="请输入关键词"
+                            placeholder={t('el.select.search', { lng: locale })}
                             clearable
                             plain
                             debounceInput

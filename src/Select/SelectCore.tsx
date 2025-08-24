@@ -5,6 +5,8 @@ import max from 'lodash/max';
 import min from 'lodash/min';
 import omit from 'lodash/omit';
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Icon from '../Icon/Icon';
 import Input from '../Input/Input';
 import { InputRef } from '../Input/typings';
@@ -19,14 +21,17 @@ import SelectDropdown from './SelectDropdown';
 import { SelectDropdownRef, SelectOptionGroupProps, SelectOptionProps, SelectProps, SelectRef, ValueType } from './typings';
 
 const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
+    const { locale } = useConfigProvider();
+    const { t } = useTranslation();
+
     props = mergeDefaultProps(
         {
-            placeholder: '请选择',
-            noDataText: '无数据',
-            noMatchText: '没有找到匹配的结果',
+            placeholder: t('el.select.placeholder', { lng: locale }),
+            noDataText: t('el.select.noData', { lng: locale }),
+            noMatchText: t('el.select.noMatch', { lng: locale }),
             loadingText: (
                 <span>
-                    <Icon prefix="fas" name="spinner" spin /> 加载中...
+                    <Icon prefix="fas" name="spinner" spin /> {t('el.select.loading', { lng: locale })}
                 </span>
             ),
             showArrow: true,
