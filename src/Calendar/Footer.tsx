@@ -33,10 +33,10 @@ const Footer: FC = () => {
             )}
             {showNow && (
                 <>
-                    <Button type="primary" link className={e`link-btn`} onClick={onPickToday}>
+                    <Button type="default" size="small" text className={e`link-btn`} onClick={onPickToday}>
                         {t('el.datepicker.now', { lng: locale })}
                     </Button>
-                    <Button type="default" className={e`link-btn`} onClick={close}>
+                    <Button type="default" size="small" className={e`link-btn`} onClick={close}>
                         {t('el.datepicker.confirm', { lng: locale })}
                     </Button>
                 </>

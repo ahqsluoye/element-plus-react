@@ -1,15 +1,12 @@
 import React, { RefObject } from 'react';
-import { InputRef } from '../Input/typings';
+import { IconName } from '../Icon';
 import { PopperOptionRef, PopperOptions } from '../Popper';
 import { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps, TypeAttributes } from '../types/common';
 
-export type ValueType = string | number | (string | number)[];
+export type OptionValue = string | number | boolean;
+export type ValueType = OptionValue | OptionValue[];
 export type SelectRef = {
-    inputInstance?: RefObject<InputRef>;
-    searchInstance?: RefObject<InputRef>;
     popperInstRef: RefObject<PopperOptionRef>;
-    selectedLabel: string | string[];
-    setLabel: (label: string) => void;
     getValue: () => ValueType;
     setValue: (value: ValueType) => void;
     onClear: (event?: any) => void;
@@ -27,6 +24,8 @@ export interface SelectProps<V = ValueType> extends Omit<FormControlBaseProps<V>
     valueKey?: string;
     /** 是否可以清空选项 */
     clearable?: boolean;
+    /** 自定义清除图标 */
+    clearIcon?: IconName;
     /** 占位符 */
     placeholder?: string;
     /** 是否可搜索 */
@@ -34,13 +33,15 @@ export interface SelectProps<V = ValueType> extends Omit<FormControlBaseProps<V>
     /** 自定义搜索方法 */
     filterMethod?: (val: ValueType, searchText: string) => boolean;
     /** 选项为空时显示的文字 */
-    noDataText?: React.ReactElement | string;
+    noDataText?: string;
     /** 搜索条件无匹配时显示的文字 */
-    noMatchText?: React.ReactElement | string;
+    noMatchText?: string;
     /** 是否正在从远程获取数据 */
     loading?: boolean;
     /** 远程加载时显示的文字 */
-    loadingText?: React.ReactElement | string;
+    loadingText?: string;
+    /** 远程加载时显示的图标 */
+    loadingIcon?: React.ReactElement;
     /**  */
     max?: boolean;
     /** 下拉菜单的内容是否有箭头 */
@@ -77,30 +78,53 @@ export interface SelectProps<V = ValueType> extends Omit<FormControlBaseProps<V>
     remote?: boolean;
     /** 自定义搜索方法 */
     remoteMethod?: (searchText: string) => void;
+    /** 远程搜索方法显示后缀图标 */
+    remoteShowSuffix?: boolean;
+    /** 自定义后缀图标组件 */
+    suffixIcon?: IconName;
     /** 标签类型 */
     tagType?: TypeAttributes.Appearance;
     /** 标签效果 */
     tagEffect?: 'light' | 'dark' | 'plain';
+    labelFormat?: (index: number, value: OptionValue, label?: OptionValue) => React.ReactElement;
     /** 选中值发生变化时触发 */
-    onChange?: (value: ValueType, label?: string | (string | number)[]) => void;
+    onChange?: (value: ValueType, data?: OptionData | OptionData[]) => void;
     /** 下拉框出现/隐藏时触发   */
     onVisibleChange?: (visible: boolean) => void;
     /** 多选模式下移除tag时触发/隐藏时触发   */
     onRemoveTag?: (tagValue: any) => void;
     /** 可清空的单选模式下用户点击清空按钮时触发  */
     onClear?: () => void;
+    /** 对于不可搜索的 Select，是否在输入框获得焦点后自动弹出选项菜单 */
+    automaticDropdown?: boolean;
+    /** 下拉列表顶部的内容 */
+    header?: React.ReactElement;
+    /** 下拉列表底部的内容 */
+    footer?: React.ReactElement;
+    /** 作为 Select 组件的内容时 */
+    tag?: (params: { data: OptionData[]; selectDisabled: boolean; deleteTag: (event: React.MouseEvent<HTMLElement, MouseEvent>, tag: OptionData) => void }) => React.ReactElement;
     /** 数据加载成功时调用 */
-    onLoadSuccess?: (value: ValueType, label?: (string | number | undefined)[]) => void;
+    // onLoadSuccess?: (value: ValueType, data?: any) => void;
 }
 
 export interface SelectOptionProps extends BaseProps, NativeProps {
     /** 选项的值 */
-    value: string | number;
+    value: OptionValue;
     /** 选项的标签，若不设置则默认与 value 相同 */
-    label?: string;
+    label?: OptionValue;
+    /** option 的附加数据，会传递到 onClick 事件的参数 data 中 */
+    data?: any;
     /** 是否禁用该选项 */
     disabled?: boolean;
-    onClick?: (value: ValueType, label: string, e: Event) => void;
+    onClick?: (value: ValueType, data: OptionData) => void;
+}
+
+export interface OptionData {
+    index?: number;
+    value: OptionValue;
+    label: OptionValue;
+    disabled?: boolean;
+    data?: any;
 }
 
 export interface SelectOptionGroupProps extends BaseProps<React.ReactElement<SelectOptionProps> | React.ReactElement<SelectOptionProps>[]>, NativeProps {
@@ -112,18 +136,19 @@ export interface SelectOptionGroupProps extends BaseProps<React.ReactElement<Sel
 
 export interface SelectDropdownProps extends SelectProps {
     value: ValueType;
-    searchInstance: RefObject<InputRef>;
-    createItem: string;
-    setCreateItem: (createItem: string) => void;
-    onChoose: (val: string, text: string, event: any) => void;
+    inputValue: string;
+    setInputValue: (value: string) => void;
+    onChoose: (val: string, data: OptionData, event: any) => void;
     contentRef: RefObject<HTMLDivElement>;
-    createInputRef: RefObject<HTMLInputElement>;
     popperInstRef: RefObject<PopperOptionRef>;
+    /** 下拉列表顶部的内容 */
+    header?: React.ReactElement;
+    /** 下拉列表底部的内容 */
+    footer?: React.ReactElement;
 }
 
 export interface SelectDropdownRef {
     clear: () => void;
-    onEnter: () => void;
     hover: (value: ValueType) => void;
     scrollToSelected: () => void;
 }

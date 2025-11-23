@@ -1,0 +1,78 @@
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+
+@include b(quarter-table) {
+    font-size: 12px;
+    user-select: none;
+
+    td {
+        text-align: center;
+        padding: 8px 0px;
+        cursor: pointer;
+        & div {
+            height: 48px;
+            padding: 6px 0;
+            box-sizing: border-box;
+        }
+
+        &.disabled .cell {
+            background-color: var(--#{$namespace}-fill-color-light);
+            cursor: not-allowed;
+            color: var(--#{$namespace}-text-color-placeholder);
+
+            &:hover {
+                color: var(--#{$namespace}-text-color-placeholder);
+            }
+        }
+
+        .cell {
+            width: 60px;
+            height: 36px;
+            display: block;
+            line-height: 36px;
+            color: var(--#{$namespace}-datepicker-text-color);
+            margin: 0 auto;
+            border-radius: 10px;
+            font-size: 12px;
+
+            &:hover {
+                color: var(--#{$namespace}-datepicker-hover-text-color);
+                // background: #f5f5f5;
+                // border-radius: 0;
+            }
+        }
+
+        &.in-range div {
+            background-color: var(--#{$namespace}-datepicker-inrange-bg-color);
+            &:hover {
+                background-color: var(--#{$namespace}-datepicker-inrange-bg-color);
+            }
+        }
+        &.start-date div,
+        &.end-date div {
+            color: #ffffff;
+        }
+
+        &.start-date .cell,
+        &.end-date .cell {
+            color: #ffffff !important;
+            background: var(--#{$namespace}-datepicker-active-color);
+        }
+
+        &.start-date div {
+            border-top-left-radius: 24px;
+            border-bottom-left-radius: 24px;
+        }
+
+        &.end-date div {
+            border-top-right-radius: 24px;
+            border-bottom-right-radius: 24px;
+        }
+
+        &.current:not(.disabled) .cell {
+            font-weight: bold;
+            color: #ffffff;
+            background: var(--#{$namespace}-bg-color-primary, var(--#{$namespace}-color-primary));
+        }
+    }
+}

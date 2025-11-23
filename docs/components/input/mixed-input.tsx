@@ -1,4 +1,4 @@
-import { ElIcon, ElInput, ElOption, ElSelect } from '@qsxy/element-plus-react';
+import { ElButton, ElIcon, ElInput, ElOption, ElSelect } from '@qsxy/element-plus-react';
 import React from 'react';
 import './mixed-input.scss';
 
@@ -25,7 +25,7 @@ const App = () => {
             </div>
             <div className="mt-4">
                 <ElInput
-                    prepend={<ElIcon name="search" />}
+                    prepend={<ElButton type="primary" icon="search" />}
                     append={
                         <ElSelect placeholder="Select" style={{ width: 110 }}>
                             <ElOption label="Restaurant" value="1" />

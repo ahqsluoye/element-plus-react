@@ -23,11 +23,11 @@ lang: zh-CN
 
 <code src="./clearable.tsx" path="input"></code>
 
-<!-- ## 格式化
+## 格式化
 
 在 `formatter`的情况下显示值，我们通常同时使用 `parser`
 
-<code src="./formatter.tsx" path="input"></code> -->
+<code src="./formatter.tsx" path="input"></code>
 
 ## 密码框
 

@@ -1,7 +1,7 @@
 @use 'sass:map';
 
-@use '../../Common/styles/mixins/mixins' as *;
-@use '../../Common/styles/common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../common/var' as *;
 
 @include b(select-dropdown) {
     z-index: calc(#{getCssVar('index-top')} + 1);

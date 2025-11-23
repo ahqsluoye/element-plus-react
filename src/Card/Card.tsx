@@ -10,10 +10,11 @@ const Card = memo(
         const { card = {} } = useConfigProvider();
         props = mergeDefaultProps({ shadow: card?.shadow ?? 'always' }, props);
 
-        const { header, footer, bodyStyle, shadow, classPrefix = 'card' } = props;
+        const { header, footer, bodyStyle, shadow, classPrefix = 'card', ...rest } = props;
+
         const { b, e, is } = useClassNames(classPrefix);
         return (
-            <div ref={ref} className={classNames(b(), is({ [`${shadow}-shadow`]: ['always', 'hover'].includes(shadow) }), props.className)} style={props.style}>
+            <div ref={ref} className={classNames(b(), is({ [`${shadow}-shadow`]: ['always', 'hover'].includes(shadow) }), props.className)} style={props.style} {...rest}>
                 {header && <div className={e`header`}>{header}</div>}
 
                 <div className={e`body`} style={bodyStyle}>

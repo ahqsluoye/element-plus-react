@@ -5,13 +5,13 @@ const App = () => {
     return (
         <ElRow gutter={15}>
             <ElCol span={8}>
-                <ElSelect allowCreate style={{ width: 300 }}>
+                <ElSelect filterable allowCreate style={{ width: 300 }}>
                     <ElOption value="1" label="黄金糕" />
                     <ElOption value="2" label="双皮奶" />
                 </ElSelect>
             </ElCol>
             <ElCol span={8}>
-                <ElSelect multiple allowCreate style={{ width: 300 }}>
+                <ElSelect filterable multiple allowCreate style={{ width: 300 }}>
                     <ElOption value="1" label="黄金糕" />
                     <ElOption value="2" label="双皮奶" />
                 </ElSelect>

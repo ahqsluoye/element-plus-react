@@ -1,7 +1,7 @@
 import { Dayjs } from 'dayjs';
 import { BaseProps, ComponentChildren, NativeProps } from '../types/common';
 
-export type DateType = 'year' | 'month' | 'date' | 'dates' | 'week' | 'datetime' | 'datetimerange' | 'time';
+export type DateType = 'year' | 'month' | 'date' | 'dates' | 'week' | 'datetime' | 'datetimerange' | 'time' | 'quarter';
 export type DateRangeType = 'daterange' | 'monthrange' | 'yearrange';
 export type RangePosition = 'left' | 'right';
 export type ValueRagne = [value: Dayjs, value: Dayjs];

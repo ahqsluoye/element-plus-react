@@ -436,7 +436,7 @@ $select-dropdown: map.merge(
         'empty-color': getCssVar('text-color-secondary'),
         'max-height': 274px,
         'padding': 6px 0,
-        'empty-padding': 10px 0,
+        'empty-padding': 4px 0,
         'header-padding': 10px,
         'footer-padding': 10px,
         'border': 1px solid getCssVar('border-color-light'),

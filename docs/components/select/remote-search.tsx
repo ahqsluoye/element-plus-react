@@ -1,5 +1,5 @@
-import { ElOption, ElSelect } from '@qsxy/element-plus-react';
-import { useState } from 'react';
+import { ElCol, ElOption, ElRow, ElSelect } from '@qsxy/element-plus-react';
+import React, { useState } from 'react';
 import { dataList } from './remote-search';
 
 const App = () => {
@@ -25,13 +25,24 @@ const App = () => {
     };
 
     return (
-        <div>
-            <ElSelect loading={loading} filterable remote remoteMethod={remoteMethod} multiple style={{ width: 300, marginRight: 20 }}>
-                {data.map(item => {
-                    return <ElOption value={item.value} label={item.label} key={item.value} />;
-                })}
-            </ElSelect>
-        </div>
+        <ElRow gutter={15}>
+            <ElCol span={8}>
+                <div style={{ marginBottom: 10 }}>default</div>
+                <ElSelect loading={loading} filterable remote remoteMethod={remoteMethod} multiple style={{ width: 300, marginRight: 20 }}>
+                    {data.map(item => {
+                        return <ElOption value={item.value} label={item.label} key={item.value} />;
+                    })}
+                </ElSelect>
+            </ElCol>
+            <ElCol span={8}>
+                <div style={{ marginBottom: 10 }}>use remote-show-suffix</div>
+                <ElSelect loading={loading} filterable remote remoteMethod={remoteMethod} remoteShowSuffix multiple style={{ width: 300, marginRight: 20 }}>
+                    {data.map(item => {
+                        return <ElOption value={item.value} label={item.label} key={item.value} />;
+                    })}
+                </ElSelect>
+            </ElCol>
+        </ElRow>
     );
 };
 

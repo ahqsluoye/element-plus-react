@@ -7,44 +7,42 @@ import { SelectOptionProps } from './typings';
 const Option = forwardRef<HTMLLIElement, SelectOptionProps>((props, ref) => {
     const { e, is } = useClassNames('select-dropdown');
     const { value: selectedValue, onChoose, hover: hoverValue, setHover, multiple } = useContext(SelectContext);
-    const { label, disabled, onClick } = props;
+    const { value, label, data, disabled, onClick } = props;
 
     /** 选中回调 */
     const handleOnClick = useCallback(
         event => {
             event.stopPropagation();
             if (!disabled) {
-                onChoose(props.value, label || props.value + '', event);
-                onClick?.(props.value, label || props.value.toString(), event);
+                onChoose(value, { value, label, data }, event);
+                onClick?.(value, { value, label, data });
             }
         },
-        [disabled, onChoose, props.value, label, onClick],
+        [disabled, onChoose, value, label, data, onClick],
     );
 
     /** 是否已选中 */
     const selected = useMemo(() => {
         if (multiple && selectedValue instanceof Array) {
-            return selectedValue.includes(props.value);
+            return selectedValue.includes(value);
         }
-        return props.value === selectedValue;
-    }, [multiple, props.value, selectedValue]);
+        return value === selectedValue;
+    }, [multiple, value, selectedValue]);
+
+    // useEffect(() => {
+    //     onOptionCreate?.(value, { value, label, data });
+    //     return () => {
+    //         onOptionDestroy?.(value);
+    //     };
+    // }, []);
 
     return (
         <li
-            className={classNames(
-                e`item`,
-                is({ disabled }),
-                {
-                    selected,
-                    hover: props.value === hoverValue,
-                },
-                props.className,
-            )}
+            className={classNames(e`item`, is({ disabled, selected, hovering: value === hoverValue }), props.className)}
             style={props.style}
-            title={label}
-            key={props.value}
+            title={label + ''}
             onClick={handleOnClick}
-            onMouseEnter={() => setHover(props.value)}
+            onMouseEnter={() => setHover(value)}
             onMouseLeave={() => setHover(selectedValue)}
             ref={ref}
         >

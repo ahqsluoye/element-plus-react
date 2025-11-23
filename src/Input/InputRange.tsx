@@ -271,7 +271,7 @@ const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) =>
                     b('input-range', false),
                     be('input', 'wrapper', false),
                     be('tooltip', 'trigger', false),
-                    is({ active: active || focus, disabled, warning, error }),
+                    is({ focus: active || focus, disabled, warning, error }),
                     { [bm('input-range', size, false)]: size },
                     append || prepend ? null : props.className,
                 )}

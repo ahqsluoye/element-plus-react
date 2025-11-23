@@ -223,6 +223,8 @@ const InputNumber = memo(
                     }, [])}
                     ref={inputRef}
                     {...omit(htmlInputProps, [
+                        'value',
+                        'defaultValue',
                         'disabled',
                         'size',
                         'onInput',

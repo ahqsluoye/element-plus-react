@@ -26,11 +26,6 @@ const layerBase: CSSProperties = {
 };
 
 const Home = () => {
-    const { frontmatter } = useRouteMeta();
-    // const parallax = useParallax<HTMLDivElement>({
-    //     speed: -10,
-    // });
-    // console.log(parallax);
     const target = useRef(null);
 
     const parallax = useParallax(target);
@@ -107,6 +102,11 @@ const Home = () => {
         [parallax],
     );
 
+    const { frontmatter } = useRouteMeta();
+    // const parallax = useParallax<HTMLDivElement>({
+    //     speed: -10,
+    // });
+    // console.log(parallax);
     if (!('hero' in frontmatter)) {
         return null;
     }
@@ -120,7 +120,7 @@ const Home = () => {
                             <div className="banner text-center">
                                 <div className="banner-desc mt-4">
                                     <h1>Element Plus React</h1>
-                                    <p className="t-2">基于 React，面向设计师和开发者的组件库</p>
+                                    <p className="t-2">基于 React 和 Element Plus，面向设计师和开发者的组件库</p>
                                 </div>
                             </div>
                             <div className="jumbotron">

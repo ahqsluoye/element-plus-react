@@ -3,20 +3,24 @@ import classNames from 'classnames';
 import { addClass, addStyle, hasClass, removeClass } from 'dom-lib';
 import isObject from 'lodash/isObject';
 import React, { ComponentType, RefObject, cloneElement, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Icon from '../Icon/Icon';
 import { IconProps } from '../Icon/typings';
 import { isNotEmpty, mergeDefaultProps } from '../Util';
 import { partitionHTMLProps, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
-import InputGroup from './InputGroup';
 import InputRange from './InputRange';
 import TextArea from './TextArea';
 import { InputProps, InputRef, ValueType } from './typings';
 
 function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
+    const { locale } = useConfigProvider();
+    const { t } = useTranslation();
+
     props = mergeDefaultProps(
         {
             type: 'text',
-            placeholder: '请输入',
+            placeholder: t('el.input.placeholder', { lng: locale }),
             clearable: true,
             debounceTime: 200,
             defaultValue: '',
@@ -47,9 +51,10 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
         showWordLimit,
         hiddenValue,
         defaultValue,
+        formatter,
         ...rest
     } = props;
-    const { b, e, m, is } = useClassNames(classPrefix);
+    const { b, e, m, be, bm, is } = useClassNames(classPrefix);
     const [htmlInputProps] = partitionHTMLProps(rest);
 
     const [value, setValue] = useControlled(props.value, defaultValue);
@@ -59,13 +64,22 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
 
     const containerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    const contentRef = useRef<HTMLInputElement>(null);
+    const wrapperRef = useRef<HTMLInputElement>(null);
     const clearRef = useRef<HTMLInputElement>(null);
     const suffixRef = useRef<HTMLInputElement>(null);
     // 搜索框是否输入完毕
     const inputOver = useRef(true);
 
     // const containerRef = useMemo(() => props.containerRef ?? rootRef, [props.containerRef]);
+
+    /** 格式化的数据 */
+    const formatValue = useMemo(() => {
+        let val = value;
+        if (formatter) {
+            val = formatter(val);
+        }
+        return val;
+    }, [formatter, value]);
 
     /** 是否可清空 */
     const clearable = useMemo<boolean>(() => {
@@ -150,11 +164,15 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
                 addStyle(clearRef.current, 'display', 'none');
             }
             hideClear();
-            if (!readOnly && !disabled) {
-                inputRef.current?.focus();
-            }
             onClear?.(event);
             onChange?.('', event);
+            if (requestAnimationFrame) {
+                requestAnimationFrame(() => {
+                    if (!readOnly && !disabled) {
+                        inputRef.current?.focus();
+                    }
+                });
+            }
         },
         [disabled, hideClear, onChange, onClear, readOnly, setValue],
     );
@@ -169,6 +187,7 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
     /** 输入事件 */
     const handleInput = useCallback(
         event => {
+            // console.log('handleInput', event.target.value);
             if (inputOver.current) {
                 // 让搜索变成异步的
                 setValue(event.target.value);
@@ -188,6 +207,7 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
     const handleComposition = useCallback(
         (event: any) => {
             const _type = event.type;
+            // console.log(_type);
             if (_type === 'compositionstart') {
                 inputOver.current = false;
             } else if (_type === 'compositionend') {
@@ -198,14 +218,20 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
         [handleInput],
     );
 
+    // useEffect(() => {
+    //     const input = inputRef.current;
+    //     if (input) {
+    //         input.addEventListener('compositionstart', handleComposition);
+    //         input.addEventListener('compositionupdate', handleComposition);
+    //         input.addEventListener('compositionend', handleComposition);
+    //     }
+    // }, [debounceInput, handleComposition]);
+
     useEffect(() => {
-        const input = inputRef.current;
-        if (input && debounceInput) {
-            input.addEventListener('compositionstart', handleComposition);
-            input.addEventListener('compositionupdate', handleComposition);
-            input.addEventListener('compositionend', handleComposition);
-        }
-    }, [debounceInput, handleComposition]);
+        requestAnimationFrame(() => {
+            inputRef.current.value = formatValue as string;
+        });
+    }, []);
 
     useImperativeHandle(ref, () => ({
         ref: containerRef,
@@ -227,7 +253,7 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
                 let nodeType = prefix?.type;
                 nodeType = (nodeType as ComponentType)?.displayName || nodeType;
 
-                if (nodeType.toString().startsWith('Icon')) {
+                if (nodeType.toString().startsWith('ElIcon')) {
                     return cloneElement(prefix as React.ReactElement<IconProps>, {
                         ...prefix.props,
                         className: classNames(prefix.props?.className, e`icon`),
@@ -239,27 +265,32 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
         return null;
     }, [type, prefix, e]);
 
-    const content = useMemo(() => {
-        return type === 'hidden' ? (
-            <input
-                ref={inputRef}
-                type="hidden"
-                name={name}
-                value={value}
-                disabled={disabled}
-                onChange={debounceInput ? handleDebounceInput : handleInput}
-                onClick={props.onClick}
-                className={props.className}
-                style={props.innerStyle}
-                {...htmlInputProps}
-            />
-        ) : (
+    return (
+        <div
+            ref={containerRef}
+            className={classNames(
+                b(),
+                {
+                    [bm('group', 'prepend')]: prepend,
+                    [bm('group', 'append')]: append,
+                    [m`prefix`]: preffixSlot,
+                    [m`suffix`]: suffixSlot || clearable,
+                    [m(size)]: size,
+                    [b`hidden`]: type === 'hidden',
+                },
+                is({ disabled, plain }),
+                props.className,
+            )}
+            style={props.style}
+            onClick={event => event.stopPropagation()}
+        >
+            {prepend ? <div className={be('group', 'prepend')}>{prepend}</div> : null}
             <div
+                ref={wrapperRef}
                 className={classNames(e`wrapper`, is({ error, warning }))}
-                ref={contentRef}
                 onMouseEnter={() => showClear(value)}
                 onMouseLeave={() => {
-                    if (!hasClass(contentRef.current, is('focus'))) {
+                    if (!hasClass(wrapperRef.current, is('focus'))) {
                         hideClear();
                     }
                 }}
@@ -267,7 +298,7 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
                 {/* 前缀 */}
                 {['text', 'password'].includes(type) && preffixSlot && (
                     <span className={e`prefix`}>
-                        <span className={e`prefix-inner`}>{preffixSlot} </span>
+                        <span className={e`prefix-inner`}>{preffixSlot}</span>
                     </span>
                 )}
 
@@ -285,17 +316,22 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
                     disabled={disabled}
                     maxLength={maxLength}
                     onInput={handleInput}
+                    // onCompositionStart={handleComposition}
+                    // onCompositionUpdate={handleComposition}
+                    // onCompositionEnd={handleComposition}
                     onClick={props.onClick}
                     onFocus={event => {
-                        if (contentRef.current) {
-                            addClass(contentRef.current, is('focus'));
+                        inputRef.current.value = value as string;
+                        if (wrapperRef.current) {
+                            addClass(wrapperRef.current, is('focus'));
                         }
                         showClear(value);
                         onFocus?.call(this, event);
                     }}
                     onBlur={event => {
-                        if (contentRef.current) {
-                            removeClass(contentRef.current, is('focus'));
+                        inputRef.current.value = formatValue as string;
+                        if (wrapperRef.current) {
+                            removeClass(wrapperRef.current, is('focus'));
                         }
                         hideClear();
                         onBlur?.call(this, event);
@@ -323,81 +359,9 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
                     </span>
                 )}
             </div>
-        );
-    }, [
-        type,
-        name,
-        value,
-        disabled,
-        debounceInput,
-        handleDebounceInput,
-        handleInput,
-        props.onClick,
-        props.className,
-        props.innerStyle,
-        htmlInputProps,
-        e,
-        is,
-        error,
-        warning,
-        preffixSlot,
-        title,
-        hiddenValue,
-        placeholder,
-        readOnly,
-        maxLength,
-        handelClear,
-        suffixSlot,
-        b,
-        suffixCanClick,
-        onClickSuffix,
-        showClear,
-        hideClear,
-        onFocus,
-        onBlur,
-    ]);
-
-    if (append || prepend) {
-        return (
-            <InputGroup
-                prepend={prepend}
-                append={append}
-                ref={containerRef}
-                className={classNames(
-                    {
-                        [m(size)]: size,
-                    },
-                    is({ disabled, plain }),
-                    b(),
-                    props.className,
-                )}
-                style={props.style}
-            >
-                {content}
-            </InputGroup>
-        );
-    } else {
-        return (
-            <div
-                ref={containerRef}
-                className={classNames(
-                    b(),
-                    {
-                        [m`prefix`]: preffixSlot,
-                        [m`suffix`]: suffixSlot || clearable,
-                        [m(size)]: size,
-                    },
-                    is({ disabled, plain }),
-
-                    props.className,
-                )}
-                style={append || prepend ? {} : props.style}
-                onClick={event => event.stopPropagation()}
-            >
-                {content}
-            </div>
-        );
-    }
+            {append ? <div className={be('group', 'append')}>{append}</div> : null}
+        </div>
+    );
 }
 
 const ForwardInput = forwardRef(InternalInput) as (props: InputProps & { ref?: RefObject<InputRef> | React.ForwardedRef<InputRef> }) => React.ReactElement;

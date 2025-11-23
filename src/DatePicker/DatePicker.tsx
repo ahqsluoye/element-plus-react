@@ -1,11 +1,14 @@
 import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
+import quarterOfYear from 'dayjs/plugin/quarterOfYear';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import noop from 'lodash/noop';
 import omit from 'lodash/omit';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Calendar, CalendarContext, ValueRagne, initDate, toDayjs } from '../Calendar';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Icon from '../Icon/Icon';
 import Input from '../Input/Input';
 import { InputRef } from '../Input/typings';
@@ -18,6 +21,7 @@ import { DatePickerProps, DatePickerRef } from './typings';
 
 dayjs.extend(advancedFormat);
 dayjs.extend(weekOfYear);
+dayjs.extend(quarterOfYear);
 
 const DatePicker = memo(
     forwardRef<DatePickerRef, DatePickerProps>((props, ref) => {
@@ -31,6 +35,9 @@ const DatePicker = memo(
 
         const disabled = useDisabled(props.disabled);
         const size = useSize(props.size);
+
+        const { locale } = useConfigProvider();
+        const { t } = useTranslation();
 
         const [htmlInputProps] = partitionHTMLProps(rest);
         const [animationInputProps] = partitionAnimationProps(rest);
@@ -48,13 +55,15 @@ const DatePicker = memo(
                         return 'YYYY-MM';
                     case 'week':
                         return 'YYYY[w]ww';
+                    case 'quarter':
+                        return 'YYYY-[Q]Q';
                     default:
                         return 'YYYY-MM-DD';
                 }
             }
         }, [props.format, type]);
 
-        const formatValue = useMemo(() => {
+        const formatValue = useMemo<string>(() => {
             if (typeof value === 'string') {
                 return value;
             } else if (typeof value === 'number') {
@@ -72,22 +81,24 @@ const DatePicker = memo(
             } else {
                 switch (type) {
                     case 'year':
-                        return '请选择年份';
+                        return t('el.datepicker.placeholder.year', { lng: locale });
                     case 'month':
-                        return '请选择月份';
+                        return t('el.datepicker.placeholder.month', { lng: locale });
                     case 'week':
-                        return '请选择周';
+                        return t('el.datepicker.placeholder.week', { lng: locale });
+                    case 'quarter':
+                        return t('el.datepicker.placeholder.quarter', { lng: locale });
                     default:
-                        return '请选择日期';
+                        return t('el.datepicker.placeholder.date', { lng: locale });
                 }
             }
-        }, [props.placeholder, type]);
+        }, [locale, props.placeholder, t, type]);
 
         /** 日期参数转成dayjs对象 */
         const dateProp = useMemo(() => {
             let result = initDate();
             if (isNotEmpty(value)) {
-                if (type === 'week') {
+                if (type === 'week' || type === 'quarter') {
                     if (currentDate.current) {
                         result = currentDate.current;
                     } else if (value instanceof Date) {
@@ -105,6 +116,10 @@ const DatePicker = memo(
                     } else if (typeof value === 'string') {
                         result = toDayjs<Dayjs>(value, props.valueFormat ?? format);
                     }
+                }
+                if (type === 'quarter') {
+                    const quarter = result.quarter();
+                    result = result.month((quarter - 1) * 3).date(1);
                 }
             }
             return result;
@@ -144,15 +159,15 @@ const DatePicker = memo(
                 setValue(val ? val.format(format) : '');
                 currentDate.current = val;
                 if (valueFormat == 'x') {
-                    onChange(val ? val.toDate().getTime() : '');
+                    onChange(val ? val.toDate().getTime() : '', formatValue);
                 } else if (isNotEmpty(props.valueFormat)) {
-                    onChange?.(val ? val.format(valueFormat) : '');
+                    onChange?.(val ? val.format(valueFormat) : '', formatValue);
                 } else {
-                    onChange?.(val ? val.toDate() : '');
+                    onChange?.(val ? val.toDate() : '', formatValue);
                 }
                 setVisible(false);
             },
-            [format, onChange, props.valueFormat, setValue, valueFormat],
+            [format, formatValue, onChange, props.valueFormat, setValue, valueFormat],
         );
 
         useImperativeHandle(ref, () => ({
@@ -178,7 +193,7 @@ const DatePicker = memo(
                     value={formatValue}
                     onChange={noop}
                     onClear={() => handleChange?.(null)}
-                    className={classNames({ [`${namespace}-date`]: readonly, 'is-active': visible })}
+                    className={classNames({ [`${namespace}-date`]: readonly, 'is-focus': visible })}
                     style={props.style}
                     error={error}
                     warning={warning}
@@ -187,6 +202,8 @@ const DatePicker = memo(
                     plain={plain}
                     size={size}
                     {...omit(htmlInputProps, [
+                        'value',
+                        'defaultValue',
                         'style',
                         'prefix',
                         'readOnly',

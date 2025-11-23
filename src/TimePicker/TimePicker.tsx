@@ -211,7 +211,7 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
                         setValue('');
                     }, 500);
                 }}
-                className={classNames({ [`${namespace}-date`]: readonly, 'is-active': visible })}
+                className={classNames({ [`${namespace}-date`]: readonly, 'is-focus': visible })}
                 style={props.style}
                 error={error}
                 warning={warning}
@@ -219,6 +219,8 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
                 prepend={prepend}
                 ref={inputRef}
                 {...omit(htmlInputProps, [
+                    'value',
+                    'defaultValue',
                     'style',
                     'prefix',
                     'readOnly',

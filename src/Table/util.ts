@@ -116,7 +116,7 @@ export function createTablePopper(parentNode: HTMLElement | undefined, trigger: 
             placement: 'top',
             // @ts-ignore
             ref: tooltipRef,
-            hideAfter: 20,
+            hideAfter: 200,
         });
         root.render(vm);
     } else {
@@ -149,9 +149,11 @@ export function createTablePopper(parentNode: HTMLElement | undefined, trigger: 
     //     ...popperOptions,
     // });
     // trigger.addEventListener('mouseenter', showPopper);
-    trigger.addEventListener('mouseleave', () => {
-        tooltipRef.current?.hide();
-    });
+    // trigger.addEventListener('mouseleave', () => {
+    //     setTimeout(() => {
+    //         tooltipRef.current?.hide();
+    //     }, 200);
+    // });
     scrollContainer?.addEventListener('scroll', removePopper);
 }
 

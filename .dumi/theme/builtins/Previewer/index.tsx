@@ -46,6 +46,7 @@ const Previewer: FC<IPreviewerProps> = props => {
     const meta = useRef(null);
     const control = useRef(null);
     const blockControl = useRef(null);
+    const blockControlDown = useRef(null);
     const copyButton = useRef(null);
     const description = useRef(null);
     const highlight = useRef(null);
@@ -100,6 +101,8 @@ const Previewer: FC<IPreviewerProps> = props => {
             control.current.style.left = '0';
             removeScrollHandler();
             return;
+        } else {
+            blockControlDown.current?.onMouseEnter();
         }
         // setTimeout(() => {
         //     scrollParent.current = document.querySelector('.page-component__scroll > .el-scrollbar__wrap');
@@ -125,7 +128,11 @@ const Previewer: FC<IPreviewerProps> = props => {
             )} */}
             <div
                 className={classNames('demo-block', 'demo-zh-CN', `demo-${path}` /* , { hover: hovering } */)}
-                onMouseEnter={() => blockControl.current?.onMouseEnter()}
+                onMouseEnter={() => {
+                    if (!expand) {
+                        blockControl.current?.onMouseEnter();
+                    }
+                }}
                 onMouseLeave={() => blockControl.current?.onMouseLeave()}
             >
                 <div className="source">
@@ -194,6 +201,11 @@ const Previewer: FC<IPreviewerProps> = props => {
                         <SourceCode fileName={files[0][0]} content={files[0][1]} expand={expand} setHeight={setHeight} />
                     )}
                 </div>
+                {expand && (
+                    <div className={classNames('demo-block-control')} onClick={() => setExpand(!expand)}>
+                        <BlockControl ref={blockControlDown} expand />
+                    </div>
+                )}
             </div>
         </>
     );

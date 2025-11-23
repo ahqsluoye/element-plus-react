@@ -27,13 +27,13 @@ lang: zh-CN
 
 <code src="./disabled.tsx"></code>
 
-<!-- ## 可清空单选
+## 可清空单选
 
 您可以使用清除图标来清除选择。
 
 为 `ElSelect` 设置 `clearable` 属性，则可将选择器清空。 需要注意的是，`clearable` 属性仅适用于单选。
 
-<code src="./clearable.tsx"></code> -->
+<code src="./clearable.tsx"></code>
 
 ## 基础多选
 
@@ -51,6 +51,18 @@ lang: zh-CN
 
 <code src="./custom-template.tsx"></code>
 
+## 自定义下拉菜单的头部
+
+您可以自定义下拉菜单的头部。
+
+<code src="./custom-header.tsx"></code>
+
+## 自定义下拉菜单的底部
+
+您可以自定义下拉菜单的底部。
+
+<code src="./custom-footer.tsx"></code>
+
 ## 将选项进行分组
 
 你可以为选项进行分组来区分不同的选项
@@ -58,14 +70,6 @@ lang: zh-CN
 使用 `ElOptionGroup` 对备选项进行分组，它的 `label` 属性为分组名
 
 <code src="./grouping.tsx"></code>
-
-## 筛选选项
-
-可以利用筛选功能快速查找选项。
-
-为`ElSelect`添加`filterable`属性即可启用搜索功能。 默认情况下，Select 会找出所有 `label` 属性包含输入值的选项。 如果希望使用其他的搜索逻辑，可以通过传入一个 `filterMethod` 来实现。 `filterMethod` 为一个 `Function`，它会在输入值发生变化时调用，参数为当前输入值。
-
-<code src="./filterable.tsx"></code>
 
 ## 远程搜索
 
@@ -79,17 +83,37 @@ lang: zh-CN
 
 创建并选中未包含在初始选项中的条目。
 
-通过使用 `allowCreate` 属性，用户可以通过输入框创建新项目。
+通过使用 `allowCreate` 属性，用户可以通过输入框创建新项目。为了使 `allowCreate` 正常工作， `filterable` 的值必须为 `true`。
 
  <!-- 本例还使用了 `default-first-option` 属性， 在该属性为 `true` 的情况下，按下回车就可以选中当前选项列表中的第一个选项，无需使用鼠标或键盘方向键进行定位。 -->
 
 <code src="./allow-create.tsx"></code>
 
-<!-- :::info{title=TIP}
+## 使用值键 data 属性
 
-如果 Select 的绑定值为对象类型，请务必指定 `valueKey` 作为它的唯一性标识。
+如果 `Select` 选中后需要获取额外的数据时，请使用 `data` 属性可以传入自定义数据，数据类型不限，可以是 `Object`，可以是 `Boolean`，或者 `String`，在选中的选项后，`onChange` 回调函数会返回该数据。
 
-::: -->
+<code src="./data.tsx"></code>
+
+## 自定义标签
+
+您可以自定义标签。
+
+通过使用 `tag` 属性，可以自定义的标签内容。 `collapseTags`, `collapseTagsTooltip`, `maxCollapseTags` 在此模式下不生效.
+
+<code src="./custom-tag.tsx"></code>
+
+## 自定义加载
+
+修改加载区域内容
+
+<code src="./custom-loading.tsx"></code>
+
+## 自定义标签
+
+您可以自定义标签
+
+<code src="./custom-label.tsx"></code>
 
 ## Select API
 

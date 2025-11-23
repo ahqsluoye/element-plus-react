@@ -443,13 +443,13 @@ function InternalTreeSelect<RecordType extends BasicDataNode = DataNode>(props: 
                         onClick={onClick}
                         onClear={onClear}
                         plain={props.plain}
-                        className={is({ active: visible })}
+                        className={is({ focus: visible })}
                         error={error}
                         warning={warning}
                         innerStyle={multiple ? { height: inputHeight } : {}}
                         suffix={<Icon prefix="fal" name="angle-down" className={visible ? 'fa-rotate-180' : ''} onClick={onClick} />}
                         ref={inputInstance}
-                        {...omit(htmlInputProps, ['onInput', 'disabled', 'size', 'prefix', 'onChange', 'style'])}
+                        {...omit(htmlInputProps, ['value', 'defaultValue', 'onInput', 'disabled', 'size', 'prefix', 'onChange', 'style'])}
                     />
                 </div>
 

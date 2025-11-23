@@ -15,6 +15,7 @@ import Footer from './Footer';
 import Header from './Header';
 import MonthPanel from './MonthPanel';
 import MonthRangePanel from './MonthRangePanel';
+import QuarterPanel from './QuarterPanel';
 import ShortCuts from './ShortCuts';
 import WeekPanel from './WeekPanel';
 import YearPanel from './YearPanel';
@@ -91,7 +92,7 @@ const Calendar: FC<CalendarProps> = forwardRef<HTMLDivElement, CalendarProps>((p
 
     // 是否要选择月份
     const hasMonth = useMemo(() => {
-        return dateType !== 'year';
+        return !['year', 'quarter'].includes(dateType);
     }, [dateType]);
 
     // 当前面板是否是范围组件
@@ -192,7 +193,12 @@ const Calendar: FC<CalendarProps> = forwardRef<HTMLDivElement, CalendarProps>((p
                 }
                 popperInstRef?.current?.update();
             } else {
-                onChange?.(date);
+                if (dateType === 'quarter') {
+                    setView('quarter');
+                    setValue(date);
+                } else {
+                    onChange?.(date);
+                }
             }
         },
         [dateType, hasMonth, onChange, popperInstRef, rangePosition, valueRange],
@@ -306,7 +312,7 @@ const Calendar: FC<CalendarProps> = forwardRef<HTMLDivElement, CalendarProps>((p
                             year={currentYear}
                             month={t(`el.datepicker.month${currentDate.month() + 1}`, { lng: locale })}
                             showMonth={['date', 'dates', 'week'].includes(view)}
-                            border={['year', 'month'].includes(view)}
+                            border={['year', 'month', 'quarter'].includes(view)}
                             onToggleView={onToggleView}
                             onMoveBackward={() => switchDate(-1, 'M')}
                             onMoveForward={() => switchDate(1, 'M')}
@@ -318,6 +324,7 @@ const Calendar: FC<CalendarProps> = forwardRef<HTMLDivElement, CalendarProps>((p
                     {view === 'year' && <YearPanel value={defaultValue} onPickYear={onPickYear} />}
                     {view === 'month' && <MonthPanel value={defaultValue} onPickMonth={onPickMonth} />}
                     {view === 'date' && <DatePanel value={defaultValue} onPickDate={onPickDate} />}
+                    {view === 'quarter' && <QuarterPanel value={defaultValue} onPickDate={onPickDate} />}
                     {view === 'week' && <WeekPanel value={defaultValue} valueRange={valueRange} onPickDate={onPickDate} onPickDateRange={onPickWeek} />}
                     {view === 'daterange' && (
                         <DateRangePanel value={valueRange} valueRange={valueRangeTemp} onToggleView={onToggleView} onPickDateRange={onPickDateRange} onHoverDate={onHoverDate} />

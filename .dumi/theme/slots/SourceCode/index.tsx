@@ -31,7 +31,7 @@ const SourceCode: FC<Props> = memo(props => {
             setHeight(expand ? highlight.current.offsetHeight + (isNotEmpty(activeName) ? 45 : 5) + 'px' : '0');
             if (expand) {
                 const div = document.createElement('div');
-                div.style.height = 'calc(100vh - 140px)';
+                div.style.height = 'calc(100vh - 180px)';
                 document.body.appendChild(div);
 
                 setTimeout(() => {

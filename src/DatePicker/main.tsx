@@ -6,7 +6,7 @@ import { AllDatePickerProps, DatePickerProps, DatePickerRangeProps, DatePickerRe
 
 const Index = forwardRef<DatePickerRef, AllDatePickerProps>((props, ref) => {
     const { type = 'date' } = props;
-    if (['year', 'years', 'month', 'months', 'date', 'dates', 'week'].includes(type)) {
+    if (['year', 'years', 'month', 'months', 'date', 'dates', 'week', 'quarter'].includes(type)) {
         return <DatePicker ref={ref} {...(props as unknown as DatePickerProps)} />;
     } else if (['daterange', 'monthrange', 'yearrange'].includes(type)) {
         return <DateRangePicker ref={ref} {...(props as unknown as DatePickerRangeProps)} />;

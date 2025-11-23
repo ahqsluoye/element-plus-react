@@ -260,6 +260,6 @@ const WeekPanel: FC<WeekPanelProps> = props => {
     );
 };
 
-WeekPanel.displayName = 'Calendar.DatePanel';
+WeekPanel.displayName = 'Calendar.WeekPanel';
 
 export default WeekPanel;

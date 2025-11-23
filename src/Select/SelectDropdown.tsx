@@ -1,14 +1,9 @@
 import classNames from 'classnames';
-import trim from 'lodash/trim';
 import React, { Children, ComponentType, cloneElement, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import { Divider } from '../Divider';
-import Icon from '../Icon/Icon';
-import { InputRef } from '../Input';
-import Input from '../Input/Input';
 import Scrollbar from '../Scrollbar/Scrollbar';
-import { isEmpty, isNotEmpty } from '../Util';
+import { isNotEmpty } from '../Util';
 import { useClassNames } from '../hooks';
 import Option from './Option';
 import { SelectContext } from './SelectContext';
@@ -18,71 +13,43 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
     const {
         value,
         filterable,
+        allowCreate,
         multiple = false,
         filterMethod,
         remote = false,
         remoteMethod,
         loadingText,
+        loadingIcon,
         noMatchText,
         noDataText,
-        searchInstance,
-        createItem,
-        setCreateItem,
-        createInputRef,
+        inputValue: searchText,
+        setInputValue,
         onChoose,
         popperInstRef,
         contentRef,
+        header,
+        footer,
     } = props;
     const { b, e, be, is } = useClassNames('select');
     const ulRef = useRef<HTMLUListElement>(null);
-    const remoteSearchRef = useRef<InputRef>(null);
 
     const { locale } = useConfigProvider();
     const { t } = useTranslation();
 
     // 下拉项高亮
     const [hover, setHover] = useState(value);
-    // 搜索关键词
-    const [searchText, setSearchText] = useState('');
-    // const [remoteSearch, setRemoteSearch] = useState('');
-    // const remoteSearch = useMemo(() => searchInstance.current?.getValue(), [searchInstance]);
 
     /** 搜索时 */
     useEffect(() => {
         if (popperInstRef.current && popperInstRef.current.update) {
             popperInstRef.current?.update();
         }
+        if (filterable && remote) {
+            remoteMethod?.(searchText);
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchText]);
-
-    /** 清除搜索关键词 */
-    const onClearSearch = useCallback(event => {
-        event?.stopPropagation();
-        setSearchText('');
-    }, []);
-
-    /** 搜索 */
-    const onSearch = useCallback(
-        (val: string | number) => {
-            const keywords = trim(val + '');
-            if (keywords === searchText) {
-                return;
-            } else if (isEmpty(keywords)) {
-                setSearchText('');
-            }
-
-            setSearchText(keywords);
-        },
-        [searchText],
-    );
-
-    /** 搜索 */
-    const onRemote = useCallback(
-        (val: string) => {
-            remoteMethod?.(val);
-        },
-        [remoteMethod],
-    );
 
     const filterAction = useCallback(
         (p: SelectOptionProps) => {
@@ -92,7 +59,7 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
                     return filterResult;
                 } else {
                     const regex = new RegExp(searchText, 'gi');
-                    const res = null !== (p.label ?? p.value.toString()).match(regex);
+                    const res = null !== `${p.label ?? p.value ?? ''}`.match(regex);
                     return res;
                 }
             } else {
@@ -120,43 +87,58 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
 
     useImperativeHandle(ref, () => ({
         clear: () => {
-            setSearchText('');
             remoteMethod?.('');
-        },
-        onEnter: () => {
-            setTimeout(() => {
-                searchInstance.current?.focus();
-                remoteSearchRef.current?.focus();
-            }, 500);
         },
         hover: setHover,
         scrollToSelected,
     }));
 
-    const loading = useMemo(
-        () => (
-            <Option className="no-data" value="">
-                {loadingText}
-            </Option>
-        ),
-        [loadingText],
-    );
+    const loading = useMemo(() => {
+        if (loadingIcon) {
+            return <div className={be('dropdown', 'loading')}>{loadingIcon}</div>;
+        } else if (loadingText) {
+            return <div className={be('dropdown', 'empty')}>{loadingText}</div>;
+        }
+    }, [be, loadingIcon, loadingText]);
 
     const options = useMemo(() => {
+        // 正在创建新的选项
+        if (filterable && allowCreate && isNotEmpty(searchText)) {
+            // 单选时的创建项显示在下拉项里
+            if (!multiple && value === searchText) {
+                return (
+                    <>
+                        {searchText && !multiple && <Option value={searchText} label={searchText} />}
+                        {props.children}
+                    </>
+                );
+            }
+            return (
+                <Option
+                    value={searchText}
+                    label={searchText}
+                    onClick={() => {
+                        if (multiple) {
+                            setInputValue('');
+                        }
+                    }}
+                />
+            );
+        }
         // 搜索
-        if (isNotEmpty(searchText)) {
+        if (filterable && !remote && isNotEmpty(searchText)) {
             let match = false;
             return props.children ? (
                 <>
                     {Children.toArray(props.children).map((item: React.ReactElement<SelectOptionGroupProps | SelectOptionProps>) => {
                         let nodeType = item?.type;
                         nodeType = (nodeType as ComponentType)?.displayName || nodeType;
-                        if (nodeType === 'Select.Option') {
+                        if (nodeType === 'ElOption') {
                             if (filterAction((item as React.ReactElement<SelectOptionProps>).props)) {
                                 match = true;
                                 return item;
                             }
-                        } else if (nodeType === 'OptionGroup') {
+                        } else if (nodeType === 'ElOptionGroup') {
                             if (item.props.children) {
                                 const matchChildren = Children.toArray((item as React.ReactElement<SelectOptionGroupProps>).props.children).filter(
                                     (item1: React.ReactElement<SelectOptionProps>) => {
@@ -177,93 +159,35 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
                         //     return item;
                         // }
                     })}
-                    {!match && (
-                        <Option className="no-data" value="" key={'noMatchText'}>
-                            {noMatchText}
-                        </Option>
-                    )}
+                    {!match && <div className={be('dropdown', 'empty')}>{noMatchText}</div>}
                 </>
             ) : null;
-        }
-        // 正在创建新的选项
-        else if (isNotEmpty(createItem)) {
-            // 单选时的创建项显示在下拉项里
-            if (!multiple && value === createItem) {
-                return (
-                    <>
-                        {createItem && !multiple && <Option value={createItem} label={createItem} />}
-                        {props.children}
-                    </>
-                );
-            }
-            return (
-                <Option
-                    value={createItem}
-                    label={createItem}
-                    onClick={() => {
-                        if (multiple) {
-                            setCreateItem('');
-                            if (createInputRef.current) {
-                                createInputRef.current.value = '';
-                            }
-                        }
-                    }}
-                />
-            );
         } else {
             if (Children.count(props.children) > 0) {
                 return props.children;
             } else {
-                return (
-                    <Option className="no-data" value="">
-                        {noDataText}
-                    </Option>
-                );
+                return <div className={be('dropdown', 'empty')}>{remote ? noMatchText : noDataText}</div>;
             }
         }
-    }, [searchText, createItem, props.children, noMatchText, filterAction, multiple, value, setCreateItem, createInputRef, noDataText]);
+    }, [filterable, allowCreate, searchText, remote, multiple, value, props.children, setInputValue, noMatchText, filterAction, be, noDataText]);
 
     return (
-        <div className={classNames(b`dorpdown`, is({ multiple }))} onClick={event => event.stopPropagation()} ref={contentRef}>
+        <div
+            className={classNames(b`dorpdown`, is({ multiple }), { 'custom-header': header, 'custom-footer': footer })}
+            onClick={event => event.stopPropagation()}
+            ref={contentRef}
+        >
             <>
-                {filterable && !remote ? (
-                    <div className={e`search`} onClick={event => event.stopPropagation()}>
-                        <Input
-                            ref={searchInstance}
-                            placeholder={t('el.select.search', { lng: locale })}
-                            clearable
-                            plain
-                            // debounceInput
-                            onClear={onClearSearch}
-                            onChange={onSearch}
-                            prefix={<Icon prefix="fal" name="search" />}
-                        />
-                        <Divider style={{ margin: 0 }} />
-                    </div>
-                ) : null}
-                {filterable && remote ? (
-                    <div className={e`search`} onClick={event => event.stopPropagation()}>
-                        <Input
-                            ref={remoteSearchRef}
-                            // value={remoteSearch}
-                            placeholder={t('el.select.search', { lng: locale })}
-                            clearable
-                            plain
-                            debounceInput
-                            onClear={() => onRemote('')}
-                            onChange={onRemote}
-                            prefix={<Icon prefix="fal" name="search" />}
-                        />
-                        <Divider style={{ margin: 0 }} />
-                    </div>
-                ) : null}
+                {header ? <div className={be('dropdown', 'header')}>{header}</div> : null}
                 <SelectContext.Provider value={{ value, onChoose, hover, setHover, multiple }}>
-                    <Scrollbar wrapClass={be('dropdown', 'wrap')}>
+                    <Scrollbar wrapClass={be('dropdown', 'wrap')} wrapStyle={{ display: props.loading ? 'none' : undefined }}>
                         <ul className={be('dropdown', 'list')} ref={ulRef}>
-                            {props.loading ? loading : options}
+                            {options}
                         </ul>
                     </Scrollbar>
+                    {props.loading ? loading : null}
                 </SelectContext.Provider>
+                {footer ? <div className={be('dropdown', 'footer')}>{footer}</div> : null}
             </>
         </div>
     );

@@ -161,7 +161,7 @@ const DateTimePicker = memo(
                             onVisibleChange?.(false);
                         }
                     }}
-                    className={classNames({ [b('date', false)]: readonly }, is({ active: visible }))}
+                    className={classNames({ [b('date', false)]: readonly }, is({ focus: visible }))}
                     style={props.style}
                     error={error}
                     warning={warning}
@@ -169,6 +169,8 @@ const DateTimePicker = memo(
                     append={append}
                     plain={props.plain}
                     {...omit(htmlInputProps, [
+                        'value',
+                        'defaultValue',
                         'style',
                         'prefix',
                         'readOnly',

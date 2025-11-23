@@ -1,12 +1,12 @@
 import noop from 'lodash/noop';
 import { createContext } from 'react';
-import { ValueType } from './typings';
+import { OptionData, OptionValue, ValueType } from './typings';
 
-interface SelectContextProps {
+export interface SelectContextProps {
     value: ValueType;
     hover: ValueType;
     setHover: (value: ValueType) => void;
-    onChoose: (value: string | number, label: string, e: any) => void;
+    onChoose: (value: OptionValue, data: OptionData, e: any) => void;
     multiple: boolean;
 }
 

@@ -12,7 +12,7 @@ export interface InputNumberProps<V = ValueType>
         NativeProps,
         Omit<
             React.AllHTMLAttributes<HTMLInputElement>,
-            'defaultValue' | 'size' | 'prefix' | 'type' | 'onInput' | 'onChange' | 'style' | 'value' | 'ref' | 'className' | 'readOnly' | 'disabled' | 'name' | 'children'
+            'value' | 'defaultValue' | 'size' | 'prefix' | 'type' | 'onInput' | 'onChange' | 'style' | 'value' | 'ref' | 'className' | 'readOnly' | 'disabled' | 'name' | 'children'
         > {
     /** 设置计数器允许的最大值 */
     max?: number;

@@ -5,7 +5,9 @@ import head from 'lodash/head';
 import last from 'lodash/last';
 import noop from 'lodash/noop';
 import React, { forwardRef, memo, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Calendar, CalendarContext, ValueRagne, initDateRange, toDayjs } from '../Calendar';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Icon from '../Icon/Icon';
 import { InputGroup } from '../Input';
 import Popper from '../Popper/Popper';
@@ -40,6 +42,9 @@ const DateRangePicker = memo(
 
         const disabled = useDisabled(props.disabled);
         const size = useSize(props.size);
+
+        const { locale } = useConfigProvider();
+        const { t } = useTranslation();
 
         /** 没有指定格式时，根据日期类型初始格式 */
         const format = useMemo(() => {
@@ -79,14 +84,14 @@ const DateRangePicker = memo(
             } else {
                 switch (props.type) {
                     case 'monthrange':
-                        return '开始月份';
+                        return t('el.datepicker.startMonth', { lng: locale });
                     case 'yearrange':
-                        return '开始年份';
+                        return t('el.datepicker.startYear', { lng: locale });
                     default:
-                        return '开始日期';
+                        return t('el.datepicker.startDate', { lng: locale });
                 }
             }
-        }, [props.startPlaceholder, props.type]);
+        }, [locale, props.startPlaceholder, props.type, t]);
 
         /** 根据日期类型设定占位符 */
         const endPlaceholder = useMemo(() => {
@@ -95,14 +100,14 @@ const DateRangePicker = memo(
             } else {
                 switch (props.type) {
                     case 'monthrange':
-                        return '结束月份';
+                        return t('el.datepicker.endMonth', { lng: locale });
                     case 'yearrange':
-                        return '结束年份';
+                        return t('el.datepicker.endYear', { lng: locale });
                     default:
-                        return '结束日期';
+                        return t('el.datepicker.endDate', { lng: locale });
                 }
             }
-        }, [props.endPlaceholder, props.type]);
+        }, [locale, props.endPlaceholder, props.type, t]);
 
         /** 日期参数转成dayjs对象 */
         const dateProp = useMemo(() => {
@@ -191,7 +196,7 @@ const DateRangePicker = memo(
                         be('input', 'wrapper', false),
                         be('tooltip', 'trigger', false),
                         { [bm('editor', size)]: size },
-                        is({ active: visible, disabled, error, warning }),
+                        is({ focus: visible, disabled, error, warning }),
                     )}
                     ref={referenceElement}
                     onClick={onActive}

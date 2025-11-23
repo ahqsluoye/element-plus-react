@@ -5,16 +5,16 @@ export const NAV: IThemeConfig['nav'] = {
         { title: '指南', link: '/guide/installation', activePath: '/guide/installation' },
         {
             title: '组件',
-            link: '/components/button',
-            activePath: '/components/button',
+            link: '/components/overview',
+            activePath: '/components/overview',
         },
     ],
     'en-US': [
         { title: 'guide', link: '/en/guide' },
         {
             title: 'components',
-            link: '/en/components/button',
-            activePath: '/components/button',
+            link: '/en/components/overview',
+            activePath: '/components/overview',
         },
     ],
 };
@@ -37,6 +37,10 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
         },
     ],
     '/components': [
+        {
+            title: 'Overview 组件总览',
+            children: [{ link: '/components/overview', title: 'Overview 组件总览' }],
+        },
         {
             title: 'Basic 基础组件',
             children: [

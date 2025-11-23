@@ -66,7 +66,7 @@ export interface DatePickerProps
     appendToBody?: boolean;
     /** 点击确定按钮的回调 */
     onOk?: () => void;
-    onChange?: (value: string | Date | number, event?: Event) => void;
+    onChange?: (value: string | Date | number, formatDate?: string) => void;
     /** 格式化 */
     formatter?: (value: Dayjs, text: number) => React.ReactElement;
 }
