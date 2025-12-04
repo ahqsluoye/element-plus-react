@@ -1,7 +1,8 @@
 import React, { useCallback, useRef, useState } from 'react';
 import './style.scss';
 // import SearchBar from '../SearchBar';
-import { ElIcon, ElSwitch } from '@qsxy/element-plus-react';
+import config from '@/../package.json';
+import { ElIcon, ElSwitch, ElTag } from '@qsxy/element-plus-react';
 import { useMount } from 'ahooks';
 import { addClass, removeClass } from 'dom-lib';
 import { Link, useNavData } from 'dumi';
@@ -72,6 +73,11 @@ const Header = () => {
                         <Link to="/">
                             <img className="logo" src={require('@/theme/images/element-react-logo.svg').default} alt="Element React Logo" />
                         </Link>
+                    </div>
+                    <div className="version">
+                        <ElTag type="primary" size="small" round className="version-tag">
+                            {config.version}
+                        </ElTag>
                     </div>
 
                     <div className="content">
