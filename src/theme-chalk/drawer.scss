@@ -147,6 +147,7 @@
 
     &.is-border {
         border-bottom: 1px solid var(--#{$namespace}-border-color);
+        padding-bottom: var(--#{$namespace}-drawer-padding-primary);
     }
 
     .#{$namespace}-drawer-header-close {

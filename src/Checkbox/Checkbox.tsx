@@ -76,7 +76,13 @@ const Checkbox = memo(
 
         const main = useMemo(
             () => (
-                <label className={classNames(b(), is({ checked, disabled }), m({ [size]: size }), className)} ref={containerRef} {...tooltipEvents} onClick={onClick}>
+                <label
+                    className={classNames(b(), is({ checked, disabled }), m({ [size]: size }), className)}
+                    style={props.style}
+                    ref={containerRef}
+                    {...tooltipEvents}
+                    onClick={onClick}
+                >
                     <input
                         key={name}
                         {...htmlInputProps}
@@ -116,6 +122,7 @@ const Checkbox = memo(
                 onCheckboxClick,
                 onClick,
                 prevent,
+                props.style,
                 readOnly,
                 size,
                 tooltipEvents,

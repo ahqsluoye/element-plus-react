@@ -341,6 +341,7 @@ const useSelect = (props: SelectProps) => {
                     }
                     setSelected(multiData);
                 } else {
+                    setInputValue('');
                     setSelected(data);
                 }
                 if (allowCreate && isNotEmpty(inputValue)) {
