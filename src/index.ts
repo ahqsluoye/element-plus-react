@@ -1,21 +1,27 @@
 import './locale/i18n';
 
 /* Basic 基础组件 */
-export { Link as ElLink } from './Link';
-export type { LinkProps } from './Link';
-
 export { Button as ElButton } from './Button';
 export type { ButtonGroupProps, ButtonProps } from './Button';
 
+export { Aside as ElAside, Container as ElContainer, Footer as ElFooter, Header as ElHeader, Main as ElMain } from './Container';
+export type { AsideProps, ContainerProps, FooterProps, HeaderProps, MainProps } from './Container';
+
 export { Col as ElCol } from './Col';
 export type { ColProps } from './Col';
+
+export { Row as ElRow, RowContext } from './Row';
+export type { RowProps } from './Row';
 
 export { Icon as ElIcon } from './Icon';
 export type { IconName, IconPrefix, IconProps } from './Icon';
 export * from './Icon/IconList';
 
-export { Row as ElRow, RowContext } from './Row';
-export type { RowProps } from './Row';
+export { Link as ElLink } from './Link';
+export type { LinkProps } from './Link';
+
+export { Text as ElText } from './Text';
+export type { TextProps } from './Text';
 
 export { Scrollbar as ElScrollbar } from './Scrollbar';
 export type { BarProps, ScrollbarProps, ScrollbarRef } from './Scrollbar';
@@ -98,9 +104,6 @@ export type { BadgeProps } from './Badge';
 export { Card as ElCard } from './Card';
 export type { CardProps } from './Card';
 
-export { Aside as ElAside, Container as ElContainer, Footer as ElFooter, Header as ElHeader, Main as ElMain } from './Container';
-export type { AsideProps, ContainerProps, FooterProps, HeaderProps, MainProps } from './Container';
-
 export { Carousel as ElCarousel, CarouselItem as ElCarouselItem } from './Carousel';
 export type { CarouselItemProps, CarouselProps, CarouselRef } from './Carousel';
 
@@ -125,26 +128,25 @@ export type { TagProps } from './Tag';
 export { TimeLine as ElTimeLine, TimeLineItem as ElTimeLineItem } from './TimeLine';
 export type { TimeLineItemProps, TimeLineProps } from './TimeLine';
 
-export { DirectoryTree as ElDirectoryTree, Tree as ElTree /* , TreeNode */ } from './Tree';
+export { Tree as ElTree } from './Tree';
 export type {
-    BasicDataNode,
-    DataNode,
-    DirectoryTreeExpandAction,
-    DirectoryTreeProps,
-    EventDataNode,
-    Key,
-    // AntTreeNode,
-    // AntTreeNodeCheckedEvent,
-    // AntTreeNodeExpandedEvent,
-    // AntTreeNodeMouseEvent,
-    // AntTreeNodeProps,
-    // AntTreeNodeSelectedEvent,
-    // AntdTreeNodeAttribute,
+    AllowDragFunction,
+    AllowDropFunction,
+    AllowDropType,
+    FilterNodeMethodFunction,
+    LoadFunction,
+    NodeDropType,
+    TreeNode,
+    TreeNodeData,
+    TreeNodeProps,
+    TreeOptionProps,
     TreeProps,
+    TreeRef,
+    TreeStore,
 } from './Tree';
 
-export { TreeSelect as ElTreeSelect } from './TreeSelect';
-export type { SelectInfo, TreeSelectProps, TreeSelectRef } from './TreeSelect';
+// export { TreeSelect as ElTreeSelect } from './TreeSelect';
+// export type { SelectInfo, TreeSelectProps, TreeSelectRef } from './TreeSelect';
 
 // export { VirtualList } from './VirtualList';
 // export type { ListProps, ListRef, ScrollTo } from './VirtualList';
@@ -201,7 +203,6 @@ export { Divider as ElDivider } from './Divider';
 export type { DividerProps } from './Divider';
 
 /* 工具库与hooks */
-export { PopupManager, download, genFileId, generateTree, getScrollWidth, isEmpty, isNotEmpty, randomCode } from './Util';
 export {
     htmlInputAttrs,
     htmlInputEvents,
@@ -220,6 +221,7 @@ export {
     useForceUpdate,
     useSize,
 } from './hooks';
+export { PopupManager, download, genFileId, generateTree, getScrollWidth, isEmpty, isNotEmpty, randomCode } from './Util';
 
 /* 通用types */
 export type { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps, StandardProps, TooltipBaseProps, TypeAttributes } from './types/common';

@@ -57,6 +57,10 @@
         }
     }
 
+    @include when(hidden) {
+        display: none;
+    }
+
     @include e(content) {
         @include css-var-from-global('checkbox-height', 'tree-node-content-height');
 

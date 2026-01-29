@@ -1,6 +1,6 @@
 import React from 'react';
-import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
+import Text from '../Text/Text';
 import type Node from './model/node';
 import { RenderContentFunction } from './typings';
 
@@ -10,11 +10,17 @@ interface Props {
 }
 
 const TreeNodeContent = (props: Props) => {
-    props = mergeDefaultProps({ node: {} }, props);
-    const { node } = props;
+    // props = mergeDefaultProps({ node: {} as Node }, props);
+    const { node = {} as Node } = props;
     const { be } = useClassNames('tree');
     const { data, store } = node;
-    return props.renderContent ? props.renderContent({ _self: null, node, data, store }) : <span className={be('node', 'label')}>{node.label}</span>;
+    return props.renderContent ? (
+        props.renderContent({ _self: null, node, data, store })
+    ) : (
+        <Text className={be('node', 'label')} truncated>
+            {node.label}
+        </Text>
+    );
 };
 
 export default TreeNodeContent;

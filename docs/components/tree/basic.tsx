@@ -1,29 +1,80 @@
-import { ElDirectoryTree, ElSwitch } from '@qsxy/element-plus-react';
-import React, { useState } from 'react';
-import { Demo1 } from './treeData';
+import { ElTree } from '@qsxy/element-plus-react';
+import React from 'react';
+
+interface Tree {
+    label: string;
+    children?: Tree[];
+}
 
 const App = () => {
-    const [showLine, setShowLine] = useState<boolean | { showLeafIcon: boolean }>(true);
-    const [showIcon, setShowIcon] = useState<boolean>(false);
-    const [showLeafIcon, setShowLeafIcon] = useState<boolean>(true);
-
-    const onSetLeafIcon = (checked: boolean) => {
-        setShowLeafIcon(checked);
-        setShowLine({ showLeafIcon: checked });
+    const defaultProps = {
+        children: 'children',
+        label: 'label',
     };
 
-    const onSetShowLine = (checked: boolean) => {
-        setShowLine(checked ? { showLeafIcon } : false);
+    const data: Tree[] = [
+        {
+            label: 'Level one 1',
+            children: [
+                {
+                    label: 'Level two 1-1',
+                    children: [
+                        {
+                            label: 'Level three 1-1-1',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: 'Level one 2',
+            children: [
+                {
+                    label: 'Level two 2-1',
+                    children: [
+                        {
+                            label: 'Level three 2-1-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Level two 2-2',
+                    children: [
+                        {
+                            label: 'Level three 2-2-1',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: 'Level one 3',
+            children: [
+                {
+                    label: 'Level two 3-1',
+                    children: [
+                        {
+                            label: 'Level three 3-1-1',
+                        },
+                    ],
+                },
+                {
+                    label: 'Level two 3-2',
+                    children: [
+                        {
+                            label: 'Level three 3-2-1',
+                        },
+                    ],
+                },
+            ],
+        },
+    ];
+
+    const handleNodeClick = (data: Tree) => {
+        console.log(data);
     };
 
-    return (
-        <>
-            <ElSwitch value={!!showLine} activeText="showLine" onChange={(_, checked) => onSetShowLine(checked)} style={{ paddingRight: 20 }} />
-            <ElSwitch value={showIcon} activeText="showIcon" onChange={(_, checked) => setShowIcon(checked)} style={{ paddingRight: 20 }} />
-            <ElSwitch value={showLeafIcon} activeText="showLeafIcon" onChange={(_, checked) => onSetLeafIcon(checked)} style={{ paddingRight: 20 }} />
-            <ElDirectoryTree treeData={Demo1} showLine={showLine} showIcon={showIcon} />
-        </>
-    );
+    return <ElTree data={data} props={defaultProps} style={{ maxWidth: 600 }} onNodeClick={handleNodeClick} />;
 };
 
 export default App;

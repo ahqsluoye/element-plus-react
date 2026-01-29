@@ -200,6 +200,40 @@
                 left: 21%;
             }
         }
+
+        &.is-indeterminate {
+            & + .#{$namespace}-checkbox__inner {
+                &:after {
+                    color: var(--#{$namespace}-checkbox-disabled-checked-icon-color);
+                    font-family: $fa-font-family;
+                    content: '\f068';
+                    font-weight: bold;
+                    display: block;
+                    height: var(--#{$namespace}-checkbox-input-height);
+                    width: var(--#{$namespace}-checkbox-input-width);
+                    padding: 3px 2px 2px 3px;
+                    border-radius: 3px;
+                    border: 1px;
+                    transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+                    transform: none;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    opacity: 1;
+                }
+            }
+
+            // &:checked + .#{$namespace}-checkbox__inner:after {
+            //     font-family: $fa-font-family;
+            //     content: '\f00c';
+            //     font-weight: normal;
+            //     display: block;
+            //     height: var(--#{$namespace}-checkbox-input-height);
+            //     width: var(--#{$namespace}-checkbox-input-width);
+            //     padding: 3px 2px 2px 2px;
+            //     transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+            // }
+        }
     }
 }
 

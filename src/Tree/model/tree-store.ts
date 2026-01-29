@@ -9,8 +9,8 @@ export default class TreeStore {
     currentNode: Node | null;
     currentNodeKey: TreeKey | null;
     nodesMap: TreeStoreNodesMap;
-    root!: Node;
-    data!: TreeData;
+    root: Node;
+    data: TreeData;
     lazy = false;
     load?: LoadFunction;
     filterNodeMethod?: FilterNodeMethodFunction;
@@ -21,7 +21,8 @@ export default class TreeStore {
     autoExpandParent = false;
     defaultExpandAll = false;
     checkDescendants = false;
-    props!: TreeOptionProps;
+    props: TreeOptionProps;
+    forceUpdate?: () => void;
 
     constructor(options: TreeStoreOptions) {
         this.currentNode = null;
@@ -94,7 +95,9 @@ export default class TreeStore {
             }
         };
 
-        traverse(this);
+        traverse(this).then(() => {
+            this.forceUpdate();
+        });
     }
 
     setData(newVal: TreeData): void {

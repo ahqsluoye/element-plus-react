@@ -11,7 +11,7 @@ export interface TreeNode {
     $el?: HTMLElement;
 }
 
-interface DragOptions {
+export interface DragOptions {
     event: DragEvent;
     treeNode: TreeNode;
 }
@@ -20,8 +20,6 @@ interface Props {
     props: {
         allowDrag?: AllowDragFunction;
         allowDrop?: AllowDropFunction;
-    };
-    ctx: {
         onNodeDragStart?: (node: Node, event: DragEvent) => void;
         onNodeDragEnter?: (dragNode: Node, dropNode: Node, event: DragEvent) => void;
         onNodeDragLeave?: (dragNode: Node, dropNode: Node, event: DragEvent) => void;
@@ -42,10 +40,9 @@ export interface DragEvents {
 
 export const dragEventsKey = Symbol('dragEvents');
 
-export function useDragNodeHandler({ props, ctx, elRef, dropIndicatorRef, store }: Props) {
+export function useDragNodeHandler({ props, elRef, dropIndicatorRef, store }: Props) {
     const ns = useClassNames('tree');
-    const { allowDrag, allowDrop } = props;
-    const { onNodeDragStart, onNodeDragEnter, onNodeDragLeave, onNodeDragOver, onNodeDragEnd, onNodeDrop } = ctx;
+    const { allowDrag, allowDrop, onNodeDragStart, onNodeDragEnter, onNodeDragLeave, onNodeDragOver, onNodeDragEnd, onNodeDrop } = props;
 
     const [dragState, setDragState] = useState<{
         allowDrop: boolean;

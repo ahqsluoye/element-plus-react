@@ -1,438 +1,342 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import classNames from 'classnames';
-import React from 'react';
-import Indent from './Indent';
-import { TreeContext, UnstableContext } from './contextTypes';
-import type { TreeNodeProps } from './typings';
-import getEntity from './utils/keyUtil';
-import pickAttrs from './utils/pickAttrs';
-import { convertNodePropsToEventData } from './utils/treeUtil';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Checkbox } from '../Checkbox';
+import Icon from '../Icon/Icon';
+import Transition from '../Transition/Transition';
+import { isFunction, isString } from '../Util';
+import { useClassNames } from '../hooks';
+import { afterEnter, afterLeave, beforeEnter, beforeLeave, onEnter, onLeave } from './CollapseTransition';
+import useTreeContext, { TreeNodeExpandContext, useDragEventsContext } from './TreeContext';
+import TreeNodeContent from './TreeNodeContent';
+import type Node from './model/node';
+import { useNodeExpandEventBroadcast } from './model/useNodeExpandEventBroadcast';
+import { getNodeKey as getNodeKeyUtil, handleCurrentChange } from './model/util';
+import { TreeNodeData, TreeNodeProps } from './typings';
 
-const ICON_OPEN = 'open';
-const ICON_CLOSE = 'close';
+const TreeNode = (props: TreeNodeProps) => {
+    const tree = useTreeContext();
+    const dragEvents = useDragEventsContext();
 
-const defaultTitle = '---';
+    // 状态定义
+    const [expanded, setExpanded] = useState(false);
+    const [childNodeRendered, setChildNodeRendered] = useState(false);
+    const [oldChecked, setOldChecked] = useState(false);
+    const [oldIndeterminate, setOldIndeterminate] = useState<boolean>();
 
-export type { TreeNodeProps } from './typings';
+    // 引用
+    const nodeRef = useRef(null);
+    const instanceRef = useRef({});
 
-const TreeNode: React.FC<Readonly<TreeNodeProps>> = props => {
-    const {
-        eventKey,
-        className,
-        style,
-        dragOver,
-        dragOverGapTop,
-        dragOverGapBottom,
-        isLeaf,
-        isStart,
-        isEnd,
-        expanded,
-        selected,
-        checked,
-        halfChecked,
-        loading,
-        domRef,
-        active,
-        data,
-        onMouseMove,
-        selectable,
-        ...otherProps
-    } = props;
-
-    const context = React.useContext(TreeContext);
-    const { classNames: treeClassNames, styles } = context || {};
-
-    const unstableContext = React.useContext(UnstableContext);
-
-    const selectHandleRef = React.useRef<HTMLSpanElement>(null);
-
-    const [dragNodeHighlight, setDragNodeHighlight] = React.useState<boolean>(false);
-
-    // ======= State: Disabled State =======
-    const isDisabled = !!(context.disabled || props.disabled || unstableContext.nodeDisabled?.(data));
-
-    const isCheckable = React.useMemo<React.ReactNode>(() => {
-        // Return false if tree or treeNode is not checkable
-        if (!context.checkable || props.checkable === false) {
-            return false;
+    // 初始化检查
+    useEffect(() => {
+        setExpanded(props.node.expanded);
+        if (props.node.expanded) {
+            setChildNodeRendered(true);
         }
-        return context.checkable;
-    }, [context.checkable, props.checkable]);
+    }, [props.node?.expanded]);
 
-    // ======= Event Handlers: Selection and Check =======
-    const onSelect = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-        if (isDisabled) {
+    const ns = useClassNames('tree');
+    const { broadcastExpanded, parentNodeMap } = useNodeExpandEventBroadcast(props);
+
+    const childrenKey = useMemo(() => tree.props.props['children'] || 'children', [tree.props.props]);
+    const children = useMemo(() => props.node?.data?.[childrenKey], [props.node?.data, childrenKey]);
+
+    const handleSelectChange = useCallback(
+        (checked: boolean, indeterminate: boolean) => {
+            if (oldChecked !== checked || oldIndeterminate !== indeterminate) {
+                tree?.props?.onCheckChange?.(props.node?.data, checked, indeterminate);
+            }
+            setOldChecked(checked);
+            setOldIndeterminate(indeterminate);
+        },
+        [oldChecked, oldIndeterminate, props.node?.data, tree?.props],
+    );
+
+    // 监听子节点变化
+    useEffect(() => {
+        props.node?.updateChildren();
+    }, [children]);
+
+    // 监听不确定状态变化
+    useEffect(() => {
+        handleSelectChange(props.node.checked, props.node.indeterminate);
+    }, [props.node.indeterminate, props.node.checked]);
+
+    // 监听选中状态变化
+    // useEffect(() => {
+    //     if (props.node?.checked !== undefined) {
+    //         handleSelectChange(props.node.checked, props.node.indeterminate);
+    //     }
+    // }, [props.node?.checked]);
+
+    // 监听子节点数量变化
+    useEffect(() => {
+        props.node?.reInitChecked();
+    }, [props.node?.childNodes?.length]);
+
+    // 监听展开状态变化
+    useEffect(() => {
+        if (props.node?.expanded !== undefined) {
+            setExpanded(props.node.expanded);
+            if (props.node.expanded) {
+                setChildNodeRendered(true);
+            }
+        }
+    }, [props.node?.expanded]);
+
+    // 工具函数
+    const getNodeKey = useCallback(
+        (node: Node) => {
+            return getNodeKeyUtil(tree?.props?.nodeKey, node?.data);
+        },
+        [tree?.props?.nodeKey],
+    );
+
+    const getNodeClass = useCallback(
+        (node: Node) => {
+            const nodeClassFunc = props.props?.class;
+            if (!nodeClassFunc) {
+                return {};
+            }
+
+            let className;
+            if (isFunction(nodeClassFunc)) {
+                className = nodeClassFunc(node?.data, node);
+            } else {
+                className = nodeClassFunc;
+            }
+
+            if (isString(className)) {
+                return { [className]: true };
+            } else {
+                return className;
+            }
+        },
+        [props.props?.class],
+    );
+
+    const handleExpandIconClick = useCallback(() => {
+        if (props.node.isLeaf) {
             return;
         }
-        context.onNodeSelect(e, convertNodePropsToEventData(props));
-    };
-
-    const onCheck = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-        if (isDisabled) {
-            return;
-        }
-        if (!isCheckable || props.disableCheckbox) {
-            return;
-        }
-        context.onNodeCheck(e, convertNodePropsToEventData(props), !checked);
-    };
-
-    // ======= State: Selectable Check =======
-    const isSelectable = React.useMemo<boolean>(() => {
-        // Ignore when selectable is undefined or null
-        if (typeof selectable === 'boolean') {
-            return selectable;
-        }
-        return context.selectable;
-    }, [selectable, context.selectable]);
-
-    const onSelectorClick = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-        // Click trigger before select/check operation
-        context.onNodeClick(e, convertNodePropsToEventData(props));
-        if (isSelectable) {
-            onSelect(e);
+        if (expanded) {
+            tree.props.onNodeCollapse?.(props.node.data, props.node, instanceRef.current);
+            props.node.collapse();
+            tree.forceUpdate();
         } else {
-            onCheck(e);
+            props.node.expand(() => {
+                props.onNodeExpand?.(props.node.data, props.node, instanceRef.current);
+                tree.forceUpdate();
+            });
         }
-    };
+    }, [props, expanded, tree]);
 
-    const onSelectorDoubleClick = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-        context.onNodeDoubleClick(e, convertNodePropsToEventData(props));
-    };
+    const handleCheckChange = useCallback(
+        value => {
+            const checkStrictly = tree?.props.checkStrictly;
+            const childNodes = props.node.childNodes;
+            if (!checkStrictly && childNodes.length) {
+                value = childNodes.some(node => !node.isEffectivelyChecked);
+            }
+            props.node.setChecked(value, !checkStrictly);
+            tree.forceUpdate();
 
-    const onMouseEnter = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-        context.onNodeMouseEnter(e, convertNodePropsToEventData(props));
-    };
+            setTimeout(() => {
+                const store = tree.store;
+                tree.props.onCheck?.(props.node.data, {
+                    checkedNodes: store.getCheckedNodes(),
+                    checkedKeys: store.getCheckedKeys(),
+                    halfCheckedNodes: store.getHalfCheckedNodes(),
+                    halfCheckedKeys: store.getHalfCheckedKeys(),
+                });
+            }, 0);
+        },
+        [tree, props.node],
+    );
 
-    const onMouseLeave = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-        context.onNodeMouseLeave(e, convertNodePropsToEventData(props));
-    };
+    const handleClick = useCallback(
+        (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            handleCurrentChange(tree.store, tree.props.onCurrentChange, () => {
+                const nodeKeyProp = tree?.props?.nodeKey;
+                if (nodeKeyProp) {
+                    const curNodeKey = getNodeKey(props.node);
+                    tree.store.setCurrentNodeKey(curNodeKey);
+                } else {
+                    tree.store.setCurrentNode(props.node);
+                }
+            });
 
-    const onContextMenu = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-        context.onNodeContextMenu(e, convertNodePropsToEventData(props));
-    };
+            if (tree.props.expandOnClickNode) {
+                handleExpandIconClick();
+            }
 
-    // ======= Drag: Drag Enabled =======
-    const isDraggable = React.useMemo<boolean>(() => {
-        return !!(context.draggable && (!context.draggable.nodeDraggable || context.draggable.nodeDraggable(data)));
-    }, [context.draggable, data]);
+            if ((tree.props.checkOnClickNode || (props.node.isLeaf && tree.props.checkOnClickLeaf && props.showCheckbox)) && !props.node.disabled) {
+                handleCheckChange(!props.node.checked);
+            }
+            tree.props.onNodeClick?.(props.node.data, props.node, instanceRef.current, e);
+            tree.forceUpdate();
+        },
+        [tree, props.node, props.showCheckbox, getNodeKey, handleExpandIconClick, handleCheckChange],
+    );
 
-    // ======= Drag: Drag Event Handlers =======
-    const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-        e.stopPropagation();
-        setDragNodeHighlight(true);
-        context.onNodeDragStart(e, props);
-        try {
-            // ie throw error
-            // firefox-need-it
-            e.dataTransfer.setData('text/plain', '');
-        } catch {
-            // empty
-        }
-    };
+    const handleContextMenu = useCallback(
+        (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            if (tree.props?.['onNodeContextmenu']) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            tree.props.onNodeContextmenu?.(event, props.node.data, props.node, instanceRef.current);
+        },
+        [tree, props.node],
+    );
 
-    const onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        e.stopPropagation();
-        context.onNodeDragEnter(e, props);
-    };
+    const handleChildNodeExpand = useCallback(
+        (nodeData: TreeNodeData, node: Node, instance) => {
+            broadcastExpanded(node);
+            tree.props.onNodeExpand?.(nodeData, node, instance);
+            tree.forceUpdate();
+        },
+        [broadcastExpanded, tree],
+    );
 
-    const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        e.stopPropagation();
-        context.onNodeDragOver(e, props);
-    };
+    const handleDragStart = useCallback(
+        event => {
+            if (!tree.props.draggable) {
+                return;
+            }
+            dragEvents.treeNodeDragStart({ event, treeNode: props });
+        },
+        [tree.props.draggable, dragEvents, props],
+    );
 
-    const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-        e.stopPropagation();
-        context.onNodeDragLeave(e, props);
-    };
+    const handleDragOver = useCallback(
+        event => {
+            event.preventDefault();
+            if (!tree.props.draggable) {
+                return;
+            }
+            dragEvents.treeNodeDragOver({
+                event,
+                treeNode: { $el: nodeRef.current, node: props.node },
+            });
+        },
+        [tree.props.draggable, dragEvents, props.node],
+    );
 
-    const onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
-        e.stopPropagation();
-        setDragNodeHighlight(false);
-        context.onNodeDragEnd(e, props);
-    };
+    const handleDrop = useCallback(event => {
+        event.preventDefault();
+    }, []);
 
-    const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setDragNodeHighlight(false);
-        context.onNodeDrop(e, props);
-    };
+    const handleDragEnd = useCallback(
+        event => {
+            if (!tree.props.draggable) {
+                return;
+            }
+            dragEvents.treeNodeDragEnd(event);
+        },
+        [tree.props.draggable, dragEvents],
+    );
 
-    // ======= Expand: Node Expansion =======
-    const onExpand: React.MouseEventHandler<HTMLDivElement> = e => {
-        if (loading) {
-            return;
-        }
-        context.onNodeExpand(e, convertNodePropsToEventData(props));
-    };
+    const contentPaddingLeft = useMemo(() => `${(props.node?.level - 1) * tree.props.indent}px`, [props.node?.level, tree.props.indent]);
 
-    // ======= State: Has Children =======
-    const hasChildren = React.useMemo<boolean>(() => {
-        const { children } = getEntity(context.keyEntities, eventKey) || {};
-        return Boolean((children || []).length);
-    }, [context.keyEntities, eventKey]);
-
-    // ======= State: Leaf Check =======
-    const memoizedIsLeaf = React.useMemo<boolean>(() => {
-        if (isLeaf === false) {
-            return false;
-        }
-        return isLeaf || (!context.loadData && !hasChildren) || (context.loadData && props.loaded && !hasChildren);
-    }, [isLeaf, context.loadData, hasChildren, props.loaded]);
-
-    // ============== Effect ==============
-    React.useEffect(() => {
-        // Load data to avoid default expanded tree without data
-        if (loading) {
-            return;
-        }
-        // read from state to avoid loadData at same time
-        if (typeof context.loadData === 'function' && expanded && !memoizedIsLeaf && !props.loaded) {
-            // We needn't reload data when has children in sync logic
-            // It's only needed in node expanded
-            context.onNodeLoad(convertNodePropsToEventData(props));
-        }
-    }, [loading, context.loadData, context.onNodeLoad, expanded, memoizedIsLeaf, props]);
-
-    // ==================== Render: Drag Handler ====================
-    const dragHandlerNode = React.useMemo<React.ReactNode>(() => {
-        if (!context.draggable?.icon) {
-            return null;
-        }
-        return <span className={`${context.prefixCls}-draggable-icon`}>{context.draggable.icon}</span>;
-    }, [context.draggable]);
-
-    // ====================== Render: Switcher ======================
-    const renderSwitcherIconDom = (isInternalLeaf: boolean) => {
-        const switcherIcon = props.switcherIcon || context.switcherIcon;
-        // if switcherIconDom is null, no render switcher span
-        if (typeof switcherIcon === 'function') {
-            return switcherIcon({ ...props, isLeaf: isInternalLeaf });
-        }
-        return switcherIcon;
-    };
-
-    // Switcher
-    const renderSwitcher = () => {
-        if (memoizedIsLeaf) {
-            // if switcherIconDom is null, no render switcher span
-            const switcherIconDom = renderSwitcherIconDom(true);
-            return switcherIconDom !== false ? <span className={classNames(`${context.prefixCls}-switcher`, `${context.prefixCls}-switcher-noop`)}>{switcherIconDom}</span> : null;
-        }
-        const switcherIconDom = renderSwitcherIconDom(false);
-        return switcherIconDom !== false ? (
-            <span onClick={onExpand} className={classNames(`${context.prefixCls}-switcher`, `${context.prefixCls}-switcher_${expanded ? ICON_OPEN : ICON_CLOSE}`)}>
-                {switcherIconDom}
-            </span>
-        ) : null;
-    };
-
-    // ====================== Checkbox ======================
-    const checkboxNode = React.useMemo<React.ReactNode>(() => {
-        if (!isCheckable) {
-            return null;
-        }
-
-        // [Legacy] Custom element should be separate with `checkable` in future
-        const $custom = typeof isCheckable !== 'boolean' ? isCheckable : null;
-
-        return (
-            <span
-                className={classNames(`${context.prefixCls}-checkbox`, {
-                    [`${context.prefixCls}-checkbox-checked`]: checked,
-                    [`${context.prefixCls}-checkbox-indeterminate`]: !checked && halfChecked,
-                    [`${context.prefixCls}-checkbox-disabled`]: isDisabled || props.disableCheckbox,
-                })}
-                onClick={onCheck}
-                role="checkbox"
-                aria-checked={halfChecked ? 'mixed' : checked}
-                aria-disabled={isDisabled || props.disableCheckbox}
-                aria-label={`Select ${typeof props.title === 'string' ? props.title : 'tree node'}`}
-            >
-                {$custom}
-            </span>
-        );
-    }, [isCheckable, checked, halfChecked, isDisabled, props.disableCheckbox, props.title]);
-
-    // ============== State: Node State (Open/Close) ==============
-    const nodeState = React.useMemo<typeof ICON_OPEN | typeof ICON_CLOSE>(() => {
-        if (memoizedIsLeaf) {
-            return null;
-        }
-        return expanded ? ICON_OPEN : ICON_CLOSE;
-    }, [memoizedIsLeaf, expanded]);
-
-    // ==================== Render: Title + Icon ====================
-    const iconNode = React.useMemo<React.ReactNode>(() => {
-        return (
-            <span
-                className={classNames(treeClassNames?.itemIcon, `${context.prefixCls}-iconEle`, `${context.prefixCls}-icon__${nodeState || 'docu'}`, {
-                    [`${context.prefixCls}-icon_loading`]: loading,
-                })}
-                style={styles?.itemIcon}
-            />
-        );
-    }, [context.prefixCls, nodeState, loading]);
-
-    // =================== Drop Indicator ===================
-    const dropIndicatorNode = React.useMemo<React.ReactNode>(() => {
-        const rootDraggable = Boolean(context.draggable);
-        // allowDrop is calculated in Tree.tsx, there is no need for calc it here
-        const showIndicator = !props.disabled && rootDraggable && context.dragOverNodeKey === eventKey;
-        if (!showIndicator) {
-            return null;
-        }
-        return context.dropIndicatorRender({
-            dropPosition: context.dropPosition,
-            dropLevelOffset: context.dropLevelOffset,
-            indent: context.indent,
-            prefixCls: context.prefixCls,
-            direction: context.direction,
-        });
-    }, [
-        context.dropPosition,
-        context.dropLevelOffset,
-        context.indent,
-        context.prefixCls,
-        context.direction,
-        context.draggable,
-        context.dragOverNodeKey,
-        context.dropIndicatorRender,
-    ]);
-
-    // Icon + Title
-    const selectorNode = React.useMemo<React.ReactNode>(() => {
-        const { title = defaultTitle } = props;
-
-        const wrapClass = `${context.prefixCls}-node-content-wrapper`;
-
-        // Icon - Still show loading icon when loading without showIcon
-        let $icon: React.ReactNode;
-
-        if (context.showIcon) {
-            const currentIcon = props.icon || context.icon;
-
-            $icon = currentIcon ? (
-                <span className={classNames(treeClassNames?.itemIcon, `${context.prefixCls}-iconEle`, `${context.prefixCls}-icon__customize`)} style={styles?.itemIcon}>
-                    {typeof currentIcon === 'function' ? currentIcon(props) : currentIcon}
-                </span>
-            ) : (
-                iconNode
-            );
-        } else if (context.loadData && loading) {
-            $icon = iconNode;
-        }
-
-        // Title
-        let titleNode: React.ReactNode;
-        if (typeof title === 'function') {
-            titleNode = title(data);
-        } else if (context.titleRender) {
-            titleNode = context.titleRender(data);
-        } else {
-            titleNode = title;
-        }
-
-        return (
-            <span
-                ref={selectHandleRef}
-                title={typeof title === 'string' ? title : ''}
-                className={classNames(wrapClass, `${wrapClass}-${nodeState || 'normal'}`, {
-                    [`${context.prefixCls}-node-selected`]: !isDisabled && (selected || dragNodeHighlight),
-                })}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-                onContextMenu={onContextMenu}
-                onClick={onSelectorClick}
-                onDoubleClick={onSelectorDoubleClick}
-            >
-                {$icon}
-                <span className={classNames(`${context.prefixCls}-title`, treeClassNames?.itemTitle)} style={styles?.itemTitle}>
-                    {titleNode}
-                </span>
-                {dropIndicatorNode}
-            </span>
-        );
-    }, [
-        context.prefixCls,
-        context.showIcon,
-        props,
-        context.icon,
-        iconNode,
-        context.titleRender,
-        data,
-        nodeState,
-        onMouseEnter,
-        onMouseLeave,
-        onContextMenu,
-        onSelectorClick,
-        onSelectorDoubleClick,
-    ]);
-
-    const dataOrAriaAttributeProps = pickAttrs(otherProps, { aria: true, data: true });
-
-    const { level } = getEntity(context.keyEntities, eventKey) || {};
-
-    const isEndNode = isEnd[isEnd.length - 1];
-
-    const draggableWithoutDisabled = !isDisabled && isDraggable;
-
-    const dragging = context.draggingNodeKey === eventKey;
-    const ariaSelected = selectable !== undefined ? { 'aria-selected': !!selectable } : undefined;
     return (
-        <div
-            ref={domRef}
-            role="treeitem"
-            aria-expanded={isLeaf ? undefined : expanded}
-            className={classNames(className, `${context.prefixCls}-treenode`, treeClassNames?.item, {
-                [`${context.prefixCls}-treenode-disabled`]: isDisabled,
-                [`${context.prefixCls}-treenode-switcher-${expanded ? 'open' : 'close'}`]: !isLeaf,
-                [`${context.prefixCls}-treenode-checkbox-checked`]: checked,
-                [`${context.prefixCls}-treenode-checkbox-indeterminate`]: halfChecked,
-                [`${context.prefixCls}-treenode-selected`]: selected,
-                [`${context.prefixCls}-treenode-loading`]: loading,
-                [`${context.prefixCls}-treenode-active`]: active,
-                [`${context.prefixCls}-treenode-leaf-last`]: isEndNode,
-                [`${context.prefixCls}-treenode-draggable`]: isDraggable,
-                dragging,
-                'drop-target': context.dropTargetKey === eventKey,
-                'drop-container': context.dropContainerKey === eventKey,
-                'drag-over': !isDisabled && dragOver,
-                'drag-over-gap-top': !isDisabled && dragOverGapTop,
-                'drag-over-gap-bottom': !isDisabled && dragOverGapBottom,
-                'filter-node': context.filterTreeNode?.(convertNodePropsToEventData(props)),
-                [`${context.prefixCls}-treenode-leaf`]: memoizedIsLeaf,
-            })}
-            style={{ ...style, ...styles?.item }}
-            // Draggable config
-            draggable={draggableWithoutDisabled}
-            onDragStart={draggableWithoutDisabled ? onDragStart : undefined}
-            // Drop config
-            onDragEnter={isDraggable ? onDragEnter : undefined}
-            onDragOver={isDraggable ? onDragOver : undefined}
-            onDragLeave={isDraggable ? onDragLeave : undefined}
-            onDrop={isDraggable ? onDrop : undefined}
-            onDragEnd={isDraggable ? onDragEnd : undefined}
-            onMouseMove={onMouseMove}
-            {...ariaSelected}
-            {...dataOrAriaAttributeProps}
-        >
-            <Indent prefixCls={context.prefixCls} level={level} isStart={isStart} isEnd={isEnd} />
-            {dragHandlerNode}
-            {renderSwitcher()}
-            {checkboxNode}
-            {selectorNode}
-        </div>
+        <TreeNodeExpandContext.Provider value={{ parentNodeMap }}>
+            <div
+                className={classNames([
+                    ns.b('node'),
+                    ns.is({
+                        expanded,
+                        current: props.node?.isCurrent,
+                        hidden: !props.node?.visible,
+                        focusable: !props.node?.disabled,
+                        checked: !props.node?.disabled && props.node?.checked,
+                    }),
+                    getNodeClass(props.node),
+                ])}
+                role="treeitem"
+                tabIndex={-1}
+                aria-expanded={expanded}
+                aria-disabled={props.node?.disabled}
+                aria-checked={props.node?.checked}
+                draggable={tree.props.draggable}
+                data-key={getNodeKey(props.node)}
+                onClick={e => handleClick(e)}
+                onContextMenu={handleContextMenu}
+                onDragStart={handleDragStart}
+                onDragOver={handleDragOver}
+                onDragEnd={handleDragEnd}
+                onDrop={handleDrop}
+            >
+                <div className={ns.be('node', 'content')} style={{ paddingLeft: contentPaddingLeft }}>
+                    <Icon
+                        name={tree.props.icon || 'angle-right'}
+                        prefix="far"
+                        className={classNames([
+                            ns.be('node', 'expand-icon'),
+                            ns.is({ leaf: props.node?.isLeaf }),
+                            {
+                                expanded: !props.node?.isLeaf && expanded,
+                            },
+                        ])}
+                        onClick={e => {
+                            e.stopPropagation();
+                            handleExpandIconClick();
+                        }}
+                    />
+
+                    {props.showCheckbox && (
+                        <Checkbox
+                            checked={props.node?.checked}
+                            indeterminate={props.node?.indeterminate}
+                            disabled={!!props.node?.disabled}
+                            onClick={e => e.stopPropagation()}
+                            onChange={handleCheckChange}
+                        />
+                    )}
+
+                    {props.node?.loading && (
+                        <span className={classNames([ns.be('node', 'loading-icon'), ns.is('loading')])}>
+                            <Icon name="loader" prefix="far" spin />
+                        </span>
+                    )}
+
+                    <TreeNodeContent node={props.node} renderContent={props.renderContent} />
+                </div>
+
+                <Transition
+                    nodeRef={nodeRef}
+                    name={ns.b('menu-collapse', false)}
+                    duration={300}
+                    visible={expanded && childNodeRendered}
+                    beforeEnter={() => beforeEnter(nodeRef)}
+                    onEnter={() => onEnter(nodeRef)}
+                    afterEnter={() => afterEnter(nodeRef)}
+                    beforeLeave={() => beforeLeave(nodeRef)}
+                    onLeave={() => onLeave(nodeRef)}
+                    afterLeave={() => afterLeave(nodeRef)}
+                >
+                    {!props.renderAfterExpand || childNodeRendered ? (
+                        <div ref={nodeRef} className={`${ns.be('node', 'children')}`} role="group" aria-expanded={expanded} onClick={e => e.stopPropagation()}>
+                            {props.node?.childNodes?.map(child => (
+                                <TreeNode
+                                    key={getNodeKey(child)}
+                                    node={child}
+                                    props={props.props}
+                                    accordion={props.accordion}
+                                    renderContent={props.renderContent}
+                                    renderAfterExpand={props.renderAfterExpand}
+                                    showCheckbox={props.showCheckbox}
+                                    onNodeExpand={handleChildNodeExpand}
+                                />
+                            ))}
+                        </div>
+                    ) : null}
+                </Transition>
+            </div>
+        </TreeNodeExpandContext.Provider>
     );
 };
 
-(TreeNode as any).isTreeNode = 1;
-
-if (process.env.NODE_ENV !== 'production') {
-    TreeNode.displayName = 'TreeNode';
-}
+TreeNode.displayName = 'ElTreeNode';
 
 export default TreeNode;

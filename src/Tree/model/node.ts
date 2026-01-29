@@ -551,6 +551,7 @@ class Node {
             };
             const reject = () => {
                 this.loading = false;
+                this.store.forceUpdate();
             };
 
             this.store.load(this, resolve, reject);
