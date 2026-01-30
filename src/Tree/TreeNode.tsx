@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Checkbox } from '../Checkbox';
+import Checkbox from '../Checkbox/Checkbox';
 import Icon from '../Icon/Icon';
 import Transition from '../Transition/Transition';
 import { isFunction, isString } from '../Util';
@@ -25,6 +25,7 @@ const TreeNode = (props: TreeNodeProps) => {
 
     // 引用
     const nodeRef = useRef(null);
+    const transitionNodeRef = useRef(null);
     const instanceRef = useRef({});
 
     // 初始化检查
@@ -200,7 +201,8 @@ const TreeNode = (props: TreeNodeProps) => {
     );
 
     const handleDragStart = useCallback(
-        event => {
+        (event: React.DragEvent<HTMLDivElement>) => {
+            event.stopPropagation();
             if (!tree.props.draggable) {
                 return;
             }
@@ -210,7 +212,8 @@ const TreeNode = (props: TreeNodeProps) => {
     );
 
     const handleDragOver = useCallback(
-        event => {
+        (event: React.DragEvent<HTMLDivElement>) => {
+            event.stopPropagation();
             event.preventDefault();
             if (!tree.props.draggable) {
                 return;
@@ -223,18 +226,21 @@ const TreeNode = (props: TreeNodeProps) => {
         [tree.props.draggable, dragEvents, props.node],
     );
 
-    const handleDrop = useCallback(event => {
+    const handleDrop = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+        event.stopPropagation();
         event.preventDefault();
     }, []);
 
     const handleDragEnd = useCallback(
-        event => {
+        (event: React.DragEvent<HTMLDivElement>) => {
+            event.stopPropagation();
             if (!tree.props.draggable) {
                 return;
             }
             dragEvents.treeNodeDragEnd(event);
+            tree.forceUpdate();
         },
-        [tree.props.draggable, dragEvents],
+        [tree, dragEvents],
     );
 
     const contentPaddingLeft = useMemo(() => `${(props.node?.level - 1) * tree.props.indent}px`, [props.node?.level, tree.props.indent]);
@@ -242,6 +248,7 @@ const TreeNode = (props: TreeNodeProps) => {
     return (
         <TreeNodeExpandContext.Provider value={{ parentNodeMap }}>
             <div
+                ref={nodeRef}
                 className={classNames([
                     ns.b('node'),
                     ns.is({
@@ -304,19 +311,26 @@ const TreeNode = (props: TreeNodeProps) => {
                 </div>
 
                 <Transition
-                    nodeRef={nodeRef}
+                    nodeRef={transitionNodeRef}
                     name={ns.b('menu-collapse', false)}
-                    duration={300}
+                    cssTransition
+                    duration={10}
                     visible={expanded && childNodeRendered}
-                    beforeEnter={() => beforeEnter(nodeRef)}
-                    onEnter={() => onEnter(nodeRef)}
-                    afterEnter={() => afterEnter(nodeRef)}
-                    beforeLeave={() => beforeLeave(nodeRef)}
-                    onLeave={() => onLeave(nodeRef)}
-                    afterLeave={() => afterLeave(nodeRef)}
+                    beforeEnter={() => beforeEnter(transitionNodeRef)}
+                    onEnter={() => onEnter(transitionNodeRef)}
+                    afterEnter={() => afterEnter(transitionNodeRef)}
+                    beforeLeave={() => beforeLeave(transitionNodeRef)}
+                    onLeave={() => onLeave(transitionNodeRef)}
+                    afterLeave={() => afterLeave(transitionNodeRef)}
                 >
                     {!props.renderAfterExpand || childNodeRendered ? (
-                        <div ref={nodeRef} className={`${ns.be('node', 'children')}`} role="group" aria-expanded={expanded} onClick={e => e.stopPropagation()}>
+                        <div
+                            ref={transitionNodeRef}
+                            className={classNames(ns.be('node', 'children'), ns.b('collapse-transition', false))}
+                            role="group"
+                            aria-expanded={expanded}
+                            onClick={e => e.stopPropagation()}
+                        >
                             {props.node?.childNodes?.map(child => (
                                 <TreeNode
                                     key={getNodeKey(child)}

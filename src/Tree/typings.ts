@@ -1,41 +1,56 @@
-// import type { Component, ComponentInternalInstance, Ref, SetupContext, VNode, h } from 'vue';
-import { RefObject } from 'preact';
-import React from 'react';
+import React, { RefObject } from 'react';
 import { IconName } from '../Icon';
 import { BaseProps, NativeProps } from '../types/common';
 import Node from './model/node';
 import TreeStore from './model/tree-store';
 import { DragOptions } from './model/useDragNode';
-// import type { treeEmits } from './tree';
 
-export interface RootTreeType {
-    // ctx: SetupContext<typeof treeEmits>;
-    props: TreeProps;
-    store: TreeStore;
-    root: Ref<Node>;
-    currentNode: Ref<Node>;
-    instance: ComponentInternalInstance;
-}
-
+// export interface RootTreeType {
+//     // ctx: SetupContext<typeof treeEmits>;
+//     props: TreeProps;
+//     store: TreeStore;
+//     root: Ref<Node>;
+//     currentNode: Ref<Node>;
+//     instance: ComponentInternalInstance;
+// }
 export type TreeRef = {
+    /** 过滤所有树节点，过滤后的节点将被隐藏 */
     filter: (value: any) => void;
+    /**  */
     getNodeKey: (node: any) => any;
+    /** 根据 data 或者 key 拿到 Tree 组件中的 node */
     getNode: (data: TreeKey | TreeNodeData | Node) => Node;
+    /** 如果节点可以被选中，(showCheckbox 为 true), 本方法将返回当前选中节点的数组 */
     getCheckedNodes: (leafOnly?: boolean, includeHalfChecked?: boolean) => TreeNodeData[];
+    /** 如果节点可以被选中，(showCheckbox 为 true), 本方法将返回当前选中节点的 key 数组 */
     getCheckedKeys: (leafOnly?: boolean) => TreeKey[];
+    /** 如果节点可以被选中，(showCheckbox 为 true), 本方法将返回当前半选节点的数组 */
     getHalfCheckedNodes: () => TreeNodeData[];
+    /** 如果节点可以被选中，(showCheckbox 为 true), 本方法将返回当前半选节点的 key 数组 */
     getHalfCheckedKeys: () => TreeKey[];
+    /** 获取当前被选中的节点数据 */
     getCurrentNode: () => TreeNodeData;
+    /** 获取当前被选中的节点 key */
     getCurrentKey: () => any;
+    /** 设置节点为选中状态，使用此方法必须设置 nodeKey 属性	 */
     setCurrentNode: (node: Node, shouldAutoExpandParent?: boolean) => void;
+    /** 通过 key 设置某个节点的当前选中状态，使用此方法必须设置 nodeKey 属性 */
     setCurrentKey: (key?: any, shouldAutoExpandParent?: boolean) => void;
+    /** 删除 Tree 中的一个节点，使用此方法必须设置 nodeKey 属性 */
     remove: (data: TreeNodeData | Node) => void;
+    /** 为 Tree 中的一个节点追加一个子节点 */
     append: (data: TreeNodeData, parentNode: TreeNodeData | TreeKey | Node) => void;
+    /** 在 Tree 中给定节点前插入一个节点 */
     insertBefore: (data: TreeNodeData, refNode: TreeKey | TreeNodeData | Node) => void;
+    /** 在 Tree 中给定节点后插入一个节点 */
     insertAfter: (data: TreeNodeData, refNode: TreeKey | TreeNodeData | Node) => void;
+    /** 为节点设置新数据，只有当设置 nodeKey 属性的时候才可用 */
     updateKeyChildren: (key: TreeKey, data: TreeData) => void;
+    /** 设置目前勾选的节点，使用此方法必须提前设置 nodeKey 属性 */
     setCheckedNodes: (nodes: Node[], leafOnly?: boolean) => void;
+    /** 设置目前选中的节点，使用此方法必须设置 nodeKey 属性 */
     setCheckedKeys: (keys: TreeKey[], leafOnly?: boolean) => void;
+    /** 设置节点是否被选中, 使用此方法必须设置 nodeKey 属性 */
     setChecked: (data: TreeKey | TreeNodeData, checked: boolean, deep: boolean) => void;
 };
 export type TreeNodeRef = {};
@@ -160,19 +175,6 @@ export interface TreeProps extends TreeEvents, BaseProps, NativeProps {
     renderEmpty?: () => React.ReactNode;
 }
 
-// node-click	当节点被点击的时候触发	四个参数：对应于节点点击的节点对象，TreeNode 的 node 属性, TreeNode和事件对象
-// node-contextmenu	当某一节点被鼠标右键点击时会触发该事件	共四个参数，依次为：event、传递给 data 属性的数组中该节点所对应的对象、节点对应的 Node、节点组件本身。
-// check-change	当复选框被点击的时候触发	共三个参数，依次为：传递给 data 属性的数组中该节点所对应的对象、节点本身是否被选中、节点的子树中是否有被选中的节点
-// check	点击节点复选框之后触发	共两个参数，依次为：传递给 data 属性的数组中该节点所对应的对象、树目前的选中状态对象，包含 checkedNodes、checkedKeys、halfCheckedNodes、halfCheckedKeys 四个属性
-// current-change	当前选中节点变化时触发的事件	共两个参数，依次为：当前节点的数据，当前节点的 Node 对象
-// node-expand	节点被展开时触发的事件	共三个参数，依次为：传递给 data 属性的数组中该节点所对应的对象、节点对应的 Node、节点组件本身
-// node-collapse	节点被关闭时触发的事件	共三个参数，依次为：传递给 data 属性的数组中该节点所对应的对象、节点对应的 Node、节点组件本身
-// node-drag-start	节点开始拖拽时触发的事件	共两个参数，依次为：被拖拽节点对应的 Node、event
-// node-drag-enter	拖拽进入其他节点时触发的事件	共三个参数，依次为：被拖拽节点对应的 Node、所进入节点对应的 Node、event
-// node-drag-leave	拖拽离开某个节点时触发的事件	共三个参数，依次为：被拖拽节点对应的 Node、所离开节点对应的 Node、event
-// node-drag-over	在拖拽节点时触发的事件（类似浏览器的 mouseover 事件）	共三个参数，依次为：被拖拽节点对应的 Node、当前进入节点对应的 Node、event
-// node-drag-end	拖拽结束时（可能未成功）触发的事件	共四个参数，依次为：被拖拽节点对应的 Node、结束拖拽时最后进入的节点（可能为空）、被拖拽节点的放置位置（before、after、inner）、event
-// node-drop	拖拽成功完成时触发的事件	共四个参数，依次为：被拖拽节点对应的 Node、结束拖拽时最后进入的节点、被拖拽节点的放置位置（before、after、inner）、event
 export interface TreeEvents {
     /** 当节点被点击的时候触发	四个参数：对应于节点点击的节点对象，TreeNode 的 node 属性, TreeNode和事件对象 */
     onNodeClick?: (nodeData: TreeNodeData, node: Node, instance: TreeNodeRef, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -229,11 +231,8 @@ interface NodeMap {
 }
 
 export type TreeContextProps = {
-    // ctx: { emit: (event: string, ...args: any[]) => void };
     props: TreeProps;
     store: TreeStore;
-    // actions: TreeActions;
-    // storeRef: RefObject<TreeStore>;
     root: Node;
     // currentNode: Node;
     // setCurrentNode: (currentNode: Node) => void;
@@ -247,5 +246,5 @@ export type TreeNodeExpandContextProps = {
 export type DragEventsContextProps = {
     treeNodeDragStart: (options: DragOptions) => void;
     treeNodeDragOver: (options: DragOptions) => void;
-    treeNodeDragEnd: (event: DragEvent) => void;
+    treeNodeDragEnd: (event: React.DragEvent<HTMLDivElement>) => void;
 };

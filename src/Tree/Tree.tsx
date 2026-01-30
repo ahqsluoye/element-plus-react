@@ -91,7 +91,7 @@ const Tree = forwardRef<TreeRef, TreeProps>((props, ref) => {
 
     const { broadcastExpanded, parentNodeMap } = useNodeExpandEventBroadcast(props);
 
-    const { dragState, ...dragEvents } = useDragNodeHandler({
+    const { ...dragEvents } = useDragNodeHandler({
         props,
         elRef,
         dropIndicatorRef,
@@ -415,7 +415,7 @@ const Tree = forwardRef<TreeRef, TreeProps>((props, ref) => {
                         ref={elRef}
                         className={classNames(
                             ns.b(),
-                            ns.is({ dragging: !!dragState.draggingNode, 'drop-not-allow': !dragState.allowDrop, 'drop-inner': dragState.dropType === 'inner' }),
+                            // ns.is({ dragging: !!dragState.draggingNode, 'drop-not-allow': !dragState.allowDrop, 'drop-inner': dragState.dropType === 'inner' }),
                             { [ns.m('highlight-current')]: highlightCurrent },
                             props.className,
                         )}
@@ -423,7 +423,11 @@ const Tree = forwardRef<TreeRef, TreeProps>((props, ref) => {
                         role="tree"
                     >
                         {renderTreeNodes()}
-                        <div style={{ display: dragState.showDropIndicator ? 'block' : 'none' }} ref={dropIndicatorRef} className={ns.e('drop-indicator')} />
+                        <div
+                            /* style={{ display: dragState.showDropIndicator ? 'block' : 'none' }} */ style={{ display: 'none' }}
+                            ref={dropIndicatorRef}
+                            className={ns.e('drop-indicator')}
+                        />
                     </div>
                 </TreeNodeExpandContext.Provider>
             </DragEventsContext.Provider>

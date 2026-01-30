@@ -1,4 +1,3 @@
-import { addClass, removeClass } from 'dom-lib';
 import { RefObject } from 'react';
 
 export const beforeEnter = (node: RefObject<HTMLElement>) => {
@@ -12,7 +11,7 @@ export const beforeEnter = (node: RefObject<HTMLElement>) => {
 export const onEnter = (node: RefObject<HTMLElement>) => {
     if (node.current) {
         const { current: el } = node;
-        addClass(el, 'collapse-transition');
+        el.style.display = 'block';
         el.dataset.oldOverflow = el.style.overflow;
         if (el.scrollHeight !== 0) {
             el.style.height = `${el.scrollHeight}px`;
@@ -28,16 +27,16 @@ export const onEnter = (node: RefObject<HTMLElement>) => {
 export const afterEnter = (node: RefObject<HTMLElement>) => {
     if (node.current) {
         const { current: el } = node;
-        removeClass(el, 'collapse-transition');
-        el.style.height = '';
-        el.style.overflow = el.dataset.oldOverflow;
+        setTimeout(() => {
+            el.style.height = '';
+            el.style.overflow = el.dataset.oldOverflow;
+        }, 300);
     }
 };
 
 export const beforeLeave = (node: RefObject<any>) => {
     if (node.current) {
         const { current: el } = node;
-        addClass(el, 'collapse-transition');
         if (!el.dataset) {
             el.dataset = {};
         }
@@ -52,7 +51,7 @@ export const beforeLeave = (node: RefObject<any>) => {
 export const onLeave = (node: RefObject<any>) => {
     if (node.current) {
         const { current: el } = node;
-        el.style.transitionProperty = 'height';
+        // el.style.transitionProperty = 'height';
         el.style.height = 0;
     }
 };
@@ -60,8 +59,10 @@ export const onLeave = (node: RefObject<any>) => {
 export const afterLeave = (node: RefObject<HTMLElement>) => {
     if (node.current) {
         const { current: el } = node;
-        el.style.height = '';
-        el.style.overflow = el.dataset.oldOverflow;
-        el.style.display = 'none';
+        setTimeout(() => {
+            el.style.height = '';
+            el.style.overflow = el.dataset.oldOverflow;
+            el.style.display = 'none';
+        }, 300);
     }
 };

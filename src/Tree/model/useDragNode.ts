@@ -1,6 +1,6 @@
 import { useClassNames } from '@qsxy/element-plus-react/hooks';
 import { addClass, removeClass } from 'dom-lib';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { isFunction } from '../../Util';
 import { AllowDragFunction, AllowDropFunction, FakeNode, NodeDropType } from '../typings';
 import type Node from './node';
@@ -12,7 +12,7 @@ export interface TreeNode {
 }
 
 export interface DragOptions {
-    event: DragEvent;
+    event: React.DragEvent<HTMLDivElement>;
     treeNode: TreeNode;
 }
 
@@ -20,12 +20,12 @@ interface Props {
     props: {
         allowDrag?: AllowDragFunction;
         allowDrop?: AllowDropFunction;
-        onNodeDragStart?: (node: Node, event: DragEvent) => void;
-        onNodeDragEnter?: (dragNode: Node, dropNode: Node, event: DragEvent) => void;
-        onNodeDragLeave?: (dragNode: Node, dropNode: Node, event: DragEvent) => void;
-        onNodeDragOver?: (dragNode: Node, dropNode: Node, event: DragEvent) => void;
-        onNodeDragEnd?: (dragNode: Node, dropNode: Node, dropType: NodeDropType, event: DragEvent) => void;
-        onNodeDrop?: (dragNode: Node, dropNode: Node, dropType: NodeDropType, event: DragEvent) => void;
+        onNodeDragStart?: (node: Node, event: React.DragEvent<HTMLDivElement>) => void;
+        onNodeDragEnter?: (dragNode: Node, dropNode: Node, event: React.DragEvent<HTMLDivElement>) => void;
+        onNodeDragLeave?: (dragNode: Node, dropNode: Node, event: React.DragEvent<HTMLDivElement>) => void;
+        onNodeDragOver?: (dragNode: Node, dropNode: Node, event: React.DragEvent<HTMLDivElement>) => void;
+        onNodeDragEnd?: (dragNode: Node, dropNode: Node, dropType: NodeDropType, event: React.DragEvent<HTMLDivElement>) => void;
+        onNodeDrop?: (dragNode: Node, dropNode: Node, dropType: NodeDropType, event: React.DragEvent<HTMLDivElement>) => void;
     };
     elRef: React.RefObject<HTMLElement>;
     dropIndicatorRef: React.RefObject<HTMLElement>;
@@ -35,32 +35,63 @@ interface Props {
 export interface DragEvents {
     treeNodeDragStart: (options: DragOptions) => void;
     treeNodeDragOver: (options: DragOptions) => void;
-    treeNodeDragEnd: (event: DragEvent) => void;
+    treeNodeDragEnd: (event: React.DragEvent<HTMLDivElement>) => void;
 }
 
 export const dragEventsKey = Symbol('dragEvents');
+
+interface DragState {
+    allowDrop: boolean;
+    dropType: NodeDropType | null;
+    draggingNode: TreeNode | null;
+    showDropIndicator: boolean;
+    dropNode: TreeNode | null;
+}
 
 export function useDragNodeHandler({ props, elRef, dropIndicatorRef, store }: Props) {
     const ns = useClassNames('tree');
     const { allowDrag, allowDrop, onNodeDragStart, onNodeDragEnter, onNodeDragLeave, onNodeDragOver, onNodeDragEnd, onNodeDrop } = props;
 
-    const [dragState, setDragState] = useState<{
-        allowDrop: boolean;
-        dropType: NodeDropType | null;
-        draggingNode: TreeNode | null;
-        showDropIndicator: boolean;
-        dropNode: TreeNode | null;
-    }>({
+    // const [dragState, setDragState] = useState<{
+    //     allowDrop: boolean;
+    //     dropType: NodeDropType | null;
+    //     draggingNode: TreeNode | null;
+    //     showDropIndicator: boolean;
+    //     dropNode: TreeNode | null;
+    // }>({
+    //     showDropIndicator: false,
+    //     draggingNode: null,
+    //     dropNode: null,
+    //     allowDrop: true,
+    //     dropType: null,
+    // });
+
+    // 使用ref来保存最新的dragState值
+    const dragStateRef = useRef<DragState>({
         showDropIndicator: false,
         draggingNode: null,
         dropNode: null,
         allowDrop: true,
         dropType: null,
     });
+    // dragStateRef.current = dragState;
 
-    // 使用ref来保存最新的dragState值
-    const dragStateRef = useRef(dragState);
-    dragStateRef.current = dragState;
+    const setDragState = useCallback(
+        (fn: (prev: DragState) => DragState) => {
+            dragStateRef.current = fn(dragStateRef.current);
+            if (!dragStateRef.current.allowDrop) {
+                elRef.current.classList.add(ns.is('drop-not-allow'));
+            } else {
+                elRef.current.classList.remove(ns.is('drop-not-allow'));
+            }
+            if (dragStateRef.current.dropType === 'inner') {
+                elRef.current.classList.add(ns.is('drop-inner'));
+            } else {
+                elRef.current.classList.remove(ns.is('drop-inner'));
+            }
+        },
+        [elRef, ns],
+    );
 
     const treeNodeDragStart = useCallback(
         ({ event, treeNode }: DragOptions) => {
@@ -86,10 +117,11 @@ export function useDragNodeHandler({ props, elRef, dropIndicatorRef, store }: Pr
                 ...prev,
                 draggingNode: treeNode,
             }));
+            elRef.current.classList.add(ns.is('dragging'));
 
             onNodeDragStart?.(treeNode.node, event);
         },
-        [allowDrag, onNodeDragStart],
+        [allowDrag, elRef, ns, onNodeDragStart, setDragState],
     );
 
     const treeNodeDragOver = useCallback(
@@ -124,12 +156,17 @@ export function useDragNodeHandler({ props, elRef, dropIndicatorRef, store }: Pr
                 onNodeDragEnter?.(draggingNode.node, dropNode.node, event);
             }
 
-            let newDropNode = dropNode;
             if (dropPrev || dropInner || dropNext) {
-                newDropNode = dropNode;
+                setDragState(prev => ({
+                    ...prev,
+                    dropNode: dropNode,
+                }));
             } else {
                 // Reset dragState.value.dropNode to null when allowDrop is transfer from true to false.(For issue #14704)
-                newDropNode = null;
+                setDragState(prev => ({
+                    ...prev,
+                    dropNode: null,
+                }));
             }
 
             if (dropNode.node.nextSibling === draggingNode.node) {
@@ -211,25 +248,26 @@ export function useDragNodeHandler({ props, elRef, dropIndicatorRef, store }: Pr
             }
 
             const showDropIndicator = dropType === 'before' || dropType === 'after';
+            dropIndicatorRef.current.style.display = showDropIndicator ? 'block' : 'none';
             const _allowDrop = showDropIndicator || userAllowDropInner;
             const newDragState = {
                 showDropIndicator,
-                draggingNode,
-                dropNode: newDropNode,
                 allowDrop: _allowDrop,
                 dropType,
             };
 
-            setDragState(newDragState);
-            dragStateRef.current = newDragState;
+            setDragState(prev => ({
+                ...prev,
+                ...newDragState,
+            }));
 
             onNodeDragOver?.(draggingNode.node, dropNode.node, event);
         },
-        [allowDrop, ns, elRef, dropIndicatorRef, onNodeDragOver, onNodeDragEnter, onNodeDragLeave],
+        [allowDrop, ns, elRef, dropIndicatorRef, setDragState, onNodeDragOver, onNodeDragEnter, onNodeDragLeave],
     );
 
     const treeNodeDragEnd = useCallback(
-        (event: DragEvent) => {
+        (event: React.DragEvent<HTMLDivElement>) => {
             const currentDragState = dragStateRef.current;
             const { draggingNode, dropType, dropNode } = currentDragState;
             event.preventDefault();
@@ -272,19 +310,30 @@ export function useDragNodeHandler({ props, elRef, dropIndicatorRef, store }: Pr
                 onNodeDragEnd?.(draggingNode.node, null, dropType, event);
             }
 
-            setDragState({
+            // setDragState({
+            //     showDropIndicator: false,
+            //     draggingNode: null,
+            //     dropNode: null,
+            //     allowDrop: true,
+            //     dropType: null,
+            // });
+            dropIndicatorRef.current.style.display = 'none';
+            elRef.current.classList.remove(ns.is('dragging'));
+            elRef.current.classList.remove(ns.is('drop-not-allow'));
+            elRef.current.classList.remove(ns.is('drop-inner'));
+
+            dragStateRef.current = {
                 showDropIndicator: false,
                 draggingNode: null,
                 dropNode: null,
                 allowDrop: true,
                 dropType: null,
-            });
+            };
         },
-        [ns, onNodeDragEnd, onNodeDrop, store],
+        [dropIndicatorRef, elRef, ns, onNodeDragEnd, onNodeDrop, store],
     );
 
     return {
-        dragState,
         treeNodeDragStart,
         treeNodeDragOver,
         treeNodeDragEnd,
