@@ -1,6 +1,6 @@
 import forEach from 'lodash/forEach';
 import includes from 'lodash/includes';
-import { DirectoryTreeProps } from '../Tree';
+import { TreeProps } from '../Tree';
 
 export const treeAllProps = [
     'showLine',
@@ -70,7 +70,7 @@ export const treeAllProps = [
  * @param {boolean} [options.includeAria] Includes all input props that starts with "aria-"
  * @returns {[{}, {}]} An array of objects
  */
-export const partitionTreePropsUtils = (props: any, options: any = {}): [DirectoryTreeProps<any>, any] => {
+export const partitionTreePropsUtils = (props: any, options: any = {}): [TreeProps, any] => {
     const { treeProps = treeAllProps } = options;
 
     const inputProps: { [key: string]: string } = {};

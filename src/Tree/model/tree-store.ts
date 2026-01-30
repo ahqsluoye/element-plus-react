@@ -116,6 +116,7 @@ export default class TreeStore {
         if (data instanceof Node) {
             return data;
         }
+        // @ts-ignore
         const key = isObject(data) ? getNodeKey(this.key, data) : data;
         return this.nodesMap[key] || null;
     }
@@ -203,7 +204,7 @@ export default class TreeStore {
             this.deregisterNode(child);
         });
 
-        delete this.nodesMap[node.key!];
+        delete this.nodesMap[node.key];
     }
 
     getCheckedNodes(leafOnly = false, includeHalfChecked = false): TreeNodeData[] {

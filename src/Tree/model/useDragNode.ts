@@ -2,7 +2,7 @@ import { useClassNames } from '@qsxy/element-plus-react/hooks';
 import { addClass, removeClass } from 'dom-lib';
 import React, { useCallback, useRef } from 'react';
 import { isFunction } from '../../Util';
-import { AllowDragFunction, AllowDropFunction, FakeNode, NodeDropType } from '../typings';
+import { FakeNode, NodeDropType, TreeProps } from '../typings';
 import type Node from './node';
 import type TreeStore from './tree-store';
 
@@ -17,16 +17,7 @@ export interface DragOptions {
 }
 
 interface Props {
-    props: {
-        allowDrag?: AllowDragFunction;
-        allowDrop?: AllowDropFunction;
-        onNodeDragStart?: (node: Node, event: React.DragEvent<HTMLDivElement>) => void;
-        onNodeDragEnter?: (dragNode: Node, dropNode: Node, event: React.DragEvent<HTMLDivElement>) => void;
-        onNodeDragLeave?: (dragNode: Node, dropNode: Node, event: React.DragEvent<HTMLDivElement>) => void;
-        onNodeDragOver?: (dragNode: Node, dropNode: Node, event: React.DragEvent<HTMLDivElement>) => void;
-        onNodeDragEnd?: (dragNode: Node, dropNode: Node, dropType: NodeDropType, event: React.DragEvent<HTMLDivElement>) => void;
-        onNodeDrop?: (dragNode: Node, dropNode: Node, dropType: NodeDropType, event: React.DragEvent<HTMLDivElement>) => void;
-    };
+    props: TreeProps;
     elRef: React.RefObject<HTMLElement>;
     dropIndicatorRef: React.RefObject<HTMLElement>;
     store: TreeStore;

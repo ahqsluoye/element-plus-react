@@ -191,17 +191,17 @@ export interface TreeEvents {
     /** 节点被关闭时触发的事件	共三个参数，依次为：传递给 data 属性的数组中该节点所对应的对象、节点对应的 Node、节点组件本身 */
     onNodeCollapse?: (nodeData: TreeNodeData, node: Node, instance: TreeNodeRef) => void;
     /** 节点开始拖拽时触发的事件	共两个参数，依次为：被拖拽节点对应的 Node、event */
-    onNodeDragStart?: (draggingNode: Node, event: DragEvent) => void;
+    onNodeDragStart?: (draggingNode: Node, event: React.DragEvent<HTMLDivElement>) => void;
     /** 拖拽进入其他节点时触发的事件	共三个参数，依次为：被拖拽节点对应的 Node、所进入节点对应的 Node、event */
-    onNodeDragEnter?: (draggingNode: Node, dropNode: Node, event: DragEvent) => void;
+    onNodeDragEnter?: (draggingNode: Node, dropNode: Node, event: React.DragEvent<HTMLDivElement>) => void;
     /** 拖拽离开某个节点时触发的事件	共三个参数，依次为：被拖拽节点对应的 Node、所离开节点对应的 Node、event */
-    onNodeDragLeave?: (draggingNode: Node, dropNode: Node, event: DragEvent) => void;
+    onNodeDragLeave?: (draggingNode: Node, dropNode: Node, event: React.DragEvent<HTMLDivElement>) => void;
     /** 在拖拽节点时触发的事件（类似浏览器的 mouseover 事件）	共三个参数，依次为：被拖拽节点对应的 Node、当前进入节点对应的 Node、event */
-    onNodeDragOver?: (draggingNode: Node, dropNode: Node, event: DragEvent) => void;
+    onNodeDragOver?: (draggingNode: Node, dropNode: Node, event: React.DragEvent<HTMLDivElement>) => void;
     /** 拖拽结束，即释放鼠标时触发的事件	共三个参数，依次为：被拖拽节点对应的 Node、当前进入节点对应的 Node、event */
-    onNodeDragEnd?: (draggingNode: Node, dropNode: Node, dropType: NodeDropType, event: DragEvent) => void;
+    onNodeDragEnd?: (draggingNode: Node, dropNode: Node, dropType: NodeDropType, event: React.DragEvent<HTMLDivElement>) => void;
     /** 拖拽开始时触发的事件	共两个参数，依次为：被拖拽节点对应的 Node、event */
-    onNodeDrop?: (draggingNode: Node, dropNode: Node, dropType: NodeDropType, event: DragEvent) => void;
+    onNodeDrop?: (draggingNode: Node, dropNode: Node, dropType: NodeDropType, event: React.DragEvent<HTMLDivElement>) => void;
 }
 
 export type NodeDropType = 'before' | 'after' | 'inner' | 'none';

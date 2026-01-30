@@ -259,17 +259,10 @@ const Tree = forwardRef<TreeRef, TreeProps>((props, ref) => {
         (node: Node, shouldAutoExpandParent = true) => {
             requireNodeKey('setCurrentNode');
 
-            handleCurrentChange(
-                store,
-                (event, ...args) => {
-                    // 触发事件回调
-                    props[event]?.(...args);
-                },
-                () => {
-                    broadcastExpanded(node);
-                    store.setUserCurrentNode(node, shouldAutoExpandParent);
-                },
-            );
+            handleCurrentChange(store, props.onCurrentChange, () => {
+                broadcastExpanded(node);
+                store.setUserCurrentNode(node, shouldAutoExpandParent);
+            });
         },
         [broadcastExpanded, requireNodeKey, store, props],
     );
@@ -278,17 +271,10 @@ const Tree = forwardRef<TreeRef, TreeProps>((props, ref) => {
         (key = null, shouldAutoExpandParent = true) => {
             requireNodeKey('setCurrentKey');
 
-            handleCurrentChange(
-                store,
-                (event, ...args) => {
-                    // 触发事件回调
-                    props[event]?.(...args);
-                },
-                () => {
-                    broadcastExpanded();
-                    store.setCurrentNodeKey(key, shouldAutoExpandParent);
-                },
-            );
+            handleCurrentChange(store, props.onCurrentChange, () => {
+                broadcastExpanded();
+                store.setCurrentNodeKey(key, shouldAutoExpandParent);
+            });
         },
         [broadcastExpanded, requireNodeKey, store, props],
     );

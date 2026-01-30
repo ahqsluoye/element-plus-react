@@ -3,7 +3,6 @@ import find from 'lodash/find';
 import isEqual from 'lodash/isEqual';
 import last from 'lodash/last';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Key } from '../Tree';
 import { isEmpty, isNotEmpty, randomCode } from '../Util';
 import { CascaderProps, OptionNode } from './typings';
 
@@ -29,7 +28,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
     // 选中的节点组（多选）
     const checkedNodes = useRef<OptionNode[][]>([]);
     // 树组件扩展keys
-    const expandKeys = useRef<Record<string, Key[]>>({});
+    // const expandKeys = useRef<Record<string, Key[]>>({});
 
     /**
      * 初始化时分离不同层级的数据
@@ -450,24 +449,24 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
         [dataTypes, lazy],
     );
 
-    /**
-     * 获取扩展key
-     * @param level 层级
-     * @returns
-     */
-    const getExpandedKeys = useCallback((level: number): Key[] => {
-        return expandKeys.current[`level${level}`] ?? [];
-    }, []);
+    // /**
+    //  * 获取扩展key
+    //  * @param level 层级
+    //  * @returns
+    //  */
+    // const getExpandedKeys = useCallback((level: number): Key[] => {
+    //     return expandKeys.current[`level${level}`] ?? [];
+    // }, []);
 
-    /**
-     * 设置扩展key
-     * @param level 层级
-     * @param keys
-     * @returns
-     */
-    const setExpandedKeys = useCallback((level: number, keys: Key[]) => {
-        expandKeys.current[`level${level}`] = keys;
-    }, []);
+    // /**
+    //  * 设置扩展key
+    //  * @param level 层级
+    //  * @param keys
+    //  * @returns
+    //  */
+    // const setExpandedKeys = useCallback((level: number, keys: Key[]) => {
+    //     expandKeys.current[`level${level}`] = keys;
+    // }, []);
 
     /** 搜索 */
     const handleSearch = useCallback(
@@ -716,20 +715,20 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
          */
         getDataType,
 
-        /**
-         * 获取扩展key
-         * @param level 层级
-         * @returns
-         */
-        getExpandedKeys,
+        // /**
+        //  * 获取扩展key
+        //  * @param level 层级
+        //  * @returns
+        //  */
+        // getExpandedKeys,
 
-        /**
-         * 设置扩展key
-         * @param level 层级
-         * @param keys
-         * @returns
-         */
-        setExpandedKeys,
+        // /**
+        //  * 设置扩展key
+        //  * @param level 层级
+        //  * @param keys
+        //  * @returns
+        //  */
+        // setExpandedKeys,
 
         handleSearch,
 

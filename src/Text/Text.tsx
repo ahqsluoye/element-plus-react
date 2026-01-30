@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import React, { useEffect, useMemo, useRef } from 'react';
-import { useClassNames, useSize } from '../hooks';
+import React, { FC, memo, useEffect, useMemo, useRef } from 'react';
 import { isUndefined, mergeDefaultProps } from '../Util';
+import { useClassNames, useSize } from '../hooks';
 import { TextProps } from './typings';
 
-const Text = (props: TextProps) => {
+const Text: FC<TextProps> = memo((props: TextProps) => {
     props = mergeDefaultProps({ truncated: false, tag: 'span' }, props);
     const { type, size, truncated, lineClamp, tag, title, children, className, style } = props;
 
@@ -62,7 +62,7 @@ const Text = (props: TextProps) => {
     }, [children]);
 
     return React.createElement(tag, { ref: textRef, className: textKls, style: { WebkitLineClamp: lineClamp, ...style } }, children);
-};
+});
 
 Text.displayName = 'ElText';
 
