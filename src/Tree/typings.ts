@@ -52,8 +52,11 @@ export type TreeRef = {
     setCheckedKeys: (keys: TreeKey[], leafOnly?: boolean) => void;
     /** 设置节点是否被选中, 使用此方法必须设置 nodeKey 属性 */
     setChecked: (data: TreeKey | TreeNodeData, checked: boolean, deep: boolean) => void;
+    store: TreeStore;
 };
-export type TreeNodeRef = {};
+export type TreeNodeRef = {
+    handleExpandIconClick: () => void;
+};
 
 export type TreeData = TreeNodeData[];
 export type TreeKey = string | number;
@@ -177,9 +180,9 @@ export interface TreeProps extends TreeEvents, BaseProps, NativeProps {
 
 export interface TreeEvents {
     /** 当节点被点击的时候触发	四个参数：对应于节点点击的节点对象，TreeNode 的 node 属性, TreeNode和事件对象 */
-    onNodeClick?: (nodeData: TreeNodeData, node: Node, instance: TreeNodeRef, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+    onNodeClick?: (nodeData: TreeNodeData, node: Node, instance: RefObject<TreeNodeRef>, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     /** 当某一节点被鼠标右键点击时会触发该事件	共四个参数，依次为：event、传递给 data 属性的数组中该节点所对应的对象、节点对应的 Node、节点组件本身。 */
-    onNodeContextmenu?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>, nodeData: TreeNodeData, node: Node, instance: TreeNodeRef) => void;
+    onNodeContextmenu?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>, nodeData: TreeNodeData, node: Node, instance: RefObject<TreeNodeRef>) => void;
     /** 当复选框被点击的时候触发	共三个参数，依次为：传递给 data 属性的数组中该节点所对应的对象、节点本身是否被选中、节点的子树中是否有被选中的节点 */
     onCheckChange?: (nodeData: TreeNodeData, checked: boolean, indeterminate: boolean) => void;
     /** 点击节点复选框之后触发	共两个参数，依次为：传递给 data 属性的数组中该节点所对应的对象、树目前的选中状态对象，包含 checkedNodes、checkedKeys、halfCheckedNodes、halfCheckedKeys 四个属性 */
@@ -187,9 +190,9 @@ export interface TreeEvents {
     /** 当前选中节点变化时触发的事件	共两个参数，依次为：当前节点的数据，当前节点的 Node 对象 */
     onCurrentChange?: (nodeData: TreeNodeData, node: Node) => void;
     /** 节点被展开时触发的事件	共三个参数，依次为：传递给 data 属性的数组中该节点所对应的对象、节点对应的 Node、节点组件本身 */
-    onNodeExpand?: (nodeData: TreeNodeData, node: Node, instance: TreeNodeRef) => void;
+    onNodeExpand?: (nodeData: TreeNodeData, node: Node, instance: RefObject<TreeNodeRef>) => void;
     /** 节点被关闭时触发的事件	共三个参数，依次为：传递给 data 属性的数组中该节点所对应的对象、节点对应的 Node、节点组件本身 */
-    onNodeCollapse?: (nodeData: TreeNodeData, node: Node, instance: TreeNodeRef) => void;
+    onNodeCollapse?: (nodeData: TreeNodeData, node: Node, instance: RefObject<TreeNodeRef>) => void;
     /** 节点开始拖拽时触发的事件	共两个参数，依次为：被拖拽节点对应的 Node、event */
     onNodeDragStart?: (draggingNode: Node, event: React.DragEvent<HTMLDivElement>) => void;
     /** 拖拽进入其他节点时触发的事件	共三个参数，依次为：被拖拽节点对应的 Node、所进入节点对应的 Node、event */
@@ -222,7 +225,7 @@ export interface TreeNodeProps {
     renderContent: RenderContentFunction;
     renderAfterExpand: boolean;
     showCheckbox: boolean;
-    onNodeExpand: (nodeData: TreeNodeData, node: Node, instance: TreeNodeRef) => void;
+    onNodeExpand: (nodeData: TreeNodeData, node: Node, instance: RefObject<TreeNodeRef>) => void;
 }
 
 interface NodeMap {

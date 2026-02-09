@@ -1,17 +1,17 @@
 import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
-import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, RefObject, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import { mergeDefaultProps } from '../Util';
 import { useClassNames, useForceUpdate } from '../hooks';
-import { DragEventsContext, TreeContext, TreeNodeExpandContext } from './TreeContext';
-import TreeNode from './TreeNode';
+import { mergeDefaultProps } from '../Util';
 import Node from './model/node';
 import TreeStore from './model/tree-store';
 import { useDragNodeHandler } from './model/useDragNode';
 import { useNodeExpandEventBroadcast } from './model/useNodeExpandEventBroadcast';
 import { getNodeKey as getNodeKeyUtil, handleCurrentChange } from './model/util';
+import { DragEventsContext, TreeContext, TreeNodeExpandContext } from './TreeContext';
+import TreeNode from './TreeNode';
 import { TreeData, TreeKey, TreeNodeData, TreeNodeRef, TreeProps, TreeRef } from './typings';
 
 // 主组件
@@ -88,6 +88,7 @@ const Tree = forwardRef<TreeRef, TreeProps>((props, ref) => {
     // const [currentNode, setCurNode] = useState<Node>(null);
     const elRef = useRef(null);
     const dropIndicatorRef = useRef(null);
+    const oldTableData = useRef<TreeData>(null);
 
     const { broadcastExpanded, parentNodeMap } = useNodeExpandEventBroadcast(props);
 
@@ -121,7 +122,7 @@ const Tree = forwardRef<TreeRef, TreeProps>((props, ref) => {
     // 监听属性变化 - currentNodeKey
     useEffect(() => {
         store.setCurrentNodeKey(currentNodeKey || null);
-    }, [currentNodeKey, store]);
+    }, [currentNodeKey]);
 
     // 监听属性变化 - defaultCheckedKeys
     useEffect(() => {
@@ -129,22 +130,26 @@ const Tree = forwardRef<TreeRef, TreeProps>((props, ref) => {
             store.setDefaultCheckedKey(props.defaultCheckedKeys || []);
         }
         prevDefaultCheckedKeysRef.current = props.defaultCheckedKeys;
-    }, [props.defaultCheckedKeys, store]);
+    }, [props.defaultCheckedKeys]);
 
     // 监听属性变化 - defaultExpandedKeys
     useEffect(() => {
         store.setDefaultExpandedKeys(props.defaultExpandedKeys || []);
-    }, [props.defaultExpandedKeys, store]);
+    }, [props.defaultExpandedKeys]);
 
     // 监听属性变化 - data
     useEffect(() => {
-        store.setData(props.data);
-    }, [props.data, store]);
+        if (oldTableData.current != null && !isEqual(props.data, oldTableData.current)) {
+            store.setData(props.data);
+            forceUpdate();
+        }
+        oldTableData.current = props.data;
+    }, [props.data]);
 
     // 监听属性变化 - checkStrictly
     useEffect(() => {
         store.checkStrictly = props.checkStrictly;
-    }, [props.checkStrictly, store]);
+    }, [props.checkStrictly]);
 
     // 保存前一个值的 ref
     const prevDefaultCheckedKeysRef = useRef(props.defaultCheckedKeys);
@@ -262,9 +267,10 @@ const Tree = forwardRef<TreeRef, TreeProps>((props, ref) => {
             handleCurrentChange(store, props.onCurrentChange, () => {
                 broadcastExpanded(node);
                 store.setUserCurrentNode(node, shouldAutoExpandParent);
+                forceUpdate();
             });
         },
-        [broadcastExpanded, requireNodeKey, store, props],
+        [requireNodeKey, store, props.onCurrentChange, forceUpdate, broadcastExpanded],
     );
 
     const setCurrentKey = useCallback(
@@ -315,7 +321,7 @@ const Tree = forwardRef<TreeRef, TreeProps>((props, ref) => {
     );
 
     const handleNodeExpand = useCallback(
-        (nodeData: TreeNodeData, node: Node, instance: TreeNodeRef) => {
+        (nodeData: TreeNodeData, node: Node, instance: RefObject<TreeNodeRef>) => {
             broadcastExpanded(node);
             onNodeExpand?.(nodeData, node, instance);
         },
@@ -351,6 +357,7 @@ const Tree = forwardRef<TreeRef, TreeProps>((props, ref) => {
         setCheckedNodes,
         setCheckedKeys,
         setChecked,
+        store,
     }));
 
     // 提供上下文

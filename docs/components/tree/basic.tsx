@@ -70,8 +70,8 @@ const App = () => {
         },
     ];
 
-    const handleNodeClick = (data: Tree) => {
-        console.log(data);
+    const handleNodeClick = (nodeData: Tree) => {
+        console.log(nodeData);
     };
 
     return <ElTree data={data} props={defaultProps} style={{ maxWidth: 600 }} onNodeClick={handleNodeClick} />;

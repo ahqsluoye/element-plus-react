@@ -81,7 +81,7 @@ const useSelect = (props: SelectProps) => {
     const size = useSize(props.size);
 
     // 单选框显示文本
-    const [selected, setSelected] = useState<OptionData | OptionData[]>(null);
+    // const [selected, setSelected] = useState<OptionData | OptionData[]>(null);
 
     const [visible, setVisible] = useState(false);
     const [popperStyle, setPopperStyle] = useState<React.CSSProperties>({});
@@ -130,6 +130,14 @@ const useSelect = (props: SelectProps) => {
         }
         return [];
     }, [multiValue, multiple, optionData]);
+
+    const selected = useMemo(() => {
+        if (multiple) {
+            return multiOptionData;
+        } else {
+            return [...optionData, ...Array.from(cachedOptions.current.values())].find(item => item.value === value);
+        }
+    }, [multiple, multiOptionData, optionData, value]);
 
     const label = useMemo(() => {
         if (!multiple && selected && !Array.isArray(selected)) {
@@ -274,8 +282,8 @@ const useSelect = (props: SelectProps) => {
      * @returns
      */
     const toggleMenu = useCallback(
-        (event: React.MouseEvent<HTMLSpanElement>) => {
-            event.preventDefault();
+        (event?: React.MouseEvent<HTMLSpanElement>) => {
+            event?.preventDefault();
             event?.stopPropagation();
             if (disabled) {
                 setVisible(false);
@@ -313,7 +321,7 @@ const useSelect = (props: SelectProps) => {
             event.stopPropagation();
             event.preventDefault();
             setValue(multiple ? [] : '');
-            setSelected(null);
+            // setSelected(null);
             selectDropdownRef.current?.hover('');
             onChange?.(multiple ? [] : '');
             onClearProp?.();
@@ -327,7 +335,7 @@ const useSelect = (props: SelectProps) => {
     /** 选中项回调 */
     const onChoose = useCallback(
         (val: string, data: OptionData, event?: any) => {
-            event.preventDefault();
+            event?.preventDefault();
             if (isNotEmpty(val)) {
                 let result: ValueType = val;
                 let multiData: OptionData[] = [];
@@ -339,10 +347,10 @@ const useSelect = (props: SelectProps) => {
                         result = [...multiValue, val];
                         multiData = [...multiOptionData, data];
                     }
-                    setSelected(multiData);
+                    // setSelected(multiData);
                 } else {
                     setInputValue('');
-                    setSelected(data);
+                    // setSelected(data);
                 }
                 if (allowCreate && isNotEmpty(inputValue)) {
                     setInputValue('');
@@ -357,6 +365,7 @@ const useSelect = (props: SelectProps) => {
                 setValue(result);
                 onChange?.(result, multiple ? multiData : data);
                 !multiple && toggleMenu(event);
+                return result;
             } else {
                 setVisible(false);
             }
@@ -401,15 +410,15 @@ const useSelect = (props: SelectProps) => {
             return;
         }
         if (multiple && Array.isArray(value)) {
-            setSelected(multiOptionData.filter(item => value.includes(item.value)));
+            // setSelected(multiOptionData.filter(item => value.includes(item.value)));
             initedRef.current = true;
         } else {
             if (isNotEmpty(value)) {
                 const data = optionData.find(item => item.value === value);
-                setSelected(data);
+                // setSelected(data);
                 initedRef.current = true;
             } else {
-                setSelected(null);
+                // setSelected(null);
                 initedRef.current = true;
             }
         }
@@ -471,6 +480,7 @@ const useSelect = (props: SelectProps) => {
         handleCompositionStart,
         handleCompositionUpdate,
         handleCompositionEnd,
+        cachedOptions,
     };
 };
 

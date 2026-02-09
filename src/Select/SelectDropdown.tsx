@@ -29,6 +29,7 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
         contentRef,
         header,
         footer,
+        cachedOptions,
     } = props;
     const { b, e, be, is } = useClassNames('select');
     const ulRef = useRef<HTMLUListElement>(null);
@@ -47,6 +48,9 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
         if (filterable && remote) {
             remoteMethod?.(searchText);
         }
+        if (filterable && filterMethod) {
+            filterMethod?.(searchText);
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchText]);
@@ -54,19 +58,19 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
     const filterAction = useCallback(
         (p: SelectOptionProps) => {
             if (isNotEmpty(searchText) && isNotEmpty(p.value)) {
-                if (filterMethod) {
-                    const filterResult = filterMethod(p.label ?? p.value.toString(), searchText);
-                    return filterResult;
-                } else {
-                    const regex = new RegExp(searchText, 'gi');
-                    const res = null !== `${p.label ?? p.value ?? ''}`.match(regex);
-                    return res;
-                }
+                // if (filterMethod) {
+                //     const filterResult = filterMethod(p.label ?? p.value.toString(), searchText);
+                //     return filterResult;
+                // } else {
+                // }
+                const regex = new RegExp(searchText, 'gi');
+                const res = null !== `${p.label ?? p.value ?? ''}`.match(regex);
+                return res;
             } else {
                 return true;
             }
         },
-        [filterMethod, searchText],
+        [searchText],
     );
 
     const scrollToSelected = useCallback(() => {
@@ -126,7 +130,7 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
             );
         }
         // 搜索
-        if (filterable && !remote && isNotEmpty(searchText)) {
+        if (filterable && !remote && isNotEmpty(searchText) && !filterMethod) {
             let match = false;
             return props.children ? (
                 <>
@@ -152,6 +156,10 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
                             } else {
                                 return null;
                             }
+                        } else if (nodeType === 'ElTree') {
+                            // filterAction(item.props);
+                            match = true;
+                            return item;
                         }
 
                         // if (filterAction(item.props)) {
@@ -169,7 +177,7 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
                 return <div className={be('dropdown', 'empty')}>{remote ? noMatchText : noDataText}</div>;
             }
         }
-    }, [filterable, allowCreate, searchText, remote, multiple, value, props.children, setInputValue, noMatchText, filterAction, be, noDataText]);
+    }, [filterable, allowCreate, searchText, remote, filterMethod, multiple, value, props.children, setInputValue, be, noMatchText, filterAction, noDataText]);
 
     return (
         <div
@@ -179,7 +187,7 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
         >
             <>
                 {header ? <div className={be('dropdown', 'header')}>{header}</div> : null}
-                <SelectContext.Provider value={{ value, onChoose, hover, setHover, multiple }}>
+                <SelectContext.Provider value={{ value, onChoose, hover, setHover, multiple, cachedOptions }}>
                     <Scrollbar wrapClass={be('dropdown', 'wrap')} wrapStyle={{ display: props.loading ? 'none' : undefined }}>
                         <ul className={be('dropdown', 'list')} ref={ulRef}>
                             {options}

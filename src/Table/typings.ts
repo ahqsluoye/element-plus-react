@@ -312,6 +312,8 @@ export interface TableRefs {
 
 export interface TableRef<T> {
     refs: TableRefs;
+    /** 列信息 */
+    columns: TableColumnCtx<T>[][];
     /** 用于多选表格，清空用户的选择 */
     clearSelection: () => void;
     /** 返回当前选中的行	 */

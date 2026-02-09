@@ -74,6 +74,7 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
                 { link: '/components/switch', title: 'Switch 开关' },
                 { link: '/components/time-picker', title: 'TimePicker 时间选择器' },
                 { link: '/components/transfer', title: 'Transfer 穿梭框' },
+                { link: '/components/tree-select', title: 'TreeSelect 树形选择' },
                 { link: '/components/upload', title: 'Upload 上传' },
             ],
         },
@@ -93,7 +94,6 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
                 { link: '/components/tag', title: 'Tag 标签' },
                 { link: '/components/time-line', title: 'Timeline 时间线' },
                 { link: '/components/tree', title: 'Tree 树形控件' },
-                // { link: '/components/treeselect', title: 'TreeSelect 树形选择' },
             ],
         },
         {

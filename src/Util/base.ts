@@ -343,3 +343,5 @@ function flushCallbacks() {
 // 而 nextTick 回调中的 nextTick 应该放在下一轮执行，
 // 否则就可能出现一直循环的情况，
 // 所以需要将 callbacks 复制一份出来然后清空，再遍历备份列表执行回调
+
+export const escapeStringRegexp = (string = '') => string.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&').replace(/-/g, '\\x2d');

@@ -1,4 +1,5 @@
 import { isObject, isPropAbsent, nextTick } from '@qsxy/element-plus-react/Util';
+import isEqual from 'lodash/isEqual';
 import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';
 import { FilterNodeMethodFunction, FilterValue, LoadFunction, TreeData, TreeKey, TreeNodeData, TreeOptionProps, TreeStoreNodesMap, TreeStoreOptions } from '../typings';
@@ -51,6 +52,7 @@ export default class TreeStore {
                 data => {
                     this.root.doCreateChildren(data);
                     this._initDefaultCheckedNodes();
+                    this.forceUpdate();
                 },
                 noop,
             );
@@ -101,7 +103,7 @@ export default class TreeStore {
     }
 
     setData(newVal: TreeData): void {
-        const instanceChanged = newVal !== this.root.data;
+        const instanceChanged = !isEqual(newVal, this.root.data);
         if (instanceChanged) {
             this.nodesMap = {};
             this.root.setData(newVal);
@@ -385,7 +387,7 @@ export default class TreeStore {
     }
 
     setUserCurrentNode(node: Node, shouldAutoExpandParent = true): void {
-        const key = (node as any)[this.key];
+        const key = (node as any).data[this.key];
         const currNode = this.nodesMap[key];
         this.setCurrentNode(currNode);
         if (shouldAutoExpandParent && this.currentNode && this.currentNode.level > 1) {

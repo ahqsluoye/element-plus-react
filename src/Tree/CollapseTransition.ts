@@ -59,6 +59,7 @@ export const onLeave = (node: RefObject<any>) => {
 export const afterLeave = (node: RefObject<HTMLElement>) => {
     if (node.current) {
         const { current: el } = node;
+        el.style.display = 'block';
         setTimeout(() => {
             el.style.height = '';
             el.style.overflow = el.dataset.oldOverflow;

@@ -6,7 +6,7 @@ export const beforeEnter = el => {
 };
 
 export const onEnter = (el: HTMLElement) => {
-    addClass(el, 'collapse-transition');
+    // addClass(el, 'collapse-transition');
     el.dataset.oldOverflow = el.style.overflow;
     if (el.scrollHeight !== 0) {
         el.style.height = `${el.scrollHeight}px`;
@@ -20,13 +20,15 @@ export const onEnter = (el: HTMLElement) => {
 };
 
 export const afterEnter = (el: HTMLElement) => {
-    removeClass(el, 'collapse-transition');
-    el.style.height = '';
-    el.style.overflow = el.dataset.oldOverflow;
+    // removeClass(el, 'collapse-transition');
+    setTimeout(() => {
+        el.style.height = '';
+        el.style.overflow = el.dataset.oldOverflow;
+    }, 300);
 };
 
 export const beforeLeave = el => {
-    addClass(el, 'collapse-transition');
+    // addClass(el, 'collapse-transition');
     if (!el.dataset) {
         el.dataset = {};
     }
@@ -43,10 +45,13 @@ export const onLeave = el => {
 };
 
 export const afterLeave = el => {
-    el.style.height = '';
-    el.style.overflow = el.dataset.oldOverflow;
-    el.style.display = '';
-    removeClass(closest(el, 'li'), 'open');
+    el.style.display = 'block';
+    setTimeout(() => {
+        el.style.height = '';
+        el.style.overflow = el.dataset.oldOverflow;
+        el.style.display = '';
+        removeClass(closest(el, 'li'), 'open');
+    }, 300);
 };
 
 const closest = function (

@@ -1,5 +1,5 @@
 import noop from 'lodash/noop';
-import { createContext } from 'react';
+import { createContext, RefObject } from 'react';
 import { OptionData, OptionValue, ValueType } from './typings';
 
 export interface SelectContextProps {
@@ -8,6 +8,7 @@ export interface SelectContextProps {
     setHover: (value: ValueType) => void;
     onChoose: (value: OptionValue, data: OptionData, e: any) => void;
     multiple: boolean;
+    cachedOptions: RefObject<Map<OptionValue, OptionData>>;
 }
 
 export const SelectContext = createContext<SelectContextProps>({
@@ -16,4 +17,5 @@ export const SelectContext = createContext<SelectContextProps>({
     setHover: noop,
     onChoose: noop,
     multiple: false,
+    cachedOptions: null,
 });

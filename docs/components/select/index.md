@@ -71,6 +71,14 @@ lang: zh-CN
 
 <code src="./grouping.tsx"></code>
 
+## 筛选选项
+
+可以利用筛选功能快速查找选项。
+
+为 `ElSelect` 添加 `filterable` 属性即可启用搜索功能。 默认情况下，Select 会找出所有 `label` 属性包含输入值的选项。 如果希望使用其他的搜索逻辑，可以通过传入一个 `filterMethod` 来实现。 `filterMethod` 为一个 Function，它会在输入值发生变化时调用，参数为当前输入值。
+
+<code src="./filterable.tsx"></code>
+
 ## 远程搜索
 
 输入关键字以从远程服务器中查找数据。

@@ -27,7 +27,7 @@ export type HeaderProps = BaseProps &
         height?: string | number;
     };
 
-export type MainProps = BaseProps & NativeProps;
+export type MainProps = BaseProps & NativeProps<'--el-main-padding'>;
 
 export type FooterProps = BaseProps &
     NativeProps<'--el-footer-padding' | '--el-footer-height'> & {

@@ -103,7 +103,7 @@ const Checkbox = memo(
                         onChange={handleChange}
                     />
                     <span className={classNames(e`inner`, is({ checked, disabled }))} />
-                    <span className={e`label`}>{children}</span>
+                    {children && <span className={e`label`}>{children}</span>}
                 </label>
             ),
             [

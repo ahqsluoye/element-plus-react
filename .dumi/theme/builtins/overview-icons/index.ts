@@ -133,7 +133,7 @@ export default {
     'time-line': OvTimeline,
     tour: OvTour,
     tree: OvTree,
-    treeselect: OvTreeSelect,
+    'tree-select': OvTreeSelect,
     'tree-v2': OvTree,
     statistic: OvStatistic,
     segmented: OvSegmented,

@@ -208,7 +208,7 @@ const SubMenu = (props: SubMenuProps) => {
                         name="el-menu-collapse"
                         nodeRef={ulRef}
                         disabled={disabled}
-                        duration={300}
+                        duration={10}
                         visible={expand}
                         beforeEnter={beforeEnter}
                         onEnter={onEnter}
@@ -218,7 +218,7 @@ const SubMenu = (props: SubMenuProps) => {
                         afterLeave={afterLeave}
                     >
                         {/* @ts-ignore */}
-                        <ul ref={ulRef} className={classNames(mb(), mm`inline`)} style={{ '--el-menu-level': level }}>
+                        <ul ref={ulRef} className={classNames(mb(), mm`inline`, 'collapse-transition')} style={{ '--el-menu-level': level }}>
                             <MenuContext.Provider
                                 value={{
                                     activeIndex,

@@ -1,6 +1,6 @@
 import { NODE_KEY, markNodeData } from './util';
 
-import { isNil } from 'lodash';
+import isNil from 'lodash/isNil';
 import { isBoolean, isFunction, isString, isUndefined } from '../../Util';
 import { FakeNode, TreeKey, TreeNodeChildState, TreeNodeData, TreeNodeLoadedDefaultProps, TreeNodeOptions } from '../typings';
 import TreeStore from './tree-store';

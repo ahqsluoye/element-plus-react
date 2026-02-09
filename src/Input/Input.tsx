@@ -2,7 +2,7 @@ import { useDebounceFn } from 'ahooks';
 import classNames from 'classnames';
 import { addClass, addStyle, hasClass, removeClass } from 'dom-lib';
 import isObject from 'lodash/isObject';
-import React, { ComponentType, RefObject, cloneElement, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { ComponentType, RefObject, cloneElement, forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Icon from '../Icon/Icon';
@@ -227,11 +227,13 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
     //     }
     // }, [debounceInput, handleComposition]);
 
-    useEffect(() => {
-        requestAnimationFrame(() => {
-            inputRef.current.value = formatValue as string;
-        });
-    }, []);
+    // useEffect(() => {
+    //     requestAnimationFrame(() => {
+    //         if (inputRef.current) {
+    //             inputRef.current.value = formatValue as string;
+    //         }
+    //     });
+    // }, []);
 
     useImperativeHandle(ref, () => ({
         ref: containerRef,

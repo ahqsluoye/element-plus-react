@@ -67,6 +67,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
         handleCompositionUpdate,
         handleCompositionEnd,
         tag,
+        cachedOptions,
     } = _props;
     const { b, e, m, is } = nsSelect;
 
@@ -79,6 +80,8 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
         onClear,
         clear: onClear,
         setVisible,
+        cachedOptions,
+        onChoose,
     }));
 
     return (
@@ -218,7 +221,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                 afterLeave={handleAfterLeave}
                 placement={'bottom-start'}
                 transitionAppear
-                unmountOnExit
+                unmountOnExit={props.unmountOnExit}
                 showArrow={showArrow}
                 {...transitionProps}
                 {...popperProps}
@@ -233,6 +236,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                     popperInstRef={popperInstRef}
                     {..._props}
                     onClear={props.onClear}
+                    cachedOptions={cachedOptions}
                 >
                     {props.children}
                 </SelectDropdown>

@@ -76,6 +76,9 @@ function InternalTable<RecordType extends object = TreeNode>(props: TableProps<R
 
     useImperativeHandle(ref, () => ({
         refs,
+        get columns() {
+            return columns;
+        },
         clearSelection,
         getSelectionRows,
         toggleRowSelection,

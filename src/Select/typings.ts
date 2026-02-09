@@ -11,6 +11,8 @@ export type SelectRef = {
     setValue: (value: ValueType) => void;
     onClear: (event?: any) => void;
     setVisible: (value: boolean) => void;
+    cachedOptions: React.RefObject<Map<OptionValue, OptionData>>;
+    onChoose: (val: string, data: OptionData, event?: any) => ValueType;
 };
 
 type Child = React.ReactElement<SelectOptionGroupProps | SelectOptionProps> | React.ReactElement<SelectOptionGroupProps | SelectOptionProps>[];
@@ -31,7 +33,7 @@ export interface SelectProps<V = ValueType> extends Omit<FormControlBaseProps<V>
     /** 是否可搜索 */
     filterable?: boolean;
     /** 自定义搜索方法 */
-    filterMethod?: (val: ValueType, searchText: string) => boolean;
+    filterMethod?: (searchText: string) => void;
     /** 选项为空时显示的文字 */
     noDataText?: string;
     /** 搜索条件无匹配时显示的文字 */
@@ -103,6 +105,7 @@ export interface SelectProps<V = ValueType> extends Omit<FormControlBaseProps<V>
     footer?: React.ReactElement;
     /** 作为 Select 组件的内容时 */
     tag?: (params: { data: OptionData[]; selectDisabled: boolean; deleteTag: (event: React.MouseEvent<HTMLElement, MouseEvent>, tag: OptionData) => void }) => React.ReactElement;
+    unmountOnExit?: boolean;
     /** 数据加载成功时调用 */
     // onLoadSuccess?: (value: ValueType, data?: any) => void;
 }
@@ -145,6 +148,7 @@ export interface SelectDropdownProps extends SelectProps {
     header?: React.ReactElement;
     /** 下拉列表底部的内容 */
     footer?: React.ReactElement;
+    cachedOptions: React.RefObject<Map<OptionValue, OptionData>>;
 }
 
 export interface SelectDropdownRef {

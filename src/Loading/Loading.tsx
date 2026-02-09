@@ -13,6 +13,8 @@ const LoadingMain = forwardRef<any, LoadingProps>((props, ref) => {
     const { visible, text, fullscreen, spinner, background, svg, svgViewBox } = props;
     const { b, is, bm } = useClassNames('loading');
 
+    const zIndex = useMemo(() => PopupManager.nextZIndex(), []);
+
     const nodeRef = useRef(null);
 
     const onEnter = useCallback(() => {
@@ -43,7 +45,7 @@ const LoadingMain = forwardRef<any, LoadingProps>((props, ref) => {
     const content = useMemo(
         () => (
             <Transition nodeRef={nodeRef} name="loading-fade" transitionAppear unmountOnExit visible={visible} onEnter={onEnter}>
-                <div ref={nodeRef} className={classNames(b`mask`, is({ fullscreen }), props.className)} style={{ ...props.style, background, zIndex: PopupManager.nextZIndex() }}>
+                <div ref={nodeRef} className={classNames(b`mask`, is({ fullscreen }), props.className)} style={{ ...props.style, background, zIndex }}>
                     <div className={b`spinner`}>
                         {spinner ? (
                             <Icon name={spinner} spin />
@@ -58,7 +60,7 @@ const LoadingMain = forwardRef<any, LoadingProps>((props, ref) => {
                 </div>
             </Transition>
         ),
-        [b, background, fullscreen, is, onEnter, props.className, props.style, spinner, svg, svgViewBox, text, visible],
+        [b, background, fullscreen, is, onEnter, props.className, props.style, spinner, svg, svgViewBox, text, visible, zIndex],
     );
 
     return props.children ? (

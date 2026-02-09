@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
-import React, { ComponentType, RefObject, forwardRef, memo, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import React, { ComponentType, RefObject, forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Transition from '../Transition/Transition';
 import { PopupManager, addUnit } from '../Util';
@@ -51,6 +51,8 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
     // const backdropRef = useRef<HTMLDivElement>(null);
     const overlayRef = useRef<HTMLDivElement>(null);
     const headerRef = useRef<HTMLDivElement>(null);
+
+    const nextZIndex = useMemo(() => zIndex || PopupManager.nextZIndex(), [zIndex]);
 
     useDraggable(dialogRef, headerRef, draggable, overflow);
 
@@ -125,15 +127,6 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
         }
     }, [b, modal, beforeClose, doClose, ref, setVisible, visible, closeOnClickModal]);
 
-    // useEffect(() => {
-    //     document.addEventListener('keydown', keydown, false);
-    //     console.log(PopupManager.zIndex);
-    //     return () => {
-    //         console.log(PopupManager.zIndex);
-    //         document.removeEventListener('keydown', keydown, false);
-    //     };
-    // }, [keydown]);
-
     useEffect(() => {
         getInstancesFromChildren(children);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -143,25 +136,6 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
 
     return (
         <DialogContext.Provider value={{ modal: modal, setVisible, isControlled, doClose, center, overflow, haveTitle: haveTitle.current, haveFooter: haveFooter.current }}>
-            {/* {backdrop &&
-                createPortal(
-                    <Transition
-                        visible={visible}
-                        transitionAppear
-                        unmountOnExit
-                        duration={300}
-                        onEnter={() => {
-                            setTimeout(() => {
-                                addClass(backdropRef.current, b('anim-in', false));
-                            }, 10);
-                        }}
-                        beforeLeave={() => removeClass(backdropRef.current, b('anim-in', false))}
-                    >
-                        <div className={classNames(b`backdrop`, b('anim-fade', false))} style={{ zIndex: PopupManager.nextZIndex() }} ref={backdropRef} />
-                    </Transition>,
-                    document.body,
-                )} */}
-
             {createPortal(
                 <Transition
                     nodeRef={wrapperRef}
@@ -206,7 +180,7 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
                     }}
                     duration={300}
                 >
-                    <div className={classNames(b('overlay', false), props.className)} style={{ zIndex: zIndex || PopupManager.nextZIndex() }} ref={wrapperRef}>
+                    <div className={classNames(b('overlay', false), props.className)} style={{ zIndex: nextZIndex }} ref={wrapperRef}>
                         <div ref={overlayRef} className={b(`overlay-${classPrefix}`, false)} style={{ display: alignCenter ? 'flex' : 'block' }}>
                             <div
                                 className={classNames(b(), is({ draggable, 'align-center': alignCenter, fullscreen }), { [m`center`]: center })}
@@ -222,18 +196,6 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
                                     {title}
                                 </DialogHeader>
                                 {children}
-                                {/* {React.Children.map(children, child => {
-                                    if (React.isValidElement(child)) {
-                                        let nodeType = child?.type;
-                                        nodeType = (nodeType as ComponentType)?.displayName || nodeType;
-                                        if (nodeType === 'ElDialogHeader') {
-                                            // @ts-ignore
-                                            return React.cloneElement(child, { ref: headerRef });
-                                        }
-                                        return child;
-                                    }
-                                    return child;
-                                })} */}
                             </div>
                         </div>
                     </div>

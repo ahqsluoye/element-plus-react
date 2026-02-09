@@ -1,29 +1,98 @@
-import { ElTreeSelect, generateTree } from '@qsxy/element-plus-react';
-import cloneDeep from 'lodash/cloneDeep';
-import React, { useMemo } from 'react';
-import { Demo4, Demo5 } from '../tree/treeData';
+import { ElDivider, ElTreeSelect } from '@qsxy/element-plus-react';
+import React from 'react';
 
 const App = () => {
-    const data = useMemo(() => generateTree(cloneDeep(Demo5), '0', { idKey: 'pkid', parentIdKey: 'parentId' }), []);
+    const sourceData = [
+        {
+            value: '1',
+            label: 'Level one 1',
+            children: [
+                {
+                    value: '1-1',
+                    label: 'Level two 1-1',
+                    children: [
+                        {
+                            value: '1-1-1',
+                            label: 'Level three 1-1-1',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            value: '2',
+            label: 'Level one 2',
+            children: [
+                {
+                    value: '2-1',
+                    label: 'Level two 2-1',
+                    children: [
+                        {
+                            value: '2-1-1',
+                            label: 'Level three 2-1-1',
+                        },
+                    ],
+                },
+                {
+                    value: '2-2',
+                    label: 'Level two 2-2',
+                    children: [
+                        {
+                            value: '2-2-1',
+                            label: 'Level three 2-2-1',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            value: '3',
+            label: 'Level one 3',
+            children: [
+                {
+                    value: '3-1',
+                    label: 'Level two 3-1',
+                    children: [
+                        {
+                            value: '3-1-1',
+                            label: 'Level three 3-1-1',
+                        },
+                    ],
+                },
+                {
+                    value: '3-2',
+                    label: 'Level two 3-2',
+                    children: [
+                        {
+                            value: '3-2-1',
+                            label: 'Level three 3-2-1',
+                        },
+                    ],
+                },
+            ],
+        },
+    ];
+
+    const [data, setData] = React.useState(sourceData);
+    const [value, setValue] = React.useState();
+
+    const filterMethod = val => {
+        setData(sourceData.filter(filterNodeMethod.bind(null, val)));
+    };
+
+    const filterNodeMethod = (val, data) => {
+        return data.label.includes(val);
+    };
 
     return (
         <>
-            <ElTreeSelect
-                treeData={cloneDeep(Demo4)}
-                filterable
-                checkStrictly={false}
-                fieldNames={{ key: 'nodeid', title: 'text', children: 'children' }}
-                placeholder="请选择数据集"
-                style={{ width: 350, marginRight: 20 }}
-            />
-            <ElTreeSelect
-                treeData={data}
-                filterable
-                checkStrictly={false}
-                fieldNames={{ key: 'pkid', title: 'typeName', children: 'children' }}
-                placeholder="请选择数据集"
-                style={{ width: 350 }}
-            />
+            <ElTreeSelect value={value} data={data} onChange={val => setValue(val)} filterable style={{ width: 240 }} />
+            <ElDivider />
+            show checkbox：
+            <ElTreeSelect value={value} data={data} onChange={val => setValue(val)} filterable filterMethod={filterMethod} style={{ width: 240 }} />
+            <ElDivider />
+            show checkbox with `check-on-click-node`：
+            <ElTreeSelect value={value} data={data} onChange={val => setValue(val)} filterable filterNodeMethod={filterNodeMethod} style={{ width: 240 }} />
         </>
     );
 };

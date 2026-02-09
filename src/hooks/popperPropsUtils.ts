@@ -22,6 +22,7 @@ export const popperAllProps = [
     'appendTo',
     'popperOptions',
     'fallbackPlacements',
+    'effect',
 ];
 
 /**

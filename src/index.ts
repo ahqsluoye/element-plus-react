@@ -145,7 +145,7 @@ export type {
     TreeStore,
 } from './Tree';
 
-// export { TreeSelect as ElTreeSelect } from './TreeSelect';
+export { TreeSelect as ElTreeSelect } from './TreeSelect';
 // export type { SelectInfo, TreeSelectProps, TreeSelectRef } from './TreeSelect';
 
 // export { VirtualList } from './VirtualList';
@@ -203,6 +203,7 @@ export { Divider as ElDivider } from './Divider';
 export type { DividerProps } from './Divider';
 
 /* 工具库与hooks */
+export { PopupManager, download, genFileId, generateTree, getScrollWidth, isEmpty, isNotEmpty, randomCode } from './Util';
 export {
     htmlInputAttrs,
     htmlInputEvents,
@@ -221,7 +222,6 @@ export {
     useForceUpdate,
     useSize,
 } from './hooks';
-export { PopupManager, download, genFileId, generateTree, getScrollWidth, isEmpty, isNotEmpty, randomCode } from './Util';
 
 /* 通用types */
 export type { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps, StandardProps, TooltipBaseProps, TypeAttributes } from './types/common';

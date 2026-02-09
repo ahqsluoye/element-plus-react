@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import Checkbox from '../Checkbox/Checkbox';
 import Icon from '../Icon/Icon';
 import Transition from '../Transition/Transition';
@@ -11,7 +11,7 @@ import TreeNodeContent from './TreeNodeContent';
 import type Node from './model/node';
 import { useNodeExpandEventBroadcast } from './model/useNodeExpandEventBroadcast';
 import { getNodeKey as getNodeKeyUtil, handleCurrentChange } from './model/util';
-import { TreeNodeData, TreeNodeProps } from './typings';
+import { TreeNodeData, TreeNodeProps, TreeNodeRef } from './typings';
 
 const TreeNode = (props: TreeNodeProps) => {
     const tree = useTreeContext();
@@ -26,7 +26,7 @@ const TreeNode = (props: TreeNodeProps) => {
     // 引用
     const nodeRef = useRef(null);
     const transitionNodeRef = useRef(null);
-    const instanceRef = useRef({});
+    const instanceRef = useRef<TreeNodeRef>(null);
 
     // 初始化检查
     useEffect(() => {
@@ -121,12 +121,12 @@ const TreeNode = (props: TreeNodeProps) => {
             return;
         }
         if (expanded) {
-            tree.props.onNodeCollapse?.(props.node.data, props.node, instanceRef.current);
+            tree.props.onNodeCollapse?.(props.node.data, props.node, instanceRef);
             props.node.collapse();
             tree.forceUpdate();
         } else {
             props.node.expand(() => {
-                props.onNodeExpand?.(props.node.data, props.node, instanceRef.current);
+                props.onNodeExpand?.(props.node.data, props.node, instanceRef);
                 tree.forceUpdate();
             });
         }
@@ -174,7 +174,7 @@ const TreeNode = (props: TreeNodeProps) => {
             if ((tree.props.checkOnClickNode || (props.node.isLeaf && tree.props.checkOnClickLeaf && props.showCheckbox)) && !props.node.disabled) {
                 handleCheckChange(!props.node.checked);
             }
-            tree.props.onNodeClick?.(props.node.data, props.node, instanceRef.current, e);
+            tree.props.onNodeClick?.(props.node.data, props.node, instanceRef, e);
             tree.forceUpdate();
         },
         [tree, props.node, props.showCheckbox, getNodeKey, handleExpandIconClick, handleCheckChange],
@@ -186,7 +186,7 @@ const TreeNode = (props: TreeNodeProps) => {
                 event.stopPropagation();
                 event.preventDefault();
             }
-            tree.props.onNodeContextmenu?.(event, props.node.data, props.node, instanceRef.current);
+            tree.props.onNodeContextmenu?.(event, props.node.data, props.node, instanceRef);
         },
         [tree, props.node],
     );
@@ -243,6 +243,9 @@ const TreeNode = (props: TreeNodeProps) => {
         [tree, dragEvents],
     );
 
+    useImperativeHandle(instanceRef, () => ({
+        handleExpandIconClick,
+    }));
     const contentPaddingLeft = useMemo(() => `${(props.node?.level - 1) * tree.props.indent}px`, [props.node?.level, tree.props.indent]);
 
     return (
@@ -313,7 +316,6 @@ const TreeNode = (props: TreeNodeProps) => {
                 <Transition
                     nodeRef={transitionNodeRef}
                     name={ns.b('menu-collapse', false)}
-                    cssTransition
                     duration={10}
                     visible={expanded && childNodeRendered}
                     beforeEnter={() => beforeEnter(transitionNodeRef)}
