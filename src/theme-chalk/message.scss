@@ -1,165 +1,65 @@
-@use './common/var' as *;
-@use './mixins/config' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
 
-.#{$namespace}-message {
-    --#{$namespace}-message-bg-color: var(--#{$namespace}-color-info-light-9);
-    --#{$namespace}-message-border-color: var(--#{$namespace}-border-color-lighter);
-    --#{$namespace}-message-close-icon-color: var(--#{$namespace}-text-color-placeholder);
-    --#{$namespace}-message-close-hover-color: var(--#{$namespace}-text-color-secondary);
+@include b(message) {
+    @include set-component-css-var('message', $message);
 }
 
-.#{$namespace}-message {
-    min-width: 380px;
+@include b(message) {
     width: fit-content;
     max-width: calc(100% - 32px);
     box-sizing: border-box;
-    border-radius: 4px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--#{$namespace}-message-border-color);
+    border-radius: getCssVar('border-radius-base');
+    border-width: getCssVar('border-width');
+    border-style: getCssVar('border-style');
+    border-color: getCssVar('message', 'border-color');
     position: fixed;
-    left: 50%;
-    top: 20px;
-    transform: translateX(-50%);
-    background-color: var(--#{$namespace}-message-bg-color);
-    color: var(--#{$namespace}-message-text-color);
-    transition: opacity 0.3s, transform 0.4s, top 0.4s;
-    // overflow: hidden;
-    padding: 15px 19px;
+    background-color: getCssVar('message', 'bg-color');
+    transition: opacity getCssVar('transition-duration'), transform 0.4s, top 0.4s, bottom 0.4s;
+    padding: getCssVar('message', 'padding');
     display: flex;
     align-items: center;
+    gap: 8px;
 
-    &.is-center {
-        justify-content: center;
+    &.is-left {
+        left: 16px;
     }
 
-    &.is-closable {
-        .#{$namespace}-message__content {
-            padding-right: 31px;
-        }
+    &.is-right {
+        right: 16px;
+    }
+
+    &.is-center {
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+
+    @include when(plain) {
+        background-color: getCssVar('bg-color', 'overlay');
+        border-color: getCssVar('bg-color', 'overlay');
+        box-shadow: getCssVar('box-shadow-light');
     }
 
     p {
         margin: 0;
     }
 
-    &--info {
-        --#{$namespace}-message-bg-color: var(--#{$namespace}-color-info-light-9);
-        --#{$namespace}-message-border-color: var(--#{$namespace}-color-info-light-8);
-        --#{$namespace}-message-text-color: var(--#{$namespace}-color-info);
+    @each $type in (primary, success, info, warning, error) {
+        @include m($type) {
+            @include css-var-from-global(('message', 'bg-color'), ('color', $type, 'light-9'));
+            @include css-var-from-global(('message', 'border-color'), ('color', $type, 'light-8'));
+            @include css-var-from-global(('message', 'text-color'), ('color', $type));
 
-        .#{$namespace}-message__content {
-            color: var(--#{$namespace}-message-text-color);
-        }
-    }
-
-    &--success {
-        --#{$namespace}-message-bg-color: var(--#{$namespace}-color-success-light-9);
-        --#{$namespace}-message-border-color: var(--#{$namespace}-color-success-light-8);
-        --#{$namespace}-message-text-color: var(--#{$namespace}-color-success);
-
-        .#{$namespace}-message__content {
-            color: var(--#{$namespace}-message-text-color);
-        }
-    }
-
-    &--warning {
-        --#{$namespace}-message-bg-color: var(--#{$namespace}-color-warning-light-9);
-        --#{$namespace}-message-border-color: var(--#{$namespace}-color-warning-light-8);
-        --#{$namespace}-message-text-color: var(--#{$namespace}-color-warning);
-
-        .#{$namespace}-message__content {
-            color: var(--#{$namespace}-message-text-color);
-        }
-    }
-
-    &--error {
-        --#{$namespace}-message-bg-color: var(--#{$namespace}-color-error-light-9);
-        --#{$namespace}-message-border-color: var(--#{$namespace}-color-error-light-8);
-        --#{$namespace}-message-text-color: var(--#{$namespace}-color-error);
-
-        .#{$namespace}-message__content {
-            color: var(--#{$namespace}-message-text-color);
-        }
-    }
-
-    &__icon {
-        margin-right: 10px;
-    }
-
-    &__content {
-        padding: 0;
-        font-size: 14px;
-        line-height: 1;
-        &:focus {
-            outline-width: 0;
-        }
-    }
-
-    &__closeBtn {
-        position: absolute;
-        top: 50%;
-        right: 15px;
-        transform: translateY(-50%);
-        cursor: pointer;
-        color: var(--#{$namespace}-message-close-icon-color);
-        font-size: 16px;
-
-        &::before {
-            font-family: $fa-font-family;
-            content: '\f00d';
-            font-weight: 400;
+            .#{$namespace}-message__content {
+                color: getCssVar('message', 'text-color');
+                overflow-wrap: break-word;
+            }
         }
 
-        &:focus {
-            outline-width: 0;
-        }
-        &:hover {
-            color: var(--#{$namespace}-message-close-hover-color);
-        }
-    }
-
-    & .#{$namespace}-icon-success {
-        color: var(--#{$namespace}-message-text-color);
-
-        &::before {
-            font-family: $fa-font-family;
-            content: '\f058';
-            font-style: normal;
-            font-weight: bold;
-        }
-    }
-
-    & .#{$namespace}-icon-error {
-        color: var(--#{$namespace}-message-text-color);
-
-        &::before {
-            font-family: $fa-font-family;
-            content: '\f057';
-            font-style: normal;
-            font-weight: bold;
-        }
-    }
-
-    & .#{$namespace}-icon-info {
-        color: var(--#{$namespace}-message-text-color);
-
-        &::before {
-            font-family: $fa-font-family;
-            content: '\f05a';
-            font-style: normal;
-            font-weight: bold;
-        }
-    }
-
-    & .#{$namespace}-icon-warning {
-        color: var(--#{$namespace}-message-text-color);
-
-        &::before {
-            font-family: $fa-font-family;
-            content: '\f06a';
-            font-style: normal;
-            font-weight: bold;
+        & .#{$namespace}-message-icon--#{$type} {
+            color: getCssVar('message', 'text-color');
         }
     }
 
@@ -168,11 +68,37 @@
         top: -8px;
         right: -8px;
     }
+
+    @include e(content) {
+        padding: 0;
+        font-size: 14px;
+        line-height: 1;
+        &:focus {
+            outline-width: 0;
+        }
+    }
+
+    & .#{$namespace}-message__closeBtn {
+        cursor: pointer;
+        color: getCssVar('message', 'close-icon-color');
+        font-size: getCssVar('message', 'close-size');
+
+        &:focus {
+            outline-width: 0;
+        }
+        &:hover {
+            color: getCssVar('message', 'close-hover-color');
+        }
+    }
 }
 
 .#{$namespace}-fade-enter-from,
 .#{$namespace}-message-fade-enter-from,
 .#{$namespace}-message-fade-leave-active {
     opacity: 0;
-    transform: translate(-50%, -100%) !important;
+    transform: translateY(-100%);
+
+    &.is-bottom {
+        transform: translateY(100%);
+    }
 }

@@ -5,10 +5,10 @@ const App = () => {
     return (
         <ElButton
             onClick={() => {
-                ElMessage('只是一条消息提示');
+                ElMessage('This is a message.');
             }}
         >
-            打开消息提示
+            Show message
         </ElButton>
     );
 };

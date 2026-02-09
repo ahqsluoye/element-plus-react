@@ -105,7 +105,7 @@ export function closeAll(): void {
     }
 }
 
-['success', 'warning', 'info', 'error'].forEach(type => {
+['primary', 'success', 'warning', 'info', 'error'].forEach(type => {
     Message[type] = options => {
         if (typeof options === 'string' || isValidElement(options)) {
             options = {

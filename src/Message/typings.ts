@@ -1,5 +1,5 @@
 import React, { RefObject } from 'react';
-import { AnimationEventProps, BaseProps, NativeProps } from '../types/common';
+import { AnimationEventProps, BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export interface MessageHandle {
     close: () => void;
@@ -8,8 +8,8 @@ export interface MessageHandle {
 
 export interface MessageProps extends BaseProps, NativeProps, AnimationEventProps {
     id?: string;
-    /** 文字是否居中 */
-    center?: boolean;
+    /** 是否纯色 */
+    plain?: boolean;
     /** 显示时间，单位为毫秒。 设为 0 则不会自动关闭 */
     duration?: number; // default 3000
     /** 自定义图标 */
@@ -23,15 +23,17 @@ export interface MessageProps extends BaseProps, NativeProps, AnimationEventProp
     /** 是否显示关闭按钮 */
     showClose?: boolean; // default false
     /** 消息类型 */
-    type?: 'success' | 'warning' | 'info' | 'error' | '';
+    type?: TypeAttributes.Appearance;
     /** 是否立即执行onClose方法 */
     immediate?: boolean;
     /** 合并内容相同的消息，不支持 VNode 类型的消息 */
     grouping?: boolean;
+    /** 消息放置位置 */
+    placement?: 'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right';
     userOnClose?: (el?: RefObject<HTMLElement>) => void;
 }
 
-export type MessageType = 'success' | 'warning' | 'info' | 'error' | '';
+export type MessageType = 'primary' | 'success' | 'warning' | 'info' | 'error' | '';
 
 export type MessageDispatcher = (options?: MessageProps | string | React.ReactElement) => MessageHandle;
 export type MessageParams = MessageProps | string | React.ReactElement;
@@ -39,6 +41,7 @@ export type TypedMessageParams = Omit<MessageProps, 'type'> | string | React.Rea
 
 export interface MessageMethod {
     (options?: MessageParams): MessageHandle;
+    primary: (options?: TypedMessageParams) => MessageHandle;
     success: (options?: TypedMessageParams) => MessageHandle;
     warning: (options?: TypedMessageParams) => MessageHandle;
     info: (options?: TypedMessageParams) => MessageHandle;

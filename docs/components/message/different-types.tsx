@@ -4,17 +4,20 @@ import React from 'react';
 const App = () => {
     return (
         <>
-            <ElButton plain onClick={() => ElMessage({ type: 'success', message: '这是一条成功消息' })} style={{ marginRight: 20 }}>
-                成功
+            <ElButton plain onClick={() => ElMessage.primary('This is a primary message.')} style={{ marginRight: 20 }}>
+                Primary
             </ElButton>
-            <ElButton plain onClick={() => ElMessage({ type: 'warning', message: '这是一条警告消息' })} style={{ marginRight: 20 }}>
-                警告
+            <ElButton plain onClick={() => ElMessage({ type: 'success', message: 'This is a success message.' })} style={{ marginRight: 20 }}>
+                Success
             </ElButton>
-            <ElButton plain onClick={() => ElMessage('只是一条消息提示')} style={{ marginRight: 20 }}>
-                消息
+            <ElButton plain onClick={() => ElMessage.warning('This is a warning message.')} style={{ marginRight: 20 }}>
+                Warning
             </ElButton>
-            <ElButton plain onClick={() => ElMessage.error('这是一条错误消息')}>
-                错误
+            <ElButton plain onClick={() => ElMessage.info('This is a info message.')} style={{ marginRight: 20 }}>
+                Info
+            </ElButton>
+            <ElButton plain onClick={() => ElMessage.error('This is a error message.')}>
+                Error
             </ElButton>
         </>
     );

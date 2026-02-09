@@ -1,8 +1,17 @@
 export const TypeMap = {
+    primary: 'primary',
     success: 'success',
     info: 'info',
     warning: 'warning',
     error: 'error',
+};
+
+export const TypeComponentsMap = {
+    primary: 'info-circle',
+    success: 'circle-check',
+    info: 'info-circle',
+    warning: 'circle-exclamation',
+    error: 'circle-xmark',
 };
 
 export const EVENT_CODE = {

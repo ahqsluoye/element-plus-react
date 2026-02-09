@@ -31,11 +31,11 @@ Message 在配置上与 Notification 非常类似，所以部分 options 在此�
 
 <code src="./closable.tsx"></code>
 
-## 文字居中
+## Plain
 
-使用 `center` 属性让文字水平居中。
+设置 `plain` 为 plain 背景。
 
-<code src="./centered-content.tsx"></code>
+<code src="./plain.tsx"></code>
 
 <!-- ## 使用 HTML 片段作为正文内容
 
