@@ -1,3 +1,5 @@
+import { IconName } from '../Icon';
+
 export const TypeMap = {
     primary: 'primary',
     success: 'success',
@@ -6,7 +8,7 @@ export const TypeMap = {
     error: 'error',
 };
 
-export const TypeComponentsMap = {
+export const TypeComponentsMap: Record<string, IconName> = {
     primary: 'info-circle',
     success: 'circle-check',
     info: 'info-circle',

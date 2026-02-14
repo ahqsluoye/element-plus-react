@@ -108,6 +108,7 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
         {
             title: 'Feedback 反馈组件',
             children: [
+                { link: '/components/alert', title: 'Alert 提示' },
                 { link: '/components/dialog', title: 'Dialog 对话框' },
                 { link: '/components/drawer', title: 'Drawer 抽屉' },
                 { link: '/components/loading', title: 'Loading 加载' },

@@ -68,6 +68,7 @@
 @use './skeleton';
 
 /* Feedback 反馈组件 */
+@use './alert';
 @use './dialog';
 @use './drawer';
 @use './loading';

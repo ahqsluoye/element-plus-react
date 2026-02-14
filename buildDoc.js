@@ -51,4 +51,4 @@ export default App;`,
     });
 }
 
-buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/tree-select.md', 'D:/JavaScript/Project/Parker-Libs/element-plus-react/docs/components/tree-select', true);
+buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/alert.md', 'D:/JavaScript/Project/Parker-Libs/element-plus-react/docs/components/alert', true);

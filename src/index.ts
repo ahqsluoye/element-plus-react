@@ -171,6 +171,9 @@ export { Skeleton as ElSkeleton, SkeletonItem as ElSkeletonItem } from './Skelet
 export type { SkeletonItemProps, SkeletonProps } from './Skeleton';
 
 /* Feedback 反馈组件 */
+export { Alert as ElAlert } from './Alert';
+export type { AlertProps } from './Alert';
+
 export { Dialog as ElDialog } from './Dialog';
 export type { DialogBeforeCloseFn, DialogProps } from './Dialog';
 
