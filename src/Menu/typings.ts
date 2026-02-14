@@ -5,6 +5,7 @@ import { BaseProps, NativeProps } from '../types/common';
 export interface MenuRef {
     open: MenuOpenEvent;
     close: MenuCloseEvent;
+    activeMenu: (index: string) => void;
 }
 
 export interface MenuProps
@@ -44,7 +45,7 @@ export interface MenuProps
     uniqueOpened?: boolean;
     /** 子菜单打开的触发方式，只在 mode 为 horizontal 时有效 */
     menuTrigger?: 'hover' | 'click';
-    /** 是否启用 vue-router 模式。 启用该模式会在激活导航时以 index 作为 path 进行路由跳转 使用 defaultActive 来设置加载时的激活项。 */
+    /** 是否启用 react-router 模式。 启用该模式会在激活导航时以 index 作为 path 进行路由跳转 使用 defaultActive 来设置加载时的激活项。 */
     router?: boolean;
     /** 是否开启折叠动画 */
     collapseTransition?: boolean;

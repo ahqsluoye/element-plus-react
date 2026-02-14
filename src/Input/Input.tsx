@@ -1,6 +1,6 @@
 import { useDebounceFn } from 'ahooks';
 import classNames from 'classnames';
-import { addClass, addStyle, hasClass, removeClass } from 'dom-lib';
+import { addStyle, hasClass } from 'dom-lib';
 import isObject from 'lodash/isObject';
 import React, { ComponentType, RefObject, cloneElement, forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -59,6 +59,7 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
 
     const [value, setValue] = useControlled(props.value, defaultValue);
     const [type, setType] = useState(props.type || 'text');
+    const [focused, setFocused] = useState(false);
     const disabled = useDisabled(props.disabled);
     const size = useSize(props.size);
 
@@ -267,6 +268,13 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
         return null;
     }, [type, prefix, e]);
 
+    const inputValue = useMemo(() => {
+        if (hiddenValue) {
+            return '';
+        }
+        return focused ? value : formatValue;
+    }, [focused, formatValue, hiddenValue, value]);
+
     return (
         <div
             ref={containerRef}
@@ -289,7 +297,7 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
             {prepend ? <div className={be('group', 'prepend')}>{prepend}</div> : null}
             <div
                 ref={wrapperRef}
-                className={classNames(e`wrapper`, is({ error, warning }))}
+                className={classNames(e`wrapper`, is({ error, warning, focus: focused }))}
                 onMouseEnter={() => showClear(value)}
                 onMouseLeave={() => {
                     if (!hasClass(wrapperRef.current, is('focus'))) {
@@ -309,7 +317,7 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
                     type={type}
                     name={name}
                     title={title}
-                    value={hiddenValue ? '' : value}
+                    value={inputValue}
                     className={e`inner`}
                     style={props.innerStyle}
                     placeholder={placeholder}
@@ -323,18 +331,20 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
                     // onCompositionEnd={handleComposition}
                     onClick={props.onClick}
                     onFocus={event => {
-                        inputRef.current.value = value as string;
-                        if (wrapperRef.current) {
-                            addClass(wrapperRef.current, is('focus'));
-                        }
+                        // inputRef.current.value = value as string;
+                        // if (wrapperRef.current) {
+                        //     addClass(wrapperRef.current, is('focus'));
+                        // }
+                        setFocused(true);
                         showClear(value);
                         onFocus?.call(this, event);
                     }}
                     onBlur={event => {
-                        inputRef.current.value = formatValue as string;
-                        if (wrapperRef.current) {
-                            removeClass(wrapperRef.current, is('focus'));
-                        }
+                        // inputRef.current.value = formatValue as string;
+                        // if (wrapperRef.current) {
+                        //     removeClass(wrapperRef.current, is('focus'));
+                        // }
+                        setFocused(false);
                         hideClear();
                         onBlur?.call(this, event);
                     }}

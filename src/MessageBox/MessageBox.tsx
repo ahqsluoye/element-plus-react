@@ -3,19 +3,44 @@ import isString from 'lodash/isString';
 import React, { cloneElement, forwardRef, memo, RefObject, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../Button/Button';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Dialog from '../Dialog/Dialog';
 import { partitionAnimationProps, useClassNames, useControlled } from '../hooks';
 import { namespace } from '../hooks/prefix';
 import Icon from '../Icon/Icon';
 import Input from '../Input/Input';
-import { addUnit, isNotEmpty } from '../Util';
+import { addUnit, isNotEmpty, mergeDefaultProps } from '../Util';
 import { Action, MessageBoxRef, MessageState } from './typings';
 
 const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttributes<MessageBoxRef>> = memo(
     forwardRef<MessageBoxRef, MessageState>((props, ref) => {
-        const { locale } = useConfigProvider();
         const { t } = useTranslation();
+
+        const locale = useMemo(() => {
+            return props?.options?.locale || 'en';
+        }, [props?.options?.locale]);
+
+        props = mergeDefaultProps(
+            {
+                options: {},
+            },
+            props,
+        );
+
+        props.options = mergeDefaultProps(
+            {
+                width: 420,
+                showClose: true,
+                showCancelButton: true,
+                showConfirmButton: true,
+                cancelButtonText: t('el.messagebox.cancel', { lng: locale }),
+                confirmButtonText: t('el.messagebox.confirm', { lng: locale }),
+                distinguishCancelAndClose: false,
+                draggable: false,
+                buttonPosition: 'right',
+                showInput: false,
+            },
+            props.options,
+        );
 
         const { boxType, onAction, options } = props;
         const {
@@ -23,17 +48,17 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
             message,
             type,
             icon,
-            width = 420,
+            width,
             callback,
-            showClose = true,
+            showClose,
             beforeClose,
-            showCancelButton = true,
-            showConfirmButton = true,
-            cancelButtonText = t('el.messagebox.cancel', { lng: locale }),
+            showCancelButton,
+            showConfirmButton,
+            cancelButtonText,
             cancelButtonClass,
             confirmButtonClass,
             buttonSize,
-            buttonPosition = 'right',
+            buttonPosition,
             draggable,
             overflow,
             showInput,
@@ -53,7 +78,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
         const { e, bm } = useClassNames(classPrefix);
         const [visible, setVisible] = useState(true);
         const [confirmButtonLoading, setConfirmButtonLoading] = useState(false);
-        const [confirmButtonText, setConfirmButtonText] = useState(options.confirmButtonText || t('el.messagebox.confirm', { lng: locale }));
+        const [confirmButtonText, setConfirmButtonText] = useState(options.confirmButtonText);
 
         const [inputValue, setInputValue] = useControlled(undefined, options.inputValue);
         const [editorErrorMessage, setEditorErrorMessage] = useState(inputErrorMessage);

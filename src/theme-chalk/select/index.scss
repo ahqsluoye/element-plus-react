@@ -91,6 +91,12 @@
                 pointer-events: none;
             }
         }
+
+        @include when(plain) {
+            box-shadow: none !important;
+            background: none !important;
+            padding: 0;
+        }
     }
 
     @include e(prefix) {

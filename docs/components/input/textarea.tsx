@@ -7,7 +7,7 @@ const App = () => {
             <ElInput.TextArea rows={2} placeholder="请输入内容" style={{ width: 600 }} />
             <br />
             <br />
-            <ElInput.TextArea rows={2} placeholder="请输入内容" style={{ width: 600 }} disabled />
+            <ElInput.TextArea rows={2} placeholder="请输入内容" style={{ width: 600 }} plain />
         </div>
     );
 };

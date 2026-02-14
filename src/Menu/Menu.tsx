@@ -137,6 +137,27 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
     );
 
     /** 激活菜单项 */
+    const activeMenu = useCallback(
+        (index: string) => {
+            const menu = menuItemsRef.current.find(item => item.index === index);
+            if (menu && menu.indexPath.length > 1) {
+                setActive(menu.indexPath);
+                menu.indexPath.reduce((prev, item) => {
+                    handleOpenMenu(item, [...prev, item], { index: item, indexPath: [...prev, item] });
+                    return [...prev, item];
+                }, []);
+            } else {
+                setActive([]);
+                subMenuRef.current.forEach(item => {
+                    item.closeMenu(item.index, item.indexPath);
+                    removeItem(item);
+                });
+            }
+        },
+        [handleOpenMenu, removeItem, setActive],
+    );
+
+    /** 激活菜单项 */
     const activeMenus = useCallback(() => {
         if (defaultActive) {
             const menu = menuItemsRef.current.find(item => item.index === defaultActive);
@@ -213,7 +234,7 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
         [removeItem],
     );
 
-    useImperativeHandle(ref, () => ({ open, close }));
+    useImperativeHandle(ref, () => ({ open, close, activeMenu }));
 
     return (
         // @ts-ignore

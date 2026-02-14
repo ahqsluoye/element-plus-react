@@ -177,7 +177,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
             <span className={e`core`} style={{ background: currentColor, borderColor, width }}>
                 {inlinePrompt && (
                     <div className={e`inner`}>
-                        {!active
+                        {active
                             ? (() => {
                                   if (activeText) {
                                       return <span className="is-text">{activeText}</span>;
@@ -190,7 +190,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
                                   }
                               })()
                             : null}
-                        {active
+                        {!active
                             ? (() => {
                                   if (inactiveText) {
                                       return <span className="is-text">{inactiveText}</span>;

@@ -376,20 +376,20 @@
 }
 
 .#{$namespace}-anim-bounce-out {
-    // animation-name: rBounceOut;
+    animation-name: rBounceOut;
     animation-duration: 0.3s;
     animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
-    // animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
 
     @keyframes rBounceOut {
         from {
             opacity: 1;
-            transform: scale(1);
+            // transform: scale(1);
         }
 
         to {
             opacity: 0;
-            transform: scale(0.8);
+            // transform: scale(0.8);
         }
     }
 }
@@ -757,4 +757,30 @@
 .#{$namespace}-zoom-in-left-leave-active {
     opacity: 0;
     transform: scale(0.45, 0.45);
+}
+
+.dialog-fade-enter-active {
+    animation: modal-fade-in var(--el-transition-duration);
+}
+
+@keyframes modal-fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.dialog-fade-leave-active {
+    animation: modal-fade-out var(--el-transition-duration);
+}
+
+@keyframes modal-fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

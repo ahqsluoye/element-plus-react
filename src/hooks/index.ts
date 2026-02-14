@@ -11,5 +11,6 @@ export { default as prefix } from './prefix';
 export { partitionTreePropsUtils } from './treePropsUtils';
 export { default as useChildrenInstance } from './useChildrenInstance';
 export * from './useCommonProps';
+export { useConfigProvider } from './useConfigProvider';
 export { useForceUpdate } from './useForceUpdate';
 export { default as useUpdateEffect } from './useUpdateEffect';

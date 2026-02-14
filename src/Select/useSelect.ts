@@ -155,7 +155,7 @@ const useSelect = (props: SelectProps) => {
         if (!allowCreate && filterable && isEmpty(inputValue)) {
             _placeholder = t('el.select.search', { lng: locale });
         }
-        if (!_placeholder) {
+        if (props.placeholder) {
             _placeholder = props.placeholder;
         }
         return multiple || isEmpty(label) ? _placeholder : label;

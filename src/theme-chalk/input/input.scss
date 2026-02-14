@@ -79,6 +79,14 @@
         right: 10px;
     }
 
+    @include when(plain) {
+        .#{$namespace}-textarea__inner {
+            box-shadow: none;
+            resize: none;
+            padding: 0;
+        }
+    }
+
     @include when(disabled) {
         .#{$namespace}-textarea__inner {
             @include inset-input-border(#{getCssVar('disabled-border-color')});
@@ -261,6 +269,13 @@
     @include when(active) {
         .#{$namespace}-input__wrapper {
             @include mixed-input-border(var(#{getCssVarName('input-focus-color')}, map.get($input, 'focus-color')));
+        }
+    }
+
+    @include when(plain) {
+        .#{$namespace}-input__wrapper {
+            box-shadow: none;
+            padding: 0;
         }
     }
 

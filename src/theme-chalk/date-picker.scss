@@ -48,19 +48,19 @@ $input-font-size: map.merge(
 }
 
 .#{$namespace}-date-editor {
-    // --#{$namespace}-input-text-color: var(--#{$namespace}-text-color-regular);
-    // --#{$namespace}-input-border: var(--#{$namespace}-border);
-    // --#{$namespace}-input-hover-border: var(--#{$namespace}-border-color-hover);
-    // --#{$namespace}-input-focus-border: var(--#{$namespace}-color-primary);
-    // --#{$namespace}-input-transparent-border: 0 0 0 1px transparent inset;
-    // --#{$namespace}-input-border-color: var(--#{$namespace}-border-color);
-    // --#{$namespace}-input-border-radius: var(--#{$namespace}-border-radius-base);
-    // --#{$namespace}-input-bg-color: var(--#{$namespace}-fill-color-blank);
-    // --#{$namespace}-input-icon-color: var(--#{$namespace}-text-color-placeholder);
-    // --#{$namespace}-input-placeholder-color: var(--#{$namespace}-text-color-placeholder);
+    --#{$namespace}-input-text-color: var(--#{$namespace}-text-color-regular);
+    --#{$namespace}-input-border: var(--#{$namespace}-border);
+    --#{$namespace}-input-hover-border: var(--#{$namespace}-border-color-hover);
+    --#{$namespace}-input-focus-border: var(--#{$namespace}-color-primary);
+    --#{$namespace}-input-transparent-border: 0 0 0 1px transparent inset;
+    --#{$namespace}-input-border-color: var(--#{$namespace}-border-color);
+    --#{$namespace}-input-border-radius: var(--#{$namespace}-border-radius-base);
+    --#{$namespace}-input-bg-color: var(--#{$namespace}-fill-color-blank);
+    --#{$namespace}-input-icon-color: var(--#{$namespace}-text-color-placeholder);
+    --#{$namespace}-input-placeholder-color: var(--#{$namespace}-text-color-placeholder);
     --#{$namespace}-input-hover-border-color: var(--#{$namespace}-border-color-hover);
-    // --#{$namespace}-input-clear-hover-color: var(--#{$namespace}-text-color-secondary);
-    // --#{$namespace}-input-focus-border-color: var(--#{$namespace}-color-primary);
+    --#{$namespace}-input-clear-hover-color: var(--#{$namespace}-text-color-secondary);
+    --#{$namespace}-input-focus-border-color: var(--#{$namespace}-color-primary);
 }
 
 .#{$namespace}-date-editor {

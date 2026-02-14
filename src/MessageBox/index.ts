@@ -9,7 +9,7 @@ const MESSAGE_BOX_DEFAULT_OPTS: Record<'prompt' | 'alert' | 'confirm', Partial<M
     prompt: { showCancelButton: true, showInput: true },
 };
 
-const instanceFactory = <T extends MessageBoxData>(boxType: MessageState['boxType']) => {
+export const instanceFactory = <T extends MessageBoxData>(boxType: MessageState['boxType'], locale?: 'en' | 'zh-CN') => {
     return (message: string | React.ReactElement, title?: string | React.ReactElement | MessageBoxProps, options?: MessageBoxProps) => {
         let titleOrOpts = '';
         if (isObject(title)) {
@@ -26,6 +26,7 @@ const instanceFactory = <T extends MessageBoxData>(boxType: MessageState['boxTyp
             new Main({
                 boxType,
                 options: {
+                    locale,
                     message,
                     title: titleOrOpts,
                     ...MESSAGE_BOX_DEFAULT_OPTS[boxType],

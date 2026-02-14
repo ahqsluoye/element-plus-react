@@ -45,6 +45,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
         value,
         setValue,
         disabled,
+        plain,
         size,
         multiValue,
         multiOptionData,
@@ -92,7 +93,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
             onMouseEnter={() => setInputHovering(true)}
             onMouseLeave={() => setInputHovering(false)}
         >
-            <div ref={wrapperRef} className={classNames(e`wrapper`, is({ disabled, filterable }))} style={props.style} onClick={toggleMenu}>
+            <div ref={wrapperRef} className={classNames(e`wrapper`, is({ disabled, filterable, plain }))} style={append || prepend ? props.style : {}} onClick={toggleMenu}>
                 <div className={classNames(e`selection`, is({ near: multiple && multiValue.length > 0 }))}>
                     {multiple &&
                         (tag ? (
@@ -200,10 +201,12 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                         </div>
                     )}
                 </div>
-                <div ref={suffixWrapperRef} className={classNames(e`suffix`, is`hidden-clear`)}>
-                    {iconComponent ? <Icon name={iconComponent} className={classNames(e`caret`, e`icon`, e`arrow`, iconReverse)} onClick={toggleMenu}></Icon> : null}
-                    {clearIcon ? <Icon prefix="fal" name={clearIcon} className={classNames(e`caret`, e`icon`, e`clear`)} onClick={onClear} /> : null}
-                </div>
+                {!plain && (
+                    <div ref={suffixWrapperRef} className={classNames(e`suffix`, is`hidden-clear`)}>
+                        {iconComponent ? <Icon name={iconComponent} className={classNames(e`caret`, e`icon`, e`arrow`, iconReverse)} onClick={toggleMenu}></Icon> : null}
+                        {clearIcon ? <Icon prefix="fal" name={clearIcon} className={classNames(e`caret`, e`icon`, e`clear`)} onClick={onClear} /> : null}
+                    </div>
+                )}
             </div>
 
             <Popper

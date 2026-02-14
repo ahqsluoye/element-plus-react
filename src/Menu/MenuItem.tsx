@@ -29,8 +29,8 @@ const MenuItem = (props: MenuItemProps) => {
                 indexPath,
                 active: activeIndex.includes(index),
             });
-            onOpen?.(index, indexPath, { index, indexPath });
-            onSelect?.(index, indexPath, { index, indexPath });
+            onOpen?.(index, indexPath, { index, indexPath, route });
+            onSelect?.(index, indexPath, { index, indexPath, route });
             if (router) {
                 navigate?.(route ?? index);
             }

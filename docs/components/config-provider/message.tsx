@@ -1,19 +1,17 @@
-import { ConfigProviderProps, ElButton, ElConfigProvider, ElMessage } from '@qsxy/element-plus-react';
+import { ConfigProviderProps, ElConfigProvider } from '@qsxy/element-plus-react';
 import React from 'react';
+import Message from './messageApp';
 
 const App = () => {
     const config: ConfigProviderProps['message'] = {
-        showClose: false,
-    };
-
-    const open = () => {
-        ElMessage.success('This is a message from bottom.');
+        showClose: true,
+        grouping: true,
     };
 
     return (
         <>
             <ElConfigProvider message={config}>
-                <ElButton onClick={open}>OPEN</ElButton>
+                <Message />
             </ElConfigProvider>
         </>
     );

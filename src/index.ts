@@ -217,6 +217,7 @@ export {
     useClassNames,
     useClickOutside,
     useComponentWillMount,
+    useConfigProvider,
     useControlled,
     useDisabled,
     useForceUpdate,

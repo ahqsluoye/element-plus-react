@@ -152,7 +152,8 @@ $input-font-size: map.merge(
         line-height: 1;
     }
 
-    &.is-active {
+    &.is-active,
+    &.is-focus {
         box-shadow: 0 0 0 1px var(--#{$namespace}-color-primary) inset;
 
         &:hover {

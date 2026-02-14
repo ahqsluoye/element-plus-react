@@ -65,7 +65,7 @@ const TextArea = forwardRef<TextareaRef, TextareaProps>((props, ref) => {
         }
 
         if (autosize) {
-            const minRows = typeof autosize !== 'boolean' ? autosize.minRows : undefined;
+            const minRows = typeof autosize !== 'boolean' ? autosize.minRows : rows;
             const maxRows = typeof autosize !== 'boolean' ? autosize.maxRows : undefined;
             const textareaStyle = calcTextareaHeight(textareaRef.current, minRows, maxRows);
             setTextareaCalcStyle(prev => ({ ...prev, ...textareaStyle }));

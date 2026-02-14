@@ -71,6 +71,8 @@ export interface MessageBoxProps extends BaseProps, NativeProps, AnimationEventP
     overflow?: boolean;
     /** 是否使用圆角按钮 */
     roundButton?: boolean;
+    /** 国际化 */
+    locale?: 'en' | 'zh-CN';
 }
 
 export type MessageState = {
