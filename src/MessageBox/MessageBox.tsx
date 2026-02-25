@@ -73,6 +73,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
             style,
             padding,
             roundButton,
+            dangerouslyUseHTMLString,
             ...rest
         } = options;
         const { e, bm } = useClassNames(classPrefix);
@@ -213,27 +214,36 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
                 beforeClose={() => handleAction('close')}
                 {...transitionProps}
             >
-                <Dialog.body classPrefix={classPrefix} padding={padding}>
-                    <div className={e`container`}>
-                        {iconContent}
-                        <div className={e`message`}>{messageContainer}</div>
-                    </div>
-                    {boxType === 'prompt' && showInput && (
-                        <div className={e`input`}>
-                            <Input
-                                value={inputValue}
-                                type={inputType}
-                                error={validateError}
-                                placeholder={inputPlaceholder}
-                                onChange={(value: string) => {
-                                    setInputValue(value);
-                                    validate(value);
-                                }}
-                            />
-                            {validateError && <div className={e`errormsg`}>{editorErrorMessage}</div>}
+                {dangerouslyUseHTMLString ? (
+                    <Dialog.body classPrefix={classPrefix} padding={padding}>
+                        <div className={e`container`}>
+                            {iconContent}
+                            <div dangerouslySetInnerHTML={{ __html: message }} />
                         </div>
-                    )}
-                </Dialog.body>
+                    </Dialog.body>
+                ) : (
+                    <Dialog.body classPrefix={classPrefix} padding={padding}>
+                        <div className={e`container`}>
+                            {iconContent}
+                            <div className={e`message`}>{messageContainer}</div>
+                        </div>
+                        {boxType === 'prompt' && showInput && (
+                            <div className={e`input`}>
+                                <Input
+                                    value={inputValue}
+                                    type={inputType}
+                                    error={validateError}
+                                    placeholder={inputPlaceholder}
+                                    onChange={(value: string) => {
+                                        setInputValue(value);
+                                        validate(value);
+                                    }}
+                                />
+                                {validateError && <div className={e`errormsg`}>{editorErrorMessage}</div>}
+                            </div>
+                        )}
+                    </Dialog.body>
+                )}
 
                 {(showCancelButton || showConfirmButton) && (
                     <Dialog.footer classPrefix={classPrefix} position={buttonPosition}>

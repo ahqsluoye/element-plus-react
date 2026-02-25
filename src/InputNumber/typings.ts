@@ -24,8 +24,12 @@ export interface InputNumberProps<V = ValueType>
     stepStrictly?: boolean;
     /** 数值精度 */
     precision?: number;
+    /** 是否显示控制按钮 */
+    controls?: boolean;
     /** 控制按钮位置 */
-    controlsPositionRight?: boolean;
+    controlsPosition?: '' | 'right';
+    /** 当输入框被清空时显示的值 */
+    valueOnClear?: 'min' | 'max' | number | null;
     /** 占位符 */
     placeholder?: string;
     /** 绑定值被改变时触发 */
@@ -48,6 +52,16 @@ export interface InputNumberProps<V = ValueType>
     maxLength?: number;
     /** 原生属性，最小输入长度 */
     minLength?: number;
+    /** 内部输入文本对齐 */
+    align?: 'left' | 'right' | 'center';
+    /** 禁用科学计数法的输入（例如输入 'e'） */
+    disabledScientific?: boolean;
+    /** 原生 inputmode 属性 */
+    inputmode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
+    /** 自定义减少按钮图标 */
+    decreaseIcon?: React.ReactNode;
+    /** 自定义增加按钮图标 */
+    increaseIcon?: React.ReactNode;
 }
 
 export interface InputNumberRef {

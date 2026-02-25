@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { IconName } from '../Icon/typings';
 import { BaseProps, NativeProps } from '../types/common';
 
@@ -5,7 +6,7 @@ export interface AlertProps extends BaseProps, NativeProps {
     /**
      * Alert 标题。
      */
-    title?: string;
+    title?: string | ReactElement;
     /**
      * 描述性文本。
      */

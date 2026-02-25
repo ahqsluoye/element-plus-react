@@ -18,6 +18,8 @@ export interface UploadBaseProps {
     drag?: boolean;
     /** 支持发送 cookie 凭证信息 */
     withCredentials?: boolean;
+    /** 自定义上传请求的错误判断 */
+    errorStatus?: (xhr: XMLHttpRequest) => boolean;
     /** 是否显示已上传文件列表 */
     showFileList?: boolean;
     /** 接受上传的文件类型 */
@@ -122,6 +124,8 @@ export interface UploadRequestOptions {
     onError: (evt: UploadAjaxError) => void;
     onProgress: (evt: UploadProgressEvent) => void;
     onSuccess: (response: any) => void;
+    /** 自定义上传请求的错误判断 */
+    errorStatus?: (xhr: XMLHttpRequest) => boolean;
     withCredentials: boolean;
 }
 

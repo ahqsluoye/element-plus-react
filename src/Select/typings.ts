@@ -12,7 +12,7 @@ export type SelectRef = {
     onClear: (event?: any) => void;
     setVisible: (value: boolean) => void;
     cachedOptions: React.RefObject<Map<OptionValue, OptionData>>;
-    onChoose: (val: string, data: OptionData, event?: any) => ValueType;
+    onChoose: <T = any>(val: string, data: OptionData<T>, event?: any) => ValueType;
 };
 
 type Child = React.ReactElement<SelectOptionGroupProps | SelectOptionProps> | React.ReactElement<SelectOptionGroupProps | SelectOptionProps>[];
@@ -90,7 +90,7 @@ export interface SelectProps<V = ValueType> extends Omit<FormControlBaseProps<V>
     tagEffect?: 'light' | 'dark' | 'plain';
     labelFormat?: (index: number, value: OptionValue, label?: OptionValue) => React.ReactElement;
     /** 选中值发生变化时触发 */
-    onChange?: (value: ValueType, data?: OptionData | OptionData[]) => void;
+    onChange?: <T = any>(value: ValueType, data?: OptionData<T> | OptionData<T>[]) => void;
     /** 下拉框出现/隐藏时触发   */
     onVisibleChange?: (visible: boolean) => void;
     /** 多选模式下移除tag时触发/隐藏时触发   */
@@ -104,7 +104,11 @@ export interface SelectProps<V = ValueType> extends Omit<FormControlBaseProps<V>
     /** 下拉列表底部的内容 */
     footer?: React.ReactElement;
     /** 作为 Select 组件的内容时 */
-    tag?: (params: { data: OptionData[]; selectDisabled: boolean; deleteTag: (event: React.MouseEvent<HTMLElement, MouseEvent>, tag: OptionData) => void }) => React.ReactElement;
+    tag?: <T = any>(params: {
+        data: OptionData<T>[];
+        selectDisabled: boolean;
+        deleteTag: (event: React.MouseEvent<HTMLElement, MouseEvent>, tag: OptionData<T>) => void;
+    }) => React.ReactElement;
     unmountOnExit?: boolean;
     /** 数据加载成功时调用 */
     // onLoadSuccess?: (value: ValueType, data?: any) => void;
@@ -119,15 +123,15 @@ export interface SelectOptionProps extends BaseProps, NativeProps {
     data?: any;
     /** 是否禁用该选项 */
     disabled?: boolean;
-    onClick?: (value: ValueType, data: OptionData) => void;
+    onClick?: <T = any>(value: ValueType, data: OptionData<T>) => void;
 }
 
-export interface OptionData {
+export interface OptionData<T = any> {
     index?: number;
     value: OptionValue;
     label: OptionValue;
     disabled?: boolean;
-    data?: any;
+    data?: T;
 }
 
 export interface SelectOptionGroupProps extends BaseProps<React.ReactElement<SelectOptionProps> | React.ReactElement<SelectOptionProps>[]>, NativeProps {
@@ -141,7 +145,7 @@ export interface SelectDropdownProps extends SelectProps {
     value: ValueType;
     inputValue: string;
     setInputValue: (value: string) => void;
-    onChoose: (val: string, data: OptionData, event: any) => void;
+    onChoose: <T = any>(val: string, data: OptionData<T>, event: any) => void;
     contentRef: RefObject<HTMLDivElement>;
     popperInstRef: RefObject<PopperOptionRef>;
     /** 下拉列表顶部的内容 */

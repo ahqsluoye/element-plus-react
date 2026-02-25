@@ -26,6 +26,9 @@ export type { TextProps } from './Text';
 export { Scrollbar as ElScrollbar } from './Scrollbar';
 export type { BarProps, ScrollbarProps, ScrollbarRef } from './Scrollbar';
 
+export { Space as ElSpace } from './Space';
+export type { SpaceProps } from './Space';
+
 export { Popper as ElPopper } from './Popper';
 export type { PopperOptionRef, PopperOptions, PopperProps } from './Popper';
 
@@ -58,7 +61,7 @@ export { InputNumber as ElInputNumber } from './InputNumber';
 export type { InputNumberProps, InputNumberRef } from './InputNumber';
 
 export { Option as ElOption, OptionGroup as ElOptionGroup, Select as ElSelect } from './Select';
-export type { SelectOptionGroupProps, SelectOptionProps, SelectProps, SelectRef } from './Select';
+export type { OptionData, SelectOptionGroupProps, SelectOptionProps, SelectProps, SelectRef } from './Select';
 
 export { Calendar, CalendarContext } from './Calendar';
 export type { DateRangeType, DateType } from './Calendar';
@@ -118,6 +121,9 @@ export type { PageType, PaginationProps, PaginationRef } from './Pagination';
 
 export { Progress as ElProgress } from './Progress';
 export type { PropgressProps } from './Progress';
+
+export { Statistic as ElStatistic } from './Statistic';
+export type { StatisticProps, StatisticRef } from './Statistic';
 
 export { Table as ElTable, TableColumn as ElTableColumn } from './Table';
 export type { RenderCell, TableColumnCtx, TableColumnProps, TableProps, TableRef, TableSort } from './Table';

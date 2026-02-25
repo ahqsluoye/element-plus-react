@@ -1,4 +1,3 @@
-import { useDebounceFn } from 'ahooks';
 import classNames from 'classnames';
 import { addStyle, hasClass } from 'dom-lib';
 import isObject from 'lodash/isObject';
@@ -42,6 +41,7 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
         readOnly,
         plain,
         classPrefix = 'input',
+        onInput,
         onChange,
         onClear,
         showPassword,
@@ -189,35 +189,44 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
     const handleInput = useCallback(
         event => {
             // console.log('handleInput', event.target.value);
-            if (inputOver.current) {
-                // 让搜索变成异步的
-                setValue(event.target.value);
-                if (clearRef.current && clearable && isNotEmpty(event.target.value)) {
-                    showClear(event.target.value);
-                } else {
-                    hideClear();
-                }
-                onChange?.(event.target.value, event);
+            // if (inputOver.current) {
+            // }
+            // 让搜索变成异步的
+            setValue(event.target.value);
+            if (clearRef.current && clearable && isNotEmpty(event.target.value)) {
+                showClear(event.target.value);
+            } else {
+                hideClear();
             }
+            onChange?.(event.target.value, event);
         },
         [setValue, clearable, onChange, showClear, hideClear],
     );
 
-    const { run: handleDebounceInput } = useDebounceFn(handleInput, { wait: debounceTime });
-
-    const handleComposition = useCallback(
-        (event: any) => {
-            const _type = event.type;
-            // console.log(_type);
-            if (_type === 'compositionstart') {
-                inputOver.current = false;
-            } else if (_type === 'compositionend') {
-                inputOver.current = true;
-                handleInput(event);
-            }
+    const handleChange = useCallback(
+        event => {
+            // console.log('handleChange', event.target.value);
+            setValue(event.target.value);
+            onChange?.(event.target.value, event);
         },
-        [handleInput],
+        [setValue, onChange],
     );
+
+    // const { run: handleDebounceInput } = useDebounceFn(handleInput, { wait: debounceTime });
+
+    // const handleComposition = useCallback(
+    //     (event: any) => {
+    //         const _type = event.type;
+    //         // console.log(_type);
+    //         if (_type === 'compositionstart') {
+    //             inputOver.current = false;
+    //         } else if (_type === 'compositionend') {
+    //             inputOver.current = true;
+    //             handleInput(event);
+    //         }
+    //     },
+    //     [handleInput],
+    // );
 
     // useEffect(() => {
     //     const input = inputRef.current;
@@ -226,7 +235,7 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
     //         input.addEventListener('compositionupdate', handleComposition);
     //         input.addEventListener('compositionend', handleComposition);
     //     }
-    // }, [debounceInput, handleComposition]);
+    // }, [handleComposition]);
 
     // useEffect(() => {
     //     requestAnimationFrame(() => {
@@ -326,6 +335,7 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
                     disabled={disabled}
                     maxLength={maxLength}
                     onInput={handleInput}
+                    // onChange={handleChange}
                     // onCompositionStart={handleComposition}
                     // onCompositionUpdate={handleComposition}
                     // onCompositionEnd={handleComposition}
@@ -347,6 +357,7 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
                         setFocused(false);
                         hideClear();
                         onBlur?.call(this, event);
+                        // handleChange(event);
                     }}
                     {...htmlInputProps}
                 />

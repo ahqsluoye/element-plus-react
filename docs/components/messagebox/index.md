@@ -45,6 +45,20 @@ lang: zh-CN
 
 <code src="./customization.tsx"></code>
 
+## 使用 HTML 片段
+
+`ElMessageBox` 支持传入 HTML 字符串来作为正文内容。
+
+将 `dangerouslyUseHTMLString` 属性设置为 true，`message` 属性就会被当作 HTML 片段处理。
+
+<code src="./use-html.tsx"></code>
+
+:::error{title=WARNING}
+
+`message` 属性虽然支持传入 HTML 片段，但是在网站上动态渲染任意 HTML 是非常危险的，因为容易导致 [XSS 攻击](https://en.wikipedia.org/wiki/Cross-site_scripting)。 因此在 `dangerouslyUseHTMLString` 打开的情况下，请确保 `message` 的内容是可信的，**永远不要**将用户提交的内容赋值给 `message` 属性。
+
+:::
+
 ## 区分取消操作与关闭操作
 
 有些场景下，点击取消按钮与点击关闭按钮有着不同的含义。
@@ -75,21 +89,28 @@ lang: zh-CN
 
 <code src="./draggable.tsx"></code>
 
-<!-- ## 应用程序上下文继承
+## 应用程序上下文继承
 
-现在 MessageBox 接受构造器的 `context` 作为第二个(如果你正在使用消息框变量的话) 参数，这个参数允许你将当前应用的上下文注入到消息中，这将允许你继承应用程序的所有属性。
+通过 useConfigProvider 创建支持读取 context 的 ElMessageBox。请注意，我们推荐通过顶层注册的方式代替 messageBox 静态方法，因为静态方法无法消费上下文，因而 ConfigProvider 的数据也不会生效。
 
 ```ts
-import { getCurrentInstance } from 'vue';
-import { ElMessageBox } from 'element-plus';
+import { useConfigProvider } from '@qsxy/element-plus-react';
 
-// 在你的 setup 方法中
-const { appContext } = getCurrentInstance()!;
+const { ElMessageBox } = useConfigProvider();
+
 // 你可以像这样传递参数：
-`boolean` lMessageBox({}, appContext);
+ElMessageBox({});
 // 或者正在使用不同的调用方式
-`boolean` lMessageBox.alert('Hello world!', 'Title', {}, appContext);
-``` -->
+ElMessageBox.alert('Hello world!', 'Title', {}, appContext);
+```
+
+## 按需引入
+
+如果您需要按需引入 `MessageBox`：
+
+```ts
+import { ElMessageBox } from 'element-plus';
+```
 
 ## API
 

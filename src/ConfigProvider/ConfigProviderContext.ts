@@ -4,7 +4,7 @@ import { ConfigProviderContextProps } from './typings';
 const ConfigProviderContext = createContext<ConfigProviderContextProps>({
     // message: { max: Infinity },
     inputNumber: {
-        controlsPositionRight: false,
+        controlsPosition: '',
     },
     locale: 'en',
     popper: {},

@@ -63,6 +63,18 @@ lang: zh-CN
 
 <code src="./controlled.tsx"></code>
 
+## 自定义图标
+
+使用 `decreaseIcon` 和 `increaseIcon` 设置自定义图标。
+
+<code src="./custom.tsx"></code>
+
+## 带前缀和后缀
+
+使用前缀和标名后缀。
+
+<code src="./with-prefix-suffix.tsx"></code>
+
 ## API
 
 ### 属性

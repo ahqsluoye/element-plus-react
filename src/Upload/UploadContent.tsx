@@ -21,6 +21,7 @@ const UploadContent = forwardRef<UploadContentRef, UploadContentProps>((props, r
         data,
         method,
         withCredentials,
+        errorStatus,
         name: filename,
         action,
         onProgress,
@@ -43,6 +44,7 @@ const UploadContent = forwardRef<UploadContentRef, UploadContentProps>((props, r
             const options: UploadRequestOptions = {
                 headers: headers || {},
                 withCredentials,
+                errorStatus,
                 file: rawFile,
                 data,
                 method,

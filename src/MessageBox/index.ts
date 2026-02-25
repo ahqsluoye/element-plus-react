@@ -4,7 +4,7 @@ import Main from './Main';
 import { Action, MessageBoxData, MessageBoxInputData, MessageBoxProps, MessageState } from './typings';
 
 const MESSAGE_BOX_DEFAULT_OPTS: Record<'prompt' | 'alert' | 'confirm', Partial<MessageBoxProps>> = {
-    alert: { closeOnClickModal: false },
+    alert: { closeOnClickModal: false, showCancelButton: false },
     confirm: { showCancelButton: true },
     prompt: { showCancelButton: true, showInput: true },
 };

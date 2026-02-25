@@ -42,7 +42,7 @@ export interface ConfigProviderProps extends BaseProps {
     /** 对数字输入框进行配置 */
     inputNumber?: {
         /** 控制按钮位置 */
-        controlsPositionRight?: boolean;
+        controlsPosition?: '' | 'right';
         max?: number;
         min?: number;
     };

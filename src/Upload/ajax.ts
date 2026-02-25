@@ -59,6 +59,9 @@ export const ajaxUpload: UploadRequestHandler = option => {
     });
 
     xhr.addEventListener('load', () => {
+        if (option.errorStatus && option.errorStatus(xhr)) {
+            return option.onError(getError(action, option, xhr));
+        }
         if (xhr.status < 200 || xhr.status >= 300) {
             return option.onError(getError(action, option, xhr));
         }

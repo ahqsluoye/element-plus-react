@@ -1,14 +1,18 @@
+import { ElButton, ElMessageBox } from '@qsxy/element-plus-react';
 import React from 'react';
-            import {  } from '@qsxy/element-plus-react';
 
-            const App = () => {
+const App = () => {
+    return (
+        <ElButton
+            onClick={() => {
+                ElMessageBox.alert('<strong>proxy is <i>HTML</i> string</strong>', 'HTML String', {
+                    dangerouslyUseHTMLString: true,
+                });
+            }}
+        >
+            点击打开 Message Box
+        </ElButton>
+    );
+};
 
-                return (
-
-                );
-            };
-
-            export const html = ``;
-
-            export default App;
-            
+export default App;

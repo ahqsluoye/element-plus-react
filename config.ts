@@ -52,6 +52,7 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
                 { link: '/components/link', title: 'Link 链接' },
                 { link: '/components/text', title: 'Text 文本' },
                 { link: '/components/scrollbar', title: 'Scrollbar 滚动条' },
+                { link: '/components/statistic', title: 'Statistic 统计' },
             ],
         },
         {
@@ -94,6 +95,7 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
                 { link: '/components/tag', title: 'Tag 标签' },
                 { link: '/components/time-line', title: 'Timeline 时间线' },
                 { link: '/components/tree', title: 'Tree 树形控件' },
+                { link: '/components/statistic', title: 'Statistic 统计组件' },
             ],
         },
         {

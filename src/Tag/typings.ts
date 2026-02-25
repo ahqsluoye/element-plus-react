@@ -1,7 +1,19 @@
 import React from 'react';
 import { BaseProps, NativeProps, TooltipBaseProps, TypeAttributes } from '../types/common';
 
-export interface TagProps extends Omit<TooltipBaseProps<HTMLSpanElement>, 'onClick'>, BaseProps, NativeProps {
+export interface TagProps
+    extends Omit<TooltipBaseProps<HTMLSpanElement>, 'onClick'>,
+        BaseProps,
+        NativeProps<
+            | '--el-icon-size'
+            | '--el-tag-bg-color'
+            | '--el-tag-border-color'
+            | '--el-tag-hover-color'
+            | '--el-tag-text-color'
+            | '--el-tag-font-size'
+            | '--el-tag-border-radius'
+            | '--el-tag-border-radius-rounded'
+        > {
     /** 类型 */
     type?: TypeAttributes.Appearance;
     /** 是否可关闭 */

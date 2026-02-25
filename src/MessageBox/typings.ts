@@ -9,7 +9,7 @@ export interface MessageBoxProps extends BaseProps, NativeProps, AnimationEventP
     /** 消息正文内容 */
     message?: string | React.ReactElement;
     /** 是否将 message 属性作为 HTML 片段处理 */
-    // dangerouslyUseHTMLString?: boolean;
+    dangerouslyUseHTMLString?: boolean;
     /** 消息类型，用于显示图标 */
     type?: 'success' | 'info' | 'warning' | 'error';
     /** 消息自定义图标，该属性会覆盖 type 的图标 */

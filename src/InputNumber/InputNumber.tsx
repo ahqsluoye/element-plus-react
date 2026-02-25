@@ -1,48 +1,72 @@
 import classNames from 'classnames';
-import max from 'lodash/max';
-import min from 'lodash/min';
+import isNil from 'lodash/isNil';
 import omit from 'lodash/omit';
 import toFinite from 'lodash/toFinite';
-import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Icon from '../Icon/Icon';
 import Input from '../Input/Input';
 import { InputRef } from '../Input/typings';
-import { floatAdd, floatSub, formatNumber, isEmpty, isNotEmpty, mergeDefaultProps } from '../Util';
+import { isNotEmpty, isNumber, isUndefined, mergeDefaultProps } from '../Util';
 import { partitionHTMLProps, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { InputNumberProps, InputNumberRef } from './typings';
 
 const InputNumber = memo(
     forwardRef<InputNumberRef, InputNumberProps>((props, ref) => {
+        const { locale } = useConfigProvider();
+        const { t } = useTranslation();
+
         props = mergeDefaultProps(
             {
+                disabled: undefined,
                 step: 1,
-                precision: 0,
-                max: Infinity,
-                min: -Infinity,
-                placeholder: '请输入',
+                precision: undefined,
+                max: Number.MAX_SAFE_INTEGER,
+                min: Number.MIN_SAFE_INTEGER,
+                placeholder: '',
+                controls: true,
+                controlsPosition: '',
+                stepStrictly: false,
+                valueOnClear: null,
+                // validateEvent: true,
+                inputmode: undefined,
+                align: 'center',
             },
             props,
         );
+
         const {
             name,
+            id,
             max: _maxProp,
             min: _minProp,
             step,
-            precision,
+            precision: precisionProp,
+            stepStrictly,
+            valueOnClear,
+            // validateEvent,
+            inputmode,
+            align,
+            disabledScientific,
+            controls,
+            controlsPosition,
             onChange,
+            onFocus,
+            onBlur,
             classPrefix = 'input-number',
             prefix,
             suffix,
-            prepend,
-            append,
             placeholder,
             warning,
             error,
             maxLength,
             minLength,
+            decreaseIcon,
+            increaseIcon,
             ...rest
         } = props;
+
         const { b, e, m, is } = useClassNames(classPrefix);
         const [htmlInputProps] = partitionHTMLProps(rest);
         const [tooltipEvents] = partitionHTMLProps(props, { htmlProps: ['onMouseEnter', 'onMouseLeave', 'onClick', 'onContextMenu'] });
@@ -56,171 +80,390 @@ const InputNumber = memo(
         const valueRef = useRef(value);
         const containerRef = useRef<HTMLDivElement>(null);
         const inputRef = useRef<InputRef>(null);
-        // 是否ctrl按键
-        const isCtrlKey = useRef(false);
+        const [userInput, setUserInput] = useState<string | number | null>(null);
 
-        const controlsPositionRight = useMemo(() => {
-            return props.controlsPositionRight || inputNumber?.controlsPositionRight || isNotEmpty(prefix) || isNotEmpty(suffix) || isNotEmpty(prepend) || isNotEmpty(append);
-        }, [append, inputNumber?.controlsPositionRight, prefix, prepend, props.controlsPositionRight, suffix]);
+        // Computed properties equivalent
+        const controlsAtRight = useMemo(() => {
+            return (controls && controlsPosition === 'right') || (controlsPosition !== '' && inputNumber?.controlsPosition === 'right');
+        }, [controls, controlsPosition, inputNumber?.controlsPosition]);
 
-        // const containerRef = useMemo(() => props.containerRef ?? rootRef, [props.containerRef]);
-        const maxProp = useMemo(() => _maxProp ?? inputNumber?.max ?? Infinity, [_maxProp, inputNumber?.max]);
-        const minProp = useMemo(() => _minProp ?? inputNumber?.min ?? -Infinity, [_minProp, inputNumber?.min]);
+        const maxProp = useMemo(() => _maxProp ?? inputNumber?.max ?? Number.MAX_SAFE_INTEGER, [_maxProp, inputNumber?.max]);
+        const minProp = useMemo(() => _minProp ?? inputNumber?.min ?? Number.MIN_SAFE_INTEGER, [_minProp, inputNumber?.min]);
 
-        /** 递增 */
-        const increase = useCallback(() => {
-            if (disabled) {
-                return;
+        // Utility functions
+        const getPrecision = useCallback((val: number | string | null | undefined): number => {
+            if (val == null) {
+                return 0;
             }
-            const increaseValue = min([floatAdd(toFinite(value), step), maxProp]);
-            const increaseOldValue = value;
-            const formatVal = formatNumber(increaseValue, precision);
-            setValue(formatVal);
-            onChange?.(toFinite(formatVal), increaseOldValue);
-        }, [disabled, value, step, maxProp, precision, setValue, onChange]);
-
-        /** 递减 */
-        const decrease = useCallback(() => {
-            if (disabled) {
-                return;
+            const valueString = val.toString();
+            const dotPosition = valueString.indexOf('.');
+            let precision = 0;
+            if (dotPosition !== -1) {
+                precision = valueString.length - dotPosition - 1;
             }
-            const decreaseValue = max([floatSub(toFinite(value), step), minProp]);
-            const decreaseOldValue = value;
-            const formatVal = formatNumber(decreaseValue, precision);
-            setValue(formatVal);
-            onChange?.(toFinite(formatVal), decreaseOldValue);
-        }, [disabled, value, step, minProp, precision, setValue, onChange]);
+            return precision;
+        }, []);
 
-        const onInput = useCallback(
-            (inputVal: string) => {
-                // 阻止输入错误位置的负号
-                inputVal = inputVal
-                    .split('')
-                    .filter((item, index) => {
-                        if (item === '-' && index > 0) {
-                            return false;
-                        }
-                        return true;
-                    })
-                    .join('');
-                // inputVal = inputVal.replace(/[^\d-\\.]/g, '').replace(/(?<=.)-/g, '');
-                setValue(inputVal);
-                valueRef.current = inputVal;
-                // 输入小数点后，如果转为数字会丢失小数点，所以此时不提交数据
-                if (!inputVal.endsWith('.') && !inputVal.endsWith('0')) {
-                    const _inputVal = isEmpty(inputVal) ? '' : toFinite(inputVal);
-                    setValue(_inputVal);
-                    onChange?.(_inputVal);
+        const numPrecision = useMemo(() => {
+            const stepPrecision = getPrecision(step);
+            if (!isUndefined(props.precision)) {
+                if (stepPrecision > precisionProp) {
+                    if (process.env.NODE_ENV !== 'production') {
+                        console.warn('[InputNumber] precision should not be less than the decimal places of step');
+                    }
                 }
-                inputRef.current.input.current.value = isEmpty(inputVal) ? '' : inputVal;
+                return precisionProp;
+            } else {
+                return Math.max(getPrecision(value), stepPrecision);
+            }
+        }, [getPrecision, step, props.precision, precisionProp, value]);
+
+        const minDisabled = useMemo(() => {
+            return typeof value === 'number' && value <= minProp;
+        }, [value, minProp]);
+
+        const maxDisabled = useMemo(() => {
+            return typeof value === 'number' && value >= maxProp;
+        }, [value, maxProp]);
+
+        const displayValue = useMemo(() => {
+            if (userInput !== null) {
+                return userInput ?? '';
+            }
+            let currentValue: number | string | undefined | null = value;
+            if (isNil(currentValue)) {
+                return '';
+            }
+            if (isNumber(currentValue)) {
+                if (Number.isNaN(currentValue)) {
+                    return '';
+                }
+                if (!isUndefined(precisionProp)) {
+                    currentValue = currentValue.toFixed(precisionProp);
+                }
+            }
+            return currentValue ?? '';
+        }, [userInput, value, precisionProp]);
+
+        const toPrecision = useCallback(
+            (num: number, pre?: number): number => {
+                if (pre === undefined) {
+                    pre = numPrecision;
+                }
+                if (pre === 0) {
+                    return Math.round(num);
+                }
+                let snum = String(num);
+                const pointPos = snum.indexOf('.');
+                if (pointPos === -1) {
+                    return num;
+                }
+                const nums = snum.replace('.', '').split('');
+                const datum = nums[pointPos + pre];
+                if (!datum) {
+                    return num;
+                }
+                const length = snum.length;
+                if (snum.charAt(length - 1) === '5') {
+                    snum = `${snum.slice(0, Math.max(0, length - 1))}6`;
+                }
+                return Number.parseFloat(Number(snum).toFixed(pre));
             },
-            [onChange, setValue],
+            [numPrecision],
         );
 
-        /** 输入 */
-        const onBlur = useCallback(() => {
-            // 删除值
-            if (isEmpty(valueRef.current)) {
-                setValue('');
-                onChange?.('');
-                valueRef.current = '';
-                inputRef.current.input.current.value = '';
+        const ensurePrecision = useCallback(
+            (val: number, coefficient: 1 | -1 = 1): number => {
+                if (typeof val !== 'number') {
+                    return value as number;
+                }
+                if (val >= Number.MAX_SAFE_INTEGER && coefficient === 1) {
+                    if (process.env.NODE_ENV !== 'production') {
+                        console.warn('InputNumber', 'The value has reached the maximum safe integer limit.');
+                    }
+                    return val;
+                } else if (val <= Number.MIN_SAFE_INTEGER && coefficient === -1) {
+                    if (process.env.NODE_ENV !== 'production') {
+                        console.warn('InputNumber', 'The value has reached the minimum safe integer limit.');
+                    }
+                    return val;
+                }
+                return toPrecision(val + step * coefficient);
+            },
+            [toPrecision, step, value],
+        );
+
+        const verifyValue = useCallback(
+            (val: number | string | null | undefined, shouldUpdate = false): number | null => {
+                if (maxProp < minProp) {
+                    throw new Error('InputNumber: min should not be greater than max.');
+                }
+
+                let newVal = Number(val);
+                if (val == null || Number.isNaN(newVal)) {
+                    return null;
+                }
+
+                if (val === '') {
+                    if (valueOnClear === null) {
+                        return null;
+                    }
+
+                    if (typeof valueOnClear === 'string') {
+                        newVal = valueOnClear === 'min' ? minProp : maxProp;
+                    } else {
+                        newVal = valueOnClear;
+                    }
+                }
+
+                if (stepStrictly) {
+                    newVal = toPrecision(Math.round(toPrecision(newVal / step)) * step, precisionProp);
+                    if (newVal !== val && shouldUpdate) {
+                        // Emit update event - handled by parent in React
+                    }
+                }
+
+                if (precisionProp !== undefined) {
+                    newVal = toPrecision(newVal, precisionProp);
+                }
+
+                if (newVal > maxProp || newVal < minProp) {
+                    newVal = newVal > maxProp ? maxProp : minProp;
+                    if (shouldUpdate) {
+                        // Emit update event - handled by parent in React
+                    }
+                }
+                return newVal;
+            },
+            [maxProp, minProp, valueOnClear, stepStrictly, toPrecision, step, precisionProp],
+        );
+
+        const setCurrentValue = useCallback(
+            (val: number | string | null | undefined, emitChange = true) => {
+                const oldVal = value;
+                const newVal = verifyValue(val);
+
+                if (!emitChange) {
+                    setValue(newVal);
+                    return;
+                }
+
+                setUserInput(null);
+                if (oldVal === newVal && val) {
+                    return;
+                }
+
+                setValue(newVal);
+                if (oldVal !== newVal && onChange) {
+                    onChange(newVal as number, oldVal as number);
+                }
+
+                // Form validation would go here if needed
+            },
+            [value, verifyValue, setValue, setUserInput, onChange],
+        );
+
+        const increase = useCallback(() => {
+            if (props.readOnly || disabled || maxDisabled) {
                 return;
             }
+            const val = Number(displayValue) || 0;
+            const newVal = ensurePrecision(val);
+            setCurrentValue(newVal);
+            onChange?.(newVal);
+        }, [props.readOnly, disabled, maxDisabled, displayValue, ensurePrecision, setCurrentValue, onChange]);
 
-            const inputOldValue = value;
-            const val = toFinite(valueRef.current);
-            const formatVal = formatNumber(val, precision);
-
-            // 限制最大最小
-            if (val > maxProp) {
-                setValue(maxProp);
-                onChange?.(maxProp, inputOldValue);
-                inputRef.current.input.current.value = maxProp + '';
-                return;
-            } else if (val < minProp) {
-                setValue(minProp);
-                onChange?.(minProp, inputOldValue);
-                inputRef.current.input.current.value = minProp + '';
+        const decrease = useCallback(() => {
+            if (props.readOnly || disabled || minDisabled) {
                 return;
             }
-            setValue(formatVal);
-            onChange?.(toFinite(formatVal), inputOldValue);
-            inputRef.current.input.current.value = formatVal;
-        }, [maxProp, minProp, onChange, precision, setValue, value]);
+            const val = Number(displayValue) || 0;
+            const newVal = ensurePrecision(val, -1);
+            setCurrentValue(newVal);
+            onChange?.(newVal);
+        }, [props.readOnly, disabled, minDisabled, displayValue, ensurePrecision, setCurrentValue, onChange]);
 
+        // Event handlers
+        const handleKeydown = useCallback(
+            (event: React.KeyboardEvent) => {
+                const key = event.key;
+                const code = event.code;
+
+                if (disabledScientific && ['e', 'E'].includes(key)) {
+                    event.preventDefault();
+                    return;
+                }
+
+                switch (code) {
+                    case 'ArrowUp': {
+                        event.preventDefault();
+                        increase();
+                        break;
+                    }
+                    case 'ArrowDown': {
+                        event.preventDefault();
+                        decrease();
+                        break;
+                    }
+                }
+            },
+            [decrease, disabledScientific, increase],
+        );
+
+        const handleInput = useCallback(
+            (inputVal: string) => {
+                setUserInput(inputVal);
+                const newVal = inputVal === '' ? null : Number(inputVal);
+                onChange?.(newVal);
+                setCurrentValue(newVal, false);
+            },
+            [onChange, setCurrentValue],
+        );
+
+        const handleInputChange = useCallback(
+            (inputVal: string) => {
+                const newVal = inputVal !== '' ? Number(inputVal) : '';
+                // onChange?.(newVal);
+                // setCurrentValue(newVal, true);
+                if ((typeof newVal === 'number' && !Number.isNaN(newVal)) || inputVal === '') {
+                    setUserInput(inputVal);
+                    onChange?.(newVal);
+                    // setCurrentValue(newVal);
+                }
+                // setUserInput(null);
+            },
+            [onChange],
+        );
+
+        const handleFocus = useCallback(
+            (event: React.FocusEvent<HTMLInputElement>) => {
+                onFocus?.(event);
+            },
+            [onFocus],
+        );
+
+        const handleBlur = useCallback(
+            (event: React.FocusEvent<HTMLInputElement>) => {
+                // setUserInput(null);
+                // Handle Firefox bug where non-numeric content isn't cleared
+                if (value === null && inputRef.current?.input.current) {
+                    inputRef.current.input.current.value = '';
+                }
+                onBlur?.(event);
+                if (isNotEmpty(userInput)) {
+                    setCurrentValue(String(userInput), false);
+                    setUserInput(null);
+                }
+                // Form validation would go here
+            },
+            [value, onBlur, setCurrentValue, userInput],
+        );
+
+        // Effects
         useEffect(() => {
             valueRef.current = value;
         }, [value]);
 
+        useEffect(() => {
+            const innerInput = inputRef.current?.input.current;
+            if (innerInput) {
+                innerInput.setAttribute('role', 'spinbutton');
+                if (Number.isFinite(maxProp)) {
+                    innerInput.setAttribute('aria-valuemax', String(maxProp));
+                } else {
+                    innerInput.removeAttribute('aria-valuemax');
+                }
+                if (Number.isFinite(minProp)) {
+                    innerInput.setAttribute('aria-valuemin', String(minProp));
+                } else {
+                    innerInput.removeAttribute('aria-valuemin');
+                }
+                innerInput.setAttribute('aria-valuenow', value != null ? String(value) : '');
+                innerInput.setAttribute('aria-disabled', String(disabled));
+
+                // Add wheel event listener
+                const handleWheel = (e: WheelEvent) => {
+                    if (document.activeElement === e.target) {
+                        e.preventDefault();
+                    }
+                };
+                innerInput.addEventListener('wheel', handleWheel, { passive: false });
+
+                return () => {
+                    innerInput.removeEventListener('wheel', handleWheel);
+                };
+            }
+        }, [maxProp, minProp, value, disabled]);
+
+        // Ref methods
         useImperativeHandle(ref, () => ({
-            get ref() {
-                return containerRef;
-            },
-            get input() {
-                return inputRef;
-            },
+            ref: containerRef,
+            input: inputRef,
             getValue: () => toFinite(value),
-            focus: inputRef.current.focus,
-            blur: inputRef.current.blur,
+            focus: () => inputRef.current?.focus(),
+            blur: () => inputRef.current?.blur(),
         }));
 
         return (
             <div
-                className={classNames(b(), m({ [size]: size }), is({ 'controls-right': controlsPositionRight }), props.className)}
+                className={classNames(
+                    b(),
+                    m(size),
+                    is({ disabled, 'without-controls': !controls, 'controls-right': controls && controlsAtRight, align: !!align }),
+                    props.className,
+                )}
                 style={props.style}
                 ref={containerRef}
                 {...tooltipEvents}
+                onDragStart={e => e.preventDefault()}
             >
-                <span className={classNames(e`decrease`, is({ disabled: disabled || value == minProp }))} onClick={decrease}>
-                    <Icon prefix={controlsPositionRight ? 'fal' : 'far'} name={controlsPositionRight ? 'angle-down' : 'minus'} />
-                </span>
-                <span className={classNames(e`increase`, is({ disabled: disabled || value == maxProp }))} onClick={increase}>
-                    <Icon prefix={controlsPositionRight ? 'fal' : 'far'} name={controlsPositionRight ? 'angle-up' : 'plus'} />
-                </span>
+                {controls && (
+                    <span
+                        className={classNames(e`decrease`, is({ disabled: minDisabled }))}
+                        role="button"
+                        aria-label={t('el.inputNumber.decrease', { lng: locale })}
+                        tabIndex={0}
+                        onKeyDown={event => event.key === 'Enter' && decrease()}
+                        onClick={decrease}
+                    >
+                        {decreaseIcon || <Icon name={controlsAtRight ? 'angle-down' : 'minus'} prefix={controlsAtRight ? 'fal' : 'far'} />}
+                    </span>
+                )}
+
+                {controls && (
+                    <span
+                        className={classNames(e`increase`, is({ disabled: maxDisabled }))}
+                        role="button"
+                        aria-label={t('el.inputNumber.increase', { lng: locale })}
+                        tabIndex={0}
+                        onKeyDown={event => event.key === 'Enter' && increase()}
+                        onClick={increase}
+                    >
+                        {increaseIcon || <Icon name={controlsAtRight ? 'angle-up' : 'plus'} prefix={controlsAtRight ? 'fal' : 'far'} />}
+                    </span>
+                )}
+
                 <Input
+                    id={id}
                     placeholder={placeholder}
                     prefix={prefix}
                     suffix={suffix}
                     name={name}
-                    value={value}
+                    value={displayValue}
                     disabled={disabled}
                     readOnly={props.readOnly}
                     size={size}
                     error={error}
                     warning={warning}
                     clearable={false}
-                    onBlur={onBlur}
-                    onChange={onInput}
+                    onBlur={handleBlur}
+                    onFocus={handleFocus}
+                    // onInput={handleInput}
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeydown}
                     maxLength={maxLength}
-                    minLength={maxLength}
-                    onKeyDown={useCallback(event => {
-                        if (event.ctrlKey) {
-                            isCtrlKey.current = true;
-                        }
-                        // 复制、粘贴和剪切可以执行
-                        if (isCtrlKey.current) {
-                            if (!['c', 'v', 'x'].includes(event.key)) {
-                                event.preventDefault();
-                            }
-                        } else if (!['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '.', 'ArrowLeft', 'ArrowRight', 'Backspace', 'Delete'].includes(event.key)) {
-                            event.preventDefault();
-                        }
-                        const val = valueRef.current;
-                        if (isNotEmpty(val)) {
-                            // 如果已经有小数点了，阻止输入小数点
-                            if (val.toString().indexOf('.') > -1 && event.key === '.') {
-                                event.preventDefault();
-                            }
-                            // 如果已经是负数了，阻止输入负号
-                            if (val.toString().indexOf('-') > -1 && event.key === '-') {
-                                event.preventDefault();
-                            }
-                        }
-                    }, [])}
-                    onKeyUp={useCallback(() => {
-                        isCtrlKey.current = false;
-                    }, [])}
+                    minLength={minLength}
+                    inputMode={inputmode}
                     ref={inputRef}
                     {...omit(htmlInputProps, [
                         'value',
@@ -228,10 +471,8 @@ const InputNumber = memo(
                         'disabled',
                         'size',
                         'onInput',
-                        'onKeyDown',
-                        'onKeyUp',
-                        'size',
                         'onChange',
+                        'onKeyDown',
                         'style',
                         'className',
                         'type',

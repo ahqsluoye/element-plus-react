@@ -5,6 +5,12 @@ export type LiteralUnion<T extends U, U> = T | (U & {});
 
 export type ValueType = string | number;
 
+export interface ModelModifiers {
+    trim?: boolean;
+    number?: boolean;
+    lazy?: boolean;
+}
+
 export type BaseInputRef = {
     /** 获取值 */
     getValue: () => ValueType;
@@ -17,6 +23,8 @@ export type BaseInputRef = {
     focus: () => void;
     /** 使 input 组件失去焦点 */
     blur: () => void;
+    /** 选中所有文本 */
+    select?: () => void;
     showClear?: (value: ValueType) => void;
     hideClear?: () => void;
 };
@@ -49,6 +57,8 @@ export interface InputProps
         string
     >;
 
+    /** 输入框唯一标识 */
+    id?: string;
     /** 输入框头部内容，只对 type="text" 有效 */
     prefix?: React.ReactElement<any> | string | number;
     /** 输入框尾部内容，只对 type="text" 有效 */
@@ -60,7 +70,7 @@ export interface InputProps
     /** 是否可清空 */
     clearable?: boolean;
     /** 指定输入值的格式。(只有当 type 是"text"时才能工作) */
-    formatter?: (value: ValueType) => ValueType;
+    formatter?: (value: ValueType) => string;
     /** 是否显示切换密码图标 */
     showPassword?: boolean;
     /** 是否纯文本模式，即无边框 */
@@ -85,13 +95,47 @@ export interface InputProps
     minLength?: number;
     /** 是否显示统计字数, 只在 type 为 'text' 或 'textarea' 的时候生效	 */
     showWordLimit?: boolean;
+    /** 字数统计的位置，仅当 show-word-limit 为 true 时生效。 */
+    wordLimitPosition?: 'inside' | 'outside';
     /** 是否隐藏值 */
     hiddenValue?: boolean;
+    /** 原生属性 autocomplete */
+    autocomplete?: string;
+    /** 原生属性 tabindex */
+    tabindex?: number;
+    /** 原生属性 aria-label */
+    ariaLabel?: string;
+    /** 原生属性 form */
+    form?: string;
+    /** 原生属性 autofocus */
+    autofocus?: boolean;
+    /** 原生属性 inputmode */
+    inputmode?: 'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url';
+    /** 容器的 role 属性 */
+    containerRole?: string;
+    /** 是否触发表单验证 */
+    validateEvent?: boolean;
+    /** 修饰符 */
+    modelModifiers?: ModelModifiers;
+
     /** 在点击由 clearable 属性生成的清空按钮时触发 */
     onClear?: (e: React.MouseEvent) => void;
     /** 在 Input 值改变时触发 */
     onChange?: (value: ValueType, event?: React.ChangeEvent) => void;
+    /** 在 Input 输入时触发 */
+    onInput?: (value: ValueType) => void;
+    /** 在 Input 获得焦点时触发 */
+    onFocus?: (event: React.FocusEvent) => void;
+    /** 在 Input 失去焦点时触发 */
+    onBlur?: (event: React.FocusEvent) => void;
+    /** 在 Input 按下键盘时触发 */
+    onKeyDown?: (event: React.KeyboardEvent) => void;
+    /** 鼠标进入时触发 */
+    onMouseEnter?: (event: React.MouseEvent) => void;
+    /** 鼠标离开时触发 */
+    onMouseLeave?: (event: React.MouseEvent) => void;
 }
+
 export interface InputGroupProps extends BaseProps, NativeProps {
     /** 输入框前置内容，只对 type="text" 有效 */
     prepend?: React.ReactElement<any> | string | number;

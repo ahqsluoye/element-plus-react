@@ -51,4 +51,4 @@ export default App;`,
     });
 }
 
-buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/alert.md', 'D:/JavaScript/Project/Parker-Libs/element-plus-react/docs/components/alert', true);
+buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/statistic.md', 'D:/JavaScript/Project/Parker-Libs/element-plus-react/docs/components/statistic', true);

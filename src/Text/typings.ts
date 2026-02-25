@@ -1,6 +1,6 @@
 import { BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
-export interface TextProps extends BaseProps, NativeProps {
+export interface TextProps extends BaseProps, NativeProps<'--el-text-font-size' | '--el-text-color'> {
     /** 类型 */
     type?: TypeAttributes.Appearance;
     /** 大小 */
