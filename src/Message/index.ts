@@ -21,9 +21,11 @@ export const Message: MessageMethod = function (opts: MessageParams = {} as Mess
     let options: MessageProps = opts as MessageProps;
 
     let verticalOffset = typeof opts !== 'string' && !isValidElement(opts) ? (opts as MessageProps)?.offset || 20 : 20;
-    instances.forEach(inst => {
-        verticalOffset += (inst.current.el.current?.offsetHeight || 52) + 16;
-    });
+    instances
+        .filter(inst => inst.current)
+        .forEach(inst => {
+            verticalOffset += (inst.current?.el.current?.offsetHeight || 52) + 16;
+        });
     verticalOffset += 16;
 
     const id = 'message_' + seed++;

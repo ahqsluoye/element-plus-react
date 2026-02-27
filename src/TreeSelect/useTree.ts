@@ -2,15 +2,15 @@ import isEqual from 'lodash/isEqual';
 import isNil from 'lodash/isNil';
 import pick from 'lodash/pick';
 import React, { RefObject, useCallback, useEffect, useMemo, useRef } from 'react';
+import { treeAllProps } from '../hooks/treePropsUtils';
 import { SelectRef } from '../Select';
 import { OptionData } from '../Select/typings';
 import { TreeNode } from '../Tree';
 import { TreeKey, TreeNodeData, TreeNodeRef, TreeRef } from '../Tree/typings';
 import { escapeStringRegexp, isEmpty, isFunction, nextTick } from '../Util';
-import { treeAllProps } from '../hooks/treePropsUtils';
 import TreeSelectOption from './TreeSelectOption';
 import { CacheOption, TreeSelectProps } from './typings';
-import { isValidArray, isValidValue, toValidArray, treeEach, treeFind } from './utils'; // 假设工具函数已存在
+import { isValidArray, isValidValue, toValidArray, treeEach, treeFind } from './Utils'; // 假设工具函数已存在
 
 const useTree = (
     props: TreeSelectProps,
