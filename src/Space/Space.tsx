@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { isArray } from 'lodash';
 import React, { forwardRef, memo, useCallback, useMemo } from 'react';
 import { mergeDefaultProps } from '../Util';
@@ -9,7 +8,7 @@ import { useSpace } from './useSpace';
 const Space = memo(
     forwardRef<HTMLDivElement, SpaceProps>((props, ref) => {
         props = mergeDefaultProps({ direction: 'horizontal', prefixCls: 'el-space', alignment: 'center', justify: '', size: 'small', fillRatio: 100 }, props);
-        const { direction, className, style, prefixCls, spacer, children } = props;
+        const { direction, style, prefixCls, spacer, children } = props;
 
         const { classes, containerStyle, itemStyle } = useSpace(props);
 
@@ -102,7 +101,7 @@ const Space = memo(
         }
 
         return (
-            <div ref={ref} className={classNames(classes, className)} style={{ ...containerStyle, ...style }}>
+            <div ref={ref} className={classes} style={{ ...containerStyle, ...style }}>
                 {extractedChildren}
             </div>
         );
