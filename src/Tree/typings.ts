@@ -52,6 +52,8 @@ export type TreeRef = {
     setCheckedKeys: (keys: TreeKey[], leafOnly?: boolean) => void;
     /** 设置节点是否被选中, 使用此方法必须设置 nodeKey 属性 */
     setChecked: (data: TreeKey | TreeNodeData, checked: boolean, deep: boolean) => void;
+    /** 刷新整个树 */
+    refresh: () => void;
     store: TreeStore;
 };
 export type TreeNodeRef = {

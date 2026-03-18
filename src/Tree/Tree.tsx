@@ -357,6 +357,7 @@ const Tree = forwardRef<TreeRef, TreeProps>((props, ref) => {
         setCheckedNodes,
         setCheckedKeys,
         setChecked,
+        refresh: forceUpdate,
         store,
     }));
 
