@@ -26,7 +26,6 @@ const InputNumber = memo(
                 min: Number.MIN_SAFE_INTEGER,
                 placeholder: '',
                 controls: true,
-                controlsPosition: '',
                 stepStrictly: false,
                 valueOnClear: null,
                 // validateEvent: true,
