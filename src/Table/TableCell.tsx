@@ -33,6 +33,8 @@ interface Props {
     colSpan?: number;
 }
 
+let removePopper: () => void | undefined;
+
 const TableCell = (p: Props) => {
     const { row, column, columnIndex, className = '', style = {}, rowSpan = 1, colSpan = 1 } = p;
     const { data, setData, props, tableRefs, flattenColumns } = useContext(TableContext);
@@ -80,6 +82,9 @@ const TableCell = (p: Props) => {
     const handleCellMouseEnter = useCallback(
         (_row: any, _column: TableColumnCtx<any>, event: React.MouseEvent<HTMLTableCellElement, MouseEvent>) => {
             onCellMouseEnter?.(_row, _column, event.currentTarget, event);
+            if (removePopper) {
+                removePopper();
+            }
             if (!['index', 'selection'].includes(_column?.type || '') && column.showOverflowTooltip) {
                 const cell = event.currentTarget as HTMLElement;
                 const cellChild = (event.currentTarget as HTMLElement).querySelector('.' + e`cell-content`) as HTMLElement;
@@ -90,8 +95,8 @@ const TableCell = (p: Props) => {
                 const padding = (Number.parseInt(getStyle(cellChild, 'paddingLeft'), 10) || 0) + (Number.parseInt(getStyle(cellChild, 'paddingRight'), 10) || 0);
                 if (rangeWidth + padding > cellChild.offsetWidth || cellChild.scrollWidth > cellChild.offsetWidth) {
                     // tableRefs.tableWrapper.current && console.log(tableRefs.tableWrapper.current.getBoundingClientRect());
-                    tableRefs.tableWrapper.current &&
-                        createTablePopper(
+                    if (tableRefs.tableWrapper.current) {
+                        removePopper = createTablePopper(
                             tableRefs.tableWrapper.current,
                             // {
                             //     getBoundingClientRect: tableRefs.tableWrapper.current.getBoundingClientRect(),
@@ -100,6 +105,7 @@ const TableCell = (p: Props) => {
                             cell.innerText || cell.textContent || '',
                             tooltipRef,
                         );
+                    }
                 }
             }
         },

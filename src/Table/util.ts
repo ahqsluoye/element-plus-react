@@ -114,6 +114,7 @@ export function createTablePopper(parentNode: HTMLElement | undefined, trigger: 
             defaultVisible: true,
             content: popperContent,
             placement: 'top',
+            offset: 0,
             // @ts-ignore
             ref: tooltipRef,
             hideAfter: 200,
@@ -149,12 +150,13 @@ export function createTablePopper(parentNode: HTMLElement | undefined, trigger: 
     //     ...popperOptions,
     // });
     // trigger.addEventListener('mouseenter', showPopper);
-    // trigger.addEventListener('mouseleave', () => {
-    //     setTimeout(() => {
-    //         tooltipRef.current?.hide();
-    //     }, 200);
-    // });
+    trigger.addEventListener('mouseleave', () => {
+        setTimeout(() => {
+            tooltipRef.current?.hide();
+        }, 200);
+    });
     scrollContainer?.addEventListener('scroll', removePopper);
+    return removePopper;
 }
 
 export const getRowIdentity = <T>(row: T, rowKey: TableProps<T>['rowKey']): string => {
