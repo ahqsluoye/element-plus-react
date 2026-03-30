@@ -212,7 +212,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
             <Popper
                 referenceElement={containerRef}
                 visible={visible}
-                popperClass={e`popper`}
+                popperClass={classNames(e`popper`, is`pure`)}
                 popperInstRef={popperInstRef}
                 popperStyle={{ ...popperStyle, visibility: filterable && remote && isEmpty(inputValue) ? 'hidden' : 'visible' }}
                 onDestroy={() => {

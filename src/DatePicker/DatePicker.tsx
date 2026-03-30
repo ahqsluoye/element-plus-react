@@ -225,6 +225,7 @@ const DatePicker = memo(
                     referenceElement={() => inputRef?.current?.ref}
                     popperInstRef={popperInstRef}
                     onDestroy={() => setVisible(false)}
+                    popperClass="is-pure"
                     transitionAppear
                     unmountOnExit
                     {...animationInputProps}

@@ -63,8 +63,8 @@
   },
   "peerDependencies": {
     "react": ">=18.0.0",
-    "react-router-dom": ">=6.22.1",
-    "react-dom": ">=18.0.0"
+    "react-dom": ">=18.0.0",
+    "react-router-dom": ">=6.22.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.23.9",

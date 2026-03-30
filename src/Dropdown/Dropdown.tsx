@@ -37,7 +37,7 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
     const [transitionProps] = partitionAnimationProps(rest);
     const [tooltipEvents] = partitionHTMLProps(props, { htmlProps: ['onMouseEnter', 'onMouseLeave', 'onClick', 'onContextMenu'] });
 
-    const { b, e } = useClassNames(classPrefix);
+    const { b, e, is } = useClassNames(classPrefix);
     const containerRef = useRef(null);
 
     /** 显示 */
@@ -69,7 +69,7 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
             <Tooltip
                 classPrefix={classPrefix}
                 triggerRef={props.children}
-                popperClass={e`popper`}
+                popperClass={classNames(e`popper`, is`pure`)}
                 disabled={disabled}
                 enterable
                 effect="light"

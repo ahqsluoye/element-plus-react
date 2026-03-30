@@ -12,6 +12,7 @@ const TextArea = forwardRef<TextareaRef, TextareaProps>((props, ref) => {
             placeholder: '请输入',
             style: { width: '100%' },
             autosize: true,
+            rows: 2,
             inputStyle: {},
         },
         props,

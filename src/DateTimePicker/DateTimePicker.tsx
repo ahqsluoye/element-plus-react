@@ -199,6 +199,7 @@ const DateTimePicker = memo(
                     {...animationInputProps}
                     transitionAppear
                     unmountOnExit
+                    popperClass="is-pure"
                     {...animationInputProps}
                     {...popperProps}
                 >

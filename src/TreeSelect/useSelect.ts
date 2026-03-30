@@ -123,7 +123,7 @@ const useSelect = (props: TreeSelectProps, { selectRef, treeRef, key }: { select
             style: props.style,
             // onUpdateModelValue: (value: any) => props.onUpdateModelValue?.(value),
             valueKey: key,
-            popperClass: classNames(ns.e('popper'), props.popperClass),
+            popperClass: classNames(ns.e('popper'), ns.is('pure'), props.popperClass),
             filterMethod: (keyword = '') => {
                 if (props.filterMethod) {
                     props.filterMethod(keyword);

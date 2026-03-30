@@ -240,6 +240,7 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
             <Popper
                 visible={visible}
                 referenceElement={() => inputRef?.current?.ref}
+                popperClass="is-pure"
                 popperInstRef={popperInstRef}
                 // afterEnter={(node?: HTMLElement | Text) => {
                 //     setEnter(true);

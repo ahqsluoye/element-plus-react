@@ -612,7 +612,7 @@ const Cascader: FC<CascaderProps> = memo(
                     referenceElement={() => inputRef?.current?.ref}
                     visible={visible}
                     popperInstRef={popperInstRef}
-                    popperClass={e`dropdown`}
+                    popperClass={classNames(e`dropdown`, is`pure`)}
                     // popperStyle={popperStyle}
                     onDestroy={() => setVisible(false)}
                     onEnter={() => {
