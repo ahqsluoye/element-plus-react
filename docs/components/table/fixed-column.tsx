@@ -24,7 +24,7 @@ const App = () => {
             </ElTableColumn>
             <ElTableColumn prop="state" label="State" width={120} />
             <ElTableColumn prop="address" label="Address" width={600} />
-            <ElTableColumn fixed="right" prop="zip" label="Zip" width={120} />
+            <ElTableColumn prop="zip" label="Zip" width={120} />
             <ElTableColumn fixed="right" label="Operations" width={120}>
                 {(scope: RenderCell<TableData>) => (
                     <>

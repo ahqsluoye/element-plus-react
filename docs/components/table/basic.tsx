@@ -7,7 +7,7 @@ const App = () => {
         <ElTable data={tableData} style={{ width: '100%' }}>
             <ElTableColumn prop="date" label="Date" width={180} />
             <ElTableColumn prop="name" label="Name" width={180} />
-            <ElTableColumn prop="address" label="Address" align="center" showOverflowTooltip />
+            <ElTableColumn prop="address" label="Address" />
         </ElTable>
     );
 };

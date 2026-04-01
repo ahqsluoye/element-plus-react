@@ -57,45 +57,21 @@ export const getStyle = (element: HTMLElement, styleName: keyof React.CSSPropert
 
 export let removePopper: () => void | undefined;
 
-export function createTablePopper(parentNode: HTMLElement | undefined, trigger: HTMLElement, popperContent: string, tooltipRef: React.MutableRefObject<TooltipRef>) {
+export function createTablePopper(
+    parentNode: HTMLElement | undefined,
+    trigger: HTMLElement,
+    popperContent: React.ReactNode | string,
+    tooltipRef: React.MutableRefObject<TooltipRef>,
+) {
     // const { nextZIndex } = PopupManager;
-    const ns = namespace || 'r';
+    const ns = namespace || 'el';
     const scrollContainer = parentNode?.querySelector(`.${ns}-scrollbar__wrap`);
-    // function renderContent(): HTMLDivElement {
-    //     const isLight = tooltipEffect === 'light';
-    //     const content = document.createElement('div');
-    //     content.className = `${ns}-popper ${isLight ? 'is-light' : 'is-dark'} ${globalKey}-slide-down`;
-    //     content.style.padding = '6px';
-    //     popperContent = escapeHtml(popperContent);
-    //     content.innerHTML = popperContent;
-    //     content.style.zIndex = String(nextZIndex());
-    //     // Avoid side effects caused by append to body
-    //     parentNode?.appendChild(content);
-    //     return content;
-    // }
-    // function renderArrow(): HTMLDivElement {
-    //     const arrow = document.createElement('div');
-    //     arrow.className = `${ns}-popper__arrow`;
-    //     return arrow;
-    // }
-    // function showPopper() {
-    //     timeOut && clearTimeout(timeOut);
-    //     timeOut = window.setTimeout(() => {
-    //         popperInstance && popperInstance.update();
-    //     }, 200);
-
-    // }
     removePopper?.();
     const renderDom = document.createDocumentFragment();
     const root = createRoot(renderDom);
     removePopper = () => {
         try {
-            // root.unmount();
-            tooltipRef.current?.hide();
-            // popperInstance && popperInstance.destroy();
-            // content && parentNode?.removeChild(content);
-            // trigger.removeEventListener('mouseenter', showPopper);
-            // trigger.removeEventListener('mouseleave', removePopper);
+            tooltipRef.current?.onClose();
             scrollContainer?.removeEventListener('scroll', removePopper);
             // @ts-ignore
             removePopper = undefined;
@@ -106,7 +82,7 @@ export function createTablePopper(parentNode: HTMLElement | undefined, trigger: 
     if (!tooltipRef.current) {
         const vm = createElement(Tooltip, {
             enterable: true,
-            onMouseLeave: removePopper,
+            // onMouseLeave: removePopper,
             virtualTriggering: true,
             virtualRef: {
                 getBoundingClientRect: () => trigger.getBoundingClientRect(),
@@ -117,44 +93,14 @@ export function createTablePopper(parentNode: HTMLElement | undefined, trigger: 
             offset: 0,
             // @ts-ignore
             ref: tooltipRef,
-            hideAfter: 200,
+            hideAfter: 0,
+            showAfter: 0,
+            disableTransition: true,
         });
         root.render(vm);
     } else {
         tooltipRef.current?.onOpen();
     }
-    // let popperInstance: PopperInstance | null = null;
-    // const content = renderContent();
-    // const arrow = renderArrow();
-    // content.appendChild(arrow);
-    // popperInstance = createPopper({
-    //     getBoundingClientRect: () => trigger.getBoundingClientRect(),
-    //     contextElement: parentNode
-    // }, content, {
-    //     strategy: 'absolute',
-    //     modifiers: [
-    //         {
-    //             name: 'offset',
-    //             options: {
-    //                 offset: [0, 8],
-    //             },
-    //         },
-    //         {
-    //             name: 'arrow',
-    //             options: {
-    //                 element: arrow,
-    //                 padding: 10,
-    //             },
-    //         },
-    //     ],
-    //     ...popperOptions,
-    // });
-    // trigger.addEventListener('mouseenter', showPopper);
-    trigger.addEventListener('mouseleave', () => {
-        setTimeout(() => {
-            tooltipRef.current?.hide();
-        }, 200);
-    });
     scrollContainer?.addEventListener('scroll', removePopper);
     return removePopper;
 }

@@ -80,6 +80,8 @@
     "@types/prismjs": "^1.26.3",
     "@types/react": "^18.2.55",
     "@types/react-is": "^19.0.0",
+    "@typescript-eslint/eslint-plugin": "5.57.1",
+    "@typescript-eslint/parser": "5.57.1",
     "@umijs/lint": "^4.0.0",
     "babel-plugin-prismjs": "^2.1.0",
     "circular-dependency-plugin": "^5.2.2",

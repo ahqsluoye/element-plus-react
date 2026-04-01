@@ -155,7 +155,7 @@ const TableHeaderCell = (p: Props) => {
             onMouseMove={event => handleMouseMove(event, column)}
             onMouseOut={handleMouseOut}
         >
-            <div className={e`cell-content`}>
+            <div className={'cell'}>
                 {(() => {
                     if (data.length > 0 && column.type === 'selection') {
                         return (

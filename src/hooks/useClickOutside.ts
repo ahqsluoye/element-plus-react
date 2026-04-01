@@ -38,7 +38,7 @@ function createDocumentHandler(el: HTMLElement, binding: DirectiveBinding): Docu
             const mouseDownTarget = mousedown.target as Node;
             const isBound = !binding;
             const isTargetExists = !mouseUpTarget || !mouseDownTarget;
-            const isContainedByEl = el.contains(mouseUpTarget) || el.contains(mouseDownTarget);
+            const isContainedByEl = Object.prototype.hasOwnProperty.call(el, 'contains') && (el?.contains(mouseUpTarget) || el?.contains(mouseDownTarget));
             const isSelf = el === mouseUpTarget;
 
             const isTargetExcluded =
@@ -65,11 +65,15 @@ const useClickOutside = (el: RefObject<HTMLElement>, binding: DirectiveBinding) 
 
     useLayoutEffect(() => {
         if (el.current && binding.popperRef) {
-            if (!(el.current instanceof HTMLElement)) {
-                return;
-            }
+            // if (!(el.current instanceof HTMLElement)) {
+            //     return;
+            // }
             const index = randomCode(11);
-            el.current.dataset.index = index;
+            if (el.current.dataset) {
+                el.current.dataset.index = index;
+            } else {
+                Object.assign(el.current, { dataset: { index } });
+            }
             nodeList[index] = {
                 documentHandler: createDocumentHandler(el.current, binding),
                 bindingFn: binding.value,
@@ -83,11 +87,15 @@ const useClickOutside = (el: RefObject<HTMLElement>, binding: DirectiveBinding) 
 
     useEffect(() => {
         if (el.current && binding.visible) {
-            if (!(el.current instanceof HTMLElement)) {
-                return;
-            }
+            // if (!(el.current instanceof HTMLElement)) {
+            //     return;
+            // }
             const index = randomCode(11);
-            el.current.dataset.index = index;
+            if (el.current.dataset) {
+                el.current.dataset.index = index;
+            } else {
+                Object.assign(el.current, { dataset: { index } });
+            }
             nodeList[index] = {
                 documentHandler: createDocumentHandler(el.current, binding),
                 bindingFn: binding.value,

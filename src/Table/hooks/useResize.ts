@@ -17,7 +17,6 @@ export const useResize = <T>(scheduleLayout: (/* needUpdateColumns?: boolean,  *
         if (draggingColumn.current && props.border) {
             dragging.current = true;
 
-            // emit('set-drag-visible', true);
             const tableEl = tableRefs.tableWrapper;
             if (tableEl.current && tableRefs.resizeHelper.current) {
                 const resizeProxy = tableRefs.resizeHelper.current as HTMLElement;

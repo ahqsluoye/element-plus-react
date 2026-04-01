@@ -63,7 +63,7 @@ const YearRangePanel: FC<DateRangePanelProps> = props => {
         const curYear: number = startDate.year();
         const position: number = startDate.year() % 10;
         return `${curYear - position} ${t('el.datepicker.year', { lng: locale })} - ${curYear + (9 - position)} ${t('el.datepicker.year', { lng: locale })}`;
-    }, [startDate]);
+    }, [locale, startDate, t]);
 
     // 当前年份
     const rightYear = useMemo(() => {

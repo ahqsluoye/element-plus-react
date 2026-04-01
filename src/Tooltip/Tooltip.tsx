@@ -27,6 +27,7 @@ const Tooltip = memo(
             virtualTriggering,
             virtualRef,
             unmountOnExit = true,
+            disableTransition,
             ...rest
         } = props;
         const [popperProps] = partitionPopperPropsUtils(rest);
@@ -36,6 +37,7 @@ const Tooltip = memo(
         let referenceElement = useRef<any>(null);
         const timeOut = useRef(0);
         const popperInstRef = useRef<PopperOptionRef>(null);
+        const entering = useRef(false); // 是否正在进入
 
         /** 显示 */
         const handleMouseEnter = useCallback(
@@ -59,15 +61,20 @@ const Tooltip = memo(
         const handleMouseLeave = useCallback(
             (event?: React.MouseEvent<any>) => {
                 if (enterable) {
+                    if (entering.current) {
+                        return;
+                    }
                     event?.preventDefault();
                     timeOut.current && clearTimeout(timeOut.current);
                     timeOut.current = window.setTimeout(() => {
                         setVisible(false);
                         onMouseLeave?.(event);
+                        entering.current = false;
                     }, hideAfter);
                 } else {
                     setVisible(false);
                     onMouseLeave?.(event);
+                    entering.current = false;
                 }
             },
             [enterable, hideAfter, onMouseLeave, setVisible],
@@ -88,6 +95,9 @@ const Tooltip = memo(
             onClose: handleMouseLeave,
             hide: () => {
                 setVisible(false);
+                setTimeout(() => {
+                    entering.current = false;
+                }, hideAfter);
             },
         }));
 
@@ -146,6 +156,7 @@ const Tooltip = memo(
                     visible={visible}
                     referenceElement={() => (virtualTriggering ? { current: virtualRef } : referenceElement?.current?.ref ?? referenceElement)}
                     popperInstRef={popperInstRef}
+                    disableTransition={disableTransition}
                     onEnter={useCallback(() => {
                         if (popperInstRef?.current?.update) {
                             popperInstRef.current.update();
@@ -153,11 +164,20 @@ const Tooltip = memo(
                         onEnter?.();
                     }, [onEnter])}
                     onDestroy={() => {
-                        setVisible(false);
-                        onMouseLeave?.();
+                        handleMouseLeave();
                     }}
-                    onMouseEnter={enterable && trigger === 'hover' ? handleMouseEnter : noop}
-                    onMouseLeave={enterable && trigger === 'hover' ? handleMouseLeave : noop}
+                    onMouseEnter={() => {
+                        if (enterable && trigger === 'hover') {
+                            entering.current = true;
+                            handleMouseEnter();
+                        }
+                    }}
+                    onMouseLeave={() => {
+                        if (enterable && trigger === 'hover') {
+                            entering.current = false;
+                            handleMouseLeave();
+                        }
+                    }}
                     className={classNames(props.popperClass, { [e`popper`]: classPrefix === 'tooltip' })}
                     effect={effect}
                     unmountOnExit={unmountOnExit}
@@ -171,6 +191,7 @@ const Tooltip = memo(
                             trigger,
                             onClose: () => {
                                 setVisible(false);
+                                entering.current = false;
                             },
                         }}
                     >

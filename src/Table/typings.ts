@@ -14,11 +14,11 @@ type FilterMethods<T> = (value: any, row: T, column: TableColumnCtx<T>) => void;
 
 export type RenderCell<T> = { $index: number; row: T; column?: TableColumnCtx<T> };
 
-export type TableColumnProps<T> = {
+export type TableColumnProps = {
     /** 对应列的类型。 如果设置了selection则显示多选框； 如果设置了 index 则显示该行的索引（从 1 开始计算）； 如果设置了 expand 则显示为一个可展开的按钮 */
-    type?: 'selection' | 'index' | 'expand' | 'drag';
+    type?: 'selection' | 'index' | 'expand' /* | 'drag' */;
     /** 如果设置了 type=index，可以通过传递 index 属性来自定义索引 */
-    index?: number | ((index: number, row?: T) => number);
+    index?: number | ((index: number, row?: any) => number);
     /** column 的 key，如果需要使用 filterChange 事件，则需要此属性标识是哪个 column 的筛选条件 */
     label?: string | React.ReactElement;
     /**  */
@@ -34,13 +34,13 @@ export type TableColumnProps<T> = {
     /** 对应列的最小宽度， 对应列的最小宽度， 与 width 的区别是 width 是固定的，minWidth 会把剩余宽度按比例分配给设置了 minWidth 的列 */
     minWidth?: number;
     /** 列标题 Label 区域渲染使用的 Function */
-    renderHeader?: (data: CI<T>) => React.ReactElement;
+    renderHeader?: (data: CI<any>) => React.ReactElement;
     /** 对应列是否可以排序， 如果设置为 'custom'，则代表用户希望远程排序，需要监听 Table 的 sortChange 事件 */
     sortable?: boolean | 'custom';
     /** 指定数据按照哪个属性进行排序，仅当sortable设置为true的时候有效。 应该如同 Array.sort 那样返回一个 Number */
-    sortMethod?: (a: T, b: T) => number;
+    sortMethod?: (a: any, b: any) => number;
     /** 指定数据按照哪个属性进行排序，仅当 sortable 设置为 true 且没有设置 sortMethod 的时候有效。 如果 sortBy 为数组，则先按照第 1 个属性排序，如果第 1 个相等，再按照第 2 个排序，以此类推 */
-    sortBy?: string | /* ((row: T, index: number) => string) | */ string[];
+    sortBy?: string | /* ((row: any, index: number) => string) | */ string[];
     /** 数据在排序时所使用排序策略的轮转顺序，仅当 sortable 为 true 时有效。 需传入一个数组，随着用户点击表头，该列依次按照数组中元素的顺序进行排序 */
     sortOrders?: ('ascending' | 'descending' | null)[];
     /** 对应列是否可以通过拖动改变宽度（需要在 elTable 上设置 border 属性为真） */
@@ -55,16 +55,18 @@ export type TableColumnProps<T> = {
     headerAlign?: 'left' | 'center' | 'right';
     /** 当内容过长被隐藏时显示 tooltip */
     showOverflowTooltip?: boolean;
+    /** tooltip 的格式化函数 */
+    tooltipFormatter?: (data: { row: any; column: TableColumnCtx<any>; cellValue: any }) => React.ReactNode | string;
     /** 列是否固定在左侧或者右侧。 true 表示固定在左侧 */
     fixed?: boolean | 'left' | 'right';
     /** 用来格式化内容 */
-    formatter?: (row: T, column: TableColumnCtx<T>, cellValue: any, index: number) => React.ReactElement | string;
+    formatter?: (row: any, column: TableColumnCtx<any>, cellValue: any, index: number) => React.ReactElement | string;
     /** 仅对 type=selection 的列有效，类型为 Function，Function 的返回值用来决定这一行的 CheckBox 是否可以勾选 */
-    selectable?: (row: T, index: number) => boolean;
+    selectable?: (row: any, index: number) => boolean;
     /** 分页保留勾选项，仅对  type=selection 的列有效， 请注意， 需指定 rowKey 来让这个功能生效 */
     reserveSelection?: boolean;
     /** 数据过滤使用的方法， 如果是多选的筛选项，对每一条数据会执行多次，任意一次返回 true 就会显示 */
-    filterMethod?: FilterMethods<T>;
+    filterMethod?: FilterMethods<any>;
     /** 选中的数据过滤项，如果需要自定义表头过滤的渲染方式，可能会需要此属性 */
     filteredValue?: string[];
     /** 数据过滤的选项， 数组格式，数组中的元素需要有 text 和 value 属性。 数组中的每个元素都需要有 text 和 value 属性 */
@@ -74,10 +76,10 @@ export type TableColumnProps<T> = {
     /** 数据过滤的选项是否多选 */
     filterMultiple?: boolean;
     /** 子组件 */
-    children?: React.ReactElement<TableColumnProps<T>> | React.ReactElement<TableColumnProps<T>>[] | ((data: RenderCell<T>) => React.ReactElement | string | number);
+    children?: React.ReactElement<TableColumnProps> | React.ReactElement<TableColumnProps>[] | ((data: RenderCell<any>) => React.ReactElement | string | number);
 };
 
-export type TableColumnCtx<T> = Omit<TableColumnProps<T>, 'children'> & {
+export type TableColumnCtx<T> = Omit<TableColumnProps, 'children'> & {
     /**  */
     id?: string;
     /**  */
@@ -279,7 +281,11 @@ export interface TableProps<T>
     /** 是否在不能展开行时隐藏展开图标 */
     hideIconOnNotExpand?: boolean;
     /** 子组件 */
-    children: React.ReactElement<TableColumnProps<T>> | React.ReactElement<TableColumnProps<T>>[];
+    children: React.ReactElement<TableColumnProps> | React.ReactElement<TableColumnProps>[];
+    /** 当内容过长被隐藏时显示 tooltip */
+    showOverflowTooltip?: boolean;
+    /** tooltip 的格式化函数 */
+    tooltipFormatter?: (data: { row: T; column: TableColumnCtx<T>; cellValue: any }) => React.ReactNode | string;
 }
 
 export interface TableSort {
@@ -335,7 +341,6 @@ export interface TableRef<T> {
     /** 手动排序表格。 参数 prop 属性指定排序列，order 指定排序顺序。	prop: string, order: string */
     sort?: () => void;
     /** 滚动到一组特定坐标 */
-    // eslint-disable-next-line no-undef
     scrollTo?: (options: ScrollToOptions | number, yCoord?: number) => void;
     /** 设置滚动条到顶部的距离 */
     setScrollTop?: (value: number) => void;

@@ -35,7 +35,16 @@ const App = () => {
     }, []);
 
     return (
-        <ElTooltip visible={visible} content="Bottom center" placement="bottom" effect="light" trigger="click" virtualTriggering virtualRef={triggerRef}>
+        <ElTooltip
+            visible={visible}
+            onMouseLeave={() => setVisible(false)}
+            content="Bottom center"
+            placement="bottom"
+            effect="light"
+            trigger="click"
+            virtualTriggering
+            virtualRef={triggerRef}
+        >
             <ElButton onClick={() => setVisible(!visible)}>Top center</ElButton>
         </ElTooltip>
     );

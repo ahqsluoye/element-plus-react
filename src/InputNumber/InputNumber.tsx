@@ -381,9 +381,9 @@ const InputNumber = memo(
                 innerInput.setAttribute('aria-disabled', String(disabled));
 
                 // Add wheel event listener
-                const handleWheel = (e: WheelEvent) => {
-                    if (document.activeElement === e.target) {
-                        e.preventDefault();
+                const handleWheel = (event: WheelEvent) => {
+                    if (document.activeElement === event.target) {
+                        event.preventDefault();
                     }
                 };
                 innerInput.addEventListener('wheel', handleWheel, { passive: false });
@@ -414,7 +414,7 @@ const InputNumber = memo(
                 style={props.style}
                 ref={containerRef}
                 {...tooltipEvents}
-                onDragStart={e => e.preventDefault()}
+                onDragStart={event => event.preventDefault()}
             >
                 {controls && (
                     <span

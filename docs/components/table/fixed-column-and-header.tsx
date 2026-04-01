@@ -1,4 +1,4 @@
-import { ElTable, ElTableColumn, ElTag, RenderCell } from '@qsxy/element-plus-react';
+import { ElTable, ElTableColumn } from '@qsxy/element-plus-react';
 import React from 'react';
 
 interface TableData {
@@ -73,12 +73,11 @@ const App = () => {
     return (
         <ElTable data={tableData} height={250} style={{ width: '100%' }}>
             <ElTableColumn fixed prop="date" label="Date" width={150} />
-            <ElTableColumn fixed prop="name" label="Name" width={120}>
-                {(scope: RenderCell<TableData>) => <ElTag>{scope.row.name}</ElTag>}
-            </ElTableColumn>
+            <ElTableColumn prop="name" label="Name" width={120} />
             <ElTableColumn prop="state" label="State" width={120} />
+            <ElTableColumn prop="city" label="City" width={320} />
             <ElTableColumn prop="address" label="Address" width={600} />
-            <ElTableColumn prop="zip" label="Zip" width={120} />
+            <ElTableColumn prop="zip" label="Zip" />
         </ElTable>
     );
 };

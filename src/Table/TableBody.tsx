@@ -40,10 +40,7 @@ const TableBody = () => {
         [fixedLeftColumns, fixedRightColumns, flattenColumns],
     );
 
-    const isTreeTalbe = useMemo(
-        () => props.data.some(item => treeProps.children in item || treeProps.hasChildren in item),
-        [props.data, treeProps.children, treeProps.hasChildren],
-    );
+    const isTreeTalbe = useMemo(() => data.some(item => treeProps.children in item || treeProps.hasChildren in item), [data, treeProps.children, treeProps.hasChildren]);
 
     // useEffect(() => {
     //     if (rowKey && isTreeTalbe && !defaultExpandAll) {
@@ -153,7 +150,7 @@ const TableBody = () => {
                         );
                     })}
 
-                    {fixedRightColumns.map(column => {
+                    {fixedRightColumns.map((column, index) => {
                         columnIndex++;
                         const { rowSpan, colSpan, display } = isMerge(row, rowIndex, column, columnIndex);
                         return (
@@ -166,7 +163,7 @@ const TableBody = () => {
                                     rowRef={rowRef}
                                     rowSpan={rowSpan}
                                     colSpan={colSpan}
-                                    className={classNames(bm('fixed-column', 'right'), is({ 'first-column': columnIndex === 0 }))}
+                                    className={classNames(bm('fixed-column', 'right'), is({ 'first-column': index === 0 }))}
                                     style={{ right: column.offsetWidth }}
                                     key={`${tableId}_${rowIndex}_${column.id}`}
                                 />

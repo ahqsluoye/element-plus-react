@@ -65,7 +65,7 @@ const TableHeader = ({ scheduleLayout }: Props) => {
                             })}
 
                             {rowIndex === 0 &&
-                                fixedRightColumns.map(column => {
+                                fixedRightColumns.map((column, index) => {
                                     columnIndex++;
                                     return (
                                         <TableHeaderCell
@@ -74,7 +74,7 @@ const TableHeader = ({ scheduleLayout }: Props) => {
                                             rowIndex={rowIndex}
                                             column={column}
                                             columnIndex={columnIndex}
-                                            className={classNames(bm('fixed-column', 'right'), is({ leaf: column.isSubColumn, 'first-column': columnIndex === 0 }))}
+                                            className={classNames(bm('fixed-column', 'right'), is({ leaf: column.isSubColumn, 'first-column': index === 0 }))}
                                             style={{ right: column.offsetWidth }}
                                             scheduleLayout={scheduleLayout}
                                         />

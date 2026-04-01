@@ -144,7 +144,7 @@
         "no-extra-semi": 2,
         // 禁止出现未使用过的变量
         "no-unused-vars": 0,
-        "@typescript-eslint/no-unused-vars": [1, { "varsIgnorePattern": "h|Fragment" }],
+        "@typescript-eslint/no-unused-vars": 0,
         // 禁止空格和 tab 的混合缩进
         "no-mixed-spaces-and-tabs": 2,
         // 强制所有控制语句使用一致的括号风格
@@ -159,7 +159,7 @@
             }
         ],
         // 禁用 console
-        "no-console": 1,
+        "no-console": [1, { "allow": ["warn", "error"] }],
         // 禁用行尾空格
         "no-trailing-spaces": [
             1,

@@ -319,8 +319,8 @@ export default class TreeStore {
 
             if (leafOnly) {
                 node.setChecked(false, false);
-                const traverse = function (node: Node): void {
-                    const childNodes = node.childNodes;
+                const traverse = function (_node: Node): void {
+                    const childNodes = _node.childNodes;
                     childNodes.forEach(child => {
                         if (!child.isLeaf) {
                             child.setChecked(false, false);
@@ -347,8 +347,8 @@ export default class TreeStore {
         this.defaultCheckedKeys = keys;
         const key = this.key;
         const checkedKeys: Record<TreeKey, boolean> = {};
-        keys.forEach(key => {
-            checkedKeys[key] = true;
+        keys.forEach(k => {
+            checkedKeys[k] = true;
         });
 
         this._setCheckedKeys(key, leafOnly, checkedKeys);

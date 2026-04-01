@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import { useDebounceFn } from 'ahooks';
 import cloneDeep from 'lodash/cloneDeep';
 import React, { Children, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -9,7 +8,7 @@ import { TableColumnCtx, TableColumnProps, TableProps, TableRefs, TreeNode } fro
 import { TableIdManager, getRowIdentity } from '../util';
 
 export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs, tableId: string) => {
-    const getChildren = useChildrenInstance<TableColumnProps<T>>('ElTableColumn');
+    const getChildren = useChildrenInstance<TableColumnProps>('ElTableColumn');
     const _children = getChildren(props.children);
 
     const maxLevel = useRef<number>(0);
@@ -30,8 +29,10 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
     }, [props.treeProps]);
 
     useEffect(() => {
-        isTree.current = props.rowKey && props.data.some(item => treeProps.children in item || treeProps.hasChildren in item);
-        sortedData.current = initialData.current = cloneDeep(props.data);
+        if (props.data) {
+            isTree.current = props.rowKey && props.data.some(item => treeProps.children in item || treeProps.hasChildren in item);
+            sortedData.current = initialData.current = cloneDeep(props.data);
+        }
 
         if (isTree.current) {
             const _data = flatTreeData(cloneDeep(props.data), treeProps, props.rowKey, props.defaultExpandAll, props.expandRowKeys);
@@ -42,10 +43,10 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
             });
             setData(_data);
         } else {
-            setData(props.data);
+            setData(props?.data ? [...props.data] : []);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.data]);
+    }, [props?.data]);
 
     // 多级列
     const [columns, setColumns] = useState<TableColumnCtx<T>[][]>([]);
@@ -76,7 +77,7 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
                     } else {
                         const _columns = getChildren(item.props.children);
                         if (_columns.length > 0) {
-                            children = initColumns(item.props.children as React.ReactElement<TableColumnProps<T>>[], level + 1);
+                            children = initColumns(item.props.children as React.ReactElement<TableColumnProps>[], level + 1);
                         } else {
                             renderCell = (() => item.props.children) as unknown as TableColumnCtx<T>['renderCell'];
                         }
@@ -98,14 +99,14 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
                     isColumnGroup: children.length > 0,
                     isSubColumn: children.length === 0,
                     renderCell,
-                    width: item.props?.type === 'expand' ? item.props?.width ?? 48 : item.props?.width,
+                    width: ['index', 'selection', 'expand'].includes(item.props?.type) ? item.props?.width ?? 48 : item.props?.width,
                     align: ['index', 'selection', 'expand'].includes(item.props?.type) ? item.props?.align ?? 'center' : item.props?.align ?? 'left',
-                    resizable: item.props?.type === 'expand' ? false : item.props?.resizable,
+                    resizable: item.props?.type === 'expand' ? false : props?.border && item.props?.resizable !== false,
                 };
                 return column;
             }).filter(item => item !== null);
         },
-        [getChildren, tableId],
+        [getChildren, props?.border, tableId],
     );
 
     /** 分组列 */

@@ -34,6 +34,8 @@ export type PopperProps = {
     visible: boolean;
     referenceElement: RefObject<HTMLElement> | { current: VirtualElement } | (() => RefObject<HTMLElement> | { current: VirtualElement });
     onDestroy: () => void;
+    /** 是否禁用过渡动画 */
+    disableTransition?: boolean;
 } & Partial<
     {
         id?: string;

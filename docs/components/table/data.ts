@@ -8,12 +8,12 @@ export const tableData: User[] = [
     {
         date: '2016-05-03',
         name: 'Tom',
-        address: 'No. 189, Grove St, Los AngelesNo. 189, Grove St, Los AngelesNo. 189, Grove St, Los AngelesNo. 189, Grove St, Los AngelesNo. 189, Grove St, Los AngelesNo. 189, Grove St, Los AngelesNo. 189, Grove St, Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
     },
     {
         date: '2016-05-02',
         name: 'Tom',
-        address: 'No. 189, Grove St, Los AngelesNo. 189, Grove St, Los AngelesNo. 189, Grove St, Los AngelesNo. 189, Grove St, Los AngelesNo. 189, Grove St, Los AngelesNo. 189, Grove St, Los AngelesNo. 189, Grove St, Los Angeles',
+        address: 'No. 189, Grove St, Los Angeles',
     },
     {
         date: '2016-05-04',

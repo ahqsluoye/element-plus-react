@@ -109,12 +109,13 @@ export function buildModifier(props: ModifierProps, externalModifiers: StrictMod
                             return fallbackPlacements(placement);
                         }
                         return fallbackPlacements;
-                    } else {
-                        if (placement === 'bottom-start') {
-                            return ['bottom', 'top-start', 'right', 'left'];
-                        }
-                        return ['bottom', 'top', 'right', 'left'];
                     }
+                    // else {
+                    //     if (placement === 'bottom-start') {
+                    //         return ['bottom', 'top-start', 'right', 'left'];
+                    //     }
+                    //     return ['bottom', 'top', 'right', 'left'];
+                    // }
                 })(),
             },
         },
@@ -138,6 +139,7 @@ export function buildModifier(props: ModifierProps, externalModifiers: StrictMod
                 // the arrow size is an equailateral triangle with 10px side length, the 3rd side length ~ 14.1px
                 // adding a offset to the ceil of 4.1 should be 5 this resolves the problem of arrow overflowing out of popper.
                 padding: arrowOffset ?? 10,
+                // padding: ({ popper, reference, placement }) => popper.width / reference.width,
             },
         });
     }

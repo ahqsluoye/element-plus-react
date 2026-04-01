@@ -23,7 +23,7 @@ function InternalTable<RecordType extends object = TreeNode>(props: TableProps<R
 
     props = mergeDefaultProps(
         {
-            data: [],
+            // data: [],
             fit: true,
             showHeader: true,
             tableLayout: 'fixed',
@@ -123,7 +123,7 @@ function InternalTable<RecordType extends object = TreeNode>(props: TableProps<R
                     b(),
                     m(size),
                     props.className,
-                    m`layout${tableLayout}`,
+                    m(`layout-${tableLayout}`),
                 )}
                 style={{ ...props.style, height, maxHeight }}
                 ref={refs.tableWrapper}

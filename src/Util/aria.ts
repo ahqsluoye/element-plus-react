@@ -93,7 +93,7 @@ export const getSibling = (el: HTMLElement, distance: number, elClass: string) =
     return siblings[index + distance] || null;
 };
 
-export const focusElement = (el?: HTMLElement | { focus: () => void } | null, options?: FocusOptions) => {
+export const focusElement = (el?: HTMLElement | { focus: () => void } | null, options?: any) => {
     if (!el || !el.focus) {
         return;
     }

@@ -90,7 +90,7 @@ const UploadContent = forwardRef<UploadContentRef, UploadContentProps>((props, r
                 }
             }
         },
-        [action, data, filename, headers, httpRequest, method, onError, onProgress, onSuccess, withCredentials],
+        [action, data, errorStatus, filename, headers, httpRequest, method, onError, onProgress, onSuccess, withCredentials],
     );
 
     const upload = useCallback(

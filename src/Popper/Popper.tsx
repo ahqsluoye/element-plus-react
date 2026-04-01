@@ -22,6 +22,7 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
             showArrow: true,
             gpuAcceleration: false,
             strategy: 'absolute',
+            disableTransition: false,
         },
         props,
     );
@@ -40,6 +41,7 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
         onMouseEnter,
         onMouseLeave,
         effect = 'light',
+        disableTransition,
         ...rest
     } = props;
     const [transitionProps] = partitionAnimationProps(rest);
@@ -108,9 +110,9 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
         popperInstance,
     }));
 
-    const content = useMemo(
-        () => (
-            <Transition nodeRef={{ current: popperElement }} visible={visible} name={animation} className={className} afterLeave={afterLeave} {...transitionProps}>
+    const content = useMemo(() => {
+        if (disableTransition) {
+            return visible ? (
                 <div
                     id={`${namespace}-popper-${id}`}
                     className={classNames(b(), is(effect), popperClass)}
@@ -123,32 +125,49 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
                     {props.children}
                     {showArrow ? <div className={e`arrow`} data-popper-arrow ref={setArrowElement} style={{ ...styles.arrow }} /> : null}
                 </div>
-            </Transition>
-        ),
-        [
-            afterLeave,
-            animation,
-            attributes.popper,
-            b,
-            className,
-            e,
-            effect,
-            id,
-            is,
-            onMouseEnter,
-            onMouseLeave,
-            popperClass,
-            popperElement,
-            popperStyle,
-            props.children,
-            showArrow,
-            styles.arrow,
-            styles.popper,
-            transitionProps,
-            visible,
-            zIndex,
-        ],
-    );
+            ) : null;
+        } else {
+            return (
+                <Transition nodeRef={{ current: popperElement }} visible={visible} name={animation} className={className} afterLeave={afterLeave} {...transitionProps}>
+                    <div
+                        id={`${namespace}-popper-${id}`}
+                        className={classNames(b(), is(effect), popperClass)}
+                        onMouseEnter={onMouseEnter}
+                        onMouseLeave={onMouseLeave}
+                        style={{ ...styles.popper, ...popperStyle, zIndex }}
+                        {...attributes.popper}
+                        ref={setPopperElement}
+                    >
+                        {props.children}
+                        {showArrow ? <div className={e`arrow`} data-popper-arrow ref={setArrowElement} style={{ ...styles.arrow }} /> : null}
+                    </div>
+                </Transition>
+            );
+        }
+    }, [
+        afterLeave,
+        animation,
+        attributes.popper,
+        b,
+        className,
+        disableTransition,
+        e,
+        effect,
+        id,
+        is,
+        onMouseEnter,
+        onMouseLeave,
+        popperClass,
+        popperElement,
+        popperStyle,
+        props.children,
+        showArrow,
+        styles.arrow,
+        styles.popper,
+        transitionProps,
+        visible,
+        zIndex,
+    ]);
 
     return appendToBody ? createPortal(content, appendTo) : content;
     // <Transition visible={visible} name={animation} className={className} afterLeave={afterLeave} {...transitionProps}>

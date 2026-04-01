@@ -73,7 +73,7 @@ const TextArea = forwardRef<TextareaRef, TextareaProps>((props, ref) => {
         } else {
             setTextareaCalcStyle(prev => ({ ...prev, minHeight: calcTextareaHeight(textareaRef.current).minHeight }));
         }
-    }, [autosize]);
+    }, [autosize, rows]);
 
     const createOnceInitResize = useCallback(() => {
         let isInit = false;

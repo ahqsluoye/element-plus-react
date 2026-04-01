@@ -387,7 +387,7 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
             const promise = validateRules(namePath, currentValue, filteredRules, options, validateFirst, messageVariables);
 
             promise
-                .catch(e => e)
+                .catch(error => error)
                 .then((ruleErrors: RuleError[] = EMPTY_ERRORS) => {
                     if (this.validatePromise === rootPromise) {
                         this.validatePromise = null;

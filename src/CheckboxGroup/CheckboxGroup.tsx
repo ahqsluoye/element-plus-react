@@ -22,7 +22,7 @@ export interface CheckboxGroupProps<V = ValueType[] | boolean> extends FormContr
 
 const CheckboxGroup: FC<CheckboxGroupProps> = memo(
     forwardRef<HTMLDivElement, CheckboxGroupProps>((props, ref) => {
-        const { className, name, value: valueProp, defaultValue, classPrefix = 'checkbox-group', readOnly, onChange, getBooleanOnSingle, min, max, ...rest } = props;
+        const { className, name, value: valueProp, defaultValue, classPrefix = 'checkbox-group', readOnly, onChange, getBooleanOnSingle, min, max } = props;
 
         const { m } = useClassNames(classPrefix);
         const [value, setValue, isControlled] = useControlled(valueProp, defaultValue);

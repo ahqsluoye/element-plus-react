@@ -69,7 +69,7 @@ const TableCell = (p: Props) => {
     const expand = useRef(false);
     const trRef = useRef<HTMLTableRowElement | null>(null);
     const tdRef = useRef<HTMLTableCellElement | null>(null);
-    const expandCell = useRef<HTMLDivElement | null>(null);
+    const expandCell = useRef<HTMLButtonElement | null>(null);
     // 树形表格开始展开/折叠行树，为了保证递归展开/折叠行时不重复执行
     const startRowIndex = useRef<number>(null);
     const nextRow = useRef<HTMLTableRowElement>(null);
@@ -85,9 +85,9 @@ const TableCell = (p: Props) => {
             if (removePopper) {
                 removePopper();
             }
-            if (!['index', 'selection'].includes(_column?.type || '') && column.showOverflowTooltip) {
+            if (!['index', 'selection', 'expand'].includes(_column?.type || '') && (props.showOverflowTooltip || column.showOverflowTooltip)) {
                 const cell = event.currentTarget as HTMLElement;
-                const cellChild = (event.currentTarget as HTMLElement).querySelector('.' + e`cell-content`) as HTMLElement;
+                const cellChild = (event.currentTarget as HTMLElement).querySelector('.cell') as HTMLElement;
                 const range = document.createRange();
                 range.setStart(cellChild, 0);
                 range.setEnd(cellChild, cellChild.childNodes.length);
@@ -95,21 +95,33 @@ const TableCell = (p: Props) => {
                 const padding = (Number.parseInt(getStyle(cellChild, 'paddingLeft'), 10) || 0) + (Number.parseInt(getStyle(cellChild, 'paddingRight'), 10) || 0);
                 if (rangeWidth + padding > cellChild.offsetWidth || cellChild.scrollWidth > cellChild.offsetWidth) {
                     // tableRefs.tableWrapper.current && console.log(tableRefs.tableWrapper.current.getBoundingClientRect());
+                    let popperContent: React.ReactNode | string = cell.innerText || cell.textContent || '';
+                    if (props.tooltipFormatter) {
+                        popperContent = props.tooltipFormatter({ row: _row, column: _column, cellValue: cell.innerText || cell.textContent || '' });
+                    } else if (column.tooltipFormatter) {
+                        popperContent = column.tooltipFormatter({ row: _row, column: _column, cellValue: cell.innerText || cell.textContent || '' });
+                    }
                     if (tableRefs.tableWrapper.current) {
-                        removePopper = createTablePopper(
-                            tableRefs.tableWrapper.current,
-                            // {
-                            //     getBoundingClientRect: tableRefs.tableWrapper.current.getBoundingClientRect(),
-                            // },
-                            cell,
-                            cell.innerText || cell.textContent || '',
-                            tooltipRef,
-                        );
+                        removePopper = createTablePopper(tableRefs.tableWrapper.current, cell, popperContent, tooltipRef);
                     }
                 }
             }
         },
-        [column.showOverflowTooltip, e, onCellMouseEnter, tableRefs.tableWrapper],
+        [onCellMouseEnter, props, column, tableRefs.tableWrapper],
+    );
+
+    /** 鼠标离开单元格事件 - 关闭 tooltip */
+    const handleCellMouseLeave = useCallback(
+        (_row: any, _column: TableColumnCtx<any>, event: React.MouseEvent<HTMLTableCellElement, MouseEvent>) => {
+            onCellMouseLeave?.(_row, _column, event.currentTarget, event);
+            // 鼠标离开单元格时，立即隐藏 tooltip
+            if (tooltipRef.current) {
+                setTimeout(() => {
+                    tooltipRef.current.onClose();
+                }, 0);
+            }
+        },
+        [onCellMouseLeave, tooltipRef],
     );
 
     const rowIndex = useMemo(() => getRowIndex(column.index, p.rowIndex, row), [column.index, p.rowIndex, row]);
@@ -140,12 +152,12 @@ const TableCell = (p: Props) => {
             if (rowHeight && typeof rowHeight === 'number') {
                 Object.assign(res, { height: rowHeight });
             }
-            if (tableLayout === 'fixed' && _column.showOverflowTooltip) {
+            if (tableLayout === 'fixed' && (props.showOverflowTooltip || _column.showOverflowTooltip)) {
                 Object.assign(res, { width: (column.width || column.realWidth || column.minWidth || 80) - 1 });
             }
             return res;
         },
-        [column.minWidth, column.realWidth, column.width, rowHeight, tableLayout],
+        [column.minWidth, column.realWidth, column.width, props.showOverflowTooltip, rowHeight, tableLayout],
     );
 
     /** 获取树形表格行层级 */
@@ -369,9 +381,9 @@ const TableCell = (p: Props) => {
                 <>
                     {column.level > 0 && <span className={e`indent`} style={{ paddingLeft: indent * column.level }} />}
                     {(isNotEmpty(row[treeProps.children]) || row[treeProps.hasChildren]) && (
-                        <div ref={expandCell} className={classNames(e`expand-icon`, { [em('expand-icon', 'expanded')]: row?.expanded })} onClick={handleExpandTreeCell}>
+                        <button ref={expandCell} className={classNames(e`expand-icon`, { [em('expand-icon', 'expanded')]: row?.expanded })} onClick={handleExpandTreeCell}>
                             {loading ? <Icon name="loader" prefix="far" spin /> : <Icon name="angle-right" />}
-                        </div>
+                        </button>
                     )}
                     {isEmpty(row[treeProps.children]) && !row[treeProps.hasChildren] && <span className={e`placeholder`} />}
                 </>
@@ -405,7 +417,7 @@ const TableCell = (p: Props) => {
             rowSpan={rowSpan}
             colSpan={colSpan}
             onMouseEnter={event => handleCellMouseEnter(row, column, event)}
-            onMouseLeave={event => onCellMouseLeave?.(row, column, event.currentTarget, event)}
+            onMouseLeave={event => handleCellMouseLeave(row, column, event)}
             onContextMenu={event => {
                 onCellContextmenu?.(row, column, event.currentTarget, event);
                 onRowContextmenu?.(row, column, event);
@@ -426,18 +438,16 @@ const TableCell = (p: Props) => {
                 onRowDblclick?.(row, column, event);
             }}
         >
-            <div className={classNames(e`cell-content`, { [b('tooltip', false)]: column.showOverflowTooltip })} style={getCellStyle(column)}>
+            <div className={classNames('cell', { [b('tooltip', false)]: props.showOverflowTooltip || column.showOverflowTooltip })} style={getCellStyle(column)}>
                 {(() => {
                     if (column.type === 'index') {
                         return <div className={e`cell-index`}>{rowIndex}</div>;
                     } else if (column.type === 'expand') {
                         return (
-                            <div ref={expandCell} className={e`expand-icon`} onClick={handleExpand}>
+                            <button ref={expandCell} className={e`expand-icon`} onClick={handleExpand}>
                                 <Icon name="angle-right" />
-                            </div>
+                            </button>
                         );
-                    } else if (column.type === 'drag') {
-                        // return <DragHandle />;
                     } else if (column.type === 'selection') {
                         return (
                             <Checkbox
@@ -477,6 +487,6 @@ const TableCell = (p: Props) => {
     );
 };
 
-TableCell.displayName = 'TableCell';
+TableCell.displayName = 'ElTableCell';
 
 export default TableCell;

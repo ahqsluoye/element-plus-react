@@ -44,4 +44,6 @@ export interface TooltipProps extends BaseProps<React.ReactNode>, NativeProps, P
     /** 标识虚拟触发时的触发元素 */
     virtualRef?: VirtualElement;
     contentSlot?: ComponentChildren;
+    /** 是否禁用过渡动画 */
+    disableTransition?: boolean;
 }

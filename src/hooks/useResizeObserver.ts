@@ -22,7 +22,7 @@ export interface UseResizeObserverOptions {
      *
      * @default 'content-box'
      */
-    box?: ResizeObserverBoxOptions;
+    box?: any;
     window?: Window;
 }
 

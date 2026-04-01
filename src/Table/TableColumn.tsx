@@ -3,11 +3,11 @@ import { useChildrenInstance } from '../hooks';
 import { TableColumnProps } from './typings';
 
 export interface TableColumnRef {
-    props: TableColumnProps<any>;
+    props: TableColumnProps;
 }
 
-const TableColumn: FC<TableColumnProps<any>> = props => {
-    const getChildren = useChildrenInstance<TableColumnProps<any>>('ElTableColumn');
+const TableColumn: FC<TableColumnProps> = props => {
+    const getChildren = useChildrenInstance<TableColumnProps>('ElTableColumn');
     if (props.children instanceof Function) {
         return <div />;
     } else {
