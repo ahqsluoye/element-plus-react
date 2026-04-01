@@ -15,7 +15,8 @@ export default defineConfig({
 
     alias: {
         '@': process.cwd() + '/.dumi',
-        '@qsxy/element-plus-react': process.cwd() + '/src',
+        '@qsxy/element-plus-react': process.cwd() + '/src/components/',
+        '@theme-chalk': process.cwd() + '/src/theme-chalk/',
     },
     chainWebpack(config) {
         // config.module // 配置 file-loader

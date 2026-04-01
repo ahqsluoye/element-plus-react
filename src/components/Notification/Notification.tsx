@@ -1,0 +1,149 @@
+import classNames from 'classnames';
+import React, { CSSProperties, forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import Icon from '../Icon/Icon';
+import Transition from '../Transition/Transition';
+import { PopupManager, mergeDefaultProps } from '../Util';
+import { EVENT_CODE, TypeComponentsMap } from '../config/Constants';
+import { useClassNames } from '../hooks';
+import { NotificationProps, NotificationRef } from './typings';
+
+const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref) => {
+    props = mergeDefaultProps(
+        {
+            duration: 4500, // default 4500
+            message: '',
+            onClose: null,
+            onClick: null,
+            afterLeave: null,
+            offset: 0, // defaults 0
+            position: 'top-right', // default top-right
+            showClose: true,
+        },
+        props,
+    );
+    const { iconClass, message, position, showClose, type, title, classPrefix = 'notification', onClose, duration, onSuccess, afterLeave } = props;
+    const { b, m, e } = useClassNames(classPrefix);
+    const [visible, setVisible] = useState(false);
+    const [offset, setOffset] = useState(props.offset);
+    const offsetRef = useRef(props.offset);
+    const timer = useRef(null);
+    const notificationRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+
+    const horizontalProperty = useMemo(() => (position.endsWith('right') ? 'right' : 'left'), [position]);
+    const verticalProperty = useMemo(() => (position.startsWith('top') ? 'top' : 'bottom'), [position]);
+
+    const handleClose = useCallback(() => {
+        setVisible(false);
+        onClose?.();
+    }, [onClose]);
+
+    useImperativeHandle(ref, () => ({
+        get el() {
+            return notificationRef;
+        },
+        get id() {
+            return props.id;
+        },
+        get top() {
+            return offsetRef.current;
+        },
+        close: handleClose,
+        setOffset: val => {
+            offsetRef.current = val;
+            setOffset(val);
+        },
+    }));
+
+    const startTimer = useCallback(() => {
+        if (duration > 0) {
+            timer.current = setTimeout(() => {
+                if (visible) {
+                    handleClose();
+                }
+            }, duration);
+        }
+    }, [duration, visible, handleClose]);
+
+    const clearTimer = useCallback(() => {
+        clearTimeout(timer.current);
+        timer.current = null;
+    }, []);
+
+    const keydown = useCallback(
+        ({ code }: KeyboardEvent) => {
+            if (code === EVENT_CODE.delete || code === EVENT_CODE.backspace) {
+                clearTimer();
+            } else if (code === EVENT_CODE.esc) {
+                if (visible) {
+                    handleClose();
+                }
+            } else {
+                startTimer();
+            }
+        },
+        [clearTimer, handleClose, startTimer, visible],
+    );
+
+    useLayoutEffect(() => {
+        setVisible(true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        if (visible) {
+            startTimer();
+            onSuccess?.(contentRef.current);
+            document.addEventListener('keydown', keydown, false);
+            return () => {
+                document.removeEventListener('keydown', keydown, false);
+            };
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [visible]);
+
+    const positionStyle = useMemo<CSSProperties>(() => {
+        return {
+            [verticalProperty]: `${offset}px`,
+            zIndex: PopupManager.nextZIndex(),
+        };
+    }, [offset, verticalProperty]);
+
+    /** 关闭图标 */
+    // const closeIcon = useMemo(() => showClose && <div className={classNames(e`closeBtn`, b('icon-close', false))} onClick={handleClose} />, [showClose, e, b, handleClose]);
+    const closeIcon = useMemo(() => showClose && <Icon name="xmark" prefix="fal" className={classNames(e`closeBtn`)} onClick={handleClose} />, [showClose, e, handleClose]);
+
+    return createPortal(
+        <Transition nodeRef={notificationRef} name={b('notification-fade', false)} visible={visible} display="flex" afterLeave={afterLeave}>
+            <div
+                ref={notificationRef}
+                className={classNames(b(), horizontalProperty, props.className)}
+                style={{
+                    ...props.style,
+                    ...positionStyle,
+                }}
+                // 鼠标悬浮停止自动关闭
+                onMouseEnter={clearTimer}
+                onMouseLeave={startTimer}
+                onClick={props.onClick}
+            >
+                {(type || iconClass) && (
+                    <Icon name={TypeComponentsMap[type]} prefix="fas" className={classNames(e`icon`, { [m(type)]: type && TypeComponentsMap[type] }, iconClass)} />
+                )}
+                <div className={classNames(e`group`)}>
+                    <h2 className={e`title`}>{title}</h2>
+                    <div className={e`content`} style={title ? null : { margin: 0 }} ref={contentRef}>
+                        <p>{message}</p>
+                    </div>
+                    {closeIcon}
+                </div>
+            </div>
+        </Transition>,
+        document.body,
+    );
+});
+
+Notification.displayName = 'ElNotification';
+
+export default Notification;

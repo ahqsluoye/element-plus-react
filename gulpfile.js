@@ -8,10 +8,11 @@ const rename = require('gulp-rename');
 const fs = require('fs');
 
 const srcRoot = path.join(__dirname, './src');
-const styleRoot = path.join(__dirname, './packages/dist/');
+const distRoot = path.join(__dirname, './packages/dist/');
+const styleRoot = path.join(__dirname, './packages/theme-chalk/');
 
 function clean(done) {
-    del.sync([styleRoot], { force: true });
+    del.sync([distRoot, styleRoot], { force: true });
     done();
 }
 
@@ -25,7 +26,7 @@ function buildComponentStyles() {
         .src(`${srcRoot}/theme-chalk/build.scss`)
         .pipe(sass({ outputStyle: 'compressed', sourceComments: false }).on('error', sass.logError))
         .pipe(rename('index.css'))
-        .pipe(gulp.dest(styleRoot));
+        .pipe(gulp.dest(distRoot));
 }
 
 function buildDisplayStyle() {
@@ -33,7 +34,7 @@ function buildDisplayStyle() {
         .src(`${srcRoot}/theme-chalk/display.scss`)
         .pipe(sass({ outputStyle: 'compressed', sourceComments: false }).on('error', sass.logError))
         .pipe(rename('display.css'))
-        .pipe(gulp.dest(styleRoot));
+        .pipe(gulp.dest(distRoot));
 }
 
 function generatePackageJSON() {
@@ -76,6 +77,9 @@ function copyFiles(srcPath, destPath) {
     }
     const files = fs.readdirSync(srcPath);
     files.forEach(item => {
+        if ((srcPath + item).includes('bak')) {
+            return;
+        }
         const stat = fs.statSync(srcPath + item);
         if (stat.isDirectory()) {
             //递归读取文件
