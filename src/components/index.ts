@@ -128,6 +128,21 @@ export type { StatisticProps, StatisticRef } from './Statistic';
 export { Table as ElTable, TableColumn as ElTableColumn } from './Table';
 export type { RenderCell, TableColumnCtx, TableColumnProps, TableProps, TableRef, TableSort } from './Table';
 
+export { TableV2 as ElTableV2 } from './TableV2';
+export type {
+    Alignment,
+    Column as TableV2Column,
+    Columns as TableV2Columns,
+    FixedDirection,
+    KeyType,
+    SortBy as TableV2SortBy,
+    SortOrder as TableV2SortOrder,
+    SortState as TableV2SortState,
+    ScrollStrategy as TableV2ScrollStrategy,
+    TableV2Props,
+    TableV2Ref,
+} from './TableV2';
+
 export { Tag as ElTag } from './Tag';
 export type { TagProps } from './Tag';
 
@@ -212,7 +227,6 @@ export { Divider as ElDivider } from './Divider';
 export type { DividerProps } from './Divider';
 
 /* 工具库与hooks */
-export { PopupManager, download, genFileId, generateTree, getScrollWidth, isEmpty, isNotEmpty, randomCode } from './Util';
 export {
     htmlInputAttrs,
     htmlInputEvents,
@@ -232,6 +246,7 @@ export {
     useForceUpdate,
     useSize,
 } from './hooks';
+export { PopupManager, download, genFileId, generateTree, getScrollWidth, isEmpty, isNotEmpty, randomCode } from './Util';
 
 /* 通用types */
 export type { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps, StandardProps, TooltipBaseProps, TypeAttributes } from './types/common';

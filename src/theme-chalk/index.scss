@@ -52,12 +52,14 @@
 @use './progress';
 @use './statistic';
 @use './table';
+@use './table-v2';
 @use './text';
 @use './time-line';
 @use './timeline-item';
 @use './tree';
 @use './tree-select';
 @use './tag';
+@use './virtual-list';
 
 // /* Navigation 导航 */
 @use './breadcrumb';

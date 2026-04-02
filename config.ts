@@ -92,6 +92,7 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
                 { link: '/components/progress', title: 'Progress 进度条' },
                 { link: '/components/skeleton', title: 'Skeleton 骨架屏' },
                 { link: '/components/table', title: 'Table 表格' },
+                { link: '/components/table-v2', title: 'Virtualized Table 虚拟化表格' },
                 { link: '/components/tag', title: 'Tag 标签' },
                 { link: '/components/time-line', title: 'Timeline 时间线' },
                 { link: '/components/tree', title: 'Tree 树形控件' },

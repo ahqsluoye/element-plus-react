@@ -83,7 +83,7 @@
         // 强制在计算的属性的方括号中使用一致的空格
         "computed-property-spacing": [1, "never"],
         // 要求或禁止在函数标识符和其调用之间有空格
-        "func-call-spacing": [1, "never"],
+        "func-call-spacing": [0, "never"],
         // 强制在对象字面量的属性中键和值之间使用一致的间距
         "key-spacing": 1,
         // 强制在关键字前后使用一致的空格
