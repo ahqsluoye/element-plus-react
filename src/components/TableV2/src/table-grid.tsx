@@ -1,129 +1,130 @@
-import { DynamicSizeGrid, FixedSizeGrid } from '@element-plus/components/virtual-list';
-import { isNumber, isObject } from '@element-plus/utils';
-import { computed, defineComponent, inject, nextTick, onActivated, provide, ref, unref, watch } from 'vue';
-import { Header } from './components';
-import { tableV2GridProps } from './grid';
-import { TABLE_V2_GRID_INJECTION_KEY, TableV2InjectionKey } from './tokens';
+import isNumber from 'lodash/isNumber';
+import isObject from 'lodash/isObject';
+import React, { forwardRef, useCallback, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { Header, TableV2HeaderInstance } from './components';
+import { TableV2Context } from './tokens';
 import { sum } from './utils';
 
-import type {
+import {
+    DynamicSizeGrid,
     DynamicSizeGridInstance,
+    FixedSizeGrid,
     GridDefaultSlotParams,
     GridItemKeyGetter,
     GridItemRenderedEvtParams,
     GridScrollOptions,
     ResetAfterIndex,
-    Alignment as ScrollStrategy,
-} from '@element-plus/components/virtual-list';
-import type { UnwrapRef } from 'vue';
-import type { TableV2HeaderInstance } from './components';
-import type { TableV2GridProps } from './grid';
+} from '@qsxy/element-plus-react/VirtualList';
+import { ScrollStrategy } from './composables';
+import { TableV2GridProps } from './grid';
 
 const COMPONENT_NAME = 'ElTableV2Grid';
 
 const useTableGrid = (props: TableV2GridProps) => {
-    const headerRef = ref<TableV2HeaderInstance>();
-    const bodyRef = ref<DynamicSizeGridInstance>();
-    const scrollLeft = ref(0);
+    const headerRef = useRef<TableV2HeaderInstance>(null);
+    const bodyRef = useRef<DynamicSizeGridInstance>(null);
+    const [scrollLeft, setScrollLeft] = useState(0);
 
-    const totalHeight = computed(() => {
+    const totalHeight = useMemo(() => {
         const { data, rowHeight, estimatedRowHeight } = props;
 
         if (estimatedRowHeight) {
-            return;
+            return undefined;
         }
 
         return data.length * (rowHeight as number);
-    });
+    }, [props]);
 
-    const fixedRowHeight = computed(() => {
+    const fixedRowHeight = useMemo(() => {
         const { fixedData, rowHeight } = props;
 
         return (fixedData?.length || 0) * (rowHeight as number);
-    });
+    }, [props]);
 
-    const headerHeight = computed(() => sum(props.headerHeight));
+    const headerHeight = useMemo(() => sum(props.headerHeight), [props.headerHeight]);
 
-    const gridHeight = computed(() => {
+    const gridHeight = useMemo(() => {
         const { height } = props;
-        return Math.max(0, height - unref(headerHeight) - unref(fixedRowHeight));
-    });
+        return Math.max(0, height - headerHeight - fixedRowHeight);
+    }, [props, headerHeight, fixedRowHeight]);
 
-    const hasHeader = computed(() => {
-        return unref(headerHeight) + unref(fixedRowHeight) > 0;
-    });
+    const hasHeader = useMemo(() => {
+        return headerHeight + fixedRowHeight > 0;
+    }, [headerHeight, fixedRowHeight]);
 
-    const itemKey: GridItemKeyGetter = ({ data, rowIndex }) => data[rowIndex][props.rowKey];
+    const itemKey: GridItemKeyGetter = useCallback(({ data, rowIndex }) => data[rowIndex][props.rowKey], [props.rowKey]);
 
-    function onItemRendered({ rowCacheStart, rowCacheEnd, rowVisibleStart, rowVisibleEnd }: GridItemRenderedEvtParams) {
-        props.onRowsRendered?.({
-            rowCacheStart,
-            rowCacheEnd,
-            rowVisibleStart,
-            rowVisibleEnd,
-        });
-    }
+    const onItemRendered = useCallback(
+        ({ rowCacheStart, rowCacheEnd, rowVisibleStart, rowVisibleEnd }: GridItemRenderedEvtParams) => {
+            props.onRowsRendered?.({
+                rowCacheStart,
+                rowCacheEnd,
+                rowVisibleStart,
+                rowVisibleEnd,
+            });
+        },
+        [props],
+    );
 
-    function resetAfterRowIndex(index: number, forceUpdate: boolean) {
-        bodyRef.value?.resetAfterRowIndex(index, forceUpdate);
-    }
+    const resetAfterRowIndex = useCallback((index: number, forceUpdate: boolean) => {
+        bodyRef.current?.resetAfterRowIndex(index, forceUpdate);
+    }, []);
 
-    function scrollTo(x: number, y: number): void;
-    function scrollTo(options: GridScrollOptions): void;
-    function scrollTo(leftOrOptions: number | GridScrollOptions, top?: number) {
-        const header$ = unref(headerRef);
-        const body$ = unref(bodyRef);
+    const scrollTo = useCallback((leftOrOptions: number | GridScrollOptions, top?: number) => {
+        const header$ = headerRef.current;
+        const body$ = bodyRef.current;
 
         if (isObject(leftOrOptions)) {
-            header$?.scrollToLeft(leftOrOptions.scrollLeft);
-            scrollLeft.value = leftOrOptions.scrollLeft!;
+            header$?.scrollToLeft((leftOrOptions as GridScrollOptions).scrollLeft);
+            setScrollLeft((leftOrOptions as GridScrollOptions).scrollLeft);
             body$?.scrollTo(leftOrOptions);
         } else {
             header$?.scrollToLeft(leftOrOptions);
-            scrollLeft.value = leftOrOptions;
+            setScrollLeft(leftOrOptions);
             body$?.scrollTo({
                 scrollLeft: leftOrOptions,
                 scrollTop: top,
             });
         }
-    }
+    }, []);
 
-    function scrollToTop(scrollTop: number) {
-        unref(bodyRef)?.scrollTo({
+    const scrollToTop = useCallback((scrollTop: number) => {
+        bodyRef.current?.scrollTo({
             scrollTop,
         });
-    }
+    }, []);
 
-    function scrollToRow(row: number, strategy: ScrollStrategy) {
-        const body = unref(bodyRef);
-        if (!body) {
-            return;
-        }
+    const scrollToRow = useCallback(
+        (row: number, strategy: ScrollStrategy) => {
+            const body = bodyRef.current;
+            if (!body) {
+                return;
+            }
 
-        const prevScrollLeft = scrollLeft.value;
+            const prevScrollLeft = scrollLeft;
 
-        body.scrollToItem(row, 0, strategy);
+            body.scrollToItem(row, 0, strategy);
 
-        if (prevScrollLeft) {
-            scrollTo({
-                scrollLeft: prevScrollLeft,
-            });
-        }
-    }
-
-    function forceUpdate() {
-        unref(bodyRef)?.$forceUpdate();
-        unref(headerRef)?.$forceUpdate();
-    }
-
-    watch(
-        () => props.bodyWidth,
-        () => {
-            if (isNumber(props.estimatedRowHeight)) {
-                bodyRef.value?.resetAfter({ columnIndex: 0 }, false);
+            if (prevScrollLeft) {
+                scrollTo({
+                    scrollLeft: prevScrollLeft,
+                });
             }
         },
+        [scrollLeft, scrollTo],
     );
+
+    const forceUpdate = useCallback(() => {
+        (bodyRef.current as any)?.forceUpdate?.();
+        (headerRef.current as any)?.forceUpdate?.();
+    }, []);
+
+    // Watch bodyWidth changes
+    useEffect(() => {
+        if (isNumber(props.estimatedRowHeight)) {
+            bodyRef.current?.resetAfter({ columnIndex: 0 }, false);
+        }
+    }, [props.bodyWidth]);
 
     return {
         bodyRef,
@@ -145,157 +146,154 @@ const useTableGrid = (props: TableV2GridProps) => {
     };
 };
 
-const TableGrid = defineComponent({
-    name: COMPONENT_NAME,
-    props: tableV2GridProps,
-    setup(props, { slots, expose }) {
-        const { ns } = inject(TableV2InjectionKey)!;
+export interface TableGridInstance {
+    forceUpdate: () => void;
+    totalHeight: number | undefined;
+    scrollTo(leftOrOptions: number | GridScrollOptions, top?: number): void;
+    scrollToTop(scrollTop: number): void;
+    scrollToRow(row: number, strategy: ScrollStrategy): void;
+    resetAfterRowIndex: ResetAfterIndex;
+}
 
-        const {
-            bodyRef,
-            fixedRowHeight,
-            gridHeight,
-            hasHeader,
-            headerRef,
-            headerHeight,
-            totalHeight,
+const TableGrid = forwardRef<TableGridInstance, TableV2GridProps>((props, ref) => {
+    const context = useContext(TableV2Context);
+    if (!context) {
+        throw new Error('TableGrid must be used within TableV2Context.Provider');
+    }
+    const { ns } = context;
 
+    const {
+        bodyRef,
+        fixedRowHeight,
+        gridHeight,
+        hasHeader,
+        headerRef,
+        headerHeight,
+        totalHeight,
+
+        forceUpdate,
+        itemKey,
+        onItemRendered,
+        resetAfterRowIndex,
+        scrollTo,
+        scrollToTop,
+        scrollToRow,
+        scrollLeft,
+    } = useTableGrid(props);
+
+    // onActivated equivalent - handle when component becomes active
+    useEffect(() => {
+        const timer = setTimeout(async () => {
+            const scrollTop = (bodyRef.current as any)?.states?.scrollTop;
+            if (scrollTop) {
+                scrollToTop(Math.round(scrollTop) + 1);
+            }
+        }, 0);
+        return () => clearTimeout(timer);
+    }, []);
+
+    // Expose methods via ref
+    useImperativeHandle(
+        ref,
+        () => ({
             forceUpdate,
-            itemKey,
-            onItemRendered,
-            resetAfterRowIndex,
+            totalHeight,
             scrollTo,
             scrollToTop,
             scrollToRow,
-            scrollLeft,
-        } = useTableGrid(props);
-
-        provide(TABLE_V2_GRID_INJECTION_KEY, scrollLeft);
-
-        onActivated(async () => {
-            await nextTick();
-            const scrollTop = bodyRef.value?.states.scrollTop;
-            scrollTop && scrollToTop(Math.round(scrollTop) + 1);
-        });
-
-        expose({
-            forceUpdate,
-            /**
-             * @description fetch total height
-             */
-            totalHeight,
-            /**
-             * @description scroll to a position
-             */
-            scrollTo,
-            /**
-             * @description scroll vertically to position y
-             */
-            scrollToTop,
-            /**
-             * @description scroll to a given row
-             * @params row {Number} which row to scroll to
-             * @params strategy {ScrollStrategy} use what strategy to scroll to
-             */
-            scrollToRow,
-            /**
-             * @description reset rendered state after row index
-             */
             resetAfterRowIndex,
-        });
+        }),
+        [forceUpdate, totalHeight, scrollTo, scrollToTop, scrollToRow, resetAfterRowIndex],
+    );
 
-        const getColumnWidth = () => props.bodyWidth;
+    const getColumnWidth = () => props.bodyWidth;
 
-        return () => {
-            const {
-                cache,
-                columns,
-                data,
-                fixedData,
-                useIsScrolling,
-                scrollbarAlwaysOn,
-                scrollbarEndGap,
-                scrollbarStartGap,
-                style,
-                rowHeight,
-                bodyWidth,
-                estimatedRowHeight,
-                headerWidth,
-                height,
-                width,
+    const {
+        cache,
+        columns,
+        data,
+        fixedData,
+        useIsScrolling,
+        scrollbarAlwaysOn,
+        scrollbarEndGap,
+        scrollbarStartGap,
+        style,
+        rowHeight,
+        bodyWidth,
+        estimatedRowHeight,
+        headerWidth,
+        height,
+        width,
+        getRowHeight,
+        onScroll,
+        className,
+        rowFormatter,
+        headerFormatter,
+    } = props;
 
-                getRowHeight,
-                onScroll,
-            } = props;
+    const isDynamicRowEnabled = isNumber(estimatedRowHeight);
+    const Grid = isDynamicRowEnabled ? DynamicSizeGrid : FixedSizeGrid;
+    const _headerHeight = headerHeight;
 
-            const isDynamicRowEnabled = isNumber(estimatedRowHeight);
-            const Grid = isDynamicRowEnabled ? DynamicSizeGrid : FixedSizeGrid;
-            const _headerHeight = unref(headerHeight);
-
-            return (
-                <div role="table" class={[ns.e('table'), props.class]} style={style}>
-                    <Grid
-                        ref={bodyRef}
-                        // special attrs
-                        data={data}
-                        useIsScrolling={useIsScrolling}
-                        itemKey={itemKey}
-                        // column attrs
-                        columnCache={0}
-                        columnWidth={isDynamicRowEnabled ? getColumnWidth : bodyWidth}
-                        totalColumn={1}
-                        // row attrs
-                        totalRow={data.length}
-                        rowCache={cache}
-                        rowHeight={isDynamicRowEnabled ? getRowHeight : rowHeight}
-                        // DOM attrs
+    return (
+        <TableV2Context.Provider value={{ ...context, scrollLeft }}>
+            <div role="table" className={[ns.e('table'), className].filter(Boolean).join(' ')} style={style}>
+                <Grid
+                    ref={bodyRef}
+                    // special attrs
+                    data={data}
+                    useIsScrolling={useIsScrolling}
+                    itemKey={itemKey}
+                    // column attrs
+                    columnCache={0}
+                    columnWidth={isDynamicRowEnabled ? getColumnWidth : bodyWidth}
+                    totalColumn={1}
+                    // row attrs
+                    totalRow={data.length}
+                    rowCache={cache}
+                    rowHeight={isDynamicRowEnabled ? getRowHeight : rowHeight}
+                    // DOM attrs
+                    width={width}
+                    height={gridHeight}
+                    className={ns.e('body')}
+                    role="rowgroup"
+                    scrollbarStartGap={scrollbarStartGap}
+                    scrollbarEndGap={scrollbarEndGap}
+                    scrollbarAlwaysOn={scrollbarAlwaysOn}
+                    // handlers
+                    onScroll={onScroll}
+                    onItemRendered={onItemRendered}
+                    perfMode={false}
+                    rowFormatter={rowFormatter}
+                >
+                    {/* {rowFormatter?.({
+                    ...params,
+                    columns,
+                    rowData: data[params.rowIndex],
+                })} */}
+                </Grid>
+                {hasHeader && (
+                    <Header
+                        ref={headerRef}
+                        className={ns.e('header-wrapper')}
+                        columns={columns}
+                        headerData={data}
+                        headerHeight={props.headerHeight}
+                        fixedHeaderData={fixedData}
+                        rowWidth={headerWidth}
+                        rowHeight={rowHeight}
                         width={width}
-                        height={unref(gridHeight)}
-                        class={ns.e('body')}
-                        role="rowgroup"
-                        scrollbarStartGap={scrollbarStartGap}
-                        scrollbarEndGap={scrollbarEndGap}
-                        scrollbarAlwaysOn={scrollbarAlwaysOn}
-                        // handlers
-                        onScroll={onScroll}
-                        onItemRendered={onItemRendered}
-                        perfMode={false}
-                    >
-                        {{
-                            default: (params: GridDefaultSlotParams) => {
-                                const rowData = data[params.rowIndex];
-                                return slots.row?.({
-                                    ...params,
-                                    columns,
-                                    rowData,
-                                });
-                            },
-                        }}
-                    </Grid>
-                    {unref(hasHeader) && (
-                        <Header
-                            ref={headerRef}
-                            class={ns.e('header-wrapper')}
-                            columns={columns}
-                            headerData={data}
-                            headerHeight={props.headerHeight}
-                            fixedHeaderData={fixedData}
-                            rowWidth={headerWidth}
-                            rowHeight={rowHeight}
-                            width={width}
-                            height={Math.min(_headerHeight + unref(fixedRowHeight), height)}
-                        >
-                            {{
-                                dynamic: slots.header,
-                                fixed: slots.row,
-                            }}
-                        </Header>
-                    )}
-                </div>
-            );
-        };
-    },
+                        height={Math.min(_headerHeight + fixedRowHeight, height)}
+                        dynamic={headerFormatter}
+                        fixed={rowFormatter}
+                    />
+                )}
+            </div>
+        </TableV2Context.Provider>
+    );
 });
+
+TableGrid.displayName = COMPONENT_NAME;
 
 export default TableGrid;
 
@@ -303,36 +301,3 @@ export type TableGridRowSlotParams = {
     columns: TableV2GridProps['columns'];
     rowData: any;
 } & GridDefaultSlotParams;
-
-export type TableGridInstance = InstanceType<typeof TableGrid> &
-    UnwrapRef<{
-        forceUpdate: () => void;
-        /**
-         * @description fetch total height
-         */
-        totalHeight: number;
-
-        /**
-         * @description scrollTo a position
-         * @param { number | ScrollToOptions } arg1
-         * @param { number } arg2
-         */
-        scrollTo(leftOrOptions: number | GridScrollOptions, top?: number): void;
-
-        /**
-         * @description scroll vertically to position y
-         */
-        scrollToTop(scrollTop: number): void;
-        /**
-         * @description scroll to a given row
-         * @params row {Number} which row to scroll to
-         * @params @optional strategy {ScrollStrategy} use what strategy to scroll to
-         */
-        scrollToRow(row: number, strategy: ScrollStrategy): void;
-        /**
-         * @description reset rendered state after row index
-         * @param { number } rowIndex
-         * @param { boolean } forceUpdate
-         */
-        resetAfterRowIndex: ResetAfterIndex;
-    }>;

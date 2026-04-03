@@ -5,6 +5,7 @@ export type TableV2Context = {
     isScrolling: boolean;
     isResetting: boolean;
     ns: UseNamespaceReturn;
+    scrollLeft?: number;
 };
 
 export const TableV2Context = createContext<TableV2Context | null>(null);

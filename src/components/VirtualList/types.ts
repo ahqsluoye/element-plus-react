@@ -95,7 +95,7 @@ export type GridExposes = {
     touchStartY: Ref<number>;
     handleTouchStart: (e: TouchEvent) => void;
     handleTouchMove: (e: TouchEvent) => void;
-    scrollTo: (props: { scrollLeft: number; scrollTop: number }) => void;
+    scrollTo: (scrollOptions: GridScrollOptions) => void;
     scrollToItem: (columnIndex?: number, rowIndex?: number, alignment?: Alignment) => void;
 } & SharedExposes;
 

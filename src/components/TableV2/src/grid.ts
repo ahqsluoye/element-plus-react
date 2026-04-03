@@ -1,5 +1,6 @@
 import { NativeProps } from '@qsxy/element-plus-react/types/common';
-import { CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
+import { HeaderSlotProps, TableGridRowSlotParams } from './table';
 import { Column } from './types';
 
 export type onRowRenderedParams = {
@@ -22,6 +23,7 @@ export type TableV2GridProps = {
     height: number;
     /** 表的宽度 */
     width: number;
+    headerWidth?: number;
     /** header 的高度由height设置。 如果传入数组，它会使 header row 等于数组长度 */
     headerHeight?: number | number[];
     /** footer 的高度，当传入值时，这部分将被计算入 table 的高度里 */
@@ -44,6 +46,8 @@ export type TableV2GridProps = {
     getRowHeight: (index: number) => number;
     /** 每行的 key 值，如果不提供，将使用索引 index 代替 */
     rowKey?: string | symbol | number;
+    headerFormatter?: (props: HeaderSlotProps) => React.ReactNode;
+    rowFormatter?: (props: TableGridRowSlotParams) => React.ReactNode;
     onRowsRendered?: (params: onRowRenderedParams) => void;
     onScroll?: (...args: any[]) => void;
 } & NativeProps;
