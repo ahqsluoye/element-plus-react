@@ -1,30 +1,28 @@
-import { defineComponent } from 'vue'
-import { useNamespace } from '@element-plus/hooks'
-import { autoResizerProps } from '../auto-resizer'
-import { useAutoResize } from '../composables'
+import React, { Children } from 'react';
+import { useClassNames } from '../../../hooks';
+import type { AutoResizerProps } from '../auto-resizer';
+import { useAutoResize } from '../composables/use-auto-resize';
 
-const AutoResizer = defineComponent({
-  name: 'ElAutoResizer',
-  props: autoResizerProps,
-  setup(props, { slots }) {
-    const ns = useNamespace('auto-resizer')
-    const { height, width, sizer } = useAutoResize(props)
-    const style = {
-      width: '100%',
-      height: '100%',
-    }
+const AutoResizer: React.FC<AutoResizerProps> = ({ children, disableWidth, disableHeight, onResize }) => {
+    const ns = useClassNames('auto-resizer');
+    const { height, width, sizer } = useAutoResize({
+        disableWidth,
+        disableHeight,
+        onResize,
+    });
 
-    return () => {
-      return (
-        <div ref={sizer} class={ns.b()} style={style}>
-          {slots.default?.({
-            height: height.value,
-            width: width.value,
-          })}
+    return (
+        <div
+            ref={sizer}
+            className={ns.b()}
+            style={{
+                width: '100%',
+                height: '100%',
+            }}
+        >
+            {Children.map(children, child => React.cloneElement(child, { height, width }))}
         </div>
-      )
-    }
-  },
-})
+    );
+};
 
-export default AutoResizer
+export default AutoResizer;

@@ -1,46 +1,43 @@
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { useResizeObserver } from '@vueuse/core'
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useResizeObserver } from '../../../hooks/useResizeObserver';
 
-import type { AutoResizerProps } from '../auto-resizer'
+import type { AutoResizerProps } from '../auto-resizer';
 
-const useAutoResize = (props: AutoResizerProps) => {
-  const sizer = ref<HTMLElement>()
-  const width$ = ref(0)
-  const height$ = ref(0)
+export const useAutoResize = (props: AutoResizerProps) => {
+    const sizerRef = useRef<HTMLDivElement>(null);
+    const [width, setWidth] = useState(0);
+    const [height, setHeight] = useState(0);
 
-  let resizerStopper: ReturnType<typeof useResizeObserver>['stop']
-  onMounted(() => {
-    resizerStopper = useResizeObserver(sizer, ([entry]) => {
-      const { width, height } = entry.contentRect
-      const { paddingLeft, paddingRight, paddingTop, paddingBottom } =
-        getComputedStyle(entry.target)
+    const handleResize = useCallback(([entry]: any) => {
+        const { width: width$, height: height$ } = entry.contentRect;
+        const style = window.getComputedStyle(entry.target);
 
-      const left = Number.parseInt(paddingLeft) || 0
-      const right = Number.parseInt(paddingRight) || 0
-      const top = Number.parseInt(paddingTop) || 0
-      const bottom = Number.parseInt(paddingBottom) || 0
+        const paddingLeft = Number.parseInt(style.paddingLeft) || 0;
+        const paddingRight = Number.parseInt(style.paddingRight) || 0;
+        const paddingTop = Number.parseInt(style.paddingTop) || 0;
+        const paddingBottom = Number.parseInt(style.paddingBottom) || 0;
 
-      width$.value = width - left - right
-      height$.value = height - top - bottom
-    }).stop
-  })
+        const calculatedWidth = width$ - paddingLeft - paddingRight;
+        const calculatedHeight = height$ - paddingTop - paddingBottom;
 
-  onBeforeUnmount(() => {
-    resizerStopper?.()
-  })
+        setWidth(calculatedWidth);
+        setHeight(calculatedHeight);
+    }, []);
 
-  watch([width$, height$], ([width, height]) => {
-    props.onResize?.({
-      width,
-      height,
-    })
-  })
+    const resizerStopper = useResizeObserver(sizerRef, handleResize);
 
-  return {
-    sizer,
-    width: width$,
-    height: height$,
-  }
-}
+    useEffect(() => {
+        return () => resizerStopper.stop();
+    }, []);
 
-export { useAutoResize }
+    // Call onResize when dimensions change
+    useEffect(() => {
+        props.onResize?.({ width, height });
+    }, [width, height]);
+
+    return {
+        sizer: sizerRef,
+        width: props.disableWidth ? undefined : width,
+        height: props.disableHeight ? undefined : height,
+    };
+};
