@@ -1,18 +1,11 @@
-import ElEmpty from '@element-plus/components/empty';
-import { renderSlot } from 'vue';
+import ElEmpty from '@qsxy/element-plus-react/Empty/Empty';
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
+import React from 'react';
 
-import type { CSSProperties, FunctionalComponent } from 'vue';
-
-type EmptyRendererProps = {
-    class?: JSX.IntrinsicAttributes['class'];
-    style?: CSSProperties;
-};
-
-const Footer: FunctionalComponent<EmptyRendererProps> = (props, { slots }) => {
-    const defaultSlot = renderSlot(slots, 'default', {}, () => [<ElEmpty />]);
+const Footer = (props: NativeProps & BaseProps) => {
     return (
-        <div class={props.class} style={props.style}>
-            {defaultSlot}
+        <div className={props.className} style={props.style}>
+            {props.children ?? <ElEmpty />}
         </div>
     );
 };

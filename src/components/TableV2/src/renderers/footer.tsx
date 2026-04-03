@@ -1,14 +1,10 @@
-import type { CSSProperties, FunctionalComponent } from 'vue';
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
+import React from 'react';
 
-type FooterRendererProps = {
-    class?: JSX.IntrinsicAttributes['class'];
-    style: CSSProperties;
-};
-
-const Footer: FunctionalComponent<FooterRendererProps> = (props, { slots }) => {
+const Footer = (props: NativeProps & BaseProps) => {
     return (
-        <div class={props.class} style={props.style}>
-            {slots.default?.()}
+        <div className={props.className} style={props.style}>
+            {props.children}
         </div>
     );
 };
