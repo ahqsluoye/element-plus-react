@@ -1,8 +1,8 @@
-import { addUnit, isArray, isFunction } from '@element-plus/utils';
-import { h, isVNode } from 'vue';
+import { addUnit, isFunction } from '@qsxy/element-plus-react/Util';
+import isArray from 'lodash/isArray';
+import React, { ReactElement } from 'react';
 
-import type { CSSProperties, Component, Slot } from 'vue';
-import type { JSX } from 'vue/jsx-runtime';
+import { type CSSProperties, type ReactNode } from 'react';
 
 const sumReducer = (sum: number, num: number) => sum + num;
 
@@ -15,12 +15,27 @@ export const tryCall = <T>(fLike: T, params: T extends (...args: infer K) => unk
 };
 
 export const enforceUnit = (style: CSSProperties) => {
-    (['width', 'maxWidth', 'minWidth', 'height'] as const).forEach(key => {
+    const keys = ['width', 'maxWidth', 'minWidth', 'height'] as const;
+    keys.forEach(key => {
         style[key] = addUnit(style[key]);
     });
 
     return style;
 };
 
-export const componentToSlot = <T extends object>(ComponentLike: JSX.Element | ((props: T) => Component<T>) | undefined) =>
-    isVNode(ComponentLike) ? (props: T) => h(ComponentLike, props) : (ComponentLike as Slot);
+// React version of componentToSlot
+// In React, we don't need to convert components to slots like in Vue
+// This function is kept for compatibility but simplified
+export const componentToSlot = <T extends object>(ComponentLike: ReactNode | ((props: T) => ReactNode) | undefined) => {
+    // In React, if it's a function, use it directly as a render prop
+    // If it's a React element, return a function that renders it
+    if (isFunction(ComponentLike)) {
+        return (props: T) => ComponentLike(props);
+    }
+    if (React.isValidElement(ComponentLike)) {
+        return (props: T) => React.cloneElement(ComponentLike as ReactElement<T>, props);
+    }
+    // For React elements or undefined, return undefined
+    // The caller should handle rendering directly
+    return (props: T) => ComponentLike as ReactElement;
+};

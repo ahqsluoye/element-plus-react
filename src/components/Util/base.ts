@@ -177,12 +177,12 @@ export const download = (
     document.body.removeChild($tempForm);
 };
 
-export const isObject = (val: any) => val !== null && typeof val === 'object';
-export const isUndefined = (val: any): val is undefined => val === undefined;
-export const isBoolean = (val: any): val is boolean => typeof val === 'boolean';
-export const isNumber = (val: any): val is number => typeof val === 'number';
-export const isString = (val: any) => typeof val === 'string';
-export const isFunction = val => typeof val === 'function';
+export const isObject = (val: unknown) => val !== null && typeof val === 'object';
+export const isUndefined = (val: unknown) => val === undefined;
+export const isBoolean: (val: unknown) => val is boolean = (val: unknown) => typeof val === 'boolean';
+export const isNumber: (val: unknown) => val is number = (val: unknown) => typeof val === 'number';
+export const isString: (val: unknown) => val is string = (val: unknown) => typeof val === 'string';
+export const isFunction: (val: unknown) => val is Function = (val: unknown) => typeof val === 'function';
 export const isPropAbsent = (prop: unknown): prop is null | undefined => isNil(prop);
 export const isStringNumber = (val: string): boolean => {
     if (!isString(val)) {
