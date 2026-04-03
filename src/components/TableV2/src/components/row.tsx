@@ -1,254 +1,196 @@
-import {
-  computed,
-  defineComponent,
-  inject,
-  nextTick,
-  onMounted,
-  ref,
-  unref,
-} from 'vue'
-import { isArray, isFunction, isNumber } from '@element-plus/utils'
-import { tableV2RowProps } from '../row'
-import { TableV2InjectionKey } from '../tokens'
-import { placeholderSign } from '../private'
-
-import type { CSSProperties, RendererElement, RendererNode, VNode } from 'vue'
-import type { RowEventHandlers, TableV2RowProps } from '../row'
-
-type CustomizedCellsType = VNode<
-  RendererNode,
-  RendererElement,
-  {
-    [key: string]: any
-  }
->[]
-
-type DefaultCellsType = VNode<
-  RendererNode,
-  RendererElement,
-  {
-    [key: string]: any
-  }
->[][]
-
-type ColumnCellsType = DefaultCellsType | CustomizedCellsType
+import React, { CSSProperties, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { nextTick } from '../../../Util';
+import { placeholderSign } from '../private';
+import type { RowEventHandlers, TableV2RowProps } from '../row';
+import { TableV2Context } from '../tokens';
 
 const useTableRow = (props: TableV2RowProps) => {
-  const { isScrolling } = inject(TableV2InjectionKey)!
-
-  const measured = ref(false)
-  const rowRef = ref<HTMLElement>()
-  const measurable = computed(() => {
-    return isNumber(props.estimatedRowHeight) && props.rowIndex >= 0
-  })
-
-  const doMeasure = (isInit = false) => {
-    const $rowRef = unref(rowRef)
-    if (!$rowRef) return
-    const { columns, onRowHeightChange, rowKey, rowIndex, style } = props
-    const { height } = $rowRef.getBoundingClientRect()
-    measured.value = true
-
-    nextTick(() => {
-      if (isInit || height !== Number.parseInt(style!.height as string)) {
-        const firstColumn = columns[0]
-        const isPlaceholder = firstColumn?.placeholderSign === placeholderSign
-        onRowHeightChange?.(
-          { rowKey, height, rowIndex },
-          firstColumn && !isPlaceholder && firstColumn.fixed
-        )
-      }
-    })
-  }
-
-  const eventHandlers = computed(() => {
-    const { rowData, rowIndex, rowKey, onRowHover } = props
-    const handlers = props.rowEventHandlers || ({} as RowEventHandlers)
-    const eventHandlers = {} as {
-      [key in keyof RowEventHandlers]: (e: Event) => void
+    const context = useContext(TableV2Context);
+    if (!context) {
+        throw new Error('TableV2Row must be used within TableV2Context.Provider');
     }
 
-    Object.entries(handlers).forEach(([eventName, handler]) => {
-      if (isFunction(handler)) {
-        eventHandlers[eventName as keyof RowEventHandlers] = (event: Event) => {
-          handler({
-            event,
-            rowData,
-            rowIndex,
-            rowKey,
-          })
+    const { isScrolling } = context;
+    const [measured, setMeasured] = useState(false);
+    const rowRef = useRef<HTMLDivElement>(null);
+
+    const measurable = useMemo(() => {
+        return typeof props.estimatedRowHeight === 'number' && props.rowIndex >= 0;
+    }, [props.estimatedRowHeight, props.rowIndex]);
+
+    const doMeasure = (isInit = false) => {
+        const $rowRef = rowRef.current;
+        if (!$rowRef) {
+            return;
         }
-      }
-    })
+        const { columns, onRowHeightChange, rowKey, rowIndex, style } = props;
+        const { height } = $rowRef.getBoundingClientRect();
+        setMeasured(true);
 
-    if (onRowHover) {
-      ;(
-        [
-          { name: 'onMouseleave', hovered: false },
-          { name: 'onMouseenter', hovered: true },
-        ] as const
-      ).forEach(({ name, hovered }) => {
-        const existedHandler = eventHandlers[name]
-        eventHandlers[name] = ((event: MouseEvent) => {
-          onRowHover({
-            event,
-            hovered,
+        nextTick(() => {
+            if (isInit || height !== Number.parseInt(style?.height as string)) {
+                const firstColumn = columns[0];
+                const isPlaceholder = firstColumn?.placeholderSign === placeholderSign;
+                onRowHeightChange?.({ rowKey, height, rowIndex }, firstColumn && !isPlaceholder && firstColumn.fixed);
+            }
+        });
+    };
+
+    const eventHandlers = useMemo(() => {
+        const { rowData, rowIndex, rowKey, onRowHover } = props;
+        const handlers = props.rowEventHandlers || ({} as RowEventHandlers);
+        const eventHandler = {} as {
+            [key in keyof RowEventHandlers]: (e: any) => void;
+        };
+
+        Object.entries(handlers).forEach(([eventName, handler]) => {
+            if (typeof handler === 'function') {
+                eventHandler[eventName] = (event: any) => {
+                    handler({
+                        event,
+                        rowData,
+                        rowIndex,
+                        rowKey,
+                    });
+                };
+            }
+        });
+
+        if (onRowHover) {
+            [
+                { name: 'onMouseleave', hovered: false },
+                { name: 'onMouseenter', hovered: true },
+            ].forEach(({ name, hovered }) => {
+                const existedHandler = eventHandler[name];
+                eventHandler[name] = (event: any) => {
+                    onRowHover({
+                        event,
+                        hovered,
+                        rowData,
+                        rowIndex,
+                        rowKey,
+                    });
+
+                    existedHandler?.(event);
+                };
+            });
+        }
+        return eventHandler;
+    }, [props]);
+
+    const onExpand = (expanded: boolean) => {
+        const { onRowExpand, rowData, rowIndex, rowKey } = props;
+
+        onRowExpand?.({
+            expanded,
             rowData,
             rowIndex,
             rowKey,
-          })
+        });
+    };
 
-          existedHandler?.(event)
-        }) as any
-      })
-    }
-    return eventHandlers
-  })
+    // Equivalent to onMounted
+    useEffect(() => {
+        if (measurable) {
+            doMeasure(true);
+        }
+    }, []);
 
-  const onExpand = (expanded: boolean) => {
-    const { onRowExpand, rowData, rowIndex, rowKey } = props
+    return { isScrolling, measurable, measured, rowRef, eventHandlers, onExpand };
+};
 
-    onRowExpand?.({
-      expanded,
-      rowData,
-      rowIndex,
-      rowKey,
-    })
-  }
+const COMPONENT_NAME = 'ElTableV2TableRow';
 
-  onMounted(() => {
-    if (unref(measurable)) {
-      doMeasure(true)
-    }
-  })
+const TableV2Row: React.FC<TableV2RowProps> = ({
+    className,
+    columns,
+    columnsStyles,
+    expandColumnKey,
+    depth,
+    rowData,
+    rowIndex,
+    style,
+    rowFormatter,
+    cellFormatter,
+    ...restProps
+}) => {
+    const { eventHandlers, isScrolling, measurable, measured, rowRef, onExpand } = useTableRow(restProps as TableV2RowProps);
 
-  return { isScrolling, measurable, measured, rowRef, eventHandlers, onExpand }
-}
+    const renderContent = () => {
+        let ColumnCells = columns.map((column, columnIndex) => {
+            const expandable = Array.isArray(rowData.children) && rowData.children.length > 0 && column.key === expandColumnKey;
 
-const COMPONENT_NAME = 'ElTableV2TableRow'
-
-const TableV2Row = defineComponent({
-  name: COMPONENT_NAME,
-  props: tableV2RowProps,
-  setup(props, { expose, slots, attrs }) {
-    const {
-      eventHandlers,
-      isScrolling,
-      measurable,
-      measured,
-      rowRef,
-
-      onExpand,
-    } = useTableRow(props)
-
-    expose({
-      /**
-       * @description manually dispatching expand action on row.
-       */
-      onExpand,
-    })
-
-    return () => {
-      const {
-        columns,
-        columnsStyles,
-        expandColumnKey,
-        depth,
-        rowData,
-        rowIndex,
-        style,
-      } = props
-
-      let ColumnCells: ColumnCellsType = columns.map((column, columnIndex) => {
-        const expandable =
-          isArray(rowData.children) &&
-          rowData.children.length > 0 &&
-          column.key === expandColumnKey
-
-        return slots.cell!({
-          column,
-          columns,
-          columnIndex,
-          depth,
-          style: columnsStyles[column.key!],
-          rowData,
-          rowIndex,
-          isScrolling: unref(isScrolling),
-          expandIconProps: expandable
-            ? {
+            return cellFormatter?.({
+                column,
+                columns,
+                columnIndex,
+                depth,
+                style: columnsStyles[column.key],
                 rowData,
                 rowIndex,
-                onExpand,
-              }
-            : undefined,
-        })
-      })
+                isScrolling,
+                expandIconProps: expandable
+                    ? {
+                          rowData,
+                          rowIndex,
+                          onExpand,
+                      }
+                    : undefined,
+            });
+        });
 
-      if (slots.row) {
-        ColumnCells = slots.row({
-          cells: ColumnCells.map((node) => {
-            if (isArray(node) && node.length === 1) {
-              return node[0]
-            }
-            return node
-          }),
-          style,
-          columns,
-          depth,
-          rowData,
-          rowIndex,
-          isScrolling: unref(isScrolling),
-        })
-      }
+        if (rowFormatter) {
+            ColumnCells = rowFormatter({
+                cells: ColumnCells.map(node => {
+                    if (Array.isArray(node) && node.length === 1) {
+                        return node[0];
+                    }
+                    return node;
+                }),
+                style,
+                columns,
+                depth,
+                rowData,
+                rowIndex,
+                isScrolling,
+            });
+        }
 
-      if (unref(measurable)) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { height, ...exceptHeightStyle } = style || {}
-        const _measured = unref(measured)
+        return ColumnCells;
+    };
+
+    if (measurable) {
+        const { height, ...exceptHeightStyle } = style || {};
         return (
-          <div
-            ref={rowRef}
-            class={props.class}
-            style={_measured ? style : exceptHeightStyle}
-            role="row"
-            {...attrs}
-            {...unref(eventHandlers)}
-          >
-            {ColumnCells}
-          </div>
-        )
-      }
-
-      return (
-        <div
-          {...attrs}
-          ref={rowRef}
-          class={props.class}
-          style={style}
-          role="row"
-          {...unref(eventHandlers)}
-        >
-          {ColumnCells}
-        </div>
-      )
+            <div ref={rowRef} className={className} style={measured ? style : exceptHeightStyle} role="row" {...eventHandlers}>
+                {renderContent()}
+            </div>
+        );
     }
-  },
-})
 
-export default TableV2Row
+    return (
+        <div ref={rowRef} className={className} style={style} role="row" {...eventHandlers}>
+            {renderContent()}
+        </div>
+    );
+};
+
+TableV2Row.displayName = COMPONENT_NAME;
+
+export default TableV2Row;
 
 export type TableV2RowCellRenderParam = {
-  column: TableV2RowProps['columns'][number]
-  columns: TableV2RowProps['columns']
-  columnIndex: number
-  depth: number
-  style: CSSProperties
-  rowData: any
-  rowIndex: number
-  isScrolling: boolean
-  expandIconProps?: {
-    rowData: any
-    rowIndex: number
-    onExpand: (expand: boolean) => void
-  }
-}
+    column: TableV2RowProps['columns'][number];
+    columns: TableV2RowProps['columns'];
+    columnIndex: number;
+    depth: number;
+    style: CSSProperties;
+    rowData: any;
+    rowIndex: number;
+    isScrolling: boolean;
+    expandIconProps?: {
+        rowData: any;
+        rowIndex: number;
+        onExpand: (expand: boolean) => void;
+    };
+};

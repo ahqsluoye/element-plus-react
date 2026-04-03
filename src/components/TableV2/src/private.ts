@@ -1,1 +1,1 @@
-export const placeholderSign = Symbol('placeholder')
+export const placeholderSign = Symbol('placeholder');

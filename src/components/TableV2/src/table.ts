@@ -1,4 +1,7 @@
+import React, { CSSProperties } from 'react';
+import { GridDefaultSlotParams } from '../../VirtualList';
 import type { SortOrder } from './constants';
+import { TableV2GridProps } from './grid';
 import { RowEventHandlers } from './row';
 import type { Column, ColumnCommonParams, KeyType, RowCommonParams, SortState } from './types';
 
@@ -52,7 +55,7 @@ export type TableV2Props = {
     /** row wrapper 部分的自定义 class 名 */
     rowClass?: string | RowClassNameGetter<any>;
     /** 每行的 key 值，如果不提供，将使用索引 index 代替 */
-    rowKey?: string | symbol | number | (() => KeyType);
+    rowKey?: string | symbol | number;
     /** row component 部分的自定义 class 名 */
     rowProps?: object | ExtractRowPropGetter<any>;
     /** 每行的高度, 用于计算表的总高度 */
@@ -97,4 +100,42 @@ export type TableV2Props = {
     sortBy?: object;
     /** 多个排序 */
     sortState?: SortState;
+    rowFormatter?: (props: TableGridRowSlotParams) => React.ReactNode;
+    cellFormatter?: (props: CellFormatProps<any>) => React.ReactNode;
+};
+
+export type TableGridRowSlotParams = {
+    columns: TableV2GridProps['columns'];
+    rowData: any;
+} & GridDefaultSlotParams;
+
+export type RowFormatProps = {
+    cells?: React.ReactNode[];
+    columns: Column<any>[];
+    rowData?: any;
+    columnIndex?: number;
+    rowIndex?: number;
+    data?: any;
+    key?: number | string;
+    isScrolling?: boolean;
+    style?: CSSProperties;
+    depth?: number;
+};
+
+export type CellFormatProps<T> = {
+    column: Column<T>;
+    columns: Column<T>[];
+    columnIndex: number;
+    depth: number;
+    style: CSSProperties;
+    rowData: any;
+    rowIndex: number;
+    isScrolling: boolean;
+    expandIconProps?:
+        | {
+              rowData: any;
+              rowIndex: number;
+              onExpand: (expand: boolean) => void;
+          }
+        | undefined;
 };
