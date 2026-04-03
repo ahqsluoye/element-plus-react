@@ -1,13 +1,12 @@
-import type { InjectionKey, Ref } from 'vue'
-import type { UseNamespaceReturn } from '@element-plus/hooks'
+import { createContext } from 'react';
+import { UseNamespaceReturn } from '../../hooks/useClassNames';
 
 export type TableV2Context = {
-  isScrolling: Ref<boolean>
-  isResetting: Ref<boolean>
-  ns: UseNamespaceReturn
-}
+    isScrolling: boolean;
+    isResetting: boolean;
+    ns: UseNamespaceReturn;
+};
 
-export const TableV2InjectionKey: InjectionKey<TableV2Context> =
-  Symbol('tableV2')
+export const TableV2Context = createContext<TableV2Context | null>(null);
 
-export const TABLE_V2_GRID_INJECTION_KEY = 'tableV2GridScrollLeft'
+export const TABLE_V2_GRID_INJECTION_KEY = 'tableV2GridScrollLeft';

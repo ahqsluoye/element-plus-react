@@ -337,3 +337,5 @@ function useClassNames(str: string, classPrefix = namespace) {
 }
 
 export default useClassNames;
+
+export type UseNamespaceReturn = ReturnType<typeof useClassNames>;
