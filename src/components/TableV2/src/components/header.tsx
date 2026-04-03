@@ -1,3 +1,4 @@
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import { nextTick } from '@qsxy/element-plus-react/Util';
 import castArray from 'lodash/castArray';
 import React, { CSSProperties, forwardRef, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
@@ -118,12 +119,11 @@ export type TableV2HeaderInstance = {
 };
 
 export type TableV2HeaderRendererParams = {
-    class: string;
     columns: TableV2HeaderProps['columns'];
     columnsStyles: Record<string, CSSProperties>;
     headerIndex: number;
-    style: CSSProperties;
-};
+} & BaseProps &
+    NativeProps;
 
 export type TableV2HeaderRowRendererParams = {
     rowData: any;

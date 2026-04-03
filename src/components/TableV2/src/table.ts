@@ -114,6 +114,7 @@ export type TableV2Props = {
     sortBy?: object;
     /** 多个排序 */
     sortState?: SortState;
+    headerFormatter?: (props: HeaderSlotProps) => React.ReactNode;
     rowFormatter?: (props: TableGridRowSlotParams) => React.ReactNode;
     cellFormatter?: (props: CellFormatProps<any>) => React.ReactNode;
     /** 列排序时调用 */
@@ -126,6 +127,12 @@ export type TableV2Props = {
     onRowExpand?: (params: RowExpandParams) => void;
     /** 表格被用户滚动后触发 */
     onScroll?: (params: ScrollParams) => void;
+};
+
+export type HeaderSlotProps = {
+    cells: React.ReactNode[];
+    columns: Column<any>[];
+    headerIndex: number;
 };
 
 export type TableGridRowSlotParams = {

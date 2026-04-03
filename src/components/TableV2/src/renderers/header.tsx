@@ -1,33 +1,30 @@
-import { HeaderRow } from '../components';
+import { HeaderRow, TableV2HeaderRendererParams } from '../components';
 import { tryCall } from '../utils';
 
-import type { UseNamespaceReturn } from '@element-plus/hooks';
-import type { FunctionalComponent } from 'vue';
-import type { TableV2HeaderRendererParams } from '../components';
+import { UseNamespaceReturn } from '@qsxy/element-plus-react/hooks/useClassNames';
+import React, { FC } from 'react';
 import type { TableV2Props } from '../table';
 
 type HeaderRendererProps = TableV2HeaderRendererParams &
-    Pick<TableV2Props, 'headerClass' | 'headerProps'> & {
+    Pick<TableV2Props, 'headerClass' | 'headerProps' | 'headerFormatter'> & {
         ns: UseNamespaceReturn;
     };
 
-const HeaderRenderer: FunctionalComponent<HeaderRendererProps> = (
-    {
-        columns,
-        columnsStyles,
-        headerIndex,
-        style,
-        // derived from root
-        headerClass,
-        headerProps,
-
-        ns,
-    },
-    { slots },
-) => {
+const HeaderRenderer: FC<HeaderRendererProps> = ({
+    columns,
+    columnsStyles,
+    headerIndex,
+    style,
+    // derived from root
+    headerFormatter,
+    headerClass,
+    headerProps,
+    ns,
+    children,
+}) => {
     const param = { columns, headerIndex };
 
-    const kls = [ns.e('header-row'), tryCall(headerClass, param, ''), ns.is('customized', Boolean(slots.header))];
+    const kls = [ns.e('header-row'), tryCall(headerClass, param, ''), ns.is('customized', Boolean(headerFormatter))];
 
     const extraProps = {
         ...tryCall(headerProps, param),
@@ -38,7 +35,7 @@ const HeaderRenderer: FunctionalComponent<HeaderRendererProps> = (
         style,
     };
 
-    return <HeaderRow {...extraProps}>{slots}</HeaderRow>;
+    return <HeaderRow {...extraProps}>{children}</HeaderRow>;
 };
 
 export default HeaderRenderer;
