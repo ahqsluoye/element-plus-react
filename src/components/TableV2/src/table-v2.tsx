@@ -254,7 +254,7 @@ const TableV2 = defineComponent({
             };
 
             const tableSlots = {
-                row: (props: TableGridRowSlotParams) => (
+                rowFormatter: (props: TableGridRowSlotParams) => (
                     <Row {...props} {...tableRowProps}>
                         {{
                             row: slots.row,

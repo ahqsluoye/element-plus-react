@@ -1,46 +1,53 @@
-import { isObject } from '@element-plus/utils';
-import { computed, unref } from 'vue';
+import { CSSProperties, useMemo } from 'react';
 import { SortOrder, oppositeOrderMap } from '../constants';
 import { placeholderSign } from '../private';
 import { calcColumnStyle } from './utils';
 
-import type { CSSProperties, Ref } from 'vue';
-import type { TableV2Props } from '../table';
-import type { AnyColumns, Column, KeyType } from '../types';
+import { isObject } from '@qsxy/element-plus-react/Util';
+import { TableV2Props } from '../table';
+import { AnyColumns, Column, KeyType } from '../types';
 
-function useColumns(props: TableV2Props, columns: Ref<AnyColumns>, fixed: Ref<boolean>) {
-    const _columns = computed(() =>
-        unref(columns).map((column, index) => ({
-            ...column,
-            key: column.key ?? column.dataKey ?? index,
-        })),
+function useColumns(props: TableV2Props, columns: AnyColumns, fixed: boolean) {
+    const _columns = useMemo(
+        () =>
+            columns.map((column, index) => ({
+                ...column,
+                key: column.key ?? column.dataKey ?? index,
+            })),
+        [columns],
     );
 
-    const visibleColumns = computed(() => {
-        return unref(_columns).filter(column => !column.hidden);
-    });
+    const visibleColumns = useMemo(() => {
+        return _columns.filter(column => !column.hidden);
+    }, [_columns]);
 
-    const fixedColumnsOnLeft = computed(() => unref(visibleColumns).filter(column => column.fixed === 'left' || column.fixed === true));
+    const fixedColumnsOnLeft = useMemo(() => {
+        return visibleColumns.filter(column => column.fixed === 'left' || column.fixed === true);
+    }, [visibleColumns]);
 
-    const fixedColumnsOnRight = computed(() => unref(visibleColumns).filter(column => column.fixed === 'right'));
+    const fixedColumnsOnRight = useMemo(() => {
+        return visibleColumns.filter(column => column.fixed === 'right');
+    }, [visibleColumns]);
 
-    const normalColumns = computed(() => unref(visibleColumns).filter(column => !column.fixed));
+    const normalColumns = useMemo(() => {
+        return visibleColumns.filter(column => !column.fixed);
+    }, [visibleColumns]);
 
-    const mainColumns = computed(() => {
+    const mainColumns = useMemo(() => {
         const ret: AnyColumns = [];
 
-        unref(fixedColumnsOnLeft).forEach(column => {
+        fixedColumnsOnLeft.forEach(column => {
             ret.push({
                 ...column,
                 placeholderSign,
             });
         });
 
-        unref(normalColumns).forEach(column => {
+        normalColumns.forEach(column => {
             ret.push(column);
         });
 
-        unref(fixedColumnsOnRight).forEach(column => {
+        fixedColumnsOnRight.forEach(column => {
             ret.push({
                 ...column,
                 placeholderSign,
@@ -48,29 +55,29 @@ function useColumns(props: TableV2Props, columns: Ref<AnyColumns>, fixed: Ref<bo
         });
 
         return ret;
-    });
+    }, [fixedColumnsOnLeft, normalColumns, fixedColumnsOnRight]);
 
-    const hasFixedColumns = computed(() => {
-        return unref(fixedColumnsOnLeft).length || unref(fixedColumnsOnRight).length;
-    });
+    const hasFixedColumns = useMemo(() => {
+        return fixedColumnsOnLeft.length || fixedColumnsOnRight.length;
+    }, [fixedColumnsOnLeft, fixedColumnsOnRight]);
 
-    const columnsStyles = computed(() => {
-        return unref(_columns).reduce<Record<KeyType, CSSProperties>>((style, column) => {
-            style[column.key] = calcColumnStyle(column, unref(fixed), props.fixed);
+    const columnsStyles = useMemo(() => {
+        return _columns.reduce<Record<KeyType, CSSProperties>>((style, column) => {
+            style[column.key] = calcColumnStyle(column, fixed, props.fixed);
             return style;
         }, {});
-    });
+    }, [_columns, fixed, props.fixed]);
 
-    const columnsTotalWidth = computed(() => {
-        return unref(visibleColumns).reduce((width, column) => width + column.width, 0);
-    });
+    const columnsTotalWidth = useMemo(() => {
+        return visibleColumns.reduce((width, column) => width + column.width, 0);
+    }, [visibleColumns]);
 
     const getColumn = (key: KeyType) => {
-        return unref(_columns).find(column => column.key === key);
+        return _columns.find(column => column.key === key);
     };
 
     const getColumnStyle = (key: KeyType) => {
-        return unref(columnsStyles)[key];
+        return columnsStyles[key];
     };
 
     const updateColumnWidth = (column: Column<any>, width: number) => {
@@ -88,11 +95,11 @@ function useColumns(props: TableV2Props, columns: Ref<AnyColumns>, fixed: Ref<bo
 
         if (isObject(sortState)) {
             order = oppositeOrderMap[sortState[key]];
-        } else {
-            order = oppositeOrderMap[sortBy.order];
+        } else if (sortBy && typeof sortBy === 'object' && 'order' in sortBy) {
+            order = oppositeOrderMap[(sortBy as any).order];
         }
 
-        props.onColumnSort?.({ column: getColumn(key)!, key, order });
+        props.onColumnSort?.({ column: getColumn(key), key, order });
     }
 
     return {

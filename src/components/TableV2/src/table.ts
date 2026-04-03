@@ -102,6 +102,7 @@ export type TableV2Props = {
     sortState?: SortState;
     rowFormatter?: (props: TableGridRowSlotParams) => React.ReactNode;
     cellFormatter?: (props: CellFormatProps<any>) => React.ReactNode;
+    onColumnSort?: ColumnSortHandler<any>;
 };
 
 export type TableGridRowSlotParams = {
