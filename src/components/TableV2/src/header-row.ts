@@ -1,19 +1,11 @@
-import { buildProps, definePropType } from '@element-plus/utils';
-import { columns } from './common';
+import { NativeProps } from '@qsxy/element-plus-react/types/common';
+import { CSSProperties } from 'react';
+import { Column, ColumnCellsType, KeyType } from './types';
 
-import type { CSSProperties, ExtractPropTypes, ExtractPublicPropTypes } from 'vue';
-import type { KeyType } from './types';
-
-export const tableV2HeaderRowProps = buildProps({
-    class: String,
-    columns,
-    columnsStyles: {
-        type: definePropType<Record<KeyType, CSSProperties>>(Object),
-        required: true,
-    },
-    headerIndex: Number,
-    style: { type: definePropType<CSSProperties>(Object) },
-} as const);
-
-export type TableV2HeaderRowProps = ExtractPropTypes<typeof tableV2HeaderRowProps>;
-export type TableV2HeaderRowPropsPublic = ExtractPublicPropTypes<typeof tableV2HeaderRowProps>;
+export type TableV2HeaderRowProps = {
+    columnsStyles: Record<KeyType, CSSProperties>;
+    columns: Column<any>[];
+    headerIndex?: number | undefined;
+    cell?: (props: any) => ColumnCellsType;
+    header?: (props: any) => ColumnCellsType;
+} & NativeProps;
