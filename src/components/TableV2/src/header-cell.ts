@@ -1,15 +1,14 @@
-import { buildProps } from '@element-plus/utils'
-import { classType, column } from './common'
+import React from 'react';
+import { Column } from './types';
 
-import type { ExtractPropTypes, ExtractPublicPropTypes } from 'vue'
-
-export const tableV2HeaderCell = buildProps({
-  class: classType,
-  columnIndex: Number,
-  column,
-})
-
-export type TableV2HeaderCell = ExtractPropTypes<typeof tableV2HeaderCell>
-export type TableV2HeaderCellPublic = ExtractPublicPropTypes<
-  typeof tableV2HeaderCell
->
+export type TableV2HeaderCell = {
+    className?: string;
+    column?: Column<any>;
+    columnIndex?: number;
+    children: React.ReactElement | React.ReactElement[];
+};
+export type TableV2HeaderCellPublic = {
+    className?: string;
+    column?: Column<any>;
+    columnIndex?: number;
+};
