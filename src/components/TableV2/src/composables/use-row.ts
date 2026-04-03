@@ -1,10 +1,9 @@
-import { isNumber } from '@element-plus/utils';
-import { debounce } from 'lodash-unified';
-import { computed, getCurrentInstance, nextTick, ref, shallowRef, unref } from 'vue';
+import { debounce } from 'lodash';
+import isNumber from 'lodash/isNumber';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { FixedDir } from '../constants';
 
-import type { UseNamespaceReturn } from '@element-plus/hooks';
-import type { ComponentInternalInstance, Ref, ShallowRef } from 'vue';
+import type { UseNamespaceReturn } from '../../../hooks/useClassNames';
 import type { onRowRenderedParams } from '../grid';
 import type { RowExpandParams, RowHeightChangedParams, RowHoverParams } from '../row';
 import type { TableV2Props } from '../table';
@@ -12,146 +11,163 @@ import type { TableGridInstance } from '../table-grid';
 import type { FixedDirection, KeyType } from '../types';
 
 type Heights = Record<KeyType, number>;
-type GridInstanceRef = Ref<TableGridInstance | undefined>;
+type GridInstanceRef = React.RefObject<TableGridInstance | null>;
 
 type UseRowProps = {
     mainTableRef: GridInstanceRef;
     leftTableRef: GridInstanceRef;
     rightTableRef: GridInstanceRef;
-    tableInstance: ComponentInternalInstance;
     ns: UseNamespaceReturn;
-    isScrolling: ShallowRef<boolean>;
+    isScrolling: boolean;
+    onExpandedRowKeys?: (expandedRowKeys: KeyType[]) => void;
 };
 
-export const useRow = (props: TableV2Props, { mainTableRef, leftTableRef, rightTableRef, tableInstance, ns, isScrolling }: UseRowProps) => {
-    const vm = getCurrentInstance()!;
-    const { emit } = vm;
-    const isResetting = shallowRef(false);
-    const expandedRowKeys = ref<KeyType[]>(props.defaultExpandedRowKeys || []);
-    const lastRenderedRowIndex = ref(-1);
-    const resetIndex = shallowRef<number | null>(null);
-    const rowHeights = ref<Heights>({});
-    const pendingRowHeights = ref<Heights>({});
-    const leftTableHeights = shallowRef<Heights>({});
-    const mainTableHeights = shallowRef<Heights>({});
-    const rightTableHeights = shallowRef<Heights>({});
-    const isDynamic = computed(() => isNumber(props.estimatedRowHeight));
+export const useRow = (props: TableV2Props, { mainTableRef, leftTableRef, rightTableRef, ns, isScrolling, onExpandedRowKeys }: UseRowProps) => {
+    const [isResetting, setIsResetting] = useState(false);
+    const [expandedRowKeys, setExpandedRowKeys] = useState<KeyType[]>(props.defaultExpandedRowKeys || []);
+    const [lastRenderedRowIndex, setLastRenderedRowIndex] = useState(-1);
+    const resetIndexRef = useRef<number | null>(null);
+    const [rowHeights, setRowHeights] = useState<Heights>({});
+    const pendingRowHeightsRef = useRef<Heights>({});
+    const leftTableHeightsRef = useRef<Heights>({});
+    const mainTableHeightsRef = useRef<Heights>({});
+    const rightTableHeightsRef = useRef<Heights>({});
 
-    function onRowsRendered(params: onRowRenderedParams) {
-        props.onRowsRendered?.(params);
+    const isDynamic = useMemo(() => isNumber(props.estimatedRowHeight), [props.estimatedRowHeight]);
 
-        if (params.rowCacheEnd > unref(lastRenderedRowIndex)) {
-            lastRenderedRowIndex.value = params.rowCacheEnd;
-        }
-    }
+    const onRowsRendered = useCallback(
+        (params: onRowRenderedParams) => {
+            props.onRowsRendered?.(params);
 
-    function onRowHovered({ hovered, rowKey }: RowHoverParams) {
-        if (isScrolling.value) {
-            return;
-        }
-        const tableRoot = tableInstance!.vnode.el as HTMLElement;
-        const rows = tableRoot.querySelectorAll(`[rowkey="${String(rowKey)}"]`);
-        rows.forEach(row => {
-            if (hovered) {
-                row.classList.add(ns.is('hovered'));
-            } else {
-                row.classList.remove(ns.is('hovered'));
+            if (params.rowCacheEnd > lastRenderedRowIndex) {
+                setLastRenderedRowIndex(params.rowCacheEnd);
             }
-        });
-    }
+        },
+        [lastRenderedRowIndex, props],
+    );
 
-    function onRowExpanded({ expanded, rowData, rowIndex, rowKey }: RowExpandParams) {
-        const _expandedRowKeys = [...unref(expandedRowKeys)];
-        const currentKeyIndex = _expandedRowKeys.indexOf(rowKey);
-        if (expanded) {
-            if (currentKeyIndex === -1) {
-                _expandedRowKeys.push(rowKey);
+    const onRowHovered = useCallback(
+        ({ hovered, rowKey }: RowHoverParams) => {
+            if (isScrolling) {
+                return;
             }
-        } else {
-            if (currentKeyIndex > -1) {
-                _expandedRowKeys.splice(currentKeyIndex, 1);
+            // TODO: 需要找到合适的 DOM 引用方式
+            // const tableRoot = tableInstance!.vnode.el as HTMLElement
+            // const rows = tableRoot.querySelectorAll(`[rowkey="${String(rowKey)}"]`)
+            // rows.forEach(row => {
+            //   if (hovered) {
+            //     row.classList.add(ns.is('hovered'))
+            //   } else {
+            //     row.classList.remove(ns.is('hovered'))
+            //   }
+            // })
+        },
+        [isScrolling],
+    );
+
+    const onRowExpanded = useCallback(
+        ({ expanded, rowData, rowIndex, rowKey }: RowExpandParams) => {
+            let _expandedRowKeys = [...expandedRowKeys];
+            setExpandedRowKeys(prev => {
+                const currentKeyIndex = prev.indexOf(rowKey);
+                if (expanded) {
+                    if (currentKeyIndex === -1) {
+                        prev.push(rowKey);
+                    }
+                } else {
+                    if (currentKeyIndex > -1) {
+                        prev.splice(currentKeyIndex, 1);
+                    }
+                }
+                _expandedRowKeys = [...prev];
+                return prev;
+            });
+
+            onExpandedRowKeys?.(expandedRowKeys);
+            props.onRowExpand?.({ expanded, rowData, rowIndex, rowKey });
+            props.onExpandedRowsChange?.(_expandedRowKeys);
+
+            // TODO: 需要找到合适的 DOM 引用方式
+            // const tableRoot = tableInstance!.vnode.el as HTMLElement;
+            // const hoverRow = tableRoot.querySelector(`.${ns.is('hovered')}[rowkey="${String(rowKey)}"]`);
+            // if (hoverRow) {
+            //     nextTick(() => onRowHovered({ hovered: true, rowKey }));
+            // }
+        },
+        [expandedRowKeys, onExpandedRowKeys, props],
+    );
+
+    const resetAfterIndex = useCallback(
+        (index: number, forceUpdate = false) => {
+            if (!isDynamic) {
+                return;
             }
-        }
-        expandedRowKeys.value = _expandedRowKeys;
+            [mainTableRef, leftTableRef, rightTableRef].forEach(tableRef => {
+                const table = tableRef.current;
+                if (table) {
+                    (table as any).resetAfterRowIndex?.(index, forceUpdate);
+                }
+            });
+        },
+        [isDynamic, mainTableRef, leftTableRef, rightTableRef],
+    );
 
-        emit('update:expandedRowKeys', _expandedRowKeys);
-        props.onRowExpand?.({
-            expanded,
-            rowData,
-            rowIndex,
-            rowKey,
-        });
-        // If this is not controlled, then use this to notify changes
-        props.onExpandedRowsChange?.(_expandedRowKeys);
+    // Equivalent to debounce for flushing row heights
+    const flushingRowHeights = debounce(
+        useCallback(() => {
+            setIsResetting(true);
+            setRowHeights(prev => ({ ...prev, ...pendingRowHeightsRef.current }));
+            resetAfterIndex(resetIndexRef.current, false);
+            pendingRowHeightsRef.current = {};
+            // force update
+            resetIndexRef.current = null;
+            (mainTableRef.current as any)?.forceUpdate?.();
+            (leftTableRef.current as any)?.forceUpdate?.();
+            (rightTableRef.current as any)?.forceUpdate?.();
+            setIsResetting(false);
+        }, [resetAfterIndex, mainTableRef, leftTableRef, rightTableRef]),
+        0,
+    );
 
-        const tableRoot = tableInstance!.vnode.el as HTMLElement;
-        const hoverRow = tableRoot.querySelector(`.${ns.is('hovered')}[rowkey="${String(rowKey)}"]`);
-        if (hoverRow) {
-            nextTick(() => onRowHovered({ hovered: true, rowKey }));
-        }
-    }
-
-    const flushingRowHeights = debounce(() => {
-        isResetting.value = true;
-        rowHeights.value = { ...unref(rowHeights), ...unref(pendingRowHeights) };
-        resetAfterIndex(unref(resetIndex)!, false);
-        pendingRowHeights.value = {};
-        // force update
-        resetIndex.value = null;
-        mainTableRef.value?.forceUpdate();
-        leftTableRef.value?.forceUpdate();
-        rightTableRef.value?.forceUpdate();
-        vm.proxy?.$forceUpdate();
-        isResetting.value = false;
-    }, 0);
-
-    function resetAfterIndex(index: number, forceUpdate = false) {
-        if (!unref(isDynamic)) {
-            return;
-        }
-        [mainTableRef, leftTableRef, rightTableRef].forEach(tableRef => {
-            const table = unref(tableRef);
-            if (table) {
-                table.resetAfterRowIndex(index, forceUpdate);
-            }
-        });
-    }
-
-    function resetHeights(rowKey: KeyType, height: number, rowIdx: number) {
-        const resetIdx = unref(resetIndex);
+    const resetHeights = useCallback((rowKey: KeyType, height: number, rowIdx: number) => {
+        const resetIdx = resetIndexRef.current;
         if (resetIdx === null) {
-            resetIndex.value = rowIdx;
+            resetIndexRef.current = rowIdx;
         } else {
             if (resetIdx > rowIdx) {
-                resetIndex.value = rowIdx;
+                resetIndexRef.current = rowIdx;
             }
         }
 
-        pendingRowHeights.value[rowKey] = height;
-    }
+        pendingRowHeightsRef.current[rowKey] = height;
+    }, []);
 
-    function onRowHeightChange({ rowKey, height, rowIndex }: RowHeightChangedParams, fixedDir: FixedDirection) {
-        if (!fixedDir) {
-            mainTableHeights.value[rowKey] = height;
-        } else {
-            if (fixedDir === FixedDir.RIGHT) {
-                rightTableHeights.value[rowKey] = height;
+    const onRowHeightChange = useCallback(
+        ({ rowKey, height, rowIndex }: RowHeightChangedParams, fixedDir: FixedDirection) => {
+            if (!fixedDir) {
+                mainTableHeightsRef.current[rowKey] = height;
             } else {
-                leftTableHeights.value[rowKey] = height;
+                if (fixedDir === FixedDir.RIGHT) {
+                    rightTableHeightsRef.current[rowKey] = height;
+                } else {
+                    leftTableHeightsRef.current[rowKey] = height;
+                }
             }
-        }
 
-        const maximumHeight = Math.max(...[leftTableHeights, rightTableHeights, mainTableHeights].map(records => records.value[rowKey] || 0));
+            const maximumHeight = Math.max(leftTableHeightsRef.current[rowKey] || 0, rightTableHeightsRef.current[rowKey] || 0, mainTableHeightsRef.current[rowKey] || 0);
 
-        if (unref(rowHeights)[rowKey] !== maximumHeight) {
-            resetHeights(rowKey, maximumHeight, rowIndex);
-            flushingRowHeights();
-        }
-    }
+            if (rowHeights[rowKey] !== maximumHeight) {
+                resetHeights(rowKey, maximumHeight, rowIndex);
+                flushingRowHeights();
+            }
+        },
+        [rowHeights, resetHeights, flushingRowHeights],
+    );
 
     return {
         expandedRowKeys,
         lastRenderedRowIndex,
+        setLastRenderedRowIndex,
         isDynamic,
         isResetting,
         rowHeights,

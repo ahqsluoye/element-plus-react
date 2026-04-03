@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 import { GridDefaultSlotParams } from '../../VirtualList';
 import type { SortOrder } from './constants';
 import { TableV2GridProps } from './grid';
-import { RowEventHandlers } from './row';
+import { RowEventHandlers, RowExpandParams } from './row';
 import type { Column, ColumnCommonParams, KeyType, RowCommonParams, SortState } from './types';
 
 /**
@@ -36,6 +36,13 @@ export type RowClassNameGetter<T> = (params: { columns: Column<T>[] } & RowCommo
 export type ColumnSortHandler<T> = (params: ColumnSortParams<T>) => void;
 export type ColumnResizeHandler<T> = (column: Column<T>, width: number) => void;
 export type ExpandedRowsChangeHandler = (expandedRowKeys: KeyType[]) => void;
+
+export type RowsRenderedParams = {
+    rowCacheStart: number;
+    rowCacheEnd: number;
+    rowVisibleStart: number;
+    rowVisibleEnd: number;
+};
 
 export type TableV2Props = {
     /** 为了更好的渲染效果预先多加载的行数 */
@@ -102,7 +109,14 @@ export type TableV2Props = {
     sortState?: SortState;
     rowFormatter?: (props: TableGridRowSlotParams) => React.ReactNode;
     cellFormatter?: (props: CellFormatProps<any>) => React.ReactNode;
+    /** 列排序时调用 */
     onColumnSort?: ColumnSortHandler<any>;
+    /** 当行被渲染后触发 */
+    onRowsRendered?: (params: RowsRenderedParams) => void;
+    /** 行展开状态改变时触发 */
+    onExpandedRowsChange?: ExpandedRowsChangeHandler;
+    /** 点击箭头图标展开/折叠树节点时触发 */
+    onRowExpand?: (params: RowExpandParams) => void;
 };
 
 export type TableGridRowSlotParams = {

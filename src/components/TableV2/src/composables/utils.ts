@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'vue';
+import type { CSSProperties } from 'react';
 import type { AnyColumns } from '../types';
 
 export const calcColumnStyle = (column: AnyColumns[number], fixedColumn: boolean, fixed: boolean): CSSProperties => {
