@@ -1,122 +1,116 @@
-import { useNamespace } from '@element-plus/hooks';
-import { ensureArray } from '@element-plus/utils';
-import { computed, defineComponent, inject, nextTick, onUpdated, ref, unref } from 'vue';
-import { tableV2HeaderProps } from '../header';
+import { nextTick } from '@qsxy/element-plus-react/Util';
+import castArray from 'lodash/castArray';
+import React, { CSSProperties, forwardRef, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import { useClassNames } from '../../../hooks';
+import type { TableV2HeaderProps } from '../header';
 import { TABLE_V2_GRID_INJECTION_KEY } from '../tokens';
 import { enforceUnit } from '../utils';
 
-import type { CSSProperties, Ref, UnwrapRef } from 'vue';
-import type { UseColumnsReturn } from '../composables/use-columns';
-import type { TableV2HeaderProps } from '../header';
+const TableV2Header = forwardRef<TableV2HeaderInstance, TableV2HeaderProps>((props, ref) => {
+    const { className, columns, fixedHeaderData, headerData, headerHeight, rowWidth, rowHeight, height, width, dynamic, fixed } = props;
+    const ns = useClassNames('table-v2');
+    const scrollLeftInfo = useContext(TABLE_V2_GRID_INJECTION_KEY);
 
-const COMPONENT_NAME = 'ElTableV2Header';
-const TableV2Header = defineComponent({
-    name: COMPONENT_NAME,
-    props: tableV2HeaderProps,
-    setup(props, { slots, expose }) {
-        const ns = useNamespace('table-v2');
-        const scrollLeftInfo = inject<Ref<number>>(TABLE_V2_GRID_INJECTION_KEY);
+    const headerRef = useRef<HTMLDivElement>(null);
 
-        const headerRef = ref<HTMLElement>();
-
-        const headerStyle = computed(() =>
+    const headerStyle = useMemo<CSSProperties>(
+        () =>
             enforceUnit({
-                width: props.width,
-                height: props.height,
+                width,
+                height,
             }),
-        );
+        [width, height],
+    );
 
-        const rowStyle = computed(() =>
+    const rowStyle = useMemo<CSSProperties>(
+        () =>
             enforceUnit({
-                width: props.rowWidth,
-                height: props.height,
+                width: rowWidth,
+                height,
             }),
-        );
+        [rowWidth, height],
+    );
 
-        const headerHeights = computed(() => ensureArray(unref(props.headerHeight)));
+    const headerHeights = useMemo(() => castArray(headerHeight || 50), [headerHeight]);
 
-        const scrollToLeft = (left?: number) => {
-            const headerEl = unref(headerRef);
-            nextTick(() => {
-                headerEl?.scroll &&
-                    headerEl.scroll({
-                        left,
-                    });
-            });
-        };
-
-        const renderFixedRows = () => {
-            const fixedRowClassName = ns.e('fixed-header-row');
-
-            const { columns, fixedHeaderData, rowHeight } = props;
-
-            return fixedHeaderData?.map((fixedRowData, fixedRowIndex) => {
-                const style: CSSProperties = enforceUnit({
-                    height: rowHeight,
-                    width: '100%',
+    const scrollToLeft = (left?: number) => {
+        const headerEl = headerRef.current;
+        nextTick(() => {
+            if (headerEl?.scroll) {
+                headerEl.scroll({
+                    left,
                 });
-
-                return slots.fixed?.({
-                    class: fixedRowClassName,
-                    columns,
-                    rowData: fixedRowData,
-                    rowIndex: -(fixedRowIndex + 1),
-                    style,
-                });
-            });
-        };
-
-        const renderDynamicRows = () => {
-            const dynamicRowClassName = ns.e('dynamic-header-row');
-            const { columns } = props;
-
-            return unref(headerHeights).map((rowHeight, rowIndex) => {
-                const style: CSSProperties = enforceUnit({
-                    width: '100%',
-                    height: rowHeight,
-                });
-
-                return slots.dynamic?.({
-                    class: dynamicRowClassName,
-                    columns,
-                    headerIndex: rowIndex,
-                    style,
-                });
-            });
-        };
-
-        onUpdated(() => {
-            if (scrollLeftInfo?.value) {
-                scrollToLeft(scrollLeftInfo.value);
             }
         });
-        expose({
-            /**
-             * @description scroll to position based on the provided value
-             */
-            scrollToLeft,
+    };
+
+    const renderFixedRows = () => {
+        const fixedRowClassName = ns.e('fixed-header-row');
+
+        return fixedHeaderData?.map((fixedRowData, fixedRowIndex) => {
+            const style: CSSProperties = enforceUnit({
+                height: rowHeight,
+                width: '100%',
+            });
+
+            return fixed?.({
+                class: fixedRowClassName,
+                columns,
+                rowData: fixedRowData,
+                rowIndex: -(fixedRowIndex + 1),
+                style,
+            });
         });
+    };
 
-        return () => {
-            if (props.height <= 0) {
-                return;
-            }
+    const renderDynamicRows = () => {
+        const dynamicRowClassName = ns.e('dynamic-header-row');
 
-            return (
-                <div ref={headerRef} class={props.class} style={unref(headerStyle)} role="rowgroup">
-                    <div style={unref(rowStyle)} class={ns.e('header')}>
-                        {renderDynamicRows()}
-                        {renderFixedRows()}
-                    </div>
-                </div>
-            );
-        };
-    },
+        return headerHeights.map((rowHeight, rowIndex) => {
+            const style: CSSProperties = enforceUnit({
+                width: '100%',
+                height: rowHeight,
+            });
+
+            return dynamic?.({
+                class: dynamicRowClassName,
+                columns,
+                headerIndex: rowIndex,
+                style,
+            });
+        });
+    };
+
+    // Equivalent to onUpdated - scroll when scrollLeftInfo changes
+    useEffect(() => {
+        if (scrollLeftInfo !== undefined) {
+            scrollToLeft(scrollLeftInfo);
+        }
+    }, [scrollLeftInfo]);
+
+    useImperativeHandle(ref, () => ({
+        scrollToLeft,
+    }));
+
+    if (height <= 0) {
+        return null;
+    }
+
+    return (
+        <div ref={headerRef} className={className} style={headerStyle} role="rowgroup">
+            <div style={rowStyle} className={ns.e('header')}>
+                {renderDynamicRows()}
+                {renderFixedRows()}
+            </div>
+        </div>
+    );
 });
+
+TableV2Header.displayName = 'ElTableV2Header';
 
 export default TableV2Header;
 
-export type TableV2HeaderInstance = InstanceType<typeof TableV2Header> & {
+export type TableV2HeaderInstance = {
     /**
      * @description scroll to position based on the provided value
      */
@@ -126,7 +120,7 @@ export type TableV2HeaderInstance = InstanceType<typeof TableV2Header> & {
 export type TableV2HeaderRendererParams = {
     class: string;
     columns: TableV2HeaderProps['columns'];
-    columnsStyles: UnwrapRef<UseColumnsReturn['columnsStyles']>;
+    columnsStyles: Record<string, CSSProperties>;
     headerIndex: number;
     style: CSSProperties;
 };

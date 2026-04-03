@@ -9,4 +9,6 @@ export type TableV2Context = {
 
 export const TableV2Context = createContext<TableV2Context | null>(null);
 
-export const TABLE_V2_GRID_INJECTION_KEY = 'tableV2GridScrollLeft';
+// Context for grid scroll left position
+export const TableV2GridScrollLeftContext = createContext<number | undefined>(undefined);
+export const TABLE_V2_GRID_INJECTION_KEY = TableV2GridScrollLeftContext;

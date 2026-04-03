@@ -1,35 +1,16 @@
-import { buildProps, definePropType } from '@element-plus/utils';
-import { columns } from './common';
+import React from 'react';
+import type { Column } from './types';
 
-import type { ExtractPropTypes, ExtractPublicPropTypes } from 'vue';
-
-const requiredNumberType = {
-    type: Number,
-    required: true,
-} as const;
-
-export const tableV2HeaderProps = buildProps({
-    class: String,
-    columns,
-    fixedHeaderData: {
-        type: definePropType<any[]>(Array),
-    },
-    headerData: {
-        type: definePropType<any[]>(Array),
-        required: true,
-    },
-    headerHeight: {
-        type: definePropType<number | number[]>([Number, Array]),
-        default: 50,
-    },
-    rowWidth: requiredNumberType,
-    rowHeight: {
-        type: Number,
-        default: 50,
-    },
-    height: requiredNumberType,
-    width: requiredNumberType,
-} as const);
-
-export type TableV2HeaderProps = ExtractPropTypes<typeof tableV2HeaderProps>;
-export type TableV2HeaderPropsPublic = ExtractPublicPropTypes<typeof tableV2HeaderProps>;
+export interface TableV2HeaderProps {
+    className?: string;
+    columns: Column<any>[];
+    fixedHeaderData?: any[];
+    headerData: any[];
+    headerHeight?: number | number[];
+    rowWidth: number;
+    rowHeight?: number;
+    height: number;
+    width: number;
+    dynamic?: (props: any) => React.ReactNode;
+    fixed?: (props: any) => React.ReactNode;
+}
