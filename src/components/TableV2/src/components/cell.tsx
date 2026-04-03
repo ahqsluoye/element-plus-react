@@ -1,23 +1,18 @@
-import { renderSlot } from 'vue'
+import React, { Children, useMemo } from 'react';
+import type { TableV2CellProps } from '../cell';
 
-import type { FunctionalComponent } from 'vue'
-import type { TableV2CellProps } from '../cell'
+const TableV2Cell: React.FC<TableV2CellProps> = ({ className, cellData, style, children, ...rest }) => {
+    const displayText = useMemo(() => {
+        return cellData?.toString?.() || '';
+    }, [cellData]);
 
-const TableV2Cell: FunctionalComponent<TableV2CellProps> = (
-  props: TableV2CellProps,
-  { slots }
-) => {
-  const { cellData, style } = props
-  const displayText = cellData?.toString?.() || ''
-  const defaultSlot = renderSlot(slots, 'default', props, () => [displayText])
-  return (
-    <div class={props.class} title={displayText} style={style}>
-      {defaultSlot}
-    </div>
-  )
-}
+    return (
+        <div className={className} title={displayText} style={style}>
+            {children ? Children.map(children, child => React.cloneElement(child, { ...rest })) : displayText}
+        </div>
+    );
+};
 
-TableV2Cell.displayName = 'ElTableV2Cell'
-TableV2Cell.inheritAttrs = false
+TableV2Cell.displayName = 'ElTableV2Cell';
 
-export default TableV2Cell
+export default TableV2Cell;
