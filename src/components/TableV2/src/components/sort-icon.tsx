@@ -1,21 +1,19 @@
-import ElIcon from '@element-plus/components/icon';
-import { SortDown, SortUp } from '@element-plus/icons-vue';
+import { ElIcon } from '@qsxy/element-plus-react';
+import { NativeProps } from '@qsxy/element-plus-react/types/common';
+import React, { FC } from 'react';
 import { SortOrder } from '../constants';
-
-import type { FunctionalComponent } from 'vue';
 
 export type SortIconProps = {
     sortOrder: SortOrder;
     ariaLabel?: string;
-    class?: JSX.IntrinsicAttributes['class'];
-};
+} & NativeProps;
 
-const SortIcon: FunctionalComponent<SortIconProps> = props => {
+const SortIcon: FC<SortIconProps> = props => {
     const { sortOrder } = props;
 
     return (
-        <button type="button" aria-label={props.ariaLabel} class={props.class}>
-            <ElIcon size={14}>{sortOrder === SortOrder.ASC ? <SortUp /> : <SortDown />}</ElIcon>
+        <button type="button" aria-label={props.ariaLabel} className={props.className}>
+            <ElIcon size="2x" name={sortOrder === SortOrder.ASC ? 'sort-up' : 'sort-down'}></ElIcon>
         </button>
     );
 };
