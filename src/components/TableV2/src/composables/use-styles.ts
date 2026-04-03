@@ -1,8 +1,8 @@
-import { addUnit, isNumber } from '@element-plus/utils';
-import { computed, unref } from 'vue';
+import isNumber from 'lodash/isNumber';
+import { CSSProperties, useMemo } from 'react';
 import { enforceUnit, sum } from '../utils';
 
-import type { CSSProperties, ComputedRef } from 'vue';
+import { addUnit } from '@qsxy/element-plus-react/Util';
 import type { TableV2Props } from '../table';
 import type { UseColumnsReturn } from './use-columns';
 
@@ -10,75 +10,74 @@ type UseStyleProps = {
     columnsTotalWidth: UseColumnsReturn['columnsTotalWidth'];
     fixedColumnsOnLeft: UseColumnsReturn['fixedColumnsOnLeft'];
     fixedColumnsOnRight: UseColumnsReturn['fixedColumnsOnRight'];
-    rowsHeight: ComputedRef<number>;
+    rowsHeight: number;
 };
 
 export const useStyles = (props: TableV2Props, { columnsTotalWidth, rowsHeight, fixedColumnsOnLeft, fixedColumnsOnRight }: UseStyleProps) => {
-    const bodyWidth = computed(() => {
+    const bodyWidth = useMemo(() => {
         const { fixed, width, vScrollbarSize } = props;
         const ret = width - vScrollbarSize;
-        return fixed ? Math.max(Math.round(unref(columnsTotalWidth)), ret) : ret;
-    });
+        return fixed ? Math.max(Math.round(columnsTotalWidth), ret) : ret;
+    }, [props, columnsTotalWidth]);
 
-    const mainTableHeight = computed(() => {
+    const headerHeight = useMemo(() => sum(props.headerHeight), [props.headerHeight]);
+
+    const fixedRowsHeight = useMemo(() => {
+        return (props.fixedData?.length || 0) * props.rowHeight;
+    }, [props.fixedData, props.rowHeight]);
+
+    const mainTableHeight = useMemo(() => {
         const { height = 0, maxHeight = 0, footerHeight, hScrollbarSize } = props;
 
         if (maxHeight > 0) {
-            const _fixedRowsHeight = unref(fixedRowsHeight);
-            const _rowsHeight = unref(rowsHeight);
-            const _headerHeight = unref(headerHeight);
-            const total = _headerHeight + _fixedRowsHeight + _rowsHeight + hScrollbarSize;
+            const total = headerHeight + fixedRowsHeight + rowsHeight + hScrollbarSize;
 
             return Math.min(total, maxHeight - footerHeight);
         }
 
         return height - footerHeight;
-    });
+    }, [props, headerHeight, fixedRowsHeight, rowsHeight]);
 
-    const fixedTableHeight = computed(() => {
+    const fixedTableHeight = useMemo(() => {
         const { maxHeight } = props;
-        const tableHeight = unref(mainTableHeight);
+        const tableHeight = mainTableHeight;
         if (isNumber(maxHeight) && maxHeight > 0) {
             return tableHeight;
         }
 
-        const totalHeight = unref(rowsHeight) + unref(headerHeight) + unref(fixedRowsHeight);
+        const totalHeight = rowsHeight + headerHeight + fixedRowsHeight;
 
         return Math.min(tableHeight, totalHeight);
-    });
+    }, [props, mainTableHeight, rowsHeight, headerHeight, fixedRowsHeight]);
 
     const mapColumn = (column: TableV2Props['columns'][number]) => column.width;
 
-    const leftTableWidth = computed(() => sum(unref(fixedColumnsOnLeft).map(mapColumn)));
+    const leftTableWidth = useMemo(() => sum(fixedColumnsOnLeft.map(mapColumn)), [fixedColumnsOnLeft]);
 
-    const rightTableWidth = computed(() => sum(unref(fixedColumnsOnRight).map(mapColumn)));
+    const rightTableWidth = useMemo(() => sum(fixedColumnsOnRight.map(mapColumn)), [fixedColumnsOnRight]);
 
-    const headerHeight = computed(() => sum(props.headerHeight));
+    const windowHeight = useMemo(() => {
+        return mainTableHeight - headerHeight - fixedRowsHeight;
+    }, [mainTableHeight, headerHeight, fixedRowsHeight]);
 
-    const fixedRowsHeight = computed(() => {
-        return (props.fixedData?.length || 0) * props.rowHeight;
-    });
-
-    const windowHeight = computed(() => {
-        return unref(mainTableHeight) - unref(headerHeight) - unref(fixedRowsHeight);
-    });
-
-    const rootStyle = computed<CSSProperties>(() => {
-        const { style = {}, height, width } = props;
+    const rootStyle = useMemo<CSSProperties>(() => {
+        const { height, width } = props;
         return enforceUnit({
-            ...style,
             height,
             width,
         });
-    });
+    }, [props]);
 
-    const footerHeight = computed(() => enforceUnit({ height: props.footerHeight }));
+    const footerHeight = useMemo(() => enforceUnit({ height: props.footerHeight }), [props.footerHeight]);
 
-    const emptyStyle = computed<CSSProperties>(() => ({
-        top: addUnit(unref(headerHeight)),
-        bottom: addUnit(props.footerHeight),
-        width: addUnit(props.width),
-    }));
+    const emptyStyle = useMemo<CSSProperties>(
+        () => ({
+            top: addUnit(headerHeight),
+            bottom: addUnit(props.footerHeight),
+            width: addUnit(props.width),
+        }),
+        [headerHeight, props.footerHeight, props.width],
+    );
 
     return {
         bodyWidth,
