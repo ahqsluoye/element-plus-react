@@ -1,14 +1,13 @@
-import { ref, unref, watch } from 'vue';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import type { Alignment as ScrollStrategy } from '@element-plus/components/virtual-list';
-import type { Ref } from 'vue';
+import type { Alignment as ScrollStrategy } from '@qsxy/element-plus-react/VirtualList';
 import type { TableV2Props } from '../table';
 import type { TableGridInstance } from '../table-grid';
 
 export type ScrollPos = { scrollLeft: number; scrollTop: number };
-type GridInstanceRef = Ref<TableGridInstance | undefined>;
+type GridInstanceRef = React.RefObject<TableGridInstance | null>;
 
-type UseScrollBarProps = {
+type UseScrollbarProps = {
     mainTableRef: GridInstanceRef;
     leftTableRef: GridInstanceRef;
     rightTableRef: GridInstanceRef;
@@ -18,61 +17,84 @@ type UseScrollBarProps = {
 
 export type { ScrollStrategy };
 
-export const useScrollbar = (props: TableV2Props, { mainTableRef, leftTableRef, rightTableRef, onMaybeEndReached }: UseScrollBarProps) => {
-    const scrollPos = ref<ScrollPos>({ scrollLeft: 0, scrollTop: 0 });
+export const useScrollbar = (props: TableV2Props, { mainTableRef, leftTableRef, rightTableRef, onMaybeEndReached }: UseScrollbarProps) => {
+    const [scrollPos, setScrollPos] = useState<ScrollPos>({ scrollLeft: 0, scrollTop: 0 });
 
-    function doScroll(params: ScrollPos) {
-        const { scrollTop } = params;
+    const doScroll = useCallback(
+        (params: ScrollPos) => {
+            const { scrollTop } = params;
 
-        mainTableRef.value?.scrollTo(params);
-        leftTableRef.value?.scrollToTop(scrollTop);
-        rightTableRef.value?.scrollToTop(scrollTop);
-    }
+            mainTableRef.current?.scrollTo?.(params);
+            leftTableRef.current?.scrollToTop?.(scrollTop);
+            rightTableRef.current?.scrollToTop?.(scrollTop);
+        },
+        [mainTableRef, leftTableRef, rightTableRef],
+    );
 
     // methods
-    function scrollTo(params: ScrollPos) {
-        scrollPos.value = params;
+    const scrollTo = useCallback(
+        (params: ScrollPos) => {
+            setScrollPos(params);
+            doScroll(params);
+        },
+        [doScroll],
+    );
 
-        doScroll(params);
-    }
+    const scrollToTop = useCallback(
+        (scrollTop: number) => {
+            setScrollPos(prev => ({ ...prev, scrollTop }));
+            doScroll({ ...scrollPos, scrollTop });
+        },
+        [doScroll, scrollPos],
+    );
 
-    function scrollToTop(scrollTop: number) {
-        scrollPos.value.scrollTop = scrollTop;
+    const scrollToLeft = useCallback(
+        (scrollLeft: number) => {
+            setScrollPos(prev => ({ ...prev, scrollLeft }));
+            mainTableRef.current?.scrollTo?.({ scrollLeft, scrollTop: scrollPos.scrollTop });
+        },
+        [scrollPos.scrollTop, mainTableRef],
+    );
 
-        doScroll(unref(scrollPos));
-    }
+    const onScroll = useCallback(
+        (params: ScrollPos) => {
+            scrollTo(params);
+            props.onScroll?.(params);
+        },
+        [props, scrollTo],
+    );
 
-    function scrollToLeft(scrollLeft: number) {
-        scrollPos.value.scrollLeft = scrollLeft;
-
-        mainTableRef.value?.scrollTo?.(unref(scrollPos));
-    }
-
-    function onScroll(params: ScrollPos) {
-        scrollTo(params);
-        props.onScroll?.(params);
-    }
-
-    function onVerticalScroll({ scrollTop }: ScrollPos) {
-        const { scrollTop: currentScrollTop } = unref(scrollPos);
-        if (scrollTop !== currentScrollTop) {
-            scrollToTop(scrollTop);
-        }
-    }
-
-    function scrollToRow(row: number, strategy: ScrollStrategy = 'auto') {
-        mainTableRef.value?.scrollToRow(row, strategy);
-    }
-
-    // When scrollTop changes, maybe reaching the bottom
-    watch(
-        () => unref(scrollPos).scrollTop,
-        (cur, prev) => {
-            if (cur > prev) {
-                onMaybeEndReached();
+    const onVerticalScroll = useCallback(
+        ({ scrollTop }: ScrollPos) => {
+            const { scrollTop: currentScrollTop } = scrollPos;
+            if (scrollTop !== currentScrollTop) {
+                scrollToTop(scrollTop);
             }
         },
+        [scrollPos, scrollToTop],
     );
+
+    const scrollToRow = useCallback(
+        (row: number, strategy: ScrollStrategy = 'auto') => {
+            mainTableRef.current?.scrollToRow?.(row, strategy);
+        },
+        [mainTableRef],
+    );
+
+    // When scrollTop changes, maybe reaching the bottom
+    // Equivalent to watch(() => scrollPos.scrollTop, ...)
+    const prevScrollTopRef = useRef<number>(0);
+
+    useEffect(() => {
+        const cur = scrollPos.scrollTop;
+        const prev = prevScrollTopRef.current;
+
+        if (cur > prev) {
+            onMaybeEndReached();
+        }
+
+        prevScrollTopRef.current = cur;
+    }, [scrollPos.scrollTop, onMaybeEndReached]);
 
     return {
         scrollPos,

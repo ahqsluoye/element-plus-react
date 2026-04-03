@@ -44,6 +44,13 @@ export type RowsRenderedParams = {
     rowVisibleEnd: number;
 };
 
+export type ScrollParams = {
+    xAxisScrollDir?: 'forward' | 'backward';
+    scrollLeft?: number;
+    yAxisScrollDir?: 'forward' | 'backward';
+    scrollTop?: number;
+};
+
 export type TableV2Props = {
     /** 为了更好的渲染效果预先多加载的行数 */
     cache?: number;
@@ -117,6 +124,8 @@ export type TableV2Props = {
     onExpandedRowsChange?: ExpandedRowsChangeHandler;
     /** 点击箭头图标展开/折叠树节点时触发 */
     onRowExpand?: (params: RowExpandParams) => void;
+    /** 表格被用户滚动后触发 */
+    onScroll?: (params: ScrollParams) => void;
 };
 
 export type TableGridRowSlotParams = {
