@@ -1,39 +1,32 @@
-import ElIcon from '@element-plus/components/icon'
-import { ArrowRight } from '@element-plus/icons-vue'
-
-import type { StyleValue } from 'vue'
-import type { TableV2RowCellRenderParam } from './row'
+import React from 'react';
+import ElIcon from '../../../Icon/Icon';
+import { IconSize } from '../../../Icon/typings';
+import { TableV2RowCellRenderParam } from './row';
 
 const ExpandIcon = (
-  props: TableV2RowCellRenderParam['expandIconProps'] & {
-    class?: string | string[]
-    style: StyleValue
-    ariaLabel?: string
-    size: number
-    expanded: boolean
-    expandable: boolean
-  }
+    props: TableV2RowCellRenderParam['expandIconProps'] & {
+        className?: string;
+        style: React.CSSProperties;
+        ariaLabel?: string;
+        size: IconSize;
+        expanded: boolean;
+        expandable: boolean;
+    },
 ) => {
-  const { expanded, expandable, onExpand, style, size, ariaLabel } = props
+    const { expanded, expandable, onExpand, style, size, ariaLabel } = props;
 
-  const expandIconProps = {
-    onClick: expandable ? () => onExpand(!expanded) : undefined,
-    ariaLabel,
-    ariaExpanded: expanded,
-    class: props.class,
-  } as any
+    const expandIconProps = {
+        onClick: expandable ? () => onExpand(!expanded) : undefined,
+        ariaLabel,
+        ariaExpanded: expanded,
+        className: props.className,
+    } as any;
 
-  return (
-    <button {...expandIconProps} type="button">
-      <ElIcon size={size} style={style}>
-        <ArrowRight />
-      </ElIcon>
-    </button>
-  )
-}
+    return (
+        <button {...expandIconProps} type="button">
+            <ElIcon name="arrow-right" size={size} style={style}></ElIcon>
+        </button>
+    );
+};
 
-ExpandIcon.inheritAttrs = false
-
-export default ExpandIcon
-
-export type ExpandIconInstance = ReturnType<typeof ExpandIcon>
+export default ExpandIcon;
