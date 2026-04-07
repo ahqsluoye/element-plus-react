@@ -17,6 +17,7 @@ type CellRendererProps = TableV2RowCellRenderParam &
         expandedRowKeys: UseTableReturn['expandedRowKeys'];
         ns: UseNamespaceReturn;
         iconSize?: IconSize;
+        children?: React.ReactNode;
     };
 
 const CellRenderer: React.FC<CellRendererProps> = ({
@@ -39,6 +40,7 @@ const CellRenderer: React.FC<CellRendererProps> = ({
     indentSize,
     iconSize,
     rowKey,
+    children,
 }) => {
     const cellStyle = useMemo(() => enforceUnit(style), [style]);
 
@@ -80,7 +82,7 @@ const CellRenderer: React.FC<CellRendererProps> = ({
     );
 
     const columnCellRenderer = componentToSlot<typeof cellProps>(cellRenderer);
-    const Cell = columnCellRenderer ? columnCellRenderer(cellProps) : <TableCell {...cellProps}>{cellData}</TableCell>;
+    const Cell = columnCellRenderer ? columnCellRenderer(cellProps) : children || <TableCell {...cellProps}>{cellData}</TableCell>;
 
     const kls = useMemo(
         () =>

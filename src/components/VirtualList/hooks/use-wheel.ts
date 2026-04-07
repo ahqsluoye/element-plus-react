@@ -1,7 +1,7 @@
-import { cAF, isFirefox, rAF } from '@element-plus/utils';
 import { useCallback, useRef } from 'react';
 import { HORIZONTAL } from '../defaults';
 
+import { cAF, rAF } from '@qsxy/element-plus-react/Util';
 import type { LayoutDirection } from '../types';
 
 interface ListWheelState {
@@ -17,8 +17,8 @@ export const useWheel = ({ atEndEdge, atStartEdge, layout }: ListWheelState, onW
     const offset = useRef(0);
 
     const hasReachedEdge = useCallback(
-        (offset: number) => {
-            const edgeReached = (offset < 0 && atStartEdge) || (offset > 0 && atEndEdge);
+        (_offset: number) => {
+            const edgeReached = (_offset < 0 && atStartEdge) || (_offset > 0 && atEndEdge);
             return edgeReached;
         },
         [atStartEdge, atEndEdge],
@@ -26,7 +26,7 @@ export const useWheel = ({ atEndEdge, atStartEdge, layout }: ListWheelState, onW
 
     const onWheel = useCallback(
         (e: WheelEvent) => {
-            cAF(frameHandle.current!);
+            cAF(frameHandle.current);
 
             let { deltaX, deltaY } = e;
             // Special case for windows machine with shift key + wheel scrolling

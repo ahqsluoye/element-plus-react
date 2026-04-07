@@ -238,7 +238,7 @@ const TableGrid = forwardRef<TableGridInstance, TableV2GridProps>((props, ref) =
     return (
         <TableV2Context.Provider value={{ ...context, scrollLeft }}>
             <div role="table" className={[ns.e('table'), className].filter(Boolean).join(' ')} style={style}>
-                <Grid
+                {/* <Grid
                     ref={bodyRef}
                     // special attrs
                     data={data}
@@ -266,13 +266,8 @@ const TableGrid = forwardRef<TableGridInstance, TableV2GridProps>((props, ref) =
                     perfMode={false}
                     rowFormatter={rowFormatter}
                 >
-                    {props.children}
-                    {/* {rowFormatter?.({
-                    ...params,
-                    columns,
-                    rowData: data[params.rowIndex],
-                })} */}
-                </Grid>
+                    {params => props.children && props.children(params)}
+                </Grid> */}
                 {hasHeader && (
                     <Header
                         ref={headerRef}

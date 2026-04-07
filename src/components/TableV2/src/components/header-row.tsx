@@ -3,10 +3,10 @@ import React, { CSSProperties, useMemo } from 'react';
 import type { TableV2HeaderRowProps } from '../header-row';
 import type { ColumnCellsType } from '../types';
 
-const TableV2HeaderRow: React.FC<TableV2HeaderRowProps> = ({ className, columns, columnsStyles, headerIndex, style, cell, header }) => {
+const TableV2HeaderRow: React.FC<TableV2HeaderRowProps> = ({ className, columns, columnsStyles, headerIndex, style, cellFormatter, headerFormatter }) => {
     const Cells = useMemo(() => {
         let cells: ColumnCellsType = columns.map((column, columnIndex) => {
-            return cell?.({
+            return cellFormatter?.({
                 columns,
                 column,
                 columnIndex,
@@ -15,9 +15,9 @@ const TableV2HeaderRow: React.FC<TableV2HeaderRowProps> = ({ className, columns,
             });
         });
 
-        if (header) {
+        if (headerFormatter) {
             // 如果提供了自定义渲染函数，调用它
-            cells = header({
+            cells = headerFormatter({
                 cells: Cells.map(node => {
                     if (Array.isArray(node) && node.length === 1) {
                         return node[0];
@@ -30,7 +30,7 @@ const TableV2HeaderRow: React.FC<TableV2HeaderRowProps> = ({ className, columns,
         }
 
         return cells;
-    }, [columns, header, cell, headerIndex, columnsStyles]);
+    }, [columns, headerFormatter, cellFormatter, headerIndex, columnsStyles]);
 
     return (
         <div className={className} style={style} role="row">

@@ -1,4 +1,4 @@
-import { cAF, rAF } from '@element-plus/utils';
+import { cAF, rAF } from '@qsxy/element-plus-react/Util';
 import { useCallback, useRef } from 'react';
 
 interface GridWheelState {
@@ -26,7 +26,7 @@ export const useGridWheel = ({ atXEndEdge, atXStartEdge, atYEndEdge, atYStartEdg
 
     const onWheel = useCallback(
         (e: WheelEvent) => {
-            cAF(frameHandle.current!);
+            cAF(frameHandle.current);
 
             let x = e.deltaX;
             let y = e.deltaY;

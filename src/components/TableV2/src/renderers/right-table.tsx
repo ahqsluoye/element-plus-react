@@ -19,4 +19,6 @@ const RightTable = forwardRef<TableGridInstance, RightTableProps>((props, ref) =
     );
 });
 
+RightTable.displayName = 'RightTable';
+
 export default RightTable;

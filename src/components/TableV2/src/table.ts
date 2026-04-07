@@ -1,3 +1,4 @@
+import { IconSize } from '@qsxy/element-plus-react/Icon/typings';
 import React, { CSSProperties } from 'react';
 import { GridDefaultSlotParams } from '../../VirtualList';
 import type { SortOrder } from './constants';
@@ -104,6 +105,8 @@ export type TableV2Props = {
     maxHeight?: number;
     /** 树形表的水平缩进 */
     indentSize?: number;
+    /** 图标大小 */
+    iconSize?: IconSize;
     /** 水平滚动条的大小，防止水平和垂直滚动条重叠。 */
     hScrollbarSize?: number;
     /** 垂直滚动条的大小，防止水平和垂直滚动条重叠。 */
@@ -114,9 +117,14 @@ export type TableV2Props = {
     sortBy?: SortBy;
     /** 多个排序 */
     sortState?: SortState;
+    useIsScrolling?: boolean;
+    footer?: React.ReactNode;
+    empty?: React.ReactNode;
+    overlay?: React.ReactNode;
     headerFormatter?: (props: HeaderSlotProps) => React.ReactNode;
     rowFormatter?: (props: TableGridRowSlotParams) => React.ReactNode;
     cellFormatter?: (props: CellFormatProps<any>) => React.ReactNode;
+    headerCellFormatter?: (props: HeaderCellSlotProps) => React.ReactNode;
     /** 列排序时调用 */
     onColumnSort?: ColumnSortHandler<any>;
     /** 当行被渲染后触发 */
@@ -174,3 +182,16 @@ export type CellFormatProps<T> = {
 };
 
 export type SortBy = { key: KeyType; order: SortOrder };
+
+export type HeaderCellSlotProps = {
+    class: string;
+    columns: Column<any>[];
+    column: Column<any>;
+    columnIndex: number;
+    headerIndex: number;
+    style: CSSProperties;
+    headerCellProps?: any;
+    sortBy: SortBy;
+    sortState?: SortState | undefined;
+    onColumnSorted: (e: MouseEvent) => void;
+};

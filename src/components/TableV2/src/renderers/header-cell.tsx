@@ -5,6 +5,7 @@ import { Alignment, SortOrder, oppositeOrderMap } from '../constants';
 import { placeholderSign } from '../private';
 import { componentToSlot, enforceUnit, tryCall } from '../utils';
 
+import classNames from 'classnames';
 import type { UseNamespaceReturn } from '../../../hooks/useClassNames';
 import type { TableV2Props } from '../table';
 import type { UseTableReturn } from '../use-table';
@@ -62,13 +63,11 @@ const HeaderCellRenderer: React.FC<HeaderCellRendererProps> = props => {
 
     const cellKls = useMemo(
         () =>
-            [
+            classNames(
                 ns.e('header-cell'),
                 tryCall(headerClass, props, ''),
-                column.align === Alignment.CENTER && ns.is('align-center'),
-                column.align === Alignment.RIGHT && ns.is('align-right'),
-                sortable && ns.is('sortable'),
-            ].filter(Boolean),
+                ns.is({ 'align-center': column.align === Alignment.CENTER, 'align-right': column.align === Alignment.RIGHT, sortable }),
+            ),
         [ns, headerClass, props, column.align, sortable],
     );
 
@@ -77,7 +76,7 @@ const HeaderCellRenderer: React.FC<HeaderCellRendererProps> = props => {
             ...tryCall(headerCellProps, props),
             onClick: column.sortable ? onColumnSorted : undefined,
             ariaSort: sortable ? ariaSort : undefined,
-            className: cellKls.join(' '),
+            className: cellKls,
             style: cellStyle,
             ['data-key']: column.key,
         }),

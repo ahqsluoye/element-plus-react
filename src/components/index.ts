@@ -128,20 +128,7 @@ export type { StatisticProps, StatisticRef } from './Statistic';
 export { Table as ElTable, TableColumn as ElTableColumn } from './Table';
 export type { RenderCell, TableColumnCtx, TableColumnProps, TableProps, TableRef, TableSort } from './Table';
 
-export { TableV2 as ElTableV2 } from './TableV2';
-export type {
-    Alignment,
-    Column as TableV2Column,
-    Columns as TableV2Columns,
-    FixedDirection,
-    KeyType,
-    SortBy as TableV2SortBy,
-    SortOrder as TableV2SortOrder,
-    SortState as TableV2SortState,
-    ScrollStrategy as TableV2ScrollStrategy,
-    TableV2Props,
-    TableV2Ref,
-} from './TableV2';
+export { AutoResizer as ElAutoResizer, TableV2 as ElTableV2 } from './TableV2';
 
 export { Tag as ElTag } from './Tag';
 export type { TagProps } from './Tag';

@@ -1,7 +1,7 @@
-import { useLocale, useNamespace } from '@element-plus/hooks';
-import { defineComponent, provide, unref } from 'vue';
-import { tableV2Props } from './table';
-import { TableV2InjectionKey } from './tokens';
+import { useClassNames } from '@qsxy/element-plus-react/hooks';
+import React, { CSSProperties, forwardRef, useImperativeHandle, useMemo } from 'react';
+import { TableV2Props } from './table';
+import { TableV2Context } from './tokens';
 import { useTable } from './use-table';
 // renderers
 import Cell from './renderers/cell';
@@ -15,7 +15,8 @@ import Overlay from './renderers/overlay';
 import RightTable from './renderers/right-table';
 import Row from './renderers/row';
 
-import type { CSSProperties } from 'vue';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util';
+import classNames from 'classnames';
 import type { TableV2HeaderRendererParams, TableV2HeaderRowCellRendererParams, TableV2RowCellRenderParam } from './components';
 import type { ScrollStrategy } from './composables/use-scrollbar';
 import type { TableGridRowSlotParams } from './table-grid';
@@ -23,297 +24,7 @@ import type { KeyType } from './types';
 
 const COMPONENT_NAME = 'ElTableV2';
 
-const TableV2 = defineComponent({
-    name: COMPONENT_NAME,
-    props: tableV2Props,
-    setup(props, { slots, expose }) {
-        const ns = useNamespace('table-v2');
-        const { t } = useLocale();
-
-        const {
-            columnsStyles,
-            fixedColumnsOnLeft,
-            fixedColumnsOnRight,
-            mainColumns,
-            mainTableHeight,
-            fixedTableHeight,
-            leftTableWidth,
-            rightTableWidth,
-            data,
-            depthMap,
-            expandedRowKeys,
-            hasFixedColumns,
-            mainTableRef,
-            leftTableRef,
-            rightTableRef,
-            isDynamic,
-            isResetting,
-            isScrolling,
-
-            bodyWidth,
-            emptyStyle,
-            rootStyle,
-            footerHeight,
-
-            showEmpty,
-
-            // exposes
-            scrollTo,
-            scrollToLeft,
-            scrollToTop,
-            scrollToRow,
-
-            getRowHeight,
-            onColumnSorted,
-            onRowHeightChange,
-            onRowHovered,
-            onRowExpanded,
-            onRowsRendered,
-            onScroll,
-            onVerticalScroll,
-        } = useTable(props);
-
-        expose({
-            /**
-             * @description scroll to a given position
-             * @params params {{ scrollLeft?: number, scrollTop?: number }} where to scroll to.
-             */
-            scrollTo,
-            /**
-             * @description scroll to a given position horizontally
-             * @params scrollLeft {Number} where to scroll to.
-             */
-            scrollToLeft,
-            /**
-             * @description scroll to a given position vertically
-             * @params scrollTop { Number } where to scroll to.
-             */
-            scrollToTop,
-            /**
-             * @description scroll to a given row
-             * @params row {Number} which row to scroll to
-             * @params @optional strategy {ScrollStrategy} use what strategy to scroll to
-             */
-            scrollToRow,
-        });
-
-        provide(TableV2InjectionKey, {
-            ns,
-            isResetting,
-            isScrolling,
-        });
-
-        return () => {
-            const {
-                cache,
-                cellProps,
-                estimatedRowHeight,
-                expandColumnKey,
-                fixedData,
-                headerHeight,
-                headerClass,
-                headerProps,
-                headerCellProps,
-                sortBy,
-                sortState,
-                rowHeight,
-                rowClass,
-                rowEventHandlers,
-                rowKey,
-                rowProps,
-                scrollbarAlwaysOn,
-                indentSize,
-                iconSize,
-                useIsScrolling,
-                vScrollbarSize,
-                width,
-            } = props;
-
-            const _data = unref(data);
-
-            const mainTableProps = {
-                cache,
-                class: ns.e('main'),
-                columns: unref(mainColumns),
-                data: _data,
-                fixedData,
-                estimatedRowHeight,
-                bodyWidth: unref(bodyWidth),
-                headerHeight,
-                headerWidth: unref(bodyWidth),
-                height: unref(mainTableHeight),
-                mainTableRef,
-                rowKey,
-                rowHeight,
-                scrollbarAlwaysOn,
-                scrollbarStartGap: 2,
-                scrollbarEndGap: vScrollbarSize,
-                useIsScrolling,
-                width,
-                getRowHeight,
-                onRowsRendered,
-                onScroll,
-            };
-
-            const leftColumnsWidth = unref(leftTableWidth);
-            const _fixedTableHeight = unref(fixedTableHeight);
-
-            const leftTableProps = {
-                cache,
-                class: ns.e('left'),
-                columns: unref(fixedColumnsOnLeft),
-                data: _data,
-                fixedData,
-                estimatedRowHeight,
-                leftTableRef,
-                rowHeight,
-                bodyWidth: leftColumnsWidth,
-                headerWidth: leftColumnsWidth,
-                headerHeight,
-                height: _fixedTableHeight,
-                rowKey,
-                scrollbarAlwaysOn,
-                scrollbarStartGap: 2,
-                scrollbarEndGap: vScrollbarSize,
-                useIsScrolling,
-                width: leftColumnsWidth,
-                getRowHeight,
-                onScroll: onVerticalScroll,
-            };
-
-            const rightColumnsWidth = unref(rightTableWidth);
-
-            const rightTableProps = {
-                cache,
-                class: ns.e('right'),
-                columns: unref(fixedColumnsOnRight),
-                data: _data,
-                fixedData,
-                estimatedRowHeight,
-                rightTableRef,
-                rowHeight,
-                bodyWidth: rightColumnsWidth,
-                headerWidth: rightColumnsWidth,
-                headerHeight,
-                height: _fixedTableHeight,
-                rowKey,
-                scrollbarAlwaysOn,
-                scrollbarStartGap: 2,
-                scrollbarEndGap: vScrollbarSize,
-                width: rightColumnsWidth,
-                style: `${ns.cssVarName('table-scrollbar-size')}: ${vScrollbarSize}px` as unknown as CSSProperties,
-                useIsScrolling,
-                getRowHeight,
-                onScroll: onVerticalScroll,
-            };
-            const _columnsStyles = unref(columnsStyles);
-
-            const tableRowProps = {
-                ns,
-                depthMap: unref(depthMap),
-                columnsStyles: _columnsStyles,
-                expandColumnKey,
-                expandedRowKeys: unref(expandedRowKeys),
-                estimatedRowHeight,
-                hasFixedColumns: unref(hasFixedColumns),
-                rowProps,
-                rowClass,
-                rowKey,
-                rowEventHandlers,
-                onRowHovered,
-                onRowExpanded,
-                onRowHeightChange,
-            };
-
-            const tableCellProps = {
-                cellProps,
-                expandColumnKey,
-                indentSize,
-                iconSize,
-                rowKey,
-                expandedRowKeys: unref(expandedRowKeys),
-                ns,
-                t,
-            };
-
-            const tableHeaderProps = {
-                ns,
-                headerClass,
-                headerProps,
-                columnsStyles: _columnsStyles,
-            };
-
-            const tableHeaderCellProps = {
-                ns,
-                t,
-
-                sortBy,
-                sortState,
-                headerCellProps,
-                onColumnSorted,
-            };
-
-            const tableSlots = {
-                rowFormatter: (props: TableGridRowSlotParams) => (
-                    <Row {...props} {...tableRowProps}>
-                        {{
-                            row: slots.row,
-                            cell: (props: TableV2RowCellRenderParam) =>
-                                slots.cell ? (
-                                    <Cell {...props} {...tableCellProps} style={_columnsStyles[props.column.key as KeyType]}>
-                                        {slots.cell(props)}
-                                    </Cell>
-                                ) : (
-                                    <Cell {...props} {...tableCellProps} style={_columnsStyles[props.column.key as KeyType]} />
-                                ),
-                        }}
-                    </Row>
-                ),
-                header: (props: TableV2HeaderRendererParams) => (
-                    <Header {...props} {...tableHeaderProps}>
-                        {{
-                            header: slots.header,
-                            cell: (props: TableV2HeaderRowCellRendererParams) =>
-                                slots['header-cell'] ? (
-                                    <HeaderCell {...props} {...tableHeaderCellProps} style={_columnsStyles[props.column.key as KeyType]}>
-                                        {slots['header-cell'](props)}
-                                    </HeaderCell>
-                                ) : (
-                                    <HeaderCell {...props} {...tableHeaderCellProps} style={_columnsStyles[props.column.key as KeyType]} />
-                                ),
-                        }}
-                    </Header>
-                ),
-            };
-
-            const rootKls = [props.class, ns.b(), ns.e('root'), ns.is('dynamic', unref(isDynamic))];
-
-            const footerProps = {
-                class: ns.e('footer'),
-                style: unref(footerHeight),
-            };
-
-            return (
-                <div class={rootKls} style={unref(rootStyle)}>
-                    <MainTable {...mainTableProps}>{tableSlots}</MainTable>
-                    <LeftTable {...leftTableProps}>{tableSlots}</LeftTable>
-                    <RightTable {...rightTableProps}>{tableSlots}</RightTable>
-                    {slots.footer && <Footer {...footerProps}>{{ default: slots.footer }}</Footer>}
-                    {unref(showEmpty) && (
-                        <Empty class={ns.e('empty')} style={unref(emptyStyle)}>
-                            {{ default: slots.empty }}
-                        </Empty>
-                    )}
-                    {slots.overlay && <Overlay class={ns.e('overlay')}>{{ default: slots.overlay }}</Overlay>}
-                </div>
-            );
-        };
-    },
-});
-
-export default TableV2;
-
-export type TableV2Instance = InstanceType<typeof TableV2> & {
+export interface TableV2Instance {
     /**
      * @description scroll to a given position
      * @params params {{ scrollLeft?: number, scrollTop?: number }} where to scroll to.
@@ -335,4 +46,397 @@ export type TableV2Instance = InstanceType<typeof TableV2> & {
      * @params strategy {ScrollStrategy} use what strategy to scroll to
      */
     scrollToRow(row: number, strategy?: ScrollStrategy): void;
-};
+}
+
+const TableV2 = forwardRef<TableV2Instance, TableV2Props>((props, ref) => {
+    props = mergeDefaultProps(props, {
+        cache: 2,
+        headerHeight: 50,
+        footerHeight: 0,
+        rowHeight: 50,
+        rowKey: 'id',
+        indentSize: 12,
+        hScrollbarSize: 6,
+        vScrollbarSize: 6,
+        sortBy: {},
+        sortState: undefined,
+    });
+
+    const ns = useClassNames('table-v2');
+
+    const {
+        columnsStyles,
+        fixedColumnsOnLeft,
+        fixedColumnsOnRight,
+        mainColumns,
+        mainTableHeight,
+        fixedTableHeight,
+        leftTableWidth,
+        rightTableWidth,
+        data,
+        depthMap,
+        expandedRowKeys,
+        hasFixedColumns,
+        mainTableRef,
+        leftTableRef,
+        rightTableRef,
+        isDynamic,
+        isResetting,
+        isScrolling,
+
+        bodyWidth,
+        emptyStyle,
+        rootStyle,
+        footerHeight,
+
+        showEmpty,
+
+        // exposes
+        scrollTo,
+        scrollToLeft,
+        scrollToTop,
+        scrollToRow,
+
+        getRowHeight,
+        onColumnSorted,
+        onRowHeightChange,
+        onRowHovered,
+        onRowExpanded,
+        onRowsRendered,
+        onScroll,
+        onVerticalScroll,
+    } = useTable(props);
+
+    // Expose methods via ref
+    useImperativeHandle(
+        ref,
+        () => ({
+            scrollTo,
+            scrollToLeft,
+            scrollToTop,
+            scrollToRow,
+        }),
+        [scrollTo, scrollToLeft, scrollToTop, scrollToRow],
+    );
+
+    // Provide context to child components
+    const contextValue = useMemo(
+        () => ({
+            ns,
+            isResetting,
+            isScrolling,
+        }),
+        [ns, isResetting, isScrolling],
+    );
+
+    const {
+        cache,
+        cellProps,
+        estimatedRowHeight,
+        expandColumnKey,
+        fixedData,
+        headerHeight,
+        headerClass,
+        headerProps,
+        headerCellProps,
+        sortBy,
+        sortState,
+        rowHeight,
+        rowClass,
+        rowEventHandlers,
+        rowKey,
+        rowProps,
+        scrollbarAlwaysOn,
+        indentSize,
+        iconSize,
+        useIsScrolling,
+        vScrollbarSize,
+        width,
+        className,
+        rowFormatter,
+        cellFormatter,
+        headerFormatter,
+        headerCellFormatter,
+        footer,
+        empty,
+        overlay,
+    } = props;
+
+    const mainTableProps = useMemo(
+        () => ({
+            cache,
+            className: ns.e('main'),
+            columns: mainColumns,
+            data,
+            fixedData,
+            estimatedRowHeight,
+            bodyWidth,
+            headerHeight,
+            headerWidth: bodyWidth,
+            height: mainTableHeight,
+            mainTableRef,
+            rowKey,
+            rowHeight,
+            scrollbarAlwaysOn,
+            scrollbarStartGap: 2,
+            scrollbarEndGap: vScrollbarSize,
+            useIsScrolling,
+            width,
+            getRowHeight,
+            onRowsRendered,
+            onScroll,
+        }),
+        [
+            cache,
+            ns,
+            mainColumns,
+            data,
+            fixedData,
+            estimatedRowHeight,
+            bodyWidth,
+            headerHeight,
+            mainTableHeight,
+            mainTableRef,
+            rowKey,
+            rowHeight,
+            scrollbarAlwaysOn,
+            vScrollbarSize,
+            useIsScrolling,
+            width,
+            getRowHeight,
+            onRowsRendered,
+            onScroll,
+        ],
+    );
+
+    const leftColumnsWidth = leftTableWidth;
+    const _fixedTableHeight = fixedTableHeight;
+
+    const leftTableProps = useMemo(
+        () => ({
+            cache,
+            className: ns.e('left'),
+            columns: fixedColumnsOnLeft,
+            data,
+            fixedData,
+            estimatedRowHeight,
+            leftTableRef,
+            rowHeight,
+            bodyWidth: leftColumnsWidth,
+            headerWidth: leftColumnsWidth,
+            headerHeight,
+            height: _fixedTableHeight,
+            rowKey,
+            scrollbarAlwaysOn,
+            scrollbarStartGap: 2,
+            scrollbarEndGap: vScrollbarSize,
+            useIsScrolling,
+            width: leftColumnsWidth,
+            getRowHeight,
+            onScroll: onVerticalScroll,
+        }),
+        [
+            cache,
+            ns,
+            fixedColumnsOnLeft,
+            data,
+            fixedData,
+            estimatedRowHeight,
+            leftTableRef,
+            rowHeight,
+            leftColumnsWidth,
+            headerHeight,
+            _fixedTableHeight,
+            rowKey,
+            scrollbarAlwaysOn,
+            vScrollbarSize,
+            useIsScrolling,
+            getRowHeight,
+            onVerticalScroll,
+        ],
+    );
+
+    const rightColumnsWidth = rightTableWidth;
+
+    const rightTableProps = useMemo(
+        () => ({
+            cache,
+            className: ns.e('right'),
+            columns: fixedColumnsOnRight,
+            data,
+            fixedData,
+            estimatedRowHeight,
+            rightTableRef,
+            rowHeight,
+            bodyWidth: rightColumnsWidth,
+            headerWidth: rightColumnsWidth,
+            headerHeight,
+            height: _fixedTableHeight,
+            rowKey,
+            scrollbarAlwaysOn,
+            scrollbarStartGap: 2,
+            scrollbarEndGap: vScrollbarSize,
+            width: rightColumnsWidth,
+            style: { [`--${ns.cssVarName('table-scrollbar-size')}`]: `${vScrollbarSize}px` } as CSSProperties,
+            useIsScrolling,
+            getRowHeight,
+            onScroll: onVerticalScroll,
+        }),
+        [
+            cache,
+            ns,
+            fixedColumnsOnRight,
+            data,
+            fixedData,
+            estimatedRowHeight,
+            rightTableRef,
+            rowHeight,
+            rightColumnsWidth,
+            headerHeight,
+            _fixedTableHeight,
+            rowKey,
+            scrollbarAlwaysOn,
+            vScrollbarSize,
+            useIsScrolling,
+            getRowHeight,
+            onVerticalScroll,
+        ],
+    );
+
+    const tableRowProps = useMemo(
+        () => ({
+            ns,
+            depthMap,
+            columnsStyles,
+            expandColumnKey,
+            expandedRowKeys,
+            estimatedRowHeight,
+            hasFixedColumns,
+            rowProps,
+            rowClass,
+            rowKey,
+            rowEventHandlers,
+            onRowHovered,
+            onRowExpanded,
+            onRowHeightChange,
+        }),
+        [
+            ns,
+            depthMap,
+            columnsStyles,
+            expandColumnKey,
+            expandedRowKeys,
+            estimatedRowHeight,
+            hasFixedColumns,
+            rowProps,
+            rowClass,
+            rowKey,
+            rowEventHandlers,
+            onRowHovered,
+            onRowExpanded,
+            onRowHeightChange,
+        ],
+    );
+
+    const tableCellProps = useMemo(
+        () => ({
+            cellProps,
+            expandColumnKey,
+            indentSize,
+            iconSize,
+            rowKey,
+            expandedRowKeys,
+            ns,
+        }),
+        [cellProps, expandColumnKey, indentSize, iconSize, rowKey, expandedRowKeys, ns],
+    );
+
+    const tableHeaderProps = useMemo(
+        () => ({
+            ns,
+            headerClass,
+            headerProps,
+            columnsStyles,
+        }),
+        [ns, headerClass, headerProps, columnsStyles],
+    );
+
+    const tableHeaderCellProps = useMemo(
+        () => ({
+            ns,
+            sortBy,
+            sortState,
+            headerCellProps,
+            onColumnSorted,
+        }),
+        [ns, sortBy, sortState, headerCellProps, onColumnSorted],
+    );
+
+    const rootKls = useMemo(() => classNames(className, ns.b(), ns.e('root'), ns.is({ isDynamic })), [className, ns, isDynamic]);
+
+    const footerProps = useMemo(
+        () => ({
+            className: ns.e('footer'),
+            style: footerHeight,
+        }),
+        [ns, footerHeight],
+    );
+
+    const formatters = useMemo(() => {
+        return {
+            rowFormatter: (params: TableGridRowSlotParams) => (
+                <Row
+                    {...params}
+                    {...tableRowProps}
+                    rowFormatter={rowFormatter}
+                    cellFormatter={(cellParams: TableV2RowCellRenderParam) =>
+                        cellFormatter ? (
+                            <Cell {...cellParams} {...tableCellProps} style={columnsStyles[cellParams.column.key as KeyType]}>
+                                {cellFormatter(cellParams)}
+                            </Cell>
+                        ) : (
+                            <Cell {...cellParams} {...tableCellProps} style={columnsStyles[cellParams.column.key as KeyType]} />
+                        )
+                    }
+                ></Row>
+            ),
+            headerFormatter: (headerParams: TableV2HeaderRendererParams) => (
+                <Header
+                    {...headerParams}
+                    {...tableHeaderProps}
+                    headerFormatter={headerFormatter}
+                    cellFormatter={(headerCellParams: TableV2HeaderRowCellRendererParams) =>
+                        headerCellFormatter ? (
+                            <HeaderCell {...headerCellParams} {...tableHeaderCellProps} style={columnsStyles[headerCellParams.column.key as KeyType]}>
+                                {headerCellFormatter(headerCellParams)}
+                            </HeaderCell>
+                        ) : (
+                            <HeaderCell {...headerCellParams} {...tableHeaderCellProps} style={columnsStyles[headerCellParams.column.key as KeyType]} />
+                        )
+                    }
+                ></Header>
+            ),
+        };
+    }, [cellFormatter, columnsStyles, headerCellFormatter, headerFormatter, rowFormatter, tableCellProps, tableHeaderCellProps, tableHeaderProps, tableRowProps]);
+
+    return (
+        <TableV2Context.Provider value={contextValue}>
+            <div className={rootKls} style={rootStyle}>
+                <MainTable {...mainTableProps} {...formatters}></MainTable>
+                <LeftTable {...leftTableProps} {...formatters}></LeftTable>
+                <RightTable {...rightTableProps} {...formatters}></RightTable>
+                {footer && <Footer {...footerProps}>{footer}</Footer>}
+                {showEmpty && (
+                    <Empty className={ns.e('empty')} style={emptyStyle}>
+                        {empty}
+                    </Empty>
+                )}
+                {overlay && <Overlay className={ns.e('overlay')}>{overlay}</Overlay>}
+            </div>
+        </TableV2Context.Provider>
+    );
+});
+
+TableV2.displayName = COMPONENT_NAME;
+
+export default TableV2;

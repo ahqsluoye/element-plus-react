@@ -35,5 +35,5 @@ export const componentToSlot = <T extends object>(ComponentLike: ReactNode | ((p
     }
     // For React elements or undefined, return undefined
     // The caller should handle rendering directly
-    return (props: T) => ComponentLike as ReactElement;
+    return null;
 };

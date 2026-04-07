@@ -155,7 +155,7 @@ const createGrid = ({
                 // emit the render item event with
                 // [xAxisInvisibleStart, xAxisInvisibleEnd, xAxisVisibleStart, xAxisVisibleEnd]
                 // [yAxisInvisibleStart, yAxisInvisibleEnd, yAxisVisibleStart, yAxisVisibleEnd]
-                itemRendered({
+                itemRendered?.({
                     columnCacheStart,
                     columnCacheEnd,
                     rowCacheStart,
@@ -464,13 +464,15 @@ const createGrid = ({
                             React.createElement(
                                 React.Fragment,
                                 { key },
-                                React.cloneElement(children as React.ReactElement, {
-                                    columnIndex: column,
-                                    data,
-                                    isScrolling: useIsScrolling ? states.isScrolling : undefined,
-                                    style: getItemStyle(row, column),
-                                    rowIndex: row,
-                                }),
+                                children
+                                    ? children({
+                                          columnIndex: column,
+                                          data,
+                                          isScrolling: useIsScrolling ? states.isScrolling : undefined,
+                                          style: getItemStyle(row, column),
+                                          rowIndex: row,
+                                      })
+                                    : null,
                             ),
                         );
                     }

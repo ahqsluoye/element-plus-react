@@ -1,6 +1,5 @@
-import { isClient, isNumber, isString } from '@element-plus/utils';
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { CSSProperties, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useClassNames } from '../../hooks';
 import Scrollbar from '../components/scrollbar';
 import { AUTO_ALIGNMENT, BACKWARD, FORWARD, HORIZONTAL, RTL, RTL_OFFSET_NAG, RTL_OFFSET_POS_ASC, RTL_OFFSET_POS_DESC } from '../defaults';
@@ -8,7 +7,7 @@ import { useCache } from '../hooks/use-cache';
 import { useWheel } from '../hooks/use-wheel';
 import { getRTLOffsetType, getScrollDir, isHorizontal } from '../utils';
 
-import type { CSSProperties } from 'react';
+import { isClient, isNumber, isString } from '@qsxy/element-plus-react/Util';
 import type { VirtualizedListProps } from '../props';
 import type { Alignment, ListConstructorProps, ListExposes } from '../types';
 

@@ -20,4 +20,6 @@ const LeftTable = forwardRef<TableGridInstance, LeftTableProps>((props, ref) => 
     );
 });
 
+LeftTable.displayName = 'LeftTable';
+
 export default LeftTable;

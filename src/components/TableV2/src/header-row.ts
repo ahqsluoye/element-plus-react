@@ -6,6 +6,6 @@ export type TableV2HeaderRowProps = {
     columnsStyles: Record<KeyType, CSSProperties>;
     columns: Column<any>[];
     headerIndex?: number | undefined;
-    cell?: (props: any) => ColumnCellsType;
-    header?: (props: any) => ColumnCellsType;
+    cellFormatter?: (props: any) => ColumnCellsType;
+    headerFormatter?: (props: any) => ColumnCellsType;
 } & NativeProps;

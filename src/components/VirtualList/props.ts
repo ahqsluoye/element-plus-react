@@ -57,7 +57,7 @@ export interface VirtualizedGridProps extends VirtualizedProps {
     scrollbarStartGap?: number;
     scrollbarEndGap?: number;
     role?: string;
-    children?: React.ReactElement;
+    children?: (params: any) => React.ReactNode;
 }
 
 export interface VirtualizedScrollbarProps {
