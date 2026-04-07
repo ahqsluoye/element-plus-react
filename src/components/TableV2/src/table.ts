@@ -111,7 +111,7 @@ export type TableV2Props = {
     /** 滚动条是否总是显示，不论是否滚动 */
     scrollbarAlwaysOn?: boolean;
     /** 排序方式 */
-    sortBy?: object;
+    sortBy?: SortBy;
     /** 多个排序 */
     sortState?: SortState;
     headerFormatter?: (props: HeaderSlotProps) => React.ReactNode;
@@ -170,3 +170,5 @@ export type CellFormatProps<T> = {
           }
         | undefined;
 };
+
+export type SortBy = { key: KeyType; order: SortOrder };

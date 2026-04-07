@@ -5,7 +5,7 @@ export type TableV2HeaderCell = {
     className?: string;
     column?: Column<any>;
     columnIndex?: number;
-    children: React.ReactElement | React.ReactElement[];
+    children?: React.ReactElement | React.ReactElement[];
 };
 export type TableV2HeaderCellPublic = {
     className?: string;
