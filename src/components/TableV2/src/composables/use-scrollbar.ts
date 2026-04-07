@@ -12,7 +12,7 @@ type UseScrollbarProps = {
     leftTableRef: GridInstanceRef;
     rightTableRef: GridInstanceRef;
 
-    onMaybeEndReached: () => void;
+    onMaybeEndReached: (scrollPos: ScrollPos) => void;
 };
 
 export type { ScrollStrategy };
@@ -90,11 +90,11 @@ export const useScrollbar = (props: TableV2Props, { mainTableRef, leftTableRef, 
         const prev = prevScrollTopRef.current;
 
         if (cur > prev) {
-            onMaybeEndReached();
+            onMaybeEndReached(scrollPos);
         }
 
         prevScrollTopRef.current = cur;
-    }, [scrollPos.scrollTop, onMaybeEndReached]);
+    }, [scrollPos.scrollTop]);
 
     return {
         scrollPos,

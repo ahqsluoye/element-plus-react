@@ -1,8 +1,6 @@
 import { addUnit, isFunction } from '@qsxy/element-plus-react/Util';
 import isArray from 'lodash/isArray';
-import React, { ReactElement } from 'react';
-
-import { type CSSProperties, type ReactNode } from 'react';
+import React, { ReactElement, type CSSProperties, type ReactNode } from 'react';
 
 const sumReducer = (sum: number, num: number) => sum + num;
 

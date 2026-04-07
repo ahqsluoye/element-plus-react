@@ -123,6 +123,8 @@ export type TableV2Props = {
     onRowsRendered?: (params: RowsRenderedParams) => void;
     /** 行展开状态改变时触发 */
     onExpandedRowsChange?: ExpandedRowsChangeHandler;
+    /** 到达表格末尾时触发。 回调包含剩余距离，它通常是滚动条高度。*/
+    onEndReached?: (remainDistance: number) => void;
     /** 点击箭头图标展开/折叠树节点时触发 */
     onRowExpand?: (params: RowExpandParams) => void;
     /** 表格被用户滚动后触发 */

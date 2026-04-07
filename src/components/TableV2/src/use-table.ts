@@ -1,69 +1,66 @@
-import { useNamespace } from '@element-plus/hooks';
-import { isArray, isNumber } from '@element-plus/utils';
-import { computed, getCurrentInstance, ref, shallowRef, toRef, unref, watch } from 'vue';
-import { useColumns, useData, useRow, useScrollbar, useStyles } from './composables';
+import isArray from 'lodash/isArray';
+import isNumber from 'lodash/isNumber';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ScrollPos, useColumns, useData, useRow, useScrollbar, useStyles } from './composables';
 
+import { useClassNames } from '@qsxy/element-plus-react/hooks';
 import type { TableV2Props } from './table';
 import type { TableGridInstance } from './table-grid';
 
 function useTable(props: TableV2Props) {
-    const mainTableRef = ref<TableGridInstance>();
-    const leftTableRef = ref<TableGridInstance>();
-    const rightTableRef = ref<TableGridInstance>();
+    const mainTableRef = useRef<TableGridInstance>(null);
+    const leftTableRef = useRef<TableGridInstance>(null);
+    const rightTableRef = useRef<TableGridInstance>(null);
+
+    const ns = useClassNames('table-v2');
+
+    // state
+    const [isScrolling, setIsScrolling] = useState(false);
+
+    const { columns, columnsStyles, columnsTotalWidth, fixedColumnsOnLeft, fixedColumnsOnRight, hasFixedColumns, mainColumns, onColumnSorted } = useColumns(
+        props,
+        props.columns,
+        props.fixed,
+    );
+
     const {
-        columns,
-        columnsStyles,
-        columnsTotalWidth,
-        fixedColumnsOnLeft,
-        fixedColumnsOnRight,
-        hasFixedColumns,
-        mainColumns,
-
-        onColumnSorted,
-    } = useColumns(props, toRef(props, 'columns'), toRef(props, 'fixed'));
-
-    const { scrollTo, scrollToLeft, scrollToTop, scrollToRow, onScroll, onVerticalScroll, scrollPos } = useScrollbar(props, {
+        expandedRowKeys,
+        setExpandedRowKeys,
+        lastRenderedRowIndex,
+        setLastRenderedRowIndex,
+        isDynamic,
+        isResetting,
+        rowHeights,
+        resetAfterIndex,
+        onRowExpanded,
+        onRowHeightChange,
+        onRowHovered,
+        onRowsRendered,
+    } = useRow(props, {
         mainTableRef,
         leftTableRef,
         rightTableRef,
-
-        onMaybeEndReached,
+        tableInstance: {},
+        ns,
+        isScrolling,
     });
-
-    const ns = useNamespace('table-v2');
-    const instance = getCurrentInstance()!;
-
-    // state
-    const isScrolling = shallowRef(false);
-
-    const { expandedRowKeys, lastRenderedRowIndex, isDynamic, isResetting, rowHeights, resetAfterIndex, onRowExpanded, onRowHeightChange, onRowHovered, onRowsRendered } = useRow(
-        props,
-        {
-            mainTableRef,
-            leftTableRef,
-            rightTableRef,
-            tableInstance: instance,
-            ns,
-            isScrolling,
-        },
-    );
 
     const { data, depthMap } = useData(props, {
         expandedRowKeys,
         lastRenderedRowIndex,
         resetAfterIndex,
+        setLastRenderedRowIndex,
     });
 
-    const rowsHeight = computed(() => {
+    const rowsHeight = useMemo(() => {
         const { estimatedRowHeight, rowHeight } = props;
-        const _data = unref(data);
         if (isNumber(estimatedRowHeight)) {
             // calculate the actual height
-            return Object.values(unref(rowHeights)).reduce((acc, curr) => acc + curr, 0);
+            return Object.values(rowHeights).reduce((acc, curr) => acc + curr, 0);
         }
 
-        return _data.length * rowHeight;
-    });
+        return data.length * rowHeight;
+    }, [props, data.length, rowHeights]);
 
     const { bodyWidth, fixedTableHeight, mainTableHeight, leftTableWidth, rightTableWidth, windowHeight, footerHeight, emptyStyle, rootStyle, headerHeight } = useStyles(props, {
         columnsTotalWidth,
@@ -72,61 +69,72 @@ function useTable(props: TableV2Props) {
         rowsHeight,
     });
 
-    // DOM/Component refs
-    const containerRef = ref();
+    const [isEndReached, setIsEndReached] = useState(false);
 
-    const showEmpty = computed(() => {
-        const noData = unref(data).length === 0;
+    const onMaybeEndReached = useCallback(
+        (scrollPos: ScrollPos) => {
+            const { onEndReached } = props;
+            if (!onEndReached) {
+                return;
+            }
 
-        return isArray(props.fixedData) ? props.fixedData.length === 0 && noData : noData;
+            const { scrollTop } = scrollPos;
+
+            const _totalHeight = rowsHeight;
+            const clientHeight = windowHeight;
+
+            const remainDistance = _totalHeight - (scrollTop + clientHeight) + props.hScrollbarSize;
+
+            if (!isEndReached && lastRenderedRowIndex >= 0 && _totalHeight <= scrollTop + mainTableHeight - headerHeight) {
+                setIsEndReached(true);
+                onEndReached(remainDistance);
+            } else {
+                setIsEndReached(false);
+            }
+        },
+        [headerHeight, isEndReached, lastRenderedRowIndex, mainTableHeight, props, rowsHeight, windowHeight],
+    );
+
+    const { scrollTo, scrollToLeft, scrollToTop, scrollToRow, onScroll, onVerticalScroll, scrollPos } = useScrollbar(props, {
+        mainTableRef,
+        leftTableRef,
+        rightTableRef,
+        onMaybeEndReached,
     });
 
-    function getRowHeight(rowIndex: number) {
-        const { estimatedRowHeight, rowHeight, rowKey } = props;
+    // DOM/Component refs
+    const containerRef = useRef<HTMLDivElement>(null);
 
-        if (!estimatedRowHeight) {
-            return rowHeight;
-        }
+    const showEmpty = useMemo(() => {
+        const noData = data.length === 0;
 
-        return unref(rowHeights)[unref(data)[rowIndex][rowKey]] || estimatedRowHeight;
-    }
+        return isArray(props.fixedData) ? props.fixedData.length === 0 && noData : noData;
+    }, [data.length, props.fixedData]);
 
-    const isEndReached = ref(false);
-    function onMaybeEndReached() {
-        const { onEndReached } = props;
-        if (!onEndReached) {
-            return;
-        }
+    const getRowHeight = useCallback(
+        (rowIndex: number) => {
+            const { estimatedRowHeight, rowHeight, rowKey } = props;
 
-        const { scrollTop } = unref(scrollPos);
+            if (!estimatedRowHeight) {
+                return rowHeight;
+            }
 
-        const _totalHeight = unref(rowsHeight);
-        const clientHeight = unref(windowHeight);
-
-        const remainDistance = _totalHeight - (scrollTop + clientHeight) + props.hScrollbarSize;
-
-        if (!isEndReached.value && unref(lastRenderedRowIndex) >= 0 && _totalHeight <= scrollTop + unref(mainTableHeight) - unref(headerHeight)) {
-            isEndReached.value = true;
-            onEndReached(remainDistance);
-        } else {
-            isEndReached.value = false;
-        }
-    }
-
-    // events
-
-    watch(
-        () => unref(rowsHeight),
-        () => (isEndReached.value = false),
-    );
-
-    watch(
-        () => props.expandedRowKeys,
-        val => (expandedRowKeys.value = val),
-        {
-            deep: true,
+            return rowHeights[data[rowIndex][rowKey]] || estimatedRowHeight;
         },
+        [props, rowHeights, data],
     );
+
+    // Watch rowsHeight changes to reset isEndReached
+    useEffect(() => {
+        setIsEndReached(false);
+    }, [rowsHeight]);
+
+    // Watch expandedRowKeys prop changes
+    useEffect(() => {
+        if (props.expandedRowKeys) {
+            setExpandedRowKeys(props.expandedRowKeys);
+        }
+    }, [props.expandedRowKeys]);
 
     return {
         // models

@@ -17,12 +17,13 @@ type UseRowProps = {
     mainTableRef: GridInstanceRef;
     leftTableRef: GridInstanceRef;
     rightTableRef: GridInstanceRef;
+    tableInstance: any;
     ns: UseNamespaceReturn;
     isScrolling: boolean;
     onExpandedRowKeys?: (expandedRowKeys: KeyType[]) => void;
 };
 
-export const useRow = (props: TableV2Props, { mainTableRef, leftTableRef, rightTableRef, ns, isScrolling, onExpandedRowKeys }: UseRowProps) => {
+export const useRow = (props: TableV2Props, { mainTableRef, leftTableRef, rightTableRef, tableInstance, ns, isScrolling, onExpandedRowKeys }: UseRowProps) => {
     const [isResetting, setIsResetting] = useState(false);
     const [expandedRowKeys, setExpandedRowKeys] = useState<KeyType[]>(props.defaultExpandedRowKeys || []);
     const [lastRenderedRowIndex, setLastRenderedRowIndex] = useState(-1);
@@ -166,6 +167,7 @@ export const useRow = (props: TableV2Props, { mainTableRef, leftTableRef, rightT
 
     return {
         expandedRowKeys,
+        setExpandedRowKeys,
         lastRenderedRowIndex,
         setLastRenderedRowIndex,
         isDynamic,
