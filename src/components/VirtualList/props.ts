@@ -1,6 +1,6 @@
 import { VERTICAL } from './defaults';
 
-import type { CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
 import type { GridItemKeyGetter, ItemSize } from './types';
 
 export interface VirtualizedProps {
@@ -57,6 +57,7 @@ export interface VirtualizedGridProps extends VirtualizedProps {
     scrollbarStartGap?: number;
     scrollbarEndGap?: number;
     role?: string;
+    children?: React.ReactElement;
 }
 
 export interface VirtualizedScrollbarProps {

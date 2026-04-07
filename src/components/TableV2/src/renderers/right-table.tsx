@@ -1,25 +1,22 @@
-import Table from '../table-grid';
+import Table, { TableGridInstance } from '../table-grid';
 
-import type { FunctionalComponent, Ref } from 'vue';
-import type { TableV2GridProps } from '../grid';
-import type { TableGridInstance } from '../table-grid';
+import React, { forwardRef } from 'react';
+import { TableV2GridProps } from '../grid';
 
 type RightTableProps = TableV2GridProps & {
-    rightTableRef: Ref<TableGridInstance | undefined>;
+    children?: React.ReactNode;
 };
 
-const RightTable: FunctionalComponent<RightTableProps> = (props, { slots }) => {
+const RightTable = forwardRef<TableGridInstance, RightTableProps>((props, ref) => {
     if (!props.columns.length) {
         return;
     }
 
-    const { rightTableRef, ...rest } = props;
-
     return (
-        <Table ref={rightTableRef} {...rest}>
-            {slots}
+        <Table ref={ref} {...props}>
+            {props.children}
         </Table>
     );
-};
+});
 
 export default RightTable;

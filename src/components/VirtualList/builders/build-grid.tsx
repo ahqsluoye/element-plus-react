@@ -31,7 +31,7 @@ const createGrid = ({
     itemRendered,
     onScroll,
 }: GridConstructorProps<VirtualizedGridProps>) => {
-    const GridComponent = React.forwardRef<GridExposes, VirtualizedGridProps & { children: (props: any) => React.ReactNode }>((props, ref) => {
+    const GridComponent = React.forwardRef<GridExposes, VirtualizedGridProps>((props, ref) => {
         const {
             totalColumn,
             totalRow,
@@ -464,7 +464,7 @@ const createGrid = ({
                             React.createElement(
                                 React.Fragment,
                                 { key },
-                                children?.({
+                                React.cloneElement(children as React.ReactElement, {
                                     columnIndex: column,
                                     data,
                                     isScrolling: useIsScrolling ? states.isScrolling : undefined,

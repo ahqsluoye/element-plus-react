@@ -1,20 +1,16 @@
-import Table from '../table-grid';
+import React, { forwardRef } from 'react';
+import Table, { TableGridInstance } from '../table-grid';
 
-import type { FunctionalComponent, Ref } from 'vue';
 import type { TableV2GridProps } from '../grid';
-import type { TableGridInstance } from '../table-grid';
 
-export type MainTableRendererProps = TableV2GridProps & {
-    mainTableRef: Ref<TableGridInstance | undefined>;
-};
+export type MainTableRendererProps = TableV2GridProps & {};
 
-const MainTable: FunctionalComponent<MainTableRendererProps> = (props: MainTableRendererProps, { slots }) => {
-    const { mainTableRef, ...rest } = props;
+const MainTable = forwardRef<TableGridInstance, MainTableRendererProps>((props, ref) => {
     return (
-        <Table ref={mainTableRef} {...rest}>
-            {slots}
+        <Table ref={ref} {...props}>
+            {props.children}
         </Table>
     );
-};
+});
 
 export default MainTable;

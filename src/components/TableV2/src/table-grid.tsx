@@ -266,6 +266,7 @@ const TableGrid = forwardRef<TableGridInstance, TableV2GridProps>((props, ref) =
                     perfMode={false}
                     rowFormatter={rowFormatter}
                 >
+                    {props.children}
                     {/* {rowFormatter?.({
                     ...params,
                     columns,

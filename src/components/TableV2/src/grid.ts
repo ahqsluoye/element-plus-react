@@ -1,4 +1,4 @@
-import { NativeProps } from '@qsxy/element-plus-react/types/common';
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React, { CSSProperties } from 'react';
 import { HeaderSlotProps, TableGridRowSlotParams } from './table';
 import { Column } from './types';
@@ -50,4 +50,5 @@ export type TableV2GridProps = {
     rowFormatter?: (props: TableGridRowSlotParams) => React.ReactNode;
     onRowsRendered?: (params: onRowRenderedParams) => void;
     onScroll?: (...args: any[]) => void;
-} & NativeProps;
+} & NativeProps &
+    BaseProps<React.ReactElement>;

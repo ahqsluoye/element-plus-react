@@ -1,8 +1,7 @@
-import Table from '../table-grid';
+import Table, { TableGridInstance } from '../table-grid';
 
 import React, { forwardRef, RefObject } from 'react';
 import { TableV2GridProps } from '../grid';
-import { TableGridInstance } from '../table-grid';
 
 type LeftTableProps = TableV2GridProps & {
     leftTableRef: RefObject<TableGridInstance | undefined>;

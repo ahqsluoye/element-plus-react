@@ -1,9 +1,10 @@
+import React from 'react';
 import type { SimpleFunctionalComponent } from '../types';
 
-const Overlay: SimpleFunctionalComponent = (props, { slots }) => {
+const Overlay: SimpleFunctionalComponent = props => {
     return (
-        <div class={props.class} style={props.style}>
-            {slots.default?.()}
+        <div className={props.className} style={props.style}>
+            {props.children}
         </div>
     );
 };
