@@ -95,7 +95,7 @@ function useTable(props: TableV2Props) {
         [headerHeight, isEndReached, lastRenderedRowIndex, mainTableHeight, props, rowsHeight, windowHeight],
     );
 
-    const { scrollTo, scrollToLeft, scrollToTop, scrollToRow, onScroll, onVerticalScroll, scrollPos } = useScrollbar(props, {
+    const { scrollTo, scrollToLeft, scrollToTop, scrollToRow, onScroll, onVerticalScroll } = useScrollbar(props, {
         mainTableRef,
         leftTableRef,
         rightTableRef,

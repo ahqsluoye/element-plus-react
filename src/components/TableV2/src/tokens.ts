@@ -12,4 +12,4 @@ export const TableV2Context = createContext<TableV2Context | null>(null);
 
 // Context for grid scroll left position
 export const TableV2GridScrollLeftContext = createContext<number | undefined>(undefined);
-export const TABLE_V2_GRID_INJECTION_KEY = TableV2GridScrollLeftContext;
+export const TABLE_V2_GRID_INJECTION_KEY = TableV2Context;

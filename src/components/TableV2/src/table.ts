@@ -181,10 +181,10 @@ export type CellFormatProps<T> = {
         | undefined;
 };
 
-export type SortBy = { key: KeyType; order: SortOrder };
+export type SortBy = { key?: KeyType; order?: SortOrder };
 
 export type HeaderCellSlotProps = {
-    class: string;
+    className: string;
     columns: Column<any>[];
     column: Column<any>;
     columnIndex: number;

@@ -17,7 +17,7 @@ import Row from './renderers/row';
 
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util';
 import classNames from 'classnames';
-import type { TableV2HeaderRendererParams, TableV2HeaderRowCellRendererParams, TableV2RowCellRenderParam } from './components';
+import type { TableV2RowCellRenderParam } from './components';
 import type { ScrollStrategy } from './composables/use-scrollbar';
 import type { TableGridRowSlotParams } from './table-grid';
 import type { KeyType } from './types';
@@ -49,7 +49,7 @@ export interface TableV2Instance {
 }
 
 const TableV2 = forwardRef<TableV2Instance, TableV2Props>((props, ref) => {
-    props = mergeDefaultProps(props, {
+    props = mergeDefaultProps<any>(props, {
         cache: 2,
         headerHeight: 50,
         footerHeight: 0,
@@ -388,30 +388,52 @@ const TableV2 = forwardRef<TableV2Instance, TableV2Props>((props, ref) => {
                 <Row
                     {...params}
                     {...tableRowProps}
+                    key={`row_${params.rowIndex}`}
                     rowFormatter={rowFormatter}
                     cellFormatter={(cellParams: TableV2RowCellRenderParam) =>
                         cellFormatter ? (
-                            <Cell {...cellParams} {...tableCellProps} style={columnsStyles[cellParams.column.key as KeyType]}>
+                            <Cell
+                                {...cellParams}
+                                {...tableCellProps}
+                                key={`row_${params.rowIndex}_${cellParams.columnIndex}`}
+                                style={columnsStyles[cellParams.column.key as KeyType]}
+                            >
                                 {cellFormatter(cellParams)}
                             </Cell>
                         ) : (
-                            <Cell {...cellParams} {...tableCellProps} style={columnsStyles[cellParams.column.key as KeyType]} />
+                            <Cell
+                                {...cellParams}
+                                {...tableCellProps}
+                                key={`row_${params.rowIndex}_${cellParams.columnIndex}`}
+                                style={columnsStyles[cellParams.column.key as KeyType]}
+                            />
                         )
                     }
                 ></Row>
             ),
-            headerFormatter: (headerParams: TableV2HeaderRendererParams) => (
+            headerFormatter: (headerParams: any) => (
                 <Header
                     {...headerParams}
                     {...tableHeaderProps}
+                    key={`header_${headerParams.headerIndex}`}
                     headerFormatter={headerFormatter}
-                    cellFormatter={(headerCellParams: TableV2HeaderRowCellRendererParams) =>
+                    cellFormatter={(headerCellParams: any) =>
                         headerCellFormatter ? (
-                            <HeaderCell {...headerCellParams} {...tableHeaderCellProps} style={columnsStyles[headerCellParams.column.key as KeyType]}>
+                            <HeaderCell
+                                {...headerCellParams}
+                                {...tableHeaderCellProps}
+                                key={`headerCell_${headerCellParams.columnIndex}`}
+                                style={columnsStyles[headerCellParams.column.key as KeyType]}
+                            >
                                 {headerCellFormatter(headerCellParams)}
                             </HeaderCell>
                         ) : (
-                            <HeaderCell {...headerCellParams} {...tableHeaderCellProps} style={columnsStyles[headerCellParams.column.key as KeyType]} />
+                            <HeaderCell
+                                {...headerCellParams}
+                                {...tableHeaderCellProps}
+                                key={`headerCell_${headerCellParams.columnIndex}`}
+                                style={columnsStyles[headerCellParams.column.key as KeyType]}
+                            />
                         )
                     }
                 ></Header>
@@ -422,9 +444,9 @@ const TableV2 = forwardRef<TableV2Instance, TableV2Props>((props, ref) => {
     return (
         <TableV2Context.Provider value={contextValue}>
             <div className={rootKls} style={rootStyle}>
-                <MainTable {...mainTableProps} {...formatters}></MainTable>
-                <LeftTable {...leftTableProps} {...formatters}></LeftTable>
-                <RightTable {...rightTableProps} {...formatters}></RightTable>
+                <MainTable ref={mainTableRef} {...mainTableProps} {...formatters}></MainTable>
+                <LeftTable ref={leftTableRef} {...leftTableProps} {...formatters}></LeftTable>
+                <RightTable ref={rightTableRef} {...rightTableProps} {...formatters}></RightTable>
                 {footer && <Footer {...footerProps}>{footer}</Footer>}
                 {showEmpty && (
                     <Empty className={ns.e('empty')} style={emptyStyle}>

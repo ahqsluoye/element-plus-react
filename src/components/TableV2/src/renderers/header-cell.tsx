@@ -75,7 +75,7 @@ const HeaderCellRenderer: React.FC<HeaderCellRendererProps> = props => {
         () => ({
             ...tryCall(headerCellProps, props),
             onClick: column.sortable ? onColumnSorted : undefined,
-            ariaSort: sortable ? ariaSort : undefined,
+            'aria-sort': sortable ? ariaSort : undefined,
             className: cellKls,
             style: cellStyle,
             ['data-key']: column.key,

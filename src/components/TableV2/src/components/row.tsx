@@ -99,8 +99,6 @@ const useTableRow = (props: TableV2RowProps) => {
     return { isScrolling, measurable, measured, rowRef, eventHandlers, onExpand };
 };
 
-const COMPONENT_NAME = 'ElTableV2TableRow';
-
 const TableV2Row: React.FC<TableV2RowProps> = ({
     className,
     columns,
@@ -175,7 +173,7 @@ const TableV2Row: React.FC<TableV2RowProps> = ({
     );
 };
 
-TableV2Row.displayName = COMPONENT_NAME;
+TableV2Row.displayName = 'ElTableV2TableRow';
 
 export default TableV2Row;
 

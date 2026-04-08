@@ -7,6 +7,7 @@ import { Alignment } from '../constants';
 import { placeholderSign } from '../private';
 import { componentToSlot, enforceUnit, tryCall } from '../utils';
 
+import classNames from 'classnames';
 import type { UseNamespaceReturn } from '../../../hooks/useClassNames';
 import type { IconSize } from '../../../Icon/typings';
 import type { TableV2Props } from '../table';
@@ -85,9 +86,8 @@ const CellRenderer: React.FC<CellRendererProps> = ({
     const Cell = columnCellRenderer ? columnCellRenderer(cellProps) : children || <TableCell {...cellProps}>{cellData}</TableCell>;
 
     const kls = useMemo(
-        () =>
-            [ns.e('row-cell'), column.class, column.align === Alignment.CENTER && ns.is('align-center'), column.align === Alignment.RIGHT && ns.is('align-right')].filter(Boolean),
-        [ns, column.class, column.align],
+        () => classNames(ns.e('row-cell'), column.className, ns.is({ 'align-center': column.align === Alignment.CENTER, 'align-right': column.align === Alignment.RIGHT })),
+        [ns, column.className, column.align],
     );
 
     const expandable = rowIndex >= 0 && expandColumnKey && column.key === expandColumnKey;
@@ -118,7 +118,7 @@ const CellRenderer: React.FC<CellRendererProps> = ({
     }
 
     return (
-        <div className={kls.join(' ')} style={cellStyle} {...extraCellProps} role="cell">
+        <div className={kls} style={cellStyle} {...extraCellProps} role="cell">
             {IconOrPlaceholder}
             {Cell}
         </div>

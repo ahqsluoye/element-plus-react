@@ -55,7 +55,7 @@ export type Column<T = any> = {
      * Attributes
      */
     align?: Alignment;
-    class?: string | ClassNameGetter<T>;
+    className?: string | ClassNameGetter<T>;
     key?: KeyType;
     dataKey?: KeyType;
     fixed?: true | FixedDirection;

@@ -15,6 +15,7 @@ import {
     GridScrollOptions,
     ResetAfterIndex,
 } from '@qsxy/element-plus-react/VirtualList';
+import classNames from 'classnames';
 import { ScrollStrategy } from './composables';
 import { TableV2GridProps } from './grid';
 
@@ -237,8 +238,8 @@ const TableGrid = forwardRef<TableGridInstance, TableV2GridProps>((props, ref) =
 
     return (
         <TableV2Context.Provider value={{ ...context, scrollLeft }}>
-            <div role="table" className={[ns.e('table'), className].filter(Boolean).join(' ')} style={style}>
-                {/* <Grid
+            <div role="table" className={classNames(ns.e('table'), className)} style={style}>
+                <Grid
                     ref={bodyRef}
                     // special attrs
                     data={data}
@@ -262,12 +263,19 @@ const TableGrid = forwardRef<TableGridInstance, TableV2GridProps>((props, ref) =
                     scrollbarAlwaysOn={scrollbarAlwaysOn}
                     // handlers
                     onScroll={onScroll}
-                    onItemRendered={onItemRendered}
+                    itemRendered={onItemRendered}
                     perfMode={false}
                     rowFormatter={rowFormatter}
                 >
-                    {params => props.children && props.children(params)}
-                </Grid> */}
+                    {params =>
+                        props.children &&
+                        props.children({
+                            ...params,
+                            columns,
+                            rowData: data[params.rowIndex],
+                        })
+                    }
+                </Grid>
                 {hasHeader && (
                     <Header
                         ref={headerRef}

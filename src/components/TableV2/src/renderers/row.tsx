@@ -2,6 +2,7 @@ import React from 'react';
 import { Row } from '../components';
 import { tryCall } from '../utils';
 
+import classNames from 'classnames';
 import { UseNamespaceReturn } from '../../../hooks/useClassNames';
 import type { TableV2Props } from '../table';
 import type { TableGridRowSlotParams } from '../table-grid';
@@ -46,16 +47,14 @@ const RowRenderer = (props: RowRendererProps) => {
     const depth = depthMap[_rowKey] || 0;
     const canExpand = Boolean(expandColumnKey);
     const isFixedRow = rowIndex < 0;
-    const kls = [
+    const kls = classNames(
         ns.e('row'),
         rowKls,
-        ns.is('expanded', canExpand && expandedRowKeys.includes(_rowKey)),
-        ns.is('fixed', !depth && isFixedRow),
-        ns.is('customized', Boolean(props.rowFormatter)),
+        ns.is({ expanded: canExpand && expandedRowKeys.includes(_rowKey), fixed: !depth && isFixedRow, customized: Boolean(props.rowFormatter) }),
         {
             [ns.e(`row-depth-${depth}`)]: canExpand && rowIndex >= 0,
         },
-    ];
+    );
 
     const onRowHover = hasFixedColumns ? onRowHovered : undefined;
 
@@ -63,7 +62,7 @@ const RowRenderer = (props: RowRendererProps) => {
         ...additionalProps,
         columns,
         columnsStyles,
-        class: kls,
+        className: kls,
         depth,
         expandColumnKey,
         estimatedRowHeight: isFixedRow ? undefined : estimatedRowHeight,
@@ -73,6 +72,8 @@ const RowRenderer = (props: RowRendererProps) => {
         rowKey: _rowKey,
         rowEventHandlers,
         style,
+        rowFormatter: props.rowFormatter,
+        cellFormatter: props.cellFormatter,
     };
 
     const handlerMouseEnter = (e: MouseEvent) => {

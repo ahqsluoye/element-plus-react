@@ -1,5 +1,4 @@
 import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
-import { nextTick } from '@qsxy/element-plus-react/Util';
 import castArray from 'lodash/castArray';
 import React, { CSSProperties, forwardRef, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { useClassNames } from '../../../hooks';
@@ -36,13 +35,12 @@ const TableV2Header = forwardRef<TableV2HeaderInstance, TableV2HeaderProps>((pro
 
     const scrollToLeft = (left?: number) => {
         const headerEl = headerRef.current;
-        nextTick(() => {
-            if (headerEl?.scroll) {
-                headerEl.scroll({
-                    left,
-                });
-            }
-        });
+        if (headerEl?.scroll) {
+            headerEl.scroll({
+                left,
+            });
+        }
+        // nextTick(() => {});
     };
 
     const renderFixedRows = () => {
@@ -55,7 +53,7 @@ const TableV2Header = forwardRef<TableV2HeaderInstance, TableV2HeaderProps>((pro
             });
 
             return fixed?.({
-                class: fixedRowClassName,
+                className: fixedRowClassName,
                 columns,
                 rowData: fixedRowData,
                 rowIndex: -(fixedRowIndex + 1),
@@ -67,14 +65,14 @@ const TableV2Header = forwardRef<TableV2HeaderInstance, TableV2HeaderProps>((pro
     const renderDynamicRows = () => {
         const dynamicRowClassName = ns.e('dynamic-header-row');
 
-        return headerHeights.map((rowHeight, rowIndex) => {
+        return headerHeights.map((_rowHeight, rowIndex) => {
             const style: CSSProperties = enforceUnit({
                 width: '100%',
-                height: rowHeight,
+                height: _rowHeight,
             });
 
             return dynamic?.({
-                class: dynamicRowClassName,
+                className: dynamicRowClassName,
                 columns,
                 headerIndex: rowIndex,
                 style,
@@ -84,8 +82,8 @@ const TableV2Header = forwardRef<TableV2HeaderInstance, TableV2HeaderProps>((pro
 
     // Equivalent to onUpdated - scroll when scrollLeftInfo changes
     useEffect(() => {
-        if (scrollLeftInfo !== undefined) {
-            scrollToLeft(scrollLeftInfo);
+        if (scrollLeftInfo.scrollLeft !== undefined) {
+            scrollToLeft(scrollLeftInfo.scrollLeft);
         }
     }, [scrollLeftInfo]);
 

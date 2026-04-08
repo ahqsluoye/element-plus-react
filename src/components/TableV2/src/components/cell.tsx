@@ -1,4 +1,4 @@
-import React, { Children, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import type { TableV2CellProps } from '../cell';
 
 const TableV2Cell: React.FC<TableV2CellProps> = ({ className, cellData, style, children, ...rest }) => {
@@ -8,7 +8,7 @@ const TableV2Cell: React.FC<TableV2CellProps> = ({ className, cellData, style, c
 
     return (
         <div className={className} title={displayText} style={style}>
-            {children ? Children.map(children, child => React.cloneElement(child, { ...rest })) : displayText}
+            {children ?? displayText}
         </div>
     );
 };

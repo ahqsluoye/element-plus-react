@@ -49,6 +49,10 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
         isDragging: false,
         traveled: 0,
     });
+    const stateRef = useRef<ScrollState>({
+        isDragging: false,
+        traveled: 0,
+    });
 
     const bar = useMemo(() => BAR_MAP[layout], [layout]);
 
@@ -103,6 +107,76 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
 
     const totalSteps = useMemo(() => Math.ceil(clientSize - thumbSize - GAP), [clientSize, thumbSize, GAP]);
 
+    const onMouseUp = () => {
+        setState(prev => ({
+            ...prev,
+            isDragging: false,
+            [bar.axis]: 0,
+        }));
+        stateRef.current = {
+            ...stateRef.current,
+            isDragging: false,
+            [bar.axis]: 0,
+        };
+        detachEvents();
+        onStopMove?.();
+    };
+
+    const onMouseMove = (e: MouseEvent | TouchEvent) => {
+        const { isDragging } = stateRef.current;
+        if (!isDragging) {
+            return;
+        }
+        if (!thumbRef.current || !trackRef.current) {
+            return;
+        }
+
+        const prevPage = stateRef.current[bar.axis];
+        if (!prevPage) {
+            return;
+        }
+
+        cAF(frameHandleRef.current);
+        // using the current track's offset top/left - the current pointer's clientY/clientX
+        // to get the relative position of the pointer to the track.
+        const offset = (trackRef.current.getBoundingClientRect()[bar.direction] - (e as MouseEvent)[bar.client]) * -1;
+
+        // find where the thumb was clicked on.
+        const thumbClickPosition = thumbRef.current[bar.offset as any] - (prevPage as number);
+
+        /**
+         *  +--------------+                                   +--------------+
+         *  |              -  <--------- thumb.offsetTop       |              |
+         *  |             |+|             <--+                 |              |
+         *  |              -                 |                 |              |
+         *  |   Content    |                 |                 |              |
+         *  |              |                 |                 |              |
+         *  |              |                 |                 |              |
+         *  |              |                 |                 |              -
+         *  |              |                 +-->              |             |+|
+         *  |              |                                   |              -
+         *  +--------------+                                   +--------------+
+         */
+
+        // using the current position - prev position to
+        const distance = offset - thumbClickPosition;
+        // get how many steps in total.
+        // gap of 2 on top, 2 on bottom, in total 4.
+        // using totalSteps ÷ totalSize getting each step's size * distance to get the new
+        // scroll offset to scrollTo
+        frameHandleRef.current = rAF(() => {
+            setState(prev => ({
+                ...prev,
+                traveled: Math.max(0, Math.min(distance, totalSteps)),
+            }));
+            stateRef.current = {
+                ...stateRef.current,
+                traveled: Math.max(0, Math.min(distance, totalSteps)),
+            };
+            onScroll?.(distance, totalSteps);
+        });
+    };
+
     const attachEvents = () => {
         window.addEventListener('mousemove', onMouseMove);
         window.addEventListener('mouseup', onMouseUp);
@@ -145,76 +219,15 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
             return;
         }
 
-        setState(prev => ({
-            ...prev,
+        stateRef.current = {
+            ...stateRef.current,
             isDragging: true,
-            [bar.axis]:
-                (e.currentTarget as HTMLElement)[bar.offset as any] - (('clientX' in e ? e.clientX : 0) - (e.currentTarget as HTMLElement).getBoundingClientRect()[bar.direction]),
-        }));
+            [bar.axis]: (e.target as HTMLElement)[bar.offset as any] - ((e as MouseEvent)[bar.client] - (e.target as HTMLElement).getBoundingClientRect()[bar.direction]),
+        };
+        setState(stateRef.current);
 
         onStartMove?.();
         attachEvents();
-    };
-
-    const onMouseUp = () => {
-        setState(prev => ({
-            ...prev,
-            isDragging: false,
-            [bar.axis]: 0,
-        }));
-        detachEvents();
-        onStopMove?.();
-    };
-
-    const onMouseMove = (e: MouseEvent | TouchEvent) => {
-        const { isDragging } = state;
-        if (!isDragging) {
-            return;
-        }
-        if (!thumbRef.current || !trackRef.current) {
-            return;
-        }
-
-        const prevPage = state[bar.axis];
-        if (!prevPage) {
-            return;
-        }
-
-        cAF(frameHandleRef.current);
-        // using the current track's offset top/left - the current pointer's clientY/clientX
-        // to get the relative position of the pointer to the track.
-        const offset = (trackRef.current.getBoundingClientRect()[bar.direction] - ('clientX' in e ? e.clientX : e.touches[0].clientX)) * -1;
-
-        // find where the thumb was clicked on.
-        const thumbClickPosition = thumbRef.current[bar.offset as any] - (prevPage as number);
-
-        /**
-         *  +--------------+                                   +--------------+
-         *  |              -  <--------- thumb.offsetTop       |              |
-         *  |             |+|             <--+                 |              |
-         *  |              -                 |                 |              |
-         *  |   Content    |                 |                 |              |
-         *  |              |                 |                 |              |
-         *  |              |                 |                 |              |
-         *  |              |                 |                 |              -
-         *  |              |                 +-->              |             |+|
-         *  |              |                                   |              -
-         *  +--------------+                                   +--------------+
-         */
-
-        // using the current position - prev position to
-        const distance = offset - thumbClickPosition;
-        // get how many steps in total.
-        // gap of 2 on top, 2 on bottom, in total 4.
-        // using totalSteps ÷ totalSize getting each step's size * distance to get the new
-        // scroll offset to scrollTo
-        frameHandleRef.current = rAF(() => {
-            setState(prev => ({
-                ...prev,
-                traveled: Math.max(0, Math.min(distance, totalSteps)),
-            }));
-            onScroll?.(distance, totalSteps);
-        });
     };
 
     const clickTrackHandler = useCallback(
@@ -227,6 +240,10 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
                 ...prev,
                 traveled: Math.max(0, Math.min(distance, totalSteps)),
             }));
+            stateRef.current = {
+                ...stateRef.current,
+                traveled: Math.max(0, Math.min(distance, totalSteps)),
+            };
             onScroll?.(distance, totalSteps);
         },
         [bar, totalSteps, onScroll],
@@ -251,7 +268,11 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
             ...prev,
             traveled: Math.ceil(scrollFrom * totalSteps),
         }));
-    }, [scrollFrom, state.isDragging, totalSteps]);
+        stateRef.current = {
+            ...stateRef.current,
+            traveled: Math.ceil(scrollFrom * totalSteps),
+        };
+    }, [scrollFrom]);
 
     useEffect(() => {
         return () => {

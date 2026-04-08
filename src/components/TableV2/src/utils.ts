@@ -14,11 +14,15 @@ export const tryCall = <T>(fLike: T, params: T extends (...args: infer K) => unk
 
 export const enforceUnit = (style: CSSProperties) => {
     const keys = ['width', 'maxWidth', 'minWidth', 'height'] as const;
-    keys.forEach(key => {
-        style[key] = addUnit(style[key]);
-    });
+    const _style = keys.reduce(
+        (acc, key) => ({
+            ...acc,
+            [key]: addUnit(style[key]),
+        }),
+        style,
+    );
 
-    return style;
+    return _style;
 };
 
 // React version of componentToSlot

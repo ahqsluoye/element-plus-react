@@ -28,8 +28,6 @@ const createGrid = ({
     initCache,
     injectToInstance,
     validateProps,
-    itemRendered,
-    onScroll,
 }: GridConstructorProps<VirtualizedGridProps>) => {
     const GridComponent = React.forwardRef<GridExposes, VirtualizedGridProps>((props, ref) => {
         const {
@@ -54,6 +52,8 @@ const createGrid = ({
             itemKey = ({ columnIndex, rowIndex }: { columnIndex: number; rowIndex: number }) => `${rowIndex}:${columnIndex}`,
             initScrollLeft = 0,
             initScrollTop = 0,
+            itemRendered,
+            onScroll,
             children,
         } = props;
 
@@ -73,6 +73,14 @@ const createGrid = ({
         const innerRef = useRef<HTMLElement | null>(null);
 
         const [states, setStates] = useState<GridStates>({
+            isScrolling: false,
+            scrollLeft: isNumber(initScrollLeft) ? initScrollLeft : 0,
+            scrollTop: isNumber(initScrollTop) ? initScrollTop : 0,
+            updateRequested: false,
+            xAxisScrollDir: FORWARD,
+            yAxisScrollDir: FORWARD,
+        });
+        const nextState = useRef<GridStates>({
             isScrolling: false,
             scrollLeft: isNumber(initScrollLeft) ? initScrollLeft : 0,
             scrollTop: isNumber(initScrollTop) ? initScrollTop : 0,
@@ -114,6 +122,8 @@ const createGrid = ({
             return [Math.max(0, startIndex - cacheBackward), Math.max(0, Math.min(totalRow - 1, stopIndex + cacheForward)), startIndex, stopIndex];
         }, [totalColumn, totalRow, props, states.scrollTop, states.isScrolling, states.yAxisScrollDir, rowCache]);
 
+        console.log(rowsToRender);
+
         const estimatedTotalHeight = useMemo(() => getEstimatedTotalHeight(props, cache.current), [props]);
         const estimatedTotalWidth = useMemo(() => getEstimatedTotalWidth(props, cache.current), [props]);
 
@@ -136,13 +146,10 @@ const createGrid = ({
         );
 
         const innerStyle = useMemo<CSSProperties>(() => {
-            const width = `${estimatedTotalWidth}px`;
-            const height = `${estimatedTotalHeight}px`;
-
             return {
-                height,
+                height: `${estimatedTotalHeight}px`,
                 pointerEvents: states.isScrolling ? 'none' : undefined,
-                width,
+                width: `${estimatedTotalWidth}px`,
                 margin: 0,
                 boxSizing: 'border-box',
             };
@@ -167,7 +174,7 @@ const createGrid = ({
                 });
             }
 
-            const { scrollLeft, scrollTop, updateRequested, xAxisScrollDir, yAxisScrollDir } = states;
+            const { scrollLeft, scrollTop, updateRequested, xAxisScrollDir, yAxisScrollDir } = nextState.current;
             onScroll?.({
                 xAxisScrollDir,
                 scrollLeft,
@@ -175,7 +182,7 @@ const createGrid = ({
                 scrollTop,
                 updateRequested,
             });
-        }, [columnsToRender, rowsToRender, states, totalColumn, totalRow]);
+        }, [columnsToRender, itemRendered, onScroll, rowsToRender, totalColumn, totalRow]);
 
         const resetIsScrolling = useCallback(() => {
             setStates(prev => ({ ...prev, isScrolling: false }));
@@ -186,61 +193,63 @@ const createGrid = ({
 
         const onUpdated = useCallback(() => {
             const windowElement = windowRef.current;
-            if (states.updateRequested && windowElement) {
+            if (nextState.current?.updateRequested && windowElement) {
                 if (direction === RTL) {
                     switch (getRTLOffsetType()) {
                         case RTL_OFFSET_NAG: {
-                            windowElement.scrollLeft = -states.scrollLeft;
+                            windowElement.scrollLeft = -nextState.current.scrollLeft;
                             break;
                         }
                         case RTL_OFFSET_POS_ASC: {
-                            windowElement.scrollLeft = states.scrollLeft;
+                            windowElement.scrollLeft = nextState.current.scrollLeft;
                             break;
                         }
                         default: {
                             const { clientWidth, scrollWidth } = windowElement;
-                            windowElement.scrollLeft = scrollWidth - clientWidth - states.scrollLeft;
+                            windowElement.scrollLeft = scrollWidth - clientWidth - nextState.current.scrollLeft;
                             break;
                         }
                     }
                 } else {
-                    windowElement.scrollLeft = Math.max(0, states.scrollLeft);
+                    windowElement.scrollLeft = Math.max(0, nextState.current.scrollLeft);
                 }
 
-                windowElement.scrollTop = Math.max(0, states.scrollTop);
+                windowElement.scrollTop = Math.max(0, nextState.current.scrollTop);
             }
-        }, [states.updateRequested, states.scrollLeft, states.scrollTop, direction]);
+        }, [direction]);
 
         const scrollTo = useCallback(
-            ({ scrollLeft = states.scrollLeft, scrollTop = states.scrollTop }: { scrollLeft?: number; scrollTop?: number }) => {
+            ({ scrollLeft = nextState.current.scrollLeft, scrollTop = nextState.current.scrollTop }: { scrollLeft?: number; scrollTop?: number }) => {
                 scrollLeft = Math.max(scrollLeft, 0);
                 scrollTop = Math.max(scrollTop, 0);
 
-                if (scrollTop === states.scrollTop && scrollLeft === states.scrollLeft) {
+                if (scrollTop === nextState.current.scrollTop && scrollLeft === nextState.current.scrollLeft) {
                     return;
                 }
 
-                setStates(prev => ({
-                    ...prev,
-                    xAxisScrollDir: getScrollDir(prev.scrollLeft, scrollLeft),
-                    yAxisScrollDir: getScrollDir(prev.scrollTop, scrollTop),
+                nextState.current = {
+                    ...nextState.current,
+                    xAxisScrollDir: getScrollDir(nextState.current.scrollLeft, scrollLeft),
+                    yAxisScrollDir: getScrollDir(nextState.current.scrollTop, scrollTop),
                     scrollLeft,
                     scrollTop,
                     updateRequested: true,
-                }));
+                };
+                setStates(nextState.current);
 
-                nextTick(() => resetIsScrolling());
+                // nextTick(() => resetIsScrolling());
+                resetIsScrolling();
                 onUpdated();
                 emitEvents();
             },
-            [states.scrollLeft, states.scrollTop, onUpdated, emitEvents, resetIsScrolling],
+            [onUpdated, emitEvents, resetIsScrolling],
         );
 
         const handleScroll = useCallback(
             (e: React.UIEvent<HTMLDivElement>) => {
                 const { clientHeight, clientWidth, scrollHeight, scrollLeft, scrollTop, scrollWidth } = e.currentTarget;
 
-                if (states.scrollTop === scrollTop && states.scrollLeft === scrollLeft) {
+                if (nextState.current.scrollTop === scrollTop && nextState.current.scrollLeft === scrollLeft) {
                     return;
                 }
 
@@ -257,21 +266,23 @@ const createGrid = ({
                     }
                 }
 
-                setStates(prev => ({
-                    ...prev,
+                nextState.current = {
+                    ...nextState.current,
                     isScrolling: true,
                     scrollLeft: _scrollLeft,
                     scrollTop: Math.max(0, Math.min(scrollTop, scrollHeight - clientHeight)),
                     updateRequested: true,
-                    xAxisScrollDir: getScrollDir(prev.scrollLeft, _scrollLeft),
-                    yAxisScrollDir: getScrollDir(prev.scrollTop, scrollTop),
-                }));
+                    xAxisScrollDir: getScrollDir(nextState.current.scrollLeft, _scrollLeft),
+                    yAxisScrollDir: getScrollDir(nextState.current.scrollTop, scrollTop),
+                };
+                setStates(nextState.current);
 
-                nextTick(() => resetIsScrolling());
+                // nextTick(() => resetIsScrolling());
+                resetIsScrolling();
                 onUpdated();
                 emitEvents();
             },
-            [states.scrollTop, states.scrollLeft, direction, onUpdated, emitEvents, resetIsScrolling],
+            [direction, onUpdated, emitEvents, resetIsScrolling],
         );
 
         const onVerticalScroll = useCallback(
@@ -451,7 +462,7 @@ const createGrid = ({
             return { horizontalScrollbar, verticalScrollbar };
         };
 
-        const renderItems = () => {
+        const renderItems = useCallback(() => {
             const [columnStart, columnEnd] = columnsToRender;
             const [rowStart, rowEnd] = rowsToRender;
             const nodes: React.ReactNode[] = [];
@@ -468,7 +479,7 @@ const createGrid = ({
                                     ? children({
                                           columnIndex: column,
                                           data,
-                                          isScrolling: useIsScrolling ? states.isScrolling : undefined,
+                                          isScrolling: useIsScrolling ? nextState.current.isScrolling : undefined,
                                           style: getItemStyle(row, column),
                                           rowIndex: row,
                                       })
@@ -479,13 +490,13 @@ const createGrid = ({
                 }
             }
             return nodes;
-        };
+        }, [children, columnsToRender, data, getItemStyle, itemKey, rowsToRender, totalColumn, totalRow, useIsScrolling]);
 
         const { horizontalScrollbar, verticalScrollbar } = renderScrollbars();
 
-        const renderInner = () => {
+        const renderInner = useCallback(() => {
             const childrenNodes = renderItems();
-            const InnerNode = React.createElement(
+            return React.createElement(
                 Inner as any,
                 {
                     ...innerProps,
@@ -494,11 +505,7 @@ const createGrid = ({
                 },
                 childrenNodes,
             );
-
-            return InnerNode;
-        };
-
-        const InnerNode = renderInner();
+        }, [renderItems, Inner, innerProps, innerStyle]);
 
         return React.createElement(
             'div',
@@ -516,7 +523,7 @@ const createGrid = ({
                         onScroll: handleScroll,
                         ref: windowRef,
                     },
-                    InnerNode,
+                    renderInner(),
                 ),
                 horizontalScrollbar,
                 verticalScrollbar,

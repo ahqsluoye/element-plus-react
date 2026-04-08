@@ -137,17 +137,6 @@ export type GridConstructorProps<T, P extends InitGridCacheFunc<T> = InitGridCac
     injectToInstance?: (cache: MutableRefObject<ReturnType<P>>) => void;
     clearCache: boolean;
     validateProps: PropValidator<T>;
-    itemRendered?: (info: {
-        columnCacheStart: number;
-        columnCacheEnd: number;
-        rowCacheStart: number;
-        rowCacheEnd: number;
-        columnVisibleStart: number;
-        columnVisibleEnd: number;
-        rowVisibleStart: number;
-        rowVisibleEnd: number;
-    }) => void;
-    onScroll?: (info: { xAxisScrollDir: Dir; scrollLeft: number; yAxisScrollDir: Dir; scrollTop: number; updateRequested: boolean }) => void;
 };
 
 /**
@@ -177,7 +166,7 @@ export type GridScrollOptions = { scrollLeft?: number; scrollTop?: number };
 
 export type GridItemKeyGetter = <T extends { [key: string | number]: any }>(args: { columnIndex: number; data: T; rowIndex: number }) => string | number;
 
-type Dir = typeof FORWARD | typeof BACKWARD;
+export type Dir = typeof FORWARD | typeof BACKWARD;
 export interface GridStates {
     isScrolling: boolean;
     scrollLeft: number;

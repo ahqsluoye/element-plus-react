@@ -1,7 +1,8 @@
 import { VERTICAL } from './defaults';
 
 import React, { CSSProperties } from 'react';
-import type { GridItemKeyGetter, ItemSize } from './types';
+import { TableGridRowSlotParams } from '../TableV2';
+import type { Dir, GridItemKeyGetter, ItemSize } from './types';
 
 export interface VirtualizedProps {
     className?: string;
@@ -57,6 +58,18 @@ export interface VirtualizedGridProps extends VirtualizedProps {
     scrollbarStartGap?: number;
     scrollbarEndGap?: number;
     role?: string;
+    itemRendered?: (info: {
+        columnCacheStart: number;
+        columnCacheEnd: number;
+        rowCacheStart: number;
+        rowCacheEnd: number;
+        columnVisibleStart: number;
+        columnVisibleEnd: number;
+        rowVisibleStart: number;
+        rowVisibleEnd: number;
+    }) => void;
+    onScroll?: (info: { xAxisScrollDir: Dir; scrollLeft: number; yAxisScrollDir: Dir; scrollTop: number; updateRequested: boolean }) => void;
+    rowFormatter?: (props: TableGridRowSlotParams) => React.ReactNode;
     children?: (params: any) => React.ReactNode;
 }
 
