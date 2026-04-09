@@ -1,4 +1,4 @@
-import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { CSSProperties, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useClassNames } from '../../hooks';
 import { namespace } from '../../hooks/prefix';
 import { getScrollBarWidth, isNumber, nextTick } from '../../Util';
@@ -72,14 +72,14 @@ const createGrid = ({
         const vScrollbarRef = useRef<ScrollbarExpose>(null);
         const innerRef = useRef<HTMLElement | null>(null);
 
-        const [states, setStates] = useState<GridStates>({
-            isScrolling: false,
-            scrollLeft: isNumber(initScrollLeft) ? initScrollLeft : 0,
-            scrollTop: isNumber(initScrollTop) ? initScrollTop : 0,
-            updateRequested: false,
-            xAxisScrollDir: FORWARD,
-            yAxisScrollDir: FORWARD,
-        });
+        // const [states, setStates] = useState<GridStates>({
+        //     isScrolling: false,
+        //     scrollLeft: isNumber(initScrollLeft) ? initScrollLeft : 0,
+        //     scrollTop: isNumber(initScrollTop) ? initScrollTop : 0,
+        //     updateRequested: false,
+        //     xAxisScrollDir: FORWARD,
+        //     yAxisScrollDir: FORWARD,
+        // });
         const nextState = useRef<GridStates>({
             isScrolling: false,
             scrollLeft: isNumber(initScrollLeft) ? initScrollLeft : 0,
@@ -88,41 +88,40 @@ const createGrid = ({
             xAxisScrollDir: FORWARD,
             yAxisScrollDir: FORWARD,
         });
+        const states = nextState.current;
 
         const getItemStyleCache = useCache();
 
         const parsedHeight = useMemo(() => Number.parseInt(`${height}`, 10), [height]);
         const parsedWidth = useMemo(() => Number.parseInt(`${width}`, 10), [width]);
 
-        const columnsToRender = useMemo(() => {
+        const columnsToRender = useCallback(() => {
             if (totalColumn === 0 || totalRow === 0) {
                 return [0, 0, 0, 0];
             }
 
-            const startIndex = getColumnStartIndexForOffset(props, states.scrollLeft, cache.current);
-            const stopIndex = getColumnStopIndexForStartIndex(props, startIndex, states.scrollLeft, cache.current);
+            const startIndex = getColumnStartIndexForOffset(props, nextState.current.scrollLeft, cache.current);
+            const stopIndex = getColumnStopIndexForStartIndex(props, startIndex, nextState.current.scrollLeft, cache.current);
 
-            const cacheBackward = !states.isScrolling || states.xAxisScrollDir === BACKWARD ? Math.max(1, columnCache) : 1;
-            const cacheForward = !states.isScrolling || states.xAxisScrollDir === FORWARD ? Math.max(1, columnCache) : 1;
+            const cacheBackward = !nextState.current.isScrolling || nextState.current.xAxisScrollDir === BACKWARD ? Math.max(1, columnCache) : 1;
+            const cacheForward = !nextState.current.isScrolling || nextState.current.xAxisScrollDir === FORWARD ? Math.max(1, columnCache) : 1;
 
             return [Math.max(0, startIndex - cacheBackward), Math.max(0, Math.min(totalColumn - 1, stopIndex + cacheForward)), startIndex, stopIndex];
-        }, [totalColumn, totalRow, props, states.scrollLeft, states.isScrolling, states.xAxisScrollDir, columnCache]);
+        }, [totalColumn, totalRow, props, columnCache]);
 
-        const rowsToRender = useMemo(() => {
+        const rowsToRender = useCallback(() => {
             if (totalColumn === 0 || totalRow === 0) {
                 return [0, 0, 0, 0];
             }
 
-            const startIndex = getRowStartIndexForOffset(props, states.scrollTop, cache.current);
-            const stopIndex = getRowStopIndexForStartIndex(props, startIndex, states.scrollTop, cache.current);
+            const startIndex = getRowStartIndexForOffset(props, nextState.current.scrollTop, cache.current);
+            const stopIndex = getRowStopIndexForStartIndex(props, startIndex, nextState.current.scrollTop, cache.current);
 
-            const cacheBackward = !states.isScrolling || states.yAxisScrollDir === BACKWARD ? Math.max(1, rowCache) : 1;
-            const cacheForward = !states.isScrolling || states.yAxisScrollDir === FORWARD ? Math.max(1, rowCache) : 1;
+            const cacheBackward = !nextState.current.isScrolling || nextState.current.yAxisScrollDir === BACKWARD ? Math.max(1, rowCache) : 1;
+            const cacheForward = !nextState.current.isScrolling || nextState.current.yAxisScrollDir === FORWARD ? Math.max(1, rowCache) : 1;
 
             return [Math.max(0, startIndex - cacheBackward), Math.max(0, Math.min(totalRow - 1, stopIndex + cacheForward)), startIndex, stopIndex];
-        }, [totalColumn, totalRow, props, states.scrollTop, states.isScrolling, states.yAxisScrollDir, rowCache]);
-
-        console.log(rowsToRender);
+        }, [totalColumn, totalRow, props, rowCache]);
 
         const estimatedTotalHeight = useMemo(() => getEstimatedTotalHeight(props, cache.current), [props]);
         const estimatedTotalWidth = useMemo(() => getEstimatedTotalWidth(props, cache.current), [props]);
@@ -145,20 +144,20 @@ const createGrid = ({
             [direction, height, width, style],
         );
 
-        const innerStyle = useMemo<CSSProperties>(() => {
+        const innerStyle = useCallback(() => {
             return {
                 height: `${estimatedTotalHeight}px`,
-                pointerEvents: states.isScrolling ? 'none' : undefined,
+                pointerEvents: nextState.current.isScrolling ? 'none' : undefined,
                 width: `${estimatedTotalWidth}px`,
                 margin: 0,
                 boxSizing: 'border-box',
             };
-        }, [estimatedTotalWidth, estimatedTotalHeight, states.isScrolling]);
+        }, [estimatedTotalWidth, estimatedTotalHeight]);
 
         const emitEvents = useCallback(() => {
             if (totalColumn > 0 && totalRow > 0) {
-                const [columnCacheStart, columnCacheEnd, columnVisibleStart, columnVisibleEnd] = columnsToRender;
-                const [rowCacheStart, rowCacheEnd, rowVisibleStart, rowVisibleEnd] = rowsToRender;
+                const [columnCacheStart, columnCacheEnd, columnVisibleStart, columnVisibleEnd] = columnsToRender();
+                const [rowCacheStart, rowCacheEnd, rowVisibleStart, rowVisibleEnd] = rowsToRender();
                 // emit the render item event with
                 // [xAxisInvisibleStart, xAxisInvisibleEnd, xAxisVisibleStart, xAxisVisibleEnd]
                 // [yAxisInvisibleStart, yAxisInvisibleEnd, yAxisVisibleStart, yAxisVisibleEnd]
@@ -185,7 +184,7 @@ const createGrid = ({
         }, [columnsToRender, itemRendered, onScroll, rowsToRender, totalColumn, totalRow]);
 
         const resetIsScrolling = useCallback(() => {
-            setStates(prev => ({ ...prev, isScrolling: false }));
+            // setStates(prev => ({ ...prev, isScrolling: false }));
             nextTick(() => {
                 getItemStyleCache(-1, null, null);
             }, 0);
@@ -235,7 +234,7 @@ const createGrid = ({
                     scrollTop,
                     updateRequested: true,
                 };
-                setStates(nextState.current);
+                // setStates(nextState.current);
 
                 // nextTick(() => resetIsScrolling());
                 resetIsScrolling();
@@ -275,7 +274,7 @@ const createGrid = ({
                     xAxisScrollDir: getScrollDir(nextState.current.scrollLeft, _scrollLeft),
                     yAxisScrollDir: getScrollDir(nextState.current.scrollTop, scrollTop),
                 };
-                setStates(nextState.current);
+                // setStates(nextState.current);
 
                 // nextTick(() => resetIsScrolling());
                 resetIsScrolling();
@@ -361,11 +360,18 @@ const createGrid = ({
                 const scrollBarWidth = getScrollBarWidth(namespace);
 
                 scrollTo({
-                    scrollLeft: getColumnOffset(props, columnIdx, alignment, states.scrollLeft, cache.current, estimatedTotalWidth > (width as number) ? scrollBarWidth : 0),
-                    scrollTop: getRowOffset(props, rowIndex, alignment, states.scrollTop, cache.current, estimatedTotalHeight > (height as number) ? scrollBarWidth : 0),
+                    scrollLeft: getColumnOffset(
+                        props,
+                        columnIdx,
+                        alignment,
+                        nextState.current.scrollLeft,
+                        cache.current,
+                        estimatedTotalWidth > (width as number) ? scrollBarWidth : 0,
+                    ),
+                    scrollTop: getRowOffset(props, rowIndex, alignment, nextState.current.scrollTop, cache.current, estimatedTotalHeight > (height as number) ? scrollBarWidth : 0),
                 });
             },
-            [totalColumn, totalRow, scrollTo, props, states.scrollLeft, states.scrollTop, estimatedTotalWidth, width, estimatedTotalHeight, height],
+            [totalColumn, totalRow, scrollTo, props, estimatedTotalWidth, width, estimatedTotalHeight, height],
         );
 
         const getItemStyle = useCallback(
@@ -439,7 +445,7 @@ const createGrid = ({
                 layout: 'horizontal',
                 onScroll: onHorizontalScroll,
                 ratio: (parsedWidth * 100) / estimatedTotalWidth,
-                scrollFrom: states.scrollLeft / (estimatedTotalWidth - parsedWidth),
+                scrollFrom: nextState.current.scrollLeft / (estimatedTotalWidth - parsedWidth),
                 total: totalRow,
                 visible: true,
             });
@@ -454,7 +460,7 @@ const createGrid = ({
                 layout: 'vertical',
                 onScroll: onVerticalScroll,
                 ratio: (parsedHeight * 100) / estimatedTotalHeight,
-                scrollFrom: states.scrollTop / (estimatedTotalHeight - parsedHeight),
+                scrollFrom: nextState.current.scrollTop / (estimatedTotalHeight - parsedHeight),
                 total: totalColumn,
                 visible: true,
             });
@@ -463,8 +469,8 @@ const createGrid = ({
         };
 
         const renderItems = useCallback(() => {
-            const [columnStart, columnEnd] = columnsToRender;
-            const [rowStart, rowEnd] = rowsToRender;
+            const [columnStart, columnEnd] = columnsToRender();
+            const [rowStart, rowEnd] = rowsToRender();
             const nodes: React.ReactNode[] = [];
 
             if (totalRow > 0 && totalColumn > 0) {
@@ -500,7 +506,7 @@ const createGrid = ({
                 Inner as any,
                 {
                     ...innerProps,
-                    style: innerStyle,
+                    style: innerStyle(),
                     ref: innerRef,
                 },
                 childrenNodes,

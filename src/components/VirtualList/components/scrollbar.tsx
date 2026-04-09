@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { useClassNames } from '../../hooks';
 import { BAR_MAP } from '../../Scrollbar/util';
 import { cAF, rAF } from '../../Util';
@@ -45,10 +45,10 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
     const onselectstartStoreRef = useRef<typeof document.onselectstart | null>(null);
 
     // state
-    const [state, setState] = useState<ScrollState>({
-        isDragging: false,
-        traveled: 0,
-    });
+    // const [state, setState] = useState<ScrollState>({
+    //     isDragging: false,
+    //     traveled: 0,
+    // });
     const stateRef = useRef<ScrollState>({
         isDragging: false,
         traveled: 0,
@@ -84,7 +84,7 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
         return Math.floor(Math.min(Math.max((ratio * trackSize) / 100, SCROLLBAR_MIN_SIZE), SCROLLBAR_MAX_SIZE));
     }, [ratio, trackSize]);
 
-    const thumbStyle = useMemo<React.CSSProperties>(() => {
+    const thumbStyle = useCallback(() => {
         if (!Number.isFinite(thumbSize)) {
             return {
                 display: 'none',
@@ -97,22 +97,22 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
             {
                 bar,
                 size: thumb,
-                move: state.traveled,
+                move: stateRef.current.traveled,
             },
             layout,
         );
 
         return style;
-    }, [thumbSize, bar, state.traveled, layout]);
+    }, [thumbSize, bar, layout]);
 
     const totalSteps = useMemo(() => Math.ceil(clientSize - thumbSize - GAP), [clientSize, thumbSize, GAP]);
 
     const onMouseUp = () => {
-        setState(prev => ({
-            ...prev,
-            isDragging: false,
-            [bar.axis]: 0,
-        }));
+        // setState(prev => ({
+        //     ...prev,
+        //     isDragging: false,
+        //     [bar.axis]: 0,
+        // }));
         stateRef.current = {
             ...stateRef.current,
             isDragging: false,
@@ -165,10 +165,10 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
         // using totalSteps ÷ totalSize getting each step's size * distance to get the new
         // scroll offset to scrollTo
         frameHandleRef.current = rAF(() => {
-            setState(prev => ({
-                ...prev,
-                traveled: Math.max(0, Math.min(distance, totalSteps)),
-            }));
+            // setState(prev => ({
+            //     ...prev,
+            //     traveled: Math.max(0, Math.min(distance, totalSteps)),
+            // }));
             stateRef.current = {
                 ...stateRef.current,
                 traveled: Math.max(0, Math.min(distance, totalSteps)),
@@ -224,7 +224,7 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
             isDragging: true,
             [bar.axis]: (e.target as HTMLElement)[bar.offset as any] - ((e as MouseEvent)[bar.client] - (e.target as HTMLElement).getBoundingClientRect()[bar.direction]),
         };
-        setState(stateRef.current);
+        // setState(stateRef.current);
 
         onStartMove?.();
         attachEvents();
@@ -236,10 +236,10 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
             const thumbHalf = thumbRef.current[bar.offset as any] / 2;
             const distance = offset - thumbHalf;
 
-            setState(prev => ({
-                ...prev,
-                traveled: Math.max(0, Math.min(distance, totalSteps)),
-            }));
+            // setState(prev => ({
+            //     ...prev,
+            //     traveled: Math.max(0, Math.min(distance, totalSteps)),
+            // }));
             stateRef.current = {
                 ...stateRef.current,
                 traveled: Math.max(0, Math.min(distance, totalSteps)),
@@ -251,7 +251,7 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
 
     // Watch for scrollFrom changes
     useEffect(() => {
-        if (state.isDragging) {
+        if (stateRef.current.isDragging) {
             return;
         }
         /**
@@ -264,10 +264,10 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
          *  formula 2:
          *    traveled = (v * clientSize) / (clientSize / totalSteps) --> (v * clientSize) * (totalSteps / clientSize) --> v * totalSteps
          */
-        setState(prev => ({
-            ...prev,
-            traveled: Math.ceil(scrollFrom * totalSteps),
-        }));
+        // setState(prev => ({
+        //     ...prev,
+        //     traveled: Math.ceil(scrollFrom * totalSteps),
+        // }));
         stateRef.current = {
             ...stateRef.current,
             traveled: Math.ceil(scrollFrom * totalSteps),
@@ -288,7 +288,7 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
         <div
             role="presentation"
             ref={trackRef}
-            className={classNames(nsVirtualScrollbar.b(), className, (alwaysOn || state.isDragging) && 'always-on')}
+            className={classNames(nsVirtualScrollbar.b(), className, (alwaysOn || stateRef.current.isDragging) && 'always-on')}
             style={trackStyle}
             onMouseDown={e => {
                 e.stopPropagation();
@@ -300,7 +300,7 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
                 onThumbMouseDown(e);
             }}
         >
-            <div ref={thumbRef} className={nsScrollbar.e('thumb')} style={thumbStyle} onMouseDown={onThumbMouseDown} />
+            <div ref={thumbRef} className={nsScrollbar.e('thumb')} style={thumbStyle()} onMouseDown={onThumbMouseDown} />
         </div>
     );
 });

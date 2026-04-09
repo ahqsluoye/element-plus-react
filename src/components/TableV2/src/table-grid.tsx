@@ -1,6 +1,6 @@
 import isNumber from 'lodash/isNumber';
 import isObject from 'lodash/isObject';
-import React, { forwardRef, useCallback, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { Header, TableV2HeaderInstance } from './components';
 import { TableV2Context } from './tokens';
 import { sum } from './utils';
@@ -24,7 +24,8 @@ const COMPONENT_NAME = 'ElTableV2Grid';
 const useTableGrid = (props: TableV2GridProps) => {
     const headerRef = useRef<TableV2HeaderInstance>(null);
     const bodyRef = useRef<DynamicSizeGridInstance>(null);
-    const [scrollLeft, setScrollLeft] = useState(0);
+    // const [scrollLeft, setScrollLeft] = useState(0);
+    const scrollLeft = useRef(0);
 
     const totalHeight = useMemo(() => {
         const { data, rowHeight, estimatedRowHeight } = props;
@@ -77,11 +78,11 @@ const useTableGrid = (props: TableV2GridProps) => {
 
         if (isObject(leftOrOptions)) {
             header$?.scrollToLeft((leftOrOptions as GridScrollOptions).scrollLeft);
-            setScrollLeft((leftOrOptions as GridScrollOptions).scrollLeft);
+            scrollLeft.current = (leftOrOptions as GridScrollOptions).scrollLeft;
             body$?.scrollTo(leftOrOptions);
         } else {
             header$?.scrollToLeft(leftOrOptions);
-            setScrollLeft(leftOrOptions);
+            scrollLeft.current = leftOrOptions;
             body$?.scrollTo({
                 scrollLeft: leftOrOptions,
                 scrollTop: top,
@@ -102,7 +103,7 @@ const useTableGrid = (props: TableV2GridProps) => {
                 return;
             }
 
-            const prevScrollLeft = scrollLeft;
+            const prevScrollLeft = scrollLeft.current;
 
             body.scrollToItem(row, 0, strategy);
 
@@ -237,7 +238,7 @@ const TableGrid = forwardRef<TableGridInstance, TableV2GridProps>((props, ref) =
     const _headerHeight = headerHeight;
 
     return (
-        <TableV2Context.Provider value={{ ...context, scrollLeft }}>
+        <TableV2Context.Provider value={{ ...context, scrollLeft: scrollLeft.current }}>
             <div role="table" className={classNames(ns.e('table'), className)} style={style}>
                 <Grid
                     ref={bodyRef}

@@ -1,9 +1,9 @@
-import { createContext } from 'react';
+import { createContext, RefObject } from 'react';
 import { UseNamespaceReturn } from '../../hooks/useClassNames';
 
 export type TableV2Context = {
     isScrolling: boolean;
-    isResetting: boolean;
+    isResetting: RefObject<boolean>;
     ns: UseNamespaceReturn;
     scrollLeft?: number;
 };

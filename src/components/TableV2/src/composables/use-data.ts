@@ -1,5 +1,5 @@
 import isArray from 'lodash/isArray';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import type { TableV2Props } from '../table';
 import type { KeyType } from '../types';
@@ -13,7 +13,8 @@ type UseDataProps = {
 };
 
 export const useData = (props: TableV2Props, { expandedRowKeys, lastRenderedRowIndex, setLastRenderedRowIndex, resetAfterIndex }: UseDataProps) => {
-    const [depthMap, setDepthMap] = useState<Record<KeyType, number>>({});
+    // const [depthMap, setDepthMap] = useState<Record<KeyType, number>>({});
+    const depthMap = useRef<Record<KeyType, number>>({});
 
     const flattenedData = useMemo(() => {
         const depths: Record<KeyType, number> = {};
@@ -39,7 +40,7 @@ export const useData = (props: TableV2Props, { expandedRowKeys, lastRenderedRowI
             }
         }
 
-        setDepthMap(depths);
+        depthMap.current = depths;
         return array;
     }, [props, expandedRowKeys]);
 
@@ -56,7 +57,7 @@ export const useData = (props: TableV2Props, { expandedRowKeys, lastRenderedRowI
 
     return {
         data,
-        depthMap,
+        depthMap: depthMap.current,
     };
 };
 

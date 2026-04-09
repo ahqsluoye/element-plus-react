@@ -24,11 +24,13 @@ type UseRowProps = {
 };
 
 export const useRow = (props: TableV2Props, { mainTableRef, leftTableRef, rightTableRef, tableInstance, ns, isScrolling, onExpandedRowKeys }: UseRowProps) => {
-    const [isResetting, setIsResetting] = useState(false);
+    // const [isResetting, setIsResetting] = useState(false);
     const [expandedRowKeys, setExpandedRowKeys] = useState<KeyType[]>(props.defaultExpandedRowKeys || []);
     const [lastRenderedRowIndex, setLastRenderedRowIndex] = useState(-1);
     const resetIndexRef = useRef<number | null>(null);
     const [rowHeights, setRowHeights] = useState<Heights>({});
+
+    const isResetting = useRef(false);
     const pendingRowHeightsRef = useRef<Heights>({});
     const leftTableHeightsRef = useRef<Heights>({});
     const mainTableHeightsRef = useRef<Heights>({});
@@ -116,7 +118,7 @@ export const useRow = (props: TableV2Props, { mainTableRef, leftTableRef, rightT
     // Equivalent to debounce for flushing row heights
     const flushingRowHeights = debounce(
         useCallback(() => {
-            setIsResetting(true);
+            isResetting.current = true;
             setRowHeights(prev => ({ ...prev, ...pendingRowHeightsRef.current }));
             resetAfterIndex(resetIndexRef.current, false);
             pendingRowHeightsRef.current = {};
@@ -125,7 +127,7 @@ export const useRow = (props: TableV2Props, { mainTableRef, leftTableRef, rightT
             (mainTableRef.current as any)?.forceUpdate?.();
             (leftTableRef.current as any)?.forceUpdate?.();
             (rightTableRef.current as any)?.forceUpdate?.();
-            setIsResetting(false);
+            isResetting.current = false;
         }, [resetAfterIndex, mainTableRef, leftTableRef, rightTableRef]),
         0,
     );

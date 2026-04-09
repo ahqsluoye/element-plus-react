@@ -1,6 +1,6 @@
 import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import castArray from 'lodash/castArray';
-import React, { CSSProperties, forwardRef, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { CSSProperties, forwardRef, useContext, useImperativeHandle, useMemo, useRef } from 'react';
 import { useClassNames } from '../../../hooks';
 import type { TableV2HeaderProps } from '../header';
 import { TABLE_V2_GRID_INJECTION_KEY } from '../tokens';
@@ -81,11 +81,11 @@ const TableV2Header = forwardRef<TableV2HeaderInstance, TableV2HeaderProps>((pro
     };
 
     // Equivalent to onUpdated - scroll when scrollLeftInfo changes
-    useEffect(() => {
-        if (scrollLeftInfo.scrollLeft !== undefined) {
-            scrollToLeft(scrollLeftInfo.scrollLeft);
-        }
-    }, [scrollLeftInfo]);
+    // useEffect(() => {
+    //     if (scrollLeftInfo.scrollLeft !== undefined) {
+    //         scrollToLeft(scrollLeftInfo.scrollLeft);
+    //     }
+    // }, [scrollLeftInfo]);
 
     useImperativeHandle(ref, () => ({
         scrollToLeft,
