@@ -41,7 +41,7 @@ export default App;`,
                     destPath + '/index.md',
                     content
                         .replace(/:::(demo)?/g, '')
-                        .replace(new RegExp('[a-z-]+/([a-z-]+)\\n', 'g'), '<code src="./$1.tsx"></code>\n')
+                        .replace(new RegExp('[a-z\\-0-9]+/([a-z\\-0-9]+)\\n', 'g'), '<code src="./$1.tsx"></code>\n')
                         .replace(new RegExp('\\^\\[([a-zA-Z]*)\\]`(.*)`', 'g'), '<Enum type="$1">$2</Enum>')
                         .replace(new RegExp('\\^\\[([a-zA-Z]+)\\]', 'g'), '`$1`')
                         .replace(new RegExp('\\^\\([\\d\\.]*\\)', 'g'), ''),
@@ -51,4 +51,4 @@ export default App;`,
     });
 }
 
-buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/table.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/table1', true);
+buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/table-v2.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/table-v2', true);

@@ -147,6 +147,7 @@ export type HeaderSlotProps = {
 
 export type TableGridRowSlotParams = {
     columns: TableV2GridProps['columns'];
+    cells: React.ReactNode[];
     rowData: any;
 } & GridDefaultSlotParams;
 

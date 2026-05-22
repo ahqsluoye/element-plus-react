@@ -13,7 +13,7 @@ const ExpandIcon = (
         expandable: boolean;
     },
 ) => {
-    const { expanded, expandable, onExpand, style, size, ariaLabel } = props;
+    const { expanded, expandable, onExpand, style, size = 'small', ariaLabel } = props;
 
     const expandIconProps = {
         onClick: expandable ? () => onExpand(!expanded) : undefined,
@@ -24,7 +24,7 @@ const ExpandIcon = (
 
     return (
         <button {...expandIconProps} type="button">
-            <ElIcon name="arrow-right" size={size} style={style}></ElIcon>
+            <ElIcon name="angle-right" size={size} prefix="fal" style={style}></ElIcon>
         </button>
     );
 };

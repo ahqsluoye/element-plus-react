@@ -125,4 +125,4 @@ const CellRenderer: React.FC<CellRendererProps> = ({
     );
 };
 
-export default CellRenderer;
+export default React.memo(CellRenderer);

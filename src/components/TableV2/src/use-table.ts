@@ -70,10 +70,10 @@ function useTable(props: TableV2Props) {
     });
 
     const [isEndReached, setIsEndReached] = useState(false);
+    const { onEndReached, hScrollbarSize } = props;
 
     const onMaybeEndReached = useCallback(
         (scrollPos: ScrollPos) => {
-            const { onEndReached } = props;
             if (!onEndReached) {
                 return;
             }
@@ -83,16 +83,16 @@ function useTable(props: TableV2Props) {
             const _totalHeight = rowsHeight;
             const clientHeight = windowHeight;
 
-            const remainDistance = _totalHeight - (scrollTop + clientHeight) + props.hScrollbarSize;
+            const remainDistance = _totalHeight - (scrollTop + clientHeight) + hScrollbarSize;
 
             if (!isEndReached && lastRenderedRowIndex >= 0 && _totalHeight <= scrollTop + mainTableHeight - headerHeight) {
                 setIsEndReached(true);
-                onEndReached(remainDistance);
+                onEndReached?.(remainDistance);
             } else {
                 setIsEndReached(false);
             }
         },
-        [headerHeight, isEndReached, lastRenderedRowIndex, mainTableHeight, props, rowsHeight, windowHeight],
+        [headerHeight, hScrollbarSize, isEndReached, lastRenderedRowIndex, mainTableHeight, onEndReached, rowsHeight, windowHeight],
     );
 
     const { scrollTo, scrollToLeft, scrollToTop, scrollToRow, onScroll, onVerticalScroll } = useScrollbar(props, {

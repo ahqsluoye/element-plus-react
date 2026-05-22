@@ -1,16 +1,15 @@
-import { ElTableV2 } from '@qsxy/element-plus-react';
-import { Column, TableV2SortOrder } from '@qsxy/element-plus-react/TableV2';
-import React, { useState } from 'react';
+import { ElAutoResizer, ElTableV2 } from '@qsxy/element-plus-react';
+import React from 'react';
 
 const App = () => {
-    const generateColumns = (length = 10, prefix = 'column-', props = {}) =>
+    const generateColumns = (length = 10, prefix = 'column-', props?: any) =>
         Array.from({ length }).map((_, columnIndex) => ({
             ...props,
             key: `${prefix}${columnIndex}`,
             dataKey: `${prefix}${columnIndex}`,
             title: `Column ${columnIndex}`,
             width: 150,
-        })) as Column[];
+        }));
 
     const generateData = (columns, length = 200, prefix = 'row-') =>
         Array.from({ length }).map((_, rowIndex) => {
@@ -27,21 +26,14 @@ const App = () => {
         });
 
     const columns = generateColumns(10);
-    const [data, setData] = useState(generateData(columns));
-
-    columns[0].sortable = true;
-
-    const [sortState, setSortState] = useState({
-        key: 'column-0',
-        order: TableV2SortOrder.ASC,
-    });
-
-    const onSort = sortBy => {
-        console.log(sortBy);
-        setData(data.reverse());
-        setSortState(sortBy);
-    };
-    return <ElTableV2 columns={columns} data={data} width={700} height={400} fixed sortBy={sortState} onColumnSort={onSort} />;
+    const data = generateData(columns, 200);
+    return (
+        <div style={{ height: 400 }}>
+            <ElAutoResizer>
+                <ElTableV2 columns={columns} data={data} fixed />
+            </ElAutoResizer>
+        </div>
+    );
 };
 
 export default App;

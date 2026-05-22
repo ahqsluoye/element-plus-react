@@ -1,7 +1,7 @@
 import React, { CSSProperties, useCallback, useEffect, useMemo, useRef } from 'react';
-import { useClassNames } from '../../hooks';
+import { useClassNames, useForceUpdate } from '../../hooks';
 import { namespace } from '../../hooks/prefix';
-import { getScrollBarWidth, isNumber, nextTick } from '../../Util';
+import { getScrollBarWidth, isNumber, isUndefined, nextTick } from '../../Util';
 import Scrollbar from '../components/scrollbar';
 import { AUTO_ALIGNMENT, BACKWARD, FORWARD, RTL, RTL_OFFSET_NAG, RTL_OFFSET_POS_ASC, RTL_OFFSET_POS_DESC } from '../defaults';
 import { useCache } from '../hooks/use-cache';
@@ -10,7 +10,7 @@ import { useGridWheel } from '../hooks/use-grid-wheel';
 import { getRTLOffsetType, getScrollDir, isRTL } from '../utils';
 
 import { VirtualizedGridProps } from '../props';
-import { Alignment, GridConstructorProps, GridExposes, GridStates, ScrollbarExpose } from '../types';
+import { Alignment, GridConstructorProps, GridExposes, GridStates, Indices, ScrollbarExpose } from '../types';
 
 const createGrid = ({
     name,
@@ -26,7 +26,6 @@ const createGrid = ({
     getRowStartIndexForOffset,
     getRowStopIndexForStartIndex,
     initCache,
-    injectToInstance,
     validateProps,
 }: GridConstructorProps<VirtualizedGridProps>) => {
     const GridComponent = React.forwardRef<GridExposes, VirtualizedGridProps>((props, ref) => {
@@ -60,11 +59,12 @@ const createGrid = ({
         validateProps(props);
 
         const ns = useClassNames('vl');
+        const { forceUpdate: $forceUpdate } = useForceUpdate();
 
         const cache = useRef(initCache(props));
-        if (injectToInstance) {
-            injectToInstance(cache);
-        }
+        // if (injectToInstance) {
+        //     injectToInstance(cache);
+        // }
 
         // refs
         const windowRef = useRef<HTMLElement | null>(null);
@@ -88,6 +88,9 @@ const createGrid = ({
             xAxisScrollDir: FORWARD,
             yAxisScrollDir: FORWARD,
         });
+        if (innerRef.current) {
+            innerRef.current.style.pointerEvents = '';
+        }
         const states = nextState.current;
 
         const getItemStyleCache = useCache();
@@ -147,7 +150,7 @@ const createGrid = ({
         const innerStyle = useCallback(() => {
             return {
                 height: `${estimatedTotalHeight}px`,
-                pointerEvents: nextState.current.isScrolling ? 'none' : undefined,
+                // pointerEvents: nextState.current.isScrolling ? 'none' : undefined,
                 width: `${estimatedTotalWidth}px`,
                 margin: 0,
                 boxSizing: 'border-box',
@@ -185,6 +188,10 @@ const createGrid = ({
 
         const resetIsScrolling = useCallback(() => {
             // setStates(prev => ({ ...prev, isScrolling: false }));
+            nextState.current.isScrolling = false;
+            if (innerRef.current) {
+                innerRef.current.style.pointerEvents = '';
+            }
             nextTick(() => {
                 getItemStyleCache(-1, null, null);
             }, 0);
@@ -274,10 +281,13 @@ const createGrid = ({
                     xAxisScrollDir: getScrollDir(nextState.current.scrollLeft, _scrollLeft),
                     yAxisScrollDir: getScrollDir(nextState.current.scrollTop, scrollTop),
                 };
+                if (innerRef.current) {
+                    innerRef.current.style.pointerEvents = 'none';
+                }
                 // setStates(nextState.current);
 
-                // nextTick(() => resetIsScrolling());
-                resetIsScrolling();
+                nextTick(() => resetIsScrolling());
+                // resetIsScrolling();
                 onUpdated();
                 emitEvents();
             },
@@ -384,16 +394,16 @@ const createGrid = ({
                 } else {
                     const [, left] = getColumnPosition(props, columnIndex, cache.current);
                     const rtl = isRTL(direction);
-                    const [height, top] = getRowPosition(props, rowIndex, cache.current);
-                    const [width] = getColumnPosition(props, columnIndex, cache.current);
+                    const [_height, top] = getRowPosition(props, rowIndex, cache.current);
+                    const [_width] = getColumnPosition(props, columnIndex, cache.current);
 
                     itemStyleCache[key] = {
                         position: 'absolute',
                         left: rtl ? undefined : `${left}px`,
                         right: rtl ? `${left}px` : undefined,
                         top: `${top}px`,
-                        height: `${height}px`,
-                        width: `${width}px`,
+                        height: `${_height}px`,
+                        width: `${_width}px`,
                     };
 
                     return itemStyleCache[key] as CSSProperties;
@@ -416,6 +426,51 @@ const createGrid = ({
             emitEvents();
         }, []);
 
+        const resetAfter = useCallback(
+            ({ columnIndex, rowIndex }: Indices, forceUpdate?: boolean) => {
+                forceUpdate = isUndefined(forceUpdate) ? true : forceUpdate;
+
+                if (isNumber(columnIndex)) {
+                    cache.current.lastVisitedColumnIndex = Math.min(cache.current.lastVisitedColumnIndex, columnIndex - 1);
+                }
+
+                if (isNumber(rowIndex)) {
+                    cache.current.lastVisitedRowIndex = Math.min(cache.current.lastVisitedRowIndex, rowIndex - 1);
+                }
+
+                getItemStyleCache(-1, null, null);
+
+                if (forceUpdate) {
+                    $forceUpdate();
+                }
+            },
+            [$forceUpdate, getItemStyleCache],
+        );
+
+        const resetAfterColumnIndex = useCallback(
+            (columnIndex: number, forceUpdate: boolean) => {
+                resetAfter(
+                    {
+                        columnIndex,
+                    },
+                    forceUpdate,
+                );
+            },
+            [resetAfter],
+        );
+
+        const resetAfterRowIndex = useCallback(
+            (rowIndex: number, forceUpdate: boolean) => {
+                resetAfter(
+                    {
+                        rowIndex,
+                    },
+                    forceUpdate,
+                );
+            },
+            [resetAfter],
+        );
+
         // Expose methods via ref
         React.useImperativeHandle(
             ref,
@@ -430,8 +485,25 @@ const createGrid = ({
                 scrollTo,
                 scrollToItem,
                 states,
+                resetAfter,
+                resetAfterColumnIndex,
+                resetAfterRowIndex,
+                forceUpdate: $forceUpdate,
             }),
-            [scrollTo, scrollToItem, states, getItemStyleCache, touchStartX, touchStartY, handleTouchStart, handleTouchMove],
+            [
+                getItemStyleCache,
+                touchStartX,
+                touchStartY,
+                handleTouchStart,
+                handleTouchMove,
+                scrollTo,
+                scrollToItem,
+                states,
+                resetAfter,
+                resetAfterColumnIndex,
+                resetAfterRowIndex,
+                $forceUpdate,
+            ],
         );
 
         const renderScrollbars = () => {

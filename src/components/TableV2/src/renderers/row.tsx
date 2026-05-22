@@ -59,7 +59,7 @@ const RowRenderer = (props: RowRendererProps) => {
     const onRowHover = hasFixedColumns ? onRowHovered : undefined;
 
     const _rowProps = {
-        ...additionalProps,
+        ...props,
         columns,
         columnsStyles,
         className: kls,
@@ -76,7 +76,7 @@ const RowRenderer = (props: RowRendererProps) => {
         cellFormatter: props.cellFormatter,
     };
 
-    const handlerMouseEnter = (e: MouseEvent) => {
+    const handlerMouseEnter = ({ event: e }) => {
         onRowHover?.({
             hovered: true,
             rowKey: _rowKey,
@@ -86,7 +86,7 @@ const RowRenderer = (props: RowRendererProps) => {
         });
     };
 
-    const handlerMouseLeave = (e: MouseEvent) => {
+    const handlerMouseLeave = ({ event: e }) => {
         onRowHover?.({
             hovered: false,
             rowKey: _rowKey,
@@ -96,7 +96,17 @@ const RowRenderer = (props: RowRendererProps) => {
         });
     };
 
-    return <Row {..._rowProps} onRowExpand={onRowExpanded} onMouseenter={handlerMouseEnter} onMouseleave={handlerMouseLeave} rowkey={_rowKey}></Row>;
+    return (
+        <Row
+            {..._rowProps}
+            onRowExpand={onRowExpanded}
+            rowEventHandlers={{
+                onMouseEnter: handlerMouseEnter,
+                onMouseLeave: handlerMouseLeave,
+            }}
+            rowKey={_rowKey}
+        ></Row>
+    );
 };
 
-export default RowRenderer;
+export default React.memo(RowRenderer);

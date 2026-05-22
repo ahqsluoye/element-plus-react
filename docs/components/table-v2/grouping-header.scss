@@ -1,0 +1,18 @@
+.el-el-table-v2__header-row .custom-header-cell {
+    border-right: 1px solid var(--el-border-color);
+}
+
+.el-el-table-v2__header-row .custom-header-cell:last-child {
+    border-right: none;
+}
+
+.el-primary-color {
+    background-color: var(--el-color-primary);
+    color: var(--el-color-white);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.el-primary-color .custom-header-cell {
+    padding: 0 4px;
+}

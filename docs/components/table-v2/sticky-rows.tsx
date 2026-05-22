@@ -1,6 +1,6 @@
 import { ElTableV2 } from '@qsxy/element-plus-react';
-import { Column, TableV2SortOrder } from '@qsxy/element-plus-react/TableV2';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import './sticky-rows.scss';
 
 const App = () => {
     const generateColumns = (length = 10, prefix = 'column-', props = {}) =>
@@ -10,7 +10,7 @@ const App = () => {
             dataKey: `${prefix}${columnIndex}`,
             title: `Column ${columnIndex}`,
             width: 150,
-        })) as Column[];
+        }));
 
     const generateData = (columns, length = 200, prefix = 'row-') =>
         Array.from({ length }).map((_, rowIndex) => {
@@ -27,21 +27,24 @@ const App = () => {
         });
 
     const columns = generateColumns(10);
-    const [data, setData] = useState(generateData(columns));
+    const data = generateData(columns, 200);
 
-    columns[0].sortable = true;
-
-    const [sortState, setSortState] = useState({
-        key: 'column-0',
-        order: TableV2SortOrder.ASC,
-    });
-
-    const onSort = sortBy => {
-        console.log(sortBy);
-        setData(data.reverse());
-        setSortState(sortBy);
+    const rowClass = ({ rowIndex }) => {
+        if (rowIndex < 0 || (rowIndex + 1) % 5 === 0) return 'sticky-row';
     };
-    return <ElTableV2 columns={columns} data={data} width={700} height={400} fixed sortBy={sortState} onColumnSort={onSort} />;
+
+    const [stickyIndex, setStickyIndex] = useState(0);
+
+    const fixedData = useMemo(() => data.slice(stickyIndex, stickyIndex + 1), [stickyIndex, data]);
+
+    const tableData = useMemo(() => {
+        return data.slice(1);
+    }, [data]);
+
+    const onScroll = ({ scrollTop }) => {
+        setStickyIndex(Math.floor(scrollTop / 250) * 5);
+    };
+    return <ElTableV2 columns={columns} data={data} fixedData={fixedData} rowClass={rowClass} height={400} width={700} fixed onScroll={onScroll} />;
 };
 
 export default App;

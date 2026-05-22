@@ -1,5 +1,6 @@
 export * from './htmlPropsUtils';
 export { default as useClassNames } from './useClassNames';
+export type { UseNamespaceReturn } from './useClassNames';
 export { default as useClickOutside } from './useClickOutside';
 export { default as useComponentWillMount } from './useComponentWillMount';
 export { default as useControlled } from './useControlled';

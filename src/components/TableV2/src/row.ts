@@ -14,9 +14,9 @@ export type RowHoverParams = {
 } & Partial<RowCommonParams>;
 
 export type RowEventHandlerParams = {
-    rowKey: KeyType;
+    rowKey?: KeyType;
     event: Event;
-} & RowCommonParams;
+} & Partial<RowCommonParams>;
 
 export type RowHeightChangedParams = {
     rowKey: KeyType;
@@ -31,10 +31,10 @@ export type RowHeightChangeHandler = (row: RowHeightChangedParams, fixedDirectio
 
 export type RowEventHandlers = {
     onClick?: RowEventHandler;
-    onContextmenu?: RowEventHandler;
-    onDblclick?: RowEventHandler;
-    onMouseenter?: RowEventHandler;
-    onMouseleave?: RowEventHandler;
+    onContextMenu?: RowEventHandler;
+    onDblClick?: RowEventHandler;
+    onMouseEnter?: RowEventHandler;
+    onMouseLeave?: RowEventHandler;
 };
 
 export interface TableV2RowProps {

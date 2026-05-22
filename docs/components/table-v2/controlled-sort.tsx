@@ -30,18 +30,19 @@ const App = () => {
     const [data, setData] = useState(generateData(columns));
 
     columns[0].sortable = true;
+    columns[1].sortable = true;
 
     const [sortState, setSortState] = useState({
-        key: 'column-0',
-        order: TableV2SortOrder.ASC,
+        'column-0': TableV2SortOrder.DESC,
+        'column-1': TableV2SortOrder.ASC,
     });
 
-    const onSort = sortBy => {
-        console.log(sortBy);
+    const onSort = ({ key, order }) => {
+        console.log({ key, order });
         setData(data.reverse());
-        setSortState(sortBy);
+        setSortState(prev => ({ ...prev, [key]: order }));
     };
-    return <ElTableV2 columns={columns} data={data} width={700} height={400} fixed sortBy={sortState} onColumnSort={onSort} />;
+    return <ElTableV2 columns={columns} data={data} width={700} height={400} fixed sortState={sortState} onColumnSort={onSort} />;
 };
 
 export default App;

@@ -49,18 +49,21 @@ export interface TableV2Instance {
 }
 
 const TableV2 = forwardRef<TableV2Instance, TableV2Props>((props, ref) => {
-    props = mergeDefaultProps<any>(props, {
-        cache: 2,
-        headerHeight: 50,
-        footerHeight: 0,
-        rowHeight: 50,
-        rowKey: 'id',
-        indentSize: 12,
-        hScrollbarSize: 6,
-        vScrollbarSize: 6,
-        sortBy: {},
-        sortState: undefined,
-    });
+    props = mergeDefaultProps<any>(
+        {
+            cache: 2,
+            headerHeight: 50,
+            footerHeight: 0,
+            rowHeight: 50,
+            rowKey: 'id',
+            indentSize: 12,
+            hScrollbarSize: 6,
+            vScrollbarSize: 6,
+            sortBy: {},
+            sortState: undefined,
+        },
+        props,
+    );
 
     const ns = useClassNames('table-v2');
 

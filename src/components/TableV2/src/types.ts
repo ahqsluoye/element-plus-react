@@ -68,7 +68,7 @@ export type Column<T = any> = {
     minWidth?: number;
     style?: CSSProperties;
     sortable?: boolean;
-    width: number;
+    width?: number;
     /**
      * Renderers
      */

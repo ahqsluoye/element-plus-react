@@ -169,12 +169,12 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
             //     ...prev,
             //     traveled: Math.max(0, Math.min(distance, totalSteps)),
             // }));
-            stateRef.current = {
-                ...stateRef.current,
-                traveled: Math.max(0, Math.min(distance, totalSteps)),
-            };
-            onScroll?.(distance, totalSteps);
         });
+        stateRef.current = {
+            ...stateRef.current,
+            traveled: Math.max(0, Math.min(distance, totalSteps)),
+        };
+        onScroll?.(distance, totalSteps);
     };
 
     const attachEvents = () => {

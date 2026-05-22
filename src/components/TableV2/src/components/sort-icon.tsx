@@ -13,7 +13,7 @@ const SortIcon: FC<SortIconProps> = props => {
 
     return (
         <button type="button" aria-label={props.ariaLabel} className={props.className}>
-            <ElIcon size="2x" name={sortOrder === SortOrder.ASC ? 'sort-up' : 'sort-down'}></ElIcon>
+            <ElIcon name={sortOrder === SortOrder.ASC ? 'arrow-up-long' : 'arrow-down-long'}></ElIcon>
         </button>
     );
 };

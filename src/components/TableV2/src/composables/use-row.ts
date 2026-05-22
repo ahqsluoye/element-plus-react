@@ -70,25 +70,27 @@ export const useRow = (props: TableV2Props, { mainTableRef, leftTableRef, rightT
 
     const onRowExpanded = useCallback(
         ({ expanded, rowData, rowIndex, rowKey }: RowExpandParams) => {
-            let _expandedRowKeys = [...expandedRowKeys];
             setExpandedRowKeys(prev => {
                 const currentKeyIndex = prev.indexOf(rowKey);
+                let newExpandedRowKeys;
                 if (expanded) {
                     if (currentKeyIndex === -1) {
-                        prev.push(rowKey);
+                        newExpandedRowKeys = [...prev, rowKey];
+                    } else {
+                        newExpandedRowKeys = [...prev];
                     }
                 } else {
                     if (currentKeyIndex > -1) {
-                        prev.splice(currentKeyIndex, 1);
+                        newExpandedRowKeys = prev.filter(key => key !== rowKey);
+                    } else {
+                        newExpandedRowKeys = [...prev];
                     }
                 }
-                _expandedRowKeys = [...prev];
-                return prev;
+                onExpandedRowKeys?.(newExpandedRowKeys);
+                props.onRowExpand?.({ expanded, rowData, rowIndex, rowKey });
+                props.onExpandedRowsChange?.(newExpandedRowKeys);
+                return newExpandedRowKeys;
             });
-
-            onExpandedRowKeys?.(expandedRowKeys);
-            props.onRowExpand?.({ expanded, rowData, rowIndex, rowKey });
-            props.onExpandedRowsChange?.(_expandedRowKeys);
 
             // TODO: 需要找到合适的 DOM 引用方式
             // const tableRoot = tableInstance!.vnode.el as HTMLElement;
@@ -97,7 +99,7 @@ export const useRow = (props: TableV2Props, { mainTableRef, leftTableRef, rightT
             //     nextTick(() => onRowHovered({ hovered: true, rowKey }));
             // }
         },
-        [expandedRowKeys, onExpandedRowKeys, props],
+        [onExpandedRowKeys, props],
     );
 
     const resetAfterIndex = useCallback(

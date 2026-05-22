@@ -14,7 +14,7 @@ const RightTable = forwardRef<TableGridInstance, RightTableProps>((props, ref) =
 
     return (
         <Table ref={ref} {...props}>
-            {props.children}
+            {params => props.rowFormatter && props.rowFormatter(params)}
         </Table>
     );
 });

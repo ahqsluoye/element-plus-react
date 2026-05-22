@@ -1,5 +1,5 @@
 import { ElTableV2 } from '@qsxy/element-plus-react';
-import { Column, TableV2SortOrder } from '@qsxy/element-plus-react/TableV2';
+import { Column, TableV2FixedDir, TableV2SortOrder } from '@qsxy/element-plus-react/TableV2';
 import React, { useState } from 'react';
 
 const App = () => {
@@ -29,19 +29,23 @@ const App = () => {
     const columns = generateColumns(10);
     const [data, setData] = useState(generateData(columns));
 
-    columns[0].sortable = true;
+    columns[0].fixed = true;
+    columns[1].fixed = TableV2FixedDir.LEFT;
+    columns[9].fixed = TableV2FixedDir.RIGHT;
 
-    const [sortState, setSortState] = useState({
+    for (let i = 0; i < 3; i++) columns[i].sortable = true;
+
+    const [sortBy, setSortBy] = useState({
         key: 'column-0',
         order: TableV2SortOrder.ASC,
     });
 
-    const onSort = sortBy => {
-        console.log(sortBy);
+    const onSort = _sortBy => {
         setData(data.reverse());
-        setSortState(sortBy);
+        setSortBy(_sortBy);
     };
-    return <ElTableV2 columns={columns} data={data} width={700} height={400} fixed sortBy={sortState} onColumnSort={onSort} />;
+
+    return <ElTableV2 columns={columns} data={data} width={700} height={400} fixed sortBy={sortBy} onColumnSort={onSort} />;
 };
 
 export default App;

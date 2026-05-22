@@ -18,7 +18,7 @@ const TableV2HeaderRow: React.FC<TableV2HeaderRowProps> = ({ className, columns,
         if (headerFormatter) {
             // 如果提供了自定义渲染函数，调用它
             cells = headerFormatter({
-                cells: Cells.map(node => {
+                cells: cells.map(node => {
                     if (Array.isArray(node) && node.length === 1) {
                         return node[0];
                     }

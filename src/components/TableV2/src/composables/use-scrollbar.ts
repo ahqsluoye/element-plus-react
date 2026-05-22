@@ -1,3 +1,4 @@
+import { throttle } from 'lodash';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import type { Alignment as ScrollStrategy } from '@qsxy/element-plus-react/VirtualList';
@@ -56,22 +57,37 @@ export const useScrollbar = (props: TableV2Props, { mainTableRef, leftTableRef, 
         [scrollPos.scrollTop, mainTableRef],
     );
 
+    // 使用节流优化滚动事件处理
+    const throttledScrollTo = useRef(
+        throttle((params: ScrollPos) => {
+            setScrollPos(params);
+            props.onScroll?.(params);
+        }, 16), // 约60fps
+    ).current;
+
     const onScroll = useCallback(
         (params: ScrollPos) => {
-            scrollTo(params);
-            props.onScroll?.(params);
+            doScroll(params);
+            throttledScrollTo(params);
         },
-        [props, scrollTo],
+        [doScroll, throttledScrollTo],
     );
+
+    const throttledScrollToTop = useRef(
+        throttle((scrollTop: number) => {
+            setScrollPos(prev => ({ ...prev, scrollTop }));
+        }, 16),
+    ).current;
 
     const onVerticalScroll = useCallback(
         ({ scrollTop }: ScrollPos) => {
             const { scrollTop: currentScrollTop } = scrollPos;
             if (scrollTop !== currentScrollTop) {
-                scrollToTop(scrollTop);
+                doScroll({ ...scrollPos, scrollTop });
+                throttledScrollToTop(scrollTop);
             }
         },
-        [scrollPos, scrollToTop],
+        [scrollPos, doScroll, throttledScrollToTop],
     );
 
     const scrollToRow = useCallback(
@@ -94,7 +110,7 @@ export const useScrollbar = (props: TableV2Props, { mainTableRef, leftTableRef, 
         }
 
         prevScrollTopRef.current = cur;
-    }, [scrollPos.scrollTop]);
+    }, [scrollPos.scrollTop, onMaybeEndReached]);
 
     return {
         scrollPos,

@@ -99,20 +99,9 @@ const useTableRow = (props: TableV2RowProps) => {
     return { isScrolling, measurable, measured, rowRef, eventHandlers, onExpand };
 };
 
-const TableV2Row: React.FC<TableV2RowProps> = ({
-    className,
-    columns,
-    columnsStyles,
-    expandColumnKey,
-    depth,
-    rowData,
-    rowIndex,
-    style,
-    rowFormatter,
-    cellFormatter,
-    ...restProps
-}) => {
-    const { eventHandlers, isScrolling, measurable, measured, rowRef, onExpand } = useTableRow(restProps as TableV2RowProps);
+const TableV2Row: React.FC<TableV2RowProps> = props => {
+    const { className, columns, columnsStyles, expandColumnKey, depth, rowData, rowIndex, style, rowFormatter, cellFormatter, ...restProps } = props;
+    const { eventHandlers, isScrolling, measurable, measured, rowRef, onExpand } = useTableRow(props);
 
     const renderContent = () => {
         let ColumnCells = columns.map((column, columnIndex) => {

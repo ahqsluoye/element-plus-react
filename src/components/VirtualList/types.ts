@@ -177,3 +177,8 @@ export interface GridStates {
 }
 
 export type ListItemSizer<T, P extends InitListCacheFunc<T>> = (props: T, index: number, cache: ReturnType<P>) => number;
+
+export type Indices = {
+    columnIndex?: number;
+    rowIndex?: number;
+};

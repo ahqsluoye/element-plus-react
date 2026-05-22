@@ -42,12 +42,12 @@ export const useData = (props: TableV2Props, { expandedRowKeys, lastRenderedRowI
 
         depthMap.current = depths;
         return array;
-    }, [props, expandedRowKeys]);
+    }, [props.data, props.rowKey, expandedRowKeys]);
 
     const data = useMemo(() => {
         const { expandColumnKey } = props;
         return expandColumnKey ? flattenedData : props.data;
-    }, [props, flattenedData]);
+    }, [props.expandColumnKey, flattenedData, props.data]);
 
     // Equivalent to watch(data, ...)
     useEffect(() => {

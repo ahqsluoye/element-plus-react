@@ -3,8 +3,8 @@ import React, { CSSProperties } from 'react';
 type AutoResizeHandler = (event: { height: number; width: number }) => void;
 
 export type AutoResizerProps = {
-    disableWidth: boolean;
-    disableHeight: boolean;
+    disableWidth?: boolean;
+    disableHeight?: boolean;
     onResize?: AutoResizeHandler;
     className?: string;
     style?: CSSProperties;

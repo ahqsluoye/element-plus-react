@@ -1,6 +1,7 @@
-import { ElTableV2 } from '@qsxy/element-plus-react';
-import { Column, TableV2SortOrder } from '@qsxy/element-plus-react/TableV2';
+import { ElAutoResizer, ElTableV2 } from '@qsxy/element-plus-react';
+import { Column } from '@qsxy/element-plus-react/TableV2';
 import React, { useState } from 'react';
+import './cross-hovering.scss';
 
 const App = () => {
     const generateColumns = (length = 10, prefix = 'column-', props = {}) =>
@@ -27,21 +28,36 @@ const App = () => {
         });
 
     const columns = generateColumns(10);
-    const [data, setData] = useState(generateData(columns));
-
-    columns[0].sortable = true;
-
-    const [sortState, setSortState] = useState({
-        key: 'column-0',
-        order: TableV2SortOrder.ASC,
+    columns.unshift({
+        key: 'column-n-1',
+        width: 50,
+        title: 'Row No.',
+        cellRenderer: ({ rowIndex }) => `${rowIndex + 1}`,
+        align: 'center',
     });
+    const data = generateData(columns, 200);
 
-    const onSort = sortBy => {
-        console.log(sortBy);
-        setData(data.reverse());
-        setSortState(sortBy);
+    const [kls, setKls] = useState('');
+    const cellProps = ({ columnIndex }) => {
+        const key = `hovering-col-${columnIndex}`;
+        return {
+            ['data-key']: key,
+            onMouseEnter: () => {
+                setKls(key);
+            },
+            onMouseLeave: () => {
+                setKls('');
+            },
+        };
     };
-    return <ElTableV2 columns={columns} data={data} width={700} height={400} fixed sortBy={sortState} onColumnSort={onSort} />;
+
+    return (
+        <div style={{ height: 400 }}>
+            <ElAutoResizer>
+                <ElTableV2 columns={columns} cellProps={cellProps} className={kls} data={data} />
+            </ElAutoResizer>
+        </div>
+    );
 };
 
 export default App;
