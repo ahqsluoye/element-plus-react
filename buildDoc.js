@@ -51,4 +51,4 @@ export default App;`,
     });
 }
 
-buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/table-v2.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/table-v2', true);
+buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/slider.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/slider', true);

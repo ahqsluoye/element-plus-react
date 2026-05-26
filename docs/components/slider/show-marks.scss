@@ -1,0 +1,12 @@
+.slider-demo-block-show-marks {
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+}
+.slider-demo-block-show-marks .el-slider {
+    margin-top: 0;
+    margin-left: 12px;
+}
+.slider-demo-block-show-marks + .slider-demo-block-show-marks {
+    margin-top: 20px;
+}

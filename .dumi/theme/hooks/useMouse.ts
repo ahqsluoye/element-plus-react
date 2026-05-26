@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ConfigurableEventFilter, ConfigurableWindow, Position } from './typings';
 
 export type UseMouseCoordType = 'page' | 'client' | 'screen' | 'movement';
@@ -122,21 +122,38 @@ export function useMouse(options: UseMouseOptions = {}) {
 
     const scrollHandlerWrapper = eventFilter ? () => eventFilter(() => scrollHandler(), {} as any) : () => scrollHandler();
 
-    if (target) {
-        const listenerOptions = { passive: true };
-        target.addEventListener('mousemove', mouseHandlerWrapper, listenerOptions);
-        target.addEventListener('dragover', mouseHandlerWrapper, listenerOptions);
-        if (touch && type !== 'movement') {
-            target.addEventListener('touchstart', touchHandlerWrapper, listenerOptions);
-            target.addEventListener('touchmove', touchHandlerWrapper, listenerOptions);
-            if (resetOnTouchEnds) {
-                target.addEventListener('touchend', reset, listenerOptions);
+    useEffect(() => {
+        if (target) {
+            const listenerOptions = { passive: true };
+            target.addEventListener('mousemove', mouseHandlerWrapper, listenerOptions);
+            target.addEventListener('dragover', mouseHandlerWrapper, listenerOptions);
+            if (touch && type !== 'movement') {
+                target.addEventListener('touchstart', touchHandlerWrapper, listenerOptions);
+                target.addEventListener('touchmove', touchHandlerWrapper, listenerOptions);
+                if (resetOnTouchEnds) {
+                    target.addEventListener('touchend', reset, listenerOptions);
+                }
             }
+            if (scroll && type === 'page') {
+                window.addEventListener('scroll', scrollHandlerWrapper, listenerOptions);
+            }
+
+            return () => {
+                target.removeEventListener('mousemove', mouseHandlerWrapper);
+                target.removeEventListener('dragover', mouseHandlerWrapper);
+                if (touch && type !== 'movement') {
+                    target.removeEventListener('touchstart', touchHandlerWrapper);
+                    target.removeEventListener('touchmove', touchHandlerWrapper);
+                    if (resetOnTouchEnds) {
+                        target.removeEventListener('touchend', reset);
+                    }
+                }
+                if (scroll && type === 'page') {
+                    window.removeEventListener('scroll', scrollHandlerWrapper);
+                }
+            };
         }
-        if (scroll && type === 'page') {
-            window.addEventListener('scroll', scrollHandlerWrapper, listenerOptions);
-        }
-    }
+    }, []);
 
     return {
         x,

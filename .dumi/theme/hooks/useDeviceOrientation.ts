@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export function useDeviceOrientation(window?: Window) {
     const isSupported = useMemo(() => window && 'DeviceOrientationEvent' in window, [window]);
@@ -8,18 +8,28 @@ export function useDeviceOrientation(window?: Window) {
     const [beta, setBeta] = useState<number | null>(null);
     const [gamma, setGamma] = useState<number | null>(null);
 
-    if (window && isSupported) {
-        window.addEventListener(
-            'deviceorientation',
-            event => {
-                setIsAbsolute(event.absolute);
-                setAlpha(event.alpha);
-                setBeta(event.beta);
-                setGamma(event.gamma);
-            },
-            { passive: true },
-        );
-    }
+    useEffect(() => {
+        if (window && isSupported) {
+            window.addEventListener(
+                'deviceorientation',
+                event => {
+                    setIsAbsolute(event.absolute);
+                    setAlpha(event.alpha);
+                    setBeta(event.beta);
+                    setGamma(event.gamma);
+                },
+                { passive: true },
+            );
+            return () => {
+                window.removeEventListener('deviceorientation', event => {
+                    setIsAbsolute(event.absolute);
+                    setAlpha(event.alpha);
+                    setBeta(event.beta);
+                    setGamma(event.gamma);
+                });
+            };
+        }
+    }, []);
 
     return {
         isSupported,

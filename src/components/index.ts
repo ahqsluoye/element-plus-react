@@ -75,6 +75,9 @@ export type { TimePickerProps, TimePickerRef } from './TimePicker';
 export { Switch as ElSwitch } from './Switch';
 export type { ChangeValue, ISwitchProps, ValueType as SwitchValueType } from './Switch';
 
+export { Slider as ElSlider } from './Slider';
+export type { SliderMarkerItem, SliderMarks, SliderProps, SliderRef, SliderValue } from './Slider';
+
 export { Transfer as ElTransfer } from './Transfer';
 export type { ListStyle, SelectAllLabel, TransferDirection, TransferItem, TransferLocale, TransferProps, TransferRender } from './Transfer';
 

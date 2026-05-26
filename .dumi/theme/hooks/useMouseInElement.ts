@@ -97,20 +97,33 @@ export function useMouseInElement(target: RefObject<HTMLElement>, options: Mouse
 
     stopFnList.push(stopResizeObserver, stopMutationObserver);
 
-    document.addEventListener('mouseleave', () => setIsOutside(true), { passive: true });
+    useEffect(() => {
+        document.addEventListener('mouseleave', () => setIsOutside(true), { passive: true });
 
-    if (windowScroll) {
-        window.addEventListener('scroll', update, { capture: true, passive: true });
-        stopFnList.push(() => {
-            window.removeEventListener('scroll', update, { capture: true });
-        });
-    }
-    if (windowResize) {
-        window.addEventListener('resize', update, { passive: true });
-        stopFnList.push(() => {
-            window.removeEventListener('resize', update);
-        });
-    }
+        if (windowScroll) {
+            window.addEventListener('scroll', update, { capture: true, passive: true });
+            stopFnList.push(() => {
+                window.removeEventListener('scroll', update, { capture: true });
+            });
+        }
+        if (windowResize) {
+            window.addEventListener('resize', update, { passive: true });
+            stopFnList.push(() => {
+                window.removeEventListener('resize', update);
+            });
+        }
+        return () => {
+            document.removeEventListener('mouseleave', () => setIsOutside(true));
+            if (windowScroll) {
+                window.removeEventListener('scroll', update);
+            }
+            if (windowResize) {
+                window.removeEventListener('resize', update);
+            }
+        };
+    }, []);
+
+    stopFnList.push(update);
 
     return {
         x,

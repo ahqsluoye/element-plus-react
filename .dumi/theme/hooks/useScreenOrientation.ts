@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export type OrientationType = 'portrait-primary' | 'portrait-secondary' | 'landscape-primary' | 'landscape-secondary';
 export type OrientationLockType = 'any' | 'natural' | 'landscape' | 'portrait' | 'portrait-primary' | 'portrait-secondary' | 'landscape-primary' | 'landscape-secondary';
@@ -19,16 +19,24 @@ export function useScreenOrientation(window?: Window) {
     const [orientation, setOrientation] = useState<OrientationType | undefined>(screenOrientation.type);
     const [angle, setAngle] = useState(screenOrientation.angle || 0);
 
-    if (isSupported) {
-        window.addEventListener(
-            'orientationchange',
-            () => {
+    useEffect(() => {
+        if (isSupported) {
+            window.addEventListener(
+                'orientationchange',
+                () => {
+                    setOrientation(screenOrientation.type);
+                    setAngle(screenOrientation.angle);
+                },
+                { passive: true },
+            );
+        }
+        return () => {
+            window.removeEventListener('orientationchange', () => {
                 setOrientation(screenOrientation.type);
                 setAngle(screenOrientation.angle);
-            },
-            { passive: true },
-        );
-    }
+            });
+        };
+    }, [isSupported]);
 
     const lockOrientation = (type: OrientationLockType) => {
         if (isSupported && typeof screenOrientation.lock === 'function') {
