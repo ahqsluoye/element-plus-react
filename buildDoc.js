@@ -51,4 +51,4 @@ export default App;`,
     });
 }
 
-buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/slider.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/slider', true);
+buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/segmented.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/segmented', true);

@@ -99,6 +99,7 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
                 { link: '/components/time-line', title: 'Timeline 时间线' },
                 { link: '/components/tree', title: 'Tree 树形控件' },
                 { link: '/components/statistic', title: 'Statistic 统计组件' },
+                { link: '/components/segmented', title: 'Segmented 分段组件' },
             ],
         },
         {

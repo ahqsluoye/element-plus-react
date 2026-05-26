@@ -78,6 +78,9 @@ export type { ChangeValue, ISwitchProps, ValueType as SwitchValueType } from './
 export { Slider as ElSlider } from './Slider';
 export type { SliderMarkerItem, SliderMarks, SliderProps, SliderRef, SliderValue } from './Slider';
 
+export { Segmented as ElSegmented } from './Segmented';
+export type { Option, SegmentedComponentProps, SegmentedProps } from './Segmented';
+
 export { Transfer as ElTransfer } from './Transfer';
 export type { ListStyle, SelectAllLabel, TransferDirection, TransferItem, TransferLocale, TransferProps, TransferRender } from './Transfer';
 
