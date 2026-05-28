@@ -114,6 +114,7 @@
   },
   "dependencies": {
     "@ctrl/tinycolor": "^4.1.0",
+    "@floating-ui/dom": "^1.7.6",
     "@popperjs/core": "^2.11.8",
     "ahooks": "^3.7.10",
     "async-validator": "^4.2.5",

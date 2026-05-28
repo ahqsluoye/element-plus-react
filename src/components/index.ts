@@ -2,7 +2,7 @@ import './locale/i18n';
 
 /* Basic 基础组件 */
 export { Button as ElButton } from './Button';
-export type { ButtonGroupProps, ButtonProps } from './Button';
+export type { ButtonGroupProps, ButtonProps, ButtonRef } from './Button';
 
 export { Aside as ElAside, Container as ElContainer, Footer as ElFooter, Header as ElHeader, Main as ElMain } from './Container';
 export type { AsideProps, ContainerProps, FooterProps, HeaderProps, MainProps } from './Container';
@@ -133,6 +133,9 @@ export type { StatisticProps, StatisticRef } from './Statistic';
 
 export { Table as ElTable, TableColumn as ElTableColumn } from './Table';
 export type { RenderCell, TableColumnCtx, TableColumnProps, TableProps, TableRef, TableSort } from './Table';
+
+export { Tour as ElTour, TourStep as ElTourStep } from './Tour';
+export type { PosInfo, TourBtnProps, TourContentProps, TourContextType, TourGap, TourMask, TourProps, TourStepProps } from './Tour';
 
 export { AutoResizer as ElAutoResizer, TableV2 as ElTableV2 } from './TableV2';
 

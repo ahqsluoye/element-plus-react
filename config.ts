@@ -97,6 +97,7 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
                 { link: '/components/table-v2', title: 'Virtualized Table 虚拟化表格' },
                 { link: '/components/tag', title: 'Tag 标签' },
                 { link: '/components/time-line', title: 'Timeline 时间线' },
+                { link: '/components/tour', title: 'Tour 漫游式引导' },
                 { link: '/components/tree', title: 'Tree 树形控件' },
                 { link: '/components/statistic', title: 'Statistic 统计组件' },
                 { link: '/components/segmented', title: 'Segmented 分段组件' },

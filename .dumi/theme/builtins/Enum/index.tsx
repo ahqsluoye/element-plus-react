@@ -7,7 +7,7 @@ const Enum = props => {
     return (
         <>
             <code>{type}</code>
-            <ElTooltip effect="light" content={<code>{props.children}</code>} trigger="click">
+            <ElTooltip effect="light" content={<code>{props.children}</code>} trigger="click" popperStyle={{ maxWidth: 600 }}>
                 <ElIcon className="r-enum" name="circle-exclamation" prefix="far" />
             </ElTooltip>
         </>

@@ -40,15 +40,22 @@ export default App;`,
                 fs.writeFileSync(
                     destPath + '/index.md',
                     content
+                        .replace(/:::tip/g, ':::info{title=TIP}')
                         .replace(/:::(demo)?/g, '')
                         .replace(new RegExp('[a-z\\-0-9]+/([a-z\\-0-9]+)\\n', 'g'), '<code src="./$1.tsx"></code>\n')
                         .replace(new RegExp('\\^\\[([a-zA-Z]*)\\]`(.*)`', 'g'), '<Enum type="$1">$2</Enum>')
                         .replace(new RegExp('\\^\\[([a-zA-Z]+)\\]', 'g'), '`$1`')
-                        .replace(new RegExp('\\^\\([\\d\\.]*\\)', 'g'), ''),
+                        .replace(new RegExp('\\^\\([\\d\\.]*\\)', 'g'), '')
+                        .replace('Attributes', '属性')
+                        .replace('events', '事件')
+                        .replace(new RegExp('\\|\\s+([a-zA-Z]+)-([a-zA[a-zA-Z[a-zA-Z]+)', 'g'), char => '| ' + camelCase(char))
+                        .replace(new RegExp('\\|\\s+([a-zA-Z]+)-([a-zA[a-zA-Z[a-zA-Z]+)', 'g'), char => '| ' + camelCase(char))
+                        .replace(new RegExp('\\|\\s+([a-zA-Z]+)-([a-zA[a-zA-Z[a-zA-Z]+)', 'g'), char => '| ' + camelCase(char))
+                        .replace(new RegExp('\\|\\s+([a-zA-Z]+)-([a-zA[a-zA-Z[a-zA-Z]+)', 'g'), char => '| ' + camelCase(char)),
                 );
             }
         }
     });
 }
 
-buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/segmented.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/segmented', true);
+buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/tour.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/tour', true);
