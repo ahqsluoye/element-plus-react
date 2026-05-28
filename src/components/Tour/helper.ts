@@ -1,8 +1,9 @@
 import { arrow, autoUpdate, computePosition, ComputePositionReturn, detectOverflow, flip, Middleware, offset as offsetMiddleware, shift, Strategy } from '@floating-ui/dom';
 import { Placement, VirtualElement } from '@popperjs/core';
 import { useMount, useUnmount } from 'ahooks';
-import { CSSProperties, useEffect, useMemo, useState } from 'react';
+import { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
 import { isClient } from '../Util';
+import { PosInfo } from './typings';
 
 export function isInViewPort(element: HTMLElement): boolean {
     const viewWidth = window.innerWidth || document.documentElement.clientWidth;
@@ -12,7 +13,7 @@ export function isInViewPort(element: HTMLElement): boolean {
     return top >= 0 && left >= 0 && right <= viewWidth && bottom <= viewHeight;
 }
 
-export function resolveTarget(target: string | HTMLElement | (() => HTMLElement | null) | null | undefined): HTMLElement | null | undefined {
+export function getTargetEl(target: string | HTMLElement | (() => HTMLElement | null) | null | undefined): HTMLElement | null | undefined {
     if (typeof target === 'string') {
         return document.querySelector<HTMLElement>(target);
     } else if (typeof target === 'function') {
@@ -32,47 +33,81 @@ export function useTarget(
     mergedMask: boolean | { style?: any; color?: string },
     scrollIntoViewOptions: boolean | ScrollIntoViewOptions,
 ): {
-    pos: { left: number; top: number; width: number; height: number; radius: number } | null;
+    mergedPosInfo: { left: number; top: number; width: number; height: number; radius: number } | null;
     triggerTarget: HTMLElement | { getBoundingClientRect(): DOMRect } | undefined;
 } {
-    const targetEl = resolveTarget(target);
-    if (!targetEl || !open) {
-        return { pos: null, triggerTarget: undefined };
-    }
-    if (!isInViewPort(targetEl)) {
-        targetEl.scrollIntoView(scrollIntoViewOptions);
-    }
-    const { left, top, width, height } = targetEl.getBoundingClientRect();
+    const [posInfo, setPosInfo] = useState<PosInfo | null>(null);
+    // const targetEl = useMemo(() => getTargetEl(target), [target]);
 
-    const gapOffsetX = getGapOffset(gap, 0);
-    const gapOffsetY = getGapOffset(gap, 1);
-    const gapRadius = gap.radius || 2;
+    const updatePosInfo = useCallback(() => {
+        const targetEl = getTargetEl(target);
+        if (!targetEl || !open) {
+            setPosInfo(null);
+            return;
+        }
+        if (!isInViewPort(targetEl)) {
+            targetEl.scrollIntoView(scrollIntoViewOptions);
+        }
+        const { left, top, width, height } = targetEl.getBoundingClientRect();
+        setPosInfo({
+            left,
+            top,
+            width,
+            height,
+            radius: 0,
+        });
+    }, [open, target, scrollIntoViewOptions]);
 
-    const pos = {
-        left: left - gapOffsetX,
-        top: top - gapOffsetY,
-        width: width + gapOffsetX * 2,
-        height: height + gapOffsetY * 2,
-        radius: gapRadius,
-    };
+    useEffect(() => {
+        updatePosInfo();
+    }, [open, target]);
 
-    const hasMask = !!mergedMask;
-    if (!hasMask || !window.DOMRect) {
-        return { pos, triggerTarget: targetEl };
-    }
+    useMount(() => {
+        window.addEventListener('resize', updatePosInfo);
+    });
+    useUnmount(() => {
+        window.removeEventListener('resize', updatePosInfo);
+    });
 
-    const triggerTarget = {
-        getBoundingClientRect() {
-            return window.DOMRect.fromRect({
-                width: pos.width,
-                height: pos.height,
-                x: pos.left,
-                y: pos.top,
-            });
-        },
-    };
+    const mergedPosInfo = useMemo(() => {
+        if (!posInfo) {
+            return posInfo;
+        }
+        const gapOffsetX = getGapOffset(gap, 0);
+        const gapOffsetY = getGapOffset(gap, 1);
+        const gapRadius = gap.radius || 2;
 
-    return { pos, triggerTarget };
+        return {
+            left: posInfo?.left - gapOffsetX,
+            top: posInfo?.top - gapOffsetY,
+            width: posInfo?.width + gapOffsetX * 2,
+            height: posInfo?.height + gapOffsetY * 2,
+            radius: gapRadius,
+        };
+    }, [posInfo, gap]);
+
+    const triggerTarget = useMemo(() => {
+        const targetEl = getTargetEl(target);
+        if (!mergedMask || !targetEl || !window.DOMRect) {
+            return targetEl || undefined;
+        }
+        if (!mergedPosInfo) {
+            return targetEl || undefined;
+        }
+        const { left, top, width, height } = mergedPosInfo || {};
+        return {
+            getBoundingClientRect() {
+                return window.DOMRect.fromRect({
+                    width,
+                    height,
+                    x: left,
+                    y: top,
+                });
+            },
+        };
+    }, [mergedMask, mergedPosInfo, target]);
+
+    return { mergedPosInfo, triggerTarget };
 }
 
 export const useFloating = (
@@ -86,8 +121,8 @@ export const useFloating = (
     showArrow: boolean,
 ) => {
     const [states, setStates] = useState({
-        x: 0,
-        y: 0,
+        x: null,
+        y: null,
         placement,
         strategy,
         middlewareData: {} as ComputePositionReturn['middlewareData'],
@@ -164,6 +199,12 @@ export const useFloating = (
         };
     }, [states.middlewareData, showArrow]);
 
+    const resizeObserver = new ResizeObserver(entries => {
+        entries.forEach(entry => {
+            update();
+        });
+    });
+
     let cleanup: any;
     useMount(() => {
         const referenceEl = referenceRef;
@@ -172,14 +213,20 @@ export const useFloating = (
             cleanup = autoUpdate(referenceEl, contentEl, update);
         }
 
-        setTimeout(() => {
-            update();
-        }, 100);
+        update();
     });
 
     useUnmount(() => {
         cleanup && cleanup();
     });
+
+    useEffect(() => {
+        if (contentRef) {
+            resizeObserver.observe(contentRef);
+        } else {
+            resizeObserver.disconnect();
+        }
+    }, [contentRef]);
 
     useEffect(() => {
         update();
@@ -189,10 +236,11 @@ export const useFloating = (
         update,
         contentStyle,
         arrowStyle,
+        states,
     };
 };
 
-const overflowMiddleware = (): Middleware => {
+export const overflowMiddleware = (): Middleware => {
     return {
         name: 'overflow',
         async fn(state) {

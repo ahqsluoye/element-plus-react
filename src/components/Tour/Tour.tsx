@@ -89,7 +89,7 @@ function Tour(props: TourProps) {
 
     const mergedZIndex = useMemo(() => zIndexProp ?? PopupManager.nextZIndex(), [zIndexProp]);
 
-    const { pos, triggerTarget } = useTarget(currentTarget, visible, gapProp, mergedMask, mergedScrollIntoViewOptions);
+    const { mergedPosInfo, triggerTarget } = useTarget(currentTarget, visible, gapProp, mergedMask, mergedScrollIntoViewOptions);
 
     const handlePrev = useCallback(() => {
         const prev = current - 1;
@@ -154,7 +154,7 @@ function Tour(props: TourProps) {
                 removeClass(portalContainer, ns.b('parent--hidden'));
             }
         } else {
-            if (portalContainer) {
+            if (portalContainer && maskProp) {
                 addClass(portalContainer, ns.b('parent--hidden'));
             }
         }
@@ -183,7 +183,14 @@ function Tour(props: TourProps) {
 
     return ReactDOM.createPortal(
         <div className={kls} style={style}>
-            <Mask visible={mergedShowMask} fill={mergedMaskStyle?.color} style={mergedMaskStyle?.style} pos={pos} zIndex={mergedZIndex} targetAreaClickable={targetAreaClickable} />
+            <Mask
+                visible={mergedShowMask}
+                fill={mergedMaskStyle?.color}
+                style={mergedMaskStyle?.style}
+                pos={mergedPosInfo}
+                zIndex={mergedZIndex}
+                targetAreaClickable={targetAreaClickable}
+            />
             {visible && currentChild ? (
                 <TourContext.Provider value={contextValue}>
                     <Content
