@@ -24,7 +24,7 @@ export default function NonModalTour() {
             </ElSpace>
             <ElTour visible={open} onChange={(_, visible) => setOpen(visible)} mask={false} type="primary">
                 <ElTourStep target={() => ref1.current?.ref.current} title="Upload File">
-                    <img style={{ width: 240 }} src="https://element-plus.org/images/element-plus-logo.svg" alt="tour.png" />
+                    <img style={{ width: 240 }} src={require('@/theme/images/element-react-logo.svg').default} alt="tour.png" />
                     <div>Put you files here.</div>
                 </ElTourStep>
                 <ElTourStep target={() => ref2.current?.ref.current} title="Save" description="Save your changes" />
