@@ -15,7 +15,7 @@ lang: zh-CN
 
 ## 非模态
 
-使用`:mask="false"`可以将引导变为非模态， 同时为了强调引导本身，建议与 type="primary" 组合使用。
+使用`mask="false"`可以将引导变为非模态， 同时为了强调引导本身，建议与 type="primary" 组合使用。
 
 <code src="./non-modal.tsx"></code>
 
