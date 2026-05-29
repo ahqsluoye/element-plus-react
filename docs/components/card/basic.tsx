@@ -5,7 +5,7 @@ import './basic.scss';
 const App = () => {
     return (
         <ElCard
-            className="box-card"
+            className="demo-box-card"
             header={
                 <div className="card-header">
                     <span>Card name</span>

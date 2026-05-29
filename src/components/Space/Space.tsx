@@ -52,15 +52,14 @@ const Space = memo(
                                 {child}
                             </SpaceItem>,
                         );
+                    } else if (child !== null && child !== undefined && child !== false) {
+                        // Handle text nodes and other valid content
+                        extractedChildren.push(
+                            <SpaceItem key={`LoopKey${parentKey}${loopKey}`} style={itemStyle} prefixCls={prefixCls}>
+                                {child}
+                            </SpaceItem>,
+                        );
                     }
-                    // else if (child !== null && child !== undefined && child !== false) {
-                    //     // Handle text nodes and other valid content
-                    //     extractedChildren.push(
-                    //         <SpaceItem key={`LoopKey${parentKey}${loopKey}`} style={itemStyle} prefixCls={prefixCls}>
-                    //             {child}
-                    //         </SpaceItem>,
-                    //     );
-                    // }
                 });
 
                 return extractedChildren;
