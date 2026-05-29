@@ -43,19 +43,22 @@ lang: zh-CN
 
 ## Statistic API
 
-### Statistic Attributes
+### Statistic 属性
 
-| Attribute         | 描述             | 类型                                                                               | 默认值 |
-| ----------------- | ---------------- | ---------------------------------------------------------------------------------- | ------ |
-| value             | 数字内容         | `number`                                                                           | 0      |
-| decimal-separator | 设置小数点符号   | `string`                                                                           | .      |
-| formatter         | 自定义数字格式化 | <Enum type="Function">(value: number) => string \| number</Enum>                   | —      |
-| group-separator   | 设置千分位标识符 | `string`                                                                           | ,      |
-| precision         | 数字精度         | `number`                                                                           | 0      |
-| prefix            | 设置数字的前缀   | `string`                                                                           | —      |
-| suffix            | 设置数字的后缀   | `string`                                                                           | —      |
-| title             | 数字标题         | `string`                                                                           | —      |
-| value-style       | 数字样式         | `string` / <Enum type="object">CSSProperties \| CSSProperties[] \| string[]</Enum> | —      |
+| Attribute        | 描述             | 类型                                                                               | 默认值 |
+| ---------------- | ---------------- | ---------------------------------------------------------------------------------- | ------ |
+| value            | 数字内容         | `number`                                                                           | 0      |
+| decimalSeparator | 设置小数点符号   | `string`                                                                           | .      |
+| formatter        | 自定义数字格式化 | <Enum type="Function">(value: number) => string \| number</Enum>                   | —      |
+| groupSeparator   | 设置千分位标识符 | `string`                                                                           | ,      |
+| precision        | 数字精度         | `number`                                                                           | 0      |
+| prefix           | 设置数字的前缀   | `string`                                                                           | —      |
+| suffix           | 设置数字的后缀   | `string`                                                                           | —      |
+| title            | 数字标题         | `string`                                                                           | —      |
+| valueStyle       | 数字样式         | `string` / <Enum type="object">CSSProperties \| CSSProperties[] \| string[]</Enum> | —      |
+| prefix           | 数字区之前       | `string` / `ReactNode`                                                             | —      |
+| suffix           | 数字区之后       | `string` / `ReactNode`                                                             | —      |
+| title            | 数字标题         | `string` / `ReactNode`                                                             | —      |
 
 ### Statistic Ref
 
@@ -63,29 +66,28 @@ lang: zh-CN
 | ------------ | ---------- | ------------------------------------------------ |
 | displayValue | 当前显示值 | <Enum type="object">Ref<string \| number></Enum> |
 
-<!-- ## Countdown API
+## Countdown API
 
-### Countdown Attributes
+### Countdown 属性
 
-| 属性        | 详情             | 类型                                                                               | 默认值   |
-| ----------- | ---------------- | ---------------------------------------------------------------------------------- | -------- |
-| value       | 目标时间         | `number` / `Dayjs`                                                                 | —        |
-| format      | 格式化倒计时     | `string`                                                                           | HH:mm:ss |
-| prefix      | 设置倒计时前缀   | `string`                                                                           | —        |
-| suffix      | 设置倒计时的后缀 | `string`                                                                           | —        |
-| title       | 倒计时标题       | `string`                                                                           | —        |
-| value-style | 倒计时值的样式   | `string` / <Enum type="object">CSSProperties \| CSSProperties[] \| string[]</Enum> | —        |
+| 属性       | 详情             | 类型                                                                               | 默认值   |
+| ---------- | ---------------- | ---------------------------------------------------------------------------------- | -------- |
+| value      | 目标时间         | `number` / `Dayjs`                                                                 | —        |
+| format     | 格式化倒计时     | `string`                                                                           | HH:mm:ss |
+| prefix     | 设置倒计时前缀   | `string` / `ReactNode`                                                             | —        |
+| suffix     | 设置倒计时的后缀 | `string` / `ReactNode`                                                             | —        |
+| title      | 倒计时标题       | `string` / `ReactNode`                                                             | —        |
+| valueStyle | 倒计时值的样式   | `string` / <Enum type="object">CSSProperties \| CSSProperties[] \| string[]</Enum> | —        |
 
-### Countdown Events
+### Countdown 事件
 
-| 方法   | 描述           | 类型                                                 |
-| ------ | -------------- | ---------------------------------------------------- |
-| change | 时间差改变事件 | <Enum type="Function">(value: number) => void</Enum> |
-| finish | 倒计时结束事件 | <Enum type="Function">() => void</Enum>              |
+| 方法名   | 描述           | 类型                                                 |
+| -------- | -------------- | ---------------------------------------------------- |
+| onChange | 时间差改变事件 | <Enum type="Function">(value: number) => void</Enum> |
+| onFinish | 倒计时结束事件 | <Enum type="Function">() => void</Enum>              |
 
-
-### Countdown Exposes
+### Countdown Ref
 
 | 名称         | 详情       | 类型                                   |
 | ------------ | ---------- | -------------------------------------- |
-| displayValue | 当前显示值 | <Enum type="object">Ref<string></Enum> | -->
+| displayValue | 当前显示值 | <Enum type="object">Ref<string></Enum> |

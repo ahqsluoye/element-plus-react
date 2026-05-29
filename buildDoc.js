@@ -48,6 +48,7 @@ export default App;`,
                         .replace(new RegExp('\\^\\([\\d\\.]*\\)', 'g'), '')
                         .replace('Attributes', '属性')
                         .replace('events', '事件')
+                        .replace('Events', '事件')
                         .replace(new RegExp('\\|\\s+([a-zA-Z]+)-([a-zA[a-zA-Z[a-zA-Z]+)', 'g'), char => '| ' + camelCase(char))
                         .replace(new RegExp('\\|\\s+([a-zA-Z]+)-([a-zA[a-zA-Z[a-zA-Z]+)', 'g'), char => '| ' + camelCase(char))
                         .replace(new RegExp('\\|\\s+([a-zA-Z]+)-([a-zA[a-zA-Z[a-zA-Z]+)', 'g'), char => '| ' + camelCase(char))

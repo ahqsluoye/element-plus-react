@@ -1,6 +1,7 @@
 import { useMount, useUnmount } from 'ahooks';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import Statistic from '../Statistic/Statistic';
+import { StatisticRef } from '../Statistic/typings';
 import { cAF, rAF } from '../Util';
 import { mergeDefaultProps } from '../Util/base';
 import type { CountdownProps, CountdownRef } from './typings';
@@ -20,6 +21,8 @@ const Countdown = memo(
 
         const timerRef = useRef<ReturnType<typeof requestAnimationFrame> | undefined>(undefined);
         const [rawValue, setRawValue] = useState<number>(0);
+
+        const statisticRef = useRef<StatisticRef>(null);
 
         /**
          * @description 计算格式化后的倒计时显示值
@@ -85,12 +88,24 @@ const Countdown = memo(
          * @description 暴露 displayValue 给父组件
          */
         useImperativeHandle(ref, () => ({
-            ref: { current: null },
+            get ref() {
+                return statisticRef.current?.ref;
+            },
             displayValue,
         }));
 
         return (
-            <Statistic value={rawValue} title={title} prefix={prefix} suffix={suffix} formatter={formatter} valueStyle={valueStyle} className={className} style={style}>
+            <Statistic
+                ref={statisticRef}
+                value={rawValue}
+                title={title}
+                prefix={prefix}
+                suffix={suffix}
+                formatter={formatter}
+                valueStyle={valueStyle}
+                className={className}
+                style={style}
+            >
                 {children}
             </Statistic>
         );
