@@ -128,6 +128,9 @@ export type { PageType, PaginationProps, PaginationRef } from './Pagination';
 export { Progress as ElProgress } from './Progress';
 export type { PropgressProps } from './Progress';
 
+export { Countdown as ElCountdown } from './Countdown';
+export type { CountdownProps, CountdownRef } from './Countdown';
+
 export { Statistic as ElStatistic } from './Statistic';
 export type { StatisticProps, StatisticRef } from './Statistic';
 

@@ -19,9 +19,10 @@ lang: zh-CN
 
 <code src="./countdown.tsx"></code>
 
-tip
+:::info{title=TIP}
 
 在格式化过程中，建议在天数范围内
+:::
 
 ## 统计卡片
 

@@ -177,13 +177,37 @@ export const download = (
     document.body.removeChild($tempForm);
 };
 
+/**
+ * @description 判断值是否为对象类型
+ */
 export const isObject = (val: unknown) => val !== null && typeof val === 'object';
+/**
+ * @description 判断值是否为undefined类型
+ */
 export const isUndefined = (val: unknown) => val === undefined;
+/**
+ * @description 判断值是否为布尔类型
+ */
 export const isBoolean: (val: unknown) => val is boolean = (val: unknown) => typeof val === 'boolean';
+/**
+ * @description 判断值是否为数字类型
+ */
 export const isNumber: (val: unknown) => val is number = (val: unknown) => typeof val === 'number';
+/**
+ * @description 判断值是否为字符串类型
+ */
 export const isString: (val: unknown) => val is string = (val: unknown) => typeof val === 'string';
+/**
+ * @description 判断值是否为函数类型
+ */
 export const isFunction: (val: unknown) => val is Function = (val: unknown) => typeof val === 'function';
+/**
+ * @description 判断值是否为字符串或数字类型
+ */
 export const isPropAbsent = (prop: unknown): prop is null | undefined => isNil(prop);
+/**
+ * @description 判断值是否为字符串类型
+ */
 export const isStringNumber = (val: string): boolean => {
     if (!isString(val)) {
         return false;

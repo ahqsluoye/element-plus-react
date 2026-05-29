@@ -13,7 +13,7 @@ const App = () => {
                     title={
                         <div style={{ display: 'inline-flex', alignItems: 'center' }}>
                             Ratio of men to women
-                            <ElIcon name="male" style={{ marginLeft: '4px', fontSize: '12px' }}></ElIcon>
+                            <ElIcon name="male" style={{ marginLeft: 4, fontSize: 12 }}></ElIcon>
                         </div>
                     }
                     suffix="/100"
