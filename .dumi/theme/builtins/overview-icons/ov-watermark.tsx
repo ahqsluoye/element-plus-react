@@ -14,7 +14,7 @@ export default () => (
                 strokeWidth="0.6"
             />
         </g>
-        <mask id="mask0_15562_103" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="59" y="47" width="162" height="86">
+        <mask id="mask0_15562_103" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="59" y="47" width="162" height="86">
             <path
                 d="M62 47.7C60.7297 47.7 59.7 48.7297 59.7 50V130C59.7 131.27 60.7297 132.3 62 132.3H218C219.27 132.3 220.3 131.27 220.3 130V50C220.3 48.7297 219.27 47.7 218 47.7H62Z"
                 fill="white"

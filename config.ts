@@ -129,7 +129,10 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
         },
         {
             title: 'Others 其他',
-            children: [{ link: '/components/divider', title: 'Divider 分割线' }],
+            children: [
+                { link: '/components/divider', title: 'Divider 分割线' },
+                { link: '/components/watermark', title: 'Watermark 水印' },
+            ],
         },
     ],
 };

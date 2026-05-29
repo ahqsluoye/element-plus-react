@@ -58,4 +58,4 @@ export default App;`,
     });
 }
 
-buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/tour.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/tour', true);
+buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/watermark.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/watermark', true);

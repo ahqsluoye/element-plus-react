@@ -222,6 +222,9 @@ export type { PopoverProps } from './Popover';
 export { Divider as ElDivider } from './Divider';
 export type { DividerProps } from './Divider';
 
+export { Watermark as ElWatermark } from './Watermark';
+export type { WatermarkFontType, WatermarkProps } from './Watermark';
+
 /* 工具库与hooks */
 export {
     htmlInputAttrs,
