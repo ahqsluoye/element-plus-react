@@ -109,6 +109,7 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
                 { link: '/components/breadcrumb', title: 'Breadcrumb 面包屑' },
                 { link: '/components/dropdown', title: 'Dropdown 下拉菜单' },
                 { link: '/components/menu', title: 'Menu 菜单' },
+                { link: '/components/page-header', title: 'PageHeader 页头' },
                 { link: '/components/tabs', title: 'Tabs 标签页' },
             ],
         },

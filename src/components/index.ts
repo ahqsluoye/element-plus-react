@@ -187,6 +187,9 @@ export type { TabPaneProps, TabsPaneContext, TabsProps } from './Tabs';
 export { Empty as ElEmpty } from './Empty';
 export type { IEmptyProps } from './Empty';
 
+export { PageHeader as ElPageHeader } from './PageHeader';
+export type { PageHeaderProps } from './PageHeader';
+
 export { Skeleton as ElSkeleton, SkeletonItem as ElSkeletonItem } from './Skeleton';
 export type { SkeletonItemProps, SkeletonProps } from './Skeleton';
 

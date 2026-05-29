@@ -66,6 +66,7 @@
 
 // /* Navigation 导航 */
 @use './breadcrumb';
+@use './breadcrumb-item';
 @use './dropdown';
 @use './menu';
 @use './menu-item';
@@ -73,6 +74,7 @@
 @use './tabs';
 @use './empty';
 @use './skeleton';
+@use './page-header';
 
 /* Feedback 反馈组件 */
 @use './alert';

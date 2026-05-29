@@ -8,8 +8,8 @@ const generateTip = Component => {
 2) 保证所有交互体验（包括但不限于引导步骤切换、动画效果、焦点状态）与参考组件完全一致；
 3) 视觉效果需精确还原，包括颜色、间距、阴影、边框等样式细节；
 4) 代码结构需符合React最佳实践，包含合理的组件拆分、hooks使用及状态管理；
-5) 参考 #${Component.toLowerCase()}提供详细的API文档，说明组件的使用方法、参数说明及事件回调，示例写入到 #${Component.toLowerCase()};
+5) 参考 #${Component.toLowerCase()}提供详细的API文档，说明组件的使用方法、参数说明及事件回调，组件名从“@qsxy/element-plus-react”获取，以El开头示例写入到 #${Component.toLowerCase()};
 6)并给字段和方法提供jdoc注释`);
 };
 
-generateTip('countdown');
+generateTip('page-header');
