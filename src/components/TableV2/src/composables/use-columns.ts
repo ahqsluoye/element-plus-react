@@ -7,7 +7,23 @@ import { isObject } from '@qsxy/element-plus-react/Util';
 import { TableV2Props } from '../table';
 import { AnyColumns, Column, KeyType } from '../types';
 
-function useColumns(props: TableV2Props, columns: AnyColumns, fixed: boolean) {
+interface UseColumnsReturn {
+    columns: AnyColumns;
+    columnsStyles: Record<KeyType, CSSProperties>;
+    columnsTotalWidth: number;
+    fixedColumnsOnLeft: AnyColumns;
+    fixedColumnsOnRight: AnyColumns;
+    hasFixedColumns: number;
+    mainColumns: AnyColumns;
+    normalColumns: AnyColumns;
+    visibleColumns: AnyColumns;
+    getColumn: (key: KeyType) => Column<any> | undefined;
+    getColumnStyle: (key: KeyType) => CSSProperties | undefined;
+    updateColumnWidth: (column: Column<any>, width: number) => void;
+    onColumnSorted: (e: MouseEvent) => void;
+}
+
+function useColumns(props: TableV2Props, columns: AnyColumns, fixed: boolean): UseColumnsReturn {
     const _columns = useMemo(
         () =>
             columns.map((column, index) => ({
@@ -121,4 +137,4 @@ function useColumns(props: TableV2Props, columns: AnyColumns, fixed: boolean) {
 }
 
 export { useColumns };
-export type UseColumnsReturn = ReturnType<typeof useColumns>;
+export type { UseColumnsReturn };

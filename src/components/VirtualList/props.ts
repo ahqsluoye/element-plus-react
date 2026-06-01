@@ -98,7 +98,7 @@ export const defaultVirtualizedProps: Partial<VirtualizedProps> = {
     data: mutable([] as const),
     direction: 'ltr',
     innerElement: 'div',
-    innerProps: mutable({}),
+    innerProps: {},
     perfMode: true,
 };
 

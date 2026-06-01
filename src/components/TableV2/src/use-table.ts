@@ -1,13 +1,63 @@
 import isArray from 'lodash/isArray';
 import isNumber from 'lodash/isNumber';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { CSSProperties, RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ScrollPos, useColumns, useData, useRow, useScrollbar, useStyles } from './composables';
 
 import { useClassNames } from '@qsxy/element-plus-react/hooks';
 import type { TableV2Props } from './table';
 import type { TableGridInstance } from './table-grid';
+import type { AnyColumns, KeyType } from './types';
 
-function useTable(props: TableV2Props) {
+interface UseTableReturn {
+    // models
+    columns: AnyColumns;
+    containerRef: RefObject<HTMLDivElement>;
+    mainTableRef: RefObject<TableGridInstance | null>;
+    leftTableRef: RefObject<TableGridInstance | null>;
+    rightTableRef: RefObject<TableGridInstance | null>;
+    // states
+    isDynamic: boolean;
+    isResetting: RefObject<boolean>;
+    isScrolling: boolean;
+    hasFixedColumns: number;
+    // records
+    columnsStyles: Record<KeyType, CSSProperties>;
+    columnsTotalWidth: number;
+    data: any[];
+    expandedRowKeys: KeyType[];
+    depthMap: Record<KeyType, number>;
+    fixedColumnsOnLeft: AnyColumns;
+    fixedColumnsOnRight: AnyColumns;
+    mainColumns: AnyColumns;
+    // metadata
+    bodyWidth: number;
+    emptyStyle: CSSProperties;
+    rootStyle: CSSProperties;
+    footerHeight: CSSProperties;
+    mainTableHeight: number;
+    fixedTableHeight: number;
+    leftTableWidth: number;
+    rightTableWidth: number;
+    // flags
+    showEmpty: boolean;
+    // methods
+    getRowHeight: (rowIndex: number) => number;
+    // event handlers
+    onColumnSorted: (e: MouseEvent) => void;
+    onRowHovered: any;
+    onRowExpanded: any;
+    onRowsRendered: any;
+    onRowHeightChange: any;
+    // use scrollbars
+    scrollTo: (params: ScrollPos) => void;
+    scrollToLeft: (scrollLeft: number) => void;
+    scrollToTop: (scrollTop: number) => void;
+    scrollToRow: (row: number, strategy?: string) => void;
+    onScroll: (params: ScrollPos) => void;
+    onVerticalScroll: ({ scrollTop }: ScrollPos) => void;
+}
+
+function useTable(props: TableV2Props): UseTableReturn {
     const mainTableRef = useRef<TableGridInstance>(null);
     const leftTableRef = useRef<TableGridInstance>(null);
     const rightTableRef = useRef<TableGridInstance>(null);
@@ -190,4 +240,4 @@ function useTable(props: TableV2Props) {
 
 export { useTable };
 
-export type UseTableReturn = ReturnType<typeof useTable>;
+export type { UseTableReturn };

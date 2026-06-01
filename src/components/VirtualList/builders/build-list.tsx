@@ -9,7 +9,7 @@ import { getRTLOffsetType, getScrollDir, isHorizontal } from '../utils';
 
 import { isClient, isNumber, isString } from '@qsxy/element-plus-react/Util';
 import type { VirtualizedListProps } from '../props';
-import type { Alignment, ListConstructorProps, ListExposes } from '../types';
+import type { Alignment, Dir, ListConstructorProps, ListExposes, ScrollbarExpose } from '../types';
 
 const createList = ({
     name,
@@ -56,11 +56,11 @@ const createList = ({
         // refs
         const windowRef = useRef<HTMLElement | null>(null);
         const innerRef = useRef<HTMLElement | null>(null);
-        const scrollbarRef = useRef<{ onMouseUp?: () => void }>(null);
+        const scrollbarRef = useRef<ScrollbarExpose>(null);
 
         const [states, setStates] = useState({
             isScrolling: false,
-            scrollDir: 'forward' as const,
+            scrollDir: 'forward' as Dir,
             scrollOffset: isNumber(initScrollOffset) ? initScrollOffset : 0,
             updateRequested: false,
             isScrollbarDragging: false,
@@ -404,7 +404,7 @@ const createList = ({
                 style: innerStyle,
                 ref: innerRef,
             },
-            !isString(Inner) ? { default: () => childrenNodes } : childrenNodes,
+            childrenNodes,
         );
 
         const listContainer = React.createElement(Container as any, {

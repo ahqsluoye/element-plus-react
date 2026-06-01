@@ -297,7 +297,7 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
             }}
             onTouchStart={e => {
                 e.preventDefault();
-                onThumbMouseDown(e);
+                onThumbMouseDown(e as unknown as React.MouseEvent);
             }}
         >
             <div ref={thumbRef} className={nsScrollbar.e('thumb')} style={thumbStyle()} onMouseDown={onThumbMouseDown} />

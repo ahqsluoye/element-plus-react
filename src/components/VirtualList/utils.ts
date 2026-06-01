@@ -57,7 +57,7 @@ type RenderThumbStyleParams = {
     move: number;
 };
 
-export function renderThumbStyle({ move, size, bar }: RenderThumbStyleParams, layout: string) {
+export function renderThumbStyle({ move, size, bar }, layout: string) {
     const style: CSSProperties = {};
     const translate = `translate${bar.axis}(${move}px)`;
 

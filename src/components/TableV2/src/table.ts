@@ -122,7 +122,7 @@ export type TableV2Props = {
     empty?: React.ReactNode;
     overlay?: React.ReactNode;
     headerFormatter?: (props: HeaderSlotProps) => React.ReactNode;
-    rowFormatter?: (props: TableGridRowSlotParams) => React.ReactNode;
+    rowFormatter?: (props: TableGridRowSlotParams) => React.ReactNode[];
     cellFormatter?: (props: CellFormatProps<any>) => React.ReactNode;
     headerCellFormatter?: (props: HeaderCellSlotProps) => React.ReactNode;
     /** 列排序时调用 */

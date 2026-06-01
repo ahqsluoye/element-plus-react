@@ -79,7 +79,7 @@ export type ListExposes = {
     scrollTo: (offset: number) => void;
     scrollToItem: (idx: number, alignment?: Alignment) => void;
     states: {
-        scrollDir: Direction;
+        scrollDir: Dir;
         scrollOffset: number;
     } & ExposesStates;
 } & SharedExposes;
@@ -88,8 +88,8 @@ export type GridExposes = {
     states: {
         scrollLeft: number;
         scrollTop: number;
-        xAxisScrollDir: Direction;
-        yAxisScrollDir: Direction;
+        xAxisScrollDir: Dir;
+        yAxisScrollDir: Dir;
     } & ExposesStates;
     touchStartX: Ref<number>;
     touchStartY: Ref<number>;

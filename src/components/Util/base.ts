@@ -188,19 +188,27 @@ export const isUndefined = (val: unknown) => val === undefined;
 /**
  * @description 判断值是否为布尔类型
  */
-export const isBoolean: (val: unknown) => val is boolean = (val: unknown) => typeof val === 'boolean';
+export function isBoolean(val: unknown): val is boolean {
+    return typeof val === 'boolean';
+}
 /**
  * @description 判断值是否为数字类型
  */
-export const isNumber: (val: unknown) => val is number = (val: unknown) => typeof val === 'number';
+export function isNumber(val: unknown): val is number {
+    return typeof val === 'number';
+}
 /**
  * @description 判断值是否为字符串类型
  */
-export const isString: (val: unknown) => val is string = (val: unknown) => typeof val === 'string';
+export function isString(val: unknown): val is string {
+    return typeof val === 'string';
+}
 /**
  * @description 判断值是否为函数类型
  */
-export const isFunction: (val: unknown) => val is Function = (val: unknown) => typeof val === 'function';
+export function isFunction(val: unknown): val is Function {
+    return typeof val === 'function';
+}
 /**
  * @description 判断值是否为字符串或数字类型
  */
