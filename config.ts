@@ -110,6 +110,7 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
                 { link: '/components/dropdown', title: 'Dropdown 下拉菜单' },
                 { link: '/components/menu', title: 'Menu 菜单' },
                 { link: '/components/page-header', title: 'PageHeader 页头' },
+                { link: '/components/steps', title: 'Steps 步骤条' },
                 { link: '/components/tabs', title: 'Tabs 标签页' },
             ],
         },

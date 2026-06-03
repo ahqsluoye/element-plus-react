@@ -75,6 +75,8 @@
 @use './empty';
 @use './skeleton';
 @use './page-header';
+@use './step';
+@use './steps';
 
 /* Feedback 反馈组件 */
 @use './alert';

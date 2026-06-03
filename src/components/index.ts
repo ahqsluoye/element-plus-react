@@ -175,6 +175,9 @@ export { TreeSelect as ElTreeSelect } from './TreeSelect';
 export { Breadcrumb as ElBreadcrumb, BreadcrumbItem as ElBreadcrumbItem } from './Breadcrumb';
 export type { BreadcrumbItemProps, BreadcrumbProps } from './Breadcrumb';
 
+export { Step as ElStep, Steps as ElSteps } from './Steps';
+export type { StepItemState, StepProps, StepsContextProps, StepsProps, StepsStatus } from './Steps';
+
 export { Dropdown as ElDropdown, DropdownItem as ElDropdownItem, DropdownMenu as ElDropdownMenu } from './Dropdown';
 export type { DropdownItemProps, DropdownMenuProps, DropdownProps } from './Dropdown';
 

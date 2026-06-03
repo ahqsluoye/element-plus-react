@@ -46,9 +46,9 @@ export default App;`,
                         .replace(new RegExp('\\^\\[([a-zA-Z]*)\\]`(.*)`', 'g'), '<Enum type="$1">$2</Enum>')
                         .replace(new RegExp('\\^\\[([a-zA-Z]+)\\]', 'g'), '`$1`')
                         .replace(new RegExp('\\^\\([\\d\\.]*\\)', 'g'), '')
-                        .replace('Attributes', '属性')
-                        .replace('events', '事件')
-                        .replace('Events', '事件')
+                        .replaceAll('Attributes', '属性')
+                        .replaceAll('events', '事件')
+                        .replaceAll('Events', '事件')
                         .replace(new RegExp('\\|\\s+([a-zA-Z]+)-([a-zA[a-zA-Z[a-zA-Z]+)', 'g'), char => '| ' + camelCase(char))
                         .replace(new RegExp('\\|\\s+([a-zA-Z]+)-([a-zA[a-zA-Z[a-zA-Z]+)', 'g'), char => '| ' + camelCase(char))
                         .replace(new RegExp('\\|\\s+([a-zA-Z]+)-([a-zA[a-zA-Z[a-zA-Z]+)', 'g'), char => '| ' + camelCase(char))
@@ -59,4 +59,4 @@ export default App;`,
     });
 }
 
-buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/page-header.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/page-header', true);
+buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/steps.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/stepss', true);

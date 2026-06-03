@@ -12,4 +12,4 @@ const generateTip = Component => {
 6)并给字段和方法提供jdoc注释`);
 };
 
-generateTip('page-header');
+generateTip('steps');
