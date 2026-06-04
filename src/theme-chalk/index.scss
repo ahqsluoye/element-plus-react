@@ -65,6 +65,10 @@
 @use './virtual-list';
 
 // /* Navigation 导航 */
+@use './affix';
+@use './anchor';
+@use './anchor-link';
+@use './backtop';
 @use './breadcrumb';
 @use './breadcrumb-item';
 @use './dropdown';

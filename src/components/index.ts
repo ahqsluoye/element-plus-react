@@ -172,6 +172,15 @@ export { TreeSelect as ElTreeSelect } from './TreeSelect';
 // export type { ListProps, ListRef, ScrollTo } from './VirtualList';
 
 /* Navigation 导航 */
+export { Affix as ElAffix } from './Affix';
+export type { AffixProps, AffixRef } from './Affix';
+
+export { Anchor as ElAnchor, AnchorLink as ElAnchorLink } from './Anchor';
+export type { AnchorContext, AnchorLinkProps, AnchorLinkState, AnchorProps, AnchorRef } from './Anchor';
+
+export { Backtop as ElBacktop } from './Backtop';
+export type { BacktopProps } from './Backtop';
+
 export { Breadcrumb as ElBreadcrumb, BreadcrumbItem as ElBreadcrumbItem } from './Breadcrumb';
 export type { BreadcrumbItemProps, BreadcrumbProps } from './Breadcrumb';
 
