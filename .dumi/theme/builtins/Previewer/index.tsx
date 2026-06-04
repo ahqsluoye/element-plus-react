@@ -136,7 +136,7 @@ const Previewer: FC<IPreviewerProps> = props => {
                 onMouseLeave={() => blockControl.current?.onMouseLeave()}
             >
                 <div className="source">
-                    <div className="r-demo-source">{children}</div>
+                    <div className="example-showcase">{children}</div>
                 </div>
                 <div ref={control} className={classNames('demo-block-control')} onClick={() => setExpand(!expand)}>
                     <BlockControl ref={blockControl} expand={expand} />

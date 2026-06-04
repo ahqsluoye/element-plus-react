@@ -44,11 +44,13 @@
         }
 
         &__heading {
-            font-size: 14px;
+            font-size: 15px;
             color: var(--text-color-light);
             font-weight: 600;
             text-transform: uppercase;
             margin-top: 0;
+            line-height: 30px;
+            padding-left: 14px;
         }
 
         p {

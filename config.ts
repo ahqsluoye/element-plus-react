@@ -53,7 +53,6 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
                 { link: '/components/text', title: 'Text 文本' },
                 { link: '/components/scrollbar', title: 'Scrollbar 滚动条' },
                 { link: '/components/space', title: 'Space 间距' },
-                { link: '/components/statistic', title: 'Statistic 统计' },
             ],
         },
         {
@@ -106,6 +105,9 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
         {
             title: 'Navigation 导航',
             children: [
+                { link: '/components/affix', title: 'Affix 固钉' },
+                { link: '/components/anchor', title: 'Anchor 锚点' },
+                { link: '/components/backtop', title: 'BackTop 回到顶部' },
                 { link: '/components/breadcrumb', title: 'Breadcrumb 面包屑' },
                 { link: '/components/dropdown', title: 'Dropdown 下拉菜单' },
                 { link: '/components/menu', title: 'Menu 菜单' },

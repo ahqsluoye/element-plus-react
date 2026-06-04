@@ -411,3 +411,7 @@ div[class*='language-'].line-numbers-mode {
 [class~='language-powershell']:before {
     content: 'shell';
 }
+
+.example-showcase {
+    position: relative;
+}
