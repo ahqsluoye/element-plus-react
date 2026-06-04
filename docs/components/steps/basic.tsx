@@ -1,12 +1,12 @@
+import { ElButton, ElStep, ElSteps } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
-import { ElSteps, ElStep, ElButton } from '@qsxy/element-plus-react';
 
 const App = () => {
     const [active, setActive] = useState(0);
 
     const next = () => {
         setActive(prev => {
-            if (prev >= 2) return 0;
+            if (prev + 1 > 3) return 0;
             return prev + 1;
         });
     };
