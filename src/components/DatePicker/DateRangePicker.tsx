@@ -285,6 +285,10 @@ const DateRangePicker = memo(
                     referenceElement={append || prepend ? groupRef : referenceElement}
                     popperInstRef={popperInstRef}
                     onDestroy={() => setVisible(false)}
+                    onEnter={() => {
+                        props.onEnter?.();
+                        popperInstRef.current?.update();
+                    }}
                     transitionAppear
                     unmountOnExit
                 >

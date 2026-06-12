@@ -229,6 +229,10 @@ const DatePicker = memo(
                     transitionAppear
                     unmountOnExit
                     {...animationInputProps}
+                    onEnter={() => {
+                        props.onEnter?.();
+                        popperInstRef.current?.update();
+                    }}
                     {...popperProps}
                 >
                     <CalendarContext.Provider

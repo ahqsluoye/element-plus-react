@@ -255,7 +255,10 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
                     setValue(initialValue.current);
                     onVisibleChange?.(false);
                 }}
-                onEnter={() => timePanelRef.current.adjustSpinners()}
+                onEnter={() => {
+                    timePanelRef.current.adjustSpinners();
+                    popperInstRef.current?.update();
+                }}
                 {...animationInputProps}
                 transitionAppear
                 unmountOnExit

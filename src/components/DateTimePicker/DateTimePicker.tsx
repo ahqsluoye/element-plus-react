@@ -196,11 +196,14 @@ const DateTimePicker = memo(
                         onVisibleChange?.(false);
                         setShowTime(false);
                     }}
-                    {...animationInputProps}
                     transitionAppear
                     unmountOnExit
                     popperClass="is-pure"
                     {...animationInputProps}
+                    onEnter={() => {
+                        props.onEnter?.();
+                        popperInstRef.current?.update();
+                    }}
                     {...popperProps}
                 >
                     <CalendarContext.Provider

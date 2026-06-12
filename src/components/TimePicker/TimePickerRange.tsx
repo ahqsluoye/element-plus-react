@@ -373,6 +373,10 @@ const TimePickerRange = memo(
                     visible={visible}
                     referenceElement={containerRef}
                     popperInstRef={popperInstRef}
+                    onEnter={() => {
+                        popperInstRef.current?.update();
+                        props.onEnter?.();
+                    }}
                     afterEnter={(node?: HTMLElement | Text) => {
                         initialValue.current = value;
                         afterEnter?.(node);
