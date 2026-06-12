@@ -72,6 +72,7 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
                 popperClass={classNames(e`popper`, is`pure`)}
                 disabled={disabled}
                 enterable
+                hideOnClick={hideOnClick}
                 effect="light"
                 offset={offset}
                 showAfter={showTimeout}

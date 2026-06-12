@@ -17,6 +17,7 @@ const Tooltip = memo(
             content,
             disabled,
             enterable = true,
+            hideOnClick = false,
             showAfter = 0,
             hideAfter = 100,
             onMouseEnter,
@@ -61,7 +62,7 @@ const Tooltip = memo(
         const handleMouseLeave = useCallback(
             (event?: React.MouseEvent<any>) => {
                 if (enterable) {
-                    if (entering.current) {
+                    if (entering.current && !hideOnClick) {
                         return;
                     }
                     event?.preventDefault();

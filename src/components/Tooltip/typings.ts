@@ -32,6 +32,8 @@ export interface TooltipProps extends BaseProps<React.ReactNode>, NativeProps, P
     disabled?: boolean;
     /** 鼠标是否可进入到 tooltip 中 */
     enterable?: boolean;
+    /** 是否在点击菜单项后隐藏菜单 */
+    hideOnClick?: boolean;
     /** 延迟出现，单位毫秒 */
     showAfter?: number;
     /** Tooltip 出现后自动隐藏延时，单位毫秒，为 0 则不会自动隐藏 */
