@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
+import omit from 'lodash/omit';
 import React, { ComponentType, RefObject, forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Transition from '../Transition/Transition';
@@ -34,6 +35,8 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
         lockScroll = true,
         zIndex,
         classPrefix = 'dialog',
+        modalClass,
+        transitionConfig = 'dialog-fade',
     } = props;
     const { b, m, is } = useClassNames(classPrefix);
     const [visible, setVisible, isControlled] = useControlled(props.visible, props.defaultVisible);
@@ -134,6 +137,8 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
 
     useImperativeHandle(ref, () => wrapperRef.current);
 
+    const transitionName = typeof transitionConfig === 'string' ? transitionConfig : transitionConfig.name;
+
     return (
         <DialogContext.Provider value={{ modal: modal, setVisible, isControlled, doClose, center, overflow, haveTitle: haveTitle.current, haveFooter: haveFooter.current }}>
             {createPortal(
@@ -144,7 +149,8 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
                     unmountOnExit={props.unmountOnExit || !draggable}
                     beforeEnter={() => {
                         props.beforeEnter?.();
-                        addClass(overlayRef.current, b('anim-bounce-in', false));
+                        addClass(wrapperRef.current, transitionName + '-enter-from');
+                        addClass(wrapperRef.current, transitionName + '-enter-active');
                     }}
                     onEnter={() => {
                         props.onOpen?.();
@@ -159,31 +165,36 @@ function InternalElDialog(props: DialogProps, ref: RefObject<HTMLDivElement>) {
                     afterEnter={() => {
                         props.afterEnter?.();
                         props.onOpened?.();
-                        // addStyle(dialogRef.current, 'display', 'block');
-                        removeClass(overlayRef.current, b('anim-bounce-in', false));
+                        removeClass(wrapperRef.current, transitionName + '-enter-from');
+                        // removeClass(wrapperRef.current, transitionName + '-enter-active');
                     }}
                     beforeLeave={() => {
-                        addClass(overlayRef.current, b('anim-bounce-out', false));
+                        addClass(wrapperRef.current, transitionName + '-leave-to');
+                        addClass(wrapperRef.current, transitionName + '-leave-active');
                         props.beforeLeave?.();
                     }}
                     onLeave={() => {
                         props.onClose?.();
                         props.onLeave?.();
+                        // removeClass(wrapperRef.current, transitionName + '-leave-to');
                     }}
                     afterLeave={() => {
                         props.afterLeave?.();
                         props.onClosed?.();
+                        removeClass(wrapperRef.current, transitionName + '-leave-active');
+                        removeClass(wrapperRef.current, transitionName + '-leave-to');
                         if (lockScroll) {
                             removeClass(document.body, b('popup-parent--hidden', false));
                         }
-                        removeClass(overlayRef.current, b('anim-bounce-out', false));
                     }}
-                    duration={300}
+                    duration={280}
+                    showDuration={0}
+                    {...(typeof transitionConfig === 'string' ? {} : omit(transitionConfig, 'name'))}
                 >
-                    <div className={classNames(b('overlay', false), props.className)} style={{ zIndex: nextZIndex }} ref={wrapperRef}>
+                    <div className={classNames(b('overlay', false), modalClass || b('modal-dialog', false))} style={{ zIndex: nextZIndex }} ref={wrapperRef}>
                         <div ref={overlayRef} className={b(`overlay-${classPrefix}`, false)} style={{ display: alignCenter ? 'flex' : 'block' }}>
                             <div
-                                className={classNames(b(), is({ draggable, 'align-center': alignCenter, fullscreen }), { [m`center`]: center })}
+                                className={classNames(b(), props.className, is({ draggable, 'align-center': alignCenter, fullscreen }), { [m`center`]: center })}
                                 style={{
                                     ...props.style,
                                     // @ts-ignore

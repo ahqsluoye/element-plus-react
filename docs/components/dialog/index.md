@@ -70,6 +70,18 @@ Dialog 的内容是懒渲染的——在被打开之前，内容 不会被立即
 
 <code src="./fullscreen-dialog.tsx"></code>
 
+## 自定义动画
+
+通过 `transition` 属性自定义对话框动画，该属性可以接受以下任意一种值：
+
+-   动画名称（字符串）
+
+-   过渡配置（对象）
+
+示例包括缩放（scale）、滑动（slide）、淡入淡出（fade）、弹跳（bounce）动画，以及带有自定义事件处理器的基于对象的配置。
+
+<code src="./custom-animation.tsx"></code>
+
 ## API
 
 ### 属性

@@ -33,9 +33,9 @@ lang: zh-CN
 
 ## 菜单隐藏方式
 
-可以通过 `hide-on-click` 属性来配置。
+可以通过 `hideOnClick` 属性来配置。
 
-下拉菜单默认在点击菜单项后会被隐藏，将 hide-on-click 属性设置为 false 可以关闭此功能。
+下拉菜单默认在点击菜单项后会被隐藏，将 hideOnClick 属性设置为 false 可以关闭此功能。
 
 <code src="./menu-hiding-behavior.tsx"></code>
 

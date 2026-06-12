@@ -28,6 +28,10 @@ export const useDraggable = (targetRef: RefObject<HTMLElement | undefined>, drag
             const maxLeft = clientWidth - targetLeft - targetWidth + offsetX;
             const maxTop = clientHeight - targetTop - targetHeight + offsetY;
 
+            if (targetRef.current) {
+                targetRef.current.classList.add('is-dragging');
+            }
+
             const onMousemove = (evt: MouseEvent) => {
                 let moveX = offsetX + evt.clientX - downX;
                 let moveY = offsetY + evt.clientY - downY;
@@ -46,10 +50,13 @@ export const useDraggable = (targetRef: RefObject<HTMLElement | undefined>, drag
                     targetRef.current.style.transform = `translate(${addUnit(moveX)}, ${addUnit(moveY)})`;
                 }
             };
-
+            // 拖拽结束时移除is-dragging类
             const onMouseup = () => {
                 document.removeEventListener('mousemove', onMousemove);
                 document.removeEventListener('mouseup', onMouseup);
+                if (targetRef.current) {
+                    targetRef.current.classList.remove('is-dragging');
+                }
             };
 
             document.addEventListener('mousemove', onMousemove);

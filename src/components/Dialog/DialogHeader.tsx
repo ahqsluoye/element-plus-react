@@ -15,12 +15,12 @@ const DialogHeader: React.ForwardRefExoticComponent<DialogHeaderProps & React.Re
         const isString = useMemo(() => typeof props.children === 'string', [props.children]);
 
         return (
-            <div ref={ref} className={classNames(e`header`, is({ border }), { 'show-close': showClose }, props.headerClass)}>
+            <header ref={ref} className={classNames(e`header`, is({ border }), { 'show-close': showClose }, props.headerClass)}>
                 {isString ? (
                     <>
-                        <div className={e`title`} style={center ? { textAlign: 'center' } : {}}>
+                        <span className={e`title`} style={center ? { textAlign: 'center' } : {}}>
                             {props.children}
-                        </div>
+                        </span>
                         {showClose && (
                             <button className={e`headerbtn`} onClick={doClose}>
                                 <Icon name={'xmark'} className={e`close`} />
@@ -30,7 +30,7 @@ const DialogHeader: React.ForwardRefExoticComponent<DialogHeaderProps & React.Re
                 ) : (
                     props.children
                 )}
-            </div>
+            </header>
         );
     }),
 );

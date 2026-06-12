@@ -203,7 +203,8 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
                 ref={containerRef}
                 classPrefix={classPrefix}
                 visible={visible}
-                className={classNames('is-message-box', className)}
+                modalClass="is-message-box"
+                className={className}
                 // @ts-ignore
                 style={{ ...style, [`--${namespace}-messagebox-width`]: addUnit(width) }}
                 modal
@@ -213,6 +214,8 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
                 title={title}
                 beforeClose={() => handleAction('close')}
                 {...transitionProps}
+                unmountOnExit={false}
+                transitionConfig={'fade-in-linear'}
             >
                 {dangerouslyUseHTMLString ? (
                     <Dialog.body classPrefix={classPrefix} padding={padding}>

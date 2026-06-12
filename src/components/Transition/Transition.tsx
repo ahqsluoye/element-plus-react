@@ -51,6 +51,8 @@ export interface TransitionProps extends AnimationEventProps {
     /** A Timeout for the animation */
     duration?: number;
 
+    showDuration?: number;
+
     /** CSS class or classes applied when the component is exited */
     exitedClassName?: string;
 
@@ -160,10 +162,10 @@ class Transition extends Component<TransitionProps & ExtraProps, TransitionState
         this.animationEventListener?.off();
 
         if (node) {
-            const { duration, animation } = this.props;
+            const { duration, showDuration, animation } = this.props;
             this.animationEventListener = on(node, animation ? getAnimationEnd() : getTransitionEnd(), this.nextCallback);
             if (duration !== null) {
-                setTimeout(this.nextCallback, duration);
+                setTimeout(this.nextCallback, this.state.status < STATUS.ENTER ? showDuration ?? duration : duration);
             }
         } else {
             setTimeout(this.nextCallback, 0);
@@ -217,9 +219,9 @@ class Transition extends Component<TransitionProps & ExtraProps, TransitionState
 
         // const callback = () => {
         // };
-        this.safeSetState({ status: STATUS.ENTER }, () => {
-            onEnter?.(node);
-            this.onTransitionEnd(node, () => {
+        this.onTransitionEnd(node, () => {
+            this.safeSetState({ status: STATUS.ENTER }, () => {
+                onEnter?.(node);
                 this.safeSetState({ status: STATUS.BEFORE_LEAVE }, () => {
                     afterEnter?.(node);
                 });

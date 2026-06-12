@@ -27,8 +27,8 @@ export interface DialogProps
     className?: string;
     /** 是否可以通过点击 modal 关闭 Dialog */
     closeOnClickModal?: boolean;
-    /** 应用于 backdrop DOM 节点的 css class */
-    backdropClassName?: string;
+    /** 遮罩的自定义类名 */
+    modalClass?: string;
     /** 对话框的宽度，默认值为 50% */
     width?: string | number;
     /** header 部分的自定义 class 名 */
@@ -57,6 +57,7 @@ export interface DialogProps
     // closeOnPressEscape?: boolean;
     /** 和原生的 CSS 的 z-index 相同，改变 z 轴的顺序 */
     zIndex?: number;
+    transitionConfig?: DialogTransition;
     // /** dialog 打开的延时时间，单位毫秒 */
     // openDelay?: number;
     // /** dialog 关闭的延时时间，单位毫秒 */
@@ -77,6 +78,8 @@ export interface DialogProps
 
 type DoneFn = (cancel?: boolean) => void;
 export type DialogBeforeCloseFn = (done: DoneFn) => void;
+
+export type DialogTransition = string | TransitionProps;
 
 export interface DialogHeaderProps extends BaseProps {
     /** header 部分的自定义 class 名 */
