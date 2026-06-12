@@ -38,7 +38,7 @@ function createDocumentHandler(el: HTMLElement, binding: DirectiveBinding): Docu
             const mouseDownTarget = mousedown.target as Node;
             const isBound = !binding;
             const isTargetExists = !mouseUpTarget || !mouseDownTarget;
-            const isContainedByEl = Object.prototype.hasOwnProperty.call(el, 'contains') && (el?.contains(mouseUpTarget) || el?.contains(mouseDownTarget));
+            const isContainedByEl = el.nodeType === Node.ELEMENT_NODE ? el?.contains(mouseUpTarget) || el?.contains(mouseDownTarget) : false;
             const isSelf = el === mouseUpTarget;
 
             const isTargetExcluded =
