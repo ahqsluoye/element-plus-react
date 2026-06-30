@@ -1,4 +1,4 @@
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import isNumber from 'lodash/isNumber';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { FixedDir } from '../constants';

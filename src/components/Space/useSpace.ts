@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import { isArray, isNumber } from 'lodash';
+import isArray from 'lodash/isArray';
+import isNumber from 'lodash/isNumber';
 import React, { useMemo } from 'react';
 import { useClassNames } from '../hooks';
 import { SpaceProps } from './typings';

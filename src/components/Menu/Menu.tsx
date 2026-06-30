@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
-import { pick } from 'lodash';
+import pick from 'lodash/pick';
 import React, { Children, forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { More } from '../Icon/IconList/More';
 import { mergeDefaultProps } from '../Util';

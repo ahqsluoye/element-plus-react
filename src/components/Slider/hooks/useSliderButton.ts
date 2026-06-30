@@ -1,7 +1,7 @@
 import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
 import { nextTick } from '@qsxy/element-plus-react/Util';
-import { debounce } from 'lodash';
 import clamp from 'lodash/clamp';
+import debounce from 'lodash/debounce';
 import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import { SliderContext } from '../SliderContext';
 import { SliderButtonInitData, SliderButtonProps, SliderContextValue, SliderValue } from '../typings';

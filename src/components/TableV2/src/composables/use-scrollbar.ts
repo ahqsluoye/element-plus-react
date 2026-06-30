@@ -1,4 +1,4 @@
-import { throttle } from 'lodash';
+import throttle from 'lodash/throttle';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import type { Alignment as ScrollStrategy } from '@qsxy/element-plus-react/VirtualList';

@@ -1,7 +1,6 @@
 import classNames from 'classnames';
-import { isFunction, isNumber } from 'lodash';
 import React, { forwardRef, memo, useMemo, useRef } from 'react';
-import { mergeDefaultProps } from '../Util';
+import { isFunction, isNumber, mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import { StatisticProps, StatisticRef } from './typings';
 
