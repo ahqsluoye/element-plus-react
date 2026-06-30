@@ -1,0 +1,9 @@
+.title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.title-wrapper.is-active {
+    color: var(--el-color-primary);
+}

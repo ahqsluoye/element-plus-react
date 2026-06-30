@@ -1,24 +1,29 @@
-import { ElCollapse, ElCollapseItem, ElIcon } from '@qsxy/element-plus-react';
-import classNames from 'classnames';
-import React, { useCallback } from 'react';
-import './customization.scss';
+import { ElCollapse, ElCollapseItem, ElSpace, ElSwitch } from '@qsxy/element-plus-react';
+import React, { useCallback, useState } from 'react';
 
 const App = () => {
-    const handleChange = useCallback((val: string) => {
+    const [position, setPosition] = useState('left');
+    const handleChange = useCallback((val: string[]) => {
         console.log(val);
     }, []);
 
     return (
         <div className="demo-collapse">
-            <ElCollapse defaultActiveName="1" accordion onChange={handleChange}>
-                <ElCollapseItem
-                    title={isActive => (
-                        <span className={classNames('title-wrapper', { 'is-active': isActive })}>
-                            Consistency <ElIcon prefix="fas" name="question-circle" />
-                        </span>
-                    )}
-                    name="1"
-                >
+            <ElSpace style={{ marginBottom: 12 }}>
+                <span className="mr-4">expand icon position: </span>
+                <ElSwitch
+                    value={position}
+                    onChange={setPosition}
+                    inactiveValue="left"
+                    activeValue="right"
+                    inactiveText="left"
+                    activeText="right"
+                    style={{ '--el-switch-on-color': '#88b8fe', '--el-switch-off-color': '#88b8fe' }}
+                />
+            </ElSpace>
+
+            <ElCollapse defaultActiveName={['1']} expandIconPosition={position} onChange={handleChange}>
+                <ElCollapseItem title="Consistency" name="1">
                     <div>Consistent with real life: in line with the process and logic of real life, and comply with languages and habits that the users are used to;</div>
                     <div>Consistent within interface: all elements should be consistent, such as: design style, icons and texts, position of elements, etc.</div>
                 </ElCollapseItem>

@@ -1,81 +1,117 @@
 import classNames from 'classnames';
-import React, { FC, memo, useCallback, useContext, useMemo, useRef } from 'react';
+import React, { forwardRef, memo, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import Icon from '../Icon/Icon';
+import { IconName } from '../Icon/typings';
 import Transition from '../Transition/Transition';
 import { useClassNames } from '../hooks';
 import { CollapseContext } from './CollapseContext';
 import { afterEnter, afterLeave, beforeEnter, beforeLeave, onEnter, onLeave } from './CollapseTransition';
-import { CollapseItemProps } from './typings';
+import { CollapseItemProps, CollapseItemRef } from './typings';
 
-const CollapseItem: FC<CollapseItemProps> = memo(props => {
-    const { name, title, disabled, classPrefix = 'collapse-item' } = props;
-    const { b, e, is } = useClassNames(classPrefix);
+const CollapseItem = memo(
+    forwardRef<CollapseItemRef, CollapseItemProps>((props, ref) => {
+        const { name, title, icon, disabled, classPrefix = 'collapse-item' } = props;
+        const { b, e, is } = useClassNames(classPrefix);
 
-    const { value, setValue, accordion, onChange } = useContext(CollapseContext);
+        const { activeNames, handleItemClick } = useContext(CollapseContext);
+        const isClick = useRef(false);
+        const [focusing, setFocusing] = useState(false);
 
-    const containerRef = useRef(null);
+        const containerRef = useRef(null);
 
-    const active = useMemo(() => {
-        if (accordion && typeof value === 'string') {
-            return name === value;
-        } else {
-            if (value instanceof Array) {
-                return value.includes(name);
-            }
-        }
-        return false;
-    }, [accordion, name, value]);
+        const active = useMemo(() => {
+            return activeNames.includes(name);
+        }, [activeNames, name]);
 
-    const handleClick = useCallback(() => {
-        if (accordion) {
-            setValue(active ? '' : name);
-            onChange?.(active ? '' : name);
-        } else {
-            if (value instanceof Array) {
-                if (active) {
-                    const v = JSON.parse(JSON.stringify(value));
-                    v.splice(v.indexOf(name), 1);
-                    setValue(v);
-                    onChange?.(v);
+        const handleFocus = () => {
+            setTimeout(() => {
+                if (!isClick.current) {
+                    setFocusing(true);
                 } else {
-                    setValue([...value, name]);
-                    onChange?.([...value, name]);
+                    isClick.current = false;
                 }
-            } else {
-                setValue(active ? [] : [name]);
-                onChange?.(active ? [] : [name]);
+            }, 50);
+        };
+
+        const handleHeaderClick = useCallback(
+            (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+                if (disabled) {
+                    return;
+                }
+                const target = event.target as HTMLElement;
+                if (target?.closest('input, textarea, select')) {
+                    return;
+                }
+
+                handleItemClick(name);
+                isClick.current = true;
+                setFocusing(false);
+            },
+            [disabled, handleItemClick, name],
+        );
+
+        const handleEnterClick = (event: React.KeyboardEvent<HTMLDivElement>) => {
+            event.preventDefault();
+            if (event.key !== 'Enter' && event.code !== 'Space') {
+                return;
             }
-        }
-    }, [accordion, active, name, onChange, setValue, value]);
+            event.stopPropagation();
+            const target = event.target as HTMLElement;
+            if (target?.closest('input, textarea, select')) {
+                return;
+            }
+            handleItemClick(name);
+        };
 
-    return (
-        <div className={classNames(b(), is({ active, disabled }), props.className)} style={props.style}>
-            <div>
-                <div className={e`header`} onClick={handleClick}>
-                    {title}
-                    <Icon name="angle-right" className={classNames(e`arrow`, is({ active }))} />
+        const getIcon = () => {
+            if (!icon) {
+                return <Icon name="angle-right" className={classNames(e`arrow`, is({ active }))} />;
+            }
+            if (typeof icon === 'function') {
+                return icon(active);
+            }
+            return React.isValidElement(icon) ? icon : <Icon name={icon as IconName} className={classNames(e`arrow`, is({ active }))} />;
+        };
+
+        React.useImperativeHandle(ref, () => ({
+            isActive: active,
+        }));
+
+        return (
+            <div className={classNames(b(), is({ active, disabled }), props.className)} style={props.style}>
+                <div
+                    className={classNames(e`header`, is({ active }), { focusing: focusing && !disabled })}
+                    onClick={handleHeaderClick}
+                    onKeyDown={handleEnterClick}
+                    tabIndex={0}
+                    onFocus={handleFocus}
+                    onBlur={() => setFocusing(false)}
+                >
+                    <span className={e`title`}>{typeof title === 'function' ? title(active) : title}</span>
+                    {getIcon()}
                 </div>
+
+                <Transition
+                    nodeRef={containerRef}
+                    // name={b('menu-collapse', false)}
+                    duration={300}
+                    showDuration={0}
+                    visible={active}
+                    beforeEnter={() => beforeEnter(containerRef)}
+                    onEnter={() => onEnter(containerRef)}
+                    afterEnter={() => afterEnter(containerRef)}
+                    beforeLeave={() => beforeLeave(containerRef)}
+                    onLeave={() => onLeave(containerRef)}
+                    afterLeave={() => afterLeave(containerRef)}
+                >
+                    <div ref={containerRef} className={classNames(e`wrap`)} style={{ display: 'none' }}>
+                        <div className={e`content`}>{props.children}</div>
+                    </div>
+                </Transition>
             </div>
-
-            <Transition
-                nodeRef={containerRef}
-                name={b('menu-collapse', false)}
-                duration={300}
-                visible={active}
-                beforeEnter={() => beforeEnter(containerRef)}
-                onEnter={() => onEnter(containerRef)}
-                afterEnter={() => afterEnter(containerRef)}
-                beforeLeave={() => beforeLeave(containerRef)}
-                onLeave={() => onLeave(containerRef)}
-                afterLeave={() => afterLeave(containerRef)}
-            >
-                <div ref={containerRef} className={classNames(e`wrap`)} style={{ display: 'none' }}>
-                    <div className={e`content`}>{props.children}</div>
-                </div>
-            </Transition>
-        </div>
-    );
-});
+        );
+    }),
+);
 
 CollapseItem.displayName = 'CollapseItem';
 

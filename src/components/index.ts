@@ -117,7 +117,7 @@ export { Carousel as ElCarousel, CarouselItem as ElCarouselItem } from './Carous
 export type { CarouselItemProps, CarouselProps, CarouselRef } from './Carousel';
 
 export { Collapse as ElCollapse, CollapseItem as ElCollapseItem } from './Collapse';
-export type { CollapseItemProps, CollapseProps } from './Collapse';
+export type { CollapseActiveName, CollapseItemProps, CollapseItemRef, CollapseProps, CollapseRef } from './Collapse';
 
 export { Descriptions as ElDescriptions, DescriptionsItem as ElDescriptionsItem } from './Descriptions';
 export type { DescriptionsItemProps, DescriptionsProps } from './Descriptions';
