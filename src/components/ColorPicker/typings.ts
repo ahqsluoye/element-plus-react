@@ -1,7 +1,7 @@
 import { PopperOptions } from '../Popper';
 import { AnimationEventProps, BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
-export interface ColorPickerProps extends BaseProps, NativeProps, AnimationEventProps, PopperOptions {
+export interface ColorPickerProps extends BaseProps, NativeProps<'--el-color-picker-alpha-bg-a' | '--el-color-picker-alpha-bg-b'>, AnimationEventProps, PopperOptions {
     /** 绑定值（可控模式） */
     value?: string;
     /** 默认值 */

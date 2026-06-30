@@ -89,7 +89,7 @@ export interface UploadRef {
     handleRemove: (file: UploadFile | UploadRawFile) => void;
 }
 
-export interface UploadProps extends UploadBaseProps, UploadHooks, BaseProps, NativeProps {
+export interface UploadProps extends UploadBaseProps, UploadHooks, BaseProps, NativeProps<'--el-upload-dragger-padding-horizontal' | '--el-upload-dragger-padding-vertical'> {
     /** 缩略图模板的内容 */
     formatter?: (file: UploadFile) => React.ReactElement;
     /** 触发文件选择框的内容 */

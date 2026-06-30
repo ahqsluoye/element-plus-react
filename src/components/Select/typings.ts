@@ -17,7 +17,23 @@ export type SelectRef = {
 
 type Child = React.ReactElement<SelectOptionGroupProps | SelectOptionProps> | React.ReactElement<SelectOptionGroupProps | SelectOptionProps>[];
 
-export interface SelectProps<V = ValueType> extends Omit<FormControlBaseProps<V>, 'onChange'>, BaseProps<Child | Child[]>, NativeProps, AnimationEventProps, PopperOptions {
+export interface SelectProps<V = ValueType>
+    extends Omit<FormControlBaseProps<V>, 'onChange'>,
+        BaseProps<Child | Child[]>,
+        NativeProps<
+            | '--el-select-border-color-hover'
+            | '--el-select-disabled-color'
+            | '--el-select-disabled-border'
+            | '--el-select-font-size'
+            | '--el-select-close-hover-color'
+            | '--el-select-input-color'
+            | '--el-select-multiple-input-color'
+            | '--el-select-input-focus-border-color'
+            | '--el-select-input-font-size'
+            | '--el-select-width'
+        >,
+        AnimationEventProps,
+        PopperOptions {
     /** 是否多选 */
     multiple?: boolean;
     /** 是否禁用 */

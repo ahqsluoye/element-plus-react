@@ -17,7 +17,20 @@ export interface Mark {
     mark: string | SliderMarkerItem;
 }
 
-export interface SliderProps extends BaseProps, NativeProps, FormControlBaseProps<SliderValue> {
+export interface SliderProps
+    extends BaseProps,
+        NativeProps<
+            | '--el-slider-main-bg-color'
+            | '--el-slider-runway-bg-color'
+            | '--el-slider-stop-bg-color'
+            | '--el-slider-disabled-color'
+            | '--el-slider-border-radius'
+            | '--el-slider-height'
+            | '--el-slider-button-size'
+            | '--el-slider-button-wrapper-size'
+            | '--el-slider-button-wrapper-offset'
+        >,
+        FormControlBaseProps<SliderValue> {
     /** 最小值 */
     min?: number;
     /** 最大值 */

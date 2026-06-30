@@ -17,7 +17,18 @@ export const defaultProps: Required<SegmentedProps> = {
 
 export interface SegmentedComponentProps<T extends Option = Option>
     extends BaseProps<ReactElement | ReactElement[] | ((data: T) => ReactElement | ReactElement[])>,
-        NativeProps,
+        NativeProps<
+            | '--el-segmented-color'
+            | '--el-segmented-bg-color'
+            | '--el-segmented-padding'
+            | '--el-segmented-item-selected-color'
+            | '--el-segmented-item-selected-bg-color'
+            | '--el-segmented-item-selected-disabled-bg-color'
+            | '--el-segmented-item-hover-color'
+            | '--el-segmented-item-hover-bg-color'
+            | '--el-segmented-item-active-bg-color'
+            | '--el-segmented-item-disabled-color'
+        >,
         FormControlBaseProps<string | number | boolean> {
     direction?: 'vertical' | 'horizontal';
     options?: T[];

@@ -14,7 +14,14 @@ export interface RadioProps<T = ValueType>
     extends Omit<React.AllHTMLAttributes<HTMLInputElement>, 'size' | 'prefix' | 'type' | 'value' | 'defaultValue' | 'onChange' | 'style' | 'children'>,
         Omit<FormControlBaseProps<T>, 'onChange'>,
         BaseProps,
-        NativeProps {
+        NativeProps<
+            | '--el-radio-text-color'
+            | '--el-radio-input-height'
+            | '--el-radio-input-width'
+            | '--el-radio-input-bg-color'
+            | '--el-radio-input-border-color'
+            | '--el-radio-input-border-color-hover'
+        > {
     /** tooltip 提示*/
     title?: string;
     /** 是否只读 */

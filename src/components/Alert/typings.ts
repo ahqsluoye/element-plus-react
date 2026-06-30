@@ -2,7 +2,19 @@ import { ReactElement } from 'react';
 import { IconName } from '../Icon/typings';
 import { BaseProps, NativeProps } from '../types/common';
 
-export interface AlertProps extends BaseProps, NativeProps {
+export interface AlertProps
+    extends BaseProps,
+        NativeProps<
+            | '--el-alert-padding'
+            | '--el-alert-border-radius-base'
+            | '--el-alert-title-font-size'
+            | '--el-alert-title-with-description-font-size'
+            | '--el-alert-description-font-size'
+            | '--el-alert-close-font-size'
+            | '--el-alert-close-customed-font-size'
+            | '--el-alert-icon-size'
+            | '--el-alert-icon-large-size'
+        > {
     /**
      * Alert 标题。
      */

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { BaseProps, NativeProps } from '../types/common';
 
-export interface SkeletonProps extends BaseProps, NativeProps {
+export interface SkeletonProps extends BaseProps, NativeProps<'--el-skeleton-color' | '--el-skeleton-to-color'> {
     /** 是否显示骨架屏（可控） */
     visible?: boolean;
     /** 默认是否显示骨架屏 */

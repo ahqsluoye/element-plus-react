@@ -121,7 +121,10 @@ export type LoadFunction = (rootNode: Node, loadedCallback: (data: TreeData) => 
 export type FilterValue = any;
 export type FilterNodeMethodFunction = (value: FilterValue, data: TreeNodeData, child: Node) => boolean;
 
-export interface TreeProps extends TreeEvents, BaseProps, NativeProps {
+export interface TreeProps
+    extends TreeEvents,
+        BaseProps,
+        NativeProps<'--el-tree-node-content-height' | '--el-tree-node-hover-bg-color' | '--el-tree-text-color' | '--el-text-color-regular' | '--el-tree-expand-icon-color'> {
     /** 展示数据 */
     data?: TreeData;
     /** 内容为空的时候展示的文本 */

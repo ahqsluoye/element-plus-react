@@ -1,7 +1,19 @@
 import { RefObject } from 'react';
 import { BaseProps, NativeProps } from '../types/common';
 
-export interface CarouselProps extends BaseProps, NativeProps {
+export interface CarouselProps
+    extends BaseProps,
+        NativeProps<
+            | '--el-carousel-arrow-font-size'
+            | '--el-carousel-arrow-size'
+            | '--el-carousel-arrow-background'
+            | '--el-carousel-arrow-hover-background'
+            | '--el-carousel-indicator-width'
+            | '--el-carousel-indicator-height'
+            | '--el-carousel-indicator-padding-horizontal'
+            | '--el-carousel-indicator-padding-vertical'
+            | '--el-carousel-indicator-out-color'
+        > {
     /** carousel 的高度	 */
     height?: string | number;
     /** 初始状态激活的幻灯片的索引，从 0 开始	 */

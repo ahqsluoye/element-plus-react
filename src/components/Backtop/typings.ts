@@ -4,7 +4,7 @@ import { BaseProps, NativeProps } from '../types/common';
 /**
  * Backtop 组件 Props
  */
-export interface BacktopProps extends BaseProps, NativeProps {
+export interface BacktopProps extends BaseProps, NativeProps<'--el-backtop-bg-color' | '--el-backtop-text-color' | '--el-backtop-text-color:' | '--el-backtop-hover-bg-color'> {
     /**
      * 滚动高度达到此参数值才出现
      * @default 200

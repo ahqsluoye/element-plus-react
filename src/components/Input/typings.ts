@@ -41,7 +41,24 @@ export type TextareaRef = {
 export interface InputProps
     extends FormControlBaseProps<string | number>,
         BaseProps,
-        NativeProps,
+        NativeProps<
+            | '--el-input-text-color'
+            | '--el-input-border'
+            | '--el-input-hover-border'
+            | '--el-input-focus-border'
+            | '--el-input-transparent-border'
+            | '--el-input-border-color'
+            | '--el-input-border-radius'
+            | '--el-input-bg-color'
+            | '--el-input-icon-color'
+            | '--el-input-placeholder-color'
+            | '--el-input-hover-border-color'
+            | '--el-input-clear-hover-color'
+            | '--el-input-focus-border-color'
+            | '--el-input-width'
+            | '--el-input-height'
+            | '--el-input-inner-height'
+        >,
         Omit<React.AllHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'size' | 'prefix' | 'type' | 'onInput' | 'onChange' | 'style' | 'children'> {
     size?: TypeAttributes.Size;
 

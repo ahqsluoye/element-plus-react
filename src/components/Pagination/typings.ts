@@ -13,7 +13,27 @@ export interface PaginationRef {
     setPageSize: (value: number) => void;
 }
 
-export interface PaginationProps extends BaseProps, NativeProps {
+export interface PaginationProps
+    extends BaseProps,
+        NativeProps<
+            | '--el-pagination-font-size'
+            | '--el-pagination-bg-color'
+            | '--el-pagination-text-color'
+            | '--el-pagination-border-radius'
+            | '--el-pagination-button-color'
+            | '--el-pagination-button-width'
+            | '--el-pagination-button-height'
+            | '--el-pagination-button-disabled-color'
+            | '--el-pagination-button-disabled-bg-color'
+            | '--el-pagination-button-bg-color'
+            | '--el-pagination-hover-color'
+            | '--el-pagination-font-size-small'
+            | '--el-pagination-button-width-small'
+            | '--el-pagination-button-height-small'
+            | '--el-pagination-button-width-large'
+            | '--el-pagination-button-height-large'
+            | '--el-pagination-item-gap'
+        > {
     /** 当前页数 */
     currentPage?: number;
     /** 当前页数的默认初始值，不设置时默认为 1 */

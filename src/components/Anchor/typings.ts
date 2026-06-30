@@ -33,7 +33,17 @@ export interface AnchorContext {
 /**
  * Anchor 组件 Props
  */
-export interface AnchorProps extends BaseProps, NativeProps {
+export interface AnchorProps
+    extends BaseProps,
+        NativeProps<
+            | '--el-anchor-bg-color'
+            | '--el-anchor-padding-indent'
+            | '--el-anchor-line-height'
+            | '--el-anchor-font-size'
+            | '--el-anchor-color'
+            | '--el-anchor-active-color'
+            | '--el-anchor-marker-bg-color'
+        > {
     /**
      * 滚动的容器
      */

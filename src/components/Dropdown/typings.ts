@@ -4,7 +4,12 @@ import { TransitionProps } from '../Transition';
 import { AnimationEventProps, BaseProps, NativeProps } from '../types/common';
 
 /** Dropdown 属性 */
-export interface DropdownProps extends BaseProps<React.ReactElement>, NativeProps, PopperOptions, AnimationEventProps, Omit<TransitionProps, 'children'> {
+export interface DropdownProps
+    extends BaseProps<React.ReactElement>,
+        NativeProps<'--el-dropdown-menu-box-shadow-light' | '--el-dropdown-menuItem-hover-fill' | '--el-dropdown-menuItem-hover-color'>,
+        PopperOptions,
+        AnimationEventProps,
+        Omit<TransitionProps, 'children'> {
     menu: React.ReactElement<DropdownMenuProps>;
     /** 触发下拉的行为 */
     trigger?: 'hover' | 'click' | 'contextmenu';
