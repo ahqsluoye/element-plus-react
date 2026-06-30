@@ -1,0 +1,20 @@
+{
+    "/components/select": {
+        "title": "Select 选择器",
+        "list": [
+            {
+                "timestamp": "2026-06-30",
+                "content": "多选时，文本框自动高度调整后，下拉框没有自动调整位置"
+            }
+        ]
+    },
+    "/components/date-time-picker": {
+        "title": "DateTimePicker 日期时间选择器",
+        "list": [
+            {
+                "timestamp": "2026-06-30",
+                "content": "无法选择时间"
+            }
+        ]
+    }
+}
