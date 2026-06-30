@@ -78,7 +78,7 @@ const Tooltip = memo(
                     entering.current = false;
                 }
             },
-            [enterable, hideAfter, onMouseLeave, setVisible],
+            [enterable, hideAfter, hideOnClick, onMouseLeave, setVisible],
         );
 
         const filterChildren = Children.toArray(triggerRef ?? props.children).filter(
@@ -134,7 +134,7 @@ const Tooltip = memo(
                         } else if (trigger === 'click') {
                             Object.assign(newProps, {
                                 onClick: (event: React.MouseEvent<any>) => {
-                                    setVisible(true);
+                                    setVisible(!visible);
                                     onMouseEnter?.(event);
                                     (child as React.ReactElement<any>)?.props?.onClick?.(event);
                                 },

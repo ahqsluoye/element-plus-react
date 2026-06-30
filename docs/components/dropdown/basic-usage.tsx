@@ -16,7 +16,7 @@ const App = () => {
                 </ElDropdownMenu>
             }
         >
-            <ElLink type="primary">
+            <ElLink type="primary" underline="never">
                 下拉菜单
                 <ElIcon name="angle-down" style={{ paddingLeft: 5 }} />
             </ElLink>
