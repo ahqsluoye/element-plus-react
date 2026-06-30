@@ -63,7 +63,7 @@ lang: zh-CN
 | -------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | onChange | 切换当前活动面板，在手风琴模式下其类型是`string`，在其他模式下是`array` | <Enum type="Function">(activeNames: array \| string) => void</Enum> |
 
-### Collapse Exposes
+### Collapse Ref
 
 | 方法名         | 说明               | 类型                                                                     |
 | -------------- | ------------------ | ------------------------------------------------------------------------ |
@@ -81,7 +81,7 @@ lang: zh-CN
 | icon     | 折叠项目的图标 | `IconName` / `Component` / <Enum type="Function">((isActive: boolean) => React.ReactNode)</Enum> | ArrowRight |
 | disabled | 是否禁用       | `boolean`                                                                                        | false      |
 
-### Collapse Item Exposes
+### Collapse Item Ref
 
 | Name     | Description        | Type                 |
 | -------- | ------------------ | -------------------- |
