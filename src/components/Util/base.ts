@@ -180,11 +180,15 @@ export const download = (
 /**
  * @description 判断值是否为对象类型
  */
-export const isObject = (val: unknown) => val !== null && typeof val === 'object';
+export function isObject(val: unknown): val is Record<any, any> {
+    return val !== null && typeof val === 'object';
+}
 /**
  * @description 判断值是否为undefined类型
  */
-export const isUndefined = (val: unknown) => val === undefined;
+export function isUndefined(val: unknown): val is undefined {
+    return val === undefined;
+}
 /**
  * @description 判断值是否为布尔类型
  */
@@ -212,16 +216,23 @@ export function isFunction(val: unknown): val is Function {
 /**
  * @description 判断值是否为字符串或数字类型
  */
-export const isPropAbsent = (prop: unknown): prop is null | undefined => isNil(prop);
+export function isPropAbsent(prop: unknown): prop is null | undefined {
+    return isNil(prop);
+}
 /**
  * @description 判断值是否为字符串类型
  */
-export const isStringNumber = (val: string): boolean => {
+export function isStringNumber(val: string): boolean {
     if (!isString(val)) {
         return false;
     }
     return !Number.isNaN(Number(val));
-};
+}
+
+export function isPromise<T = any>(val: unknown): val is Promise<T> {
+    return !isNil(val) && isFunction((val as Promise<T>).then) && isFunction((val as Promise<T>).catch);
+}
+
 export function addUnit(value?: string | number, defaultUnit = 'px') {
     if (!value) {
         return '';
