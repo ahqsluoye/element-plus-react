@@ -109,7 +109,7 @@ ElMessageBox.alert('Hello world!', 'Title', {}, appContext);
 如果您需要按需引入 `MessageBox`：
 
 ```ts
-import { ElMessageBox } from 'element-plus';
+import { ElMessageBox } from '@qsxy/element-plus-react';
 ```
 
 ## API

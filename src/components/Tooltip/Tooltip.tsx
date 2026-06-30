@@ -143,7 +143,7 @@ const Tooltip = memo(
                             Object.assign(newProps, {
                                 onContextMenu: (event: React.MouseEvent<any>) => {
                                     event.preventDefault();
-                                    setVisible(true);
+                                    setVisible(!visible);
                                     onMouseLeave?.(event);
                                     (child as React.ReactElement<any>)?.props?.onContextMenu?.(event);
                                 },
