@@ -43,6 +43,7 @@ const Main = () => {
         if (siteData.loading) {
             return;
         }
+        anchorRef?.scrollTo('');
         const hash = decodeURIComponent(window.location.hash);
         anchorRef?.scrollTo(hash);
     }, [siteData.loading]);
