@@ -3,7 +3,7 @@ import { addClass, removeClass } from 'dom-lib';
 import React, { RefObject, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Transition from '../Transition/Transition';
-import { PopupManager, addUnit, mergeDefaultProps } from '../Util';
+import { PopupManager, addUnit, getScrollBarWidth, mergeDefaultProps } from '../Util';
 import { useClassNames, useControlled } from '../hooks';
 import { namespace } from '../hooks/prefix';
 import DrawerBody from './DrawerBody';
@@ -102,6 +102,7 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
                         transitionAppear
                         unmountOnExit
                         duration={300}
+                        showDuration={0}
                         onEnter={() => {
                             setTimeout(() => {
                                 addClass(backdropRef.current, `${namespace}-anim-in`);
@@ -118,6 +119,7 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
                 <Transition
                     nodeRef={ref || wrapperRef}
                     visible={visible}
+                    showDuration={0}
                     transitionAppear
                     unmountOnExit
                     beforeEnter={props.beforeEnter}
@@ -126,6 +128,8 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
                         props.onEnter?.();
                         if (lockScroll) {
                             addClass(document.body, b('popup-parent--hidden', false));
+                            const scrollWidth = getScrollBarWidth(namespace);
+                            document.body.style.width = `calc(100% - ${scrollWidth}px)`;
                         }
                     }}
                     afterEnter={() => {
@@ -146,6 +150,7 @@ function InternalComp(props: DrawerProps, ref: RefObject<HTMLDivElement>) {
                         props.onClosed?.();
                         if (lockScroll) {
                             removeClass(document.body, b('popup-parent--hidden', false));
+                            document.body.style.width = '';
                         }
                     }}
                     duration={300}

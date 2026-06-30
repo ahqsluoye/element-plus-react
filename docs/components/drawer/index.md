@@ -39,8 +39,6 @@ lang: zh-CN
 
 你可以像 `Dialog` 一样拥有多层嵌套的 `Drawer`
 
-如果你需要在不同图层中多个抽屉，你必须设置 `append-to-body` 属性到 **true**
-
 <code src="./nested-drawer.tsx"></code>
 
 :::info{title=TIP}
