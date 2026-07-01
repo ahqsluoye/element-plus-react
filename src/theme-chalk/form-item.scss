@@ -115,6 +115,15 @@ $form-item-label-top-margin-bottom: map.merge(
             line-height: #{map.get($form-item-label-top-line-height, 'default')};
             padding-right: 0;
         }
+
+        &.is-flat {
+            .#{$namespace}-form-item {
+                display: inline-block;
+                padding-right: 16px;
+                width: 100%;
+                vertical-align: top;
+            }
+        }
     }
 
     @include e(label-wrap) {
@@ -123,7 +132,7 @@ $form-item-label-top-margin-bottom: map.merge(
 
     @include e(label) {
         display: inline-flex;
-        align-items: flex-start;
+        align-items: center;
 
         flex: 0 0 auto;
         font-size: getCssVar('form-label-font-size');
@@ -134,6 +143,19 @@ $form-item-label-top-margin-bottom: map.merge(
 
         padding: 0 12px 0 0;
         box-sizing: border-box;
+
+        .#{$namespace}-help-icon {
+            margin-left: 4px;
+            color: var(--#{$namespace}-color-info);
+            cursor: help;
+        }
+    }
+
+    .#{$namespace}-form-item__label--help {
+        margin-left: 5px;
+        cursor: pointer;
+        color: var(--#{$namespace}-color-info-light-3);
+        font-size: 16px;
     }
 
     @include e(content) {

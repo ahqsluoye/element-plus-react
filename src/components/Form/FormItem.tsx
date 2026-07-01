@@ -704,7 +704,7 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
                                 {typeof label === 'string' || typeof label === 'number' ? `${label}${colonContext ?? colon ? '：' : ''}` : label}
                                 {help && (
                                     <Tooltip className={e`label--help`} content={help} placement="top" enterable>
-                                        <Icon name="circle-exclamation" prefix="fas" />
+                                        <Icon name="circle-question" prefix="fas" />
                                     </Tooltip>
                                 )}
                             </label>

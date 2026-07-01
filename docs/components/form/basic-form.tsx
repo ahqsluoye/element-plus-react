@@ -11,6 +11,7 @@ import {
     ElRadioGroup,
     ElRow,
     ElSelect,
+    ElSpace,
     ElSwitch,
     ElTimePicker,
     useForm,
@@ -29,7 +30,7 @@ const App = () => {
 
     return (
         <ElForm form={formInstance} initialValues={initialValues} style={{ width: 800 }}>
-            <ElForm.Item name="name" label="活动名称">
+            <ElForm.Item name="name" label="活动名称" help="请输入活动名称">
                 <ElInput />
             </ElForm.Item>
             <ElForm.Item name="region" label="活动区域">
@@ -75,12 +76,14 @@ const App = () => {
             <ElForm.Item name="desc" label="活动形式">
                 <ElInput.TextArea />
             </ElForm.Item>
-            <ElForm.Item>
-                <ElButton type="primary" onClick={onSubmit}>
-                    立即创建
-                </ElButton>
-                <ElButton>取消</ElButton>
-            </ElForm.Item>
+            <ElSpace justify="center" style={{ width: '100%' }}>
+                <ElForm.Item>
+                    <ElButton type="primary" onClick={onSubmit}>
+                        立即创建
+                    </ElButton>
+                    <ElButton>取消</ElButton>
+                </ElForm.Item>
+            </ElSpace>
         </ElForm>
     );
 };
