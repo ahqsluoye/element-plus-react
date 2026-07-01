@@ -37,7 +37,7 @@ const App = () => {
             <ElCol span={24}>
                 <ElRadioGroup value={size} onChange={(value: TypeAttributes.Size) => setSize(value)}>
                     <ElRadio.Button value="large">大</ElRadio.Button>
-                    <ElRadio.Button value={''}>默认</ElRadio.Button>
+                    <ElRadio.Button value={'default'}>默认</ElRadio.Button>
                     <ElRadio.Button value="small">小</ElRadio.Button>
                 </ElRadioGroup>
                 <ElRadioGroup value={labelPosition} onChange={(value: 'left' | 'right' | 'top') => setLabelPosition(value)} style={{ marginLeft: 20 }}>

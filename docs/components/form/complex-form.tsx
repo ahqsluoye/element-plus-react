@@ -8,7 +8,7 @@ const App = () => {
     }, []);
 
     return (
-        <ElForm name="complex-form" onFinish={onFinish} style={{ width: 800 }}>
+        <ElForm name="complex-form" onFinish={onFinish} style={{ width: 800 }} initialValues={{ year: '1990', month: '06-01' }}>
             <ElForm.Item label="账号" name="username" rules={[{ required: true }]}>
                 {({ value, onChange, error }: { value?: string; onChange?: (value: string) => void; error?: boolean }) => (
                     <div style={{ display: 'flex', gap: 8 }}>
@@ -22,28 +22,28 @@ const App = () => {
                 )}
             </ElForm.Item>
 
-            <ElForm.Item label="地址">
-                <ElForm.Item
-                    name={['address', 'street']}
-                    noStyle
-                    validateStatus="warning"
-                    rules={[{ required: true, message: '详细地址不可为空' }]}
-                    errorStyle={{ paddingLeft: 140 }}
-                >
-                    <ElInput
-                        style={{ width: '50%' }}
-                        placeholder="详细地址"
-                        prepend={
-                            <ElForm.Item name={['address', 'province']} noStyle rules={[{ required: true, message: '省份不可为空' }]}>
-                                <ElSelect placeholder="选择省份" style={{ width: 140 }}>
-                                    <ElOption value="Zhejiang" label="浙江" />
-                                    <ElOption value="Jiangsu" label="江苏" />
-                                </ElSelect>
-                            </ElForm.Item>
-                        }
-                    />
-                </ElForm.Item>
+            {/* <ElForm.Item label="地址"> */}
+            <ElForm.Item
+                label="地址"
+                name={['address', 'street']}
+                validateStatus="warning"
+                rules={[{ required: true, message: '详细地址不可为空' }]}
+                errorStyle={{ paddingLeft: 140 }}
+            >
+                <ElInput
+                    style={{ width: '50%' }}
+                    placeholder="详细地址"
+                    prepend={
+                        <ElForm.Item name={['address', 'province']} noStyle rules={[{ required: true, message: '省份不可为空' }]}>
+                            <ElSelect placeholder="选择省份" style={{ width: 140 }} clearable>
+                                <ElOption value="Zhejiang" label="浙江" />
+                                <ElOption value="Jiangsu" label="江苏" />
+                            </ElSelect>
+                        </ElForm.Item>
+                    }
+                />
             </ElForm.Item>
+            {/* </ElForm.Item> */}
 
             <ElForm.Item label="生日">
                 <ElForm.Item name="year" rules={[{ required: true, message: '年份不可为空' }]} style={{ display: 'inline-block', width: '50%' }} pure>

@@ -16,7 +16,7 @@ const App = () => {
                 <ElForm.Item name="name" label="活动名称">
                     <ElInput />
                 </ElForm.Item>
-                <ElForm.Item name="region" label="活动区域">
+                <ElForm.Item name="region" label="区域">
                     <ElInput />
                 </ElForm.Item>
                 <ElForm.Item name="type" label="活动形式">

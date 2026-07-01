@@ -8,6 +8,7 @@ import { addUnit, isNotEmpty, warning } from '../Util';
 import { ComponentChildren } from '../types/common';
 import FieldContext, { HOOK_MARK } from './FieldContext';
 import { FormItemContext } from './FormItemContext';
+import FormLabelWrap from './FormLabelWrap';
 import type {
     EventArgs,
     FieldEntity,
@@ -662,38 +663,54 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
         }
 
         return noStyle ? (
-            <FormItemContext.Provider key={resetCount} value={{ size }}>
-                <div ref={this.containerRef} className={e('nostyle')}>
-                    {returnChildNode}
+            <FormItemContext.Provider key={resetCount} value={{ size, hasLabel: !!label, labelPosition }}>
+                <div
+                    ref={this.containerRef}
+                    className={classNames(b('form-item'), e('nostyle'), {
+                        'is-error': this.errors.length > 0,
+                        'is-warning': this.warnings.length > 0,
+                        'is-validating': this.isFieldValidating(),
+                        'is-success': this.errors.length === 0 && this.warnings.length === 0,
+                    })}
+                >
+                    <div className={classNames(e`content`, { 'is-center': center })}>{returnChildNode}</div>
                     {showMessage ? this.getValidateLable() : null}
                 </div>
             </FormItemContext.Provider>
         ) : (
-            <FormItemContext.Provider key={resetCount} value={{ size }}>
+            <FormItemContext.Provider key={resetCount} value={{ size, hasLabel: !!label, labelPosition }}>
                 <div
                     ref={this.containerRef}
                     className={classNames(
                         b('form-item'),
                         {
-                            'is-required': isRequired && !hideRequiredAsterisk,
-                            [m(`label-${labelPosition}`)]: this.props.labelPosition,
+                            'is-error': this.errors.length > 0,
+                            'is-warning': this.warnings.length > 0,
+                            'is-validating': this.isFieldValidating(),
+                            'is-success': this.errors.length === 0 && this.warnings.length === 0,
+                            'is-required': isRequired,
+                            'is-no-asterisk': hideRequiredAsterisk,
+                            [m(`label-${labelPosition}`)]: labelPosition,
                             [m(sizeContext ?? size)]: sizeContext ?? size,
                         },
-                        'asterisk-' + requireAsteriskPosition,
+                        requireAsteriskPosition === 'right' ? 'asterisk-right' : 'asterisk-left',
                         className,
                     )}
                     style={style}
                 >
-                    {label && !pure && (
-                        <label className={e`label`} style={['left', 'right'].includes(labelPosition) ? { width: labelWidth, ...labelStyle } : labelStyle}>
-                            {typeof label === 'string' || typeof label === 'number' ? `${label}${colonContext ?? colon ? '：' : ''}` : label}
-                            {help && (
-                                <Tooltip className={e`label--help`} content={help} placement="top" enterable>
-                                    <Icon name="circle-exclamation" prefix="fas" />
-                                </Tooltip>
-                            )}
-                        </label>
-                    )}
+                    <FormLabelWrap isAutoWidth={labelWidth === 'auto'} updateAll={fieldContext.labelWidth === 'auto'}>
+                        {label && !pure && (
+                            <label className={e`label`} style={['left', 'right'].includes(labelPosition) ? { width: labelWidth, ...labelStyle } : labelStyle}>
+                                {typeof label === 'string' || typeof label === 'number' ? `${label}${colonContext ?? colon ? '：' : ''}` : label}
+                                {help && (
+                                    <Tooltip className={e`label--help`} content={help} placement="top" enterable>
+                                        <Icon name="circle-exclamation" prefix="fas" />
+                                    </Tooltip>
+                                )}
+                            </label>
+                        )}
+                    </FormLabelWrap>
+
                     <div
                         className={classNames(e`content`, { 'is-center': center })}
                         // 没有文本或者表单布局不是top的时候需要添加marginLeft

@@ -7,9 +7,8 @@ import {
     ElForm,
     ElInput,
     ElOption,
-    ElRadio,
-    ElRadioGroup,
     ElRow,
+    ElSegmented,
     ElSelect,
     ElSwitch,
     ElTimePicker,
@@ -96,10 +95,16 @@ const App = () => {
                 </ElCheckboxGroup>
             </ElForm.Item>
             <ElForm.Item name="resource" label="特殊资源">
-                <ElRadioGroup>
+                <ElSegmented
+                    options={[
+                        { label: '线上品牌商赞助', value: 'Sponsor' },
+                        { label: '线下场地免费', value: 'Venue' },
+                    ]}
+                />
+                {/* <ElRadioGroup>
                     <ElRadio value="Sponsor">线上品牌商赞助</ElRadio>
                     <ElRadio value="Venue">线下场地免费</ElRadio>
-                </ElRadioGroup>
+                </ElRadioGroup> */}
             </ElForm.Item>
             <ElForm.Item name="desc" label="活动形式" validateTrigger="onBlur">
                 <ElInput.TextArea />

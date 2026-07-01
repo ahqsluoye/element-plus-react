@@ -98,6 +98,8 @@ export interface FormItemProps<T> extends BaseProps, NativeProps {
     errorStyle?: React.CSSProperties;
     /** 校验警告自定义内联样式 */
     warningStyle?: React.CSSProperties;
+    /** 和原生标签相同能力 */
+    // for?: string;
 }
 
 export interface FieldEntity {
@@ -387,6 +389,12 @@ export type InternalFormInstance = Omit<FormInstance, 'validateFields'> & {
     showMessage?: boolean;
     /** 当校验失败时，滚动到第一个错误表单项 */
     scrollToError?: boolean;
+    /** 自动标签宽度 */
+    autoLabelWidth?: string;
+    /** 注册标签宽度 */
+    registerLabelWidth?: (width: number, oldWidth: number) => void;
+    /** 注销标签宽度 */
+    deregisterLabelWidth?: (width: number) => void;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

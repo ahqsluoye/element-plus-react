@@ -18,7 +18,7 @@ interface UseFocusControllerOptions {
     afterBlur?: () => void;
 }
 
-export function useFocusController<T extends { focus: () => void }>(
+export function useFocusController<T extends { focus:() => void }>(
     target: RefObject<HTMLElement | undefined>,
     { disabled, beforeFocus, afterFocus, beforeBlur, afterBlur }: UseFocusControllerOptions = {},
 ) {

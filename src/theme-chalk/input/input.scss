@@ -359,6 +359,7 @@
 
         .#{$namespace}-select,
         .#{$namespace}-button {
+            background-color: var(--el-fill-color-blank);
             display: inline-block;
             flex: 1;
             margin: 0 -20px;

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import omit from 'lodash/omit';
-import React, { ForwardedRef, forwardRef, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { ForwardedRef, forwardRef, useCallback, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import FieldContext, { HOOK_MARK } from './FieldContext';
@@ -19,11 +19,12 @@ function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: For
         {
             inline: false,
             cols: 0,
-            labelWidth: 120,
+            labelWidth: 'auto',
             labelPosition: 'right',
             validateTrigger: 'onChange',
             showMessage: true,
             requireAsteriskPosition: 'left',
+            rules: {},
         },
         props,
     );
@@ -49,9 +50,9 @@ function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: For
         onFinishFailed,
         className,
         disabled,
-        labelWidth = 120,
+        labelWidth,
         size,
-        rules = {},
+        rules,
         hideRequiredAsterisk,
         requireAsteriskPosition,
         showMessage,
@@ -61,7 +62,35 @@ function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: For
     const formContext: FormContextProps = useContext(FormContext);
     const [formInstance] = useForm(props.form);
     const { useSubscribe, setInitialValues, setCallbacks, setValidateMessages, setPreserve, destroyForm } = (formInstance as InternalFormInstance).getInternalHooks(HOOK_MARK);
-    const { m, is } = useClassNames('form');
+    const { b, m, is } = useClassNames('form');
+
+    const [autoLabelWidth, setAutoLabelWidth] = useState<string>('');
+    const labelWidthListRef = useRef<number[]>([]);
+
+    const registerLabelWidth = useCallback((width: number, oldWidth: number) => {
+        const labelWidthList = labelWidthListRef.current;
+        if (oldWidth) {
+            const index = labelWidthList.indexOf(oldWidth);
+            if (index !== -1) {
+                labelWidthList.splice(index, 1);
+            }
+        }
+        if (width) {
+            labelWidthList.push(width);
+        }
+        const maxWidth = Math.max(...labelWidthList);
+        setAutoLabelWidth(maxWidth ? `${maxWidth}px` : '');
+    }, []);
+
+    const deregisterLabelWidth = useCallback((width: number) => {
+        const labelWidthList = labelWidthListRef.current;
+        const index = labelWidthList.indexOf(width);
+        if (index !== -1) {
+            labelWidthList.splice(index, 1);
+        }
+        const maxWidth = Math.max(...labelWidthList);
+        setAutoLabelWidth(maxWidth ? `${maxWidth}px` : '');
+    }, []);
 
     useImperativeHandle(ref, () => formInstance);
 
@@ -143,8 +172,28 @@ function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: For
             requireAsteriskPosition,
             showMessage,
             scrollToError,
+            autoLabelWidth,
+            registerLabelWidth,
+            deregisterLabelWidth,
         }),
-        [colon, disabled, formInstance, hideRequiredAsterisk, inline, labelPosition, labelWidth, requireAsteriskPosition, rules, scrollToError, showMessage, size, validateTrigger],
+        [
+            autoLabelWidth,
+            colon,
+            deregisterLabelWidth,
+            disabled,
+            formInstance,
+            hideRequiredAsterisk,
+            inline,
+            labelPosition,
+            labelWidth,
+            registerLabelWidth,
+            requireAsteriskPosition,
+            rules,
+            scrollToError,
+            showMessage,
+            size,
+            validateTrigger,
+        ],
     );
 
     // @ts-ignore
@@ -158,11 +207,12 @@ function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: For
         <Comp
             method="post"
             className={classNames(
+                b(),
+                [m(size || 'default')],
                 {
                     [m('inline')]: inline,
                     [m(`label-${labelPosition}`)]: !inline && labelPosition,
                     [`${m`col`}-${cols}`]: cols,
-                    [m(size)]: size,
                 },
                 is({ flat }),
                 className,

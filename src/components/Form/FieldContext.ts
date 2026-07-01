@@ -29,6 +29,10 @@ const FormContext = createContext<InternalFormInstance>({
     labelWidth: 120,
     size: null,
     rules: {},
+    autoLabelWidth: '',
+
+    registerLabelWidth: warningFunc,
+    deregisterLabelWidth: warningFunc,
 
     getInternalHooks: () => {
         warningFunc();
