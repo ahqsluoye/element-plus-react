@@ -1,7 +1,7 @@
 import { SelectProps, SelectRef } from '../Select';
 import { TreeProps, TreeRef } from '../Tree/typings';
 
-export interface TreeSelectProps extends Omit<TreeProps, 'children'>, SelectProps {
+export interface TreeSelectProps extends Omit<TreeProps, 'children' | 'style'>, SelectProps {
     /** 懒加载节点的缓存数据，结构与数据相同，用于获取未加载数据的标签 */
     cacheData?: any[];
 }
