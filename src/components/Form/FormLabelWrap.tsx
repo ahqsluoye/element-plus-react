@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState, useContext, useMemo, useCallback } from 'react';
-import { useResizeObserver } from '../hooks/useResizeObserver';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useClassNames } from '../hooks';
+import { useResizeObserver } from '../hooks/useResizeObserver';
 import { throwError } from '../Util';
 import FieldContext from './FieldContext';
 import { FormItemContext } from './FormItemContext';
@@ -23,7 +23,7 @@ const FormLabelWrap: React.FC<FormLabelWrapProps> = props => {
         throwError(COMPONENT_NAME, 'usage: <Form.Item><FormLabelWrap /></Form.Item>');
     }
 
-    const { b } = useClassNames('form');
+    const { be } = useClassNames('form');
 
     const elRef = useRef<HTMLDivElement>(null);
     const [computedWidth, setComputedWidth] = useState(0);
@@ -37,16 +37,19 @@ const FormLabelWrap: React.FC<FormLabelWrapProps> = props => {
         }
     }, []);
 
-    const updateLabelWidth = useCallback((action: 'update' | 'remove' = 'update') => {
-        if (children && isAutoWidth) {
-            if (action === 'update') {
-                const newWidth = getLabelWidth();
-                setComputedWidth(newWidth);
-            } else if (action === 'remove') {
-                formContext?.deregisterLabelWidth?.(computedWidth);
+    const updateLabelWidth = useCallback(
+        (action: 'update' | 'remove' = 'update') => {
+            if (children && isAutoWidth) {
+                if (action === 'update') {
+                    const newWidth = getLabelWidth();
+                    setComputedWidth(newWidth);
+                } else if (action === 'remove') {
+                    formContext?.deregisterLabelWidth?.(computedWidth);
+                }
             }
-        }
-    }, [children, isAutoWidth, getLabelWidth, formContext, computedWidth]);
+        },
+        [children, isAutoWidth, getLabelWidth, formContext, computedWidth],
+    );
 
     useEffect(() => {
         updateLabelWidth('update');
@@ -86,10 +89,7 @@ const FormLabelWrap: React.FC<FormLabelWrapProps> = props => {
         const hasLabel = formItemContext?.hasLabel;
 
         if (hasLabel && autoLabelWidth && autoLabelWidth !== 'auto') {
-            const marginWidth = Math.max(
-                0,
-                Number.parseInt(autoLabelWidth, 10) - computedWidth,
-            );
+            const marginWidth = Math.max(0, Number.parseInt(autoLabelWidth, 10) - computedWidth);
             const labelPosition = formItemContext.labelPosition || formContext.labelPosition;
             const marginPosition = labelPosition === 'left' ? 'marginRight' : 'marginLeft';
 
@@ -106,7 +106,7 @@ const FormLabelWrap: React.FC<FormLabelWrapProps> = props => {
 
     if (isAutoWidth) {
         return (
-            <div ref={elRef} className={b('item', 'label-wrap')} style={style}>
+            <div ref={elRef} className={be('item', 'label-wrap')} style={style}>
                 {children}
             </div>
         );
