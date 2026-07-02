@@ -3,7 +3,8 @@ import find from 'lodash/find';
 import isEqual from 'lodash/isEqual';
 import last from 'lodash/last';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { isEmpty, isNotEmpty, randomCode } from '../Util';
+import { useForceUpdate } from '../hooks';
+import { isEmpty, isNotEmpty, nextTick, randomCode } from '../Util';
 import { CascaderProps, OptionNode } from './typings';
 
 export const useCascader = (initialData: object[], props: CascaderProps, value: string[] | string[][]) => {
@@ -21,6 +22,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
     const _optionData = useRef<Record<string, OptionNode[]>>({});
     // 选中的数据组
     const selectedValue = useRef<string[]>([]);
+    const oldSelectedValue = useRef<string[]>([]);
     // 选中的数据标签组
     const selectedLabel = useRef<string[]>([]);
     // 选中的节点组
@@ -29,6 +31,9 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
     const checkedNodes = useRef<OptionNode[][]>([]);
     // 树组件扩展keys
     // const expandKeys = useRef<Record<string, Key[]>>({});
+
+    // 强制更新
+    const { forceUpdate } = useForceUpdate();
 
     /**
      * 初始化时分离不同层级的数据
@@ -65,17 +70,31 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
      * @param level 层级
      * @param value
      */
-    const setSelectedValue = useCallback((level: number, val: string) => {
-        selectedValue.current = selectedValue.current.map((item, l) => {
-            if (l < level) {
-                return item;
-            } else if (level === l) {
-                return val;
-            } else {
-                return null;
+    const setSelectedValue = useCallback(
+        (level: number, val: string) => {
+            if (selectedValue.current.length < level + 1) {
+                while (selectedValue.current.length <= level + 1) {
+                    selectedValue.current.push(null);
+                }
             }
-        });
-    }, []);
+            selectedValue.current = selectedValue.current.map((item, l) => {
+                if (l < level) {
+                    return item;
+                } else if (level === l) {
+                    return val;
+                } else {
+                    return null;
+                }
+            });
+            if (!isEqual(oldSelectedValue.current, selectedValue.current)) {
+                nextTick(() => {
+                    forceUpdate();
+                });
+            }
+            oldSelectedValue.current = selectedValue.current;
+        },
+        [forceUpdate],
+    );
 
     /**
      * 设置任意层级节点的标签
@@ -83,6 +102,11 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
      * @param value
      */
     const setSelectedLabel = useCallback((level: number, val: string) => {
+        if (selectedLabel.current.length < level + 1) {
+            while (selectedLabel.current.length <= level + 1) {
+                selectedLabel.current.push(null);
+            }
+        }
         selectedLabel.current = selectedLabel.current.map((item, l) => {
             if (l < level) {
                 return item;
@@ -101,6 +125,11 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
      */
     const setSelectedNode = useCallback(
         (level: number, node: OptionNode) => {
+            if (selectedNode.current.length < level + 1) {
+                while (selectedNode.current.length <= level + 1) {
+                    selectedNode.current.push(null);
+                }
+            }
             selectedNode.current = selectedNode.current.map((item, l) => {
                 if (l < level) {
                     return item;
@@ -567,9 +596,9 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
     }, [props.options]);
 
     const initSelectedValue = (_value: string[]) => {
-        selectedValue.current = new Array(allLevel + 1).fill(null);
-        selectedLabel.current = new Array(allLevel + 1).fill(null);
-        selectedNode.current = new Array(allLevel + 1).fill(null);
+        selectedValue.current = Array.from({ length: allLevel + 1 }, () => null);
+        selectedLabel.current = Array.from({ length: allLevel + 1 }, () => null);
+        selectedNode.current = Array.from({ length: allLevel + 1 }, () => null);
 
         if (_value.length > 0) {
             const _level = _value.length - 1;
@@ -594,6 +623,9 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
     useEffect(() => {
         if (!lazy && allLevel >= 0) {
             if (props?.props?.multiple) {
+                if (selectedValue.current.length > 0) {
+                    return;
+                }
                 const _value = value.length > 0 ? (value[0] as string[]) : [];
                 initSelectedValue(_value);
 

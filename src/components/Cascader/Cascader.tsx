@@ -32,7 +32,7 @@ const Cascader: FC<CascaderProps> = memo(
 
         props = mergeDefaultProps(
             {
-                separator: '/',
+                separator: ' / ',
                 showAllLevels: true,
                 props: {
                     expandTrigger: 'click',
@@ -45,9 +45,10 @@ const Cascader: FC<CascaderProps> = memo(
                 },
                 shouldSelect: () => true,
                 placeholder: t('el.cascader.placeholder', { lng: locale }) || '请选择',
-                collapseTags: true,
-                collapseTagsTooltip: true,
+                collapseTags: false,
+                collapseTagsTooltip: false,
                 maxCollapseTags: 1,
+                clearable: false,
             },
             props,
         );
@@ -128,18 +129,19 @@ const Cascader: FC<CascaderProps> = memo(
             handleSearch,
             resetNodes,
         } = useCascader(options, props, value);
-        const [level, setLevel] = useState(max([value.length - 1, 0]));
+        const [level, setLevel] = useState(0);
         const [loading, setLoading] = useState<string>(null);
-        const [forceUpdate, setForceUpdate] = useState<boolean>(false);
         const [filterList, setFilterList] = useState<OptionNode[][]>([]);
 
         useEffect(() => {
-            if (multiple && value.length > 0) {
-                setLevel(max([value[0].length - 1, 0]));
-            } else {
-                setLevel(max([value.length - 1, 0]));
+            if (level == 0 && value.length > 0) {
+                if (multiple) {
+                    setLevel(max([value[0].length - 1, 0]));
+                } else {
+                    setLevel(max([value.length - 1, 0]));
+                }
             }
-        }, [multiple, value, value.length]);
+        }, [value]);
 
         // 多选框值
         const multiValue = useMemo(() => {
@@ -299,7 +301,6 @@ const Cascader: FC<CascaderProps> = memo(
                         });
                 } else {
                     if (shouldSelect(node, _level)) {
-                        setForceUpdate(!forceUpdate);
                         if (node.__leaf) {
                             // 最后一级
                             if (menuProps?.multiple) {
@@ -349,7 +350,6 @@ const Cascader: FC<CascaderProps> = memo(
                 setLabel,
                 onChange,
                 getSelectedNode,
-                forceUpdate,
                 menuProps?.multiple,
                 value,
                 setSelectedValue,
@@ -361,7 +361,6 @@ const Cascader: FC<CascaderProps> = memo(
             const _value = getCheckedValue() ?? [];
             setValue(_value);
             onChange?.(_value, _level, multiLabel(), getCheckedNodes());
-            // setForceUpdate(!forceUpdate);
         };
 
         const stopLazy = useCallback(() => {
@@ -517,12 +516,7 @@ const Cascader: FC<CascaderProps> = memo(
 
         return (
             <CascaderContext.Provider value={{ props: menuProps, onSelect, onCheckedChange, loading, getDataType, searchText }}>
-                <div
-                    className={classNames(b(), is({ disabled }), m({ [size]: size }), props.className)}
-                    style={props.style}
-                    ref={containerRef}
-                    onClick={event => event.stopPropagation()}
-                >
+                <div className={classNames(b(), is({ disabled }), m(size), props.className)} style={props.style} ref={containerRef} onClick={event => event.stopPropagation()}>
                     <div className={e`trigger`}>
                         {multiple && (
                             <div

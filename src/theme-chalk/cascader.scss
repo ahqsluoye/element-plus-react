@@ -1,6 +1,17 @@
 @use './mixins/config' as *;
 
 .#{$namespace}-cascader {
+    --#{$namespace}-cascader-menu-text-color: var(--#{$namespace}-text-color-regular);
+    --#{$namespace}-cascader-menu-selected-text-color: var(--#{$namespace}-color-primary);
+    --#{$namespace}-cascader-menu-fill: var(--#{$namespace}-bg-color-overlay);
+    --#{$namespace}-cascader-menu-font-size: var(--#{$namespace}-font-size-base);
+    --#{$namespace}-cascader-menu-radius: var(--#{$namespace}-border-radius-base);
+    --#{$namespace}-cascader-menu-border: solid 1px var(--#{$namespace}-border-color-light);
+    --#{$namespace}-cascader-menu-shadow: var(--#{$namespace}-box-shadow-light);
+    --#{$namespace}-cascader-node-background-hover: var(--#{$namespace}-fill-color-light);
+    --#{$namespace}-cascader-node-color-disabled: var(--#{$namespace}-text-color-placeholder);
+    --#{$namespace}-cascader-color-empty: var(--#{$namespace}-text-color-placeholder);
+    --#{$namespace}-cascader-tag-background: var(--#{$namespace}-fill-color);
     display: inline-block;
     position: relative;
     font-size: 14px;
@@ -141,7 +152,7 @@
         max-width: 100%;
         margin: 2px 0 2px 6px;
         text-overflow: ellipsis;
-        background: #f0f2f5;
+        background: var(--#{$namespace}-cascader-tag-background);
 
         &:not(.is-hit) {
             border-color: transparent;

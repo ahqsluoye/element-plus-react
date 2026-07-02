@@ -63,13 +63,16 @@ const CascaderMenu = memo(
                                 key={item.__id}
                                 className={classNames(
                                     b`node`,
-                                    { 'in-active-path': multiple ? item.__checked || item.__indeterminate : value === item[valueKey] },
+                                    { 'in-active-path': multiple ? item.__checked || item.__indeterminate || value === item[valueKey] : value === item[valueKey] },
                                     is({ disabled: item[disabledKey] }),
                                 )}
                                 onClick={() => {
                                     if (!item[disabledKey]) {
                                         if (expandTrigger === 'click' || item.__leaf) {
                                             onSelect?.(level, item);
+                                            if (item.__leaf && multiple) {
+                                                onCheckedChange?.(level, item, !item.__checked);
+                                            }
                                         }
                                     }
                                 }}
@@ -83,7 +86,15 @@ const CascaderMenu = memo(
                                     <Checkbox
                                         checked={item.__checked}
                                         indeterminate={item.__indeterminate}
-                                        onChange={(checked: boolean) => onCheckedChange?.(level, item, checked)}
+                                        onClick={e => e.stopPropagation()}
+                                        onChange={(checked: boolean) => {
+                                            if (!item[disabledKey]) {
+                                                if (expandTrigger === 'click' || item.__leaf) {
+                                                    onSelect?.(level, item);
+                                                }
+                                            }
+                                            onCheckedChange?.(level, item, checked);
+                                        }}
                                     />
                                 )}
                                 <span className={be('node', 'label')}>{item[labelKey]}</span>
@@ -96,6 +107,10 @@ const CascaderMenu = memo(
             </Scrollbar>
         );
     }),
+    // (prev, next) => {
+    //     console.log(isEqual(prev, next));
+    //     return isEqual(prev, next);
+    // },
 );
 
 export default CascaderMenu;
