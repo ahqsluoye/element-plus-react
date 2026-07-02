@@ -10,6 +10,7 @@ import { TooltipRef } from '../Tooltip/typings';
 import { isEmpty, isNotEmpty, isUndefined, mergeDefaultProps } from '../Util';
 import { partitionAnimationProps, partitionHTMLProps, partitionPopperPropsUtils, useChildrenInstance, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { useComposition } from '../hooks/useComposition';
+import { useResizeObserver } from '../hooks/useResizeObserver';
 import { OptionData, OptionValue, SelectDropdownRef, SelectOptionGroupProps, SelectOptionProps, SelectProps, ValueType } from './typings';
 
 const useSelect = (props: SelectProps) => {
@@ -423,6 +424,13 @@ const useSelect = (props: SelectProps) => {
             }
         }
     }, [value]);
+
+    useResizeObserver(wrapperRef, entries => {
+        const [entry] = entries;
+        if (entry) {
+            popperInstRef.current?.update();
+        }
+    });
 
     return {
         ...rest,
