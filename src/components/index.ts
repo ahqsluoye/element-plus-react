@@ -1,7 +1,7 @@
 import './locale/i18n';
 
 /* Basic 基础组件 */
-export { Button as ElButton } from './Button';
+export { Button as ElButton, ButtonGroup as ElButtonGroup } from './Button';
 export type { ButtonGroupProps, ButtonProps, ButtonRef } from './Button';
 
 export { Aside as ElAside, Container as ElContainer, Footer as ElFooter, Header as ElHeader, Main as ElMain } from './Container';
