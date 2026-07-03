@@ -216,16 +216,37 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
                 {...transitionProps}
                 unmountOnExit={false}
                 transitionConfig={'fade-in-linear'}
+                footer={
+                    showCancelButton || showConfirmButton ? (
+                        <>
+                            {showCancelButton && (
+                                <Button className={cancelButtonClass} size={buttonSize} round={roundButton} onClick={() => handleAction('cancel')}>
+                                    {cancelButtonText}
+                                </Button>
+                            )}
+                            {showConfirmButton && (
+                                <Button
+                                    className={confirmButtonClass}
+                                    type="primary"
+                                    size={buttonSize}
+                                    round={roundButton}
+                                    loading={confirmButtonLoading}
+                                    onClick={() => handleAction('confirm')}
+                                >
+                                    {confirmButtonText}
+                                </Button>
+                            )}
+                        </>
+                    ) : null
+                }
             >
                 {dangerouslyUseHTMLString ? (
-                    <Dialog.body classPrefix={classPrefix} padding={padding}>
-                        <div className={e`container`}>
-                            {iconContent}
-                            <div dangerouslySetInnerHTML={{ __html: message }} />
-                        </div>
-                    </Dialog.body>
+                    <div className={e`container`}>
+                        {iconContent}
+                        <div dangerouslySetInnerHTML={{ __html: message }} />
+                    </div>
                 ) : (
-                    <Dialog.body classPrefix={classPrefix} padding={padding}>
+                    <>
                         <div className={e`container`}>
                             {iconContent}
                             <div className={e`message`}>{messageContainer}</div>
@@ -245,29 +266,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
                                 {validateError && <div className={e`errormsg`}>{editorErrorMessage}</div>}
                             </div>
                         )}
-                    </Dialog.body>
-                )}
-
-                {(showCancelButton || showConfirmButton) && (
-                    <Dialog.footer classPrefix={classPrefix} position={buttonPosition}>
-                        {showCancelButton && (
-                            <Button className={cancelButtonClass} size={buttonSize} round={roundButton} onClick={() => handleAction('cancel')}>
-                                {cancelButtonText}
-                            </Button>
-                        )}
-                        {showConfirmButton && (
-                            <Button
-                                className={confirmButtonClass}
-                                type="primary"
-                                size={buttonSize}
-                                round={roundButton}
-                                loading={confirmButtonLoading}
-                                onClick={() => handleAction('confirm')}
-                            >
-                                {confirmButtonText}
-                            </Button>
-                        )}
-                    </Dialog.footer>
+                    </>
                 )}
             </Dialog>
         );

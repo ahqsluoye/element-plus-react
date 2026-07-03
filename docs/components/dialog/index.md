@@ -108,13 +108,6 @@ Dialog 的内容是懒渲染的——在被打开之前，内容 不会被立即
 | unmountOnExit     | 当关闭 Dialog 时，销毁其中的元素                                                                | `boolean`                                           | false |
 | zIndex            | 和原生的 CSS 的 z-index 相同，改变 z 轴的顺序                                                   | `number`                                            | —     |
 
-### 子组件
-
-| 组件名        | 说明                    |
-| ------------- | ----------------------- |
-| ElDialog.body | Dialog 的内容           |
-|               | Dialog 按钮操作区的内容 |
-
 ### Events
 
 | 事件名   | 说明                        | Type                                    |

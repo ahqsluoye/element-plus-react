@@ -370,64 +370,62 @@ const IconList = () => {
             </div>
 
             <ElDialog visible={dialogVisible} title={dialogTitle} close={() => setDialogVisible(false)}>
-                <ElDialog.body>
-                    <div className="r-style-switcher">
-                        {activeSubType === 'fab' ? (
-                            <span className={classNames('style-toggle', 'active')} onClick={() => onChangeSubType('fab')}>
-                                商标
+                <div className="r-style-switcher">
+                    {activeSubType === 'fab' ? (
+                        <span className={classNames('style-toggle', 'active')} onClick={() => onChangeSubType('fab')}>
+                            商标
+                        </span>
+                    ) : (
+                        <>
+                            <span className={classNames('style-toggle', { active: activeSubType === 'fas' })} onClick={() => onChangeSubType('fas')}>
+                                粗体
                             </span>
-                        ) : (
-                            <>
-                                <span className={classNames('style-toggle', { active: activeSubType === 'fas' })} onClick={() => onChangeSubType('fas')}>
-                                    粗体
-                                </span>
-                                <span className={classNames('style-toggle', { active: activeSubType === 'far' })} onClick={() => onChangeSubType('far')}>
-                                    常规
-                                </span>
-                                <span className={classNames('style-toggle', { active: activeSubType === 'fal' })} onClick={() => onChangeSubType('fal')}>
-                                    细体
-                                </span>
-                                <span className={classNames('style-toggle', { active: activeSubType === 'fat' })} onClick={() => onChangeSubType('fat')}>
-                                    超细体
-                                </span>
-                                <span className={classNames('style-toggle', { active: activeSubType === 'fad' })} onClick={() => onChangeSubType('fad')}>
-                                    双色
-                                </span>
-                            </>
-                        )}
-                    </div>
-                    <div className="r-icon-preview">
-                        <ElIcon name={focusIcon.name} prefix={focusIcon.prefix} />
-                    </div>
-                    <div className="padding-y-2xs">
-                        <div className="r-icon-copy-area">
-                            <div className="r-copy-item">
-                                <small className="text-left">Unicode</small>
-                                <ElTooltip content="复制Unicode" placement="top">
-                                    <div className="r-copy-code" onClick={() => onCopy('unicode')}>
-                                        {focusIcon.unicode}
-                                    </div>
-                                </ElTooltip>
-                            </div>
-                            <div className="r-copy-item text-center" style={{ flexGrow: 1 }}>
-                                <small className="text-left">React</small>
-                                <ElTooltip content="复制React" placement="top">
-                                    <div className="r-copy-code" onClick={() => onCopy('jsx')}>
-                                        <pre className="language-html" dangerouslySetInnerHTML={{ __html: focusIcon.pre }}></pre>
-                                    </div>
-                                </ElTooltip>
-                            </div>
-                            <div className="r-copy-item text-left">
-                                <small className="text-left">名称</small>
-                                <ElTooltip content="复制图标名称" placement="top">
-                                    <div className="r-copy-code" onClick={() => onCopy('name')}>
-                                        {focusIcon.name}
-                                    </div>
-                                </ElTooltip>
-                            </div>
+                            <span className={classNames('style-toggle', { active: activeSubType === 'far' })} onClick={() => onChangeSubType('far')}>
+                                常规
+                            </span>
+                            <span className={classNames('style-toggle', { active: activeSubType === 'fal' })} onClick={() => onChangeSubType('fal')}>
+                                细体
+                            </span>
+                            <span className={classNames('style-toggle', { active: activeSubType === 'fat' })} onClick={() => onChangeSubType('fat')}>
+                                超细体
+                            </span>
+                            <span className={classNames('style-toggle', { active: activeSubType === 'fad' })} onClick={() => onChangeSubType('fad')}>
+                                双色
+                            </span>
+                        </>
+                    )}
+                </div>
+                <div className="r-icon-preview">
+                    <ElIcon name={focusIcon.name} prefix={focusIcon.prefix} />
+                </div>
+                <div className="padding-y-2xs">
+                    <div className="r-icon-copy-area">
+                        <div className="r-copy-item">
+                            <small className="text-left">Unicode</small>
+                            <ElTooltip content="复制Unicode" placement="top">
+                                <div className="r-copy-code" onClick={() => onCopy('unicode')}>
+                                    {focusIcon.unicode}
+                                </div>
+                            </ElTooltip>
+                        </div>
+                        <div className="r-copy-item text-center" style={{ flexGrow: 1 }}>
+                            <small className="text-left">React</small>
+                            <ElTooltip content="复制React" placement="top">
+                                <div className="r-copy-code" onClick={() => onCopy('jsx')}>
+                                    <pre className="language-html" dangerouslySetInnerHTML={{ __html: focusIcon.pre }}></pre>
+                                </div>
+                            </ElTooltip>
+                        </div>
+                        <div className="r-copy-item text-left">
+                            <small className="text-left">名称</small>
+                            <ElTooltip content="复制图标名称" placement="top">
+                                <div className="r-copy-code" onClick={() => onCopy('name')}>
+                                    {focusIcon.name}
+                                </div>
+                            </ElTooltip>
                         </div>
                     </div>
-                </ElDialog.body>
+                </div>
             </ElDialog>
         </>
     );
