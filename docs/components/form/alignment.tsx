@@ -1,4 +1,4 @@
-import { ElForm, ElInput, ElRadio, ElRadioGroup, useForm } from '@qsxy/element-plus-react';
+import { ElForm, ElInput, ElRadioButton, ElRadioGroup, useForm } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {
@@ -8,9 +8,9 @@ const App = () => {
     return (
         <>
             <ElRadioGroup value={labelPosition} onChange={(value: 'left' | 'right' | 'top') => setLabelPosition(value)}>
-                <ElRadio.Button value="left">Left</ElRadio.Button>
-                <ElRadio.Button value="right">Right</ElRadio.Button>
-                <ElRadio.Button value="top">Top</ElRadio.Button>
+                <ElRadioButton value="left">Left</ElRadioButton>
+                <ElRadioButton value="right">Right</ElRadioButton>
+                <ElRadioButton value="top">Top</ElRadioButton>
             </ElRadioGroup>
             <ElForm form={formInstance} labelPosition={labelPosition} style={{ maxWidth: 460, marginTop: 20 }}>
                 <ElForm.Item name="name" label="活动名称">

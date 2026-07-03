@@ -1,35 +1,35 @@
-import { ElRadio, ElRadioGroup } from '@qsxy/element-plus-react';
+import { ElRadioButton, ElRadioGroup } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const App = () => {
     return (
         <div>
             <ElRadioGroup defaultValue="New York" size="large">
-                <ElRadio.Button value="New York">New York</ElRadio.Button>
-                <ElRadio.Button value="Washington">Washington</ElRadio.Button>
-                <ElRadio.Button value="Los Angeles">Los Angeles</ElRadio.Button>
-                <ElRadio.Button value="Chicago">Chicago</ElRadio.Button>
+                <ElRadioButton value="New York">New York</ElRadioButton>
+                <ElRadioButton value="Washington">Washington</ElRadioButton>
+                <ElRadioButton value="Los Angeles">Los Angeles</ElRadioButton>
+                <ElRadioButton value="Chicago">Chicago</ElRadioButton>
             </ElRadioGroup>
 
             <div style={{ marginTop: 20 }}>
                 <ElRadioGroup defaultValue="Washington">
-                    <ElRadio.Button value="New York">New York</ElRadio.Button>
-                    <ElRadio.Button value="Washington" disabled>
+                    <ElRadioButton value="New York">New York</ElRadioButton>
+                    <ElRadioButton value="Washington" disabled>
                         Washington
-                    </ElRadio.Button>
-                    <ElRadio.Button value="Los Angeles">Los Angeles</ElRadio.Button>
-                    <ElRadio.Button value="Chicago">Chicago</ElRadio.Button>
+                    </ElRadioButton>
+                    <ElRadioButton value="Los Angeles">Los Angeles</ElRadioButton>
+                    <ElRadioButton value="Chicago">Chicago</ElRadioButton>
                 </ElRadioGroup>
             </div>
 
             <div style={{ marginTop: 20 }}>
                 <ElRadioGroup defaultValue="Washington" size="small">
-                    <ElRadio.Button value="New York">New York</ElRadio.Button>
-                    <ElRadio.Button value="Washington" disabled>
+                    <ElRadioButton value="New York">New York</ElRadioButton>
+                    <ElRadioButton value="Washington" disabled>
                         Washington
-                    </ElRadio.Button>
-                    <ElRadio.Button value="Los Angeles">Los Angeles</ElRadio.Button>
-                    <ElRadio.Button value="Chicago">Chicago</ElRadio.Button>
+                    </ElRadioButton>
+                    <ElRadioButton value="Los Angeles">Los Angeles</ElRadioButton>
+                    <ElRadioButton value="Chicago">Chicago</ElRadioButton>
                 </ElRadioGroup>
             </div>
         </div>

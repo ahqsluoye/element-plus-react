@@ -33,7 +33,7 @@ lang: zh-CN
 
 你可以让单选框看起来像一个按钮一样。
 
-只需要把 `ElRadio` 元素换成 `ElRadio.Button` 元素即可， 此外，Element Plus React 还提供了 `size` 属性用来控制单选框的大小。
+只需要把 `ElRadio` 元素换成 `ElRadioButton` 元素即可， 此外，Element Plus React 还提供了 `size` 属性用来控制单选框的大小。
 
 <code src="./button-style.tsx"></code>
 

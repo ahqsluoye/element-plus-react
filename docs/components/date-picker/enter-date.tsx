@@ -1,4 +1,4 @@
-import { ElDatePicker, ElRadio, ElRadioGroup, TypeAttributes } from '@qsxy/element-plus-react';
+import { ElDatePicker, ElRadioButton, ElRadioGroup, TypeAttributes } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 import './style.scss';
 
@@ -28,9 +28,9 @@ const App = () => {
         <>
             <div>
                 <ElRadioGroup value={size} onChange={(value: string) => setSize(value)}>
-                    <ElRadio.Button value="large">large</ElRadio.Button>
-                    <ElRadio.Button value="default">default</ElRadio.Button>
-                    <ElRadio.Button value="small">small</ElRadio.Button>
+                    <ElRadioButton value="large">large</ElRadioButton>
+                    <ElRadioButton value="default">default</ElRadioButton>
+                    <ElRadioButton value="small">small</ElRadioButton>
                 </ElRadioGroup>
             </div>
 

@@ -8,6 +8,7 @@ import {
     ElInput,
     ElOption,
     ElRadio,
+    ElRadioButton,
     ElRadioGroup,
     ElRow,
     ElSelect,
@@ -36,14 +37,14 @@ const App = () => {
         <ElRow>
             <ElCol span={24}>
                 <ElRadioGroup value={size} onChange={(value: TypeAttributes.Size) => setSize(value)}>
-                    <ElRadio.Button value="large">大</ElRadio.Button>
-                    <ElRadio.Button value={'default'}>默认</ElRadio.Button>
-                    <ElRadio.Button value="small">小</ElRadio.Button>
+                    <ElRadioButton value="large">大</ElRadioButton>
+                    <ElRadioButton value={'default'}>默认</ElRadioButton>
+                    <ElRadioButton value="small">小</ElRadioButton>
                 </ElRadioGroup>
                 <ElRadioGroup value={labelPosition} onChange={(value: 'left' | 'right' | 'top') => setLabelPosition(value)} style={{ marginLeft: 20 }}>
-                    <ElRadio.Button value="left">Left</ElRadio.Button>
-                    <ElRadio.Button value="right">Right</ElRadio.Button>
-                    <ElRadio.Button value="top">Top</ElRadio.Button>
+                    <ElRadioButton value="left">Left</ElRadioButton>
+                    <ElRadioButton value="right">Right</ElRadioButton>
+                    <ElRadioButton value="top">Top</ElRadioButton>
                 </ElRadioGroup>
                 <span style={{ marginLeft: 20 }}>
                     禁用表单：

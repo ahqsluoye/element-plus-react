@@ -1,4 +1,4 @@
-import { ElRadio, ElRadioGroup, ElTable, ElTableColumn } from '@qsxy/element-plus-react';
+import { ElRadioButton, ElRadioGroup, ElTable, ElTableColumn } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 import { tableData } from './data';
 
@@ -8,8 +8,8 @@ const App = () => {
     return (
         <>
             <ElRadioGroup value={tableLayout} onChange={(value: 'fixed' | 'auto') => setTableLayout(value)} style={{ marginBottom: 10 }}>
-                <ElRadio.Button value="fixed">fixed</ElRadio.Button>
-                <ElRadio.Button value="auto">auto</ElRadio.Button>
+                <ElRadioButton value="fixed">fixed</ElRadioButton>
+                <ElRadioButton value="auto">auto</ElRadioButton>
             </ElRadioGroup>
             <ElTable data={tableData} tableLayout={tableLayout}>
                 <ElTableColumn prop="date" label="Date" />

@@ -48,6 +48,6 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, ref) => {
     );
 });
 
-RadioGroup.displayName = 'ElRadio.Group';
+RadioGroup.displayName = 'ElRadioGroup';
 
 export default RadioGroup;

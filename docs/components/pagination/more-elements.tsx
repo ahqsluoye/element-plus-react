@@ -1,4 +1,4 @@
-import { ElCol, ElPagination, ElRadio, ElRadioGroup, ElRow, ElSwitch, TypeAttributes } from '@qsxy/element-plus-react';
+import { ElCol, ElPagination, ElRadioButton, ElRadioGroup, ElRow, ElSwitch, TypeAttributes } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {
@@ -24,9 +24,9 @@ const App = () => {
             <ElCol span={24}>
                 <div className="flex items-center mb-4">
                     <ElRadioGroup value={size} onChange={(value: TypeAttributes.Size) => setSize(value)}>
-                        <ElRadio.Button value={'default'}>default</ElRadio.Button>
-                        <ElRadio.Button value="large">large</ElRadio.Button>
-                        <ElRadio.Button value="small">small</ElRadio.Button>
+                        <ElRadioButton value={'default'}>default</ElRadioButton>
+                        <ElRadioButton value="large">large</ElRadioButton>
+                        <ElRadioButton value="small">small</ElRadioButton>
                     </ElRadioGroup>
                     <div style={{ marginLeft: 20 }}>
                         background: <ElSwitch value={value} onChange={(_, checked: boolean) => setValue(checked)} />

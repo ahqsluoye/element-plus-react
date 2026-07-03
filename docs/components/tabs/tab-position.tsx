@@ -1,5 +1,5 @@
-import { ElRadio, ElRadioGroup, ElTabPane, ElTabs } from '@qsxy/element-plus-react';
-import { useState } from 'react';
+import { ElRadioButton, ElRadioGroup, ElTabPane, ElTabs } from '@qsxy/element-plus-react';
+import React, { useState } from 'react';
 
 const App = () => {
     const [pos, setPos] = useState<'top' | 'right' | 'bottom' | 'left'>('top');
@@ -7,10 +7,10 @@ const App = () => {
     return (
         <>
             <ElRadioGroup value={pos} onChange={(val: 'top' | 'right' | 'bottom' | 'left') => setPos(val)}>
-                <ElRadio.Button value="top">top</ElRadio.Button>
-                <ElRadio.Button value="bottom">bottom</ElRadio.Button>
-                <ElRadio.Button value="left">left</ElRadio.Button>
-                <ElRadio.Button value="right">right</ElRadio.Button>
+                <ElRadioButton value="top">top</ElRadioButton>
+                <ElRadioButton value="bottom">bottom</ElRadioButton>
+                <ElRadioButton value="left">left</ElRadioButton>
+                <ElRadioButton value="right">right</ElRadioButton>
             </ElRadioGroup>
 
             <ElTabs tabPosition={pos} style={{ height: 200, marginTop: 20 }} contentStyle={{ padding: 32, color: '#6b778c', fontSize: 32, fontWeight: 600 }}>

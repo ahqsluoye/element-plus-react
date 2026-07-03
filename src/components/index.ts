@@ -48,7 +48,7 @@ export type { CheckboxGroupContextValue, CheckboxGroupProps } from './CheckboxGr
 export { ColorPicker as ElColorPicker } from './ColorPicker';
 export type { ColorPickerProps } from './ColorPicker';
 
-export { Radio as ElRadio } from './Radio';
+export { Radio as ElRadio, RadioButton as ElRadioButton } from './Radio';
 export type { RadioProps, ValueType } from './Radio';
 
 export { RadioGroup as ElRadioGroup } from './RadioGroup';

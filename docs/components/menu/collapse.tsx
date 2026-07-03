@@ -1,4 +1,4 @@
-import { ElIcon, ElMenu, ElMenuItem, ElMenuItemGroup, ElRadio, ElRadioGroup, ElSubMenu } from '@qsxy/element-plus-react';
+import { ElIcon, ElMenu, ElMenuItem, ElMenuItemGroup, ElRadioButton, ElRadioGroup, ElSubMenu } from '@qsxy/element-plus-react';
 import React from 'react';
 import './collacpse.scss';
 
@@ -7,8 +7,8 @@ const App = () => {
     return (
         <>
             <ElRadioGroup value={isCollapse} onChange={setIsCollapse} style={{ marginBottom: 20 }}>
-                <ElRadio.Button value={false}>expand</ElRadio.Button>
-                <ElRadio.Button value={true}>collapse</ElRadio.Button>
+                <ElRadioButton value={false}>expand</ElRadioButton>
+                <ElRadioButton value={true}>collapse</ElRadioButton>
             </ElRadioGroup>
 
             <ElMenu defaultActive="2" collapse={isCollapse} collapseTransition uniqueOpened className="el-menu-vertical-demo">
