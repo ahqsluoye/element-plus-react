@@ -102,6 +102,11 @@ const Header = () => {
                                     }}
                                 />
                             </div>
+                            <div className="social-link">
+                                <a href="https://github.com/ahqsluoye/element-plus-react" target="_blank" rel="noopener noreferrer">
+                                    <ElIcon name="github" prefix="fab" className="github-icon" />
+                                </a>
+                            </div>
                         </nav>
                     </div>
                 </div>
