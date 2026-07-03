@@ -42,11 +42,8 @@ const App = () => {
             >
                 Bottom
             </ElButton>
-            <ElDrawer visible={visible} direction={placement} close={onClose}>
-                <ElDrawer.header>标题</ElDrawer.header>
-                <ElDrawer.body>
-                    <ElSkeleton.Paragraph rows={4}></ElSkeleton.Paragraph>
-                </ElDrawer.body>
+            <ElDrawer title="标题" visible={visible} direction={placement} close={onClose}>
+                <ElSkeleton rows={4}></ElSkeleton>
             </ElDrawer>
         </>
     );

@@ -12,7 +12,7 @@ const App = () => {
         <>
             <ElButton onClick={() => setDialogB(true)}>打开对话框</ElButton>
             <ElDrawer visible={dialogB} close={handleCloseB} withHeader={false}>
-                <ElDrawer.body>Hi there!</ElDrawer.body>
+                Hi there!
             </ElDrawer>
         </>
     );

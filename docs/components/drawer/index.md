@@ -67,13 +67,6 @@ Drawer 的内容是懒渲染的，即在第一次被打开之前，传入的内�
 | withHeader        | 控制是否显示 header 栏, 默认为 true, 当此项为 false 时, title 属性不生效                                                   | `boolean`                                           | true          |
 | modalClassName    | 遮罩层的自定义类名                                                                                                         | `string`                                            | -             |
 
-### 子组件
-
-| 组件名          | 说明                    |
-| --------------- | ----------------------- |
-| ElDrawer.body   | Dialog 的内容           |
-| ElDrawer.footer | Dialog 按钮操作区的内容 |
-
 ## Drawer 事件
 
 | 事件名   | 说明                        | Type                                    |

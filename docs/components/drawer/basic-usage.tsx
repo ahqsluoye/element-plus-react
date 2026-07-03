@@ -47,17 +47,24 @@ const App = () => {
             <ElButton onClick={() => setVisible1(true)}>带footer</ElButton>
 
             <ElDrawer visible={visible} close={onClose} beforeClose={handleClose} direction={direction} title="标题">
-                <ElDrawer.body>Hi, there!</ElDrawer.body>
+                Hi, there!
             </ElDrawer>
 
-            <ElDrawer visible={visible1} close={onClose1} direction={direction} title="标题">
-                <ElDrawer.body>Hi, there!</ElDrawer.body>
-                <ElDrawer.footer>
-                    <ElButton onClick={onClose1}>取消</ElButton>
-                    <ElButton type="primary" onClick={confirmClick}>
-                        确定
-                    </ElButton>
-                </ElDrawer.footer>
+            <ElDrawer
+                visible={visible1}
+                close={onClose1}
+                direction={direction}
+                title="标题"
+                footer={
+                    <>
+                        <ElButton onClick={onClose1}>取消</ElButton>
+                        <ElButton type="primary" onClick={confirmClick}>
+                            确定
+                        </ElButton>
+                    </>
+                }
+            >
+                Hi, there!
             </ElDrawer>
         </>
     );

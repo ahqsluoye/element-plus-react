@@ -14,6 +14,6 @@ const DrawerFooter: FC<DrawerFooterProps> = props => {
     );
 };
 
-DrawerFooter.displayName = 'DrawerFooter';
+DrawerFooter.displayName = 'ElDrawerFooter';
 
 export default DrawerFooter;

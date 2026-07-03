@@ -28,8 +28,16 @@ export interface DrawerProps
     lockScroll?: boolean;
     /** 应用于 backdrop DOM 节点的 css class */
     modalClassName?: string;
+    /** header 部分的自定义 class 名 */
+    headerClass?: string;
+    /** body 部分的自定义 class 名 */
+    bodyClass?: string;
+    /** footer 部分的自定义 class 名 */
+    footerClass?: string;
     /** Drawer 对话框 Drawer 的标题 */
     title?: string | React.ReactElement;
+    /** Drawer 对话框 Drawer 的底部操作按钮 */
+    footer?: React.ReactNode;
     /** 控制是否显示 header 栏, 默认为 true, 当此项为 false 时, title 属性不生效 */
     withHeader?: boolean;
     /** 当设置为 true, 显示关闭按钮 */

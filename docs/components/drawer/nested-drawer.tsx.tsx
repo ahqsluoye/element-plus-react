@@ -19,14 +19,10 @@ const App = () => {
                 打开对话框
             </ElButton>
             <ElDrawer size="50%" visible={visible} close={onClose} title={"I'm outer Drawer"}>
-                <ElDrawer.body>
-                    <ElButton onClick={() => setVisible1(true)}>点击我</ElButton>
-                </ElDrawer.body>
+                <ElButton onClick={() => setVisible1(true)}>点击我</ElButton>
 
                 <ElDrawer visible={visible1} close={onClose1} title={"I'm inner Drawer"}>
-                    <ElDrawer.body>
-                        <p>_(:зゝ∠)_</p>
-                    </ElDrawer.body>
+                    <p>_(:зゝ∠)_</p>
                 </ElDrawer>
             </ElDrawer>
         </>
