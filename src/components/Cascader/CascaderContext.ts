@@ -16,6 +16,9 @@ interface CascaderContextProps {
     getDataType: (level: number) => boolean;
 
     nodeFormatter?: (params: { node?: OptionNode; data?: any }) => ReactNode;
+
+    /** 自定义建议项格式化函数 */
+    suggestionItemFormatter?: (item: OptionNode[]) => ReactNode;
 }
 
 export const CascaderContext = createContext<CascaderContextProps>({
@@ -26,4 +29,5 @@ export const CascaderContext = createContext<CascaderContextProps>({
     props: {},
     getDataType: () => false,
     nodeFormatter: null,
+    suggestionItemFormatter: null,
 });

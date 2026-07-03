@@ -18,7 +18,7 @@ interface Props {
 }
 
 const CascaderDropdown = memo((props: Props) => {
-    const { props: menuProps, onSelect, onCheckedChange } = useContext(CascaderContext);
+    const { props: menuProps, onSelect, onCheckedChange, suggestionItemFormatter } = useContext(CascaderContext);
     const { options, separator, value, checkedNodes, onClearSearch } = props;
     const { valueKey = 'value', labelKey = 'label', multiple } = menuProps;
     const { e, is } = useClassNames('cascader');
@@ -51,12 +51,12 @@ const CascaderDropdown = memo((props: Props) => {
                         onClearSearch();
                     }}
                 >
-                    <span>{item.map(node => node[labelKey]).join(separator)}</span>
+                    {suggestionItemFormatter ? suggestionItemFormatter(item) : item.map(node => node[labelKey]).join(separator)}
                     {multiple && checkedNode.includes(key) ? <Icon name="check" /> : null}
                 </li>
             );
         });
-    }, [checkedNode, e, is, labelKey, multiple, onCheckedChange, onClearSearch, onSelect, options, separator, valueKey]);
+    }, [checkedNode, e, is, labelKey, multiple, onCheckedChange, onClearSearch, onSelect, options, separator, valueKey, suggestionItemFormatter]);
 
     return (
         <div className={classNames(e`dorpdown`)} onClick={event => event.stopPropagation()}>

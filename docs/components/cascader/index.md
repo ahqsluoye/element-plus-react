@@ -77,6 +77,12 @@ lang: zh-CN
 
 <code src="./custom-content.tsx"></code>
 
+## 自定义建议项
+
+你可以通过 `suggestionItemFormatter` 自定义建议项。 你可以在作用域中访问 `item`，它代表建议项。
+
+<code src="./custom-suggestion-item.tsx"></code>
+
 ## 级联面板
 
 级联面板是级联选择器的核心组件，与级联选择器一样，有单选、多选、动态加载等多种功能。

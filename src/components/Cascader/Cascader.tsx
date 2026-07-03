@@ -76,6 +76,7 @@ const Cascader = memo(
             shouldSelect,
             labelFormatter,
             nodeFormatter,
+            suggestionItemFormatter,
             error,
             warning,
             ...rest
@@ -594,7 +595,7 @@ const Cascader = memo(
         );
 
         return (
-            <CascaderContext.Provider value={{ props: menuProps, onSelect, onCheckedChange, loading, getDataType, searchText, nodeFormatter }}>
+            <CascaderContext.Provider value={{ props: menuProps, onSelect, onCheckedChange, loading, getDataType, searchText, nodeFormatter, suggestionItemFormatter }}>
                 {panel ? (
                     content
                 ) : (

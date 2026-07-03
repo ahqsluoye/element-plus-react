@@ -81,6 +81,8 @@ export interface CascaderProps<V = ValueType, S = any>
     labelFormatter?: (level?: number, node?: object[]) => string;
     /** 自定义节点格式化函数 */
     nodeFormatter?: (params: { node?: OptionNode; data?: any }) => React.ReactNode;
+    /** 自定义建议项格式化函数 */
+    suggestionItemFormatter?: (item: OptionNode[]) => React.ReactNode;
 }
 
 export type CascaderPanelProps = Omit<CascaderProps, 'panel'>;
