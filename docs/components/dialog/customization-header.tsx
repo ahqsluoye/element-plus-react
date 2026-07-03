@@ -23,9 +23,7 @@ const App = () => {
                 }
                 close={() => setVisible(false)}
             >
-                <ElDialog.body>
-                    <span>This is a message</span>
-                </ElDialog.body>
+                <span>This is a message</span>
             </ElDialog>
         </>
     );

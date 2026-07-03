@@ -16,16 +16,22 @@ const App = () => {
     return (
         <>
             <ElButton onClick={() => setVisible(true)}>打开对话框</ElButton>
-            <ElDialog visible={visible} title="标题" width={500} close={() => setVisible(false)} beforeClose={beforeClose}>
-                <ElDialog.body>
-                    <span>This is a message</span>
-                </ElDialog.body>
-                <ElDialog.footer>
-                    <ElButton onClick={() => setVisible(false)}>取消</ElButton>
-                    <ElButton type="primary" onClick={() => setVisible(false)}>
-                        确定
-                    </ElButton>
-                </ElDialog.footer>
+            <ElDialog
+                visible={visible}
+                title="标题"
+                footer={
+                    <>
+                        <ElButton onClick={() => setVisible(false)}>取消</ElButton>
+                        <ElButton type="primary" onClick={() => setVisible(false)}>
+                            确定
+                        </ElButton>
+                    </>
+                }
+                width={500}
+                close={() => setVisible(false)}
+                beforeClose={beforeClose}
+            >
+                <span>This is a message</span>
             </ElDialog>
         </>
     );

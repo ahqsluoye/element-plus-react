@@ -8,22 +8,25 @@ const App = () => {
     return (
         <>
             <ElButton onClick={() => setVisible(true)}>打开对话框</ElButton>
-            <ElDialog visible={visible} title="外部对话框" width={800} close={() => setVisible(false)}>
-                <ElDialog.body>
-                    <span>我是外部对话框</span>
-                </ElDialog.body>
-                <ElDialog.footer>
-                    <ElButton onClick={() => setVisible(false)}>取消</ElButton>
-                    <ElButton type="primary" onClick={() => setVisible1(true)}>
-                        打开嵌套对话框
-                    </ElButton>
-                </ElDialog.footer>
+            <ElDialog
+                visible={visible}
+                title="外部对话框"
+                width={800}
+                close={() => setVisible(false)}
+                footer={
+                    <>
+                        <ElButton onClick={() => setVisible(false)}>取消</ElButton>
+                        <ElButton type="primary" onClick={() => setVisible1(true)}>
+                            打开嵌套对话框
+                        </ElButton>
+                    </>
+                }
+            >
+                <span>我是外部对话框</span>
             </ElDialog>
 
             <ElDialog visible={visible1} title="内部对话框" width={500} close={() => setVisible1(false)}>
-                <ElDialog.body>
-                    <span>我是内部对话框</span>
-                </ElDialog.body>
+                <span>我是内部对话框</span>
             </ElDialog>
         </>
     );

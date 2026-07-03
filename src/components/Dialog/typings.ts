@@ -33,8 +33,14 @@ export interface DialogProps
     width?: string | number;
     /** header 部分的自定义 class 名 */
     headerClass?: string;
+    /** body 部分的自定义 class 名 */
+    bodyClass?: string;
+    /** footer 部分的自定义 class 名 */
+    footerClass?: string;
     /** Dialog 对话框 Dialog 的标题， 也可通过ElDialog.header传入 */
     title?: string | React.ReactElement;
+    /** Dialog 对话框 Dialog 的底部内容， 也可通过ElDialog.footer传入 */
+    footer?: React.ReactNode;
     /** 当设置为 true, 显示关闭按钮 */
     showClose?: boolean;
     /** 标题是否有边框 */

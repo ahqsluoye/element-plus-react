@@ -1,19 +1,19 @@
 import { ElButton, ElDialog } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 import { TransitionProps } from '../../../src/components/Transition/Transition';
-import './custom-animation.scss'
+import './custom-animation.scss';
 
 const App = () => {
     const [visible, setVisible] = useState(false);
     const [currentAnimation, setCurrentAnimation] = useState('fade');
     const [isObjectConfig, setIsObjectConfig] = useState(false);
 
-    const transitionConfig = isObjectConfig 
+    const transitionConfig = isObjectConfig
         ? ({
-            name: 'dialog-custom-object',
-            transitionAppear: true,
-            duration: 500,
-        } as TransitionProps)
+              name: 'dialog-custom-object',
+              transitionAppear: true,
+              duration: 500,
+          } as TransitionProps)
         : `dialog-${currentAnimation}`;
 
     const openDialog = (type: string) => {
@@ -53,32 +53,29 @@ const App = () => {
                 close={() => setVisible(false)}
                 transitionConfig={transitionConfig}
                 className="custom-transition-dialog"
+                footer={
+                    <>
+                        <ElButton onClick={() => setVisible(false)}>Cancel</ElButton>
+                        <ElButton type="primary" onClick={() => setVisible(false)}>
+                            Confirm
+                        </ElButton>
+                    </>
+                }
             >
-                <ElDialog.body>
-                    <div>
+                <div>
+                    <p>
+                        Current animation: <strong>{currentAnimation}</strong>
+                    </p>
+                    <p>This dialog demonstrates the {currentAnimation} animation effect.</p>
+                    {isObjectConfig && (
                         <p>
-                            Current animation: <strong>{currentAnimation}</strong>
+                            <strong>Using object configuration:</strong>
+                            <br />
+                            <code>{JSON.stringify(transitionConfig, null, 2)}</code>
                         </p>
-                        <p>
-                            This dialog demonstrates the {currentAnimation} animation effect.
-                        </p>
-                        {isObjectConfig && (
-                            <p>
-                                <strong>Using object configuration:</strong>
-                                <br />
-                                <code>{JSON.stringify(transitionConfig, null, 2)}</code>
-                            </p>
-                        )}
-                    </div>
-                </ElDialog.body>
-                <ElDialog.footer>
-                    <ElButton onClick={() => setVisible(false)}>Cancel</ElButton>
-                    <ElButton type="primary" onClick={() => setVisible(false)}>
-                        Confirm
-                    </ElButton>
-                </ElDialog.footer>
+                    )}
+                </div>
             </ElDialog>
-
         </>
     );
 };

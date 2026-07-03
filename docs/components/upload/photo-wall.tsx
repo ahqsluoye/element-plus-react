@@ -65,9 +65,7 @@ const App = () => {
             </ElUpload>
 
             <ElDialog visible={visible} close={() => setVisible(false)}>
-                <ElDialog.body>
-                    <img src={imageUrl} alt="Preview Image" />
-                </ElDialog.body>
+                <img src={imageUrl} alt="Preview Image" />
             </ElDialog>
         </>
     );
