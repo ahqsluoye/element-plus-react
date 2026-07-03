@@ -36,8 +36,8 @@ export { Transition as ElTransition } from './Transition';
 export type { TransitionProps } from './Transition';
 
 /* Form 表单组件 */
-export { Cascader as ElCascader } from './Cascader';
-export type { CascaderMenuProps, CascaderProps } from './Cascader';
+export { Cascader as ElCascader, CascaderPanel as ElCascaderPanel } from './Cascader';
+export type { CascaderMenuProps, CascaderProps, CascaderRef } from './Cascader';
 
 export { Checkbox as ElCheckbox, CheckboxButton as ElCheckboxButton } from './Checkbox';
 export type { CheckboxProps, ValueType as CheckboxValueType } from './Checkbox';

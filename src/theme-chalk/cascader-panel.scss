@@ -1,59 +1,29 @@
-@use './mixins/config' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
 
-.#{$namespace}-cascader-panel {
-    --#{$namespace}-cascader-menu-text-color: var(--#{$namespace}-text-color-regular);
-    --#{$namespace}-cascader-menu-selected-text-color: var(--#{$namespace}-color-primary);
-    // --#{$namespace}-cascader-menu-fill: var(--#{$namespace}-bg-color-overlay);
-    --#{$namespace}-cascader-menu-border: solid 1px var(--#{$namespace}-border-color-light);
-    // --#{$namespace}-cascader-menu-shadow: var(--#{$namespace}-box-shadow-light);
-    --#{$namespace}-cascader-node-background-hover: var(--#{$namespace}-fill-color-light);
-    --#{$namespace}-cascader-node-color-disabled: var(--#{$namespace}-text-color-placeholder);
-    --#{$namespace}-cascader-color-empty: var(--#{$namespace}-text-color-placeholder);
-    // --#{$namespace}-cascader-tag-background: var(--#{$namespace}-fill-color);
+@include b(cascader-panel) {
+    @include set-component-css-var('cascader', $cascader);
 }
 
-.#{$namespace}-cascader-panel {
+@include b(cascader-panel) {
     display: flex;
     flex-direction: column;
-    border-radius: 4px;
-    font-size: 14px;
+    width: fit-content;
+    border-radius: getCssVar('cascader-menu', 'radius');
+    font-size: getCssVar('cascader-menu', 'font-size');
 
-    &.is-bordered {
-        border: var(--#{$namespace}-cascader-menu-border);
-        border-radius: 4px;
-    }
-
-    .#{$namespace}-tree.#{$namespace}-tree-directory .#{$namespace}-tree-treenode-selected:hover,
-    .#{$namespace}-tree.#{$namespace}-tree-directory .#{$namespace}-tree-treenode-selected {
-        background: transparent !important;
-    }
-
-    .#{$namespace}-tree.#{$namespace}-tree-directory .#{$namespace}-tree-treenode:hover {
-        background: var(--#{$namespace}-tree-node-hover-bg-color);
+    @include when(bordered) {
+        border: getCssVar('cascader-menu', 'border');
+        border-radius: getCssVar('cascader-menu', 'radius');
     }
 }
 
-.#{$namespace}-cascader__search {
-    padding: 0 7px;
-}
-
-.#{$namespace}-cascader__panels {
-    display: flex;
-}
-
-.#{$namespace}-cascader-menu {
+@include b(cascader-menu) {
     min-width: 180px;
     box-sizing: border-box;
-    color: var(--#{$namespace}-cascader-menu-text-color);
-    border-right: var(--#{$namespace}-cascader-menu-border);
-
-    &.is-list {
-        width: 100%;
-    }
-
-    &.is-tree + .is-list {
-        width: unset;
-    }
+    color: getCssVar('cascader-menu', 'text-color');
+    border-right: getCssVar('cascader-menu', 'border');
 
     &:last-child {
         border-right: none;
@@ -63,14 +33,14 @@
         }
     }
 
-    .#{$namespace}-cascader-menu__wrap {
+    @include e(wrap) {
         // Raise the priority
         &.#{$namespace}-scrollbar__wrap {
-            height: 250px;
+            height: 204px;
         }
     }
 
-    .#{$namespace}-cascader-menu__list {
+    @include e(list) {
         position: relative;
         min-height: 100%;
         margin: 0;
@@ -78,16 +48,18 @@
         list-style: none;
         box-sizing: border-box;
 
-        &.#{$namespace}-no-data {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #909399;
-            height: 100%;
+        &.#{$namespace}-vl__window {
+            // for virtual scroll
+            margin: 6px 0;
+            padding: 0;
+            ul {
+                margin: 0;
+                padding: 0;
+            }
         }
     }
 
-    .#{$namespace}-cascader-menu__hover-zone {
+    @include e(hover-zone) {
         position: absolute;
         top: 0;
         left: 0;
@@ -96,35 +68,40 @@
         pointer-events: none;
     }
 
-    .#{$namespace}-cascader-menu__empty-text {
+    @include e(empty-text) {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        text-align: center;
-        color: #a8abb2;
+        display: flex;
+        align-items: center;
+        color: getCssVar('cascader', 'color-empty');
+
+        .is-loading {
+            margin-right: 2px;
+        }
     }
 }
 
-.#{$namespace}-cascader-node {
+@include b(cascader-node) {
     position: relative;
     display: flex;
     align-items: center;
-    padding: 0 30px 0 15px;
+    padding: 0 30px 0 20px;
     height: 34px;
     line-height: 34px;
     outline: none;
-    transition: background-color 0.3s;
+    box-sizing: border-box;
 
     &.is-selectable.in-active-path {
-        color: #606266;
+        color: getCssVar('cascader-menu', 'text-color');
     }
 
     &.in-active-path,
     &.is-selectable.in-checked-path,
     &.is-active {
-        color: var(--#{$namespace}-cascader-menu-selected-text-color);
-        font-weight: 700;
+        color: getCssVar('cascader-menu', 'selected-text-color');
+        font-weight: bold;
     }
 
     &:not(.is-disabled) {
@@ -132,53 +109,43 @@
 
         &:hover,
         &:focus {
-            background: var(--#{$namespace}-cascader-node-background-hover);
+            background: getCssVar('cascader-node', 'background-hover');
         }
     }
 
-    &.is-disabled {
-        color: var(--#{$namespace}-disabled-text-color);
+    @include when(disabled) {
+        color: getCssVar('cascader-node', 'color-disabled');
         cursor: not-allowed;
     }
 
-    .#{$namespace}-cascader-node__prefix {
+    @include e(prefix) {
         position: absolute;
         left: 10px;
     }
 
-    .#{$namespace}-cascader-node__postfix {
+    @include e(postfix) {
         position: absolute;
         right: 10px;
     }
 
-    .#{$namespace}-cascader-node__label {
+    @include e(label) {
         flex: 1;
         text-align: left;
-        padding: 0 8px 0 0;
+        padding: 0 8px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
     > .#{$namespace}-checkbox {
-        margin-right: 8px;
+        margin-right: 0;
+    }
 
-        .#{$namespace}-checkbox__label {
+    > .#{$namespace}-radio {
+        margin-right: 0;
+
+        .#{$namespace}-radio__label {
             padding-left: 0;
         }
-    }
-}
-
-.#{$namespace}-tree-title {
-    .#{$namespace}-cascader-node {
-        padding: 0 30px 0 0px !important;
-        height: 28px !important;
-        line-height: 28px !important;
-        margin-left: -6px;
-    }
-
-    .#{$namespace}-cascader-node:not(.is-disabled):hover,
-    .#{$namespace}-cascader-node:not(.is-disabled):focus {
-        background: transparent;
     }
 }

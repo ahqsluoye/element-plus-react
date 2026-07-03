@@ -71,6 +71,8 @@ export interface CascaderProps<V = ValueType, S = any>
     appendToBody?: boolean;
     /** 折叠标签的提示最大高度 */
     maxCollapseTagsTooltipHeight?: string | number;
+    /** 是否显示成面板 */
+    panel?: boolean;
     /** 选中值发生变化时触发 */
     onChange?: (value: ValueType, level?: number, label?: string | string[], node?: S[] | S[][]) => void;
     /** 是否可以选择 */
@@ -78,6 +80,8 @@ export interface CascaderProps<V = ValueType, S = any>
 
     labelFormatter?: (level?: number, node?: object[]) => string;
 }
+
+export type CascaderPanelProps = Omit<CascaderProps, 'panel'>;
 
 export interface CascaderMenuProps {
     /** 次级菜单的展开方式 */

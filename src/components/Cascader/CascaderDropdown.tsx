@@ -14,11 +14,12 @@ interface Props {
     options: OptionNode[][];
     value: string[] | string[][];
     checkedNodes: () => OptionNode[][];
+    onClearSearch: () => void;
 }
 
 const CascaderDropdown = memo((props: Props) => {
     const { props: menuProps, onSelect, onCheckedChange } = useContext(CascaderContext);
-    const { options, separator, value, checkedNodes } = props;
+    const { options, separator, value, checkedNodes, onClearSearch } = props;
     const { valueKey = 'value', labelKey = 'label', multiple } = menuProps;
     const { e, is } = useClassNames('cascader');
     const ulRef = useRef<HTMLUListElement>(null);
@@ -47,6 +48,7 @@ const CascaderDropdown = memo((props: Props) => {
                                 onSelect(node.__level, node);
                             });
                         }
+                        onClearSearch();
                     }}
                 >
                     <span>{item.map(node => node[labelKey]).join(separator)}</span>
@@ -54,7 +56,7 @@ const CascaderDropdown = memo((props: Props) => {
                 </li>
             );
         });
-    }, [checkedNode, e, is, labelKey, multiple, onCheckedChange, onSelect, options, separator, valueKey]);
+    }, [checkedNode, e, is, labelKey, multiple, onCheckedChange, onClearSearch, onSelect, options, separator, valueKey]);
 
     return (
         <div className={classNames(e`dorpdown`)} onClick={event => event.stopPropagation()}>

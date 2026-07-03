@@ -83,7 +83,7 @@ lang: zh-CN
 
 和级联选择器一样，通过 `options` 来指定选项，也可通过 `props` 来设置多选、动态加载等功能，具体详情见下方 API 表格。
 
-<!-- <code src="./panel.tsx"></code> -->
+<code src="./panel.tsx"></code>
 
 ## Cascader API
 

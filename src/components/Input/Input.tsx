@@ -153,8 +153,8 @@ function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
 
     /** 在点击由 clearable 属性生成的清空按钮时触发 */
     const handelClear = useCallback(
-        (event: any) => {
-            event.stopPropagation();
+        (event?: any) => {
+            event?.stopPropagation();
             setValue('');
             if (clearRef.current) {
                 addStyle(clearRef.current, 'display', 'none');

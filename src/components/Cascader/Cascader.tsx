@@ -5,7 +5,7 @@ import last from 'lodash/last';
 import max from 'lodash/max';
 import omit from 'lodash/omit';
 import trim from 'lodash/trim';
-import React, { FC, RefObject, forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { RefObject, forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { Divider } from '../Divider';
@@ -27,7 +27,7 @@ import { toArray } from './Utils';
 import { CascaderProps, CascaderRef, OptionNode } from './typings';
 import { useCascader } from './useCascader';
 
-const Cascader: FC<CascaderProps> = memo(
+const Cascader = memo(
     forwardRef((props: CascaderProps, ref?: RefObject<CascaderRef>) => {
         const { locale } = useConfigProvider();
         const { t } = useTranslation();
@@ -65,6 +65,7 @@ const Cascader: FC<CascaderProps> = memo(
             maxCollapseTags,
             collapseTagsTooltip,
             maxCollapseTagsTooltipHeight,
+            panel,
             collapseTips,
             filterMethod,
             onChange,
@@ -169,14 +170,6 @@ const Cascader: FC<CascaderProps> = memo(
         const placeholder = useMemo(() => {
             return multiple && isNotEmpty(multiValue) ? '' : props.placeholder;
         }, [multiValue, multiple, props.placeholder]);
-
-        // 打开后搜索框自动获取焦点
-        useEffect(() => {
-            if (visible && filterable) {
-                searchInstance.current.focus();
-            }
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [visible]);
 
         const multiLabel = useCallback(() => {
             if (multiple) {
@@ -550,165 +543,197 @@ const Cascader: FC<CascaderProps> = memo(
             setVisible,
         }));
 
-        return (
-            <CascaderContext.Provider value={{ props: menuProps, onSelect, onCheckedChange, loading, getDataType, searchText }}>
-                <div className={classNames(b(), is({ disabled }), m(size), props.className)} style={props.style} ref={containerRef} onClick={event => event.stopPropagation()}>
-                    <Input
-                        ref={inputRef}
-                        value={multiple ? multiValue.join(separator) : label}
-                        placeholder={placeholder}
-                        readOnly
-                        hiddenValue={multiple}
-                        clearable={clearable && !disabled}
-                        disabled={disabled}
-                        size={size}
-                        onClick={onClick}
-                        onClear={onClear}
-                        plain={props.plain}
-                        className={is({ focus: visible })}
-                        error={error}
-                        warning={warning}
-                        innerStyle={multiple ? { height: inputHeight } : {}}
-                        suffix={<Icon prefix="fal" name="angle-down" className={visible ? 'fa-rotate-180' : ''} onClick={onClick} />}
-                        prefix={props.prefix}
-                        append={props.append}
-                        prepend={props.prepend}
-                        {...omit(htmlInputProps, [
-                            'value',
-                            'defaultValue',
-                            'onInput',
-                            'size',
-                            'prefix',
-                            'onChange',
-                            'style',
-                            'readOnly',
-                            'disabled',
-                            'className',
-                            'type',
-                            'maxLength',
-                            'minLength',
-                            'name',
-                            'placeholder',
-                        ])}
-                    />
-
-                    {multiple && (
-                        <div
-                            ref={wrapperRef}
-                            className={e`tags`}
-                            onClick={onClick}
-                            onMouseEnter={() => inputRef.current?.showClear(multiple ? multiValue.join(',') : label)}
-                            onMouseLeave={() => inputRef.current?.hideClear()}
-                        >
-                            {(collapseTags ? checkedNodes().slice(0, maxCollapseTags) : checkedNodes()).map((item, i) => {
-                                return (
-                                    <Tag key={i} type="info" closable={!disabled} onClick={onClick} onClose={() => onCloseTag(item)} disableTransitions>
-                                        {item.map(node => node[labelKey]).join(separator)}
-                                    </Tag>
-                                );
-                            })}
-                            {collapseTags && multiLabel()?.length > maxCollapseTags && (
-                                <Tooltip
-                                    popperClass={e`tooltip`}
-                                    placement="top"
-                                    disabled={!collapseTagsTooltip}
-                                    content={
-                                        <Scrollbar maxHeight={maxCollapseTagsTooltipHeight}>
-                                            <div className={e`collapse-tags`}>
-                                                {checkedNodes()
-                                                    .slice(maxCollapseTags, checkedNodes().length)
-                                                    .map((item, i) => (
-                                                        <div key={i} className={e`collapse-tag`}>
-                                                            <Tag type="info" className="in-tooltip" disableTransitions>
-                                                                {item.map(node => node[labelKey]).join(separator)}
-                                                            </Tag>
-                                                        </div>
-                                                    ))}
-                                            </div>
-                                        </Scrollbar>
-                                    }
-                                    effect="light"
-                                    enterable
-                                >
-                                    <Tag type="info" onClick={onClick} disableTransitions>
-                                        {collapseTips ? collapseTips(multiLabel().length - maxCollapseTags, multiLabel().length) : `+ ${multiLabel().length - maxCollapseTags}`}
-                                    </Tag>
-                                </Tooltip>
-                            )}
-                            {/* <div className={classNames(b`tags-wrapper`, 'has-prefix')}>
-                            </div> */}
+        const content = useMemo(
+            () => (
+                <div className={classNames(b`panel`, is({ bordered: panel }))}>
+                    {filterable && (
+                        <div className={e`search`} onClick={event => event.stopPropagation()}>
+                            <Input
+                                ref={searchInstance}
+                                placeholder={t('el.select.search', { lng: locale })}
+                                clearable
+                                plain
+                                debounceInput
+                                onClear={onClearSearch}
+                                onChange={onSearch}
+                                prefix={<Icon prefix="fal" name="search" />}
+                            />
+                            <Divider style={{ margin: 0 }} />
                         </div>
                     )}
-                    {/* <div className={e`trigger`}></div> */}
+                    {isNotEmpty(searchText) ? (
+                        <CascaderDropdown
+                            options={filterList}
+                            separator={separator}
+                            value={value}
+                            checkedNodes={checkedNodes}
+                            onClearSearch={() => {
+                                setSearchText('');
+                                searchInstance.current.clear();
+                            }}
+                        />
+                    ) : (
+                        <div className={e`panels`}>
+                            {new Array(level + 1).fill(0).map((_, l) => {
+                                return (
+                                    <CascaderMenu
+                                        key={getValueOfLevel(l) + '_' + l}
+                                        ref={_ref => (menuRefs.current[l] = _ref)}
+                                        data={getOptions(l)}
+                                        level={l}
+                                        value={getValueOfLevel(l)}
+                                    />
+                                );
+                            })}
+                        </div>
+                    )}
                 </div>
+            ),
+            [b, checkedNodes, e, filterList, filterable, getOptions, getValueOfLevel, is, level, locale, onClearSearch, onSearch, panel, searchText, separator, t, value],
+        );
 
-                <Popper
-                    referenceElement={() => inputRef?.current?.ref}
-                    visible={visible}
-                    popperInstRef={popperInstRef}
-                    popperClass={classNames(e`dropdown`, is`pure`)}
-                    // popperStyle={popperStyle}
-                    onDestroy={() => setVisible(false)}
-                    onEnter={() => {
-                        popperInstRef.current?.update();
-                        onEnter?.();
-                    }}
-                    afterEnter={() => {
-                        for (const key in menuRefs.current) {
-                            if (Object.prototype.hasOwnProperty.call(menuRefs.current, key)) {
-                                const item = menuRefs.current[key];
-                                item?.scrollToSelected();
-                            }
-                        }
-                        afterEnter?.();
-                    }}
-                    afterLeave={handleAfterLeave}
-                    placement={'bottom-start'}
-                    transitionAppear
-                    unmountOnExit
-                    {...transitionProps}
-                    {...popperProps}
-                >
-                    <div className={b`panel`}>
-                        {filterable && (
-                            <div className={e`search`} onClick={event => event.stopPropagation()}>
-                                <Input
-                                    ref={searchInstance}
-                                    placeholder={t('el.select.search', { lng: locale })}
-                                    clearable
-                                    plain
-                                    debounceInput
-                                    onClear={onClearSearch}
-                                    onChange={onSearch}
-                                    prefix={<Icon prefix="fal" name="search" />}
-                                />
-                                <Divider style={{ margin: 0 }} />
-                            </div>
-                        )}
-                        {isNotEmpty(searchText) ? (
-                            <CascaderDropdown options={filterList} separator={separator} value={value} checkedNodes={checkedNodes} />
-                        ) : (
-                            <div className={e`panels`}>
-                                {new Array(level + 1).fill(0).map((_, l) => {
-                                    return (
-                                        <CascaderMenu
-                                            key={getValueOfLevel(l) + '_' + l}
-                                            ref={_ref => (menuRefs.current[l] = _ref)}
-                                            data={getOptions(l)}
-                                            level={l}
-                                            value={getValueOfLevel(l)}
-                                        />
-                                    );
-                                })}
-                            </div>
-                        )}
-                    </div>
-                </Popper>
+        return (
+            <CascaderContext.Provider value={{ props: menuProps, onSelect, onCheckedChange, loading, getDataType, searchText }}>
+                {panel ? (
+                    content
+                ) : (
+                    <>
+                        <div
+                            className={classNames(b(), is({ disabled }), m(size), props.className)}
+                            style={props.style}
+                            ref={containerRef}
+                            onClick={event => event.stopPropagation()}
+                        >
+                            <Input
+                                ref={inputRef}
+                                value={multiple ? multiValue.join(separator) : label}
+                                placeholder={placeholder}
+                                readOnly
+                                hiddenValue={multiple}
+                                clearable={clearable && !disabled}
+                                disabled={disabled}
+                                size={size}
+                                onClick={onClick}
+                                onClear={onClear}
+                                plain={props.plain}
+                                className={is({ focus: visible })}
+                                error={error}
+                                warning={warning}
+                                innerStyle={multiple ? { height: inputHeight } : {}}
+                                suffix={<Icon prefix="fal" name="angle-down" className={visible ? 'fa-rotate-180' : ''} onClick={onClick} />}
+                                prefix={props.prefix}
+                                append={props.append}
+                                prepend={props.prepend}
+                                {...omit(htmlInputProps, [
+                                    'value',
+                                    'defaultValue',
+                                    'onInput',
+                                    'size',
+                                    'prefix',
+                                    'onChange',
+                                    'style',
+                                    'readOnly',
+                                    'disabled',
+                                    'className',
+                                    'type',
+                                    'maxLength',
+                                    'minLength',
+                                    'name',
+                                    'placeholder',
+                                ])}
+                            />
+
+                            {multiple && (
+                                <div
+                                    ref={wrapperRef}
+                                    className={e`tags`}
+                                    onClick={onClick}
+                                    onMouseEnter={() => inputRef.current?.showClear(multiple ? multiValue.join(',') : label)}
+                                    onMouseLeave={() => inputRef.current?.hideClear()}
+                                >
+                                    {(collapseTags ? checkedNodes().slice(0, maxCollapseTags) : checkedNodes()).map((item, i) => {
+                                        return (
+                                            <Tag key={i} type="info" closable={!disabled} onClick={onClick} onClose={() => onCloseTag(item)} disableTransitions>
+                                                {item.map(node => node[labelKey]).join(separator)}
+                                            </Tag>
+                                        );
+                                    })}
+                                    {collapseTags && multiLabel()?.length > maxCollapseTags && (
+                                        <Tooltip
+                                            popperClass={e`tooltip`}
+                                            placement="top"
+                                            disabled={!collapseTagsTooltip}
+                                            content={
+                                                <Scrollbar maxHeight={maxCollapseTagsTooltipHeight}>
+                                                    <div className={e`collapse-tags`}>
+                                                        {checkedNodes()
+                                                            .slice(maxCollapseTags, checkedNodes().length)
+                                                            .map((item, i) => (
+                                                                <div key={i} className={e`collapse-tag`}>
+                                                                    <Tag type="info" className="in-tooltip" disableTransitions>
+                                                                        {item.map(node => node[labelKey]).join(separator)}
+                                                                    </Tag>
+                                                                </div>
+                                                            ))}
+                                                    </div>
+                                                </Scrollbar>
+                                            }
+                                            effect="light"
+                                            enterable
+                                        >
+                                            <Tag type="info" onClick={onClick} disableTransitions>
+                                                {collapseTips
+                                                    ? collapseTips(multiLabel().length - maxCollapseTags, multiLabel().length)
+                                                    : `+ ${multiLabel().length - maxCollapseTags}`}
+                                            </Tag>
+                                        </Tooltip>
+                                    )}
+                                    {/* <div className={classNames(b`tags-wrapper`, 'has-prefix')}>
+                            </div> */}
+                                </div>
+                            )}
+                            {/* <div className={e`trigger`}></div> */}
+                        </div>
+                        <Popper
+                            referenceElement={() => inputRef?.current?.ref}
+                            visible={visible}
+                            popperInstRef={popperInstRef}
+                            popperClass={classNames(e`dropdown`, is`pure`)}
+                            // popperStyle={popperStyle}
+                            onDestroy={() => setVisible(false)}
+                            onEnter={() => {
+                                popperInstRef.current?.update();
+                                onEnter?.();
+                            }}
+                            afterEnter={() => {
+                                for (const key in menuRefs.current) {
+                                    if (Object.prototype.hasOwnProperty.call(menuRefs.current, key)) {
+                                        const item = menuRefs.current[key];
+                                        item?.scrollToSelected();
+                                    }
+                                }
+                                if (filterable) {
+                                    // 打开后搜索框自动获取焦点
+                                    searchInstance.current.focus();
+                                }
+                                afterEnter?.();
+                            }}
+                            afterLeave={handleAfterLeave}
+                            placement={'bottom-start'}
+                            transitionAppear
+                            unmountOnExit
+                            {...transitionProps}
+                            {...popperProps}
+                        >
+                            {content}
+                        </Popper>
+                    </>
+                )}
             </CascaderContext.Provider>
         );
     }),
 );
 
-Cascader.displayName = 'Cascader';
+Cascader.displayName = 'ElCascader';
 
 export default Cascader;
