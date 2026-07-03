@@ -13,6 +13,7 @@ import {
     ElRow,
     ElSelect,
     ElSwitch,
+    ElTextArea,
     ElTimePicker,
     TypeAttributes,
     useForm,
@@ -98,7 +99,7 @@ const App = () => {
                         </ElRadioGroup>
                     </ElForm.Item>
                     <ElForm.Item name="desc" label="活动形式">
-                        <ElInput.TextArea />
+                        <ElTextArea />
                     </ElForm.Item>
                     <ElForm.Item center labelWidth="0">
                         <ElButton type="primary" onClick={onSubmit}>

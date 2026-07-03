@@ -54,7 +54,7 @@ export type { RadioProps, ValueType } from './Radio';
 export { RadioGroup as ElRadioGroup } from './RadioGroup';
 export type { RadioContextProps, RadioGroupProps } from './RadioGroup';
 
-export { Input as ElInput } from './Input';
+export { Input as ElInput, InputGroup as ElInputGroup, InputRange as ElInputRange, TextArea as ElTextArea } from './Input';
 export type { InputProps, InputRangeProps, InputRef, TextareaProps, TextareaRef } from './Input';
 
 export { InputNumber as ElInputNumber } from './InputNumber';

@@ -13,6 +13,7 @@ import {
     ElRow,
     ElSelect,
     ElSwitch,
+    ElTextArea,
     ElTimePicker,
     useForm,
 } from '@qsxy/element-plus-react';
@@ -77,7 +78,7 @@ const App = () => {
                             </ElRadioGroup>
                         </ElForm.Item>
                         <ElForm.Item name="desc" label="活动形式">
-                            <ElInput.TextArea />
+                            <ElTextArea />
                         </ElForm.Item>
                         <ElForm.Item>
                             <ElButton type="primary">立即创建</ElButton>

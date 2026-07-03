@@ -74,7 +74,7 @@ const App = () => {
                 </ElRadioGroup>
             </ElForm.Item>
             <ElForm.Item name="desc" label="活动形式">
-                <ElInput.TextArea />
+                <ElTextArea />
             </ElForm.Item>
             <ElSpace justify="center" style={{ width: '100%' }}>
                 <ElForm.Item>

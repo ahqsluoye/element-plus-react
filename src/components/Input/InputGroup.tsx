@@ -16,6 +16,6 @@ const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>((props, ref) => {
     );
 });
 
-InputGroup.displayName = 'InputGroup';
+InputGroup.displayName = 'ElInputGroup';
 
 export default InputGroup;

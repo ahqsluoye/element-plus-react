@@ -11,6 +11,7 @@ import {
     ElSegmented,
     ElSelect,
     ElSwitch,
+    ElTextArea,
     ElTimePicker,
     FormRules,
     useForm,
@@ -107,7 +108,7 @@ const App = () => {
                 </ElRadioGroup> */}
             </ElForm.Item>
             <ElForm.Item name="desc" label="活动形式" validateTrigger="onBlur">
-                <ElInput.TextArea />
+                <ElTextArea />
             </ElForm.Item>
             <ElForm.Item>
                 <ElButton type="primary" onClick={onSubmit}>
