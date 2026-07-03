@@ -1,6 +1,6 @@
 import noop from 'lodash/noop';
-import { createContext } from 'react';
-import { CascaderMenuProps } from './typings';
+import { createContext, ReactNode } from 'react';
+import { CascaderMenuProps, OptionNode } from './typings';
 
 interface CascaderContextProps {
     props: CascaderMenuProps;
@@ -14,6 +14,8 @@ interface CascaderContextProps {
     onCheckedChange: (_level: number, node: object, checked: boolean) => void;
 
     getDataType: (level: number) => boolean;
+
+    nodeFormatter?: (params: { node?: OptionNode; data?: any }) => ReactNode;
 }
 
 export const CascaderContext = createContext<CascaderContextProps>({
@@ -23,4 +25,5 @@ export const CascaderContext = createContext<CascaderContextProps>({
     searchText: null,
     props: {},
     getDataType: () => false,
+    nodeFormatter: null,
 });

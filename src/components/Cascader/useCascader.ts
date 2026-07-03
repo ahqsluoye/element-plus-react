@@ -51,10 +51,11 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
                     _optionData.current[`level${level}`] = [];
                 }
                 Object.assign(item, {
+                    data: cloneDeep(item),
                     __level: level,
                     __id,
                     __pId: pid,
-                    __leaf: item[leafKey] ?? !Object.prototype.hasOwnProperty.call(item, childrenKey) ?? false,
+                    __leaf: item[leafKey] ?? !Object.prototype.hasOwnProperty.call(item, childrenKey),
                     __checked: false,
                     __indeterminate: false,
                 });
@@ -393,6 +394,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
             let newNodes: OptionNode[] = [];
             newNodes = nodes.map((node: object) => ({
                 ...node,
+                data: cloneDeep(node),
                 __level: level,
                 __id: randomCode(11),
                 __pId: parent?.__id ?? '0',

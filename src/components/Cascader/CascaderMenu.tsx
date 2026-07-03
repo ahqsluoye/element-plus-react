@@ -23,7 +23,7 @@ export interface CascaderMenuRef {
 const CascaderMenu = memo(
     forwardRef<CascaderMenuRef, Props>((props, ref) => {
         const { data = [], level, value } = props;
-        const { props: menuProps, onSelect, onCheckedChange, loading } = useContext(CascaderContext);
+        const { props: menuProps, onSelect, onCheckedChange, loading, nodeFormatter } = useContext(CascaderContext);
         const { valueKey = 'value', labelKey = 'label', disabledKey = 'disabled', multiple, expandTrigger } = menuProps;
         const { b, be, is } = useClassNames('cascader');
         const ulRef = useRef<ScrollbarRef>(null);
@@ -97,7 +97,7 @@ const CascaderMenu = memo(
                                         }}
                                     />
                                 )}
-                                <span className={be('node', 'label')}>{item[labelKey]}</span>
+                                {nodeFormatter ? nodeFormatter?.({ node: item, data: item.data }) : <span className={be('node', 'label')}>{item[labelKey]}</span>}
                                 {!item.__leaf && loading !== item.__id && <Icon name="angle-right" className={be('node', 'postfix')} />}
                                 {loading === item.__id && <Icon prefix="fas" name="spinner" spin className={be('node', 'postfix')} />}
                             </li>

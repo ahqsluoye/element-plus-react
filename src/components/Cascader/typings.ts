@@ -79,6 +79,8 @@ export interface CascaderProps<V = ValueType, S = any>
     shouldSelect?: (node?: object, level?: number) => boolean;
 
     labelFormatter?: (level?: number, node?: object[]) => string;
+    /** 自定义节点格式化函数 */
+    nodeFormatter?: (params: { node?: OptionNode; data?: any }) => React.ReactNode;
 }
 
 export type CascaderPanelProps = Omit<CascaderProps, 'panel'>;
@@ -148,6 +150,11 @@ export interface OptionNode extends Object {
      * @private
      */
     __indeterminate?: boolean;
+    /**
+     * 节点数据
+     * @private
+     */
+    data?: object;
     /**
      * 时子节点集合
      * @private

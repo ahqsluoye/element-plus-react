@@ -73,9 +73,9 @@ lang: zh-CN
 
 可以自定义备选项的节点内容
 
-你可以通过 `scoped slot` 自定义节点的内容。 您可以访问 scope 中的 `node` 和 `data` 属性，分别表示当前节点的 Node 对象和当前节点的数据。
+你可以通过 `nodeFormatter` 自定义节点的内容。 您可以访问 scope 中的 `node` 和 `data` 属性，分别表示当前节点的 Node 对象和当前节点的数据。
 
-<!-- <code src="./custom-content.tsx"></code> -->
+<code src="./custom-content.tsx"></code>
 
 ## 级联面板
 
