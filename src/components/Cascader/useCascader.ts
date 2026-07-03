@@ -420,6 +420,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
                         p[childrenKey] = newNodes;
                         if (newNodes.length === 0) {
                             p.__leaf = true;
+                            p[leafKey] = true;
                         }
                     } else {
                         p[childrenKey] = isCover ? newNodes : p[childrenKey].concat(newNodes);

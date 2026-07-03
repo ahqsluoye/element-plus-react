@@ -14,10 +14,12 @@ import Input from '../Input/Input';
 import { InputRef } from '../Input/typings';
 import Popper from '../Popper/Popper';
 import { PopperOptionRef } from '../Popper/typings';
+import { Scrollbar } from '../Scrollbar';
 import Tag from '../Tag/Tag';
 import Tooltip from '../Tooltip/Tooltip';
 import { isEmpty, isNotEmpty, mergeDefaultProps } from '../Util';
 import { partitionAnimationProps, partitionHTMLProps, partitionPopperPropsUtils, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
+import { useResizeObserver } from '../hooks/useResizeObserver';
 import { CascaderContext } from './CascaderContext';
 import CascaderDropdown from './CascaderDropdown';
 import CascaderMenu, { CascaderMenuRef } from './CascaderMenu';
@@ -62,6 +64,7 @@ const Cascader: FC<CascaderProps> = memo(
             collapseTags,
             maxCollapseTags,
             collapseTagsTooltip,
+            maxCollapseTagsTooltipHeight,
             collapseTips,
             filterMethod,
             onChange,
@@ -76,7 +79,7 @@ const Cascader: FC<CascaderProps> = memo(
             ...rest
         } = props;
         const { multiple, valueKey = 'value', labelKey = 'label', childrenKey = 'children', lazy, lazyLoad } = menuProps;
-        const { e, b, m, is } = useClassNames(classPrefix);
+        const { e, b, m, is, cssVarName } = useClassNames(classPrefix);
         const disabled = useDisabled(props.disabled);
         const size = useSize(props.size);
         const [htmlInputProps] = partitionHTMLProps(rest);
@@ -306,6 +309,7 @@ const Cascader: FC<CascaderProps> = memo(
                             if (menuProps?.multiple) {
                                 return;
                             }
+                            setLevel(_level);
                             setSelectedNode(_level, node);
                             const _label = getSelectedLabel(labelFormatter?.bind(this, _level));
                             setLabel(_label);
@@ -436,21 +440,53 @@ const Cascader: FC<CascaderProps> = memo(
             ],
         );
 
+        // const getTagWrapperLeft = () => {
+        //     if (!slots.prefix) return 0;
+
+        //     const prefix = inputRef.value?.$el.querySelector(`.${nsInput.e('prefix')}`) as HTMLElement | null;
+        //     if (!prefix) return 0;
+
+        //     const prefixWidth = prefix.getBoundingClientRect().width;
+        //     if (prefixWidth <= 0) return 0;
+        //     return prefixWidth + sizeMapPadding[realSize.value || 'default'];
+        // };
+
+        const updateStyle = () => {
+            if (!inputRef.current) {
+                return;
+            }
+            const el = inputRef.current.ref.current;
+            const inputInitialHeight = Number.parseFloat(window.getComputedStyle(el).getPropertyValue(cssVarName('input-height'))) - 2;
+            const height = checkedNodes().length > 0 ? Math.max(wrapperRef.current?.clientHeight, inputInitialHeight) - 2 : inputInitialHeight;
+            // inputInner.style.height = height;
+            setInputHeight(height);
+            // tagWrapperEl.style.left = `${getTagWrapperLeft()}px`;
+
+            // const height = wrapperRef.current?.clientHeight + 4;
+            // setInputHeight(height <= 32 ? 32 : height + 32);
+        };
+
         useEffect(() => {
             setFilterList(handleSearch(searchText));
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [searchText]);
 
-        /** 多选框选择选项后，动态调整input框高度 */
         useEffect(() => {
-            if (wrapperRef.current) {
-                const height = wrapperRef.current?.clientHeight + 4;
-                setInputHeight(height <= 32 ? 32 : height + 32);
-            }
             if (popperInstRef.current && popperInstRef.current.update) {
                 popperInstRef.current?.update();
             }
-        }, [multiValue]);
+        }, [inputHeight]);
+
+        /** 多选框选择选项后，动态调整input框高度 */
+        // useLayoutEffect(() => {
+        //     if (wrapperRef.current) {
+        //         nextTick(() => {
+        //             updateStyle();
+        //         });
+        //     }
+        // }, [multiValue]);
+
+        useResizeObserver(wrapperRef, updateStyle);
 
         const refreshLazy = (isCover = false) => {
             // 懒加载且有默认值时
@@ -517,89 +553,93 @@ const Cascader: FC<CascaderProps> = memo(
         return (
             <CascaderContext.Provider value={{ props: menuProps, onSelect, onCheckedChange, loading, getDataType, searchText }}>
                 <div className={classNames(b(), is({ disabled }), m(size), props.className)} style={props.style} ref={containerRef} onClick={event => event.stopPropagation()}>
-                    <div className={e`trigger`}>
-                        {multiple && (
-                            <div
-                                className={e`tags`}
-                                onClick={onClick}
-                                onMouseEnter={() => inputRef.current?.showClear(multiple ? multiValue.join(',') : label)}
-                                onMouseLeave={() => inputRef.current?.hideClear()}
-                            >
-                                <div className={classNames(b`tags-wrapper`, 'has-prefix')} ref={wrapperRef}>
-                                    {(collapseTags ? checkedNodes().slice(0, maxCollapseTags) : checkedNodes()).map((item, i) => {
-                                        return (
-                                            <Tag key={i} type="info" closable={!disabled} onClick={onClick} onClose={() => onCloseTag(item)} disableTransitions>
-                                                {item.map(node => node[labelKey]).join(separator)}
-                                            </Tag>
-                                        );
-                                    })}
-                                    {collapseTags && multiLabel()?.length > maxCollapseTags && (
-                                        <Tooltip
-                                            popperClass={e`tooltip`}
-                                            placement="top"
-                                            disabled={!collapseTagsTooltip}
-                                            content={
-                                                <>
-                                                    {checkedNodes()
-                                                        .slice(maxCollapseTags, checkedNodes().length)
-                                                        .map((item, i) => (
-                                                            <Tag key={i} type="info" disableTransitions>
+                    <Input
+                        ref={inputRef}
+                        value={multiple ? multiValue.join(separator) : label}
+                        placeholder={placeholder}
+                        readOnly
+                        hiddenValue={multiple}
+                        clearable={clearable && !disabled}
+                        disabled={disabled}
+                        size={size}
+                        onClick={onClick}
+                        onClear={onClear}
+                        plain={props.plain}
+                        className={is({ focus: visible })}
+                        error={error}
+                        warning={warning}
+                        innerStyle={multiple ? { height: inputHeight } : {}}
+                        suffix={<Icon prefix="fal" name="angle-down" className={visible ? 'fa-rotate-180' : ''} onClick={onClick} />}
+                        prefix={props.prefix}
+                        append={props.append}
+                        prepend={props.prepend}
+                        {...omit(htmlInputProps, [
+                            'value',
+                            'defaultValue',
+                            'onInput',
+                            'size',
+                            'prefix',
+                            'onChange',
+                            'style',
+                            'readOnly',
+                            'disabled',
+                            'className',
+                            'type',
+                            'maxLength',
+                            'minLength',
+                            'name',
+                            'placeholder',
+                        ])}
+                    />
+
+                    {multiple && (
+                        <div
+                            ref={wrapperRef}
+                            className={e`tags`}
+                            onClick={onClick}
+                            onMouseEnter={() => inputRef.current?.showClear(multiple ? multiValue.join(',') : label)}
+                            onMouseLeave={() => inputRef.current?.hideClear()}
+                        >
+                            {(collapseTags ? checkedNodes().slice(0, maxCollapseTags) : checkedNodes()).map((item, i) => {
+                                return (
+                                    <Tag key={i} type="info" closable={!disabled} onClick={onClick} onClose={() => onCloseTag(item)} disableTransitions>
+                                        {item.map(node => node[labelKey]).join(separator)}
+                                    </Tag>
+                                );
+                            })}
+                            {collapseTags && multiLabel()?.length > maxCollapseTags && (
+                                <Tooltip
+                                    popperClass={e`tooltip`}
+                                    placement="top"
+                                    disabled={!collapseTagsTooltip}
+                                    content={
+                                        <Scrollbar maxHeight={maxCollapseTagsTooltipHeight}>
+                                            <div className={e`collapse-tags`}>
+                                                {checkedNodes()
+                                                    .slice(maxCollapseTags, checkedNodes().length)
+                                                    .map((item, i) => (
+                                                        <div key={i} className={e`collapse-tag`}>
+                                                            <Tag type="info" className="in-tooltip" disableTransitions>
                                                                 {item.map(node => node[labelKey]).join(separator)}
                                                             </Tag>
-                                                        ))}
-                                                </>
-                                            }
-                                            effect="light"
-                                            enterable
-                                        >
-                                            <Tag type="info" onClick={onClick} disableTransitions>
-                                                {collapseTips
-                                                    ? collapseTips(multiLabel().length - maxCollapseTags, multiLabel().length)
-                                                    : `+ ${multiLabel().length - maxCollapseTags}`}
-                                            </Tag>
-                                        </Tooltip>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-                        <Input
-                            ref={inputRef}
-                            value={multiple ? multiValue.join(separator) : label}
-                            placeholder={placeholder}
-                            readOnly
-                            hiddenValue={multiple}
-                            clearable={clearable && !disabled}
-                            disabled={disabled}
-                            size={size}
-                            onClick={onClick}
-                            onClear={onClear}
-                            plain={props.plain}
-                            className={is({ focus: visible })}
-                            error={error}
-                            warning={warning}
-                            innerStyle={multiple ? { height: inputHeight } : {}}
-                            suffix={<Icon prefix="fal" name="angle-down" className={visible ? 'fa-rotate-180' : ''} onClick={onClick} />}
-                            prefix={props.prefix}
-                            append={props.append}
-                            prepend={props.prepend}
-                            {...omit(htmlInputProps, [
-                                'value',
-                                'defaultValue',
-                                'onInput',
-                                'size',
-                                'prefix',
-                                'onChange',
-                                'style',
-                                'readOnly',
-                                'disabled',
-                                'className',
-                                'type',
-                                'maxLength',
-                                'minLength',
-                                'name',
-                            ])}
-                        />
-                    </div>
+                                                        </div>
+                                                    ))}
+                                            </div>
+                                        </Scrollbar>
+                                    }
+                                    effect="light"
+                                    enterable
+                                >
+                                    <Tag type="info" onClick={onClick} disableTransitions>
+                                        {collapseTips ? collapseTips(multiLabel().length - maxCollapseTags, multiLabel().length) : `+ ${multiLabel().length - maxCollapseTags}`}
+                                    </Tag>
+                                </Tooltip>
+                            )}
+                            {/* <div className={classNames(b`tags-wrapper`, 'has-prefix')}>
+                            </div> */}
+                        </div>
+                    )}
+                    {/* <div className={e`trigger`}></div> */}
                 </div>
 
                 <Popper

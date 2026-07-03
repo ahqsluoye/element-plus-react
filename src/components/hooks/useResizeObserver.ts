@@ -60,7 +60,7 @@ export function useResizeObserver(target: RefObject<HTMLElement>, callback: Resi
         cleanup();
         if (isSupported && window) {
             observer = new ResizeObserver(callback);
-            if (target.current) {
+            if (target?.current) {
                 observer.observe(target.current, observerOptions);
             }
         }

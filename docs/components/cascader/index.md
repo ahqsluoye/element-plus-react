@@ -41,7 +41,7 @@ lang: zh-CN
 
 在标签中添加 `props={{ multiple: true }}` 开启多选模式。
 
-使用多选时，所有选中的标签将默认显示。 您可以设置 `collapse = true` 将选中的标签折叠。 您可以使用 `collapse-tags-tooltip` 属性来启用鼠标悬停折叠文字以显示具体所选值的行为。
+使用多选时，所有选中的标签将默认显示。 您可以设置 `collapseTags = true` 将选中的标签折叠。 您可以使用 `collapseTagsTooltip` 属性来启用鼠标悬停折叠文字以显示具体所选值的行为。
 
 <code src="./multiple-selection.tsx"></code>
 
@@ -100,7 +100,7 @@ lang: zh-CN
 | clearable                           | 是否支持清空选项                                                                                                                                               | `boolean`                                                                     | —      |
 | showAllLevels                       | 输入框中是否显示选中值的完整路径                                                                                                                               | `boolean`                                                                     | true   |
 | collapse-tags                       | 多选模式下是否折叠 Tag                                                                                                                                         | `boolean`                                                                     | —      |
-| collapse-tags-tooltip               | 当鼠标悬停于折叠标签的文本时，是否显示所有选中的标签。 要使用此属性，`collapse-tags`属性必须设定为 true                                                        | `boolean`                                                                     | false  |
+| collapseTagsTooltip                 | 当鼠标悬停于折叠标签的文本时，是否显示所有选中的标签。 要使用此属性，`collapse-tags`属性必须设定为 true                                                        | `boolean`                                                                     | false  |
 | separator                           | 用于分隔选项的字符                                                                                                                                             | `string`                                                                      | ' / '  |
 | filterable                          | 该选项是否可以被搜索                                                                                                                                           | `boolean`                                                                     | —      |
 | filter-method                       | 自定义搜索逻辑，第一个参数是`node`，第二个参数是`keyword`，返回的布尔值表示是否保留该选项                                                                      | <Enum type='Function'>(node: CascaderNode, keyword: string) => boolean</Enum> | —      |

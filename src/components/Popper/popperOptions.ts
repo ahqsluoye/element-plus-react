@@ -109,13 +109,12 @@ export function buildModifier(props: ModifierProps, externalModifiers: StrictMod
                             return fallbackPlacements(placement);
                         }
                         return fallbackPlacements;
+                    } else {
+                        if (placement === 'bottom-start') {
+                            return ['bottom', 'top-start', 'right', 'left'];
+                        }
+                        return ['bottom', 'top', 'right', 'left'];
                     }
-                    // else {
-                    //     if (placement === 'bottom-start') {
-                    //         return ['bottom', 'top-start', 'right', 'left'];
-                    //     }
-                    //     return ['bottom', 'top', 'right', 'left'];
-                    // }
                 })(),
             },
         },

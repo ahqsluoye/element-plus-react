@@ -43,7 +43,15 @@ const Tag = memo(
         );
 
         return (
-            <Transition nodeRef={containerRef} name={disableTransitions ? '' : b('zoom-in-center', false)} visible display="" transitionAppear unmountOnExit duration={200}>
+            <Transition
+                nodeRef={containerRef}
+                name={disableTransitions ? '' : b('zoom-in-center', false)}
+                visible
+                display=""
+                transitionAppear
+                unmountOnExit
+                duration={disableTransitions ? 0 : 200}
+            >
                 <span
                     ref={mergedRef}
                     className={classNames(b(), m(type, effect, { [size]: size }), is({ closable, round, hit }), className)}

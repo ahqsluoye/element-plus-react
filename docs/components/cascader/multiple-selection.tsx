@@ -6,11 +6,11 @@ const App = () => {
     return (
         <>
             <div className="m-4">
-                <p>展示所有标签 (默认)</p>
+                <p>Display all tags (default)</p>
                 <ElCascader options={options1} props={{ multiple: true }} style={{ width: 500 }} />
             </div>
             <div className="m-4">
-                <p>折叠标签</p>
+                <p>Collapse tags</p>
                 <ElCascader
                     filterable
                     options={options1}
@@ -25,6 +25,39 @@ const App = () => {
                         ['component', 'navigation', 'side nav'],
                         ['component', 'navigation', 'top nav'],
                     ]}
+                    onChange={(value, l, label) => {
+                        console.log(value, l, label);
+                    }}
+                />
+            </div>
+            <div className="m-4">
+                <p>Collapse tags</p>
+                <ElCascader
+                    filterable
+                    options={options1}
+                    props={{ multiple: true }}
+                    style={{ width: 500 }}
+                    clearable
+                    collapseTags
+                    collapseTagsTooltip
+                    maxCollapseTagsTooltipHeight={500}
+                    onChange={(value, l, label) => {
+                        console.log(value, l, label);
+                    }}
+                />
+            </div>
+            <div className="m-4">
+                <p>Max Collapse Tags</p>
+                <ElCascader
+                    filterable
+                    options={options1}
+                    props={{ multiple: true }}
+                    style={{ width: 500 }}
+                    clearable
+                    collapseTags
+                    collapseTagsTooltip
+                    maxCollapseTags={3}
+                    maxCollapseTagsTooltipHeight={500}
                     collapseTips={num => `鼠标悬浮查看更多（+${num}）`}
                     onChange={(value, l, label) => {
                         console.log(value, l, label);

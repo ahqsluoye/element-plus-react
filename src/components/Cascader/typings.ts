@@ -69,6 +69,8 @@ export interface CascaderProps<V = ValueType, S = any>
     lable?: string;
     /** 是否追加到body下 */
     appendToBody?: boolean;
+    /** 折叠标签的提示最大高度 */
+    maxCollapseTagsTooltipHeight?: string | number;
     /** 选中值发生变化时触发 */
     onChange?: (value: ValueType, level?: number, label?: string | string[], node?: S[] | S[][]) => void;
     /** 是否可以选择 */

@@ -2,8 +2,6 @@ import classNames from 'classnames';
 import { addStyle, hasClass } from 'dom-lib';
 import isObject from 'lodash/isObject';
 import React, { ComponentType, RefObject, cloneElement, forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Icon from '../Icon/Icon';
 import { IconProps } from '../Icon/typings';
 import { isNotEmpty, mergeDefaultProps } from '../Util';
@@ -13,13 +11,10 @@ import TextArea from './TextArea';
 import { InputProps, InputRef, ValueType } from './typings';
 
 function InternalInput(props: InputProps, ref: RefObject<InputRef>) {
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
-
     props = mergeDefaultProps(
         {
             type: 'text',
-            placeholder: t('el.input.placeholder', { lng: locale }),
+            placeholder: '',
             clearable: true,
             debounceTime: 200,
             defaultValue: '',
