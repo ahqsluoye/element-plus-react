@@ -13,6 +13,7 @@ import {
     ElSelect,
     ElSpace,
     ElSwitch,
+    ElTextArea,
     ElTimePicker,
     useForm,
 } from '@qsxy/element-plus-react';
