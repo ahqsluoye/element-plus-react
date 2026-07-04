@@ -1,6 +1,6 @@
 import noop from 'lodash/noop';
 import { createContext, ReactNode } from 'react';
-import { CascaderMenuProps, OptionNode } from './typings';
+import { CascaderMenuProps, CascaderNode } from './typings';
 
 interface CascaderContextProps {
     props: CascaderMenuProps;
@@ -15,10 +15,10 @@ interface CascaderContextProps {
 
     getDataType: (level: number) => boolean;
 
-    nodeFormatter?: (params: { node?: OptionNode; data?: any }) => ReactNode;
+    nodeFormatter?: (params: { node?: CascaderNode; data?: any }) => ReactNode;
 
     /** 自定义建议项格式化函数 */
-    suggestionItemFormatter?: (item: OptionNode[]) => ReactNode;
+    suggestionItemFormatter?: (item: CascaderNode[]) => ReactNode;
 }
 
 export const CascaderContext = createContext<CascaderContextProps>({

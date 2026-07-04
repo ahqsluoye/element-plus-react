@@ -6,21 +6,21 @@ import Scrollbar from '../Scrollbar/Scrollbar';
 import { ScrollbarRef } from '../Scrollbar/typings';
 import { useClassNames } from '../hooks';
 import { CascaderContext } from './CascaderContext';
-import { OptionNode } from './typings';
+import { CascaderNode } from './typings';
 
 interface Props {
     /** 用于分隔选项的字符 */
     separator: string;
-    options: OptionNode[][];
+    options: CascaderNode[][];
     value: string[] | string[][];
-    checkedNodes: () => OptionNode[][];
+    checkedNodes: () => CascaderNode[][];
     onClearSearch: () => void;
 }
 
 const CascaderDropdown = memo((props: Props) => {
     const { props: menuProps, onSelect, onCheckedChange, suggestionItemFormatter } = useContext(CascaderContext);
     const { options, separator, value, checkedNodes, onClearSearch } = props;
-    const { valueKey = 'value', labelKey = 'label', multiple } = menuProps;
+    const { value: valueKey = 'value', label: labelKey = 'label', multiple } = menuProps;
     const { e, is } = useClassNames('cascader');
     const ulRef = useRef<HTMLUListElement>(null);
     const scrollBarRef = useRef<ScrollbarRef>(null);

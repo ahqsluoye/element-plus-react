@@ -95,48 +95,39 @@ lang: zh-CN
 
 ### Cascader Attributes
 
-| 属性名                              | 说明                                                                                                                                                           | 类型                                                                          | 默认值 |
-| ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------ |
-| model-value / v-model               | 选中项绑定值                                                                                                                                                   | `string` /`number` /<Enum type='object'>string[] \| number[] \| any</Enum>    | —      |
-| options                             | 选项的数据源， `value` 和 `label` 可以通过 `CascaderProps` 自定义.                                                                                             | <Enum type='object'>Record<string, unknown>[]</Enum>                          | —      |
-| props                               | 配置选项, 请参阅下面 `CascaderProps` 表。                                                                                                                      | <Enum type='object'>CascaderProps</Enum>                                      | —      |
-| size                                | 尺寸                                                                                                                                                           | <Enum>'large' \| 'default' \| 'small'</Enum>                                  | —      |
-| placeholder                         | 输入框占位文本                                                                                                                                                 | `string`                                                                      | —      |
-| disabled                            | 是否禁用                                                                                                                                                       | `boolean`                                                                     | —      |
-| clearable                           | 是否支持清空选项                                                                                                                                               | `boolean`                                                                     | —      |
-| showAllLevels                       | 输入框中是否显示选中值的完整路径                                                                                                                               | `boolean`                                                                     | true   |
-| collapse-tags                       | 多选模式下是否折叠 Tag                                                                                                                                         | `boolean`                                                                     | —      |
-| collapseTagsTooltip                 | 当鼠标悬停于折叠标签的文本时，是否显示所有选中的标签。 要使用此属性，`collapse-tags`属性必须设定为 true                                                        | `boolean`                                                                     | false  |
-| separator                           | 用于分隔选项的字符                                                                                                                                             | `string`                                                                      | ' / '  |
-| filterable                          | 该选项是否可以被搜索                                                                                                                                           | `boolean`                                                                     | —      |
-| filter-method                       | 自定义搜索逻辑，第一个参数是`node`，第二个参数是`keyword`，返回的布尔值表示是否保留该选项                                                                      | <Enum type='Function'>(node: CascaderNode, keyword: string) => boolean</Enum> | —      |
-| debounce                            | 搜索关键词正在输入时的去抖延迟，单位为毫秒                                                                                                                     | `number`                                                                      | 300    |
-| before-filter                       | 过滤函数调用前，所要调用的钩子函数，该函数接收要过滤的值作为参数。 如果该函数的返回值是 `false` 或者是一个被拒绝的 `Promise`，那么接下来的过滤逻辑便不会执行。 | <Enum type='Function'>(value: string) => boolean</Enum>                       | —      |
-| popper-class                        | 弹出内容的自定义类名                                                                                                                                           | `string`                                                                      | ''     |
-| teleported                          | 弹层是否使用 teleport                                                                                                                                          | `boolean`                                                                     | true   |
-| popper-append-to-body ^(deprecated) | 是否将弹出的内容直接插入到 body 元素。 在弹出内容的边框定位出现问题时，可将该属性设置为 false                                                                  | `boolean`                                                                     | true   |
-| tag-type                            | 标签类型                                                                                                                                                       | <Enum>'success' \| 'info' \| 'warning' \| 'danger'</Enum>                     | info   |
-| validate-event                      | 输入时是否触发表单的校验                                                                                                                                       | `boolean`                                                                     | true   |
+| 属性名              | 说明                                                                                                                               | 类型                                                                          | 默认值 |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------ |
+| defaultValue        | 默认值                                                                                                                             | `string` /`number` /<Enum type='object'>string[] \| number[] \| any</Enum>    | —      |
+| value               | 选中项绑定值                                                                                                                       | `string` /`number` /<Enum type='object'>string[] \| number[] \| any</Enum>    | —      |
+| options             | 选项的数据源， `value` 和 `label` 可以通过 `CascaderMenuProps` 自定义.                                                             | <Enum type='object'>Record<string, unknown>[]</Enum>                          | —      |
+| props               | 配置选项, 请参阅下面 `CascaderMenuProps` 表。                                                                                      | <Enum type='object'>CascaderMenuProps</Enum>                                  | —      |
+| size                | 尺寸                                                                                                                               | <Enum>'large' \| 'default' \| 'small'</Enum>                                  | —      |
+| placeholder         | 输入框占位文本                                                                                                                     | `string`                                                                      | —      |
+| disabled            | 是否禁用                                                                                                                           | `boolean`                                                                     | —      |
+| clearable           | 是否支持清空选项                                                                                                                   | `boolean`                                                                     | —      |
+| showAllLevels       | 输入框中是否显示选中值的完整路径                                                                                                   | `boolean`                                                                     | true   |
+| collapseTags        | 多选模式下是否折叠 Tag                                                                                                             | `boolean`                                                                     | —      |
+| maxCollapseTags     | 需要显示的 Tag 的最大数量 只有当 collapseTags 设置为 true 时才会生效。                                                             | `number`                                                                      | —      |
+| collapseTagsTooltip | 当鼠标悬停于折叠标签的文本时，是否显示所有选中的标签。 要使用此属性，`要使用此属性，collapseTags属性必须设定为`属性必须设定为 true | `boolean`                                                                     | false  |
+| collapseTips        | 鼠标悬停于折叠标签的文本格式化函数， 要使用此属性，`collapseTags` 属性必须设定为 true                                              | <Enum type='Function'>(collapseNum: number, total: number) => string </Enum>  | false  |
+| separator           | 用于分隔选项的字符                                                                                                                 | `string`                                                                      | ' / '  |
+| filterable          | 该选项是否可以被搜索                                                                                                               | `boolean`                                                                     | —      |
+| filterMethod        | 自定义搜索逻辑，第一个参数是`node`，第二个参数是`keyword`，返回的布尔值表示是否保留该选项                                          | <Enum type='Function'>(node: CascaderNode, keyword: string) => boolean</Enum> | —      |
+| debounce            | 搜索关键词正在输入时的去抖延迟，单位为毫秒                                                                                         | `number`                                                                      | 300    |
+| popperClass         | 弹出内容的自定义类名                                                                                                               | `string`                                                                      | ''     |
 
 ### Cascader Events
 
 | 事件名         | 说明                          | 类型                                                                        |
 | -------------- | ----------------------------- | --------------------------------------------------------------------------- |
-| change         | 当绑定值变化时触发的事件      | <Enum type='Function'>(value: CascaderValue) => void</Enum>                 |
+| onChange       | 当绑定值变化时触发的事件      | <Enum type='Function'>(value: CascaderValue) => void</Enum>                 |
 | expand-change  | 当展开节点发生变化时触发      | <Enum type='Function'>(value: CascaderValue) => void</Enum>                 |
 | blur           | 当失去焦点时触发              | <Enum type='Function'>(event: FocusEvent) => void</Enum>                    |
 | focus          | 当获得焦点时触发              | <Enum type='Function'>(event: FocusEvent) => void</Enum>                    |
 | visible-change | 下拉框出现/隐藏时触发         | <Enum type='Function'>(value: boolean) => void</Enum>                       |
 | remove-tag     | 在多选模式下，移除 Tag 时触发 | <Enum type='Function'>(value: CascaderNode['valueByOption']) => void</Enum> |
 
-### Cascader Slots
-
-| 插槽名  | 说明                                                     | 作用域                                              |
-| ------- | -------------------------------------------------------- | --------------------------------------------------- |
-| default | 自定义备选项的节点内容，分别为当前节点的 Node 对象和数据 | <Enum type='object'>{ node: any, data: any }</Enum> |
-| empty   | 无匹配选项时的内容                                       | —                                                   |
-
-### Cascader Exposes
+### CascaderRef
 
 | 属性名              | 说明                                                                            | 类型                                                                            |
 | ------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
@@ -149,11 +140,11 @@ lang: zh-CN
 
 ### CascaderPanel Attributes
 
-| 属性名                | 说明                                                               | 类型                                                                       | 默认值 |
-| --------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------- | ------ |
-| model-value / v-model | 选中项绑定值                                                       | `string` /`number` /<Enum type='object'>string[] \| number[] \| any</Enum> | —      |
-| options               | 选项的数据源， `value` 和 `label` 可以通过 `CascaderProps` 自定义. | <Enum type='object'>Record<string, unknown>[]</Enum>                       | —      |
-| props                 | 配置选项, 请参阅下面 `CascaderProps` 表。                          | <Enum type='object'>CascaderProps</Enum>                                   | —      |
+| 属性名                | 说明                                                                   | 类型                                                                       | 默认值 |
+| --------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------- | ------ |
+| model-value / v-model | 选中项绑定值                                                           | `string` /`number` /<Enum type='object'>string[] \| number[] \| any</Enum> | —      |
+| options               | 选项的数据源， `value` 和 `label` 可以通过 `CascaderMenuProps` 自定义. | <Enum type='object'>Record<string, unknown>[]</Enum>                       | —      |
+| props                 | 配置选项, 请参阅下面 `CascaderMenuProps` 表。                          | <Enum type='object'>CascaderMenuProps</Enum>                               | —      |
 
 ### CascaderPanel Events
 
@@ -163,12 +154,6 @@ lang: zh-CN
 | expand-change | 当展开节点发生变化时触发                           | <Enum type='Function'>(value: CascaderNodePathValue) => void</Enum> |
 | close         | 面板的关闭事件，提供给 Cascader 以便做更好的判断。 | <Enum type='Function'>() => void</Enum>                             |
 
-### CascaderPanel Slots
-
-| 插槽名  | 说明                                                     | Scope                                               |
-| ------- | -------------------------------------------------------- | --------------------------------------------------- |
-| default | 下级节点的自定义内容，它们分别是当前节点对象和节点数据。 | <Enum type='object'>{ node: any, data: any }</Enum> |
-
 ### CascaderPanel Exposes
 
 | 属性名            | 说明                                                                            | Type                                                                            |
@@ -176,22 +161,20 @@ lang: zh-CN
 | getCheckedNodes   | 获取一个当前选中节点的数组。(仅仅是传单) 是否只返回叶选中的节点，默认是 `false` | <Enum type='Function'>(leafOnly: boolean) => CascaderNode[] \| undefined</Enum> |
 | clearCheckedNodes | 清空选中的节点                                                                  | <Enum type='Function'>() => void</Enum>                                         |
 
-## CascaderProps
+## CascaderMenuProps
 
-| 属性           | 说明                                                                                               | 类型                                                                | 默认值   |
-| -------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | -------- |
-| expandTrigger  | 次级菜单的展开方式                                                                                 | <Enum>'click' \| 'hover'</Enum>                                     | click    |
-| multiple       | 是否多选                                                                                           | `boolean`                                                           | false    |
-| checkStrictly  | 是否严格的遵守父子节点不互相关联                                                                   | `boolean`                                                           | false    |
-| emitPath       | 在选中节点改变时，是否返回由该节点所在的各级菜单的值所组成的数组，若设置 false，则只返回该节点的值 | `boolean`                                                           | true     |
-| lazy           | 是否动态加载子节点，需与 lazyLoad 方法结合使用                                                     | `boolean`                                                           | false    |
-| lazyLoad       | 加载动态数据的方法，仅在 lazy 为 true 时有效                                                       | <Enum type='Function'>(node: Node, resolve: Resolve) => void</Enum> | —        |
-| value          | 指定选项的值为选项对象的某个属性值                                                                 | `string`                                                            | value    |
-| label          | 指定选项标签为选项对象的某个属性值                                                                 | `string`                                                            | label    |
-| children       | 指定选项的子选项为选项对象的某个属性值                                                             | `string`                                                            | children |
-| disabled       | 指定选项的禁用为选项对象的某个属性值                                                               | `string`                                                            | disabled |
-| leaf           | 指定选项的叶子节点的标志位为选项对象的某个属性值                                                   | `string`                                                            | leaf     |
-| hoverThreshold | hover 时展开菜单的灵敏度阈值                                                                       | `number`                                                            | 500      |
+| 属性          | 说明                                             | 类型                                                                | 默认值   |
+| ------------- | ------------------------------------------------ | ------------------------------------------------------------------- | -------- |
+| expandTrigger | 次级菜单的展开方式                               | <Enum>'click' \| 'hover'</Enum>                                     | click    |
+| multiple      | 是否多选                                         | `boolean`                                                           | false    |
+| checkStrictly | 是否严格的遵守父子节点不互相关联                 | `boolean`                                                           | false    |
+| lazy          | 是否动态加载子节点，需与 lazyLoad 方法结合使用   | `boolean`                                                           | false    |
+| lazyLoad      | 加载动态数据的方法，仅在 lazy 为 true 时有效     | <Enum type='Function'>(node: Node, resolve: Resolve) => void</Enum> | —        |
+| value         | 指定选项的值为选项对象的某个属性值               | `string`                                                            | value    |
+| label         | 指定选项标签为选项对象的某个属性值               | `string`                                                            | label    |
+| children      | 指定选项的子选项为选项对象的某个属性值           | `string`                                                            | children |
+| disabled      | 指定选项的禁用为选项对象的某个属性值             | `string`                                                            | disabled |
+| leaf          | 指定选项的叶子节点的标志位为选项对象的某个属性值 | `string`                                                            | leaf     |
 
 ## 类型声明
 
@@ -221,70 +204,76 @@ interface CascaderOption extends Record<string, unknown> {
     leaf?: boolean;
 }
 
-interface CascaderProps {
-    expandTrigger?: ExpandTrigger;
+interface CascaderMenuProps {
+    /** 次级菜单的展开方式 */
+    expandTrigger?: 'click' | 'hover';
+    /** 是否多选 */
     multiple?: boolean;
+    /** 是否严格的遵守父子节点不互相关联 */
     checkStrictly?: boolean;
-    emitPath?: boolean;
+    /** 是否动态加载子节点，需与 lazyLoad 方法结合使用 */
     lazy?: boolean;
-    lazyLoad?: LazyLoad;
+    /** 加载动态数据的方法，仅在 lazy 为 true 时有效 */
+    lazyLoad?: (node: object, resolve?: (value: object[]) => void, reject?: () => void) => void;
+    /** 指定选项的值为选项对象的某个属性值 */
     value?: string;
+    /** 指定选项标签为选项对象的某个属性值 */
     label?: string;
+    /** 指定选项的子选项为选项对象的某个属性值 */
     children?: string;
-    disabled?: string | isDisabled;
-    leaf?: string | isLeaf;
-    hoverThreshold?: number;
+    /** 指定选项的禁用为选项对象的某个属性值 */
+    disabled?: string;
+    /** 指定选项的叶子节点的标志位为选项对象的某个属性值 */
+    leafKey?: string;
 }
 
-class Node {
-    readonly uid: number;
-    readonly level: number;
-    readonly value: CascaderNodeValue;
-    readonly label: string;
-    readonly pathNodes: Node[];
-    readonly pathValues: CascaderNodePathValue;
-    readonly pathLabels: string[];
-
-    childrenData: ChildrenData;
-    children: Node[];
-    text: string;
-    loaded: boolean;
+interface CascaderNode extends Object {
     /**
-     * Is it checked
-     *
-     * @default false
+     * 主键
+     * @private
      */
-    checked: boolean;
+    __id: string;
     /**
-     * Used to indicate the intermediate state of unchecked and fully checked child nodes
-     *
-     * @default false
+     * 父级节点ID
+     * @private
      */
-    indeterminate: boolean;
+    __pId: string;
     /**
-     * Loading Status
-     *
-     * @default false
+     * 层级
+     * @private
      */
-    loading: boolean;
-
-    // getter
-    isDisabled: boolean;
-    isLeaf: boolean;
-    valueByOption: CascaderNodeValue | CascaderNodePathValue;
-
-    // method
-    appendChild(childData: CascaderOption): Node;
-    calcText(allLevels: boolean, separator: string): string;
-    broadcast(event: string, ...args: unknown[]): void;
-    emit(event: string, ...args: unknown[]): void;
-    onParentCheck(checked: boolean): void;
-    onChildCheck(): void;
-    setCheckState(checked: boolean): void;
-    doCheck(checked: boolean): void;
+    __level?: number;
+    /**
+     * 是否叶子节点
+     * @private
+     */
+    __leaf?: boolean;
+    /**
+     * 是否已勾选
+     * @private
+     */
+    __checked?: boolean;
+    /**
+     * 是否半选
+     * @private
+     */
+    __indeterminate?: boolean;
+    /**
+     * 节点数据
+     * @private
+     */
+    data?: object;
+    /**
+     * 时子节点集合
+     * @private
+     */
+    children?: OptionNode[];
+    /**
+     * 树形组件时子节点集合
+     * @private
+     */
+    treeChildren?: boolean;
 }
-
-Node as CascaderNode;
 ```
 
 </details>

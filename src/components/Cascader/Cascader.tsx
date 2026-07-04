@@ -5,7 +5,7 @@ import last from 'lodash/last';
 import max from 'lodash/max';
 import omit from 'lodash/omit';
 import trim from 'lodash/trim';
-import React, { RefObject, forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { Divider } from '../Divider';
@@ -24,11 +24,11 @@ import { CascaderContext } from './CascaderContext';
 import CascaderDropdown from './CascaderDropdown';
 import CascaderMenu, { CascaderMenuRef } from './CascaderMenu';
 import { toArray } from './Utils';
-import { CascaderProps, CascaderRef, OptionNode } from './typings';
+import { CascaderNode, CascaderProps, CascaderRef } from './typings';
 import { useCascader } from './useCascader';
 
 const Cascader = memo(
-    forwardRef((props: CascaderProps, ref?: RefObject<CascaderRef>) => {
+    forwardRef<CascaderRef, CascaderProps>((props, ref) => {
         const { locale } = useConfigProvider();
         const { t } = useTranslation();
 
@@ -39,10 +39,10 @@ const Cascader = memo(
                 props: {
                     expandTrigger: 'click',
                     emitPath: true,
-                    valueKey: 'value',
-                    labelKey: 'label',
-                    childrenKey: 'children',
-                    disabledKey: 'disabled',
+                    value: 'value',
+                    label: 'label',
+                    children: 'children',
+                    disabled: 'disabled',
                     leafKey: 'leaf',
                 },
                 shouldSelect: () => true,
@@ -81,7 +81,7 @@ const Cascader = memo(
             warning,
             ...rest
         } = props;
-        const { multiple, valueKey = 'value', labelKey = 'label', childrenKey = 'children', lazy, lazyLoad } = menuProps;
+        const { multiple, value: valueKey = 'value', label: labelKey = 'label', children: childrenKey = 'children', lazy, lazyLoad } = menuProps;
         const { e, b, m, is, cssVarName } = useClassNames(classPrefix);
         const disabled = useDisabled(props.disabled);
         const size = useSize(props.size);
@@ -137,7 +137,7 @@ const Cascader = memo(
         } = useCascader(options, props, value);
         const [level, setLevel] = useState(0);
         const [loading, setLoading] = useState<string>(null);
-        const [filterList, setFilterList] = useState<OptionNode[][]>([]);
+        const [filterList, setFilterList] = useState<CascaderNode[][]>([]);
 
         useEffect(() => {
             if (level == 0 && value.length > 0) {
@@ -212,7 +212,7 @@ const Cascader = memo(
 
         /** 取消多选项 */
         const onCloseTag = useCallback(
-            (item: OptionNode[]) => {
+            (item: CascaderNode[]) => {
                 const node = last(item);
                 setCheckedNode(node.__level, node, false);
                 const _value = getCheckedValue() ?? [];
@@ -257,7 +257,7 @@ const Cascader = memo(
         );
 
         const onSelect = useCallback(
-            (_level: number, node: OptionNode) => {
+            (_level: number, node: CascaderNode) => {
                 // 懒加载且非叶子节点且没有子节点时进入
                 if (lazy && lazyLoad && node.__leaf !== true && !node[childrenKey]) {
                     setSelectedNode(_level, node);
@@ -355,7 +355,7 @@ const Cascader = memo(
             ],
         );
 
-        const onCheckedChange = (_level: number, node: OptionNode, checked: boolean) => {
+        const onCheckedChange = (_level: number, node: CascaderNode, checked: boolean) => {
             setCheckedNode(_level, node, checked);
             const _value = getCheckedValue() ?? [];
             setValue(_value);
@@ -376,8 +376,8 @@ const Cascader = memo(
          * @param parent
          */
         const loopLazyLoad = useCallback(
-            (l: number, parent: OptionNode, _value: string[] | string[][], { isCover }: { isCover?: boolean }) => {
-                const loopCore = (nodes: OptionNode[], _l: number) => {
+            (l: number, parent: CascaderNode, _value: string[] | string[][], { isCover }: { isCover?: boolean }) => {
+                const loopCore = (nodes: CascaderNode[], _l: number) => {
                     if (stopLazy()) {
                         return;
                     }
@@ -549,7 +549,7 @@ const Cascader = memo(
             () => (
                 <div className={classNames(b`panel`, is({ bordered: panel }))}>
                     {filterable && (
-                        <div className={e`search`} onClick={event => event.stopPropagation()}>
+                        <div className={e`search`} style={level === 0 && !searchText ? { width: 180 } : {}} onClick={event => event.stopPropagation()}>
                             <Input
                                 ref={searchInstance}
                                 placeholder={t('el.select.search', { lng: locale })}

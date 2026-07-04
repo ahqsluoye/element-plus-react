@@ -8,10 +8,10 @@ import Scrollbar from '../Scrollbar/Scrollbar';
 import { ScrollbarRef } from '../Scrollbar/typings';
 import { useClassNames } from '../hooks';
 import { CascaderContext } from './CascaderContext';
-import { OptionNode } from './typings';
+import { CascaderNode } from './typings';
 
 interface Props {
-    data: OptionNode[];
+    data: CascaderNode[];
     level: number;
     value: string;
 }
@@ -24,7 +24,7 @@ const CascaderMenu = memo(
     forwardRef<CascaderMenuRef, Props>((props, ref) => {
         const { data = [], level, value } = props;
         const { props: menuProps, onSelect, onCheckedChange, loading, nodeFormatter } = useContext(CascaderContext);
-        const { valueKey = 'value', labelKey = 'label', disabledKey = 'disabled', multiple, expandTrigger } = menuProps;
+        const { value: valueKey = 'value', label: labelKey = 'label', disabled: disabledKey = 'disabled', multiple, expandTrigger } = menuProps;
         const { b, be, is } = useClassNames('cascader');
         const ulRef = useRef<ScrollbarRef>(null);
 

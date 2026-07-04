@@ -5,11 +5,11 @@ import last from 'lodash/last';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForceUpdate } from '../hooks';
 import { isEmpty, isNotEmpty, nextTick, randomCode } from '../Util';
-import { CascaderProps, OptionNode } from './typings';
+import { CascaderNode, CascaderProps } from './typings';
 
 export const useCascader = (initialData: object[], props: CascaderProps, value: string[] | string[][]) => {
     const { props: menuProps, showAllLevels, separator } = props;
-    const { childrenKey = 'children', valueKey = 'value', labelKey = 'label', leafKey = 'leaf', lazy } = menuProps;
+    const { children: childrenKey = 'children', value: valueKey = 'value', label: labelKey = 'label', leafKey = 'leaf', lazy } = menuProps;
     // 展开层级数
     const [allLevel, setAllLevel] = useState(0);
     // 缓存每层组件类型
@@ -17,18 +17,18 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
     // 缓存每层组件类型（同上）
     const _dataTypes = useRef([]);
     // 缓存每层平铺数据
-    const [optionData, setOptionData] = useState<Record<string, OptionNode[]>>({});
+    const [optionData, setOptionData] = useState<Record<string, CascaderNode[]>>({});
     // 缓存每层平铺数据（同上）
-    const _optionData = useRef<Record<string, OptionNode[]>>({});
+    const _optionData = useRef<Record<string, CascaderNode[]>>({});
     // 选中的数据组
     const selectedValue = useRef<string[]>([]);
     const oldSelectedValue = useRef<string[]>([]);
     // 选中的数据标签组
     const selectedLabel = useRef<string[]>([]);
     // 选中的节点组
-    const selectedNode = useRef<OptionNode[]>([]);
+    const selectedNode = useRef<CascaderNode[]>([]);
     // 选中的节点组（多选）
-    const checkedNodes = useRef<OptionNode[][]>([]);
+    const checkedNodes = useRef<CascaderNode[][]>([]);
     // 树组件扩展keys
     // const expandKeys = useRef<Record<string, Key[]>>({});
 
@@ -42,7 +42,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
      */
     const init = useCallback(
         (nodes: object[] = [], level: number, pid = '0') => {
-            nodes.forEach((item: OptionNode) => {
+            nodes.forEach((item: CascaderNode) => {
                 const __id = randomCode(11);
                 if (Object.prototype.hasOwnProperty.call(item, childrenKey)) {
                     init(item[childrenKey], level + 1, __id);
@@ -125,7 +125,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
      * @param value
      */
     const setSelectedNode = useCallback(
-        (level: number, node: OptionNode) => {
+        (level: number, node: CascaderNode) => {
             if (selectedNode.current.length < level + 1) {
                 while (selectedNode.current.length <= level + 1) {
                     selectedNode.current.push(null);
@@ -178,7 +178,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
      * @returns
      */
     const getSelectedLabel = useCallback(
-        (labelFormatter?: (node?: OptionNode[]) => string) => {
+        (labelFormatter?: (node?: CascaderNode[]) => string) => {
             const res = selectedLabel.current.filter(item => isNotEmpty(item));
             if (showAllLevels) {
                 return labelFormatter ? labelFormatter(selectedNode.current.filter(item => isNotEmpty(item))) : res.join(separator);
@@ -189,7 +189,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
         [separator, showAllLevels],
     );
 
-    const loopCheckedNodes = useCallback((level: number, node: OptionNode, checked: boolean) => {
+    const loopCheckedNodes = useCallback((level: number, node: CascaderNode, checked: boolean) => {
         _optionData.current = {
             ..._optionData.current,
             [`level${level}`]: (_optionData.current?.[`level${level}`] ?? []).map(item => {
@@ -218,7 +218,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
     }, []);
 
     const getParent = useCallback(
-        (level: number, node: OptionNode) => {
+        (level: number, node: CascaderNode) => {
             const options = (isNotEmpty(optionData) ? optionData : _optionData.current)?.[`level${level - 1}`];
             if (options) {
                 const _parent = options.find(item => item.__id === node.__pId);
@@ -236,7 +236,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
     );
 
     const loopGetParent = useCallback(
-        (level: number, node: OptionNode, result: OptionNode[] = []) => {
+        (level: number, node: CascaderNode, result: CascaderNode[] = []) => {
             const _parent = getParent(level, node);
             if (_parent) {
                 result.push(_parent);
@@ -249,7 +249,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
 
     /** 同步父级节点选中状态 */
     const loopParentStatus = useCallback(
-        (level: number, node: OptionNode, checked: boolean, indeterminate: boolean) => {
+        (level: number, node: CascaderNode, checked: boolean, indeterminate: boolean) => {
             const val = selectedValue.current[level - 1];
             let parentChecked = checked;
             let parentInterminate = indeterminate;
@@ -290,7 +290,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
         [getParent],
     );
 
-    const loopGetCheckedNodes = useCallback((level: number, nodes: OptionNode[], path: OptionNode[], result) => {
+    const loopGetCheckedNodes = useCallback((level: number, nodes: CascaderNode[], path: CascaderNode[], result) => {
         nodes?.forEach(item => {
             // 只有一级且选中
             if (item.__checked && (!Object.prototype.hasOwnProperty.call(item, 'children') || item.children.length === 0)) {
@@ -308,7 +308,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
     }, []);
 
     const getCheckedNodes = useCallback(() => {
-        const result: OptionNode[][] = [];
+        const result: CascaderNode[][] = [];
         _optionData.current?.['level0']?.forEach(item => {
             // 只有一级且选中
             if (item.__checked && (!Object.prototype.hasOwnProperty.call(item, 'children') || item.children.length === 0)) {
@@ -327,7 +327,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
      * @param checked 是否选中
      */
     const setCheckedNode = useCallback(
-        (level: number, node: OptionNode, checked: boolean) => {
+        (level: number, node: CascaderNode, checked: boolean) => {
             if (isEmpty(_optionData.current)) {
                 _optionData.current = optionData;
             }
@@ -388,10 +388,10 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
      * @param level 层级
      */
     const storeOptionData = useCallback(
-        (nodes: object[], level: number, parent: OptionNode, { isCover }: { isCover?: boolean }): OptionNode[] => {
+        (nodes: object[], level: number, parent: CascaderNode, { isCover }: { isCover?: boolean }): CascaderNode[] => {
             let data = cloneDeep(_optionData.current);
 
-            let newNodes: OptionNode[] = [];
+            let newNodes: CascaderNode[] = [];
             newNodes = nodes.map((node: object) => ({
                 ...node,
                 data: cloneDeep(node),
@@ -459,7 +459,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
      * @param isLeaf
      */
     const setNodeLeaf = useCallback(
-        (node: OptionNode, isLeaf: boolean) => {
+        (node: CascaderNode, isLeaf: boolean) => {
             const data = cloneDeep(optionData);
             const _node = find(data[`level${node['__level']}`], { __id: node.__id });
             _node[leafKey] = isLeaf;
@@ -503,7 +503,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
     /** 搜索 */
     const handleSearch = useCallback(
         (searchText: string) => {
-            const result: OptionNode[][] = [];
+            const result: CascaderNode[][] = [];
             if (isNotEmpty(searchText)) {
                 const options = cloneDeep(_optionData.current);
                 const regex = new RegExp(searchText, 'gi');
@@ -515,7 +515,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
                  * @param path 完整节点
                  * @returns
                  */
-                const loopGetMatchNodes = (level: number, nodes: OptionNode[], path: OptionNode[]) => {
+                const loopGetMatchNodes = (level: number, nodes: CascaderNode[], path: CascaderNode[]) => {
                     for (let index = 0; index < nodes.length; index++) {
                         const item = nodes[index];
                         // 最后一级，结束递归

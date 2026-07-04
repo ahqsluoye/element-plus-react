@@ -80,9 +80,9 @@ export interface CascaderProps<V = ValueType, S = any>
 
     labelFormatter?: (level?: number, node?: object[]) => string;
     /** 自定义节点格式化函数 */
-    nodeFormatter?: (params: { node?: OptionNode; data?: any }) => React.ReactNode;
+    nodeFormatter?: (params: { node?: CascaderNode; data?: any }) => React.ReactNode;
     /** 自定义建议项格式化函数 */
-    suggestionItemFormatter?: (item: OptionNode[]) => React.ReactNode;
+    suggestionItemFormatter?: (item: CascaderNode[]) => React.ReactNode;
 }
 
 export type CascaderPanelProps = Omit<CascaderProps, 'panel'>;
@@ -101,13 +101,13 @@ export interface CascaderMenuProps {
     /** 加载动态数据的方法，仅在 lazy 为 true 时有效 */
     lazyLoad?: (node: object, resolve?: (value: object[]) => void, reject?: () => void) => void;
     /** 指定选项的值为选项对象的某个属性值 */
-    valueKey?: string;
+    value?: string;
     /** 指定选项标签为选项对象的某个属性值 */
-    labelKey?: string;
+    label?: string;
     /** 指定选项的子选项为选项对象的某个属性值 */
-    childrenKey?: string;
+    children?: string;
     /** 指定选项的禁用为选项对象的某个属性值 */
-    disabledKey?: string;
+    disabled?: string;
     /** 指定选项的叶子节点的标志位为选项对象的某个属性值 */
     leafKey?: string;
 }
@@ -121,7 +121,7 @@ export interface CascaderRef {
     setVisible: (visible: boolean) => void;
 }
 
-export interface OptionNode extends Object {
+export interface CascaderNode extends Object {
     /**
      * 主键
      * @private
@@ -161,7 +161,7 @@ export interface OptionNode extends Object {
      * 时子节点集合
      * @private
      */
-    children?: OptionNode[];
+    children?: CascaderNode[];
     /**
      * 树形组件时子节点集合
      * @private
