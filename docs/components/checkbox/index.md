@@ -33,6 +33,12 @@ lang: zh-CN
 
 <code src="./grouping.tsx"></code>
 
+## Options 属性
+
+ 基础用法 `ElCheckboxGroup` 的快捷示例。 您可以通过 `props` 属性自定义 `options` 的别名。
+
+<code src="./options.tsx"></code>
+
 ## 中间状态
 
 `indeterminate` 属性用以表示 checkbox 的不确定状态，一般用于实现全选的效果
@@ -49,7 +55,7 @@ lang: zh-CN
 
 按钮样式的多选组合。
 
-只需要把 `elCheckbox` 元素替换为 `el-checkbox-button` 元素即可。 此外，Element Plus 还提供了`size`属性。
+只需要把 `ElCheckbox` 元素替换为 `ElCheckboxButton` 元素即可。 此外，Element Plus 还提供了`size`属性。
 
 <code src="./button-style.tsx"></code>
 
@@ -94,6 +100,8 @@ lang: zh-CN
 | getBooleanOnSingle | 单个 CheckBox 时获取 Boolean 类型的值 | `boolean`                                       | false  |
 | min                | 可被勾选的 checkbox 的最小数量        | `number`                                        | —      |
 | max                | 可被勾选的 checkbox 的最大数量        | `number`                                        | —      |
+| options            | 选项的数据源， `value` 的 key 和 `label` 和 ` disabled`可以通过 `props`自定义. | <Enum type="array">Array<{[key: string]: any}></Enum>                     | —                                                        |
+| props              | options 的配置                                                   | <Enum type="object">{ value?: string, label?: string, disabled?: string}` | `{value: 'value', label: 'label', disabled: 'disabled'}</Enum> |
 
 ### CheckboxGroup 事件
 

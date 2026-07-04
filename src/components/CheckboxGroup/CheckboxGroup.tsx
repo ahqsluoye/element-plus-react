@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import cloneDeep from 'lodash/cloneDeep';
 import remove from 'lodash/remove';
 import React, { FC, forwardRef, memo, useCallback, useMemo } from 'react';
-import type { CheckboxProps, ValueType } from '../Checkbox/index';
-import { shallowEqual } from '../Util';
+import { Checkbox, type CheckboxProps, type ValueType } from '../Checkbox/index';
+import { mergeDefaultProps, shallowEqual } from '../Util';
 import { useChildrenInstance, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { BaseProps, FormControlBaseProps, NativeProps, TypeAttributes } from '../types/common';
 import { CheckboxGroupContext } from './CheckboxGroupContext';
@@ -18,16 +18,28 @@ export interface CheckboxGroupProps<V = ValueType[] | boolean> extends FormContr
     min?: number;
     /** 可被勾选的 checkbox 的最大数量 */
     max?: number;
+    /** 选项的数据源， value 的 key 和 label 和  disabled可以通过 props自定义. */
+    options?: Array<{ [key: string]: any }>;
+    /** options 的配置 */
+    props?: { value?: string; label?: string; disabled?: string };
 }
 
 const CheckboxGroup: FC<CheckboxGroupProps> = memo(
     forwardRef<HTMLDivElement, CheckboxGroupProps>((props, ref) => {
-        const { className, name, value: valueProp, defaultValue, classPrefix = 'checkbox-group', readOnly, onChange, getBooleanOnSingle, min, max } = props;
+        props = mergeDefaultProps(
+            {
+                props: {},
+                options: [],
+            },
+            props,
+        );
+        const { className, name, value: valueProp, defaultValue, classPrefix = 'checkbox-group', readOnly, onChange, getBooleanOnSingle, min, max, options } = props;
 
         const { m } = useClassNames(classPrefix);
         const [value, setValue, isControlled] = useControlled(valueProp, defaultValue);
         const disabled = useDisabled(props.disabled);
         const size = useSize(props.size);
+        const optionsProps = mergeDefaultProps({ value: 'value', label: 'label', disabled: 'disabled' }, props.props);
 
         /** 获取子组件 */
         const getTabPaneInstance = useChildrenInstance<CheckboxProps>(['ElCheckbox', 'ElCheckboxButton']);
@@ -103,10 +115,40 @@ const CheckboxGroup: FC<CheckboxGroupProps> = memo(
             return children;
         }, [children, max, min, value]);
 
+        const optionChilds = useMemo(() => {
+            let checkboxs = null;
+            if (options.length > 0) {
+                checkboxs = options.map(item => (
+                    <Checkbox key={item[props.props.value]} value={item[props.props.value]} disabled={item[props.props.disabled]}>
+                        {item[props.props.label]}
+                    </Checkbox>
+                ));
+                if (min > 0 && value instanceof Array && value.length <= min) {
+                    return checkboxs.map((item, index) => {
+                        const isChcked = value.some(i => i === item.props.value);
+                        if (isChcked && value.length < max) {
+                            return React.cloneElement(item, { key: index, ...item.props, disabled: isChcked });
+                        } else if (value.length == max) {
+                            return React.cloneElement(item, { key: index, ...item.props, disabled: !isChcked });
+                        } else {
+                            return React.cloneElement(item, { key: index, ...item.props });
+                        }
+                    });
+                }
+                if (max > 0 && value instanceof Array && value.length == max) {
+                    return checkboxs.map((item, index) => {
+                        const isChcked = value.some(i => i === item.props.value);
+                        return React.cloneElement(item, { key: index, ...item.props, disabled: !isChcked });
+                    });
+                }
+            }
+            return checkboxs;
+        }, [max, min, options, props.props.disabled, props.props.label, props.props.value, value]);
+
         return (
             <CheckboxGroupContext.Provider value={contextValue}>
                 <div ref={ref} /* {...omit(rest, ['disabled', 'size'])} */ className={classNames(className, m({ [size]: size }))}>
-                    {childs}
+                    {childs.length === 0 ? optionChilds : childs}
                 </div>
             </CheckboxGroupContext.Provider>
         );
