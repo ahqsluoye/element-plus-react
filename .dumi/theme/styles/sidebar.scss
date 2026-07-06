@@ -10,6 +10,7 @@
     width: var(--sidebar-width-xs);
     background-color: var(--bg-color);
     padding: 48px 32px;
+    padding-right: 15px !important;
     padding-top: 0;
     overflow-y: auto;
     transform: translate(-100%);

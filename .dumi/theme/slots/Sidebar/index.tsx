@@ -1,4 +1,4 @@
-import { ElScrollbar } from '@qsxy/element-plus-react';
+import { ElScrollbar, ElTag } from '@qsxy/element-plus-react';
 import classNames from 'classnames';
 import { Link, useFullSidebarData } from 'dumi';
 import React, { FC, memo, useEffect, useMemo, useState } from 'react';
@@ -37,7 +37,14 @@ const Sidebar: FC = memo(() => {
                                 })}
                                 onClick={() => setActive(item.link)}
                             >
-                                <p className="link-text">{item.title}</p>
+                                <p className="link-text">
+                                    {item.title}{' '}
+                                    {item.version && (
+                                        <ElTag type="primary" round effect="plain" size="small">
+                                            {item.version}
+                                        </ElTag>
+                                    )}
+                                </p>
                             </Link>
                         ))}
                     </section>

@@ -1,4 +1,4 @@
-import { ElButton, ElButtonGroup, ElDrawer, ElLink, ElTag, ElTimeLine, ElTimeLineItem, TimeLineItemProps } from '@qsxy/element-plus-react';
+import { ElButton, ElButtonGroup, ElDrawer, ElTag, ElTimeLine, ElTimeLineItem, TimeLineItemProps } from '@qsxy/element-plus-react';
 import { useMount } from 'ahooks';
 import { useLocation } from 'dumi';
 import React from 'react';
@@ -101,7 +101,7 @@ const Meta = props => {
                 }
                 visible={visible === 'changeLog'}
                 className="changelog-drawer"
-                size={500}
+                size={700}
                 close={() => setVisible('')}
             >
                 <div>
@@ -130,9 +130,9 @@ const Meta = props => {
                                             >
                                                 #{{ pr }}
                                             </ElLink> */}
-                                                <ElLink href={`https://github.com/${entry.author}`} underline="always" target="_blank" rel="noopener noreferrer">
+                                                {/* <ElLink href={`https://github.com/${entry.author}`} underline="always" target="_blank" rel="noopener noreferrer">
                                                     @{entry.author}
-                                                </ElLink>
+                                                </ElLink> */}
                                             </li>
                                         ))}
                                     </ul>

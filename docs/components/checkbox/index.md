@@ -3,6 +3,8 @@ title: Checkbox 多选框
 lang: zh-CN
 ---
 
+<Meta></Meta>
+
 # Checkbox 多选框
 
 在一组备选项中进行多选。
