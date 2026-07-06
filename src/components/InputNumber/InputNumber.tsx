@@ -1,3 +1,4 @@
+import { useMount, useUnmount } from 'ahooks';
 import classNames from 'classnames';
 import isNil from 'lodash/isNil';
 import omit from 'lodash/omit';
@@ -407,6 +408,27 @@ const InputNumber = memo(
             }
         }, [maxProp, minProp, value, disabled]);
 
+        const handleMouseUp = useCallback(() => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+                clearInterval(timerRef.current);
+            }
+            if (isMouseDown.current) {
+                setCurrentValue(userInputRef.current, false);
+                onChange?.(userInputRef.current);
+                userInputRef.current = null;
+                isMouseDown.current = false;
+            }
+        }, [onChange, setCurrentValue, userInputRef, isMouseDown]);
+
+        useMount(() => {
+            document.addEventListener('mouseup', handleMouseUp);
+        });
+
+        useUnmount(() => {
+            document.removeEventListener('mouseup', handleMouseUp);
+        });
+
         // Ref methods
         useImperativeHandle(ref, () => ({
             ref: containerRef,
@@ -448,18 +470,6 @@ const InputNumber = memo(
                                 }, 100);
                             }, 500);
                         }}
-                        onMouseUp={() => {
-                            if (timerRef.current) {
-                                clearTimeout(timerRef.current);
-                                clearInterval(timerRef.current);
-                            }
-                            if (isMouseDown.current) {
-                                setCurrentValue(userInputRef.current, false);
-                                onChange?.(userInputRef.current);
-                                userInputRef.current = null;
-                                isMouseDown.current = false;
-                            }
-                        }}
                         // onClick={decrease}
                     >
                         {decreaseIcon || <Icon name={controlsAtRight ? 'angle-down' : 'minus'} prefix={controlsAtRight ? 'fal' : 'far'} />}
@@ -485,18 +495,6 @@ const InputNumber = memo(
                                     userInputRef.current = newVal;
                                 }, 100);
                             }, 500);
-                        }}
-                        onMouseUp={() => {
-                            if (timerRef.current) {
-                                clearTimeout(timerRef.current);
-                                clearInterval(timerRef.current);
-                            }
-                            if (isMouseDown.current) {
-                                setCurrentValue(userInputRef.current, false);
-                                onChange?.(userInputRef.current);
-                                userInputRef.current = null;
-                                isMouseDown.current = false;
-                            }
                         }}
                         // onClick={increase}
                     >
