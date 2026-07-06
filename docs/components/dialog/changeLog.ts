@@ -20,6 +20,11 @@ export default [
                 description: '新增拖拽弹窗、自定义动画与遮罩样式优化',
                 author: 'ahqsluoye',
             },
+            {
+                type: 'fix',
+                description: '修复弹窗打开时页面抖动的问题',
+                author: 'ahqsluoye',
+            },
         ],
     },
 ] as VersionChangelog[];
