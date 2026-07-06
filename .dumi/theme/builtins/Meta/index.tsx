@@ -48,14 +48,14 @@ const Meta = props => {
     const todoCount = issues.length || 0;
 
     useMount(() => {
-        import(`@/../docs/${location.pathname.substring(1)}/changeLog.js`).then(res => {
+        import(`@/../docs/${location.pathname.substring(1)}/changeLog.ts`).then(res => {
             if (res.default) {
                 setLoadingChangeLog(false);
                 setChangeLog(res.default);
             }
         });
 
-        import(`@/../docs/${location.pathname.substring(1)}/issues.js`).then(res => {
+        import(`@/../docs/${location.pathname.substring(1)}/issues.ts`).then(res => {
             if (res.default) {
                 setLoadingIssues(false);
                 setIssues(res.default);
