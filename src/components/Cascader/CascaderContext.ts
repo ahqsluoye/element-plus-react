@@ -9,7 +9,7 @@ interface CascaderContextProps {
 
     searchText?: string;
 
-    onSelect: (level: number, node: object) => void;
+    onSelect: (level: number, node: object, checkStrictly?: boolean) => void;
 
     onCheckedChange: (_level: number, node: object, checked: boolean) => void;
 

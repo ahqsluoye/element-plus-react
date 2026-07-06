@@ -51,7 +51,7 @@ lang: zh-CN
 
 可通过 `props.checkStrictly = true` 来设置父子节点取消选中关联，从而达到选择任意一级选项的目的。
 
-<!-- <code src="./any-level.tsx"></code> -->
+<code src="./any-level.tsx"></code>
 
 ## 动态加载
 

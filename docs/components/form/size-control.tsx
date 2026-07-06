@@ -92,8 +92,8 @@ const App = () => {
                     </ElForm.Item>
                     <ElForm.Item name="resource" label="特殊资源">
                         <ElRadioGroup>
-                            <ElRadio.Button value="Sponsor">线上品牌商赞助</ElRadio.Button>
-                            <ElRadio.Button value="Venue">线下场地免费</ElRadio.Button>
+                            <ElRadio value="Sponsor">线上品牌商赞助</ElRadio>
+                            <ElRadio value="Venue">线下场地免费</ElRadio>
                         </ElRadioGroup>
                     </ElForm.Item>
                     <ElForm.Item name="desc" label="活动形式">

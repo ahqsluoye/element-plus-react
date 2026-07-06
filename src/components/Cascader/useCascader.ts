@@ -320,6 +320,19 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
         return result;
     }, [loopGetCheckedNodes]);
 
+    const getStrictlyCheckedNodes = useCallback((level = 0, result: OptionNode[][] = []) => {
+        _optionData.current?.[`level${level}`]?.forEach(item => {
+            // 只有一级且选中
+            if (item.__checked) {
+                result.push(level > 0 ? loopGetParent(level, item, [item]).reverse() : [item]);
+            }
+        });
+        if (_optionData.current?.[`level${level + 1}`]) {
+            getStrictlyCheckedNodes(level + 1, result);
+        }
+        return result;
+    }, []);
+
     /**
      * 设置选中节点
      * @param level 层级
@@ -337,6 +350,40 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
             setOptionData(_optionData.current);
         },
         [getCheckedNodes, loopCheckedNodes, loopParentStatus, optionData],
+    );
+
+    /**
+     * 设置选中节点
+     * @param level 层级
+     * @param node 当前节点
+     * @param checked 是否选中
+     */
+    const setStrictlyCheckedNode = useCallback(
+        (level: number, node: OptionNode, checked: boolean) => {
+            if (isEmpty(_optionData.current)) {
+                _optionData.current = optionData;
+            }
+            _optionData.current = {
+                ..._optionData.current,
+                [`level${level}`]: (_optionData.current?.[`level${level}`] ?? []).map(item => {
+                    // 当前节点选中状态变更
+                    if (item.__id === node.__id) {
+                        if (item?.children?.length > 0) {
+                            return {
+                                ...item,
+                                __checked: checked,
+                                __indeterminate: false,
+                            };
+                        }
+                        return { ...item, __checked: checked, __indeterminate: false };
+                    }
+                    return item;
+                }),
+            };
+            checkedNodes.current = getStrictlyCheckedNodes();
+            setOptionData(_optionData.current);
+        },
+        [getStrictlyCheckedNodes, optionData],
     );
 
     const getCheckedValue = useCallback(() => {
@@ -717,6 +764,8 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
          * @param checked 是否选中
          */
         setCheckedNode,
+
+        setStrictlyCheckedNode,
 
         getCheckedNodes: () => checkedNodes.current,
 

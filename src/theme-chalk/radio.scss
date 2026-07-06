@@ -20,9 +20,9 @@
     font-feature-settings: 'tnum';
     position: relative;
     display: inline-flex;
-    align-items: baseline;
+    align-items: center;
     cursor: pointer;
-    // height: 32px;
+    height: 32px;
     line-height: 32px;
 
     &.is-disabled {
@@ -75,7 +75,7 @@
     list-style: none;
     font-feature-settings: 'tnum';
     position: relative;
-    top: 0.2em;
+    // top: 0.2em;
     display: inline-block;
     outline: none;
     cursor: pointer;
