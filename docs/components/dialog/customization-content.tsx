@@ -1,8 +1,8 @@
-import { ElButton, ElDialog, ElForm, ElInput } from '@qsxy/element-plus-react';
+import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, useForm } from '@qsxy/element-plus-react';
 import React, { useCallback, useState } from 'react';
 
 const App = () => {
-    const [formInstance] = ElForm.useForm();
+    const [formInstance] = useForm();
     const initialValues = { userName: '张三' };
 
     const [visible, setVisible] = useState(false);
@@ -15,7 +15,7 @@ const App = () => {
             <ElButton onClick={() => setVisible(true)}>打开对话框</ElButton>
             <ElDialog visible={visible} beforeClose={onClose}>
                 <ElForm form={formInstance} initialValues={initialValues}>
-                    <ElForm.Item
+                    <ElFormItem
                         label="名称"
                         name="userName"
                         rules={[
@@ -26,7 +26,7 @@ const App = () => {
                         ]}
                     >
                         <ElInput />
-                    </ElForm.Item>
+                    </ElFormItem>
                 </ElForm>
             </ElDialog>
         </>

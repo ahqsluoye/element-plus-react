@@ -80,10 +80,10 @@ export interface InternalFieldProps<Values = any> extends Omit<FormItemProps<Val
     onMetaChange?: (meta: Meta & { destroy?: boolean }) => void;
     preserve?: boolean;
 
-    /** @private Passed by Form.List props. Do not use since it will break by path check. */
+    /** @private Passed by ElFormList props. Do not use since it will break by path check. */
     isListField?: boolean;
 
-    /** @private Passed by Form.List props. Do not use since it will break by path check. */
+    /** @private Passed by ElFormList props. Do not use since it will break by path check. */
     isList?: boolean;
 
     /** @private Pass context as prop instead of context api
@@ -749,7 +749,7 @@ function InternalFormItem<Values = any>({ name, rules = [], ...restProps }: Fiel
     // Warning if it's a directly list field.
     // We can still support multiple level field preserve.
     if (process.env.NODE_ENV !== 'production' && restProps.preserve === false && restProps.isListField && namePath.length <= 1) {
-        warning(false, '`preserve` should not apply on Form.List fields.');
+        warning(false, '`preserve` should not apply on ElFormList fields.');
     }
 
     const formRules = namePath?.length > 0 ? get(fieldContext?.rules ?? {}, namePath) : undefined;

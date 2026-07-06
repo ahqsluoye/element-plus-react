@@ -84,7 +84,7 @@ export type { Option, SegmentedComponentProps, SegmentedProps } from './Segmente
 export { Transfer as ElTransfer } from './Transfer';
 export type { ListStyle, SelectAllLabel, TransferDirection, TransferItem, TransferLocale, TransferProps, TransferRender } from './Transfer';
 
-export { Form as ElForm, useForm } from './Form';
+export { Form as ElForm, FormItem as ElFormItem, List as ElFormList, useForm, useWatch } from './Form';
 export type {
     FormInstance,
     FormItemProps,

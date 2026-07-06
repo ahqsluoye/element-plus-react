@@ -1,4 +1,4 @@
-import React, { FC, useContext, useMemo, useRef } from 'react';
+import React, { FC, memo, useContext, useMemo, useRef } from 'react';
 import { warning } from '../Util';
 import FieldContext from './FieldContext';
 import FormItem from './FormItem';
@@ -56,7 +56,7 @@ const List: FC<ListProps> = ({ name, initialValue, children, rules, validateTrig
 
     // User should not pass `children` as other type.
     if (typeof children !== 'function') {
-        warning(false, 'Form.List only accepts function as children.');
+        warning(false, 'ElFormList only accepts function as children.');
         return null;
     }
 
@@ -162,4 +162,4 @@ const List: FC<ListProps> = ({ name, initialValue, children, rules, validateTrig
     );
 };
 
-export default List;
+export default memo(List);

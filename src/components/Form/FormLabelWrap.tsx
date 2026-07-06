@@ -20,7 +20,7 @@ const FormLabelWrap: React.FC<FormLabelWrapProps> = props => {
     const formItemContext = useContext(FormItemContext);
 
     if (!formItemContext) {
-        throwError(COMPONENT_NAME, 'usage: <Form.Item><FormLabelWrap /></Form.Item>');
+        throwError(COMPONENT_NAME, 'usage: <ElFormItem><FormLabelWrap /></ElFormItem>');
     }
 
     const { be } = useClassNames('form');

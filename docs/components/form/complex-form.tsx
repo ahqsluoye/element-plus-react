@@ -1,4 +1,4 @@
-import { ElButton, ElDatePicker, ElForm, ElInput, ElLink, ElMessage, ElOption, ElSelect, ElTooltip } from '@qsxy/element-plus-react';
+import { ElButton, ElDatePicker, ElForm, ElFormItem, ElInput, ElLink, ElMessage, ElOption, ElSelect, ElTooltip } from '@qsxy/element-plus-react';
 import React, { useCallback } from 'react';
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
 
     return (
         <ElForm name="complex-form" onFinish={onFinish} style={{ width: 800 }} initialValues={{ year: '1990', month: '06-01' }}>
-            <ElForm.Item label="账号" name="username" rules={[{ required: true }]}>
+            <ElFormItem label="账号" name="username" rules={[{ required: true }]}>
                 {({ value, onChange, error }: { value?: string; onChange?: (value: string) => void; error?: boolean }) => (
                     <div style={{ display: 'flex', gap: 8 }}>
                         <ElInput value={value} onChange={onChange} error={error} style={{ width: 160 }} />
@@ -20,10 +20,10 @@ const App = () => {
                         </ElTooltip>
                     </div>
                 )}
-            </ElForm.Item>
+            </ElFormItem>
 
-            {/* <ElForm.Item label="地址"> */}
-            <ElForm.Item
+            {/* <ElFormItem label="地址"> */}
+            <ElFormItem
                 label="地址"
                 name={['address', 'street']}
                 validateStatus="warning"
@@ -34,31 +34,31 @@ const App = () => {
                     style={{ width: '50%' }}
                     placeholder="详细地址"
                     prepend={
-                        <ElForm.Item name={['address', 'province']} noStyle rules={[{ required: true, message: '省份不可为空' }]}>
+                        <ElFormItem name={['address', 'province']} noStyle rules={[{ required: true, message: '省份不可为空' }]}>
                             <ElSelect placeholder="选择省份" style={{ width: 140 }} clearable>
                                 <ElOption value="Zhejiang" label="浙江" />
                                 <ElOption value="Jiangsu" label="江苏" />
                             </ElSelect>
-                        </ElForm.Item>
+                        </ElFormItem>
                     }
                 />
-            </ElForm.Item>
-            {/* </ElForm.Item> */}
+            </ElFormItem>
+            {/* </ElFormItem> */}
 
-            <ElForm.Item label="生日">
-                <ElForm.Item name="year" rules={[{ required: true, message: '年份不可为空' }]} style={{ display: 'inline-block', width: '50%' }} pure>
+            <ElFormItem label="生日">
+                <ElFormItem name="year" rules={[{ required: true, message: '年份不可为空' }]} style={{ display: 'inline-block', width: '50%' }} pure>
                     <ElDatePicker format="YYYY" type="year" placeholder="请输入年份" />
-                </ElForm.Item>
-                <ElForm.Item name="month" rules={[{ required: true, message: '日期不可为空' }]} style={{ display: 'inline-block', width: 'calc(50% - 8px)' }} labelWidth={10}>
+                </ElFormItem>
+                <ElFormItem name="month" rules={[{ required: true, message: '日期不可为空' }]} style={{ display: 'inline-block', width: 'calc(50% - 8px)' }} labelWidth={10}>
                     <ElDatePicker format="MM-DD" placeholder="请输入日期" />
-                </ElForm.Item>
-            </ElForm.Item>
+                </ElFormItem>
+            </ElFormItem>
 
-            <ElForm.Item>
+            <ElFormItem>
                 <ElButton type="primary" nativeType="submit">
                     提交
                 </ElButton>
-            </ElForm.Item>
+            </ElFormItem>
         </ElForm>
     );
 };

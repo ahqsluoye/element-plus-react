@@ -1,4 +1,4 @@
-import { ElAutoResizer, ElButton, ElForm, ElInputNumber, ElTableV2 } from '@qsxy/element-plus-react';
+import { ElAutoResizer, ElButton, ElFormItem, ElInputNumber, ElTableV2 } from '@qsxy/element-plus-react';
 import React, { useRef, useState } from 'react';
 
 const App = () => {
@@ -41,16 +41,16 @@ const App = () => {
     return (
         <>
             <div className="mb-4 flex items-center">
-                <ElForm.Item label="Scroll pixels" className="mr-4">
+                <ElFormItem label="Scroll pixels" className="mr-4">
                     <>
                         <ElInputNumber value={scrollDelta} onChange={setScrollDelta} controls={false} />
                     </>
-                </ElForm.Item>
-                <ElForm.Item label="Scroll rows">
+                </ElFormItem>
+                <ElFormItem label="Scroll rows">
                     <>
                         <ElInputNumber value={scrollRows} onChange={setScrollRows} controls={false} />
                     </>
-                </ElForm.Item>
+                </ElFormItem>
             </div>
             <div className="mb-4 flex items-center">
                 <ElButton onClick={scrollByPixels}> Scroll by pixels </ElButton>

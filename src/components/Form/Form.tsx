@@ -1,15 +1,12 @@
 import classNames from 'classnames';
 import omit from 'lodash/omit';
-import React, { ForwardedRef, forwardRef, useCallback, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { ForwardedRef, forwardRef, memo, useCallback, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import FieldContext, { HOOK_MARK } from './FieldContext';
-import FormContext, { FormContextProps, FormProvider } from './FormContext';
-import Field from './FormItem';
-import List from './List';
+import FormContext, { FormContextProps } from './FormContext';
 import { FieldData, FormInstance, FormProps, InternalFormInstance, Store } from './typings';
 import useForm from './useForm';
-import useWatch from './useWatch';
 import { isSimilar } from './utils/valueUtil';
 
 type RenderProps = (values: Store, form: FormInstance) => React.ReactElement;
@@ -237,25 +234,6 @@ function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: For
     );
 }
 
-const ForwardForm = forwardRef(InternalForm) as <RecordType = Store>(props: FormProps<RecordType> & { ref?: ForwardedRef<FormInstance<RecordType>> }) => React.ReactElement;
+const ForwardForm = memo(forwardRef(InternalForm));
 
-type InternalFormType = typeof ForwardForm;
-
-interface FormInterface extends InternalFormType {
-    displayName?: string;
-    FormProvider: typeof FormProvider;
-    Item: typeof Field;
-    List: typeof List;
-    useForm: typeof useForm;
-    useWatch: typeof useWatch;
-}
-
-const Form = ForwardForm as FormInterface;
-
-Form.FormProvider = FormProvider;
-Form.Item = Field;
-Form.List = List;
-Form.useForm = useForm;
-Form.useWatch = useWatch;
-
-export default Form;
+export default ForwardForm;

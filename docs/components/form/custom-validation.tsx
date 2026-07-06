@@ -1,4 +1,4 @@
-import { ElButton, ElForm, ElInput, ElInputNumber, FormRules, isEmpty, useForm } from '@qsxy/element-plus-react';
+import { ElButton, ElForm, ElFormItem, ElInput, ElInputNumber, FormRules, isEmpty, useForm } from '@qsxy/element-plus-react';
 import React, { useCallback, useMemo } from 'react';
 
 const App = () => {
@@ -67,21 +67,21 @@ const App = () => {
 
     return (
         <ElForm form={formInstance} rules={rules} style={{ width: 800 }}>
-            <ElForm.Item name="pass" label="密码" validateTrigger="onBlur">
+            <ElFormItem name="pass" label="密码" validateTrigger="onBlur">
                 <ElInput />
-            </ElForm.Item>
-            <ElForm.Item name="checkPass" label="确认密码" validateTrigger="onBlur">
+            </ElFormItem>
+            <ElFormItem name="checkPass" label="确认密码" validateTrigger="onBlur">
                 <ElInput />
-            </ElForm.Item>
-            <ElForm.Item name="age" label="年龄" validateTrigger="onBlur">
-                <ElInputNumber controlsPositionRight />
-            </ElForm.Item>
-            <ElForm.Item pure>
+            </ElFormItem>
+            <ElFormItem name="age" label="年龄" validateTrigger="onBlur">
+                <ElInputNumber controlsPosition="right" />
+            </ElFormItem>
+            <ElFormItem pure>
                 <ElButton type="primary" onClick={onSubmit}>
                     提交
                 </ElButton>
                 <ElButton onClick={resetForm}>重置</ElButton>
-            </ElForm.Item>
+            </ElFormItem>
         </ElForm>
     );
 };

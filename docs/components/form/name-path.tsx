@@ -1,4 +1,4 @@
-import { ElButton, ElForm, ElInput, ElMessage } from '@qsxy/element-plus-react';
+import { ElButton, ElForm, ElFormItem, ElInput, ElMessage } from '@qsxy/element-plus-react';
 import React, { useCallback } from 'react';
 
 const App = () => {
@@ -9,24 +9,24 @@ const App = () => {
 
     return (
         <ElForm name="form_item_path" onFinish={onFinish} style={{ width: 800 }}>
-            <ElForm.Item label="姓名">
-                <ElForm.Item name={['user', 'name', 'firstName']} pure style={{ display: 'inline-block', width: '50%' }}>
+            <ElFormItem label="姓名">
+                <ElFormItem name={['user', 'name', 'firstName']} pure style={{ display: 'inline-block', width: '50%' }}>
                     <ElInput placeholder="请输入姓" />
-                </ElForm.Item>
-                <ElForm.Item name={['user', 'name', 'lastName']} labelWidth={10} style={{ display: 'inline-block', width: '50%' }}>
+                </ElFormItem>
+                <ElFormItem name={['user', 'name', 'lastName']} labelWidth={10} style={{ display: 'inline-block', width: '50%' }}>
                     <ElInput placeholder="请输入名字" />
-                </ElForm.Item>
-            </ElForm.Item>
+                </ElFormItem>
+            </ElFormItem>
 
-            <ElForm.Item name={['user', 'age']} label="年龄">
+            <ElFormItem name={['user', 'age']} label="年龄">
                 <ElInput />
-            </ElForm.Item>
+            </ElFormItem>
 
-            <ElForm.Item>
+            <ElFormItem>
                 <ElButton type="primary" nativeType="submit">
                     提交
                 </ElButton>
-            </ElForm.Item>
+            </ElFormItem>
         </ElForm>
     );
 };

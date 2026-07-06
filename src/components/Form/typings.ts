@@ -12,7 +12,7 @@ type RenderProps = (values: Store, form: FormInstance) => React.ReactElement;
 export type FormRules = Record<string, Rule[] | Record<string, Rule[]>>;
 
 export interface FormProps<Values = Store> extends BaseFormProps {
-    /** 经 Form.useForm() 创建的 form 控制实例，不提供时会自动创建 */
+    /** 经 useForm() 创建的 form 控制实例，不提供时会自动创建 */
     form?: FormInstance<Values>;
 
     children?: RenderProps | ComponentChildren;
@@ -34,7 +34,7 @@ export interface FormProps<Values = Store> extends BaseFormProps {
     validateTrigger?: string | string[] | false;
     preserve?: boolean;
 
-    /** 配置 Form.Item 的 colon 的默认值。表示是否显示 label 后面的冒号 */
+    /** 配置 FormItem 的 colon 的默认值。表示是否显示 label 后面的冒号 */
     colon?: boolean;
     /** 表单默认值，只有初始化以及重置时生效 */
     initialValues?: Values;
@@ -369,7 +369,7 @@ export type InternalFormInstance = Omit<FormInstance, 'validateFields'> & {
     getInternalHooks: (secret: string) => InternalHooks | null;
     /** @private Internal usage. Do not use it in your production */
     _init?: boolean;
-    /** 配置 Form.Item 的 colon 的默认值。表示是否显示 label 后面的冒号 */
+    /** 配置 FormItem 的 colon 的默认值。表示是否显示 label 后面的冒号 */
     colon?: boolean;
     /** 是否禁用该表单内的所有组件。 如果设置为 true, 它将覆盖内部组件的 disabled 属性 */
     disabled?: boolean;

@@ -15,7 +15,7 @@ lang: zh-CN
 
 :::info{title=TIP}
 
-通过 `Form.useForm` 对表单数据域进行交互。
+通过 `useForm` 对表单数据域进行交互。
 
 > 注意 `useForm` 是 [React Hooks](https://reactjs.org/docs/hooks-intro.html) 的实现，只能用于函数组件。如果是在 Class Component 下，你也可以通过 `ref` 获取数据域：
 
@@ -92,9 +92,9 @@ Form 组件允许你验证用户的输入是否符合规范，来帮助你找到
 
 ## 嵌套数据结构
 
-此例中还演示了 `Form.Item` 内有多个元素的使用方式，<Form.Item name="field" /> 只会对它的直接子元素绑定表单功能，
-例如直接包裹了 Input/Select。如果控件前后还有一些文案或样式装点，或者一个表单项内有多个控件，你可以使用内嵌的 `Form.Item` 完成。
-你可以给 `Form.Item` 自定义 `style` 进行内联布局，或者添加 `noStyle` 作为纯粹的无样式绑定组件
+此例中还演示了 `ElFormItem` 内有多个元素的使用方式，`<ElFormItem name="field" />` 只会对它的直接子元素绑定表单功能，
+例如直接包裹了 ElInput/ElSelect。如果控件前后还有一些文案或样式装点，或者一个表单项内有多个控件，你可以使用内嵌的 `ElFormItem` 完成。
+你可以给 `ElFormItem` 自定义 `style` 进行内联布局，或者添加 `noStyle` 作为纯粹的无样式绑定组件
 
 <code src="./name-path.tsx"></code>
 
@@ -112,7 +112,7 @@ Form 组件允许你验证用户的输入是否符合规范，来帮助你找到
 
 :::info{title=TIP}
 
-当一个 `ElForm.Item` 嵌套在另一个 `ElForm.Item`时，使用 `noStyle` 可以忽略样式。
+当一个 `ElFormItem` 嵌套在另一个 `ElFormItem`时，使用 `noStyle` 可以忽略样式。
 
 :::
 
@@ -130,13 +130,13 @@ Form 组件允许你验证用户的输入是否符合规范，来帮助你找到
 
 | 属性名                  | 说明                                                                                   | 类型                                                                                                                                           | 默认值 |
 | ----------------------- | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| form                    | 经 `Form.useForm()` 创建的 form 控制实例                                               | <Enum type='object'>FormInstance</Enum>                                                                                                        | —      |
+| form                    | 经 `useForm()` 创建的 form 控制实例                                                    | <Enum type='object'>FormInstance</Enum>                                                                                                        | —      |
 | initialValues           | 表单默认值，只有初始化以及重置时生效                                                   | `object`                                                                                                                                       | -      |
 | rules                   | 表单验证规则                                                                           | <Enum type='object'>FormRules</Enum>                                                                                                           | —      |
 | inline                  | 行内表单模式                                                                           | `boolean`                                                                                                                                      | false  |
 | labelPosition           | 表单域标签的位置， 当设置为 `left` 或 `right` 时，则也需要设置 `labelWidth` 属性       | <Enum>'left' \| 'right' \| 'top'</Enum>                                                                                                        | right  |
 | labelWidth              | 标签的长度，例如 `50`。 作为 Form 直接子元素的 formItem 会继承该值。 可以使用 `auto`。 | `string` / `number`                                                                                                                            | —      |
-| colon                   | 配置 Form.Item 的 `colon` 的默认值。表示是否显示 label 后面的冒号                      | boolean                                                                                                                                        | false  |
+| colon                   | 配置 ElFormItem 的 `colon` 的默认值。表示是否显示 label 后面的冒号                     | boolean                                                                                                                                        | false  |
 | hideRequiredAsterisk    | 是否隐藏必填字段标签旁边的红色星号。                                                   | `boolean`                                                                                                                                      | false  |
 | requireAsteriskPosition | 星号的位置。                                                                           | <Enum>'left' \| 'right'</Enum>                                                                                                                 | left   |
 | showMessage             | 是否显示校验错误信息                                                                   | `boolean`                                                                                                                                      | true   |
@@ -177,44 +177,44 @@ const validateMessages = {
 
 ### FormInstance
 
-| 名称              | 说明                                                                                                             | 类型                                                                                                |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| getFieldError     | 获取对应字段名的错误信息                                                                                         | <Enum type="Function">(name: NamePath) => string[] </Enum>                                          |
-| getFieldInstance  | 获取对应字段实例                                                                                                 | <Enum type="Function">(name: NamePath) => any </Enum>                                               |
-| getFieldsError    | 获取一组字段名对应的错误信息，返回为数组形式                                                                     | <Enum type="Function">(nameList?: NamePath\[]) => FieldError[] </Enum>                              |
-| getFieldsValue    | 获取一组字段名对应的值，会按照对应结构返回。默认返回现存字段值，当调用 `getFieldsValue(true)` 时返回所有值       | <Enum type="Function"></Enum>                                                                       |
-| getFieldValue     | 获取对应字段名的值                                                                                               | <Enum type="Function">(name: NamePath) => any </Enum>                                               |
-| isFieldsTouched   | 检查一组字段是否被用户操作过，`allTouched` 为 `true` 时检查是否所有字段都被操作过                                | <Enum type="Function">(nameList?: NamePath[], allTouched?: boolean) => boolean </Enum>              |
-| isFieldTouched    | 检查对应字段是否被用户操作过                                                                                     | <Enum type="Function">(name: NamePath) => boolean </Enum>                                           |
-| isFieldValidating | 检查对应字段是否正在校验                                                                                         | <Enum type="Function">(name: NamePath) => boolean </Enum>                                           |
-| resetFields       | 重置一组字段到 `initialValues`                                                                                   | <Enum type="Function">(fields?: NamePath[]) => void </Enum>                                         |
-| scrollToField     | 滚动到对应字段位置                                                                                               | <Enum type="Function">(name: NamePath, options: ScrollOptions \| { focus: boolean }) => void</Enum> |
-| setFields         | 设置一组字段状态                                                                                                 | <Enum type="Function">(fields: FieldData[]) => void </Enum>                                         |
-| setFieldValue     | 设置表单的值（该值将直接传入 form store 中）                                                                     | <Enum type="Function">(name: NamePath, value: any) => void </Enum>                                  |
-| setFieldsValue    | 设置表单的值（该值将直接传入 form store 中）。如果你只想修改 Form.List 中单项值，请通过 `setFieldValue` 进行指定 | <Enum type="Function">(values) => void </Enum>                                                      |
-| submit            | 提交表单，与点击 `submit` 按钮效果相同                                                                           | <Enum type="Function">() => void </Enum>                                                            |
-| validateFields    | 触发表单验证                                                                                                     | <Enum type="Function">(nameList?: NamePath[], config?: ValidateConfig) => Promise </Enum>           |
+| 名称              | 说明                                                                                                                  | 类型                                                                                                |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| getFieldError     | 获取对应字段名的错误信息                                                                                              | <Enum type="Function">(name: NamePath) => string[] </Enum>                                          |
+| getFieldInstance  | 获取对应字段实例                                                                                                      | <Enum type="Function">(name: NamePath) => any </Enum>                                               |
+| getFieldsError    | 获取一组字段名对应的错误信息，返回为数组形式                                                                          | <Enum type="Function">(nameList?: NamePath\[]) => FieldError[] </Enum>                              |
+| getFieldsValue    | 获取一组字段名对应的值，会按照对应结构返回。默认返回现存字段值，当调用 `getFieldsValue(true)` 时返回所有值            | <Enum type="Function"></Enum>                                                                       |
+| getFieldValue     | 获取对应字段名的值                                                                                                    | <Enum type="Function">(name: NamePath) => any </Enum>                                               |
+| isFieldsTouched   | 检查一组字段是否被用户操作过，`allTouched` 为 `true` 时检查是否所有字段都被操作过                                     | <Enum type="Function">(nameList?: NamePath[], allTouched?: boolean) => boolean </Enum>              |
+| isFieldTouched    | 检查对应字段是否被用户操作过                                                                                          | <Enum type="Function">(name: NamePath) => boolean </Enum>                                           |
+| isFieldValidating | 检查对应字段是否正在校验                                                                                              | <Enum type="Function">(name: NamePath) => boolean </Enum>                                           |
+| resetFields       | 重置一组字段到 `initialValues`                                                                                        | <Enum type="Function">(fields?: NamePath[]) => void </Enum>                                         |
+| scrollToField     | 滚动到对应字段位置                                                                                                    | <Enum type="Function">(name: NamePath, options: ScrollOptions \| { focus: boolean }) => void</Enum> |
+| setFields         | 设置一组字段状态                                                                                                      | <Enum type="Function">(fields: FieldData[]) => void </Enum>                                         |
+| setFieldValue     | 设置表单的值（该值将直接传入 form store 中）                                                                          | <Enum type="Function">(name: NamePath, value: any) => void </Enum>                                  |
+| setFieldsValue    | 设置表单的值（该值将直接传入 form store 中）。如果你只想修改 ElFormItemList 中单项值，请通过 `setFieldValue` 进行指定 | <Enum type="Function">(values) => void </Enum>                                                      |
+| submit            | 提交表单，与点击 `submit` 按钮效果相同                                                                                | <Enum type="Function">() => void </Enum>                                                            |
+| validateFields    | 触发表单验证                                                                                                          | <Enum type="Function">(nameList?: NamePath[], config?: ValidateConfig) => Promise </Enum>           |
 
 ## FormItem API
 
 ### FormItem 属性
 
-| 名称           | 说明                                                                                                                                               | 类型                                                      | 默认值  |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | ------- |
-| name           | 字段名，它可以是一个路径数组(例如 `['a', 'b', 0]`)。                                                                                               | `string` / `string[]`                                     | —       |
-| label          | 标签文本                                                                                                                                           | `string`                                                  | —       |
-| labelWidth     | 标签宽度，例如 `'50px'`。 可以使用 `auto`。                                                                                                        | `string` / `number`                                       | —       |
-| labelPosition  | 表单域标签的位置， 当设置为 `left` 或 `right` 时，则也需要设置 `labelWidth` 属性                                                                   | <Enum>'left' \| 'right' \| 'top'</Enum>                   | right   |
-| required       | 是否为必填项，如不设置，则会根据校验规则确认                                                                                                       | `boolean`                                                 | false   |
-| rules          | 表单验证规则, 具体配置见[下表](#formitemrule), 更多内容可以参考[async-validator](https://github.com/yiminghe/async-validator)                      | <Enum type='object'>FormItemRule \| FormItemRule[]</Enum> | —       |
-| error          | 表单域验证错误时的提示信息。设置该值会导致表单验证状态变为 error，并显示该错误信息。                                                               | `string`                                                  | —       |
-| showMessage    | 是否显示校验错误信息                                                                                                                               | `boolean`                                                 | true    |
-| size           | 用于控制该表单域下组件的默认尺寸                                                                                                                   | <Enum>'large' \| 'default' \| 'small'</Enum>              | default |
-| noStyle        | 为 `true` 时不带样式，作为纯字段控件使用。当自身没有 `validateStatus` 而父元素存在有 `validateStatus` 的 Form.Item 会继承父元素的 `validateStatus` | `boolean`                                                 | false   |
-| pure           | 是否标签宽度为 0，等用于`labelWidth={0}`，如果同时设置了 labelWidth，则此配置无效                                                                  | `boolean`                                                 | false   |
-| help           | 配置提示信息                                                                                                                                       | `string`\| `ReactNode`                                    | -       |
+| 名称          | 说明                                                                                                                                                | 类型                                                      | 默认值  |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | ------- |
+| name          | 字段名，它可以是一个路径数组(例如 `['a', 'b', 0]`)。                                                                                                | `string` / `string[]`                                     | —       |
+| label         | 标签文本                                                                                                                                            | `string`                                                  | —       |
+| labelWidth    | 标签宽度，例如 `'50px'`。 可以使用 `auto`。                                                                                                         | `string` / `number`                                       | —       |
+| labelPosition | 表单域标签的位置， 当设置为 `left` 或 `right` 时，则也需要设置 `labelWidth` 属性                                                                    | <Enum>'left' \| 'right' \| 'top'</Enum>                   | right   |
+| required      | 是否为必填项，如不设置，则会根据校验规则确认                                                                                                        | `boolean`                                                 | false   |
+| rules         | 表单验证规则, 具体配置见[下表](#formitemrule), 更多内容可以参考[async-validator](https://github.com/yiminghe/async-validator)                       | <Enum type='object'>FormItemRule \| FormItemRule[]</Enum> | —       |
+| error         | 表单域验证错误时的提示信息。设置该值会导致表单验证状态变为 error，并显示该错误信息。                                                                | `string`                                                  | —       |
+| showMessage   | 是否显示校验错误信息                                                                                                                                | `boolean`                                                 | true    |
+| size          | 用于控制该表单域下组件的默认尺寸                                                                                                                    | <Enum>'large' \| 'default' \| 'small'</Enum>              | default |
+| noStyle       | 为 `true` 时不带样式，作为纯字段控件使用。当自身没有 `validateStatus` 而父元素存在有 `validateStatus` 的 ElFormItem 会继承父元素的 `validateStatus` | `boolean`                                                 | false   |
+| pure          | 是否标签宽度为 0，等用于`labelWidth={0}`，如果同时设置了 labelWidth，则此配置无效                                                                   | `boolean`                                                 | false   |
+| help          | 配置提示信息                                                                                                                                        | `string`\| `ReactNode`                                    | -       |
 
-被设置了 `name` 属性的 `ElForm.Item` 包装的控件，表单控件会自动添加 `value`（或 `valuePropName` 指定的其他属性） `onChange`（或 `trigger` 指定的其他属性），数据同步将被 ElForm 接管，这会导致以下结果：
+被设置了 `name` 属性的 `ElFormItem` 包装的控件，表单控件会自动添加 `value`（或 `valuePropName` 指定的其他属性） `onChange`（或 `trigger` 指定的其他属性），数据同步将被 ElForm 接管，这会导致以下结果：
 
 1. 你**不再需要也不应该**用 `onChange` 来做数据收集同步（你可以使用 ElForm 的 `onValuesChange`），但还是可以继续监听 `onChange` 事件。
 2. 你不能用控件的 `value` 或 `defaultValue` 等属性来设置表单域的值，默认值可以用 Form 里的 `initialValues` 来设置。注意 `initialValues` 不能被 `setState` 动态更新，你需要用 `setFieldsValue` 来更新。
@@ -222,28 +222,20 @@ const validateMessages = {
 
 ### messageVariables
 
-你可以通过 `messageVariables` 修改 Form.Item 的默认验证信息。
+你可以通过 `messageVariables` 修改 ElFormItem 的默认验证信息。
 
 ```typescript
 <ElForm>
-  <ElForm.Item
-    messageVariables={{ another: 'good' }}
-    label="user"
-    rules={[{ required: true, message: '${another} is required' }]}
-  >
-    <Input />
-  </ElForm.Item>
-  <ElForm.Item
-    messageVariables={{ label: 'good' }}
-    label={<span>user</span>}
-    rules={[{ required: true, message: '${label} is required' }]}
-  >
-    <ElInput />
-  </Form.Item>
+    <ElFormItem messageVariables={{ another: 'good' }} label="user" rules={[{ required: true, message: '${another} is required' }]}>
+        <ElInput />
+    </ElFormItem>
+    <ElFormItem messageVariables={{ label: 'good' }} label={<span>user</span>} rules={[{ required: true, message: '${label} is required' }]}>
+        <ElInput />
+    </ElFormItem>
 </ElForm>
 ```
 
-## Form.List
+## ElFormList
 
 为字段提供数组化管理。
 
@@ -255,22 +247,22 @@ const validateMessages = {
 | rules        | 校验规则，仅支持自定义规则。需要配合 [ErrorList](#formerrorlist) 一同使用。                                                          | `{ validator, message }[]`                                                                                            | -      |
 
 ```typescript
-<Form.List>
+<ElFormList>
     {fields =>
         fields.map(field => (
-            <Form.Item {...field}>
+            <ElFormItem {...field}>
                 <Input />
-            </Form.Item>
+            </ElFormItem>
         ))
     }
-</Form.List>
+</ElFormList>
 ```
 
-注意：Form.List 下的字段不应该配置 `initialValue`，你始终应该通过 Form.List 的 `initialValue` 或者 Form 的 `initialValues` 来配置。
+注意：ElFormList 下的字段不应该配置 `initialValue`，你始终应该通过 ElFormList 的 `initialValue` 或者 ElForm 的 `initialValues` 来配置。
 
 ## operation
 
-Form.List 渲染表单相关操作函数。
+ElFormList 渲染表单相关操作函数。
 
 | 参数   | 说明       | 类型                                                                            | 默认值        |
 | ------ | ---------- | ------------------------------------------------------------------------------- | ------------- |
@@ -280,30 +272,30 @@ Form.List 渲染表单相关操作函数。
 
 ## Hooks
 
-### Form.useForm
+### useForm
 
-`type ElForm.useForm = (): [FormInstance]`
+`type useForm = (): [FormInstance]`
 
-创建 Form 实例，用于管理所有数据状态。
+创建 ElForm 实例，用于管理所有数据状态。
 
-### Form.useWatch
+### useWatch
 
-`type ElForm.useWatch = (namePath: NamePath) => any, formInstance?: FormInstance | WatchOptions): Value`
+`type useWatch = (namePath: NamePath) => any, formInstance?: FormInstance | WatchOptions): Value`
 
 用于直接获取 form 中字段对应的值。
 
 ```typescript
 const Demo = () => {
-    const [form] = ElForm.useForm();
-    const userName = ElForm.useWatch('username', form);
+    const [form] = useForm();
+    const userName = useWatch('username', form);
 
     const { data: options } = useSWR(`/api/user/${userName}`, fetcher);
 
     return (
         <ElForm form={form}>
-            <ElForm.Item name="username">
+            <ElFormItem name="username">
                 <AutoComplete options={options} />
-            </ElForm.Item>
+            </ElFormItem>
         </ElForm>
     );
 };
