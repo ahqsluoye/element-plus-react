@@ -3,6 +3,8 @@ title: Input Number 数字输入框
 lang: zh-CN
 ---
 
+<Meta></Meta>
+
 # Input Number 数字输入框
 
 仅允许输入标准的数字值，可定义范围

@@ -80,6 +80,10 @@ const InputNumber = memo(
         const containerRef = useRef<HTMLDivElement>(null);
         const inputRef = useRef<InputRef>(null);
         const [userInput, setUserInput] = useState<string | number | null>(null);
+        const userInputRef = useRef<string | number | null>(null);
+
+        const isMouseDown = useRef(false);
+        const timerRef = useRef<any>(null);
 
         // Computed properties equivalent
         const controlsAtRight = useMemo(() => {
@@ -117,11 +121,17 @@ const InputNumber = memo(
             }
         }, [getPrecision, step, props.precision, precisionProp, value]);
 
-        const minDisabled = useMemo(() => {
+        const minDisabled = useCallback(() => {
+            if (isMouseDown.current) {
+                return userInputRef.current !== null && Number(userInputRef.current) <= minProp;
+            }
             return typeof value === 'number' && value <= minProp;
         }, [value, minProp]);
 
-        const maxDisabled = useMemo(() => {
+        const maxDisabled = useCallback(() => {
+            if (isMouseDown.current) {
+                return userInputRef.current !== null && Number(userInputRef.current) >= maxProp;
+            }
             return typeof value === 'number' && value >= maxProp;
         }, [value, maxProp]);
 
@@ -246,8 +256,8 @@ const InputNumber = memo(
                     setValue(newVal);
                     return;
                 }
-
                 setUserInput(null);
+                userInputRef.current = null;
                 if (oldVal === newVal && val) {
                     return;
                 }
@@ -259,11 +269,11 @@ const InputNumber = memo(
 
                 // Form validation would go here if needed
             },
-            [value, verifyValue, setValue, setUserInput, onChange],
+            [value, verifyValue, setValue, onChange],
         );
 
         const increase = useCallback(() => {
-            if (props.readOnly || disabled || maxDisabled) {
+            if (props.readOnly || disabled || maxDisabled()) {
                 return;
             }
             const val = Number(displayValue) || 0;
@@ -273,7 +283,7 @@ const InputNumber = memo(
         }, [props.readOnly, disabled, maxDisabled, displayValue, ensurePrecision, setCurrentValue, onChange]);
 
         const decrease = useCallback(() => {
-            if (props.readOnly || disabled || minDisabled) {
+            if (props.readOnly || disabled || minDisabled()) {
                 return;
             }
             const val = Number(displayValue) || 0;
@@ -312,6 +322,7 @@ const InputNumber = memo(
         const handleInput = useCallback(
             (inputVal: string) => {
                 setUserInput(inputVal);
+                userInputRef.current = inputVal;
                 const newVal = inputVal === '' ? null : Number(inputVal);
                 onChange?.(newVal);
                 setCurrentValue(newVal, false);
@@ -326,6 +337,7 @@ const InputNumber = memo(
                 // setCurrentValue(newVal, true);
                 if ((typeof newVal === 'number' && !Number.isNaN(newVal)) || inputVal === '') {
                     setUserInput(inputVal);
+                    userInputRef.current = inputVal;
                     onChange?.(newVal);
                     // setCurrentValue(newVal);
                 }
@@ -349,13 +361,14 @@ const InputNumber = memo(
                     inputRef.current.input.current.value = '';
                 }
                 onBlur?.(event);
-                if (isNotEmpty(userInput)) {
-                    setCurrentValue(String(userInput), false);
+                if (isNotEmpty(userInputRef.current)) {
+                    setCurrentValue(String(userInputRef.current), false);
                     setUserInput(null);
+                    userInputRef.current = null;
                 }
                 // Form validation would go here
             },
-            [value, onBlur, setCurrentValue, userInput],
+            [value, onBlur, setCurrentValue, userInputRef],
         );
 
         // Effects
@@ -418,12 +431,36 @@ const InputNumber = memo(
             >
                 {controls && (
                     <span
-                        className={classNames(e`decrease`, is({ disabled: minDisabled }))}
+                        className={classNames(e`decrease`, is({ disabled: minDisabled() }))}
                         role="button"
                         aria-label={t('el.inputNumber.decrease', { lng: locale })}
                         tabIndex={0}
                         onKeyDown={event => event.key === 'Enter' && decrease()}
-                        onClick={decrease}
+                        onMouseDown={() => {
+                            decrease();
+                            timerRef.current = setTimeout(() => {
+                                isMouseDown.current = true;
+                                timerRef.current = setInterval(() => {
+                                    const val = userInputRef.current !== null ? Number(userInputRef.current) || 0 : Number(displayValue) || 0;
+                                    const newVal = verifyValue(ensurePrecision(val, -1));
+                                    setUserInput(newVal);
+                                    userInputRef.current = newVal;
+                                }, 100);
+                            }, 500);
+                        }}
+                        onMouseUp={() => {
+                            if (timerRef.current) {
+                                clearTimeout(timerRef.current);
+                                clearInterval(timerRef.current);
+                            }
+                            if (isMouseDown.current) {
+                                setCurrentValue(userInputRef.current, false);
+                                onChange?.(userInputRef.current);
+                                userInputRef.current = null;
+                                isMouseDown.current = false;
+                            }
+                        }}
+                        // onClick={decrease}
                     >
                         {decreaseIcon || <Icon name={controlsAtRight ? 'angle-down' : 'minus'} prefix={controlsAtRight ? 'fal' : 'far'} />}
                     </span>
@@ -431,12 +468,37 @@ const InputNumber = memo(
 
                 {controls && (
                     <span
-                        className={classNames(e`increase`, is({ disabled: maxDisabled }))}
+                        className={classNames(e`increase`, is({ disabled: maxDisabled() }))}
                         role="button"
                         aria-label={t('el.inputNumber.increase', { lng: locale })}
                         tabIndex={0}
                         onKeyDown={event => event.key === 'Enter' && increase()}
-                        onClick={increase}
+                        onMouseDown={() => {
+                            increase();
+                            timerRef.current = setTimeout(() => {
+                                isMouseDown.current = true;
+                                timerRef.current = setInterval(() => {
+                                    const val = userInputRef.current !== null ? Number(userInputRef.current) || 0 : Number(displayValue) || 0;
+                                    const newVal = verifyValue(ensurePrecision(val));
+                                    setUserInput(newVal);
+                                    // setCurrentValue(newVal, false);
+                                    userInputRef.current = newVal;
+                                }, 100);
+                            }, 500);
+                        }}
+                        onMouseUp={() => {
+                            if (timerRef.current) {
+                                clearTimeout(timerRef.current);
+                                clearInterval(timerRef.current);
+                            }
+                            if (isMouseDown.current) {
+                                setCurrentValue(userInputRef.current, false);
+                                onChange?.(userInputRef.current);
+                                userInputRef.current = null;
+                                isMouseDown.current = false;
+                            }
+                        }}
+                        // onClick={increase}
                     >
                         {increaseIcon || <Icon name={controlsAtRight ? 'angle-up' : 'plus'} prefix={controlsAtRight ? 'fal' : 'far'} />}
                     </span>
