@@ -1,7 +1,7 @@
 import { ElLink } from '@qsxy/element-plus-react';
 import React from 'react';
 
-const CodeGroup = props => {
+const Link = props => {
     const { children, href } = props;
     return (
         <>
@@ -18,4 +18,4 @@ const CodeGroup = props => {
     );
 };
 
-export default CodeGroup;
+export default Link;
