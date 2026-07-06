@@ -4,6 +4,7 @@ import React, { forwardRef, memo, useCallback, useContext, useImperativeHandle, 
 import scrollIntoView from 'scroll-into-view-if-needed';
 import Checkbox from '../Checkbox/Checkbox';
 import Icon from '../Icon/Icon';
+import { Radio } from '../Radio';
 import Scrollbar from '../Scrollbar/Scrollbar';
 import { ScrollbarRef } from '../Scrollbar/typings';
 import { useClassNames } from '../hooks';
@@ -24,7 +25,7 @@ const CascaderMenu = memo(
     forwardRef<CascaderMenuRef, Props>((props, ref) => {
         const { data = [], level, value } = props;
         const { props: menuProps, onSelect, onCheckedChange, loading, nodeFormatter } = useContext(CascaderContext);
-        const { value: valueKey = 'value', label: labelKey = 'label', disabled: disabledKey = 'disabled', multiple, expandTrigger } = menuProps;
+        const { value: valueKey = 'value', label: labelKey = 'label', disabled: disabledKey = 'disabled', multiple, expandTrigger, checkStrictly } = menuProps;
         const { b, be, is } = useClassNames('cascader');
         const ulRef = useRef<ScrollbarRef>(null);
 
@@ -82,6 +83,17 @@ const CascaderMenu = memo(
                                     }
                                 }}
                             >
+                                {checkStrictly && !multiple && (
+                                    <Radio
+                                        checked={item.__checked}
+                                        onClick={e => e.stopPropagation()}
+                                        onChange={e => {
+                                            if (!item[disabledKey]) {
+                                                onSelect?.(level, item, true);
+                                            }
+                                        }}
+                                    />
+                                )}
                                 {multiple && (
                                     <Checkbox
                                         checked={item.__checked}
@@ -90,7 +102,7 @@ const CascaderMenu = memo(
                                         onChange={(checked: boolean) => {
                                             if (!item[disabledKey]) {
                                                 if (expandTrigger === 'click' || item.__leaf) {
-                                                    onSelect?.(level, item);
+                                                    onSelect?.(level, item, checkStrictly);
                                                 }
                                             }
                                             onCheckedChange?.(level, item, checked);

@@ -320,7 +320,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
         return result;
     }, [loopGetCheckedNodes]);
 
-    const getStrictlyCheckedNodes = useCallback((level = 0, result: OptionNode[][] = []) => {
+    const getStrictlyCheckedNodes = useCallback((level = 0, result: CascaderNode[][] = []) => {
         _optionData.current?.[`level${level}`]?.forEach(item => {
             // 只有一级且选中
             if (item.__checked) {
@@ -359,7 +359,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
      * @param checked 是否选中
      */
     const setStrictlyCheckedNode = useCallback(
-        (level: number, node: OptionNode, checked: boolean) => {
+        (level: number, node: CascaderNode, checked: boolean) => {
             if (isEmpty(_optionData.current)) {
                 _optionData.current = optionData;
             }

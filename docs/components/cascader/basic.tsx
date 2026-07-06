@@ -7,7 +7,7 @@ const App = () => {
         <>
             <div className="m-4">
                 <p>点击展开子项列表页 (默认)</p>
-                <ElCascader options={options1} style={{ width: 300 }} />
+                <ElCascader options={options1} style={{ width: 300 }} onExpandChange={console.log} />
             </div>
             <div className="m-4">
                 <p>鼠标悬浮展开子项列表页</p>

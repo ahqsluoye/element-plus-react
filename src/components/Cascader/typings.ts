@@ -4,18 +4,18 @@ import { PopperOptions } from '../Popper';
 // import { DataNode, DirectoryTreeProps, Key } from '../Tree';
 import { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps } from '../types/common';
 
-export type ValueType = string[] | string[][];
+export type CascaderValue = string[] | string[][];
 
-export interface CascaderProps<V = ValueType, S = any>
+export interface CascaderProps<V = CascaderValue, S = any>
     extends Omit<FormControlBaseProps<V>, 'onChange' | 'value' | 'defaultValue'>,
         BaseProps,
         NativeProps,
         AnimationEventProps,
         PopperOptions {
     /** 初始值 */
-    defaultValue?: ValueType;
+    defaultValue?: CascaderValue;
     /** 值（可控） */
-    value?: ValueType;
+    value?: CascaderValue;
     /** 可选项数据源，键名可通过 Props 属性配置 */
     options?: any[];
     /** 配置选项 */
@@ -31,7 +31,7 @@ export interface CascaderProps<V = ValueType, S = any>
     /** 是否可搜索 */
     filterable?: boolean;
     /** 自定义搜索方法 */
-    filterMethod?: (val: ValueType, searchText: string) => boolean;
+    filterMethod?: (val: CascaderValue, searchText: string) => boolean;
     /** 占位符 */
     placeholder?: string;
     /** 选项为空时显示的文字 */
@@ -74,7 +74,15 @@ export interface CascaderProps<V = ValueType, S = any>
     /** 是否显示成面板 */
     panel?: boolean;
     /** 选中值发生变化时触发 */
-    onChange?: (value: ValueType, level?: number, label?: string | string[], node?: S[] | S[][]) => void;
+    onChange?: (value: CascaderValue, level?: number, label?: string | string[], node?: S[] | S[][]) => void;
+    /** 清空选项时触发 */
+    onClear?: () => void;
+    /** 可见性改变时触发 */
+    onVisibleChange?: (visible: boolean) => void;
+    /** 展开状态改变时触发 */
+    onExpandChange?: (node: CascaderNode) => void;
+    /** 移除标签时触发 */
+    onRemoveTag?: (node: CascaderNode) => void;
     /** 是否可以选择 */
     shouldSelect?: (node?: object, level?: number) => boolean;
 
@@ -113,12 +121,16 @@ export interface CascaderMenuProps {
 }
 
 export interface CascaderRef {
-    inputInstance?: InputRef;
+    ref?: React.RefObject<HTMLDivElement>;
+    input?: React.RefObject<InputRef>;
+    presentText?: string;
     setLabel: (label: string) => void;
-    onClear: () => void;
+    clear: () => void;
     /** 重置懒加载的节点，适用于动态懒加载配置 */
     resetNodes: () => void;
-    setVisible: (visible: boolean) => void;
+    /** 获取选中的节点 */
+    getCheckedNodes: () => CascaderNode[][];
+    togglePopperVisible: (visible: boolean) => void;
 }
 
 export interface CascaderNode extends Object {

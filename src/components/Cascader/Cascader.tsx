@@ -69,6 +69,7 @@ const Cascader = memo(
             collapseTips,
             filterMethod,
             onChange,
+            onClear,
             onEnter,
             afterEnter,
             afterLeave,
@@ -77,6 +78,9 @@ const Cascader = memo(
             labelFormatter,
             nodeFormatter,
             suggestionItemFormatter,
+            onVisibleChange,
+            onExpandChange,
+            onRemoveTag,
             error,
             warning,
             ...rest
@@ -124,6 +128,7 @@ const Cascader = memo(
             setSelectedNode,
             getSelectedLabel,
             setCheckedNode,
+            setStrictlyCheckedNode,
             getCheckedLabel,
             getCheckedValue,
             getCheckedNodes,
@@ -221,19 +226,21 @@ const Cascader = memo(
                 // console.log(_value, node.__level, multiLabel());
                 setValue(_value);
                 // onChange?.(_value);
+                onRemoveTag?.(node);
             },
-            [getCheckedValue, getSelectedNode, multiLabel, onChange, setCheckedNode, setValue],
+            [getCheckedValue, getSelectedNode, multiLabel, onChange, onRemoveTag, setCheckedNode, setValue],
         );
 
         /** 重置值 */
-        const onClear = useCallback(() => {
+        const handleClear = useCallback(() => {
             lastValueRef.current = [];
             setValue([]);
             setLabel('');
             setLevel(0);
             clearSelected();
             onChange?.([], allLevel, '', null);
-        }, [allLevel, clearSelected, onChange, setLabel, setValue]);
+            onClear?.();
+        }, [allLevel, clearSelected, onChange, setLabel, setValue, onClear]);
 
         /** 清除搜索关键词 */
         const onClearSearch = useCallback(event => {
@@ -257,7 +264,7 @@ const Cascader = memo(
         );
 
         const onSelect = useCallback(
-            (_level: number, node: CascaderNode) => {
+            (_level: number, node: CascaderNode, checkStrictly?: boolean) => {
                 // 懒加载且非叶子节点且没有子节点时进入
                 if (lazy && lazyLoad && node.__leaf !== true && !node[childrenKey]) {
                     setSelectedNode(_level, node);
@@ -270,6 +277,7 @@ const Cascader = memo(
                             setLoading(null);
                             if (shouldSelect(node, _level)) {
                                 setLevel(_level + 1);
+                                onExpandChange?.(node);
                                 // if (nodes?.length === 0) {
                                 //     setLevel(_level);
                                 //     const _label = getSelectedLabel(labelFormatter?.bind(this, _level));
@@ -299,13 +307,16 @@ const Cascader = memo(
                         });
                 } else {
                     if (shouldSelect(node, _level)) {
-                        if (node.__leaf) {
+                        if (checkStrictly || node.__leaf) {
                             // 最后一级
                             if (menuProps?.multiple) {
                                 return;
                             }
                             setLevel(_level);
                             setSelectedNode(_level, node);
+                            if (checkStrictly) {
+                                setStrictlyCheckedNode(_level, node, true);
+                            }
                             const _label = getSelectedLabel(labelFormatter?.bind(this, _level));
                             setLabel(_label);
                             setVisible(false);
@@ -316,11 +327,13 @@ const Cascader = memo(
                             setSelectedNode(_level, node);
                             if (menuProps?.multiple) {
                                 setLevel(_level + 1);
+                                onExpandChange?.(node);
                                 // if (level < _level + 1) {
                                 // }
                                 return;
                             }
                             setLevel(_level + 1);
+                            onExpandChange?.(node);
                             // onChange?.(getSelectedValue(), _level);
                             // 2022-10-20：从其他路径切换到当前值路径时，高亮当前值路径
                             const _val = getSelectedValue();
@@ -341,6 +354,7 @@ const Cascader = memo(
                 setSelectedNode,
                 storeOptionData,
                 shouldSelect,
+                onExpandChange,
                 setNodeLeaf,
                 getSelectedLabel,
                 labelFormatter,
@@ -350,13 +364,18 @@ const Cascader = memo(
                 onChange,
                 getSelectedNode,
                 menuProps?.multiple,
+                setStrictlyCheckedNode,
                 value,
                 setSelectedValue,
             ],
         );
 
         const onCheckedChange = (_level: number, node: CascaderNode, checked: boolean) => {
-            setCheckedNode(_level, node, checked);
+            if (props.props?.checkStrictly) {
+                setStrictlyCheckedNode(_level, node, checked);
+            } else {
+                setCheckedNode(_level, node, checked);
+            }
             const _value = getCheckedValue() ?? [];
             setValue(_value);
             onChange?.(_value, _level, multiLabel(), getCheckedNodes());
@@ -533,16 +552,22 @@ const Cascader = memo(
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [lazyLoad]);
 
+        useEffect(() => {
+            onVisibleChange?.(visible);
+        }, [visible]);
+
         useImperativeHandle(ref, () => ({
             ref: containerRef,
             input: inputRef,
+            presentText: getSelectedLabel(),
             setLabel,
-            onClear,
+            clear: handleClear,
             resetNodes: () => {
                 resetNodes();
                 setLevel(0);
             },
-            setVisible,
+            getCheckedNodes: () => getCheckedNodes(),
+            togglePopperVisible: (v: boolean) => setVisible(v),
         }));
 
         const content = useMemo(
@@ -616,7 +641,7 @@ const Cascader = memo(
                                 disabled={disabled}
                                 size={size}
                                 onClick={onClick}
-                                onClear={onClear}
+                                onClear={handleClear}
                                 plain={props.plain}
                                 className={is({ focus: visible })}
                                 error={error}
