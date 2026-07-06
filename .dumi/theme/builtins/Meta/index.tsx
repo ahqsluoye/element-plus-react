@@ -52,7 +52,9 @@ const Meta = props => {
                         {issues.map((item, index) => {
                             return (
                                 <ElTimeLineItem key={index} timestamp={item.timestamp}>
-                                    {item.content}
+                                    {item.content.split('\n').map(line => (
+                                        <p key={line}>{line}</p>
+                                    ))}
                                 </ElTimeLineItem>
                             );
                         })}
@@ -65,7 +67,9 @@ const Meta = props => {
                         {changeLog.map((item, index) => {
                             return (
                                 <ElTimeLineItem key={index} timestamp={item.timestamp}>
-                                    {item.content}
+                                    {item.content.split('\n').map(line => (
+                                        <p key={line}>{line}</p>
+                                    ))}
                                 </ElTimeLineItem>
                             );
                         })}
