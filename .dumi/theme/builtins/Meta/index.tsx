@@ -11,14 +11,13 @@ const Meta = props => {
     const [loadingChangeLog, setLoadingChangeLog] = React.useState(true);
     const [loadingIssues, setLoadingIssues] = React.useState(true);
     const [changeLog, setChangeLog] = React.useState([]);
-    const [issues, setIssues] = React.useState({ title: '', list: [] });
+    const [issues, setIssues] = React.useState([]);
 
-    const todoCount = issues.list.length || 0;
+    const todoCount = issues.length || 0;
 
     useMount(() => {
         import(`@/../docs/${location.pathname.substring(1)}/changeLog.js`).then(res => {
             if (res.default) {
-                console.log(res.default);
                 setLoadingChangeLog(false);
                 setChangeLog(res.default);
             }
@@ -26,7 +25,6 @@ const Meta = props => {
 
         import(`@/../docs/${location.pathname.substring(1)}/issues.js`).then(res => {
             if (res.default) {
-                console.log(res.default);
                 setLoadingIssues(false);
                 setIssues(res.default);
             }
@@ -48,10 +46,10 @@ const Meta = props => {
                 )}
             </ElButtonGroup>
             {props.children}
-            <ElDrawer title={issues.title} visible={visible === 'issues'} size={500} close={() => setVisible('')}>
+            <ElDrawer title="待解决问题" visible={visible === 'issues'} size={500} close={() => setVisible('')}>
                 <div>
                     <ElTimeLine>
-                        {issues.list.map((item, index) => {
+                        {issues.map((item, index) => {
                             return (
                                 <ElTimeLineItem key={index} timestamp={item.timestamp}>
                                     {item.content}
