@@ -1,7 +1,9 @@
 ---
-title: Segmented
+title: Segmented 分段控制器
 lang: zh-CN
 ---
+
+<Meta></Meta>
 
 # Segmented 分段控制器
 

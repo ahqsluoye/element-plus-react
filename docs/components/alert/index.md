@@ -3,6 +3,8 @@ title: Alert 提示
 lang: zh-CN
 ---
 
+<Meta></Meta>
+
 # Alert 提示
 
 用于页面中展示重要的提示信息。

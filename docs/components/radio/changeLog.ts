@@ -7,7 +7,7 @@ export default [
         entries: [
             {
                 type: 'refactor',
-                description: '废弃ElRadio.Button写法，统一使用ElRadioButton',
+                description: '统一RadioButton组件命名和导出方式',
                 author: 'ahqsluoye',
             },
         ],

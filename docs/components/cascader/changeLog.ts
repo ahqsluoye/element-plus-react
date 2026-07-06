@@ -2,7 +2,7 @@ import { VersionChangelog } from '@/theme/builtins/Meta';
 
 export default [
     {
-        date: '2026-07-03',
+        date: '2026-07-06',
         version: '2.0.0',
         entries: [
             {
@@ -33,6 +33,11 @@ export default [
             {
                 type: 'bugfix',
                 description: '实现级联选择器任意层级选择功能',
+                author: 'ahqsluoye',
+            },
+            {
+                type: 'feature',
+                description: '新增多选折叠标签、清空按钮与样式变量优化',
                 author: 'ahqsluoye',
             },
         ],

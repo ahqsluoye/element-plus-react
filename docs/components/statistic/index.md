@@ -3,6 +3,8 @@ title: Statistic 统计组件
 lang: zh-CN
 ---
 
+<Meta></Meta>
+
 # Statistic 统计组件
 
 显示统计数据。

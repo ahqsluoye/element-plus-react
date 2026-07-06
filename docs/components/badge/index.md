@@ -3,6 +3,8 @@ title: Badge 徽章
 lang: zh-CN
 ---
 
+<Meta></Meta>
+
 # Badge 徽章
 
 按钮和图标上的数字或状态标记。

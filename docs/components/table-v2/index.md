@@ -3,6 +3,8 @@ title: Virtualized Table 虚拟化表格
 lang: zh-CN
 ---
 
+<Meta></Meta>
+
 # Virtualized Table 虚拟化表格
 
 在前端开发领域，表格一直都是一个高频出现的组件，尤其是在中后台和数据分析场景。 但是，对于 [Table V1](./table.md)来说，当一屏里超过 1000 条数据记录时，就会出现卡顿等性能问题，体验不是很好。

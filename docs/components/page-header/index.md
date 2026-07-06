@@ -3,6 +3,8 @@ title: Page Header 页头
 lang: zh-CN
 ---
 
+<Meta></Meta>
+
 # Page Header 页头
 
 如果页面的路径比较简单，推荐使用页头组件而非面包屑组件。

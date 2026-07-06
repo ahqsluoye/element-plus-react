@@ -2,7 +2,7 @@ import { VersionChangelog } from '@/theme/builtins/Meta';
 
 export default [
     {
-        date: '2026-07-03',
+        date: '2026-07-04',
         version: '2.0.0',
         entries: [
             {

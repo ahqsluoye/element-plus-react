@@ -3,6 +3,8 @@ title: 全局配置
 lang: zh-CN
 ---
 
+<Meta></Meta>
+
 # Config Provider 全局配置
 
 Config Provider 被用来提供全局的配置选项，让你的配置能够在全局都能够被访问到。

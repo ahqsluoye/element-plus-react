@@ -3,6 +3,8 @@ title: Collapse 折叠面板
 lang: zh-CN
 ---
 
+<Meta></Meta>
+
 # Collapse 折叠面板
 
 通过折叠面板收纳内容区域

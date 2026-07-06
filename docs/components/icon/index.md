@@ -3,6 +3,8 @@ title: Icon 图标
 lang: zh-CN
 ---
 
+<Meta></Meta>
+
 # Icon 图标
 
 Element Plus React 提供了一套常用的图标集合。
