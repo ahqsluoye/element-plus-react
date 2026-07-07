@@ -21,6 +21,7 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, ref) => {
     const [value, setValue, isControlled] = useControlled(valueProp, defaultValue);
     const disabled = useDisabled(props.disabled);
     const size = useSize(props.size);
+    const aliasProps = mergeDefaultProps({ value: 'value', label: 'label', disabled: 'disabled' }, props.props);
 
     const handleChange = useCallback(
         (nextValue: ValueType, event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,14 +50,14 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, ref) => {
         }
         if (options.length > 0) {
             const radios = options.map(item => (
-                <Radio key={item[props.props.value]} value={item[props.props.value]} disabled={item[props.props.disabled]}>
-                    {item[props.props.label]}
+                <Radio key={item[aliasProps.value]} value={item[aliasProps.value]} disabled={item[aliasProps.disabled]}>
+                    {item[aliasProps.label]}
                 </Radio>
             ));
             return radios;
         }
         return children;
-    }, [children, options, props.props.disabled, props.props.label, props.props.value]);
+    }, [children, options, aliasProps.disabled, aliasProps.label, aliasProps.value]);
 
     return (
         <RadioContext.Provider value={contextValue}>
