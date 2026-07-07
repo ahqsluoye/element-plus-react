@@ -2,7 +2,7 @@ import ensureArray from 'lodash/castArray';
 import filter from 'lodash/filter';
 import max from 'lodash/max';
 import min from 'lodash/min';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Children, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { PopperOptionRef } from '../Popper/typings';
@@ -36,9 +36,13 @@ const useSelect = (props: SelectProps) => {
             tagEffect: 'light',
             suffixIcon: 'angle-down',
             clearIcon: 'circle-xmark',
+            props: {},
+            options: [],
         },
         props,
     );
+
+    const aliasProps = mergeDefaultProps({ value: 'value', label: 'label', disabled: 'disabled', data: 'data', options: 'options' }, props.props);
 
     const nsSelect = useClassNames('select');
     const { be, is } = nsSelect;
@@ -94,7 +98,7 @@ const useSelect = (props: SelectProps) => {
     const getOptionInstance = useChildrenInstance<SelectOptionGroupProps | SelectOptionProps, SelectOptionProps>('ElOption', 'ElOptionGroup');
 
     const optionData = useMemo<OptionData[]>(() => {
-        if (props.children) {
+        if (Children.count(props.children) > 0) {
             const componentChildren: React.ReactElement<SelectOptionProps>[] = getOptionInstance(props.children);
 
             return componentChildren.map(node => {
@@ -109,9 +113,29 @@ const useSelect = (props: SelectProps) => {
                     data: node.props.data,
                 };
             });
+        } else if (props.options.length > 0) {
+            return props.options
+                .reduce((acc: SelectProps['options'], node: { [key: string]: any }) => {
+                    if (node[aliasProps.options]?.length > 0) {
+                        return [...acc, node, ...node[aliasProps.options]];
+                    }
+                    return [...acc, node];
+                }, [])
+                .map((node: { [key: string]: any }) => {
+                    cachedOptions.current.set(node[aliasProps.value], {
+                        label: node[aliasProps.label] ?? node[aliasProps.value],
+                        value: node[aliasProps.value],
+                        data: node[aliasProps.data],
+                    });
+                    return {
+                        label: node[aliasProps.label] ?? node[aliasProps.value],
+                        value: node[aliasProps.value],
+                        data: node[aliasProps.data],
+                    };
+                });
         }
         return [];
-    }, [getOptionInstance, props.children]);
+    }, [aliasProps.data, aliasProps.label, aliasProps.options, aliasProps.value, getOptionInstance, props.children, props.options]);
 
     // 多选框值
     const multiValue = useMemo(() => {
@@ -489,6 +513,7 @@ const useSelect = (props: SelectProps) => {
         handleCompositionUpdate,
         handleCompositionEnd,
         cachedOptions,
+        aliasProps,
     };
 };
 

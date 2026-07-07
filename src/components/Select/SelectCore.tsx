@@ -1,11 +1,13 @@
 import classNames from 'classnames';
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React, { Children, forwardRef, useImperativeHandle, useMemo } from 'react';
 import Icon from '../Icon/Icon';
 import Popper from '../Popper/Popper';
 import Tag from '../Tag/Tag';
 import Tooltip from '../Tooltip/Tooltip';
 import { isEmpty, isNotEmpty } from '../Util';
 import { useCalcInputWidth } from '../hooks/useCalcInputWidth';
+import Option from './Option';
+import OptionGroup from './OptionGroup';
 import SelectDropdown from './SelectDropdown';
 import { SelectProps, SelectRef } from './typings';
 import useSelect from './useSelect';
@@ -69,10 +71,47 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
         handleCompositionEnd,
         tag,
         cachedOptions,
+        aliasProps,
+        options,
     } = _props;
     const { b, e, m, is } = nsSelect;
 
     const { calculatorRef, inputStyle } = useCalcInputWidth();
+
+    const optionChilds = useMemo(() => {
+        if (Children.count(props.children) > 0) {
+            return props.children;
+        }
+        if (options.length > 0) {
+            const radios = options.map(item => {
+                if (item[aliasProps.options]?.length > 0) {
+                    return (
+                        <OptionGroup key={item[aliasProps.value]} label={item[aliasProps.label]} disabled={item[aliasProps.disabled]}>
+                            {item[aliasProps.options].map(child => (
+                                <Option
+                                    key={child[aliasProps.value]}
+                                    value={child[aliasProps.value]}
+                                    label={child[aliasProps.label]}
+                                    disabled={child[aliasProps.disabled]}
+                                    data={child[aliasProps.data]}
+                                />
+                            ))}
+                        </OptionGroup>
+                    );
+                }
+                return (
+                    <Option
+                        key={item[aliasProps.value]}
+                        value={item[aliasProps.value]}
+                        label={item[aliasProps.label]}
+                        disabled={item[aliasProps.disabled]}
+                        data={item[aliasProps.data]}
+                    />
+                );
+            });
+            return radios;
+        }
+    }, [options, props.children, aliasProps.data, aliasProps.disabled, aliasProps.label, aliasProps.options, aliasProps.value]);
 
     useImperativeHandle(ref, () => ({
         popperInstRef,
@@ -241,7 +280,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                     onClear={props.onClear}
                     cachedOptions={cachedOptions}
                 >
-                    {props.children}
+                    {optionChilds}
                 </SelectDropdown>
             </Popper>
         </div>

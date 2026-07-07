@@ -15,6 +15,12 @@ lang: zh-CN
 
 <code src="./basic-usage.tsx"></code>
 
+## Options 属性
+
+`ElOptionn` 基本用法。 您可以通过 `props` 属性自定义 `options` 的别名。
+
+<code src="./options.tsx"></code>
+
 ## 有禁用选项
 
 在 `ElOption` 中，设定 `disabled` 值为 true，即可禁用该选项
@@ -164,6 +170,16 @@ lang: zh-CN
 | reserveKeyword      | 当 `multiple` 和 `filterable`被设置为 true 时，是否在选中一个选项后保留当前的搜索关键词                | `boolean`                                                       | true        |
 | multipleLimit       | `multiple` 属性设置为 `true` 时，代表多选场景下用户最多可以选择的项目数， 为 0 则不限制                | `number`                                                        | 0           |
 -->
+
+### Props
+
+| Attribute | 说明                                       | Type     | Default  |
+| --------- | ------------------------------------------ | -------- | -------- |
+| value     | 指定选项的值为选项对象的某个属性值         | `string` | value    |
+| label     | 指定节点标签为节点对象的某个属性值         | `string` | label    |
+| options   | 指定选项的子选项为选项对象的某个属性值     | `string` | options  |
+| disabled  | 指定选项的禁用为选项对象的某个属性值       | `string` | disabled |
+| data      | 指定选项的自定义数据为选项对象的某个属性值 | `string` | data     |
 
 ### Select 事件
 

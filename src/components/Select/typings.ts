@@ -126,6 +126,10 @@ export interface SelectProps<V = ValueType>
         deleteTag: (event: React.MouseEvent<HTMLElement, MouseEvent>, tag: OptionData<T>) => void;
     }) => React.ReactElement;
     unmountOnExit?: boolean;
+    /** 选项的数据源， value 的 key 和 label 和  disabled可以通过 props自定义. */
+    options?: Array<{ [key: string]: any }>;
+    /** options 的配置 */
+    props?: { value?: string; label?: string; disabled?: string; options?: string; data?: string };
     /** 数据加载成功时调用 */
     // onLoadSuccess?: (value: ValueType, data?: any) => void;
 }
