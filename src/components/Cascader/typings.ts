@@ -44,10 +44,6 @@ export interface CascaderProps<V = CascaderValue, S = any>
     loadingText?: string;
     /**  */
     required?: boolean;
-    /** 表单校验错误提示 */
-    error?: boolean;
-    /** 表单校验警告提示 */
-    warning?: boolean;
     /** 多选时是否将选中值按文字的形式展示 */
     collapseTags?: boolean;
     /** 需要显示的 Tag 的最大数量 只有当 collapseTags 设置为 true 时才会生效。 */

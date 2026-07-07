@@ -66,10 +66,6 @@ export interface SelectProps<V = ValueType>
     showArrow?: boolean;
     /**  */
     required?: boolean;
-    /** 表单校验错误提示 */
-    error?: boolean;
-    /** 表单校验警告提示 */
-    warning?: boolean;
     /** 下拉项最大宽度 */
     maxWidth?: number;
     /** 多选时是否将选中值按文字的形式展示 */

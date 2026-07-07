@@ -81,8 +81,6 @@ const Cascader = memo(
             onVisibleChange,
             onExpandChange,
             onRemoveTag,
-            error,
-            warning,
             ...rest
         } = props;
         const { multiple, value: valueKey = 'value', label: labelKey = 'label', children: childrenKey = 'children', lazy, lazyLoad } = menuProps;
@@ -644,8 +642,6 @@ const Cascader = memo(
                                 onClear={handleClear}
                                 plain={props.plain}
                                 className={is({ focus: visible })}
-                                error={error}
-                                warning={warning}
                                 innerStyle={multiple ? { height: inputHeight } : {}}
                                 suffix={<Icon prefix="fal" name="angle-down" className={visible ? 'fa-rotate-180' : ''} onClick={onClick} />}
                                 prefix={props.prefix}

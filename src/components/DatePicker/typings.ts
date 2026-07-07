@@ -48,10 +48,6 @@ export interface DatePickerProps
     valueFormat?: string;
     /** 设置ISO周数，其中1为星期一，7为星期日 */
     isoWeek?: boolean;
-    /** 表单校验错误提示 */
-    error?: boolean;
-    /** 表单校验警告提示 */
-    warning?: boolean;
     /** 输入框前置内容，只对 type="text" 有效 */
     prepend?: React.ReactElement<any> | string | number;
     /** 输入框后置内容，只对 type="text" 有效 */
@@ -100,11 +96,6 @@ export interface DatePickerRangeProps extends Omit<FormControlBaseProps, 'name' 
     unlinkPanels?: boolean;
     /** 设置ISO周数，其中1为星期一，7为星期日 */
     isoWeek?: boolean;
-    /** 表单校验错误提示 */
-    error?: boolean;
-    /** 表单校验警告提示 */
-    warning?: boolean;
-    /** 输入框前置内容，只对 type="text" 有效 */
     prepend?: React.ReactElement<any> | string | number;
     /** 输入框后置内容，只对 type="text" 有效 */
     append?: React.ReactElement | string | number;
@@ -160,10 +151,6 @@ export interface AllDatePickerProps
     valueFormat?: string;
     /** 设置ISO周数，其中1为星期一，7为星期日 */
     isoWeek?: boolean;
-    /** 表单校验错误提示 */
-    error?: boolean;
-    /** 表单校验警告提示 */
-    warning?: boolean;
     /** 输入框前置内容，只对 type="text" 有效 */
     prepend?: React.ReactElement<any> | string | number;
     /** 输入框后置内容，只对 type="text" 有效 */

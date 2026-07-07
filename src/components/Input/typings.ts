@@ -92,10 +92,6 @@ export interface InputProps
     showPassword?: boolean;
     /** 是否纯文本模式，即无边框 */
     plain?: boolean;
-    /** 表单校验错误提示 */
-    error?: boolean;
-    /** 表单校验警告提示 */
-    warning?: boolean;
     /** 输入是否防抖动 */
     debounceInput?: boolean;
     /** 获取输入建议的防抖延时，单位为毫秒 */

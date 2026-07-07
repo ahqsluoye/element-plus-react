@@ -223,8 +223,6 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                             }}
                             onFocus={() => setIsFocused(true)}
                             onBlur={() => setIsFocused(false)}
-                            // error={error}
-                            // warning={warning}
                             // style={multiple ? { height: inputHeight } : {}}
                             // suffix={<Icon prefix="fal" name="angle-down" rotate={visible ? 180 : null} onClick={toggleMenu} />}
                         />

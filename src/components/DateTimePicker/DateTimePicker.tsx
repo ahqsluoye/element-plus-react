@@ -41,8 +41,6 @@ const DateTimePicker = memo(
             prepend,
             shortcuts,
             append,
-            warning,
-            error,
             defaultTime,
             formatter,
             onClear,
@@ -93,6 +91,7 @@ const DateTimePicker = memo(
 
         const [date, setDate] = useState(value ? dateProp.format(extractDateFormat(format === 'x' ? 'YYYY-MM-DD' : format)) : '');
         const [time, setTime] = useState(value ? dateProp.format(extractTimeFormat(format === 'x' ? 'HH:mm:ss' : format)) : '');
+        const timeRef = useRef('');
 
         const onActive = useCallback(() => {
             if (!disabled) {
@@ -103,7 +102,7 @@ const DateTimePicker = memo(
 
         const handleChange = useCallback(
             (val: Dayjs) => {
-                if (isEmpty(time) && !defaultTime) {
+                if (isEmpty(timeRef.current) && !defaultTime) {
                     val = val.hour(0).minute(0).second(0);
                 } else if (defaultTime) {
                     const defTime = dayjs(defaultTime);
@@ -112,6 +111,7 @@ const DateTimePicker = memo(
                 setValue(val ? val.format(format) : '');
                 setDate(val ? val.format(extractDateFormat(format === 'x' ? 'YYYY-MM-DD' : format)) : '');
                 setTime(val ? val.format(extractTimeFormat(format === 'x' ? 'HH:mm:ss' : format)) : '');
+                timeRef.current = val ? val.format(extractTimeFormat(format === 'x' ? 'HH:mm:ss' : format)) : '';
                 if (valueFormat == 'x') {
                     onChange(val ? val.toDate().getTime() : '');
                 } else if (isNotEmpty(props.valueFormat)) {
@@ -120,12 +120,12 @@ const DateTimePicker = memo(
                     onChange?.(val ? val.toDate() : '');
                 }
             },
-            [defaultTime, format, onChange, props.valueFormat, setValue, time, valueFormat],
+            [defaultTime, format, onChange, props.valueFormat, setValue, valueFormat],
         );
 
         const setSelectionRange = useCallback((start: number, end: number) => {
-            const _inputs = timePickerRef.current.input.current;
-            if (!_inputs.value) {
+            const _inputs = timePickerRef.current?.input?.current;
+            if (!_inputs?.value) {
                 return;
             }
             _inputs.setSelectionRange(start, end);
@@ -163,8 +163,6 @@ const DateTimePicker = memo(
                     }}
                     className={classNames({ [b('date', false)]: readonly }, is({ focus: visible }))}
                     style={props.style}
-                    error={error}
-                    warning={warning}
                     prepend={prepend}
                     append={append}
                     plain={props.plain}
@@ -229,7 +227,7 @@ const DateTimePicker = memo(
                                     <Input placeholder="选择日期" value={date} clearable={false} readOnly />
                                 </div>
                                 <div className={e`editor-wrap`}>
-                                    <Input placeholder="选择时间" value={time} clearable={false} onFocus={() => setShowTime(true)} ref={timePickerRef} readOnly />
+                                    <Input placeholder="选择时间" value={time} clearable={false} onClick={() => setShowTime(true)} ref={timePickerRef} readOnly />
                                     <Transition
                                         nodeRef={() => ({ current: timePanelRef.current.ref })}
                                         visible={showTime}
@@ -249,7 +247,7 @@ const DateTimePicker = memo(
                                             referenceElement={() => timePickerRef?.current?.ref}
                                             onDestroy={() => setShowTime(false)}
                                             ref={timePanelRef}
-                                            setSelectionRange={setSelectionRange}
+                                            // setSelectionRange={setSelectionRange}
                                             onOk={() => {
                                                 setShowTime(false);
                                             }}

@@ -44,8 +44,7 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
         disabledSeconds,
         prepend,
         append,
-        warning,
-        error,
+
         onClear,
         onVisibleChange,
         prefixIcon,
@@ -213,8 +212,6 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
                 }}
                 className={classNames({ [`${namespace}-date`]: readonly, 'is-focus': visible })}
                 style={props.style}
-                error={error}
-                warning={warning}
                 append={append}
                 prepend={prepend}
                 ref={inputRef}

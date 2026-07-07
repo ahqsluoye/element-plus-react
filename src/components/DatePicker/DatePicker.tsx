@@ -26,7 +26,7 @@ dayjs.extend(quarterOfYear);
 const DatePicker = memo(
     forwardRef<DatePickerRef, DatePickerProps>((props, ref) => {
         props = mergeDefaultProps({ readonly: true, clearable: true, type: 'date', isoWeek: true }, props);
-        const { name, readonly, clearable, required, valueFormat, plain, onClick, prepend, append, error, warning, shortcuts, onChange, formatter, type, isoWeek, ...rest } = props;
+        const { name, readonly, clearable, required, valueFormat, plain, onClick, prepend, append, shortcuts, onChange, formatter, type, isoWeek, ...rest } = props;
         const [value, setValue] = useControlled(props.value, props.defaultValue);
         const [visible, setVisible] = useState(false);
         const popperInstRef = useRef<PopperOptionRef>(null);
@@ -195,8 +195,6 @@ const DatePicker = memo(
                     onClear={() => handleChange?.(null)}
                     className={classNames({ [`${namespace}-date`]: readonly, 'is-focus': visible })}
                     style={props.style}
-                    error={error}
-                    warning={warning}
                     prepend={prepend}
                     append={append}
                     plain={plain}

@@ -30,8 +30,7 @@ const Input = memo(
             suffix,
             prepend,
             append,
-            error,
-            warning,
+
             debounceInput,
             debounceTime,
             placeholder,
@@ -324,7 +323,7 @@ const Input = memo(
                 {prepend ? <div className={be('group', 'prepend')}>{prepend}</div> : null}
                 <div
                     ref={wrapperRef}
-                    className={classNames(e`wrapper`, is({ error, warning, focus: focused }))}
+                    className={classNames(e`wrapper`, is({ focus: focused }))}
                     onMouseEnter={() => showClear(value)}
                     onMouseLeave={() => {
                         if (!hasClass(wrapperRef.current, is('focus'))) {

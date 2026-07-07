@@ -58,8 +58,7 @@ const InputNumber = memo(
             prefix,
             suffix,
             placeholder,
-            warning,
-            error,
+
             maxLength,
             minLength,
             decreaseIcon,
@@ -512,8 +511,6 @@ const InputNumber = memo(
                     disabled={disabled}
                     readOnly={props.readOnly}
                     size={size}
-                    error={error}
-                    warning={warning}
                     clearable={false}
                     onBlur={handleBlur}
                     onFocus={handleFocus}

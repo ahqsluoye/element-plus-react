@@ -68,7 +68,7 @@ const App = () => {
                     <ElOption label="区域二" value="beijing" />
                 </ElSelect>
             </ElFormItem>
-            <ElFormItem label="活动时间">
+            <ElFormItem label="活动时间" required>
                 <ElRow style={{ width: '100%' }}>
                     <ElCol span={11}>
                         <ElFormItem name={['date', 'date1']} noStyle>

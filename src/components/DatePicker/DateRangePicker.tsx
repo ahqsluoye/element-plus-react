@@ -29,7 +29,7 @@ const DateRangePicker = memo(
             rangeSeparator: '-',
             ...props,
         };
-        const { name, clearable, valueFormat, type, classPrefix = 'range', prepend, append, onChange, error, warning, formatter } = props;
+        const { name, clearable, valueFormat, type, classPrefix = 'range', prepend, append, onChange, formatter } = props;
         const [value, setValue] = useControlled(props.value, props.defaultValue);
         const { b, e, be, bm, ebm, is } = useClassNames(classPrefix);
         const [visible, setVisible] = useState(false);
@@ -196,7 +196,7 @@ const DateRangePicker = memo(
                         be('input', 'wrapper', false),
                         be('tooltip', 'trigger', false),
                         { [bm('editor', size)]: size },
-                        is({ focus: visible, disabled, error, warning }),
+                        is({ focus: visible, disabled }),
                     )}
                     ref={referenceElement}
                     onClick={onActive}
@@ -249,8 +249,7 @@ const DateRangePicker = memo(
                 is,
                 visible,
                 disabled,
-                error,
-                warning,
+
                 onActive,
                 append,
                 prepend,

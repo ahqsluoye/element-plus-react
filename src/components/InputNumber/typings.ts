@@ -36,10 +36,6 @@ export interface InputNumberProps<V = ValueType>
     onChange?: (currentValue: number | string, oldValue?: number | string) => void;
     /** 样式前缀 */
     prefixCls?: string;
-    /** 表单校验错误提示 */
-    error?: boolean;
-    /** 表单校验警告提示 */
-    warning?: boolean;
     /** 输入框头部内容 */
     prefix?: React.ReactElement<any> | string | number;
     /** 输入框尾部内容 */
