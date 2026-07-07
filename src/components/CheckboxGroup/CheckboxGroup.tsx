@@ -39,7 +39,7 @@ const CheckboxGroup: FC<CheckboxGroupProps> = memo(
         const [value, setValue, isControlled] = useControlled(valueProp, defaultValue);
         const disabled = useDisabled(props.disabled);
         const size = useSize(props.size);
-        const optionsProps = mergeDefaultProps({ value: 'value', label: 'label', disabled: 'disabled' }, props.props);
+        const aliasProps = mergeDefaultProps({ value: 'value', label: 'label', disabled: 'disabled' }, props.props);
 
         /** 获取子组件 */
         const getTabPaneInstance = useChildrenInstance<CheckboxProps>(['ElCheckbox', 'ElCheckboxButton']);
@@ -119,8 +119,8 @@ const CheckboxGroup: FC<CheckboxGroupProps> = memo(
             let checkboxs = null;
             if (options.length > 0) {
                 checkboxs = options.map(item => (
-                    <Checkbox key={item[props.props.value]} value={item[props.props.value]} disabled={item[props.props.disabled]}>
-                        {item[props.props.label]}
+                    <Checkbox key={item[aliasProps.value]} value={item[aliasProps.value]} disabled={item[aliasProps.disabled]}>
+                        {item[aliasProps.label]}
                     </Checkbox>
                 ));
                 if (min > 0 && value instanceof Array && value.length <= min) {
@@ -143,7 +143,7 @@ const CheckboxGroup: FC<CheckboxGroupProps> = memo(
                 }
             }
             return checkboxs;
-        }, [max, min, options, props.props.disabled, props.props.label, props.props.value, value]);
+        }, [max, min, options, aliasProps.disabled, aliasProps.label, aliasProps.value, value]);
 
         return (
             <CheckboxGroupContext.Provider value={contextValue}>
