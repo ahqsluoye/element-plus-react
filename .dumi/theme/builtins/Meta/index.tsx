@@ -78,15 +78,49 @@ const Meta = props => {
                 )}
             </ElButtonGroup>
             {props.children}
-            <ElDrawer title="待解决问题" visible={visible === 'issues'} size={500} close={() => setVisible('')}>
+            <ElDrawer
+                title={
+                    <div className="changelog-drawer-header">
+                        <span className="changelog-drawer-title">待解决问题</span>
+                    </div>
+                }
+                visible={visible === 'issues'}
+                className="changelog-drawer"
+                size={700}
+                close={() => setVisible('')}
+            >
                 <div>
-                    <ElTimeLine>
+                    <ElTimeLine className="changelog-timeline">
                         {issues.map((item, index) => {
                             return (
-                                <ElTimeLineItem key={index} timestamp={item.timestamp}>
-                                    {item.content.split('\n').map(line => (
-                                        <p key={line}>{line}</p>
-                                    ))}
+                                <ElTimeLineItem key={index} hollow size="large" type={getTimelineItemType(item.entries)}>
+                                    <div className="changelog-version-header">
+                                        <span className="changelog-version">{item.version}</span>
+                                        <ElTag size="small" round effect="plain">
+                                            {item.date}
+                                        </ElTag>
+                                    </div>
+                                    <ul className="changelog-entries">
+                                        {item.entries.map((entry, idx) => (
+                                            <li key={idx} className="changelog-entry">
+                                                <span className="changelog-entry-icon">{getTypeIcon(entry.type)}</span>
+                                                <span className="changelog-entry-desc">{entry.description}</span>
+                                                {/* <ElLink
+                                                v-if="pr"
+                                                type="primary"
+                                                href={`https://github.com/element-plus/element-plus/pull/${pr}`}
+                                                underline="always"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                #{{ pr }}
+                                            </ElLink> */}
+                                                {/* <ElLink href={`https://github.com/${entry.author}`} underline="always" target="_blank" rel="noopener noreferrer">
+                                                    @{entry.author}
+                                                </ElLink> */}
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </ElTimeLineItem>
                             );
                         })}
