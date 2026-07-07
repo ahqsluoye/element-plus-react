@@ -1,14 +1,22 @@
 import classNames from 'classnames';
-import React, { createContext, forwardRef, useCallback, useMemo } from 'react';
-import { ValueType } from '../Radio';
-import { isNotEmpty, randomCode } from '../Util';
+import React, { Children, createContext, forwardRef, useCallback, useMemo } from 'react';
+import { Radio, ValueType } from '../Radio';
+import { isNotEmpty, mergeDefaultProps, randomCode } from '../Util';
 import { useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { RadioContextProps, RadioGroupProps } from './typings';
 
 export const RadioContext = createContext<RadioContextProps>({});
 
 const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, ref) => {
-    const { className, children, classPrefix = 'radio-group', value: valueProp, defaultValue, appearance = 'default', name, readOnly, onChange, ...rest } = props;
+    props = mergeDefaultProps(
+        {
+            appearance: 'default',
+            props: {},
+            options: [],
+        },
+        props,
+    );
+    const { className, children, classPrefix = 'radio-group', value: valueProp, defaultValue, appearance, name, readOnly, options, onChange, ...rest } = props;
     const { wb, m } = useClassNames(classPrefix);
     const [value, setValue, isControlled] = useControlled(valueProp, defaultValue);
     const disabled = useDisabled(props.disabled);
@@ -35,6 +43,21 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, ref) => {
         [disabled, handleChange, isControlled, name, readOnly, size, value],
     );
 
+    const optionChilds = useMemo(() => {
+        if (Children.count(children) > 0) {
+            return children;
+        }
+        if (options.length > 0) {
+            const radios = options.map(item => (
+                <Radio key={item[props.props.value]} value={item[props.props.value]} disabled={item[props.props.disabled]}>
+                    {item[props.props.label]}
+                </Radio>
+            ));
+            return radios;
+        }
+        return children;
+    }, [children, options, props.props.disabled, props.props.label, props.props.value]);
+
     return (
         <RadioContext.Provider value={contextValue}>
             <div
@@ -42,7 +65,7 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, ref) => {
                 className={classNames(className, wb(appearance), m({ [size]: size }))}
                 style={props.style}
             >
-                {children}
+                {optionChilds}
             </div>
         </RadioContext.Provider>
     );

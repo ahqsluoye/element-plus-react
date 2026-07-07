@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import cloneDeep from 'lodash/cloneDeep';
 import remove from 'lodash/remove';
-import React, { FC, forwardRef, memo, useCallback, useMemo } from 'react';
+import React, { Children, FC, forwardRef, memo, useCallback, useMemo } from 'react';
 import { Checkbox, type CheckboxProps, type ValueType } from '../Checkbox/index';
 import { mergeDefaultProps, shallowEqual } from '../Util';
 import { useChildrenInstance, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
@@ -148,7 +148,7 @@ const CheckboxGroup: FC<CheckboxGroupProps> = memo(
         return (
             <CheckboxGroupContext.Provider value={contextValue}>
                 <div ref={ref} /* {...omit(rest, ['disabled', 'size'])} */ className={classNames(className, m({ [size]: size }))}>
-                    {childs.length === 0 ? optionChilds : childs}
+                    {Children.count(children) === 0 ? optionChilds : childs}
                 </div>
             </CheckboxGroupContext.Provider>
         );

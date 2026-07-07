@@ -31,6 +31,12 @@ lang: zh-CN
 
 <code src="./radio-button-group.tsx"></code>
 
+## Options 属性
+
+基础用法 `ElCheckboxGroup` 的快捷示例。 您可以通过 `props` 属性自定义 `options` 的别名。
+
+<code src="./options.tsx"></code>
+
 ## 按钮样式
 
 你可以让单选框看起来像一个按钮一样。
