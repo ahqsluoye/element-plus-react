@@ -4,8 +4,8 @@ import React from 'react';
 const App = () => {
     return (
         <div>
-            <ElInput placeholder="可一键清空" />
-            <ElInput placeholder="不可一键清空" clearable={false} />
+            <ElInput placeholder="可一键清空" clearable />
+            <ElInput placeholder="不可一键清空" />
         </div>
     );
 };

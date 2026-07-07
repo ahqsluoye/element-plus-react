@@ -10,6 +10,11 @@ export default [
                 description: '拆分TextArea为独立组件并优化渲染性能',
                 author: 'ahqsluoye',
             },
+            {
+                type: 'refactor',
+                description: '重构输入框组件，优化清空、校验和后缀展示逻辑',
+                author: 'ahqsluoye',
+            },
         ],
     },
 ] as VersionChangelog[];

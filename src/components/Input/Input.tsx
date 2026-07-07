@@ -1,10 +1,13 @@
 import classNames from 'classnames';
 import { addStyle, hasClass } from 'dom-lib';
 import isObject from 'lodash/isObject';
-import React, { ComponentType, cloneElement, forwardRef, memo, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { ComponentType, cloneElement, forwardRef, memo, useCallback, useContext, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import FormContext from '../Form/FormContext';
+import { FormItemContext } from '../Form/FormItemContext';
 import Icon from '../Icon/Icon';
 import { IconProps } from '../Icon/typings';
 import { isNotEmpty, mergeDefaultProps } from '../Util';
+import { ValidateComponentsMap } from '../Util/icons';
 import { partitionHTMLProps, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { InputProps, InputRef, ValueType } from './typings';
 
@@ -14,7 +17,7 @@ const Input = memo(
             {
                 type: 'text',
                 placeholder: '',
-                clearable: true,
+                clearable: false,
                 debounceTime: 200,
                 defaultValue: '',
             },
@@ -35,6 +38,7 @@ const Input = memo(
             readOnly,
             plain,
             classPrefix = 'input',
+            clearable,
             onInput,
             onChange,
             onClear,
@@ -56,6 +60,8 @@ const Input = memo(
         const [focused, setFocused] = useState(false);
         const disabled = useDisabled(props.disabled);
         const size = useSize(props.size);
+        const { statusIcon } = useContext(FormContext);
+        const { validateState } = useContext(FormItemContext);
 
         const containerRef = useRef<HTMLDivElement>(null);
         const inputRef = useRef<HTMLInputElement>(null);
@@ -76,40 +82,60 @@ const Input = memo(
             return val;
         }, [formatter, value]);
 
-        /** 是否可清空 */
-        const clearable = useMemo<boolean>(() => {
-            // 只读不显示清除按钮只有input组件适用，加上了那些引用input组件就无法显示清空按钮了，这里添加说明，下次别再添加了
-            return Boolean(showPassword ? false : props.clearable /*  && !readOnly */);
-        }, [props.clearable, showPassword]);
+        const validateIcon = useMemo(() => validateState && ValidateComponentsMap[validateState], [validateState]);
+
+        const showPwdVisible = useMemo(() => showPassword && isNotEmpty(value) && !disabled, [showPassword, value, disabled]);
+
+        const isWordLimitVisible = useMemo(
+            () => showWordLimit && maxLength && type === 'text' && !disabled && !readOnly && !showPassword,
+            [showWordLimit, maxLength, type, disabled, readOnly, showPassword],
+        );
+
+        const suffixVisible = useMemo(
+            () => !!suffix || clearable || showPassword || isWordLimitVisible || (!!validateState && statusIcon),
+            [suffix, clearable, showPassword, isWordLimitVisible, validateState, statusIcon],
+        );
 
         /** 输入框尾部内容 */
-        const suffixSlot = useMemo(() => {
-            if (type === 'text' && maxLength && showWordLimit) {
-                return (
-                    <span className={e`count`}>
-                        <span className={e`count-inner`}>
-                            {typeof value === 'string' ? value.length : 0} / {maxLength}
-                        </span>
-                    </span>
-                );
-            } else if (['text', 'password'].includes(type) && suffix) {
-                if (isObject(suffix)) {
-                    let nodeType = suffix?.type;
-                    nodeType = (nodeType as ComponentType)?.displayName || nodeType;
+        const suffixContent = useMemo(() => {
+            // if (type === 'text' && maxLength && showWordLimit) {
+            //     return (
+            //         <span className={e`count`}>
+            //             <span className={e`count-inner`}>
+            //                 {typeof value === 'string' ? value.length : 0} / {maxLength}
+            //             </span>
+            //         </span>
+            //     );
+            // } else if (['text', 'password'].includes(type) && suffix) {
+            //     if (isObject(suffix)) {
+            //         let nodeType = suffix?.type;
+            //         nodeType = (nodeType as ComponentType)?.displayName || nodeType;
 
-                    if (nodeType.toString().startsWith('Icon')) {
-                        return cloneElement(suffix as React.ReactElement<IconProps>, {
-                            ...suffix.props,
-                            className: classNames(suffix.props?.className, e`icon`),
-                        });
-                    }
+            //         if (nodeType.toString().startsWith('Icon')) {
+            //             return cloneElement(suffix as React.ReactElement<IconProps>, {
+            //                 ...suffix.props,
+            //                 className: classNames(suffix.props?.className, e`icon`),
+            //             });
+            //         }
+            //     }
+            //     return suffix;
+            // } else if (showPassword && isNotEmpty(value)) {
+            //     return <Icon name={type === 'text' ? 'eye' : 'eye-slash'} className={classNames(e`icon`, e`clear`)} />;
+            // }
+            // return null;
+            if (isObject(suffix)) {
+                let nodeType = suffix?.type;
+                nodeType = (nodeType as ComponentType)?.displayName || nodeType;
+
+                if (nodeType.toString().startsWith('Icon')) {
+                    return cloneElement(suffix as React.ReactElement<IconProps>, {
+                        ...suffix.props,
+                        className: classNames(suffix.props?.className, e`icon`),
+                    });
                 }
-                return suffix;
-            } else if (showPassword && isNotEmpty(value)) {
-                return <Icon name={type === 'text' ? 'eye' : 'eye-slash'} className={classNames(e`icon`, e`clear`)} />;
             }
-            return null;
-        }, [type, maxLength, showWordLimit, suffix, showPassword, value, e]);
+            return suffix;
+        }, [suffix, e]);
 
         /** 后缀是否可点击 */
         const suffixCanClick = useMemo(() => {
@@ -122,29 +148,29 @@ const Input = memo(
             (_value: ValueType) => {
                 if (clearable && isNotEmpty(_value) && !disabled && clearRef.current) {
                     addStyle(clearRef.current, 'display', '');
-                    if (suffixRef.current) {
-                        if (type === 'text' && maxLength && showWordLimit) {
-                            return;
-                        }
-                        addStyle(suffixRef.current, 'display', 'none');
-                    }
+                    // if (suffixRef.current) {
+                    //     if (type === 'text' && maxLength && showWordLimit) {
+                    //         return;
+                    //     }
+                    //     addStyle(suffixRef.current, 'display', 'none');
+                    // }
                 } else {
-                    if (suffixRef.current) {
-                        addStyle(suffixRef.current, 'display', '');
-                    }
+                    // if (suffixRef.current) {
+                    //     addStyle(suffixRef.current, 'display', '');
+                    // }
                 }
                 // addClass((ref ?? contentRef).current, m`suffix`);
             },
-            [clearable, disabled, maxLength, showWordLimit, type],
+            [clearable, disabled],
         );
 
         const hideClear = useCallback(() => {
             if (clearRef.current) {
                 addStyle(clearRef.current, 'display', 'none');
             }
-            if (suffixRef.current) {
-                addStyle(suffixRef.current, 'display', '');
-            }
+            // if (suffixRef.current) {
+            //     addStyle(suffixRef.current, 'display', '');
+            // }
             // if (!suffixSlot) {
             //     removeClass((ref ?? contentRef).current, m`suffix`);
             // }
@@ -173,11 +199,9 @@ const Input = memo(
         );
 
         /** 后缀点击事件 */
-        const onClickSuffix = useCallback(() => {
-            if (showPassword) {
-                setType(type === 'text' ? 'password' : 'text');
-            }
-        }, [type, showPassword]);
+        const handlePasswordVisible = useCallback(() => {
+            setType(type === 'text' ? 'password' : 'text');
+        }, [type]);
 
         /** 输入事件 */
         const handleInput = useCallback(
@@ -287,7 +311,7 @@ const Input = memo(
                         [bm('group', 'prepend')]: prepend,
                         [bm('group', 'append')]: append,
                         [m`prefix`]: preffixSlot,
-                        [m`suffix`]: suffixSlot || clearable,
+                        [m`suffix`]: suffixContent || clearable,
                         [m(size)]: size,
                         [b`hidden`]: type === 'hidden',
                     },
@@ -356,23 +380,60 @@ const Input = memo(
                         {...htmlInputProps}
                     />
 
-                    <span ref={clearRef} key="clearIcon" className={e`suffix`} style={{ display: 'none' }} onClick={handelClear}>
+                    {/* <span className={e`suffix`}>
                         <span className={e`suffix-inner`}>
                             <Icon
+                                ref={clearRef}
+                                style={{ display: 'none' }}
                                 prefix="fal"
                                 name="circle-xmark"
                                 className={classNames(e`icon`, e`clear`)}
+                                onClick={handelClear}
                                 onMouseDown={event => {
                                     event.preventDefault();
                                     event.stopPropagation();
                                 }}
                             />
                         </span>
-                    </span>
+                    </span> */}
 
-                    {suffixSlot && (
-                        <span ref={suffixRef} key="suffixSlot" className={classNames(e`suffix`, { [b('click', false)]: suffixCanClick })} onClick={onClickSuffix}>
-                            <span className={e`suffix-inner`}>{suffixSlot}</span>
+                    {suffixVisible && (
+                        <span className={classNames(e`suffix`, { [b('click', false)]: suffixCanClick })}>
+                            <span className={e`suffix-inner`}>
+                                <Icon
+                                    ref={clearRef}
+                                    style={{ display: 'none' }}
+                                    prefix="fal"
+                                    name="circle-xmark"
+                                    className={classNames(e`icon`, e`clear`)}
+                                    onClick={handelClear}
+                                    onMouseDown={event => {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }}
+                                />
+                                {!showPwdVisible || !isWordLimitVisible ? suffixContent : null}
+                                {showPwdVisible && (
+                                    <Icon name={type === 'text' ? 'eye' : 'eye-slash'} className={classNames(e`icon`, e`password`)} onClick={handlePasswordVisible} />
+                                )}
+                                {isWordLimitVisible && (
+                                    <span className={e`count`}>
+                                        <span className={e`count-inner`}>
+                                            {typeof value === 'string' ? value.length : 0} / {maxLength}
+                                        </span>
+                                    </span>
+                                )}
+                                {validateState && validateIcon && statusIcon && (
+                                    <Icon
+                                        {...ValidateComponentsMap[validateState]}
+                                        className={classNames(e`icon`, e`validateIcon`, is('loading', validateState === 'validating'))}
+                                        onMouseDown={event => {
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                        }}
+                                    />
+                                )}
+                            </span>
                         </span>
                     )}
                 </div>
