@@ -1,4 +1,4 @@
-@import (reference) '../../styles/variables.scss';
+@import (reference) '../../styles/variables.less';
 
 .@{prefix}-search-bar {
     position: relative;
@@ -13,7 +13,7 @@
     }
 
     &-svg {
-        position: absolute;
+        position: absolute !important;
         top: 50%;
         margin-top: 1px;
         inset-inline-start: 16px;
@@ -47,7 +47,7 @@
         }
 
         &:focus {
-            border-color: fade(@c-primary, 50%);
+            border-color: var(--el-color-primary);
             background-color: #fff;
             box-shadow: 0 0 0 3px fade(@c-primary, 10%);
 

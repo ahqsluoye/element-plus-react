@@ -6,6 +6,7 @@ import { ElIcon, ElSwitch, ElTag } from '@qsxy/element-plus-react';
 import { useMount } from 'ahooks';
 import { addClass, removeClass } from 'dom-lib';
 import { Link, useNavData } from 'dumi';
+import SearchBar from '../SearchBar';
 
 const Header = () => {
     const nav = useNavData();
@@ -81,7 +82,7 @@ const Header = () => {
                     </div>
 
                     <div className="content">
-                        {/* <SearchBar /> */}
+                        <SearchBar />
                         <nav className="navbar-menu menu">
                             {nav.map(item => (
                                 <Link key={item.link} className="link-item link is-menu-link" to={item.link}>
