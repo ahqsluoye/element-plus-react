@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo } from 'react';
-import { ElInputNumber } from '..';
+import InputNumber from '../InputNumber/InputNumber';
 import { mergeDefaultProps } from '../Util';
 import { useClassNames, useControlled, useSize } from '../hooks';
 import SliderButton from './Button';
@@ -245,7 +245,7 @@ const Slider = memo(
                         )}
                     </div>
                     {renderInput && (
-                        <ElInputNumber
+                        <InputNumber
                             value={firstValue}
                             className={ns.e('input')}
                             step={sliderInputStep}
