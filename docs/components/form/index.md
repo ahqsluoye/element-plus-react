@@ -143,6 +143,7 @@ Form 组件允许你验证用户的输入是否符合规范，来帮助你找到
 | requireAsteriskPosition | 星号的位置。                                                                           | <Enum>'left' \| 'right'</Enum>                                                                                                                 | left   |
 | showMessage             | 是否显示校验错误信息                                                                   | `boolean`                                                                                                                                      | true   |
 | validateMessages        | 验证提示模板，说明[见下](#validatemessages)                                            | [ValidateMessages](https://github.com/ant-design/ant-design/blob/6234509d18bac1ac60fbb3f92a5b2c6a6361295a/components/locale/en_US.ts#L88-L134) | -      |
+| statusIcon              | 是否在输入框中显示校验结果反馈图标                                                     | `boolean`                                                                                                                                      | false  |
 | size                    | 用于控制该表单内组件的尺寸                                                             | <Enum>'large' \| 'default' \| 'small'</Enum>                                                                                                   | —      |
 | disabled                | 是否禁用该表单内的所有组件。 如果设置为 `true`, 它将覆盖内部组件的 `disabled` 属性     | `boolean`                                                                                                                                      | false  |
 | scrollToError           | 当校验失败时，滚动到第一个错误表单项                                                   | `boolean`                                                                                                                                      | false  |
@@ -201,20 +202,21 @@ const validateMessages = {
 
 ### FormItem 属性
 
-| 名称          | 说明                                                                                                                                                | 类型                                                      | 默认值  |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | ------- |
-| name          | 字段名，它可以是一个路径数组(例如 `['a', 'b', 0]`)。                                                                                                | `string` / `string[]`                                     | —       |
-| label         | 标签文本                                                                                                                                            | `string`                                                  | —       |
-| labelWidth    | 标签宽度，例如 `'50px'`。 可以使用 `auto`。                                                                                                         | `string` / `number`                                       | —       |
-| labelPosition | 表单域标签的位置， 当设置为 `left` 或 `right` 时，则也需要设置 `labelWidth` 属性                                                                    | <Enum>'left' \| 'right' \| 'top'</Enum>                   | right   |
-| required      | 是否为必填项，如不设置，则会根据校验规则确认                                                                                                        | `boolean`                                                 | false   |
-| rules         | 表单验证规则, 具体配置见[下表](#formitemrule), 更多内容可以参考[async-validator](https://github.com/yiminghe/async-validator)                       | <Enum type='object'>FormItemRule \| FormItemRule[]</Enum> | —       |
-| error         | 表单域验证错误时的提示信息。设置该值会导致表单验证状态变为 error，并显示该错误信息。                                                                | `string`                                                  | —       |
-| showMessage   | 是否显示校验错误信息                                                                                                                                | `boolean`                                                 | true    |
-| size          | 用于控制该表单域下组件的默认尺寸                                                                                                                    | <Enum>'large' \| 'default' \| 'small'</Enum>              | default |
-| noStyle       | 为 `true` 时不带样式，作为纯字段控件使用。当自身没有 `validateStatus` 而父元素存在有 `validateStatus` 的 ElFormItem 会继承父元素的 `validateStatus` | `boolean`                                                 | false   |
-| pure          | 是否标签宽度为 0，等用于`labelWidth={0}`，如果同时设置了 labelWidth，则此配置无效                                                                   | `boolean`                                                 | false   |
-| help          | 配置提示信息                                                                                                                                        | `string`\| `ReactNode`                                    | -       |
+| 名称           | 说明                                                                                                                                                | 类型                                                      | 默认值  |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | ------- |
+| name           | 字段名，它可以是一个路径数组(例如 `['a', 'b', 0]`)。                                                                                                | `string` / `string[]`                                     | —       |
+| label          | 标签文本                                                                                                                                            | `string`                                                  | —       |
+| labelWidth     | 标签宽度，例如 `'50px'`。 可以使用 `auto`。                                                                                                         | `string` / `number`                                       | —       |
+| labelPosition  | 表单域标签的位置， 当设置为 `left` 或 `right` 时，则也需要设置 `labelWidth` 属性                                                                    | <Enum>'left' \| 'right' \| 'top'</Enum>                   | right   |
+| required       | 是否为必填项，如不设置，则会根据校验规则确认                                                                                                        | `boolean`                                                 | false   |
+| rules          | 表单验证规则, 具体配置见[下表](#formitemrule), 更多内容可以参考[async-validator](https://github.com/yiminghe/async-validator)                       | <Enum type='object'>FormItemRule \| FormItemRule[]</Enum> | —       |
+| error          | 表单域验证错误时的提示信息。设置该值会导致表单验证状态变为 error，并显示该错误信息。                                                                | `string`                                                  | —       |
+| showMessage    | 是否显示校验错误信息                                                                                                                                | `boolean`                                                 | true    |
+| size           | 用于控制该表单域下组件的默认尺寸                                                                                                                    | <Enum>'large' \| 'default' \| 'small'</Enum>              | default |
+| noStyle        | 为 `true` 时不带样式，作为纯字段控件使用。当自身没有 `validateStatus` 而父元素存在有 `validateStatus` 的 ElFormItem 会继承父元素的 `validateStatus` | `boolean`                                                 | false   |
+| pure           | 是否标签宽度为 0，等用于`labelWidth={0}`，如果同时设置了 labelWidth，则此配置无效                                                                   | `boolean`                                                 | false   |
+| help           | 配置提示信息                                                                                                                                        | `string`\| `ReactNode`                                    | -       |
+| validateStatus | formitem 校验的状态                                                                                                                                 | <Enum>'' \| 'error' \| 'validating' \| 'success'</Enum>   | —       |
 
 被设置了 `name` 属性的 `ElFormItem` 包装的控件，表单控件会自动添加 `value`（或 `valuePropName` 指定的其他属性） `onChange`（或 `trigger` 指定的其他属性），数据同步将被 ElForm 接管，这会导致以下结果：
 
