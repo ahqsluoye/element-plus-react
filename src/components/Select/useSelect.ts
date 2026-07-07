@@ -2,12 +2,15 @@ import ensureArray from 'lodash/castArray';
 import filter from 'lodash/filter';
 import max from 'lodash/max';
 import min from 'lodash/min';
-import React, { Children, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Children, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
+import FormContext from '../Form/FormContext';
+import { FormItemContext } from '../Form/FormItemContext';
 import { PopperOptionRef } from '../Popper/typings';
 import { TooltipRef } from '../Tooltip/typings';
 import { isEmpty, isNotEmpty, isUndefined, mergeDefaultProps } from '../Util';
+import { ValidateComponentsMap } from '../Util/icons';
 import { partitionAnimationProps, partitionHTMLProps, partitionPopperPropsUtils, useChildrenInstance, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { useComposition } from '../hooks/useComposition';
 import { useResizeObserver } from '../hooks/useResizeObserver';
@@ -26,7 +29,6 @@ const useSelect = (props: SelectProps) => {
             showArrow: true,
             clearable: false,
             filterable: false,
-            error: false,
             required: false,
             disabled: false,
             maxWidth: 500,
@@ -84,6 +86,11 @@ const useSelect = (props: SelectProps) => {
     const [value, setValue] = useControlled(props.value, props.defaultValue);
     const disabled = useDisabled(props.disabled);
     const size = useSize(props.size);
+
+    const { statusIcon } = useContext(FormContext);
+    const { validateState } = useContext(FormItemContext);
+
+    const validateIcon = useMemo(() => validateState && ValidateComponentsMap[validateState], [validateState]);
 
     // 单选框显示文本
     // const [selected, setSelected] = useState<OptionData | OptionData[]>(null);
@@ -514,6 +521,9 @@ const useSelect = (props: SelectProps) => {
         handleCompositionEnd,
         cachedOptions,
         aliasProps,
+        validateIcon,
+        statusIcon,
+        validateState,
     };
 };
 

@@ -426,10 +426,6 @@ const Input = memo(
                                     <Icon
                                         {...ValidateComponentsMap[validateState]}
                                         className={classNames(e`icon`, e`validateIcon`, is('loading', validateState === 'validating'))}
-                                        onMouseDown={event => {
-                                            event.preventDefault();
-                                            event.stopPropagation();
-                                        }}
                                     />
                                 )}
                             </span>
