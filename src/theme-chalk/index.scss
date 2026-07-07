@@ -20,6 +20,8 @@
 @use './cascader';
 @use './cascader-panel';
 @use './carousel';
+@use './form';
+@use './form-item';
 @use './checkbox';
 @use './checkbox-button';
 @use './checkbox-group';
@@ -40,8 +42,6 @@
 @use './switch';
 @use './segmented';
 @use './transfer';
-@use './form';
-@use './form-item';
 @use './upload';
 
 /* Data 数据展示 */

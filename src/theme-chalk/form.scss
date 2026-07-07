@@ -16,8 +16,16 @@
             }
         }
 
-        .#{$namespace}-form-item__content {
-            width: getCssVar('form-inline-content-width');
+        .#{$namespace}-select {
+            --el-select-width: var(--el-form-inline-content-width);
+        }
+
+        .#{$namespace}-input {
+            --el-input-width: var(--el-form-inline-content-width);
+        }
+
+        .#{$namespace}-input-number {
+            --el-input-number-width: var(--el-form-inline-content-width);
         }
 
         &.#{$namespace}-form--label-top {

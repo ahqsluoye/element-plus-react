@@ -26,9 +26,12 @@ export interface FormContextProps extends FormProviderProps {
     triggerFormFinish: (name: string, values: Store) => void;
     registerForm: (name: string, form: FormInstance) => void;
     unregisterForm: (name: string) => void;
+    /** 是否显示校验状态图标 */
+    statusIcon?: boolean;
 }
 
 const FormContext = createContext<FormContextProps>({
+    statusIcon: false,
     triggerFormChange: noop,
     triggerFormFinish: noop,
     registerForm: noop,

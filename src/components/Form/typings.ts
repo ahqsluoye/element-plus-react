@@ -58,6 +58,8 @@ export interface FormProps<Values = Store> extends BaseFormProps {
     showMessage?: boolean;
     /** 当校验失败时，滚动到第一个错误表单项 */
     scrollToError?: boolean;
+    /** 是否显示校验状态图标 */
+    statusIcon?: boolean;
 
     onChange?: (model) => void;
     formStyle?: React.CSSProperties;

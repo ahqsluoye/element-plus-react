@@ -49,6 +49,9 @@ interface ChildProps {
     [name: string]: any;
 }
 
+export const formItemValidateStates = ['', 'error', 'validating', 'success'] as const;
+export type FormItemValidateState = (typeof formItemValidateStates)[number];
+
 export interface InternalFieldProps<Values = any> extends Omit<FormItemProps<Values>, 'children'> {
     children?: ComponentChildren | ((control: ChildProps, meta: Meta, form: FormInstance<Values>) => React.ReactElement);
 
@@ -89,6 +92,8 @@ export interface InternalFieldProps<Values = any> extends Omit<FormItemProps<Val
     /** @private Pass context as prop instead of context api
      *  since class component can not get context in constructor */
     fieldContext?: InternalFormInstance;
+    /** formitem 校验的状态 */
+    validateState?: FormItemValidateState;
 }
 
 export interface FieldProps<Values = any> extends Omit<InternalFieldProps<Values>, 'name' | 'fieldContext'> {
@@ -662,14 +667,29 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
             returnChildNode = child;
         }
 
+        const validateState =
+            this.props.validateState ??
+            ((): FormItemValidateState => {
+                if (this.isFieldValidating()) {
+                    return 'validating';
+                } else if (this.errors.length > 0) {
+                    return 'error';
+                } else if (this.warnings.length > 0) {
+                    return 'error';
+                } else if (!this.isFieldValidating() && this.touched && this.errors.length === 0 && this.warnings.length === 0) {
+                    return 'success';
+                }
+                return '';
+            })();
+
         return noStyle ? (
-            <FormItemContext.Provider key={resetCount} value={{ size, hasLabel: !!label, labelPosition }}>
+            <FormItemContext.Provider key={resetCount} value={{ size, hasLabel: !!label, labelPosition, validateState }}>
                 <div
                     ref={this.containerRef}
                     className={classNames(b('form-item'), e('nostyle'), {
                         'is-error': this.errors.length > 0,
                         'is-warning': this.warnings.length > 0,
-                        'is-validating': this.isFieldValidating(),
+                        'is-validating': !this.isFieldValidating() && this.touched && this.errors.length === 0 && this.warnings.length === 0,
                         'is-success': this.errors.length === 0 && this.warnings.length === 0,
                     })}
                 >
@@ -678,7 +698,7 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
                 </div>
             </FormItemContext.Provider>
         ) : (
-            <FormItemContext.Provider key={resetCount} value={{ size, hasLabel: !!label, labelPosition }}>
+            <FormItemContext.Provider key={resetCount} value={{ size, hasLabel: !!label, labelPosition, validateState }}>
                 <div
                     ref={this.containerRef}
                     className={classNames(
@@ -687,7 +707,7 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
                             'is-error': this.errors.length > 0,
                             'is-warning': this.warnings.length > 0,
                             'is-validating': this.isFieldValidating(),
-                            'is-success': this.errors.length === 0 && this.warnings.length === 0,
+                            'is-success': !this.isFieldValidating() && this.touched && this.errors.length === 0 && this.warnings.length === 0,
                             'is-required': isRequired,
                             'is-no-asterisk': hideRequiredAsterisk,
                             [m(`label-${labelPosition}`)]: labelPosition,

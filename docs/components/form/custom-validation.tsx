@@ -1,4 +1,4 @@
-import { ElButton, ElForm, ElFormItem, ElInput, ElInputNumber, FormRules, isEmpty, useForm } from '@qsxy/element-plus-react';
+import { ElButton, ElForm, ElFormItem, ElInput, FormRules, isEmpty, useForm } from '@qsxy/element-plus-react';
 import React, { useCallback, useMemo } from 'react';
 
 const App = () => {
@@ -24,7 +24,7 @@ const App = () => {
             return callback(new Error('年龄不能为空'));
         }
         setTimeout(() => {
-            if (!Number.isInteger(value)) {
+            if (!/\d+/.test(value)) {
                 callback(new Error('请输入数字值'));
             } else {
                 if (value < 18) {
@@ -66,15 +66,15 @@ const App = () => {
     }, [checkAge, validatePass, validatePass2]);
 
     return (
-        <ElForm form={formInstance} rules={rules} style={{ width: 800 }}>
+        <ElForm form={formInstance} rules={rules} statusIcon style={{ width: 800 }}>
             <ElFormItem name="pass" label="密码" validateTrigger="onBlur">
-                <ElInput />
+                <ElInput type="password" />
             </ElFormItem>
             <ElFormItem name="checkPass" label="确认密码" validateTrigger="onBlur">
-                <ElInput />
+                <ElInput type="password" />
             </ElFormItem>
             <ElFormItem name="age" label="年龄" validateTrigger="onBlur">
-                <ElInputNumber controlsPosition="right" />
+                <ElInput />
             </ElFormItem>
             <ElFormItem pure>
                 <ElButton type="primary" onClick={onSubmit}>

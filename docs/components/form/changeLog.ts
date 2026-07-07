@@ -20,6 +20,11 @@ export default [
                 description: '统一表单组件命名为El前缀并重构导出结构',
                 author: 'ahqsluoye',
             },
+            {
+                type: 'refactor',
+                description: '新增Form组件statusIcon属性用于控制是否显示校验状态图标',
+                author: 'ahqsluoye',
+            },
         ],
     },
 ] as VersionChangelog[];

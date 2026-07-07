@@ -54,6 +54,7 @@ function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: For
         requireAsteriskPosition,
         showMessage,
         scrollToError,
+        statusIcon,
         ...restProps
     } = props;
     const formContext: FormContextProps = useContext(FormContext);
@@ -201,36 +202,43 @@ function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: For
     }
 
     return (
-        <Comp
-            method="post"
-            className={classNames(
-                b(),
-                [m(size || 'default')],
-                {
-                    [m('inline')]: inline,
-                    [m(`label-${labelPosition}`)]: !inline && labelPosition,
-                    [`${m`col`}-${cols}`]: cols,
-                },
-                is({ flat }),
-                className,
-            )}
-            style={formStyle}
-            {...omit(restProps, 'form')}
-            onSubmit={(event: Event) => {
-                event.preventDefault();
-                event.stopPropagation();
-
-                formInstance.submit();
-            }}
-            onReset={(event: Event) => {
-                event.preventDefault();
-
-                formInstance.resetFields();
-                restProps?.onReset?.call(this, event);
+        <FormContext.Provider
+            value={{
+                ...formContext,
+                statusIcon,
             }}
         >
-            {wrapperNode}
-        </Comp>
+            <Comp
+                method="post"
+                className={classNames(
+                    b(),
+                    [m(size || 'default')],
+                    {
+                        [m('inline')]: inline,
+                        [m(`label-${labelPosition}`)]: !inline && labelPosition,
+                        [`${m`col`}-${cols}`]: cols,
+                    },
+                    is({ flat }),
+                    className,
+                )}
+                style={formStyle}
+                {...omit(restProps, 'form')}
+                onSubmit={(event: Event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    formInstance.submit();
+                }}
+                onReset={(event: Event) => {
+                    event.preventDefault();
+
+                    formInstance.resetFields();
+                    restProps?.onReset?.call(this, event);
+                }}
+            >
+                {wrapperNode}
+            </Comp>
+        </FormContext.Provider>
     );
 }
 
