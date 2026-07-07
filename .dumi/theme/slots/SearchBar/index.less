@@ -1,6 +1,7 @@
 @import (reference) '../../styles/variables.less';
 
 .@{prefix}-search-bar {
+    --docsearch-hit-background: rgba(0, 61, 255, 0.1);
     position: relative;
 
     @media @mobile {
@@ -32,14 +33,18 @@
         padding: 0;
         padding-inline-start: 40px;
         padding-inline-end: 12px;
-        color: @c-text;
+        color: var(--el-text-color-primary);
         font-size: 14px;
-        border: 1px solid @c-border;
+        border: 1px solid var(--el-border-color);
         border-radius: 20px;
         box-sizing: border-box;
         outline: none;
         transition: all 0.3s;
         background-color: transparent;
+
+        &::placeholder {
+            color: var(--el-text-color-placeholder);
+        }
 
         @{dark-selector} & {
             color: @c-text-dark;
@@ -48,7 +53,7 @@
 
         &:focus {
             border-color: var(--el-color-primary);
-            background-color: #fff;
+            color: var(--el-text-color-primary);
             box-shadow: 0 0 0 3px fade(@c-primary, 10%);
 
             @{dark-selector} & {
@@ -99,7 +104,7 @@
         width: 540px;
         max-height: 460px;
         margin-top: 18px;
-        background-color: #fff;
+        background-color: var(--bg-color-soft);
         border-radius: 8px;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 20%);
 
@@ -116,7 +121,7 @@
             width: 0;
             height: 0;
             border: 8px solid transparent;
-            border-bottom-color: #fff;
+            border-bottom-color: var(--bg-color-soft);
 
             @{dark-selector} & {
                 border-bottom-color: lighten(@c-site-bg-dark, 6%);
@@ -235,6 +240,16 @@
                 background-color: @c-site-bg-dark;
                 border-color: @c-border-dark;
             }
+        }
+    }
+}
+
+.dark {
+    .@{prefix}-default-search-bar {
+        --docsearch-hit-background: rgba(0, 61, 255, 0.1);
+
+        .@{prefix}-default-search-popover {
+            background-color: var(--bg-color-soft);
         }
     }
 }

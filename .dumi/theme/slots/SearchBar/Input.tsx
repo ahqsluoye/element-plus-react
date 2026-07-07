@@ -1,13 +1,10 @@
 import { useIntl } from 'dumi';
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 
-type NativeInputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->;
+type NativeInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 type InputProps = {
-  onChange: (keywords: string) => void;
+    onChange: (keywords: string) => void;
 } & Pick<NativeInputProps, 'onFocus' | 'onBlur'>;
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
@@ -30,9 +27,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
             onFocus={props.onFocus}
             onBlur={props.onBlur}
             onKeyDown={ev => {
-                if (['ArrowDown', 'ArrowUp'].includes(ev.key)) { ev.preventDefault(); }
+                if (['ArrowDown', 'ArrowUp'].includes(ev.key)) {
+                    ev.preventDefault();
+                }
                 // esc to blur input
-                if (ev.key === 'Escape' && !imeWaiting.current) { ev.currentTarget.blur(); }
+                if (ev.key === 'Escape' && !imeWaiting.current) {
+                    ev.currentTarget.blur();
+                }
             }}
             onChange={ev => {
                 // wait for onCompositionEnd event be triggered
