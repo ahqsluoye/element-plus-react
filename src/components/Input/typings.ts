@@ -164,10 +164,6 @@ export interface TextareaProps
         NativeProps {
     /** 初始值 */
     defaultValue?: ValueType;
-    /** 表单校验错误提示 */
-    error?: boolean;
-    /** 表单校验警告提示 */
-    warning?: boolean;
     /** 是否纯文本模式，即无边框 */
     plain?: boolean;
     rows?: number;
@@ -183,6 +179,8 @@ export interface TextareaProps
     resize?: 'none' | 'both' | 'horizontal' | 'vertical';
     /** 高度是否自适应，可以接受一个对象，比如: { minRows: 2, maxRows: 6 }	 */
     autosize?: boolean | { minRows?: number; maxRows?: number };
+    /** 是否可清空 */
+    clearable?: boolean;
     /** 在 Input 值改变时触发 */
     onChange?: (value: ValueType, event?: React.ChangeEvent) => void;
 }
@@ -191,67 +189,46 @@ export type InputRangeValueType = [string | null, string | null] | [number | nul
 
 export interface InputRangeProps<T = InputRangeValueType> extends Omit<FormControlBaseProps<T>, 'name' | 'onChange'>, BaseProps, NativeProps {
     name?: [string, string];
-
     size?: TypeAttributes.Size;
-
     /** 只读 */
     readOnly?: boolean;
-
     /** 是否激活状态 */
     active?: boolean;
-
     onClick?: React.MouseEventHandler<HTMLDivElement>;
-
     /**
      * text，textarea 和其他原生 input 的 type 值
      * ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#%3Cinput%3E_types */
     type?: 'text' | 'hidden' | 'number';
-
     /** 输入框头部内容，只对 type="text" 有效 */
     prefix?: React.ReactElement<any> | string | number;
-
     /** 输入框尾部内容，只对 type="text" 有效 */
     suffix?: React.ReactElement<any> | string | number;
-
     /** 输入框前置内容，只对 type="text" 有效 */
     prepend?: React.ReactElement<any> | string | number;
-
     /** 输入框后置内容，只对 type="text" 有效 */
     append?: React.ReactElement | string | number;
-
     /** 数值精度 */
     precision?: number;
-
     /** 是否可清空 */
     clearable?: boolean;
-
     /** 是否纯文本模式，即无边框 */
     plain?: boolean;
-
     /** 表单校验失败 */
     error?: boolean;
-
     /** 表单校验失败 */
     warning?: boolean;
-
     /** 选择范围时的分隔符 */
     rangeSeparator?: string;
-
     /** 输入是否防抖动 */
     debounceInput?: boolean;
-
     /** input自定义内联样式 */
     innerStyle?: React.CSSProperties;
-
     /** 范围选择时开始输入框的占位内容 */
     startPlaceholder?: string;
-
     /** 范围选择时结束输入框的占位内容 */
     endPlaceholder?: string;
-
     /** 在点击由 clearable 属性生成的清空按钮时触发 */
     onClear?: (e: MouseEvent) => void;
-
     /** 选中值发生变化时触发 */
     onChange?: (value: InputRangeValueType | null, event?: Event) => void;
 }

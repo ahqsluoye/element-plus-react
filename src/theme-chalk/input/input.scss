@@ -54,6 +54,10 @@
         transition: getCssVar('transition-box-shadow');
         border: none;
 
+        @include when(clearable) {
+            padding: 5px map.get($input-padding-horizontal, 'default') + 14px 5px map.get($input-padding-horizontal, 'default')-$border-width;
+        }
+
         &::placeholder {
             color: getCssVarWithDefault('input-placeholder-color', map.get($input, 'placeholder-color'));
         }
@@ -65,6 +69,20 @@
         &:focus {
             outline: none;
             @include inset-input-border(#{getCssVar('input', 'focus-border-color')});
+        }
+    }
+
+    @include e(clear) {
+        position: absolute;
+        right: 7px;
+        top: 15px;
+        transform: translateY(-50%);
+        color: getCssVar('input-icon-color');
+        font-size: map.get($input-font-size, 'default');
+        cursor: pointer;
+
+        &:hover {
+            color: getCssVar('input-clear-hover-color');
         }
     }
 

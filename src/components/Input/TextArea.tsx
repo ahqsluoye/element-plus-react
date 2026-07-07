@@ -1,6 +1,8 @@
 import classNames from 'classnames';
+import { addStyle } from 'dom-lib';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { mergeDefaultProps } from '../Util';
+import Icon from '../Icon/Icon';
+import { cAF, mergeDefaultProps, rAF } from '../Util';
 import { partitionHTMLProps, useClassNames, useControlled, useDisabled } from '../hooks';
 import { useResizeObserver } from '../hooks/useResizeObserver';
 import { TextareaProps, TextareaRef } from './typings';
@@ -10,7 +12,7 @@ const TextArea = memo(
     forwardRef<TextareaRef, TextareaProps>((props, ref) => {
         props = mergeDefaultProps(
             {
-                placeholder: '请输入',
+                placeholder: '',
                 style: { width: '100%' },
                 autosize: true,
                 rows: 2,
@@ -21,16 +23,15 @@ const TextArea = memo(
         const {
             name,
             title,
-            error,
             placeholder,
             readOnly,
             plain,
+            clearable,
             rows,
             classPrefix = 'textarea',
             onFocus,
             onBlur,
             onChange,
-            warning,
             maxLength,
             showWordLimit,
             resize,
@@ -42,16 +43,22 @@ const TextArea = memo(
 
         const [value, setValue] = useControlled(props.value, props.defaultValue);
         const [focus, setFocus] = useState(false);
+        const [hovering, setHovering] = useState(false);
         const [textareaCalcStyle, setTextareaCalcStyle] = useState<React.CSSProperties>({});
         const disabled = useDisabled(props.disabled);
 
         const containerRef = useRef<HTMLDivElement>(null);
         const textareaRef = useRef<HTMLTextAreaElement>(null);
         const countRef = useRef<HTMLSpanElement>(null);
+        const iconRef = useRef<HTMLDivElement>(null);
+        let rAFId: number | undefined;
 
         const [htmlInputProps] = partitionHTMLProps(rest);
 
         const isWordLimitVisible = useMemo(() => showWordLimit && !!maxLength && !disabled && !readOnly, [showWordLimit, maxLength, disabled, readOnly]);
+
+        const renderClear = useMemo(() => clearable && !disabled && !readOnly, [clearable, disabled, readOnly]);
+        const showClear = useMemo(() => renderClear && !!value && (focus || hovering), [renderClear, value, focus, hovering]);
 
         const handleInput = useCallback(
             event => {
@@ -92,23 +99,47 @@ const TextArea = memo(
 
         const onceInitSizeTextarea = createOnceInitResize();
 
-        useResizeObserver(textareaRef, entries => {
-            onceInitSizeTextarea();
-            if (!isWordLimitVisible || resize !== 'both') {
-                return;
-            }
-            const entry = entries[0];
-            const { width } = entry.contentRect;
-            if (countRef.current) {
-                countRef.current.style.right = `calc(100% - ${width + 15 + 6}px)`;
-            }
-        });
+        // useResizeObserver(textareaRef, entries => {
+        //     onceInitSizeTextarea();
+        //    if ((!isWordLimitVisible && !renderClear) || (props.resize !== 'both' && props.resize !== 'horizontal')) {
+        //        return;
+        //    }
+        //     const entry = entries[0];
+        //     const { width } = entry.contentRect;
+        //     if (countRef.current) {
+        //         countRef.current.style.right = `calc(100% - ${width + 15 + 6}px)`;
+        //     }
+        // });
 
         useEffect(() => {
             if (autosize) {
                 resizeTextarea();
             }
         }, [value]);
+
+        useResizeObserver(textareaRef, entries => {
+            onceInitSizeTextarea();
+            if ((!isWordLimitVisible && !renderClear) || (props.resize !== 'both' && props.resize !== 'horizontal')) {
+                return;
+            }
+            const entry = entries[0];
+            const { width } = entry.target.getBoundingClientRect();
+
+            const updateStyle = () => {
+                rAFId = undefined;
+                addStyle(countRef.current, {
+                    /** right: 100% - (width - right(10)) */
+                    right: `calc(100% - ${width - 10}px)`,
+                });
+                addStyle(iconRef.current, {
+                    /** right: 100% - (width - right(11)) */
+                    right: `calc(100% - ${width - 11}px)`,
+                });
+            };
+
+            rAFId && cAF(rAFId);
+            rAFId = rAF(updateStyle);
+        });
 
         useImperativeHandle(ref, () => ({
             get input() {
@@ -129,14 +160,20 @@ const TextArea = memo(
         }));
 
         return (
-            <div className={classNames(b(), m`suffix`, is({ focus, disabled, plain }), props.className)} style={props.style} ref={containerRef}>
+            <div
+                className={classNames(b(), m`suffix`, is({ focus, disabled, plain }), props.className)}
+                onMouseEnter={() => setHovering(true)}
+                onMouseLeave={() => setHovering(false)}
+                style={props.style}
+                ref={containerRef}
+            >
                 <textarea
                     ref={textareaRef}
                     rows={rows}
                     name={name}
                     title={title}
                     value={value}
-                    className={classNames(e`inner`, props.className, is({ error, warning }))}
+                    className={classNames(e`inner`, is({ clearable }), props.className)}
                     style={{ minHeight: 31, resize: disabled ? 'none' : resize, ...textareaCalcStyle, ...inputStyle }}
                     placeholder={placeholder}
                     readOnly={readOnly}
@@ -159,6 +196,18 @@ const TextArea = memo(
                     )}
                     {...htmlInputProps}
                 />
+                {showClear && (
+                    <Icon
+                        ref={iconRef}
+                        name="circle-xmark"
+                        className={classNames(e`icon`, e`clear`)}
+                        // style={{ right: `calc(100% - ${width - 11}px)` }}
+                        onClick={() => {
+                            setValue('');
+                            onChange?.('');
+                        }}
+                    />
+                )}
                 {maxLength && showWordLimit ? (
                     <span ref={countRef} className={e`count`}>
                         {typeof value === 'string' ? value.length : 0} / {maxLength}
