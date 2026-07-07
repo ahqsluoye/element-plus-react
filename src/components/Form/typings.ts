@@ -393,6 +393,8 @@ export type InternalFormInstance = Omit<FormInstance, 'validateFields'> & {
     scrollToError?: boolean;
     /** 自动标签宽度 */
     autoLabelWidth?: string;
+    /** 是否显示校验状态图标 */
+    statusIcon?: boolean;
     /** 注册标签宽度 */
     registerLabelWidth?: (width: number, oldWidth: number) => void;
     /** 注销标签宽度 */

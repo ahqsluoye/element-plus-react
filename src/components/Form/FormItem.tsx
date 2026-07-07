@@ -7,6 +7,7 @@ import Transition from '../Transition/Transition';
 import { addUnit, isNotEmpty, warning } from '../Util';
 import { ComponentChildren } from '../types/common';
 import FieldContext, { HOOK_MARK } from './FieldContext';
+import FormContext, { FormContextProps } from './FormContext';
 import { FormItemContext } from './FormItemContext';
 import FormLabelWrap from './FormLabelWrap';
 import type {
@@ -91,6 +92,7 @@ export interface InternalFieldProps<Values = any> extends Omit<FormItemProps<Val
 
     /** @private Pass context as prop instead of context api
      *  since class component can not get context in constructor */
+    formContext?: FormContextProps;
     fieldContext?: InternalFormInstance;
     /** formitem 校验的状态 */
     validateState?: FormItemValidateState;
@@ -106,6 +108,7 @@ export interface FieldState {
 
 // We use Class instead of Hooks here since it will cost much code by using Hooks.
 class Field extends React.Component<InternalFieldProps, FieldState> implements FieldEntity {
+    public static formContext = FormContext;
     public static contextType = FieldContext;
 
     public static defaultProps = {
@@ -691,6 +694,7 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
                         'is-warning': this.warnings.length > 0,
                         'is-validating': !this.isFieldValidating() && this.touched && this.errors.length === 0 && this.warnings.length === 0,
                         'is-success': this.errors.length === 0 && this.warnings.length === 0,
+                        [m('feedback')]: this.props.formContext?.statusIcon,
                     })}
                 >
                     <div className={classNames(e`content`, { 'is-center': center })}>{returnChildNode}</div>
@@ -710,6 +714,7 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
                             'is-success': !this.isFieldValidating() && this.touched && this.errors.length === 0 && this.warnings.length === 0,
                             'is-required': isRequired,
                             'is-no-asterisk': hideRequiredAsterisk,
+                            [m('feedback')]: this.props.formContext?.statusIcon,
                             [m(`label-${labelPosition}`)]: labelPosition,
                             [m(sizeContext ?? size)]: sizeContext ?? size,
                         },
@@ -757,6 +762,7 @@ class Field extends React.Component<InternalFieldProps, FieldState> implements F
 }
 
 function InternalFormItem<Values = any>({ name, rules = [], ...restProps }: FieldProps<Values>) {
+    const formContext = useContext(FormContext);
     const fieldContext = useContext(FieldContext);
 
     const namePath = name !== undefined ? getNamePath(name) : undefined;
@@ -774,7 +780,7 @@ function InternalFormItem<Values = any>({ name, rules = [], ...restProps }: Fiel
 
     const formRules = namePath?.length > 0 ? get(fieldContext?.rules ?? {}, namePath) : undefined;
 
-    return <Field key={key} name={namePath} rules={[...(formRules || []), ...rules]} {...restProps} fieldContext={fieldContext} />;
+    return <Field key={key} name={namePath} rules={[...(formRules || []), ...rules]} {...restProps} formContext={formContext} fieldContext={fieldContext} />;
 }
 
 type InternalFormItemType = typeof InternalFormItem;

@@ -6,6 +6,7 @@ import Tag from '../Tag/Tag';
 import Tooltip from '../Tooltip/Tooltip';
 import { isEmpty, isNotEmpty } from '../Util';
 import { ValidateComponentsMap } from '../Util/icons';
+import { useClassNames } from '../hooks';
 import { useCalcInputWidth } from '../hooks/useCalcInputWidth';
 import Option from './Option';
 import OptionGroup from './OptionGroup';
@@ -79,6 +80,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
         validateState,
     } = _props;
     const { b, e, m, is } = nsSelect;
+    const nsInput = useClassNames('input');
 
     const { calculatorRef, inputStyle } = useCalcInputWidth();
 
@@ -247,7 +249,10 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                         {iconComponent ? <Icon name={iconComponent} className={classNames(e`caret`, e`icon`, e`arrow`, iconReverse)} onClick={toggleMenu}></Icon> : null}
                         {clearIcon ? <Icon prefix="fal" name={clearIcon} className={classNames(e`caret`, e`icon`, e`clear`)} onClick={onClear} /> : null}
                         {validateState && validateIcon && statusIcon && (
-                            <Icon {...ValidateComponentsMap[validateState]} className={classNames(e`icon`, e`validateIcon`, is('loading', validateState === 'validating'))} />
+                            <Icon
+                                {...ValidateComponentsMap[validateState]}
+                                className={classNames(nsInput.e('icon'), nsInput.e('validateIcon'), is('loading', validateState === 'validating'))}
+                            />
                         )}
                     </div>
                 )}
