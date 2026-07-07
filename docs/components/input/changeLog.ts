@@ -15,6 +15,11 @@ export default [
                 description: '重构输入框组件，优化清空、校验和后缀展示逻辑',
                 author: 'ahqsluoye',
             },
+            {
+                type: 'refactor',
+                description: '为TextArea组件添加一键清空功能',
+                author: 'ahqsluoye',
+            },
         ],
     },
 ] as VersionChangelog[];
