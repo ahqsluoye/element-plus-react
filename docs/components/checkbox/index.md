@@ -94,16 +94,16 @@ lang: zh-CN
 
 ### CheckboxGroup 属性
 
-| 属性名             | 说明                                                                           | 类型                                                                      | 默认值                                                         |
-| ------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| value              | 选中状态的值                                                                   | <Enum type='object'>string[] \| number[]</Enum>                           | []                                                             |
-| size               | 多选框组尺寸                                                                   | <Enum>'large' \| 'default' \| 'small'</Enum>                              | —                                                              |
-| disabled           | 是否禁用                                                                       | `boolean`                                                                 | false                                                          |
-| getBooleanOnSingle | 单个 CheckBox 时获取 Boolean 类型的值                                          | `boolean`                                                                 | false                                                          |
-| min                | 可被勾选的 checkbox 的最小数量                                                 | `number`                                                                  | —                                                              |
-| max                | 可被勾选的 checkbox 的最大数量                                                 | `number`                                                                  | —                                                              |
-| options            | 选项的数据源， `value` 的 key 和 `label` 和 ` disabled`可以通过 `props`自定义. | <Enum type="array">Array<{[key: string]: any}></Enum>                     | —                                                              |
-| props              | options 的配置                                                                 | <Enum type="object">{ value?: string, label?: string, disabled?: string}` | `{value: 'value', label: 'label', disabled: 'disabled'}</Enum> |
+| 属性名             | 说明                                                                           | 类型                                                                      | 默认值                                                                            |
+| ------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| value              | 选中状态的值                                                                   | <Enum type='object'>string[] \| number[]</Enum>                           | []                                                                                |
+| size               | 多选框组尺寸                                                                   | <Enum>'large' \| 'default' \| 'small'</Enum>                              | —                                                                                 |
+| disabled           | 是否禁用                                                                       | `boolean`                                                                 | false                                                                             |
+| getBooleanOnSingle | 单个 CheckBox 时获取 Boolean 类型的值                                          | `boolean`                                                                 | false                                                                             |
+| min                | 可被勾选的 checkbox 的最小数量                                                 | `number`                                                                  | —                                                                                 |
+| max                | 可被勾选的 checkbox 的最大数量                                                 | `number`                                                                  | —                                                                                 |
+| options            | 选项的数据源， `value` 的 key 和 `label` 和 ` disabled`可以通过 `props`自定义. | <Enum type="array">Array<{[key: string]: any}></Enum>                     | —                                                                                 |
+| props              | options 的配置                                                                 | <Enum type="object">{ value?: string; label?: string; disabled?: string }</Enum> | <Enum type="object">{value: 'value', label: 'label', disabled: 'disabled'}</Enum> |
 
 ### CheckboxGroup 事件
 
