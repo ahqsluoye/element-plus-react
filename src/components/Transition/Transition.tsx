@@ -284,6 +284,7 @@ class Transition extends Component<TransitionProps & ExtraProps, TransitionState
             'unmountOnExit',
             'transitionAppear',
             'duration',
+            'showDuration',
             'beforeEnter',
             'onEnter',
             'afterEnter',
