@@ -3,7 +3,7 @@ import { RefObject, useEffect, useMemo } from 'react';
 
 // 假设这些工具函数和常量已存在
 import classNames from 'classnames';
-import { SelectRef } from '../Select';
+import { SelectProps, SelectRef } from '../Select';
 import { TreeRef } from '../Tree/typings';
 import { nextTick } from '../Util';
 import { useClassNames } from '../hooks';
@@ -118,7 +118,7 @@ const useSelect = (props: TreeSelectProps, { selectRef, treeRef, key }: { select
     // 返回结果对象
     const result = useMemo(
         () => ({
-            ...pick(props, selectKeys),
+            ...(pick(props, selectKeys) as Omit<SelectProps, 'props' | 'options'>),
             className: props.popperClass,
             style: props.style,
             // onUpdateModelValue: (value: any) => props.onUpdateModelValue?.(value),
