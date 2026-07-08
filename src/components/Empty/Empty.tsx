@@ -1,7 +1,10 @@
 import classNames from 'classnames';
 import React, { FC, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { useClassNames } from '../hooks';
 import { BaseProps, NativeProps } from '../types/common';
+import { mergeDefaultProps } from '../Util';
 import ImgEmpty from './ImgEmpty';
 
 export interface IEmptyProps extends BaseProps, NativeProps {
@@ -11,7 +14,15 @@ export interface IEmptyProps extends BaseProps, NativeProps {
 }
 
 const Empty: FC<IEmptyProps> = props => {
-    const { image, imageSize, description = '暂无数据' } = props;
+    const { locale } = useConfigProvider();
+    const { t } = useTranslation();
+    props = mergeDefaultProps(
+        {
+            description: t('el.tree.emptyText', { lng: locale }),
+        },
+        props,
+    );
+    const { image, imageSize, description } = props;
     const { b, e } = useClassNames('empty');
     const imageStyle = useMemo(() => {
         return {

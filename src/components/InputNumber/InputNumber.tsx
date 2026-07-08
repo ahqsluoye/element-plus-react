@@ -153,7 +153,6 @@ const InputNumber = memo(
             }
             return currentValue ?? '';
         }, [userInput, value, precisionProp]);
-        console.log(value, displayValue);
 
         const toPrecision = useCallback(
             (num: number, pre?: number): number => {
