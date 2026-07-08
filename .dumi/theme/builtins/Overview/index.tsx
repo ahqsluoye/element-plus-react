@@ -1,4 +1,5 @@
-import { ElCard, ElEmpty, ElIcon, ElInput, ElLink, ElTag } from '@qsxy/element-plus-react';
+import { ElCard, ElEmpty, ElIcon, ElInput, ElLink, ElTag, InputRef } from '@qsxy/element-plus-react';
+import { useMount } from 'ahooks';
 import { useFullSidebarData } from 'dumi';
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +8,7 @@ import './index.scss';
 
 const Overview = () => {
     const [query, setQuery] = React.useState('');
-    const searchRef = React.useRef();
+    const searchRef = React.useRef<InputRef>();
     const sidebars = useFullSidebarData();
     const navigation = useNavigate();
 
@@ -36,10 +37,22 @@ const Overview = () => {
         return name ? overviewIcons[name] : null;
     };
 
+    useMount(() => {
+        searchRef.current?.focus();
+    });
+
     return (
         <div className="overview-container">
             <div className="search-content">
-                <ElInput ref={searchRef} value={query} onChange={(val: string) => setQuery(val)} prefix={<ElIcon name="search" />} size="large" placeholder="Search Components" />
+                <ElInput
+                    ref={searchRef}
+                    value={query}
+                    onChange={(val: string) => setQuery(val)}
+                    prefix={<ElIcon name="search" />}
+                    size="large"
+                    placeholder="Search Components"
+                    clearable
+                />
             </div>
 
             <div className="main-content">
