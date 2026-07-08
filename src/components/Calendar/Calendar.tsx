@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { isNotEmpty } from '../Util';
 import { useClassNames } from '../hooks';
-import CalendarContext from './CalendarContext';
+import CalendarContext, { ChangeParams } from './CalendarContext';
 import DatePanel from './DatePanel';
 import DateRangePanel from './DateRangePanel';
 import Footer from './Footer';
@@ -37,6 +37,7 @@ const Calendar: FC<CalendarProps> = forwardRef<HTMLDivElement, CalendarProps>((p
         showNow,
         popperInstRef,
         onChange,
+        close,
         onChangeRange,
         shortcuts,
     } = useContext(CalendarContext);
@@ -303,7 +304,14 @@ const Calendar: FC<CalendarProps> = forwardRef<HTMLDivElement, CalendarProps>((p
             ref={ref}
         >
             <div className={e`body-wrapper`}>
-                <ShortCuts shortcuts={shortcuts} onChange={onChange} e={e} />
+                <ShortCuts
+                    shortcuts={shortcuts}
+                    onChange={(val: dayjs.Dayjs, params?: ChangeParams) => {
+                        onChange?.(val, params);
+                        close?.();
+                    }}
+                    e={e}
+                />
                 <div className={e`body`}>
                     {props.children}
 

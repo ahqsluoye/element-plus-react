@@ -214,6 +214,10 @@ const DateTimePicker = memo(
                             onChange: handleChange,
                             disabledDate: props.disabledDate,
                             close: () => {
+                                if (isEmpty(value)) {
+                                    timeRef.current = dayjs().format(extractTimeFormat(format === 'x' ? 'HH:mm:ss' : format));
+                                    handleChange(dayjs());
+                                }
                                 setVisible(false);
                                 onVisibleChange?.(false);
                             },
