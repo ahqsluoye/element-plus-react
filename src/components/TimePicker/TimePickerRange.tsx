@@ -8,7 +8,9 @@ import head from 'lodash/head';
 import isEqual from 'lodash/isEqual';
 import last from 'lodash/last';
 import React, { forwardRef, memo, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ValueRagne } from '../Calendar';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Icon from '../Icon/Icon';
 import Popper from '../Popper/Popper';
 import { PopperOptionRef } from '../Popper/typings';
@@ -21,6 +23,9 @@ import { makeRange } from './util';
 
 const TimePickerRange = memo(
     forwardRef<TimePickerRef, TimePickerRangeProps>((props, ref) => {
+        const { locale } = useConfigProvider();
+        const { t } = useTranslation();
+
         props = mergeDefaultProps(
             {
                 format: 'HH:mm:ss',
@@ -30,8 +35,8 @@ const TimePickerRange = memo(
                 isoWeek: true,
                 clearable: true,
                 disabled: false,
-                startPlaceholder: '开始时间',
-                endPlaceholder: '结束时间',
+                startPlaceholder: t('el.datepicker.startTime', { lng: locale }),
+                endPlaceholder: t('el.datepicker.endTime', { lng: locale }),
                 rangeSeparator: '-',
             },
             props,

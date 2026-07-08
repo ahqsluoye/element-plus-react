@@ -18,11 +18,11 @@ const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) =>
     props = mergeDefaultProps(
         {
             name: ['', ''],
-            startPlaceholder: '请输入',
-            endPlaceholder: '请输入',
+            startPlaceholder: '',
+            endPlaceholder: '',
             type: 'text',
             clearable: true,
-            rangeSeparator: '到',
+            rangeSeparator: '-',
         },
         props,
     );

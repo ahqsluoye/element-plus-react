@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 import React, { forwardRef, memo, useImperativeHandle, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { useClassNames, useClickOutside } from '../hooks';
 import TimeSpinnerPanel from './TimeSpinnerPanel';
 import { SpinnerRef, TimePanelProps, TimePanelRef } from './typings';
@@ -8,6 +10,9 @@ const TimePickerPanel = memo(
     forwardRef<TimePanelRef, TimePanelProps>((props, ref) => {
         const { classPrefix = 'time', referenceElement, ...other } = props;
         const { b, be } = useClassNames(classPrefix);
+
+        const { locale } = useConfigProvider();
+        const { t } = useTranslation();
 
         const containerRef = useRef<HTMLDivElement>(null);
         const spinnerRef = useRef<SpinnerRef>(null);
@@ -40,10 +45,10 @@ const TimePickerPanel = memo(
                             props.onDestroy?.();
                         }}
                     >
-                        取 消
+                        {t('el.datepicker.cancel', { lng: locale })}
                     </button>
                     <button className={classNames(be('panel', 'btn'), 'confirm')} onClick={() => props.onOk?.()}>
-                        确 定
+                        {t('el.datepicker.confirm', { lng: locale })}
                     </button>
                 </div>
             </div>

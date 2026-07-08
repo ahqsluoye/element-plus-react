@@ -27,6 +27,6 @@
 
     &__body {
         border-radius: 2px;
-        border: 1px solid #e4e7ed;
+        border: 1px solid var(--#{$namespace}-border-color-light);
     }
 }

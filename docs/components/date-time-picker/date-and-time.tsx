@@ -7,12 +7,13 @@ const App = () => {
         <div className="demo-datetime-picker">
             <div className="block">
                 <span className="demonstration">默认选择器</span>
-                <ElDatePicker type="datetime" style={{ width: 200, marginRight: 20 }} />
+                <ElDatePicker type="datetime" placeholder="Select date and time" style={{ width: 200, marginRight: 20 }} />
             </div>
             <div className="block">
                 <span className="demonstration">带快捷方式的选择器</span>
                 <ElDatePicker
                     type="datetime"
+                    placeholder="Select date and time"
                     format="YYYYMMDD HH:mm:ss"
                     style={{ width: 200, marginRight: 20 }}
                     shortcuts={[
@@ -37,7 +38,13 @@ const App = () => {
             </div>
             <div className="block">
                 <span className="demonstration">带默认时间的选择器</span>
-                <ElDatePicker type="datetime" format="YYYY-MM-DD HH:mm:ss" defaultTime={new Date(2000, 1, 1, 12, 0, 0)} style={{ width: 200, marginRight: 20 }} />
+                <ElDatePicker
+                    type="datetime"
+                    placeholder="Select date and time"
+                    format="YYYY-MM-DD HH:mm:ss"
+                    defaultTime={new Date(2000, 1, 1, 12, 0, 0)}
+                    style={{ width: 200, marginRight: 20 }}
+                />
             </div>
         </div>
     );

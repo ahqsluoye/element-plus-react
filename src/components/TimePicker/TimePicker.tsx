@@ -27,7 +27,7 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
             isoWeek: true,
             clearable: true,
             disabled: false,
-            placeholder: '请选择时间',
+            placeholder: '',
         },
         props,
     );

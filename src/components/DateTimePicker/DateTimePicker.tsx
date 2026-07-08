@@ -25,7 +25,7 @@ const DateTimePicker = memo(
                 isoWeek: true,
                 clearable: true,
                 disabled: false,
-                placeholder: '请选择日期时间',
+                placeholder: '',
             },
             props,
         );

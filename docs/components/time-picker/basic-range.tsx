@@ -34,7 +34,7 @@ const App = () => {
         },
         [makeRange],
     );
-    return <ElTimePicker disabledHours={disabledHours} disabledMinutes={disabledMinutes} disabledSeconds={disabledSeconds} style={{ width: 200 }} />;
+    return <ElTimePicker disabledHours={disabledHours} disabledMinutes={disabledMinutes} disabledSeconds={disabledSeconds} placeholder="Arbitrary time" style={{ width: 200 }} />;
 };
 
 export default App;
