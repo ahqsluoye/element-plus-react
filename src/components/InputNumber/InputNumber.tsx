@@ -153,6 +153,7 @@ const InputNumber = memo(
             }
             return currentValue ?? '';
         }, [userInput, value, precisionProp]);
+        console.log(value, displayValue);
 
         const toPrecision = useCallback(
             (num: number, pre?: number): number => {
@@ -362,7 +363,7 @@ const InputNumber = memo(
                 }
                 onBlur?.(event);
                 if (isNotEmpty(userInputRef.current)) {
-                    setCurrentValue(String(userInputRef.current), false);
+                    setCurrentValue(String(userInputRef.current), true);
                     setUserInput(null);
                     userInputRef.current = null;
                 }
