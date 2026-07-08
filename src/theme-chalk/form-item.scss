@@ -191,6 +191,24 @@ $form-item-label-top-margin-bottom: map.merge(
         }
     }
 
+    @include e(warning) {
+        color: getCssVar('color-warning');
+        font-size: 12px;
+        line-height: 1;
+        padding-top: #{map.get($form-item-error-padding-top, 'default')};
+        position: absolute;
+        top: 100%;
+        left: 0;
+
+        @include m(inline) {
+            position: relative;
+            top: auto;
+            left: auto;
+            display: inline-block;
+            margin-left: 10px;
+        }
+    }
+
     @include when(required) {
         @include pseudo('not(.is-no-asterisk)') {
             &.asterisk-left {
@@ -224,7 +242,7 @@ $form-item-label-top-margin-bottom: map.merge(
                 &:hover,
                 &:focus,
                 &.is-focus {
-                    box-shadow: 0 0 0 1px getCssVar('color-danger') inset;
+                    box-shadow: 0 0 0 1px getCssVar('color-danger') inset !important;
                 }
             }
 
@@ -234,7 +252,7 @@ $form-item-label-top-margin-bottom: map.merge(
                 &:focus,
                 &.is-focus {
                     &::after {
-                        box-shadow: 0 0 0 1px getCssVar('color-danger') inset;
+                        box-shadow: 0 0 0 1px getCssVar('color-danger') inset !important;
                     }
                 }
             }
@@ -264,6 +282,99 @@ $form-item-label-top-margin-bottom: map.merge(
 
             .#{$namespace}-input__validateIcon {
                 color: getCssVar('color-danger');
+            }
+
+            .#{$namespace}-input-group__prepend {
+                .#{$namespace}-form-item.is-error {
+                    .#{$namespace}-form-item__content {
+                        .#{$namespace}-input__wrapper,
+                        .#{$namespace}-select__wrapper {
+                            box-shadow: 1px 0 0 0 var(--el-color-danger) inset, 0 1px 0 0 var(--el-color-danger) inset, 0 -1px 0 0 var(--el-color-danger) inset !important;
+                        }
+                    }
+                }
+                .#{$namespace}-form-item.is-success {
+                    .#{$namespace}-form-item__content {
+                        .#{$namespace}-input__wrapper,
+                        .#{$namespace}-select__wrapper {
+                            box-shadow: 1px 0 0 0 var(--el-input-border-color) inset, 0 1px 0 0 var(--el-input-border-color) inset, 0 -1px 0 0 var(--el-input-border-color) inset !important;
+                        }
+                    }
+                }
+            }
+
+            .#{$namespace}-input-group__append {
+                .#{$namespace}-form-item.is-error {
+                    .#{$namespace}-form-item__content {
+                        .#{$namespace}-input__wrapper,
+                        .#{$namespace}-select__wrapper {
+                            box-shadow: 0 1px 0 0 var(--el-color-danger) inset, 0 -1px 0 0 var(--el-color-danger) inset, -1px 0 0 0 var(--el-color-danger) inset !important;
+                        }
+                    }
+                }
+                .#{$namespace}-form-item.is-success {
+                    .#{$namespace}-form-item__content {
+                        .#{$namespace}-input__wrapper,
+                        .#{$namespace}-select__wrapper {
+                            box-shadow: 0 1px 0 0 var(--el-input-border-color) inset, 0 -1px 0 0 var(--el-input-border-color) inset, -1px 0 0 0 var(--el-input-border-color) inset !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @include when(warning) {
+        @include e(content) {
+            .#{$namespace}-input__wrapper,
+            .#{$namespace}-textarea__inner,
+            .#{$namespace}-select__wrapper,
+            .#{$namespace}-input-tag__wrapper,
+            :not(.#{$namespace}-input-otp--underlined) .#{$namespace}-input-otp__input-field {
+                &,
+                &:hover,
+                &:focus,
+                &.is-focus {
+                    box-shadow: 0 0 0 1px getCssVar('color-warning') inset !important;
+                }
+            }
+
+            .#{$namespace}-input-otp--underlined .#{$namespace}-input-otp__input-field {
+                &,
+                &:hover,
+                &:focus,
+                &.is-focus {
+                    &::after {
+                        box-shadow: 0 0 0 1px getCssVar('color-warning') inset !important;
+                    }
+                }
+            }
+
+            .#{$namespace}-input-group__prepend {
+                .#{$namespace}-input__wrapper,
+                .#{$namespace}-select__wrapper {
+                    box-shadow: 0 0 0 1px transparent inset;
+                    // box-shadow: 1px 0 0 0 var(--el-color-danger) inset, 0 1px 0 0 var(--el-color-danger) inset, 0 -1px 0 0 var(--el-color-danger) inset;
+                }
+
+                .#{$namespace}-input__validateIcon {
+                    display: none;
+                }
+            }
+            .#{$namespace}-input-group__append {
+                .#{$namespace}-input__wrapper,
+                .#{$namespace}-select__wrapper {
+                    box-shadow: 0 0 0 1px transparent inset;
+                    // box-shadow: 0 1px 0 0 var(--el-color-danger) inset, 0 -1px 0 0 var(--el-color-danger) inset, -1px 0 0 0 var(--el-color-danger) inset;
+                }
+
+                .#{$namespace}-input__validateIcon {
+                    display: none;
+                }
+            }
+
+            .#{$namespace}-input__validateIcon {
+                color: getCssVar('color-warning');
             }
 
             .#{$namespace}-input-group__prepend {

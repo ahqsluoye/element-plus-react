@@ -6,10 +6,11 @@ export { default as useForm } from './useForm';
 export { default as useWatch } from './useWatch';
 
 export type {
+    InternalFormInstance as FormContextProps,
     FormInstance,
+    FormItemProps,
     FormProps,
     FormRules,
-    InternalFormInstance,
     InternalNamePath,
     NamePath,
     Rule,
@@ -18,5 +19,3 @@ export type {
     ValidateMessages,
     ValidateOptions,
 } from './typings';
-
-export type { InternalFieldProps as FormItemProps } from './FormItem';

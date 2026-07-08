@@ -1,7 +1,6 @@
 import React, { ComponentClass, FC, RefObject } from 'react';
 import type { Options as ScrollOptions } from 'scroll-into-view-if-needed';
 import { BaseProps, ComponentChildren, NativeProps, TypeAttributes } from '../types/common';
-import { InternalFieldProps } from './FormItem';
 
 type BaseFormProps = Omit<React.AllHTMLAttributes<HTMLFormElement>, 'onSubmit' | 'form' | 'size' | 'children'>;
 
@@ -10,6 +9,16 @@ type RenderProps = (values: Store, form: FormInstance) => React.ReactElement;
 // <HTMLFormElement>
 
 export type FormRules = Record<string, Rule[] | Record<string, Rule[]>>;
+
+export type ShouldUpdate<Values = any> = boolean | ((prevValues: Values, nextValues: Values, info: { source?: string }) => boolean);
+
+export const formItemValidateStates = ['', 'error', 'validating', 'success'] as const;
+export type FormItemValidateState = (typeof formItemValidateStates)[number];
+
+export interface ChildProps {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [name: string]: any;
+}
 
 export interface FormProps<Values = Store> extends BaseFormProps {
     /** 经 useForm() 创建的 form 控制实例，不提供时会自动创建 */
@@ -67,7 +76,7 @@ export interface FormProps<Values = Store> extends BaseFormProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface FormItemProps<T> extends BaseProps, NativeProps {
+export interface FormItemProps<Values = any> extends Omit<BaseProps, 'children'>, NativeProps {
     /**
      * 配合 label 属性使用，表示是否显示 label 后面的冒号
      */
@@ -84,14 +93,12 @@ export interface FormItemProps<T> extends BaseProps, NativeProps {
     required?: boolean;
     /** 为 true 时不带样式，作为纯字段控件使用 */
     noStyle?: boolean;
-    /** 校验状态，如不设置，则会根据校验规则自动生成，可选：'success' 'warning' 'error' 'validating' */
-    validateStatus?: 'success' | 'warning' | 'error' | 'validating';
     /** 配置提示信息 */
     help?: string | React.ReactElement;
     /** 是否标签宽度为0，等用于`labelWidth={0}`，如果同时设置了labelWidth，则此配置无效 */
     pure?: boolean;
     /** 是否居中 */
-    center?: boolean;
+    // center?: boolean;
     /** 是否显示校验错误信息 */
     showMessage?: boolean;
     /** 文本自定义内联样式 */
@@ -102,6 +109,44 @@ export interface FormItemProps<T> extends BaseProps, NativeProps {
     warningStyle?: React.CSSProperties;
     /** 和原生标签相同能力 */
     // for?: string;
+    children?: ComponentChildren | ((control: ChildProps, meta: Meta, form: FormInstance<Values>) => React.ReactElement);
+    /**
+     * Set up `dependencies` field.
+     * When dependencies field update and current field is touched,
+     * will trigger validate rules and render.
+     */
+    dependencies?: NamePath[];
+    getValueFromEvent?: (...args: EventArgs) => StoreValue;
+
+    /** 字段名，支持数组 */
+    name?: InternalNamePath;
+    normalize?: (value: StoreValue, prevValue: StoreValue, allValues: Store) => StoreValue;
+
+    /** 校验规则，设置字段的校验逻辑。点击此处查看示例 */
+    rules?: Rule[];
+    shouldUpdate?: ShouldUpdate<Values>;
+    trigger?: string;
+    validateTrigger?: string | string[] | false;
+
+    /** 当某一规则校验不通过时，是否停止剩下的规则的校验。设置 parallel 时会并行校验 */
+    validateFirst?: boolean | 'parallel';
+    valuePropName?: string;
+    getValueProps?: (value: StoreValue) => Record<string, unknown>;
+    messageVariables?: Record<string, string>;
+    initialValue?: any;
+    onReset?: () => void;
+    onMetaChange?: (meta: Meta & { destroy?: boolean }) => void;
+    /** 当字段被删除时保留字段值 */
+    preserve?: boolean;
+    /** formitem 校验的状态 */
+    validateState?: FormItemValidateState;
+}
+export interface InternalFormItemProps<Values = any> extends FormItemProps<Values> {
+    /** @private Passed by ElFormList props. Do not use since it will break by path check. */
+    isListField?: boolean;
+
+    /** @private Passed by ElFormList props. Do not use since it will break by path check. */
+    isList?: boolean;
 }
 
 export interface FieldEntity {
@@ -124,7 +169,8 @@ export interface FieldEntity {
         rules?: Rule[];
         dependencies?: NamePath[];
         initialValue?: any;
-    } & InternalFieldProps;
+        scrollToError?: boolean;
+    } & InternalFormItemProps;
 }
 
 interface UpdateAction {

@@ -8,7 +8,7 @@ const warningFunc: any = () => {
     warning(false, 'Can not find FormContext. Please make sure you wrap Field under Form.');
 };
 
-const FormContext = createContext<InternalFormInstance>({
+const InternalFormContext = createContext<InternalFormInstance>({
     getFieldValue: warningFunc,
     getFieldsValue: warningFunc,
     getFieldError: warningFunc,
@@ -54,4 +54,4 @@ const FormContext = createContext<InternalFormInstance>({
     },
 });
 
-export default FormContext;
+export default InternalFormContext;

@@ -86,11 +86,11 @@ export type { ListStyle, SelectAllLabel, TransferDirection, TransferItem, Transf
 
 export { Form as ElForm, FormItem as ElFormItem, List as ElFormList, useForm, useWatch } from './Form';
 export type {
+    FormContextProps,
     FormInstance,
     FormItemProps,
     FormProps,
     FormRules,
-    InternalFormInstance,
     InternalNamePath,
     NamePath,
     Rule,

@@ -1,6 +1,6 @@
-import { createContext } from 'react';
+import { createContext, MutableRefObject } from 'react';
 import { TypeAttributes } from '../types/common';
-import { FormItemValidateState } from './FormItem';
+import { FormItemValidateState } from './typings';
 
 interface Props {
     size?: TypeAttributes.Size;
@@ -8,6 +8,10 @@ interface Props {
     labelPosition?: 'left' | 'right' | 'top';
     /** formitem 校验的状态 */
     validateState?: FormItemValidateState;
+    /** formitem 校验的状态 */
+    computedWidth?: number;
+    setComputedWidth?: (width: number) => void;
+    oldWidthRef: MutableRefObject<number>;
 }
 
 export const FormItemContext = createContext<Props>({
@@ -15,4 +19,7 @@ export const FormItemContext = createContext<Props>({
     hasLabel: false,
     labelPosition: 'right',
     validateState: null,
+    computedWidth: 0,
+    setComputedWidth: undefined,
+    oldWidthRef: { current: 0 },
 });

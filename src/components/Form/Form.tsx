@@ -3,8 +3,8 @@ import omit from 'lodash/omit';
 import React, { ForwardedRef, forwardRef, memo, useCallback, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
-import FieldContext, { HOOK_MARK } from './FieldContext';
 import FormContext, { FormContextProps } from './FormContext';
+import InternalFormContext, { HOOK_MARK } from './InternalFormContext';
 import { FieldData, FormInstance, FormProps, InternalFormInstance, Store } from './typings';
 import useForm from './useForm';
 import { isSimilar } from './utils/valueUtil';
@@ -171,6 +171,7 @@ function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: For
             showMessage,
             scrollToError,
             autoLabelWidth,
+            statusIcon,
             registerLabelWidth,
             deregisterLabelWidth,
         }),
@@ -190,55 +191,49 @@ function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: For
             scrollToError,
             showMessage,
             size,
+            statusIcon,
             validateTrigger,
         ],
     );
 
     // @ts-ignore
-    const wrapperNode = <FieldContext.Provider value={formContextValue}>{childrenNode}</FieldContext.Provider>;
+    const wrapperNode = <InternalFormContext.Provider value={formContextValue}>{childrenNode}</InternalFormContext.Provider>;
 
     if (Comp === false) {
         return wrapperNode;
     }
 
     return (
-        <FormContext.Provider
-            value={{
-                ...formContext,
-                statusIcon,
+        <Comp
+            method="post"
+            className={classNames(
+                b(),
+                [m(size || 'default')],
+                {
+                    [m('inline')]: inline,
+                    [m(`label-${labelPosition}`)]: !inline && labelPosition,
+                    [`${m`col`}-${cols}`]: cols,
+                },
+                is({ flat }),
+                className,
+            )}
+            style={formStyle}
+            {...omit(restProps, 'form')}
+            onSubmit={(event: Event) => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                formInstance.submit();
+            }}
+            onReset={(event: Event) => {
+                event.preventDefault();
+
+                formInstance.resetFields();
+                restProps?.onReset?.call(this, event);
             }}
         >
-            <Comp
-                method="post"
-                className={classNames(
-                    b(),
-                    [m(size || 'default')],
-                    {
-                        [m('inline')]: inline,
-                        [m(`label-${labelPosition}`)]: !inline && labelPosition,
-                        [`${m`col`}-${cols}`]: cols,
-                    },
-                    is({ flat }),
-                    className,
-                )}
-                style={formStyle}
-                {...omit(restProps, 'form')}
-                onSubmit={(event: Event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-
-                    formInstance.submit();
-                }}
-                onReset={(event: Event) => {
-                    event.preventDefault();
-
-                    formInstance.resetFields();
-                    restProps?.onReset?.call(this, event);
-                }}
-            >
-                {wrapperNode}
-            </Comp>
-        </FormContext.Provider>
+            {wrapperNode}
+        </Comp>
     );
 }
 

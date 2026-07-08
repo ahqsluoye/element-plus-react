@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import scrollIntoView, { StandardBehaviorOptions } from 'scroll-into-view-if-needed';
 import { warning } from '../Util';
-import { HOOK_MARK } from './FieldContext';
+import { HOOK_MARK } from './InternalFormContext';
 import type {
     Callbacks,
     FieldData,
@@ -914,8 +914,8 @@ export class FormStore {
                 return Promise.reject<string[]>([]);
             })
             .catch((results: { name: InternalNamePath; errors: string[] }[]) => {
-                const fieldContext = this.getFieldsMap().get(results[0].name)?.props?.fieldContext;
-                if (fieldContext?.scrollToError) {
+                const scrollToError = this.getFieldsMap().get(results[0].name)?.props?.scrollToError;
+                if (scrollToError) {
                     this.scrollToField(results[0].name);
                 }
                 const errorList = results.filter(result => result && result.errors.length);

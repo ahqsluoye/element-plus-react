@@ -1,11 +1,8 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { memo, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { useClassNames } from '../hooks';
 import { useResizeObserver } from '../hooks/useResizeObserver';
-import { throwError } from '../Util';
-import FieldContext from './FieldContext';
 import { FormItemContext } from './FormItemContext';
-
-const COMPONENT_NAME = 'ElLabelWrap';
+import FieldContext from './InternalFormContext';
 
 export interface FormLabelWrapProps {
     isAutoWidth?: boolean;
@@ -13,20 +10,17 @@ export interface FormLabelWrapProps {
     children?: React.ReactNode;
 }
 
-const FormLabelWrap: React.FC<FormLabelWrapProps> = props => {
+const FormLabelWrap: React.FC<FormLabelWrapProps> = memo(props => {
     const { isAutoWidth = false, updateAll = false, children } = props;
 
     const formContext = useContext(FieldContext);
     const formItemContext = useContext(FormItemContext);
 
-    if (!formItemContext) {
-        throwError(COMPONENT_NAME, 'usage: <ElFormItem><FormLabelWrap /></ElFormItem>');
-    }
+    const { computedWidth, setComputedWidth, oldWidthRef } = formItemContext;
 
     const { be } = useClassNames('form');
 
     const elRef = useRef<HTMLDivElement>(null);
-    const [computedWidth, setComputedWidth] = useState(0);
 
     const getLabelWidth = useCallback(() => {
         if (elRef.current?.firstElementChild) {
@@ -42,13 +36,14 @@ const FormLabelWrap: React.FC<FormLabelWrapProps> = props => {
             if (children && isAutoWidth) {
                 if (action === 'update') {
                     const newWidth = getLabelWidth();
+                    oldWidthRef.current = computedWidth;
                     setComputedWidth(newWidth);
                 } else if (action === 'remove') {
                     formContext?.deregisterLabelWidth?.(computedWidth);
                 }
             }
         },
-        [children, isAutoWidth, getLabelWidth, formContext, computedWidth],
+        [children, isAutoWidth, getLabelWidth, oldWidthRef, computedWidth, setComputedWidth, formContext],
     );
 
     useEffect(() => {
@@ -60,11 +55,11 @@ const FormLabelWrap: React.FC<FormLabelWrapProps> = props => {
 
     useEffect(() => {
         updateLabelWidth('update');
-    }, [children, updateLabelWidth]);
+    }, [children]);
 
     useEffect(() => {
         if (updateAll && formContext?.registerLabelWidth) {
-            formContext.registerLabelWidth(computedWidth, 0);
+            formContext.registerLabelWidth(computedWidth, oldWidthRef.current);
         }
     }, [computedWidth]);
 
@@ -89,6 +84,9 @@ const FormLabelWrap: React.FC<FormLabelWrapProps> = props => {
         const hasLabel = formItemContext?.hasLabel;
 
         if (hasLabel && autoLabelWidth && autoLabelWidth !== 'auto') {
+            if (computedWidth === 0) {
+                return null;
+            }
             const marginWidth = Math.max(0, Number.parseInt(autoLabelWidth, 10) - computedWidth);
             const labelPosition = formItemContext.labelPosition || formContext.labelPosition;
             const marginPosition = labelPosition === 'left' ? 'marginRight' : 'marginLeft';
@@ -113,8 +111,8 @@ const FormLabelWrap: React.FC<FormLabelWrapProps> = props => {
     } else {
         return <>{children}</>;
     }
-};
+});
 
-FormLabelWrap.displayName = COMPONENT_NAME;
+FormLabelWrap.displayName = 'ElLabelWrap';
 
 export default FormLabelWrap;

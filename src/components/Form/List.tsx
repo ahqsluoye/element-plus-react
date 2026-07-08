@@ -1,7 +1,7 @@
 import React, { FC, memo, useContext, useMemo, useRef } from 'react';
 import { warning } from '../Util';
-import FieldContext from './FieldContext';
 import FormItem from './FormItem';
+import FieldContext from './InternalFormContext';
 import ListContext, { ListContextProps } from './ListContext';
 import type { InternalNamePath, Meta, NamePath, StoreValue, ValidatorRule } from './typings';
 import { getNamePath, move } from './utils/valueUtil';

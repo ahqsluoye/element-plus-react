@@ -1,6 +1,6 @@
 import warning from 'rc-util/lib/warning';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
-import FieldContext, { HOOK_MARK } from './FieldContext';
+import FieldContext, { HOOK_MARK } from './InternalFormContext';
 import { FormInstance, InternalFormInstance, NamePath, Store } from './typings';
 import { getNamePath, getValue } from './utils/valueUtil';
 
