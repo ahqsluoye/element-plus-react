@@ -2,16 +2,24 @@ import ensureArray from 'lodash/castArray';
 import filter from 'lodash/filter';
 import max from 'lodash/max';
 import min from 'lodash/min';
-import React, { Children, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Children, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import FormContext from '../Form/FormContext';
-import { FormItemContext } from '../Form/FormItemContext';
 import { PopperOptionRef } from '../Popper/typings';
 import { TooltipRef } from '../Tooltip/typings';
 import { isEmpty, isNotEmpty, isUndefined, mergeDefaultProps } from '../Util';
 import { ValidateComponentsMap } from '../Util/icons';
-import { partitionAnimationProps, partitionHTMLProps, partitionPopperPropsUtils, useChildrenInstance, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
+import {
+    partitionAnimationProps,
+    partitionHTMLProps,
+    partitionPopperPropsUtils,
+    useChildrenInstance,
+    useClassNames,
+    useControlled,
+    useDisabled,
+    useSize,
+    useStatusIcon,
+} from '../hooks';
 import { useComposition } from '../hooks/useComposition';
 import { useResizeObserver } from '../hooks/useResizeObserver';
 import { OptionData, OptionValue, SelectDropdownRef, SelectOptionGroupProps, SelectOptionProps, SelectProps, ValueType } from './typings';
@@ -86,9 +94,7 @@ const useSelect = (props: SelectProps) => {
     const [value, setValue] = useControlled(props.value, props.defaultValue);
     const disabled = useDisabled(props.disabled);
     const size = useSize(props.size);
-
-    const { statusIcon } = useContext(FormContext);
-    const { validateState } = useContext(FormItemContext);
+    const { statusIcon, validateState } = useStatusIcon();
 
     const validateIcon = useMemo(() => validateState && ValidateComponentsMap[validateState], [validateState]);
 

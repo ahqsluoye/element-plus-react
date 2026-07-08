@@ -1,14 +1,12 @@
 import classNames from 'classnames';
 import { addStyle, hasClass } from 'dom-lib';
 import isObject from 'lodash/isObject';
-import React, { ComponentType, cloneElement, forwardRef, memo, useCallback, useContext, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import FormContext from '../Form/FormContext';
-import { FormItemContext } from '../Form/FormItemContext';
+import React, { ComponentType, cloneElement, forwardRef, memo, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import Icon from '../Icon/Icon';
 import { IconProps } from '../Icon/typings';
 import { isNotEmpty, mergeDefaultProps } from '../Util';
 import { ValidateComponentsMap } from '../Util/icons';
-import { partitionHTMLProps, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
+import { partitionHTMLProps, useClassNames, useControlled, useDisabled, useSize, useStatusIcon } from '../hooks';
 import { InputProps, InputRef, ValueType } from './typings';
 
 const Input = memo(
@@ -59,8 +57,7 @@ const Input = memo(
         const [focused, setFocused] = useState(false);
         const disabled = useDisabled(props.disabled);
         const size = useSize(props.size);
-        const { statusIcon } = useContext(FormContext);
-        const { validateState } = useContext(FormItemContext);
+        const { statusIcon, validateState } = useStatusIcon();
 
         const containerRef = useRef<HTMLDivElement>(null);
         const inputRef = useRef<HTMLInputElement>(null);
