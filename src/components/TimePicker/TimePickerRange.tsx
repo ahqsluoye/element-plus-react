@@ -46,8 +46,6 @@ const TimePickerRange = memo(
             onChange,
             prepend,
             append,
-            warning,
-            error,
             disabledHours,
             disabledMinutes,
             disabledSeconds,
@@ -327,7 +325,7 @@ const TimePickerRange = memo(
                         be('input', 'wrapper', false),
                         be('tooltip', 'trigger', false),
                         { [bm('editor', size)]: size },
-                        is({ active: visible, disabled, error, warning }),
+                        is({ active: visible, disabled }),
                     )}
                     ref={containerRef}
                     onClick={onActive}

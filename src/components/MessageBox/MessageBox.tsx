@@ -256,7 +256,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
                                 <Input
                                     value={inputValue}
                                     type={inputType}
-                                    error={validateError}
+                                    // error={validateError}
                                     placeholder={inputPlaceholder}
                                     onChange={(value: string) => {
                                         setInputValue(value);
