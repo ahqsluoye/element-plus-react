@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import last from 'lodash/last';
 import React, { memo, useContext, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Icon from '../Icon/Icon';
 import Scrollbar from '../Scrollbar/Scrollbar';
 import { ScrollbarRef } from '../Scrollbar/typings';
@@ -24,6 +26,9 @@ const CascaderDropdown = memo((props: Props) => {
     const { e, is } = useClassNames('cascader');
     const ulRef = useRef<HTMLUListElement>(null);
     const scrollBarRef = useRef<ScrollbarRef>(null);
+
+    const { locale } = useConfigProvider();
+    const { t } = useTranslation();
 
     const [checkedNode, setCheckedNode] = useState(multiple ? (value as string[][]).map(item => item.join(separator)) : [value.join(separator)]);
 
@@ -63,7 +68,7 @@ const CascaderDropdown = memo((props: Props) => {
             <Scrollbar wrapClass={e`suggestion-panel`} ref={scrollBarRef}>
                 <ul className={e`suggestion-list`} ref={ulRef}>
                     {list}
-                    {options?.length === 0 && <li className={classNames(e`empty-text`)}>暂无数据</li>}
+                    {options?.length === 0 && <li className={classNames(e`empty-text`)}>{t('el.cascader.noMatch', { lng: locale })}</li>}
                 </ul>
             </Scrollbar>
         </div>

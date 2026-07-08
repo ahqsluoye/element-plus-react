@@ -1,8 +1,10 @@
 /* eslint-disable indent */
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useContext, useImperativeHandle, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import scrollIntoView from 'scroll-into-view-if-needed';
 import Checkbox from '../Checkbox/Checkbox';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import Icon from '../Icon/Icon';
 import { Radio } from '../Radio';
 import Scrollbar from '../Scrollbar/Scrollbar';
@@ -28,6 +30,9 @@ const CascaderMenu = memo(
         const { value: valueKey = 'value', label: labelKey = 'label', disabled: disabledKey = 'disabled', multiple, expandTrigger, checkStrictly } = menuProps;
         const { b, be, is } = useClassNames('cascader');
         const ulRef = useRef<ScrollbarRef>(null);
+
+        const { locale } = useConfigProvider();
+        const { t } = useTranslation();
 
         const scrollToSelected = useCallback(() => {
             if (ulRef.current?.resizeRef?.current) {
@@ -115,7 +120,7 @@ const CascaderMenu = memo(
                             </li>
                         );
                     })}
-                {data?.length === 0 && (loading ? '正在加载数据...' : '暂无数据!')}
+                {data?.length === 0 && (loading ? t('el.cascader.loading', { lng: locale }) : t('el.cascader.noData', { lng: locale }))}
             </Scrollbar>
         );
     }),
