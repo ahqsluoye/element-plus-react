@@ -45,7 +45,7 @@ const App = () => {
                     </>
                 }
                 visible={visible}
-                close={() => setVisible(false)}
+                onCloseDialog={() => setVisible(false)}
                 width={500}
             >
                 <span>It's a draggable Dialog</span>
@@ -64,7 +64,7 @@ const App = () => {
                 }
                 visible={dialogOverflowVisible}
                 overflow
-                close={() => setDialogOverflowVisible(false)}
+                onCloseDialog={() => setDialogOverflowVisible(false)}
                 width={500}
             >
                 <span>It's a overflow draggable Dialog</span>
@@ -84,7 +84,7 @@ const App = () => {
                 visible={customDraggingVisible}
                 className="custom-dragging-style"
                 overflow
-                close={() => setCustomDraggingVisible(false)}
+                onCloseDialog={() => setCustomDraggingVisible(false)}
                 width={500}
             >
                 <span>This dialog has custom dragging styles. Try dragging it to see the effects!</span>

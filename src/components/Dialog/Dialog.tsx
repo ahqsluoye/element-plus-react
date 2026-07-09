@@ -1,13 +1,12 @@
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import omit from 'lodash/omit';
-import React, { ComponentType, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Transition from '../Transition/Transition';
-import { PopupManager, addUnit, getScrollBarWidth } from '../Util';
-import { useClassNames, useControlled } from '../hooks';
+import { PopupManager, addUnit, getScrollBarWidth, mergeDefaultProps } from '../Util';
+import { useClassNames } from '../hooks';
 import { namespace } from '../hooks/prefix';
-import { ComponentChildren } from '../types/common';
 import DialogBody from './DialogBody';
 import { DialogContext } from './DialogContext';
 import DialogFooter from './DialogFooter';
@@ -17,14 +16,34 @@ import { useDraggable } from './useDraggable';
 
 const Dialog = React.memo(
     forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
+        props = mergeDefaultProps(
+            {
+                visible: false,
+                modal: true,
+                closeOnClickModal: true,
+                width: '50%',
+                overflow: false,
+                lockScroll: true,
+                showClose: true,
+                classPrefix: 'dialog',
+                transitionConfig: 'dialog-fade',
+                openDelay: 0,
+                closeDelay: 0,
+            },
+            props,
+        );
         const {
-            modal = true,
-            closeOnClickModal = true,
-            width = '50%',
-            overflow = false,
+            visible,
+            modal,
+            modalPenetrable,
+            closeOnClickModal,
+            width,
+            overflow,
             title,
             footer,
             showClose,
+            openDelay,
+            closeDelay,
             border,
             children,
             center,
@@ -35,22 +54,16 @@ const Dialog = React.memo(
             bodyClass,
             footerClass,
             top,
-            close,
+            onCloseDialog,
             beforeClose,
-            lockScroll = true,
+            lockScroll,
             zIndex,
-            classPrefix = 'dialog',
+            classPrefix,
             modalClass,
-            transitionConfig = 'dialog-fade',
+            transitionConfig,
         } = props;
         const { b, m, is } = useClassNames(classPrefix);
-        const [visible, setVisible, isControlled] = useControlled(props.visible, props.defaultVisible);
 
-        /** 是否有标题 */
-        const haveTitle = useRef(false);
-
-        /** 是否有按钮组 */
-        const haveFooter = useRef(false);
         // 模态框容器div
         const wrapperRef = useRef<HTMLDivElement>(null);
         // 模态框主题div
@@ -67,36 +80,18 @@ const Dialog = React.memo(
 
         useDraggable(dialogRef, headerRef, draggable, overflow);
 
-        /** 获取子组件 */
-        const getInstancesFromChildren = useCallback((_children: ComponentChildren) => {
-            const componentChildren = _children instanceof Array ? _children : [_children];
-            componentChildren.forEach((node: React.ReactElement<any>) => {
-                let nodeType = node?.type;
-                nodeType = (nodeType as ComponentType)?.displayName || nodeType;
-                if (nodeType === 'ElDialogHeader') {
-                    haveTitle.current = true;
-                } else if (nodeType === 'ElDialogFooter') {
-                    haveFooter.current = true;
-                } else if (nodeType === 'Fragment') {
-                    getInstancesFromChildren(node);
-                }
-            });
-        }, []);
-
         const doClose = useCallback(() => {
             if (beforeClose) {
-                beforeClose?.((value: boolean) => {
-                    if (value) {
+                beforeClose?.((cancle: boolean) => {
+                    if (cancle) {
                         return;
                     }
-                    setVisible(false);
-                    close?.();
+                    onCloseDialog?.();
                 });
             } else {
-                setVisible(false);
-                close?.();
+                onCloseDialog?.();
             }
-        }, [beforeClose, close, setVisible]);
+        }, [beforeClose, onCloseDialog]);
 
         // const keydown = useCallback(
         //     ({ code }: KeyboardEvent) => {
@@ -136,19 +131,14 @@ const Dialog = React.memo(
                     }
                 });
             }
-        }, [b, modal, beforeClose, doClose, ref, setVisible, visible, closeOnClickModal]);
-
-        useEffect(() => {
-            getInstancesFromChildren(children);
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, []);
+        }, [b, modal, beforeClose, doClose, ref, visible, closeOnClickModal]);
 
         useImperativeHandle(ref, () => wrapperRef.current);
 
         const transitionName = typeof transitionConfig === 'string' ? transitionConfig : transitionConfig.name;
 
         return (
-            <DialogContext.Provider value={{ modal: modal, setVisible, isControlled, doClose, center, overflow, haveTitle: haveTitle.current, haveFooter: haveFooter.current }}>
+            <DialogContext.Provider value={{ modal: modal, doClose, center, overflow }}>
                 {createPortal(
                     <Transition
                         nodeRef={wrapperRef}
@@ -198,11 +188,15 @@ const Dialog = React.memo(
                                 document.body.style.width = '';
                             }
                         }}
-                        duration={280}
-                        showDuration={0}
+                        duration={200 + closeDelay}
+                        showDuration={openDelay}
                         {...(typeof transitionConfig === 'string' ? {} : omit(transitionConfig, 'name'))}
                     >
-                        <div className={classNames(b('overlay', false), modalClass || b('modal-dialog', false))} style={{ zIndex: nextZIndex }} ref={wrapperRef}>
+                        <div
+                            className={classNames(modal ? b('overlay', false) : '', modalClass || b('modal-dialog', false), is({ penetrable: modalPenetrable }))}
+                            style={modal ? { zIndex: nextZIndex } : { zIndex: nextZIndex, position: 'fixed', top: '0px', right: '0px', bottom: '0px', left: '0px' }}
+                            ref={wrapperRef}
+                        >
                             <div ref={overlayRef} className={b(`overlay-${classPrefix}`, false)} style={{ display: alignCenter ? 'flex' : 'block' }}>
                                 <div
                                     className={classNames(b(), props.className, is({ draggable, 'align-center': alignCenter, fullscreen }), { [m`center`]: center })}

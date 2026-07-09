@@ -50,8 +50,9 @@ const App = () => {
                 visible={visible}
                 title={`${currentAnimation} Animation Dialog`}
                 width="30%"
-                close={() => setVisible(false)}
+                onCloseDialog={() => setVisible(false)}
                 transitionConfig={transitionConfig}
+                closeDelay={80}
                 className="custom-transition-dialog"
                 footer={
                     <>

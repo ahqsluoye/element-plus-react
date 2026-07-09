@@ -4,7 +4,7 @@ import React, { useCallback, useState } from 'react';
 const App = () => {
     const [visible, setVisible] = useState(false);
     const beforeClose = useCallback(done => {
-        ElMessageBox.confirm('Are you sure to close this dialog?')
+        ElMessageBox.confirm('Are you sure to onCloseDialog this dialog?')
             .then(() => {
                 done();
             })
@@ -19,6 +19,8 @@ const App = () => {
             <ElDialog
                 visible={visible}
                 title="标题"
+                modal={false}
+                modalPenetrable
                 footer={
                     <>
                         <ElButton onClick={() => setVisible(false)}>取消</ElButton>
@@ -28,7 +30,7 @@ const App = () => {
                     </>
                 }
                 width={500}
-                close={() => setVisible(false)}
+                onCloseDialog={() => setVisible(false)}
                 beforeClose={beforeClose}
             >
                 <span>This is a message</span>

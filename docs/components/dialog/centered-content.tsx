@@ -24,7 +24,7 @@ const App = () => {
                         </ElButton>
                     </>
                 }
-                close={onClose}
+                onCloseDialog={onClose}
                 center
                 width={500}
             >

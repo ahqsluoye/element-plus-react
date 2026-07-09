@@ -12,7 +12,7 @@ const App = () => {
                 visible={visible}
                 title="外部对话框"
                 width={800}
-                close={() => setVisible(false)}
+                onCloseDialog={() => setVisible(false)}
                 footer={
                     <>
                         <ElButton onClick={() => setVisible(false)}>取消</ElButton>
@@ -25,7 +25,7 @@ const App = () => {
                 <span>我是外部对话框</span>
             </ElDialog>
 
-            <ElDialog visible={visible1} title="内部对话框" width={500} close={() => setVisible1(false)}>
+            <ElDialog visible={visible1} title="内部对话框" width={500} onCloseDialog={() => setVisible1(false)}>
                 <span>我是内部对话框</span>
             </ElDialog>
         </>

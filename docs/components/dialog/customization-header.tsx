@@ -16,12 +16,12 @@ const App = () => {
                     <div className="my-header">
                         <h4>This is a custom header!</h4>
                         <ElButton type="danger" onClick={() => setVisible(false)}>
-                            <ElIcon name="close" />
+                            <ElIcon name="onCloseDialog" />
                             Close
                         </ElButton>
                     </div>
                 }
-                close={() => setVisible(false)}
+                onCloseDialog={() => setVisible(false)}
             >
                 <span>This is a message</span>
             </ElDialog>

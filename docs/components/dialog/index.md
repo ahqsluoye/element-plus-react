@@ -92,8 +92,7 @@ Dialog 的内容是懒渲染的——在被打开之前，内容 不会被立即
 | ----------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------- | ----- |
 | visible           | 是否显示 Dialog（可控**必填项**）                                                               | `boolean`                                           | —     |
 | defaultVisible    | 默认是否显示 Dialog                                                                             | `boolean`                                           | —     |
-| close             | 关闭 Dialog 方法（**必填项**）                                                                  | <Enum type="Function">() => void</Enum>             |       |
-| close             | 默认是否显示 Dialog                                                                             | `boolean`                                           | —     |
+| onClose           | 关闭 Dialog 方法（**必填项**）                                                                  | <Enum type="Function">() => void</Enum>             |       |
 | title             | Dialog 对话框 Dialog 的标题                                                                     | `string`                                            | ''    |
 | width             | 对话框的宽度，默认值为 50%                                                                      | `string` / `number`                                 | ''    |
 | fullscreen        | 是否为全屏 Dialog                                                                               | `boolean`                                           | false |
