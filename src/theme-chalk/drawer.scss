@@ -1,247 +1,252 @@
-@use './mixins/config' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+@use 'common/popup' as *;
 
-.#{$namespace}-drawer-wrapper {
-    height: 100%;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1050;
+$directions: rtl, ltr, ttb, btt;
+
+.#{$namespace}-overlay.is-drawer {
+  overflow: hidden;
 }
 
-.#{$namespace}-drawer {
-    --#{$namespace}-drawer-width: 30%;
-    --#{$namespace}-drawer-height: 100%;
-    --#{$namespace}-drawer-margin-top: 30px;
-    --#{$namespace}-drawer-bg-color: var(--#{$namespace}-bg-color-overlay);
-    --#{$namespace}-drawer-box-shadow: var(--#{$namespace}-box-shadow);
-    --#{$namespace}-drawer-title-font-size: var(--#{$namespace}-font-size-large);
-    --#{$namespace}-drawer-content-font-size: 14px;
-    --#{$namespace}-drawer-font-line-height: var(--#{$namespace}-font-line-height-primary);
-    --#{$namespace}-drawer-padding-primary: 20px;
-    --#{$namespace}-drawer-border-radius: var(--#{$namespace}-border-radius-small);
-
-    display: none;
-    overflow: hidden;
-    position: fixed;
-    z-index: 1050;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12), 0 0 10px rgba(0, 0, 0, 0.06);
-    outline: 0;
-    width: var(--#{$namespace}-drawer-width);
-    height: var(--#{$namespace}-drawer-height);
+@include b(drawer) {
+  @include set-component-css-var('drawer', $drawer);
 }
 
-.#{$namespace}-drawer,
-.#{$namespace}-drawer-open.#{$namespace}-drawer-has-backdrop {
-    overflow: hidden;
-}
+@include b(drawer) {
+  position: absolute;
+  box-sizing: border-box;
+  background-color: getCssVar('drawer', 'bg-color');
+  display: flex;
+  flex-direction: column;
+  box-shadow: getCssVar('box-shadow', 'dark');
+  transition: all getCssVar('transition-duration');
 
-.#{$namespace}-drawer-left,
-.#{$namespace}-drawer-right {
-    top: 0;
-    --#{$namespace}-drawer-height: 100%;
-}
-
-.#{$namespace}-drawer-top,
-.#{$namespace}-drawer-bottom {
-    --#{$namespace}-drawer-width: 100%;
-}
-
-// .#{$namespace}-drawer-full {
-//     &.#{$namespace}-drawer-top,
-//     &.#{$namespace}-drawer-bottom {
-//         --#{$namespace}-drawer-height: 100%;
-
-//         .#{$namespace}-drawer-content {
-//             --#{$namespace}-drawer-height: 100%;
-//         }
-//     }
-
-//     &.#{$namespace}-drawer-left,
-//     &.#{$namespace}-drawer-right {
-//         --#{$namespace}-drawer-width: calc(100% - 60px);
-//     }
-// }
-
-.#{$namespace}-drawer-right {
-    right: 0;
-}
-
-.#{$namespace}-drawer-left {
-    left: 0;
-}
-
-.#{$namespace}-drawer-top {
-    top: 0;
-}
-
-.#{$namespace}-drawer-bottom {
-    bottom: 0;
-}
-
-.#{$namespace}-drawer-open .#{$namespace}-drawer {
-    overflow: visible;
-}
-
-.#{$namespace}-drawer-dialog {
-    position: relative;
-    width: 100%;
-    height: 100%;
-
-    .#{$namespace}-drawer-shake .#{$namespace}-drawer-dialog {
-        animation: 0.3s linear shakeHead;
+  @each $direction in $directions {
+    .#{$direction} {
+      transform: translate(0, 0);
     }
-}
+  }
 
-.#{$namespace}-drawer-content {
-    position: absolute;
-    background-color: var(--#{$namespace}-drawer-bg-color);
-    outline: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
+  &__sr-focus:focus {
+    outline: none !important;
+  }
 
-.#{$namespace}-drawer-backdrop {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1050;
-    background-color: var(--#{$namespace}-overlay-color-lighter);
-
-    // Fade for backdrop
-    &.#{$namespace}-anim-fade {
-        opacity: 0;
-        transition: opacity 0.3s ease-in;
-    }
-
-    &.#{$namespace}-anim-in {
-        opacity: 1;
-    }
-}
-
-.#{$namespace}-drawer-header {
+  &__header {
     align-items: center;
-    color: #72767b;
+    color: getCssVar('text-color', 'primary');
     display: flex;
-    margin-bottom: 15px;
-    padding: var(--el-drawer-padding-primary);
+    margin-bottom: 32px;
+    padding: getCssVar('drawer-padding-primary');
     padding-bottom: 0;
-
-    &::before,
-    &::after {
-        content: ' '; // 1
-        display: table; // 2
-    }
-
-    &::after {
-        clear: both;
-    }
-
+    overflow: hidden;
     & > :first-child {
-        flex: 1;
+      flex: 1;
     }
+  }
 
-    &.is-border {
-        border-bottom: 1px solid var(--#{$namespace}-border-color);
-        padding-bottom: var(--#{$namespace}-drawer-padding-primary);
-    }
-
-    .#{$namespace}-drawer-header-close {
-        display: inline-flex;
-        border: none;
-        cursor: pointer;
-        font-size: var(--el-font-size-extra-large);
-        color: inherit;
-        background-color: transparent;
-        outline: none;
-
-        &:focus i,
-        &:hover i {
-            color: var(--el-color-primary);
-        }
-
-        // background: transparent;
-        // border: none;
-        // cursor: pointer;
-        // position: absolute;
-        // right: 20px;
-        // top: 12px;
-        // font-size: 16px;
-        // line-height: 1.6666666667;
-        // color: var(--#{$namespace}-color-info);
-        // width: 20px;
-        // padding: 0 4px;
-    }
-}
-
-.#{$namespace}-drawer-title {
+  &__title {
     margin: 0;
     flex: 1;
     line-height: inherit;
     font-size: 16px;
+  }
 
-    // font-weight: normal;
-    // color: var(--#{$namespace}-text-color-primary);
-    // display: block;
-    // font-size: 16px;
-    // line-height: 1.25;
-
-    // margin: 0;
-    // overflow: hidden;
-    // text-overflow: ellipsis;
-    // white-space: nowrap;
-    // width: 100%;
-}
-
-.#{$namespace}-drawer-body {
-    position: relative;
-    flex: 1;
-    overflow: hidden;
-    padding: 20px;
-}
-
-.#{$namespace}-drawer-footer {
+  @include e(footer) {
+    padding: getCssVar('drawer-padding-primary');
+    padding-top: 10px;
     text-align: right;
-    border-top: none;
-    padding: 15px 20px;
+    overflow: hidden;
+  }
 
-    &::before,
-    &::after {
-        content: ' '; // 1
-        display: table; // 2
+  &__close-btn {
+    display: inline-flex;
+    border: none;
+    cursor: pointer;
+    font-size: getCssVar('font-size-extra-large');
+    color: inherit;
+    background-color: transparent;
+    outline: none;
+    &:focus,
+    &:hover {
+      i {
+        color: getCssVar('color-primary');
+      }
     }
+  }
 
-    &::after {
-        clear: both;
+  &__body {
+    flex: 1;
+    padding: getCssVar('drawer-padding-primary');
+    overflow: auto;
+    & > * {
+      box-sizing: border-box;
     }
+  }
 
-    // Properly space out buttons
-    .#{$namespace}-button + .#{$namespace}-button {
-        margin-left: 10px;
-        margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
-    }
-    // but override that for button groups
-    .#{$namespace}-button-group .#{$namespace}-button + .#{$namespace}-button {
-        margin-left: -1px;
-    }
-    // and override it for block buttons as well
-    .#{$namespace}-button-block + .#{$namespace}-button-block {
-        margin-left: 0;
-    }
-}
+  @include when(dragging) {
+    transition: none;
+  }
 
-.#{$namespace}-drawer-scrollbar-measure {
+  @include e(dragger) {
     position: absolute;
-    top: -9999px;
-    width: 50px;
-    height: 50px;
-    overflow: scroll;
+    background-color: transparent;
+    user-select: none;
+    transition: all 0.2s;
+
+    &::before {
+      content: '';
+      position: absolute;
+      background-color: transparent;
+      transition: all 0.2s;
+    }
+
+    &:hover::before {
+      background-color: getCssVar('color-primary');
+    }
+  }
+
+  &.ltr,
+  &.rtl {
+    height: 100%;
+    top: 0;
+    bottom: 0;
+
+    > .#{$namespace}-drawer__dragger {
+      height: 100%;
+      width: getCssVar('drawer-dragger-size');
+      top: 0;
+      bottom: 0;
+      cursor: ew-resize;
+
+      &::before {
+        top: 0;
+        bottom: 0;
+        width: 3px;
+      }
+    }
+  }
+
+  &.ttb,
+  &.btt {
+    width: 100%;
+    left: 0;
+    right: 0;
+
+    > .#{$namespace}-drawer__dragger {
+      width: 100%;
+      height: getCssVar('drawer-dragger-size');
+      left: 0;
+      right: 0;
+      cursor: ns-resize;
+
+      &::before {
+        left: 0;
+        right: 0;
+        height: 3px;
+      }
+    }
+  }
+
+  &.ltr {
+    left: 0;
+
+    > .#{$namespace}-drawer__dragger {
+      right: 0;
+
+      &::before {
+        right: -2px;
+      }
+    }
+  }
+
+  &.rtl {
+    right: 0;
+
+    > .#{$namespace}-drawer__dragger {
+      left: 0;
+
+      &::before {
+        left: -2px;
+      }
+    }
+  }
+
+  &.ttb {
+    top: 0;
+
+    > .#{$namespace}-drawer__dragger {
+      bottom: 0;
+
+      &::before {
+        bottom: -2px;
+      }
+    }
+  }
+
+  &.btt {
+    bottom: 0;
+
+    > .#{$namespace}-drawer__dragger {
+      top: 0;
+
+      &::before {
+        top: -2px;
+      }
+    }
+  }
 }
 
-.#{$namespace}-drawer-shake .#{$namespace}-drawer-dialog {
-    animation: 0.3s linear rShakeHead;
+.#{$namespace}-modal-drawer {
+  &.is-penetrable {
+    pointer-events: none;
+
+    .#{$namespace}-drawer {
+      pointer-events: auto;
+    }
+  }
+}
+
+.#{$namespace}-drawer-fade {
+  &-enter-active,
+  &-leave-active {
+    transition: all getCssVar('transition-duration');
+  }
+
+  &-enter-from,
+  &-enter-active,
+  &-enter-to,
+  &-leave-from,
+  &-leave-active,
+  &-leave-to {
+    overflow: hidden !important;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    background-color: transparent !important;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    @each $direction in $directions {
+      .#{$direction} {
+        @if $direction == ltr {
+          transform: translateX(-100%);
+        }
+
+        @if $direction == rtl {
+          transform: translateX(100%);
+        }
+
+        @if $direction == ttb {
+          transform: translateY(-100%);
+        }
+
+        @if $direction == btt {
+          transform: translateY(100%);
+        }
+      }
+    }
+  }
 }

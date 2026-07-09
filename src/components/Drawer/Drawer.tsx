@@ -1,12 +1,13 @@
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import { useComposeRef } from 'rc-util';
-import React, { forwardRef, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Transition from '../Transition/Transition';
-import { PopupManager, addUnit, getScrollBarWidth, mergeDefaultProps } from '../Util';
-import { useClassNames, useControlled } from '../hooks';
+import { PopupManager, addUnit, mergeDefaultProps } from '../Util';
+import { useClassNames } from '../hooks';
 import { namespace } from '../hooks/prefix';
+import { useLockscreen } from '../hooks/useLockscreen';
 import DrawerBody from './DrawerBody';
 import { DrawerContext } from './DrawerContext';
 import DrawerFooter from './DrawerFooter';
@@ -17,7 +18,7 @@ const Drawer = memo(
     forwardRef<HTMLDivElement, DrawerProps>((props, ref) => {
         props = mergeDefaultProps(
             {
-                direction: 'right',
+                direction: 'rtl',
                 modal: true,
                 closeOnClickModal: true,
                 withHeader: true,
@@ -27,7 +28,10 @@ const Drawer = memo(
             props,
         );
         const {
+            visible,
             modal,
+            modalPenetrable,
+            modalClass,
             closeOnClickModal,
             title,
             footer,
@@ -38,21 +42,23 @@ const Drawer = memo(
             size,
             direction,
             children,
-            close,
+            onCloseDrawer: close,
             beforeClose,
             showClose,
             border,
             classPrefix = 'drawer',
             lockScroll,
+            zIndex,
         } = props;
-        const { b, wb } = useClassNames(classPrefix);
-        const [visible, setVisible] = useControlled(props.visible, props.defaultVisible);
+        const { b, is } = useClassNames(classPrefix);
+
+        useLockscreen(visible, { shouldLock: lockScroll });
 
         const sizeStyle = useMemo(() => {
-            if (['left', 'right'].includes(direction)) {
-                return { '--el-drawer-width': addUnit(size) };
-            } else if (['top', 'bottom'].includes(direction)) {
-                return { '--el-drawer-height': addUnit(size) };
+            if (['ltr', 'rtl'].includes(direction)) {
+                return { width: addUnit(size) };
+            } else if (['ttb', 'btt'].includes(direction)) {
+                return { height: addUnit(size) };
             }
         }, [direction, size]);
 
@@ -60,35 +66,30 @@ const Drawer = memo(
         const wrapperRef = useRef<HTMLDivElement>(null);
         // 模态框主题div
         const drawerRef = useRef<HTMLDivElement>(null);
-        // 遮罩div
-        const backdropRef = useRef<HTMLDivElement>(null);
-
         const composedRef = useComposeRef(ref, wrapperRef);
 
-        const [zIndex, setZIndex] = useState({ modal: 1, drawer: 1 });
+        const nextZIndex = useMemo(() => zIndex || PopupManager.nextZIndex(), [zIndex]);
 
         const doClose = useCallback(() => {
             if (beforeClose) {
-                beforeClose?.((value: boolean) => {
-                    if (value) {
+                beforeClose?.((cancle: boolean) => {
+                    if (cancle) {
                         return;
                     }
-                    setVisible(false);
                     close?.();
                 });
             } else {
-                setVisible(false);
                 close?.();
             }
-        }, [beforeClose, close, setVisible]);
+        }, [beforeClose, close]);
 
         /**关闭对话框 */
         useEffect(() => {
             if (visible) {
-                setZIndex({
-                    modal: PopupManager.nextZIndex(),
-                    drawer: PopupManager.nextZIndex(),
-                });
+                // setZIndex({
+                //     modal: PopupManager.nextZIndex(),
+                //     drawer: PopupManager.nextZIndex(),
+                // });
                 let mousedown: MouseEvent;
                 const shadowRef = wrapperRef?.current;
                 shadowRef?.addEventListener('mousedown', (e: MouseEvent) => (mousedown = e));
@@ -112,31 +113,10 @@ const Drawer = memo(
                     }
                 });
             }
-        }, [b, closeOnClickModal, modal, close, ref, setVisible, visible, doClose]);
+        }, [visible]);
 
         return (
             <DrawerContext.Provider value={{ doClose }}>
-                {modal &&
-                    createPortal(
-                        <Transition
-                            nodeRef={backdropRef}
-                            visible={visible}
-                            transitionAppear
-                            unmountOnExit
-                            duration={300}
-                            showDuration={0}
-                            onEnter={() => {
-                                setTimeout(() => {
-                                    addClass(backdropRef.current, `${namespace}-anim-in`);
-                                }, 10);
-                            }}
-                            beforeLeave={() => removeClass(backdropRef.current, `${namespace}-anim-in`)}
-                        >
-                            <div className={classNames(b`backdrop`, `${namespace}-anim-fade`)} style={{ zIndex: zIndex.modal }} ref={backdropRef} />
-                        </Transition>,
-                        document.body,
-                    )}
-
                 {createPortal(
                     <Transition
                         nodeRef={wrapperRef}
@@ -144,23 +124,23 @@ const Drawer = memo(
                         showDuration={0}
                         transitionAppear
                         unmountOnExit
-                        beforeEnter={props.beforeEnter}
+                        beforeEnter={() => {
+                            props.beforeEnter?.();
+                            addClass(wrapperRef.current, b`fade-enter-from`);
+                            addClass(wrapperRef.current, b`fade-enter-active`);
+                        }}
                         onEnter={() => {
                             props.onOpen?.();
                             props.onEnter?.();
-                            if (lockScroll) {
-                                addClass(document.body, b('popup-parent--hidden', false));
-                                const scrollWidth = getScrollBarWidth(namespace);
-                                document.body.style.width = `calc(100% - ${scrollWidth}px)`;
-                            }
                         }}
                         afterEnter={() => {
                             props.afterEnter?.();
                             props.onOpened?.();
+                            removeClass(wrapperRef.current, b`fade-enter-from`);
                         }}
                         beforeLeave={() => {
-                            removeClass(drawerRef.current, `${namespace}-anim-slide-in`);
-                            addClass(drawerRef.current, `${namespace}-anim-slide-out`);
+                            addClass(wrapperRef.current, b`fade-leave-to`);
+                            addClass(wrapperRef.current, b`fade-leave-active`);
                             props.beforeLeave?.();
                         }}
                         onLeave={() => {
@@ -170,30 +150,24 @@ const Drawer = memo(
                         afterLeave={() => {
                             props.afterLeave?.();
                             props.onClosed?.();
-                            if (lockScroll) {
-                                removeClass(document.body, b('popup-parent--hidden', false));
-                                document.body.style.width = '';
-                            }
+                            removeClass(wrapperRef.current, b`fade-leave-active`);
+                            removeClass(wrapperRef.current, b`fade-leave-to`);
                         }}
                         duration={300}
                     >
-                        <div className={classNames(b`wrapper`, props.className)} style={{ ...props.style, zIndex: zIndex.drawer }} ref={composedRef}>
-                            <div
-                                className={classNames(wb(direction), `${namespace}-anim-slide-in`, `${namespace}-anim-${direction}`)}
-                                style={{ display: 'block', ...sizeStyle }}
-                                ref={drawerRef}
-                            >
-                                <div className={b`dialog`}>
-                                    <div className={b`content`}>
-                                        {withHeader ? (
-                                            <DrawerHeader className={headerClass} showClose={showClose} border={border}>
-                                                {title}
-                                            </DrawerHeader>
-                                        ) : null}
-                                        <DrawerBody className={bodyClass}>{children}</DrawerBody>
-                                        {footer && <DrawerFooter className={footerClass}>{footer}</DrawerFooter>}
-                                    </div>
-                                </div>
+                        <div
+                            className={classNames(modal ? b('overlay', false) : '', modalClass || b('modal-drawer', false), is('drawer', { penetrable: modalPenetrable }))}
+                            style={modal ? { zIndex: nextZIndex } : { zIndex: nextZIndex, position: 'fixed', top: '0px', right: '0px', bottom: '0px', left: '0px' }}
+                            ref={composedRef}
+                        >
+                            <div className={classNames(b(), direction, { open: visible }, props.className)} style={sizeStyle} role="dialog" ref={drawerRef}>
+                                {withHeader ? (
+                                    <DrawerHeader className={headerClass} showClose={showClose} border={border}>
+                                        {title}
+                                    </DrawerHeader>
+                                ) : null}
+                                <DrawerBody className={bodyClass}>{children}</DrawerBody>
+                                {footer && <DrawerFooter className={footerClass}>{footer}</DrawerFooter>}
                             </div>
                         </div>
                     </Transition>,

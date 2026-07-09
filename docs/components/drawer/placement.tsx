@@ -2,7 +2,7 @@ import { DrawerProps, ElButton, ElDrawer, ElSkeleton } from '@qsxy/element-plus-
 import React, { useCallback, useState } from 'react';
 
 const App = () => {
-    const [placement, setPlacement] = useState<DrawerProps['direction']>('right');
+    const [placement, setPlacement] = useState<DrawerProps['direction']>('rtl');
     const [visible, setVisible] = useState(false);
     const onClose = useCallback(() => {
         setVisible(false);
@@ -12,7 +12,7 @@ const App = () => {
         <>
             <ElButton
                 onClick={() => {
-                    setPlacement('left');
+                    setPlacement('ltr');
                     setVisible(true);
                 }}
             >
@@ -20,7 +20,7 @@ const App = () => {
             </ElButton>
             <ElButton
                 onClick={() => {
-                    setPlacement('right');
+                    setPlacement('rtl');
                     setVisible(true);
                 }}
             >
@@ -28,7 +28,7 @@ const App = () => {
             </ElButton>
             <ElButton
                 onClick={() => {
-                    setPlacement('top');
+                    setPlacement('ttb');
                     setVisible(true);
                 }}
             >
@@ -36,13 +36,13 @@ const App = () => {
             </ElButton>
             <ElButton
                 onClick={() => {
-                    setPlacement('bottom');
+                    setPlacement('btt');
                     setVisible(true);
                 }}
             >
                 Bottom
             </ElButton>
-            <ElDrawer title="标题" visible={visible} direction={placement} close={onClose}>
+            <ElDrawer title="标题" visible={visible} direction={placement} onCloseDrawer={onClose}>
                 <ElSkeleton rows={4}></ElSkeleton>
             </ElDrawer>
         </>

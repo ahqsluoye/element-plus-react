@@ -5,8 +5,6 @@ export interface DrawerProps
     extends AnimationEventProps,
         BaseProps,
         NativeProps<
-            | '--el-drawer-width'
-            | '--el-drawer-height'
             | '--el-drawer-margin-top'
             | '--el-drawer-bg-color'
             | '--el-drawer-box-shadow'
@@ -18,16 +16,16 @@ export interface DrawerProps
         > {
     /** 是否显示抽屉（可控） */
     visible?: boolean;
-    /** 默认是否显示抽屉 */
-    defaultVisible?: boolean;
     /** 当设置为 true，Drawer 打开时会显示背景，点击背景会关闭 Drawer，如果不想关闭 Drawer，可以设置为 'static' */
     modal?: boolean;
+    /** 是否允许穿透遮罩层。 modal 属性必须为 false */
+    modalPenetrable?: boolean;
     /** 是否可以通过点击 modal 关闭 Drawer */
     closeOnClickModal?: boolean;
     /** 是否在 Drawer 出现时将 body 滚动锁定 */
     lockScroll?: boolean;
     /** 应用于 backdrop DOM 节点的 css class */
-    modalClassName?: string;
+    modalClass?: string;
     /** header 部分的自定义 class 名 */
     headerClass?: string;
     /** body 部分的自定义 class 名 */
@@ -47,7 +45,13 @@ export interface DrawerProps
     /** 设置 Drawer 尺寸 */
     size?: number | string;
     /** 设置 Drawer 显示的位置 */
-    direction?: 'top' | 'bottom' | 'right' | 'left';
+    direction?: 'rtl' | 'ltr' | 'ttb' | 'btt';
+    /** 和原生的 CSS 的 z-index 相同，改变 z 轴的顺序 */
+    zIndex?: number;
+    /** dialog 打开的延时时间，单位毫秒 */
+    openDelay?: number;
+    /** dialog 关闭的延时时间，单位毫秒 */
+    closeDelay?: number;
     /** Drawer 打开的回调 */
     onOpen?: () => void;
     /** Drawer 打开动画结束时的回调 */
@@ -57,7 +61,7 @@ export interface DrawerProps
     /** Drawer 关闭动画结束时的回调 */
     onClosed?: () => void;
     /** 关闭弹窗函数 */
-    close: () => void;
+    onCloseDrawer?: () => void;
     /** 关闭前的回调，会暂停 Drawer 的关闭. 回调函数内执行 done 参数方法的时候才是真正关闭对话框的时候. */
     beforeClose?: DrawerBeforeCloseFn;
 }

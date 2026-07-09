@@ -32,7 +32,7 @@ const App = () => {
     return (
         <>
             <ElButton onClick={() => setVisible(true)}>打开对话框</ElButton>
-            <ElDrawer visible={visible} close={onClose} title="标题">
+            <ElDrawer visible={visible} onCloseDrawer={onClose} title="标题">
                 <ElForm form={formInstance} initialValues={initialValues} labelWidth={80}>
                     <ElFormItem name="name" label="活动名称">
                         <ElInput />

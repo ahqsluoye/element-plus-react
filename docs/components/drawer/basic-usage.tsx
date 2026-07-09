@@ -4,7 +4,7 @@ import React, { useCallback, useState } from 'react';
 const App = () => {
     const [visible, setVisible] = useState(false);
     const [visible1, setVisible1] = useState(false);
-    const [direction, setDirection] = useState<'right' | 'top' | 'bottom' | 'left'>('right');
+    const [direction, setDirection] = useState<'rtl' | 'ltr' | 'ttb' | 'btt'>('rtl');
 
     const onClose = useCallback(() => {
         setVisible(false);
@@ -37,22 +37,26 @@ const App = () => {
     return (
         <>
             <ElRadioGroup value={direction} onChange={setDirection}>
-                <ElRadio value="left">left to right</ElRadio>
-                <ElRadio value="right">right to left</ElRadio>
-                <ElRadio value="top">top to bottom</ElRadio>
-                <ElRadio value="bottom">bottom to top</ElRadio>
+                <ElRadio value="rtl">left to right</ElRadio>
+                <ElRadio value="ltr">right to left</ElRadio>
+                <ElRadio value="ttb">top to bottom</ElRadio>
+                <ElRadio value="btt">bottom to top</ElRadio>
             </ElRadioGroup>
 
-            <ElButton onClick={() => setVisible(true)}>打开对话框</ElButton>
-            <ElButton onClick={() => setVisible1(true)}>带footer</ElButton>
+            <ElButton type="primary" onClick={() => setVisible(true)}>
+                打开对话框
+            </ElButton>
+            <ElButton type="primary" onClick={() => setVisible1(true)}>
+                带footer
+            </ElButton>
 
-            <ElDrawer visible={visible} close={onClose} beforeClose={handleClose} direction={direction} title="标题">
+            <ElDrawer visible={visible} onCloseDrawer={onClose} beforeClose={handleClose} direction={direction} title="标题">
                 Hi, there!
             </ElDrawer>
 
             <ElDrawer
                 visible={visible1}
-                close={onClose1}
+                onCloseDrawer={onClose1}
                 direction={direction}
                 title="标题"
                 footer={

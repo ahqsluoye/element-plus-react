@@ -18,10 +18,10 @@ const App = () => {
             <ElButton onClick={() => setVisible(true)} autoInsertSpace={false}>
                 打开对话框
             </ElButton>
-            <ElDrawer size="50%" visible={visible} close={onClose} title={"I'm outer Drawer"}>
+            <ElDrawer size="50%" visible={visible} onCloseDrawer={onClose} title={"I'm outer Drawer"}>
                 <ElButton onClick={() => setVisible1(true)}>点击我</ElButton>
 
-                <ElDrawer visible={visible1} close={onClose1} title={"I'm inner Drawer"}>
+                <ElDrawer visible={visible1} onCloseDrawer={onClose1} title={"I'm inner Drawer"}>
                     <p>_(:зゝ∠)_</p>
                 </ElDrawer>
             </ElDrawer>

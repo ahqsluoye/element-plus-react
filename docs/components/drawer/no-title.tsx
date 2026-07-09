@@ -11,7 +11,7 @@ const App = () => {
     return (
         <>
             <ElButton onClick={() => setDialogB(true)}>打开对话框</ElButton>
-            <ElDrawer visible={dialogB} close={handleCloseB} withHeader={false}>
+            <ElDrawer visible={dialogB} onCloseDrawer={handleCloseB} withHeader={false}>
                 Hi there!
             </ElDrawer>
         </>

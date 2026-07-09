@@ -6,22 +6,22 @@ import { DrawerContext } from './DrawerContext';
 import { DrawerHeaderProps } from './typings';
 
 const DrawerHeader: FC<DrawerHeaderProps> = props => {
-    const { showClose: closeButton = true, classPrefix = 'drawer', border } = props;
-    const { b, is } = useClassNames(classPrefix);
+    const { showClose = true, classPrefix = 'drawer', border } = props;
+    const { b, e, is } = useClassNames(classPrefix);
 
     const { doClose } = useContext(DrawerContext);
 
     return (
-        <div className={classNames(b`header`, props.className, is({ border }))} style={props.style}>
-            <h4 className={b`title`} style={props.titleStyle}>
+        <header className={classNames(e`header`, props.className, is({ border }))} style={props.style}>
+            <span className={e`title`} style={props.titleStyle}>
                 {props.children}
-            </h4>
-            {closeButton && (
-                <span className={b`header-close`} onClick={doClose}>
-                    <Icon name={'xmark'} />
-                </span>
+            </span>
+            {showClose && (
+                <button className={e`close-btn`} type="button" onClick={doClose}>
+                    <Icon className={e`close`} name={'xmark'} />
+                </button>
             )}
-        </div>
+        </header>
     );
 };
 
