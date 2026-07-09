@@ -87,7 +87,7 @@ const Meta = props => {
                 visible={visible === 'issues'}
                 className="changelog-drawer"
                 size={700}
-                close={() => setVisible('')}
+                onCloseDrawer={() => setVisible('')}
             >
                 <div>
                     <ElTimeLine className="changelog-timeline">
@@ -136,7 +136,7 @@ const Meta = props => {
                 visible={visible === 'changeLog'}
                 className="changelog-drawer"
                 size={700}
-                close={() => setVisible('')}
+                onCloseDrawer={() => setVisible('')}
             >
                 <div>
                     <ElTimeLine className="changelog-timeline">

@@ -19,8 +19,6 @@ const App = () => {
             <ElDialog
                 visible={visible}
                 title="标题"
-                modal={false}
-                modalPenetrable
                 footer={
                     <>
                         <ElButton onClick={() => setVisible(false)}>取消</ElButton>

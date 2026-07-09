@@ -369,7 +369,7 @@ const IconList = () => {
                 </div>
             </div>
 
-            <ElDialog visible={dialogVisible} title={dialogTitle} close={() => setDialogVisible(false)}>
+            <ElDialog visible={dialogVisible} title={dialogTitle} onCloseDialog={() => setDialogVisible(false)}>
                 <div className="r-style-switcher">
                     {activeSubType === 'fab' ? (
                         <span className={classNames('style-toggle', 'active')} onClick={() => onChangeSubType('fab')}>

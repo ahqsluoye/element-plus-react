@@ -4,9 +4,9 @@ import omit from 'lodash/omit';
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Transition from '../Transition/Transition';
-import { PopupManager, addUnit, getScrollBarWidth, mergeDefaultProps } from '../Util';
+import { PopupManager, addUnit, mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
-import { namespace } from '../hooks/prefix';
+import { useLockscreen } from '../hooks/useLockscreen';
 import DialogBody from './DialogBody';
 import { DialogContext } from './DialogContext';
 import DialogFooter from './DialogFooter';
@@ -63,6 +63,8 @@ const Dialog = React.memo(
             transitionConfig,
         } = props;
         const { b, m, is } = useClassNames(classPrefix);
+
+        useLockscreen(visible, { shouldLock: lockScroll });
 
         // 模态框容器div
         const wrapperRef = useRef<HTMLDivElement>(null);
@@ -131,14 +133,14 @@ const Dialog = React.memo(
                     }
                 });
             }
-        }, [b, modal, beforeClose, doClose, ref, visible, closeOnClickModal]);
+        }, [visible]);
 
         useImperativeHandle(ref, () => wrapperRef.current);
 
         const transitionName = typeof transitionConfig === 'string' ? transitionConfig : transitionConfig.name;
 
         return (
-            <DialogContext.Provider value={{ modal: modal, doClose, center, overflow }}>
+            <DialogContext.Provider value={{ modal, doClose, center, overflow }}>
                 {createPortal(
                     <Transition
                         nodeRef={wrapperRef}
@@ -155,11 +157,6 @@ const Dialog = React.memo(
                             props.onEnter?.();
                             if (draggable && dialogRef.current) {
                                 // addStyle(modalRef.current, 'transform', `translate(${positionRef.current.left}px, ${positionRef.current.top}px)`);
-                            }
-                            if (lockScroll) {
-                                addClass(document.body, b('popup-parent--hidden', false));
-                                const scrollWidth = getScrollBarWidth(namespace);
-                                document.body.style.width = `calc(100% - ${scrollWidth}px)`;
                             }
                         }}
                         afterEnter={() => {
@@ -183,10 +180,6 @@ const Dialog = React.memo(
                             props.onClosed?.();
                             removeClass(wrapperRef.current, transitionName + '-leave-active');
                             removeClass(wrapperRef.current, transitionName + '-leave-to');
-                            if (lockScroll) {
-                                removeClass(document.body, b('popup-parent--hidden', false));
-                                document.body.style.width = '';
-                            }
                         }}
                         duration={200 + closeDelay}
                         showDuration={openDelay}
