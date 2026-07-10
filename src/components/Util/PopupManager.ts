@@ -2,7 +2,7 @@ const PopupManager: {
     zIndex: number;
     nextZIndex: () => number;
 } = {
-    zIndex: 1000000000,
+    zIndex: 10000,
     nextZIndex: () => ++PopupManager.zIndex,
 };
 

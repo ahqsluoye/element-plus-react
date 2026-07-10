@@ -75,6 +75,7 @@ const DocLayout: FC = memo(() => {
                     withHeader={false}
                     destroyOnClose={false}
                     style={{ '--el-drawer-padding-primary': '0px' }}
+                    zIndex={50000}
                     afterEnter={() => {
                         sidebarRef.current?.handleScrollIntoView(true);
                     }}

@@ -77,8 +77,6 @@ Tabs 组件提供了选项卡功能， 默认选中第一个标签页，你也�
 | contentStyle      | 内容 div 样式                                                                         | `React.CSSProperties`                                                                                                             | —          |
 | beforeLeave       | 切换标签之前的钩子函数， 若返回 `false ` 或者返回被 reject 的 `Promise`，则阻止切换。 | <Enum type="Function">(activeName: TabPaneName, oldActiveName: TabPaneName) => void \| boolean \| Promise<void \| boolean></Enum> | () => true |
 
-    <!-- | formatter         | 鼠标右键点击 tab 时触发                                                               | <Enum type="Function">(name: TabPaneName) => void</Enum>                                                                          | —          | -->
-
 ### Tabs 事件
 
 | 事件名      | 说明                    | 类型                                                                  |

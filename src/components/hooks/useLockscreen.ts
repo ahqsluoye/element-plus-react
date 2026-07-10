@@ -17,14 +17,12 @@ export const useLockscreen = (trigger: boolean, options: UseLockScreenOptions = 
     const hiddenCls = ns.bm('parent', 'hidden');
 
     const lockScroll = () => {
-        setTimeout(() => {
-            if (!options.shouldLock) {
-                return;
-            }
-            addClass(document.body, hiddenCls);
-            const scrollWidth = getScrollBarWidth(namespace);
-            document.body.style.width = `calc(100% - ${scrollWidth}px)`;
-        }, 200);
+        if (!options.shouldLock) {
+            return;
+        }
+        addClass(document.body, hiddenCls);
+        const scrollWidth = getScrollBarWidth(namespace);
+        document.body.style.width = `calc(100% - ${scrollWidth}px)`;
     };
 
     const unlockScroll = () => {

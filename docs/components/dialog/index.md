@@ -114,7 +114,7 @@ Dialog 的内容是懒渲染的——在被打开之前，内容 不会被立即
 | alignCenter       | 是否水平垂直对齐对话框                                                                          | `boolean`                                           | false |
 | zIndex            | 和原生的 CSS 的 z-index 相同，改变 z 轴的顺序                                                   | `number`                                            | —     |
 | className         | 组件的自定义类名                                                                                | `string`                                            | —     |
-| footer            | Dialog 对话框的底部内容，也可通过 Dialog.footer 传入                                            | `ReactNode`                                         | —     |
+| footer            | Dialog 对话框的底部内容                                                                         | `ReactNode`                                         | —     |
 | border            | 标题是否有边框                                                                                  | `boolean`                                           | —     |
 | transitionConfig  | Dialog 过渡动画配置                                                                             | `string \| TransitionProps`                         | —     |
 | destroyOnClose    | 控制是否在关闭 Dialog 之后将子元素全部销毁                                                      | `boolean`                                           | true  |
