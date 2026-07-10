@@ -25,15 +25,15 @@ export interface PopoverProps
     /** 显示的内容 */
     content?: string | React.ReactElement;
     /** 默认提供的主题 */
-    theme?: 'light' | 'dark' | string;
+    effect?: 'light' | 'dark' | string;
     /** 宽度 */
     width?: number | string;
     /** Popover 是否可用 */
     disabled?: boolean;
     /** 展开下拉菜单的延时，仅在 trigger 为 hover 时有效 */
-    showTimeout?: number;
+    showAfter?: number;
     /** 收起下拉菜单的延时（仅在 trigger 为 hover 时有效） */
-    hideTimeout?: number;
+    hideAfter?: number;
     /** 状态是否可见 */
     visible?: boolean;
     /** 初始值 */

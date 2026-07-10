@@ -71,7 +71,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
             classPrefix = 'message-box',
             className,
             style,
-            padding,
+            // padding,
             roundButton,
             dangerouslyUseHTMLString,
             ...rest

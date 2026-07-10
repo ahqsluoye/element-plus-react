@@ -194,7 +194,7 @@ export { Menu as ElMenu, MenuItem as ElMenuItem, MenuItemGroup as ElMenuItemGrou
 export type { MenuCloseEvent, MenuItemClicked, MenuItemGroupProps, MenuItemProps, MenuItemRegistered, MenuOpenEvent, MenuProps, MenuRef, SubMenuProps } from './Menu';
 
 export { TabPane as ElTabPane, Tabs as ElTabs } from './Tabs';
-export type { TabPaneProps, TabsPaneContext, TabsProps } from './Tabs';
+export type { TabPaneName, TabPaneProps, TabsPaneContext, TabsProps } from './Tabs';
 
 export { Empty as ElEmpty } from './Empty';
 export type { IEmptyProps } from './Empty';

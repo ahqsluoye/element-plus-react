@@ -46,7 +46,7 @@ export interface MessageBoxProps extends BaseProps, NativeProps, AnimationEventP
     /** 是否将取消（点击取消按钮）与关闭（点击关闭按钮或遮罩层、按下 Esc 键）进行区分 */
     distinguishCancelAndClose?: boolean;
     /** 内容区域padding */
-    padding?: string | number;
+    // padding?: string | number;
     /** 是否在 MessageBox 出现时将 body 滚动锁定 */
     lockScroll?: boolean;
     /** 是否显示输入框 */

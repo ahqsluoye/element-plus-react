@@ -50,6 +50,8 @@ scrollbar/manual-scroll -->
 | tag       | 视图的元素标签                                                       | `string`                                             | div    |
 | always    | 滚动条总是显示                                                       | `boolean`                                            | false  |
 | minSize   | 滚动条最小尺寸                                                       | `number`                                             | 20     |
+| showHorizontal | 是否显示横向滚动条                                              | `boolean`                                            | —      |
+| showVertical   | 是否显示纵向滚动条                                              | `boolean`                                            | —      |
 
 ### 事件
 

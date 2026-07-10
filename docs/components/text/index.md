@@ -50,3 +50,4 @@ lang: zh-CN
 | truncated | 显示省略号     | `boolean`                                                              | false   |
 | lineClamp | 最大行数       | `string` / `number`                                                    | —       |
 | tag       | 自定义元素标签 | `string`                                                               | span    |
+| title     | 标题           | `string`                                                               | —       |

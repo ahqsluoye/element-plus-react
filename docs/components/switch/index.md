@@ -67,30 +67,33 @@ lang: zh-CN
 
 ### 属性
 
-| 属性名             | 说明                                                                             | 类型                                | 可选值                  | 默认值  |
-| ------------------ | -------------------------------------------------------------------------------- | ----------------------------------- | ----------------------- | ------- |
-| value              | 绑定值，必须等于 `activeValue` 或 `inactiveValue`，默认为 `Boolean` 类型         | boolean / string / number           | —                       | —       |
-| disabled           | 是否禁用                                                                         | boolean                             | —                       | false   |
-| loading            | 是否显示加载中                                                                   | boolean                             | —                       | false   |
-| size               | switch 的大小                                                                    | string                              | large / default / small | default |
-| width              | switch 的宽度                                                                    | number                              | —                       | —       |
-| inlinePrompt       | 图标或文本是否显示在点内                                                         | boolean                             | —                       | false   |
-| activeIcon         | switch 状态为 `on` 时所显示图标，设置此项会忽略 `activeText`                     | `string \| Component`               | —                       | —       |
-| inactiveIcon       | switch 状态为 `off` 时所显示图标，设置此项会忽略 `inactiveText`                  | `string \| Component`               | —                       | —       |
-| activeActionIcon   | `on`状态下显示的图标组件                                                         | `string \| Component`               | —                       |
-| inactiveActionIcon | `off`状态下显示的图标组件                                                        | `string \| Component`               | —                       |
-| activeText         | switch 打开时的文字描述                                                          | string                              | —                       | —       |
-| inactiveText       | switch 的状态为 `off` 时的文字描述                                               | string                              | —                       | —       |
-| activeValue        | switch 状态为 `on` 时的值                                                        | boolean / string / number           | —                       | true    |
-| inactiveValue      | switch 的状态为 `off` 时的值                                                     | boolean / string / number           | —                       | false   |
-| activeColor        | 当在 `on` 状态时的背景颜色(已废弃，请使用 CSS var `--el-switch-on-color` )       | string                              | —                       | —       |
-| inactiveColor      | `off` 状态时的背景颜色(已废弃，使用 CSS var `--el-switch-of-color` )             | string                              | —                       | —       |
-| borderColor        | 开关的边框颜色 ( 已废弃，使用 CSS var `--el-switch-border-color` )               | string                              | —                       | —       |
-| name               | switch 对应的 name 属性                                                          | string                              | —                       | —       |
-| beforeChange       | switch 状态改变前的钩子， 返回 `false` 或者返回 `Promise` 且被 reject 则停止切换 | `() => Promise<boolean> \| boolean` | —                       | —       |
+| 属性名         | 说明                                                                             | 类型                                | 可选值                  | 默认值  |
+| -------------- | -------------------------------------------------------------------------------- | ----------------------------------- | ----------------------- | ------- |
+| value          | 绑定值，必须等于 `activeValue` 或 `inactiveValue`，默认为 `Boolean` 类型         | boolean / string / number           | —                       | —       |
+| disabled       | 是否禁用                                                                         | boolean                             | —                       | false   |
+| loading        | 是否显示加载中                                                                   | boolean                             | —                       | false   |
+| size           | switch 的大小                                                                    | string                              | large / default / small | default |
+| name           | switch 对应的 name 属性                                                          | string                              | —                       | —       |
+| width          | switch 的宽度                                                                    | number                              | —                       | —       |
+| inlinePrompt   | 图标或文本是否显示在点内                                                         | boolean                             | —                       | false   |
+| activeIcon     | switch 状态为 `on` 时所显示图标，设置此项会忽略 `activeText`                     | `string \| Component`               | —                       | —       |
+| inactiveIcon   | switch 状态为 `off` 时所显示图标，设置此项会忽略 `inactiveText`                  | `string \| Component`               | —                       | —       |
+| activeAction   | `on`状态下显示的图标组件                                                         | `string \| Component`               | —                       | —       |
+| inactiveAction | `off`状态下显示的图标组件                                                        | `string \| Component`               | —                       | —       |
+| activeText     | switch 打开时的文字描述                                                          | string                              | —                       | —       |
+| inactiveText   | switch 的状态为 `off` 时的文字描述                                               | string                              | —                       | —       |
+| activeValue    | switch 状态为 `on` 时的值                                                        | boolean / string / number           | —                       | true    |
+| inactiveValue  | switch 的状态为 `off` 时的值                                                     | boolean / string / number           | —                       | false   |
+| activeColor    | 当在 `on` 状态时的背景颜色(已废弃，请使用 CSS var `--el-switch-on-color` )       | string                              | —                       | —       |
+| inactiveColor  | `off` 状态时的背景颜色(已废弃，使用 CSS var `--el-switch-of-color` )             | string                              | —                       | —       |
+| borderColor    | 开关的边框颜色 ( 已废弃，使用 CSS var `--el-switch-border-color` )               | string                              | —                       | —       |
+| beforeChange   | switch 状态改变前的钩子， 返回 `false` 或者返回 `Promise` 且被 reject 则停止切换 | `() => Promise<boolean> \| boolean` | —                       | —       |
+
+<!-- 以下属性在当前类型定义中未找到 -->
+<!-- | validateEvent  | 是否触发表单验证                                                                 | `boolean`                           | —                       | true    | -->
 
 ### 事件
 
-| 事件名   | 说明                            | 回调参数        |
-| -------- | ------------------------------- | --------------- |
-| onChange | switch 状态发生变化时的回调函数 | val，新状态的值 |
+| 事件名   | 说明                            | 类型                                                                                                                                            |
+| -------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| onChange | switch 状态发生变化时的回调函数 | <Enum type="Function">(value?: boolean \| string \| number, checked?: boolean, e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => void</Enum> |

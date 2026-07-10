@@ -8,7 +8,7 @@ import { h } from 'preact';
                 );
             };
 
-            export const html = ``;
+            
 
             export default App;
             

@@ -33,8 +33,9 @@ lang: zh-CN
 
 ### BreadcrumbItem 属性
 
-| 属性名 | 说明                                      | 类型                                                   | 默认值 |
-| ------ | ----------------------------------------- | ------------------------------------------------------ | ------ |
-| to     | 路由跳转目标，同 `vueRouter` 的 `to` 属性 | `string` / <Enum type='object'>RouteLocationRaw</Enum> | ''     |
+| 属性名 | 说明                                      | 类型                                                     | 默认值 |
+| ------ | ----------------------------------------- | -------------------------------------------------------- | ------ |
+| to     | 路由跳转目标，同 `vueRouter` 的 `to` 属性 | `string` / <Enum type='object'>RouteProps</Enum>         | ''     |
+| onClick | 点击事件回调                              | <Enum type="Function">(to?: string \| RouteProps) => void</Enum> | —      |
 
 <!-- | replace | 如果设置该属性为 `true`, 导航将不会留下历史记录 | `boolean`                                              | false  | -->

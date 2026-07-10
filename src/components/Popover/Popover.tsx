@@ -12,14 +12,14 @@ const Popover = memo(
             {
                 placement: 'bottom',
                 showArrow: true,
-                showTimeout: 0,
-                hideTimeout: 100,
+                showAfter: 0,
+                hideAfter: 100,
                 width: 200,
                 trigger: 'click',
             },
             props,
         );
-        const { title, classPrefix = 'popover', plain, width, showTimeout, hideTimeout, offset, trigger, content, onEnter, onMouseEnter, onMouseLeave, placement, ...rest } = props;
+        const { title, classPrefix = 'popover', plain, width, showAfter, hideAfter, offset, trigger, content, onEnter, onMouseEnter, onMouseLeave, placement, ...rest } = props;
         const { b, e, m } = useClassNames(classPrefix);
         const [popperProps] = partitionPopperPropsUtils(rest);
         const [transitionProps] = partitionAnimationProps(rest);
@@ -55,8 +55,8 @@ const Popover = memo(
                 effect="light"
                 placement={placement}
                 offset={offset}
-                showAfter={showTimeout}
-                hideAfter={hideTimeout}
+                showAfter={showAfter}
+                hideAfter={hideAfter}
                 trigger={trigger}
                 onEnter={onEnter}
                 onMouseEnter={handleMouseEnter}

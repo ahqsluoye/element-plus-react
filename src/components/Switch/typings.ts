@@ -38,7 +38,7 @@ export interface SwitchProps<V = ValueType>
     /** switch的状态为 off 时的值 */
     inactiveValue?: V;
     /**  */
-    validateEvent?: boolean;
+    // validateEvent?: boolean;
     /** 是否显示加载中 */
     loading?: boolean;
     /** 无论图标或文本是否显示在点内，只会呈现文本的第一个字符 */

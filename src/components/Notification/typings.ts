@@ -34,7 +34,7 @@ export interface NotificationProps extends BaseProps, NativeProps, AnimationEven
     showClose?: boolean;
     /** 关闭时的回调函数 */
     onClose?: () => void;
-    /**  */
+    /** 自定义图标类名，用于自定义图标样式 */
     iconClass?: string;
     /**  */
     id?: string;

@@ -26,23 +26,7 @@ const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) =>
         },
         props,
     );
-    const {
-        name,
-        clearable,
-        startPlaceholder,
-        endPlaceholder,
-        type,
-        classPrefix = 'range',
-        active,
-        prefix,
-        suffix,
-        onChange,
-        append,
-        prepend,
-        precision = 0,
-        error,
-        warning,
-    } = props;
+    const { name, clearable, startPlaceholder, endPlaceholder, type, classPrefix = 'range', active, prefix, suffix, onChange, append, prepend, precision = 0 } = props;
     const [value, setValue] = useControlled(props.value, props.defaultValue);
     const { b, e, be, bm, ebm, is } = useClassNames(classPrefix);
     const [canClear, setCanClear] = useState(false);
@@ -271,7 +255,7 @@ const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) =>
                     b('input-range', false),
                     be('input', 'wrapper', false),
                     be('tooltip', 'trigger', false),
-                    is({ focus: active || focus, disabled, warning, error }),
+                    is({ focus: active || focus, disabled }),
                     { [bm('input-range', size, false)]: size },
                     append || prepend ? null : props.className,
                 )}
@@ -331,8 +315,6 @@ const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) =>
             is,
             active,
             focus,
-            warning,
-            error,
             bm,
             size,
             append,
@@ -376,6 +358,6 @@ const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) =>
     }
 });
 
-InputRange.displayName = 'InputRange';
+InputRange.displayName = 'ElInputRange';
 
 export default InputRange;

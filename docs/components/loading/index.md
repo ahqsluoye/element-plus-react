@@ -59,15 +59,16 @@ setTimeout(() => {
 
 ## 配置项
 
-| 属性       | 说明                                                                                                                                         | 类型                     | 可选值 | 默认值        |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------ | ------------- |
-| target     | Loading 需要覆盖的 DOM 节点。 可传入一个 DOM 对象或字符串； 若传入字符串，则会将其作为参数传入 `document.querySelector`以获取到对应 DOM 节点 | `string` / `HTMLElement` | —      | document.body |
+| 属性       | 说明                                                                                                                                         | 类型                                      | 可选值 | 默认值        |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- | ------ | ------------- |
+| target     | Loading 需要覆盖的 DOM 节点。 可传入一个 DOM 对象或字符串； 若传入字符串，则会将其作为参数传入 `document.querySelector`以获取到对应 DOM 节点 | <Enum type='object'>RefObject\<HTMLElement></Enum> | —      | document.body |
 | visible    | 是否显示 Loading                                                                                                                             | `boolean`                | —      | false         |
 | fullscreen | 是否让加载组件铺满整个屏幕                                                                                                                   | `boolean`                | —      | false         |
 | lock       | 是否锁定父级元素滚动                                                                                                                         | `boolean`                | —      | false         |
 | text       | 显示在加载图标下方的加载文案                                                                                                                 | `string`                 | —      | —             |
 | spinner    | 自定义加载图标类名                                                                                                                           | `string`                 | —      | —             |
 | background | 遮罩背景色                                                                                                                                   | `string`                 | —      | —             |
-| className  | Loading 的自定义类名                                                                                                                         | `string`                 | —      | —             |
 | svg        | 自定义 SVG 元素覆盖默认加载器                                                                                                                | `string`                 | —      | —             |
 | svgViewBox | 设置用于加载 svg 元素的 viewBox 属性                                                                                                         | `string`                 | —      | —             |
+<!-- 以下属性在当前类型定义中未找到 -->
+<!-- | className  | Loading 的自定义类名                                                                                                                         | `string`                 | —      | —             | -->

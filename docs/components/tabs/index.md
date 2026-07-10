@@ -71,25 +71,35 @@ Tabs 组件提供了选项卡功能， 默认选中第一个标签页，你也�
 | editable          | 标签是否同时可增加和关闭                                                              | `boolean`                                                                                                                         | false      |
 | tabPosition       | 选项卡所在位置                                                                        | <Enum>'top' \| 'right' \| 'bottom' \| 'left'</Enum>                                                                               | top        |
 | stretch           | 标签的宽度是否自撑开                                                                  | `boolean`                                                                                                                         | false      |
+| center            | 是否居中显示                                                                          | `boolean`                                                                                                                         | false      |
+| classPrefix       | 样式前缀                                                                              | `string`                                                                                                                          | —          |
+| headerStyle       | 标签页标题栏 div 样式                                                                 | `React.CSSProperties`                                                                                                             | —          |
+| contentStyle      | 内容 div 样式                                                                         | `React.CSSProperties`                                                                                                             | —          |
 | beforeLeave       | 切换标签之前的钩子函数， 若返回 `false ` 或者返回被 reject 的 `Promise`，则阻止切换。 | <Enum type="Function">(activeName: TabPaneName, oldActiveName: TabPaneName) => void \| boolean \| Promise<void \| boolean></Enum> | () => true |
+
+    <!-- | formatter         | 鼠标右键点击 tab 时触发                                                               | <Enum type="Function">(name: TabPaneName) => void</Enum>                                                                          | —          | -->
 
 ### Tabs 事件
 
-| 事件名      | 说明                    | 回调参数                                                                |
-| ----------- | ----------------------- | ----------------------------------------------------------------------- |
-| onTabClick  | tab 被选中时触发        | <Enum type="Function">(pane: TabsPaneContext, ev: Event) => void</Enum> |
-| onTabChange | `activeName` 改变时触发 | <Enum type="Function">(name: TabPaneName) => void</Enum>                |
-| onTabRemove | 点击 tab 移除按钮时触发 | <Enum type="Function">(name: TabPaneName) => void</Enum>                |
-| onTabAdd    | 点击 tab 新增按钮时触发 | <Enum type="Function">() => void</Enum>                                 |
+| 事件名      | 说明                    | 类型                                                                  |
+| ----------- | ----------------------- | --------------------------------------------------------------------- |
+| onTabClick  | tab 被选中时触发        | <Enum type="Function">(context: TabsPaneContext) => void</Enum>       |
+| onTabChange | `activeName` 改变时触发 | <Enum type="Function">(name: TabPaneName \| undefined) => void</Enum> |
+| onTabRemove | 点击 tab 移除按钮时触发 | <Enum type="Function">(name: TabPaneName \| undefined) => void</Enum> |
+| onTabAdd    | 点击 tab 新增按钮时触发 | <Enum type="Function">() => void</Enum>                               |
 
 ## Tab-pane API
 
 ### Tab-pane 属性
 
-| 属性名   | 说明                                                                                            | 类型                | 默认值 |
-| -------- | ----------------------------------------------------------------------------------------------- | ------------------- | ------ |
-| label    | 选项卡标题                                                                                      | `string`            | ''     |
-| disabled | 是否禁用                                                                                        | `boolean`           | false  |
-| name     | 与选项卡绑定值 value 对应的标识符，表示选项卡别名。默认值是 tab 面板的序列号，如第一个 tab 是 0 | `string` / `number` | —      |
-| closable | 标签是否可关闭                                                                                  | `boolean`           | false  |
-| lazy     | 标签是否延迟渲染                                                                                | `boolean`           | false  |
+| 属性名      | 说明                                                                                            | 类型                                    | 默认值 |
+| ----------- | ----------------------------------------------------------------------------------------------- | --------------------------------------- | ------ |
+| label       | 选项卡标题                                                                                      | `string` / `React.ReactElement`         | ''     |
+| name        | 与选项卡绑定值 value 对应的标识符，表示选项卡别名。默认值是 tab 面板的序列号，如第一个 tab 是 0 | `string` / `number`                     | —      |
+| closable    | 标签是否可关闭                                                                                  | `boolean`                               | false  |
+| disabled    | 是否禁用                                                                                        | `boolean`                               | false  |
+| lazy        | 标签是否延迟渲染                                                                                | `boolean`                               | false  |
+| classPrefix | 样式前缀                                                                                        | `string`                                | —      |
+| onTabShow   | 激活标签时触发                                                                                  | <Enum type="Function">() => void</Enum> | —      |
+| onTabClose  | 关闭标签页时触发                                                                                | <Enum type="Function">() => void</Enum> | —      |
+| data        | 传递给点击事件的额外参数                                                                        | `Record<string \| number, any>`         | —      |

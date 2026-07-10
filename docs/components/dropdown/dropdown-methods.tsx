@@ -8,7 +8,7 @@ import React from 'react';
                 );
             };
 
-            export const html = ``;
+            
 
             export default App;
             

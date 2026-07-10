@@ -71,38 +71,45 @@ lang: zh-CN
 
 ### Checkbox 属性
 
-| 属性名         | 说明                           | 类型                                         | 默认值 |
-| -------------- | ------------------------------ | -------------------------------------------- | ------ |
-| value          | 选中状态的值                   | `string` / `number`                          | —      |
-| disabled       | 是否禁用                       | `boolean`                                    | false  |
-| border         | 是否显示边框                   | `boolean`                                    | false  |
-| size           | Checkbox 的尺寸                | <Enum>'large' \| 'default' \| 'small'</Enum> | —      |
-| name           | 原生 name 属性                 | `string`                                     | —      |
-| checked        | 当前是否勾选（可控）           | `boolean`                                    | false  |
-| defaultChecked | 默认是否选中                   | `boolean`                                    | false  |
-| indeterminate  | 设置不确定状态，仅负责样式控制 | `boolean`                                    | false  |
+| 属性名         | 说明                             | 类型                                         | 默认值 |
+| -------------- | -------------------------------- | -------------------------------------------- | ------ |
+| value          | 选中状态的值                     | `string` / `number`                          | —      |
+| disabled       | 是否禁用                         | `boolean`                                    | false  |
+| size           | Checkbox 的尺寸                  | <Enum>'large' \| 'default' \| 'small'</Enum> | —      |
+| title          | tooltip 提示                     | `string`                                     | —      |
+| readOnly       | 是否只读                         | `boolean`                                    | —      |
+| name           | 原生 name 属性                   | `string`                                     | —      |
+| checked        | 当前是否勾选（可控）             | `boolean`                                    | false  |
+| defaultChecked | 默认是否选中                     | `boolean`                                    | false  |
+| indeterminate  | 设置不确定状态，仅负责样式控制   | `boolean`                                    | false  |
+| prevent        | 点击 checkbox 时是否阻止默认事件 | `boolean`                                    | —      |
+
+<!-- 以下属性在当前类型定义中未找到 -->
+<!-- | border         | 是否显示边框                   | `boolean`                                    | false  | -->
+<!-- | inline         | 内联布局                         | `boolean`                                    | —      | -->
 
 ### Checkbox 事件
 
-| 事件名          | 说明                     | 类型                                                                                                                  |
-| --------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------- |
-| onChange        | 当绑定值变化时触发的事件 | <Enum type='Function'>(checked: boolean, value: ValueType, event: React.ChangeEvent<HTMLInputElement>) => void</Enum> |
-| onClick         | 当绑定值变化时触发的事件 | <Enum type='Function'>(event: React.MouseEvent<HTMLLabelElement, MouseEvent>) => void</Enum>                          |
-| onCheckboxClick | 点击 checkbox 事件       | <Enum type='Function'>(event: React.MouseEvent<HTMLLabelElement, MouseEvent>) => void</Enum>                          |
+| 事件名          | 说明                        | 类型                                                                                                                  |
+| --------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| onChange        | 当绑定值变化时触发的事件    | <Enum type='Function'>(checked: boolean, value: ValueType, event: React.ChangeEvent<HTMLInputElement>) => void</Enum> |
+| onClick         | 点击 checkbox 顶级 div 事件 | <Enum type='Function'>(event: React.MouseEvent<HTMLLabelElement, MouseEvent>) => void</Enum>                          |
+| onCheckboxClick | 点击 checkbox 事件          | <Enum type='Function'>(event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void</Enum>                          |
 
 ## CheckboxGroup API
 
 ### CheckboxGroup 属性
 
-| 属性名             | 说明                                                                           | 类型                                                                      | 默认值                                                                            |
-| ------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| value              | 选中状态的值                                                                   | <Enum type='object'>string[] \| number[]</Enum>                           | []                                                                                |
-| size               | 多选框组尺寸                                                                   | <Enum>'large' \| 'default' \| 'small'</Enum>                              | —                                                                                 |
-| disabled           | 是否禁用                                                                       | `boolean`                                                                 | false                                                                             |
-| getBooleanOnSingle | 单个 CheckBox 时获取 Boolean 类型的值                                          | `boolean`                                                                 | false                                                                             |
-| min                | 可被勾选的 checkbox 的最小数量                                                 | `number`                                                                  | —                                                                                 |
-| max                | 可被勾选的 checkbox 的最大数量                                                 | `number`                                                                  | —                                                                                 |
-| options            | 选项的数据源， `value` 的 key 和 `label` 和 ` disabled`可以通过 `props`自定义. | <Enum type="array">Array<{[key: string]: any}></Enum>                     | —                                                                                 |
+| 属性名             | 说明                                                                           | 类型                                                                             | 默认值                                                                            |
+| ------------------ | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| value              | 选中状态的值（可控模式）                                                           | <Enum type='object'>string[] \| number[]</Enum>                                  | []                                                                                |
+| defaultValue       | 默认选中状态的值                                                                   | <Enum type='object'>string[] \| number[]</Enum>                                  | []                                                                                |
+| size               | 多选框组尺寸                                                                   | <Enum>'large' \| 'default' \| 'small'</Enum>                                     | —                                                                                 |
+| disabled           | 是否禁用                                                                       | `boolean`                                                                        | false                                                                             |
+| getBooleanOnSingle | 单个 CheckBox 时获取 Boolean 类型的值                                          | `boolean`                                                                        | false                                                                             |
+| min                | 可被勾选的 checkbox 的最小数量                                                 | `number`                                                                         | —                                                                                 |
+| max                | 可被勾选的 checkbox 的最大数量                                                 | `number`                                                                         | —                                                                                 |
+| options            | 选项的数据源， `value` 的 key 和 `label` 和 ` disabled`可以通过 `props`自定义. | <Enum type="array">Array<{[key: string]: any}></Enum>                            | —                                                                                 |
 | props              | options 的配置                                                                 | <Enum type="object">{ value?: string; label?: string; disabled?: string }</Enum> | <Enum type="object">{value: 'value', label: 'label', disabled: 'disabled'}</Enum> |
 
 ### CheckboxGroup 事件

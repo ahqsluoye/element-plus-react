@@ -45,7 +45,7 @@ Card 组件由 `header` 和 `body` 组成。 `header` 和 `footer` 是可选的�
 
 | 属性名    | 说明                                                  | 类型                                     | 默认值 |
 | --------- | ----------------------------------------------------- | ---------------------------------------- | ------ |
-| header    | 卡片的标题 你既可以通过设置 header 来修改标题         | `string`                                 | —      |
-| footer    | 卡片页脚。 你既可以通过设置 footer 来修改卡片底部内容 | `string`                                 | —      |
+| header    | 卡片的标题 你既可以通过设置 header 来修改标题         | `string` / `React.ReactElement`          | —      |
+| footer    | 卡片页脚。 你既可以通过设置 footer 来修改卡片底部内容 | `string` / `React.ReactElement`          | —      |
 | bodyStyle | body 的 CSS 样式                                      | <Enum type='object'>CSSProperties</Enum> | —      |
 | shadow    | 设置阴影显示时机                                      | <Enum>always \| never \| hover</Enum>    | always |

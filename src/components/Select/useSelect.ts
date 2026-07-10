@@ -37,7 +37,6 @@ const useSelect = (props: SelectProps) => {
             showArrow: true,
             clearable: false,
             filterable: false,
-            required: false,
             disabled: false,
             maxWidth: 500,
             collapseTagsTooltip: true,

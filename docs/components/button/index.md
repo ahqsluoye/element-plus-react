@@ -106,13 +106,19 @@ ps: `loadingSlot` 优先级高于`loadingIcon`属性
 | loadingIcon     | 自定义加载中状态图标名称                                    | `string`                                                          | spinner |
 | disabled        | 按钮是否为禁用状态                                          | `boolean`                                                         | false   |
 | icon            | 图标组件                                                    | `string`                                                          | —       |
-| autofocus       | 原生 `autofocus` 属性                                       | `boolean`                                                         | false   |
 | nativeType      | 原生 type 属性                                              | <Enum>'button'\| 'submit'\| 'reset'</Enum>                        | button  |
 | autoInsertSpace | 自动在两个中文字符之间插入空格                              | `boolean`                                                         | —       |
 | color           | 自定义按钮颜色, 并自动计算 `hover` 和 `active` 触发后的颜色 | `string`                                                          | —       |
+| active          | 是否为激活状态                                              | `boolean`                                                         | false   |
+| iconProps       | 自定义图标设置                                              | `IconProps` (不含 name 属性)                                      | —       |
 
 <!--
-| dark            | dark 模式, 意味着自动设置 `color` 为 dark 模式的颜色        | `boolean`                                                                           | false   | -->
+| autofocus       | 原生 `autofocus` 属性                                       | `boolean`                                                         | false   |
+| dark            | dark 模式, 意味着自动设置 `color` 为 dark 模式的颜色        | `boolean`                                                         | false   |
+| block           | 格式化按钮以显示在内容块内                                  | `boolean`                                                         | false   |
+| href            | 提供 `href` 将渲染一个 `<a>` 元素，样式为按钮               | `string`                                                          | —       |
+| target          | 链接 URL 的显示位置                                         | `string`                                                          | —       |
+  -->
 
 ### Button Ref
 

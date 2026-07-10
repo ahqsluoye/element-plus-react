@@ -9,7 +9,7 @@ import { CascaderNode, CascaderProps } from './typings';
 
 export const useCascader = (initialData: object[], props: CascaderProps, value: string[] | string[][]) => {
     const { props: menuProps, showAllLevels, separator } = props;
-    const { children: childrenKey = 'children', value: valueKey = 'value', label: labelKey = 'label', leafKey = 'leaf', lazy } = menuProps;
+    const { children: childrenKey = 'children', value: valueKey = 'value', label: labelKey = 'label', leaf: leafKey = 'leaf', lazy } = menuProps;
     // 展开层级数
     const [allLevel, setAllLevel] = useState(0);
     // 缓存每层组件类型
@@ -320,18 +320,21 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
         return result;
     }, [loopGetCheckedNodes]);
 
-    const getStrictlyCheckedNodes = useCallback((level = 0, result: CascaderNode[][] = []) => {
-        _optionData.current?.[`level${level}`]?.forEach(item => {
-            // 只有一级且选中
-            if (item.__checked) {
-                result.push(level > 0 ? loopGetParent(level, item, [item]).reverse() : [item]);
+    const getStrictlyCheckedNodes = useCallback(
+        (level = 0, result: CascaderNode[][] = []) => {
+            _optionData.current?.[`level${level}`]?.forEach(item => {
+                // 只有一级且选中
+                if (item.__checked) {
+                    result.push(level > 0 ? loopGetParent(level, item, [item]).reverse() : [item]);
+                }
+            });
+            if (_optionData.current?.[`level${level + 1}`]) {
+                getStrictlyCheckedNodes(level + 1, result);
             }
-        });
-        if (_optionData.current?.[`level${level + 1}`]) {
-            getStrictlyCheckedNodes(level + 1, result);
-        }
-        return result;
-    }, []);
+            return result;
+        },
+        [loopGetParent],
+    );
 
     /**
      * 设置选中节点

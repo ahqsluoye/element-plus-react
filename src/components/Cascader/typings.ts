@@ -34,16 +34,14 @@ export interface CascaderProps<V = CascaderValue, S = any>
     filterMethod?: (val: CascaderValue, searchText: string) => boolean;
     /** 占位符 */
     placeholder?: string;
-    /** 选项为空时显示的文字 */
-    noDataText?: string;
-    /** 搜索条件无匹配时显示的文字 */
-    noMatchText?: string;
-    /** 是否正在从远程获取数据 */
-    loading?: boolean;
-    /** 远程加载时显示的文字 */
-    loadingText?: string;
-    /**  */
-    required?: boolean;
+    // /** 选项为空时显示的文字 */
+    // noDataText?: string;
+    // /** 搜索条件无匹配时显示的文字 */
+    // noMatchText?: string;
+    // /** 是否正在从远程获取数据 */
+    // loading?: boolean;
+    // /** 远程加载时显示的文字 */
+    // loadingText?: string;
     /** 多选时是否将选中值按文字的形式展示 */
     collapseTags?: boolean;
     /** 需要显示的 Tag 的最大数量 只有当 collapseTags 设置为 true 时才会生效。 */
@@ -64,7 +62,7 @@ export interface CascaderProps<V = CascaderValue, S = any>
     append?: React.ReactElement | string | number;
     lable?: string;
     /** 是否追加到body下 */
-    appendToBody?: boolean;
+    // appendToBody?: boolean;
     /** 折叠标签的提示最大高度 */
     maxCollapseTagsTooltipHeight?: string | number;
     /** 是否显示成面板 */
@@ -113,7 +111,7 @@ export interface CascaderMenuProps {
     /** 指定选项的禁用为选项对象的某个属性值 */
     disabled?: string;
     /** 指定选项的叶子节点的标志位为选项对象的某个属性值 */
-    leafKey?: string;
+    leaf?: string;
 }
 
 export interface CascaderRef {

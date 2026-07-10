@@ -59,25 +59,25 @@ lang: zh-CN
 
 ### Menu 属性
 
-| 属性名             | 说明                                                                                                                                   | 类型                                      | Default  |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- | -------- |
-| mode               | 菜单展示模式                                                                                                                           | <Enum>'horizontal' \| 'vertical'</Enum>   | vertical |
-| collapse           | 是否水平折叠收起菜单（仅在 mode 为 vertical 时可用）                                                                                   | `boolean`                                 | false    |
-| ellipsis           | 是否省略多余的子项（仅在横向模式生效）                                                                                                 | `boolean`                                 | true     |
-| ellipsisIcon       | 自定义省略图标 (仅在水平模式下可用)                                                                                                    | `string` / `React.ReactElement`           | —        |
-| popperOffset       | 弹出层的偏移量(对所有子菜单有效)                                                                                                       | `number`                                  | 6        |
-| defaultActive      | 页面加载时默认激活菜单的 index                                                                                                         | `string`                                  | ''       |
-| defaultOpeneds     | 默认打开的 subMenu 的 index 的数组                                                                                                     | <Enum type="object">string[]</Enum>       | []       |
-| uniqueOpened       | 是否只保持一个子菜单的展开                                                                                                             | `boolean`                                 | false    |
-| menuTrigger        | 子菜单打开的触发方式，只在 `mode` 为 horizontal 时有效。                                                                               | <Enum>'hover' \| 'click'</Enum>           | hover    |
-| router             | 是否启用 `react-router-dom` 模式。 启用该模式会在激活导航时以 index 作为 path 进行路由跳转 使用 `defaultActive` 来设置加载时的激活项。 | `boolean`                                 | false    |
-| collapseTransition | 是否开启折叠动画                                                                                                                       | `boolean`                                 | true     |
-| popperEffect       | Tooltip 主题，内置了 `dark` / `light` 两种主题，当菜单折叠时生效。                                                                     | <Enum>'dark' \| 'light'</Enum> / `string` | dark     |
-| popperClass        | 为 popper 添加类名                                                                                                                     | `string`                                  | —        |
-| showTimeout        | 菜单出现前的延迟                                                                                                                       | `number`                                  | 300      |
-| hideTimeout        | 菜单消失前的延迟                                                                                                                       | `number`                                  | 300      |
+| 属性名             | 说明                                                                                                                                   | 类型                                    | Default  |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | -------- |
+| mode               | 菜单展示模式                                                                                                                           | <Enum>'horizontal' \| 'vertical'</Enum> | vertical |
+| collapse           | 是否水平折叠收起菜单（仅在 mode 为 vertical 时可用）                                                                                   | `boolean`                               | false    |
+| ellipsis           | 是否省略多余的子项（仅在横向模式生效）                                                                                                 | `boolean`                               | true     |
+| ellipsisIcon       | 自定义省略图标 (仅在水平模式下可用)                                                                                                    | `string` / `React.ReactElement`         | —        |
+| popperOffset       | 弹出层的偏移量(对所有子菜单有效)                                                                                                       | `number`                                | 6        |
+| defaultActive      | 页面加载时默认激活菜单的 index                                                                                                         | `string`                                | ''       |
+| defaultOpeneds     | 默认打开的 subMenu 的 index 的数组                                                                                                     | <Enum type="object">string[]</Enum>     | []       |
+| uniqueOpened       | 是否只保持一个子菜单的展开                                                                                                             | `boolean`                               | false    |
+| menuTrigger        | 子菜单打开的触发方式，只在 `mode` 为 horizontal 时有效。                                                                               | <Enum>'hover' \| 'click'</Enum>         | hover    |
+| router             | 是否启用 `react-router-dom` 模式。 启用该模式会在激活导航时以 index 作为 path 进行路由跳转 使用 `defaultActive` 来设置加载时的激活项。 | `boolean`                               | false    |
+| collapseTransition | 是否开启折叠动画                                                                                                                       | `boolean`                               | true     |
+| showTimeout        | 菜单出现前的延迟                                                                                                                       | `number`                                | 300      |
+| hideTimeout        | 菜单消失前的延迟                                                                                                                       | `number`                                | 300      |
 
-<!-- | closeOnClickOutside | 可选，单击外部时是否折叠菜单                                                                                                           | `boolean`                                 | false    | -->
+<!-- | popperEffect        | Tooltip 主题，内置了 `dark` / `light` 两种主题，当菜单折叠时生效。                                                                     | <Enum>'dark' \| 'light'</Enum> / `string` | dark     |
+| popperClass         | 为 popper 添加类名                                                                                                                     | `string`                                  | —        |
+| closeOnClickOutside | 可选，单击外部时是否折叠菜单                                                                                                           | `boolean`                                 | false    | -->
 
 ### Menu 事件
 
@@ -98,31 +98,32 @@ lang: zh-CN
 
 ### SubMenu 属性
 
-| 属性名                                             | 说明                                                    | 类型      | 默认值 |
-| -------------------------------------------------- | ------------------------------------------------------- | --------- | ------ |
-| index <ElTag round type="success">required</ElTag> | 唯一标志                                                | `string`  | —      |
-| title <ElTag round type="success">required</ElTag> | 标题内容                                                | `string`  | —      |
-| popperClass                                        | 为 popper 添加类名                                      | `string`  | —      |
-| showTimeout                                        | 子菜单出现之前的延迟，(继承 menu 的 `showTimeout` 配置) | `number`  | —      |
-| hideTimeout                                        | 子菜单消失之前的延迟，(继承 menu 的 `hideTimeout` 配置) | `number`  | —      |
-| disabled                                           | 是否禁用                                                | `boolean` | false  |
-| popperOffset                                       | 弹出窗口的偏移量 (覆盖 `popper`的菜单)                  | `number`  | —      |
+| 属性名       | 说明                                                    | 类型                            | 默认值 |
+| ------------ | ------------------------------------------------------- | ------------------------------- | ------ |
+| index        | 唯一标志                                                | `string`                        | —      |
+| title        | 标题内容                                                | `string` / `React.ReactElement` | —      |
+| popperClass  | 为 popper 添加类名                                      | `string`                        | —      |
+| disabled     | 是否禁用                                                | `boolean`                       | false  |
+| showTimeout  | 子菜单出现之前的延迟，(继承 menu 的 `showTimeout` 配置) | `number`                        | —      |
+| hideTimeout  | 子菜单消失之前的延迟，(继承 menu 的 `hideTimeout` 配置) | `number`                        | —      |
+| popperOffset | 弹出窗口的偏移量 (覆盖 `popper`的菜单)                  | `number`                        | —      |
 
-<!-- | expandCloseIcon                                    | 父菜单展开且子菜单关闭时的图标， `expandCloseIcon` 和 `expandOpenIcon` 需要一起配置才能生效     | `string` / `Component` | —         |
-| expandOpenIcon                                     | 父菜单展开且子菜单打开时的图标， `expandOpenIcon` 和 `expandCloseIcon` 需要一起配置才能生效     | `string` / `Component` | —         |
-| collapseCloseIcon                                  | 父菜单收起且子菜单关闭时的图标， `collapseCloseIcon` 和 `collapseOpenIcon` 需要一起配置才能生效 | `string` / `Component` | —         |
-| collapseOpenIcon                                   | 父菜单收起且子菜单打开时的图标， `collapseOpenIcon` 和 `collapseCloseIcon` 需要一起配置才能生效 | `string` / `Component` | —         | -->
+<!--
+| appendToBody      | 是否将弹出菜单挂载到 body 上，第一级 SubMenu 默认值为 true，其他 SubMenus 的值为 false          | `boolean`                       | —      |
+| expandCloseIcon   | 父菜单展开且子菜单关闭时的图标， `expandCloseIcon` 和 `expandOpenIcon` 需要一起配置才能生效     | `string` / `React.ReactElement` | —      |
+| expandOpenIcon    | 父菜单展开且子菜单打开时的图标， `expandOpenIcon` 和 `expandCloseIcon` 需要一起配置才能生效     | `string` / `React.ReactElement` | —      |
+| collapseCloseIcon | 父菜单收起且子菜单关闭时的图标， `collapseCloseIcon` 和 `collapseOpenIcon` 需要一起配置才能生效 | `string` / `React.ReactElement` | —      |
+| collapseOpenIcon  | 父菜单收起且子菜单打开时的图标， `collapseOpenIcon` 和 `collapseCloseIcon` 需要一起配置才能生效 | `string` / `React.ReactElement` | —      | -->
 
 ## MenuItem API
 
 ### MenuItem 属性
 
-| 属性名                                             | 说明                          | 类型              | 默认值 |
-| -------------------------------------------------- | ----------------------------- | ----------------- | ------ |
-| index                                              | 唯一标志                      | `string` / `null` | null   |
-| title <ElTag round type="success">required</ElTag> | 标题内容                      | `string`          | —      |
-| route                                              | react-router-dom 路由位置参数 | `string`          | —      |
-| disabled                                           | 是否禁用                      | `boolean`         | false  |
+| 属性名   | 说明                          | 类型      | 默认值 |
+| -------- | ----------------------------- | --------- | ------ |
+| index    | 唯一标志                      | `string`  | —      |
+| route    | react-router-dom 路由位置参数 | `string`  | —      |
+| disabled | 是否禁用                      | `boolean` | false  |
 
 ### MenuItem 事件
 

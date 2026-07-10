@@ -32,7 +32,7 @@ const App = () => {
                     <ElPopover
                         trigger="hover"
                         placement="top"
-                        hideTimeout={0}
+                        showAfter={0}
                         content={
                             <span>
                                 <div>name: {scope.row.name}</div>

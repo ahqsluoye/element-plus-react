@@ -1,4 +1,4 @@
-﻿---
+---
 title: Input 输入框
 lang: zh-CN
 ---
@@ -85,38 +85,60 @@ lang: zh-CN
 
 ## API
 
-### 属性
+### Input 属性
 
-| 属性名        | 说明                                                             | 类型                                                                                                                                              | 默认值    |
-| ------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| type          | 类型                                                             | `string` `'text' \| 'hidden' \| ...` [native input types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types) | text      |
-| value         | 值（可控）                                                       | `string` / `number`                                                                                                                               | —         |
-| defaultValue  | 默认值                                                           | `string` / `number`                                                                                                                               | —         |
-| maxLength     | 最大输入长度                                                     | `number`                                                                                                                                          | —         |
-| minLength     | 原生属性，最小输入长度                                           | `number`                                                                                                                                          | —         |
-| showWordLimit | 是否显示统计字数, 只在 `type` 为 'text' 或 'textarea' 的时候生效 | `boolean`                                                                                                                                         | `boolean` |
-| placeholder   | 输入框占位文本                                                   | `string`                                                                                                                                          | —         |
-| clearable     | 是否显示清除按钮，只有当 `type` 不是 textarea 时生效             | `boolean`                                                                                                                                         | false     |
-| showPassword  | 是否显示切换密码图标                                             | `boolean`                                                                                                                                         | false     |
-| disabled      | 是否禁用                                                         | `boolean`                                                                                                                                         | false     |
-| size          | 输入框尺寸，只在 `type` 不为 'textarea' 时有效                   | <Enum>'large' \| 'default' \| 'small'</Enum>                                                                                                      | —         |
-| prefix        | 自定义前缀                                                       | `string` / `Component`                                                                                                                            | —         |
-| suffix        | 自定义后缀                                                       | `string` / `Component`                                                                                                                            | —         |
-| prepend       | 输入框前置内容                                                   | `string` / `Component`                                                                                                                            | —         |
-| append        | 输入框后置内容                                                   | `string` / `Component`                                                                                                                            | —         |
-| rows          | 输入框行数，仅 `Input.TextArea` 时有效                           | `number`                                                                                                                                          | `number`  |
-| name          | 等价于原生 input `name` 属性                                     | `string`                                                                                                                                          | —         |
-| readonly      | 原生 ` readonly` 属性，是否只读                                  | `boolean`                                                                                                                                         | false     |
-| inputStyle    | input 元素或 textarea 元素的 style                               | CSSProperties                                                                                                                                     | {}        |
+| 属性名            | 说明                                                           | 类型                                                                                                                                              | 默认值 |
+| ----------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| type              | 类型                                                           | `string` `'text' \| 'hidden' \| ...` [native input types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types) | text   |
+| value             | 值（可控）                                                     | `string` / `number`                                                                                                                               | —      |
+| defaultValue      | 默认值                                                         | `string` / `number`                                                                                                                               | —      |
+| size              | 输入框尺寸                                                     | <Enum>'large' \| 'default' \| 'small'</Enum>                                                                                                      | —      |
+| id                | 输入框唯一标识                                                 | `string`                                                                                                                                          | —      |
+| prefix            | 输入框头部内容，只对 type="text" 有效                          | `string` / `Component`                                                                                                                            | —      |
+| suffix            | 输入框尾部内容，只对 type="text" 有效                          | `string` / `Component`                                                                                                                            | —      |
+| prepend           | 输入框前置内容，只对 type="text" 有效                          | `string` / `Component`                                                                                                                            | —      |
+| append            | 输入框后置内容，只对 type="text" 有效                          | `string` / `Component`                                                                                                                            | —      |
+| clearable         | 是否显示清除按钮                                               | `boolean`                                                                                                                                         | false  |
+| formatter         | 指定输入值的格式。(只有当 type 是"text"时才能工作)             | <Enum type='Function'>(value: string \| number) => string</Enum>                                                                                  | —      |
+| showPassword      | 是否显示切换密码图标                                           | `boolean`                                                                                                                                         | false  |
+| plain             | 是否纯文本模式，即无边框                                       | `boolean`                                                                                                                                         | —      |
+| innerStyle        | input 自定义内联样式                                           | `CSSProperties`                                                                                                                                   | —      |
+| maxLength         | 最大输入长度                                                   | `number`                                                                                                                                          | —      |
+| minLength         | 原生属性，最小输入长度                                         | `number`                                                                                                                                          | —      |
+| showWordLimit     | 是否显示统计字数, 只在 type 为 'text' 或 'textarea' 的时候生效 | `boolean`                                                                                                                                         | —      |
+| wordLimitPosition | 字数统计的位置，仅当 show-word-limit 为 true 时生效。          | <Enum>'inside' \| 'outside'</Enum>                                                                                                                | —      |
+| hiddenValue       | 是否隐藏值                                                     | `boolean`                                                                                                                                         | —      |
+| placeholder       | 输入框占位文本                                                 | `string`                                                                                                                                          | —      |
+| disabled          | 是否禁用                                                       | `boolean`                                                                                                                                         | false  |
+| name              | 等价于原生 input `name` 属性                                   | `string`                                                                                                                                          | —      |
+| readOnly          | 原生 `readonly` 属性，是否只读                                 | `boolean`                                                                                                                                         | false  |
+| autocomplete      | 原生属性 autocomplete                                          | `string`                                                                                                                                          | —      |
+| tabindex          | 原生属性 tabindex                                              | `number`                                                                                                                                          | —      |
+| ariaLabel         | 原生属性 aria-label                                            | `string`                                                                                                                                          | —      |
+| form              | 原生属性 form                                                  | `string`                                                                                                                                          | —      |
+| autofocus         | 原生属性 autofocus                                             | `boolean`                                                                                                                                         | —      |
+| inputmode         | 原生属性 inputmode                                             | <Enum>'none' \| 'text' \| 'decimal' \| 'numeric' \| 'tel' \| 'search' \| 'email' \| 'url'</Enum>                                                  | —      |
 
-### 事件
+<!-- | containerRole     | 容器的 role 属性                                               | `string`                                                                                                                                          | —      |
+| validateEvent     | 是否触发表单验证                                               | `boolean`                                                                                                                                         | —      |
+| modelModifiers    | 修饰符                                                         | `{ trim?: boolean; number?: boolean; lazy?: boolean }`                                                                                            | —      |
+| debounceInput | 输入是否防抖动 | `boolean` | — |
+| debounceTime | 获取输入建议的防抖延时，单位为毫秒 | `number` | — | -->
 
-| 事件名   | 说明                                                     | 类型                                                           |
-| -------- | -------------------------------------------------------- | -------------------------------------------------------------- |
-| onChange | 仅当 value 改变时，当输入框失去焦点或用户按 Enter 时触发 | <Enum type='Function'>(value: string \| number) => void</Enum> |
-| onClear  | 在点击由 `clearable` 属性生成的清空按钮时触发            | <Enum type='Function'>() => void</Enum>                        |
+### Input 事件
 
-### Ref
+| 事件名       | 说明                                          | 类型                                                                                      |
+| ------------ | --------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| onChange     | 在 Input 值改变时触发                         | <Enum type='Function'>(value: string \| number, event?: React.ChangeEvent) => void</Enum> |
+| onInput      | 在 Input 输入时触发                           | <Enum type='Function'>(value: string \| number) => void</Enum>                            |
+| onClear      | 在点击由 `clearable` 属性生成的清空按钮时触发 | <Enum type='Function'>(e: React.MouseEvent) => void</Enum>                                |
+| onFocus      | 在 Input 获得焦点时触发                       | <Enum type='Function'>(event: React.FocusEvent) => void</Enum>                            |
+| onBlur       | 在 Input 失去焦点时触发                       | <Enum type='Function'>(event: React.FocusEvent) => void</Enum>                            |
+| onKeyDown    | 在 Input 按下键盘时触发                       | <Enum type='Function'>(event: React.KeyboardEvent) => void</Enum>                         |
+| onMouseEnter | 鼠标进入时触发                                | <Enum type='Function'>(event: React.MouseEvent) => void</Enum>                            |
+| onMouseLeave | 鼠标离开时触发                                | <Enum type='Function'>(event: React.MouseEvent) => void</Enum>                            |
+
+### Input Ref
 
 | 名称      | 说明                  | 类型                                                       |
 | --------- | --------------------- | ---------------------------------------------------------- |
@@ -127,5 +149,72 @@ lang: zh-CN
 | clear     | 重置值                | <Enum type='Function'>() => void</Enum>                    |
 | focus     | 使 input 组件获得焦点 | <Enum type='Function'>() => void</Enum>                    |
 | blur      | 使 input 组件失去焦点 | <Enum type='Function'>() => void</Enum>                    |
+| select    | 选中所有文本          | <Enum type='Function'>() => void</Enum>                    |
 | showClear | 显示一键清除图标      | <Enum type='Function'>(value: ValueType) => void;</Enum>   |
 | hideClear | 隐藏一键清除图标      | <Enum type='Function'>() => void</Enum>                    |
+
+### Textarea 属性
+
+| 属性名        | 说明                                                                 | 类型                                                        | 默认值 |
+| ------------- | -------------------------------------------------------------------- | ----------------------------------------------------------- | ------ |
+| value         | 值（可控）                                                           | `string` / `number`                                         | —      |
+| defaultValue  | 默认值                                                               | `string` / `number`                                         | —      |
+| plain         | 是否纯文本模式，即无边框                                             | `boolean`                                                   | —      |
+| rows          | 输入框行数                                                           | `number`                                                    | —      |
+| inputStyle    | input 自定义内联样式                                                 | `CSSProperties`                                             | —      |
+| maxLength     | 最大输入长度                                                         | `number`                                                    | —      |
+| minLength     | 原生属性，最小输入长度                                               | `number`                                                    | —      |
+| showWordLimit | 是否显示统计字数, 只在 type 为 'text' 或 'textarea' 的时候生效       | `boolean`                                                   | —      |
+| resize        | 控制是否能被用户缩放                                                 | <Enum>'none' \| 'both' \| 'horizontal' \| 'vertical'</Enum> | —      |
+| autosize      | 高度是否自适应，可以接受一个对象，比如: `{ minRows: 2, maxRows: 6 }` | `boolean \| { minRows?: number; maxRows?: number }`         | —      |
+| clearable     | 是否可清空                                                           | `boolean`                                                   | —      |
+| placeholder   | 输入框占位文本                                                       | `string`                                                    | —      |
+| disabled      | 是否禁用                                                             | `boolean`                                                   | false  |
+| readonly      | 原生 `readonly` 属性，是否只读                                       | `boolean`                                                   | false  |
+
+### Textarea 事件
+
+| 事件名   | 说明                  | 类型                                                                                      |
+| -------- | --------------------- | ----------------------------------------------------------------------------------------- |
+| onChange | 在 Input 值改变时触发 | <Enum type='Function'>(value: string \| number, event?: React.ChangeEvent) => void</Enum> |
+
+### Textarea Ref
+
+| 名称     | 说明                  | 类型                                                       |
+| -------- | --------------------- | ---------------------------------------------------------- |
+| input    | Textarea HTML 元素    | <Enum type='object'>HTMLTextAreaElement</Enum>             |
+| getValue | 获取值                | <Enum type='Function'>() => `string` / `number`</Enum>     |
+| setValue | 设置值                | <Enum type='Function'>(`string` / `number`) => void</Enum> |
+| clear    | 重置值                | <Enum type='Function'>() => void</Enum>                    |
+| focus    | 使 input 组件获得焦点 | <Enum type='Function'>() => void</Enum>                    |
+| blur     | 使 input 组件失去焦点 | <Enum type='Function'>() => void</Enum>                    |
+
+### InputRange 属性
+
+| 属性名           | 说明                           | 类型                                                                   | 默认值 |
+| ---------------- | ------------------------------ | ---------------------------------------------------------------------- | ------ |
+| value            | 值（可控）                     | `[string \| null, string \| null] \| [number \| null, number \| null]` | —      |
+| defaultValue     | 默认值                         | `[string \| null, string \| null] \| [number \| null, number \| null]` | —      |
+| name             | 输入框 name 属性               | `[string, string]`                                                     | —      |
+| size             | 输入框尺寸                     | <Enum>'large' \| 'default' \| 'small'</Enum>                           | —      |
+| readOnly         | 只读                           | `boolean`                                                              | —      |
+| active           | 是否激活状态                   | `boolean`                                                              | —      |
+| type             | 类型                           | <Enum>'text' \| 'hidden' \| 'number'</Enum>                            | —      |
+| prefix           | 输入框头部内容                 | `string` / `Component`                                                 | —      |
+| suffix           | 输入框尾部内容                 | `string` / `Component`                                                 | —      |
+| prepend          | 输入框前置内容                 | `string` / `Component`                                                 | —      |
+| append           | 输入框后置内容                 | `string` / `Component`                                                 | —      |
+| clearable        | 是否可清空                     | `boolean`                                                              | —      |
+| plain            | 是否纯文本模式，即无边框       | `boolean`                                                              | —      |
+| rangeSeparator   | 选择范围时的分隔符             | `string`                                                               | —      |
+| innerStyle       | input 自定义内联样式           | `CSSProperties`                                                        | —      |
+| startPlaceholder | 范围选择时开始输入框的占位内容 | `string`                                                               | —      |
+| endPlaceholder   | 范围选择时结束输入框的占位内容 | `string`                                                               | —      |
+| disabled         | 是否禁用                       | `boolean`                                                              | false  |
+
+### InputRange 事件
+
+| 事件名   | 说明                                          | 类型                                                                                     |
+| -------- | --------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| onClear  | 在点击由 `clearable` 属性生成的清空按钮时触发 | <Enum type='Function'>(e: MouseEvent) => void</Enum>                                     |
+| onChange | 选中值发生变化时触发                          | <Enum type='Function'>(value: InputRangeValueType \| null, event?: Event) => void</Enum> |

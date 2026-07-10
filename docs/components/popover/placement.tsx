@@ -17,7 +17,7 @@ const App = () => {
             {placement.map((row, index) => (
                 <div className={classNames('row', { center: index === 0 || index === 4 })} key={index}>
                     {row.map(item => (
-                        <ElPopover key={item} className="box-item" placement={item} title="标题" trigger="hover" content={`${item} prompts info`} hideTimeout={0}>
+                        <ElPopover key={item} className="box-item" placement={item} title="标题" trigger="hover" content={`${item} prompts info`} showAfter={0}>
                             <ElButton>{item}</ElButton>
                         </ElPopover>
                     ))}

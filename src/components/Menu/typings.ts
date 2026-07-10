@@ -1,5 +1,4 @@
 import React from 'react';
-import { IconName } from '../Icon';
 import { BaseProps, NativeProps } from '../types/common';
 
 export interface MenuRef {
@@ -70,27 +69,28 @@ export interface MenuProps
 export interface SubMenuProps extends BaseProps, NativeProps {
     /** 唯一标志 */
     index: string;
+    /** 标题内容 */
     title: string | React.ReactElement;
     /** 为 popper 添加类名 */
     popperClass?: string;
+    /** 是否禁用 */
+    disabled?: boolean;
     /** 子菜单出现之前的延迟，(继承 menu 的 `showTimeout` 配置) */
     showTimeout?: number;
     /** 子菜单消失之前的延迟，(继承 menu 的 `hideTimeout` 配置) */
     hideTimeout?: number;
-    /** 是否禁用 */
-    disabled?: boolean;
-    /** 是否将弹出菜单挂载到 body 上，第一级 SubMenu 默认值为 true，其他 SubMenus 的值为 false */
-    appendToBody?: boolean;
+    // /** 是否将弹出菜单挂载到 body 上，第一级 SubMenu 默认值为 true，其他 SubMenus 的值为 false */
+    // appendToBody?: boolean;
     /** 弹出窗口的偏移量 (覆盖 `popper`的菜单) */
     popperOffset?: number;
-    /** 父菜单展开且子菜单关闭时的图标， `expandCloseIcon` 和 `expandOpenIcon` 需要一起配置才能生效 */
-    expandCloseIcon?: IconName | React.ReactElement;
-    /** 父菜单展开且子菜单打开时的图标， `expandOpenIcon` 和 `expandCloseIcon` 需要一起配置才能生效 */
-    expandOpenIcon?: IconName | React.ReactElement;
-    /** 父菜单收起且子菜单关闭时的图标， `collapseCloseIcon` 和 `collapseOpenIcon` 需要一起配置才能生效 */
-    collapseCloseIcon?: IconName | React.ReactElement;
-    /** 父菜单收起且子菜单打开时的图标， `collapseOpenIcon` 和 `collapseCloseIcon` 需要一起配置才能生效 */
-    collapseOpenIcon?: IconName | React.ReactElement;
+    // /** 父菜单展开且子菜单关闭时的图标， `expandCloseIcon` 和 `expandOpenIcon` 需要一起配置才能生效 */
+    // expandCloseIcon?: IconName | React.ReactElement;
+    // /** 父菜单展开且子菜单打开时的图标， `expandOpenIcon` 和 `expandCloseIcon` 需要一起配置才能生效 */
+    // expandOpenIcon?: IconName | React.ReactElement;
+    // /** 父菜单收起且子菜单关闭时的图标， `collapseCloseIcon` 和 `collapseOpenIcon` 需要一起配置才能生效 */
+    // collapseCloseIcon?: IconName | React.ReactElement;
+    // /** 父菜单收起且子菜单打开时的图标， `collapseOpenIcon` 和 `collapseCloseIcon` 需要一起配置才能生效 */
+    // collapseOpenIcon?: IconName | React.ReactElement;
 }
 
 export interface MenuItemProps extends BaseProps, NativeProps {

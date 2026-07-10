@@ -47,20 +47,17 @@ lang: zh-CN
 
 ### Statistic 属性
 
-| Attribute        | 描述             | 类型                                                                               | 默认值 |
-| ---------------- | ---------------- | ---------------------------------------------------------------------------------- | ------ |
-| value            | 数字内容         | `number`                                                                           | 0      |
-| decimalSeparator | 设置小数点符号   | `string`                                                                           | .      |
-| formatter        | 自定义数字格式化 | <Enum type="Function">(value: number) => string \| number</Enum>                   | —      |
-| groupSeparator   | 设置千分位标识符 | `string`                                                                           | ,      |
-| precision        | 数字精度         | `number`                                                                           | 0      |
-| prefix           | 设置数字的前缀   | `string`                                                                           | —      |
-| suffix           | 设置数字的后缀   | `string`                                                                           | —      |
-| title            | 数字标题         | `string`                                                                           | —      |
-| valueStyle       | 数字样式         | `string` / <Enum type="object">CSSProperties \| CSSProperties[] \| string[]</Enum> | —      |
-| prefix           | 数字区之前       | `string` / `ReactNode`                                                             | —      |
-| suffix           | 数字区之后       | `string` / `ReactNode`                                                             | —      |
-| title            | 数字标题         | `string` / `ReactNode`                                                             | —      |
+| Attribute        | 描述             | 类型                                                                | 默认值 |
+| ---------------- | ---------------- | ------------------------------------------------------------------- | ------ |
+| value            | 数字内容         | `number` / `string`                                                 | 0      |
+| decimalSeparator | 设置小数点符号   | `string`                                                            | .      |
+| formatter        | 自定义数字格式化 | <Enum type="Function">(value: number \| string) => ReactNode</Enum> | —      |
+| groupSeparator   | 设置千分位标识符 | `string`                                                            | ,      |
+| precision        | 数字精度         | `number`                                                            | 0      |
+| prefix           | 设置数字的前缀   | `string` / `ReactNode`                                              | —      |
+| suffix           | 设置数字的后缀   | `string` / `ReactNode`                                              | —      |
+| title            | 数字标题         | `string` / `ReactNode`                                              | —      |
+| valueStyle       | 数字样式         | <Enum type="object">CSSProperties</Enum>                            | —      |
 
 ### Statistic Ref
 

@@ -53,7 +53,7 @@ export interface DialogProps
     showClose?: boolean;
     /** 关闭前的回调，会暂停 Dialog 的关闭. 回调函数内执行 done 参数方法的时候才是真正关闭对话框的时候. */
     beforeClose?: DialogBeforeCloseFn;
-    /** 关闭Dialog函数 */
+    /** 关闭Dialog函数，与 `visible` 属性配合使用，关闭后将 `visible` 设置为 `false`。 */
     onCloseDialog?: () => void;
     /** 为 Dialog 启用可拖拽功能 */
     draggable?: boolean;

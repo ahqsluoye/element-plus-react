@@ -102,7 +102,7 @@ const App = () => {
                     <ElFormItem name="desc" label="活动形式">
                         <ElTextArea />
                     </ElFormItem>
-                    <ElFormItem center labelWidth="0">
+                    <ElFormItem labelWidth="0">
                         <ElButton type="primary" onClick={onSubmit}>
                             立即创建
                         </ElButton>

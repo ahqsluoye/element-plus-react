@@ -102,6 +102,12 @@ lang: zh-CN
 | onChange          | 值改变时触发（使用鼠标拖曳时，只在松开鼠标后触发）                                        | <Enum type="Function">(value: Arrayable<number>) => boolean</Enum>                                                                                                                          | —       |
 | onInput           | 数据改变时触发（使用鼠标拖曳时，活动过程实时触发）                                        | <Enum type="Function">(value: Arrayable<number>) => boolean</Enum>                                                                                                                          | —       |
 
+<!-- 以下属性在当前类型定义中未找到 -->
+<!--
+| persistent        | 当 slider 的 tooltip 处于非活动状态且 persistent 为 false 时，tooltip 将被销毁                                                                        | `boolean`                                                                                                                                                                                   | —       |
+| debounce | 输入时的去抖延迟，毫秒，仅在 `show-input` 等于 true 时有效 | `number` | 300 |
+-->
+
 ## 类型声明
 
 <details>

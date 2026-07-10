@@ -38,3 +38,10 @@ Popconfirm 的属性与 Popover 很类似， 因此对于重复属性，请参�
 | iconColor         | Icon 颜色                | `string`                                                                         | #f90           |
 | hideIcon          | 是否隐藏 Icon            | `boolean`                                                                        | false          |
 | width             | 弹层宽度，最小宽度 150px | `string` / `number`                                                              | 150            |
+
+### 事件
+
+| 事件名    | 说明               | 类型                                    |
+| --------- | ------------------ | --------------------------------------- |
+| onConfirm | 点击确认按钮时触发 | <Enum type="Function">() => void</Enum> |
+| onCancel  | 点击取消按钮时触发 | <Enum type="Function">() => void</Enum> |

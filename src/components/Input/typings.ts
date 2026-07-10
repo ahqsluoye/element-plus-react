@@ -98,10 +98,6 @@ export interface InputProps
     debounceTime?: number;
     /** input自定义内联样式 */
     innerStyle?: React.CSSProperties;
-    /** 范围选择时开始输入框的占位内容 */
-    startPlaceholder?: string;
-    /** 范围选择时结束输入框的占位内容 */
-    endPlaceholder?: string;
     /** 最大输入长度 */
     maxLength?: number;
     /** 原生属性，最小输入长度 */
@@ -124,12 +120,12 @@ export interface InputProps
     autofocus?: boolean;
     /** 原生属性 inputmode */
     inputmode?: 'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url';
-    /** 容器的 role 属性 */
-    containerRole?: string;
-    /** 是否触发表单验证 */
-    validateEvent?: boolean;
-    /** 修饰符 */
-    modelModifiers?: ModelModifiers;
+    // /** 容器的 role 属性 */
+    // containerRole?: string;
+    // /** 是否触发表单验证 */
+    // validateEvent?: boolean;
+    // /** 修饰符 */
+    // modelModifiers?: ModelModifiers;
 
     /** 在点击由 clearable 属性生成的清空按钮时触发 */
     onClear?: (e: React.MouseEvent) => void;
@@ -213,14 +209,10 @@ export interface InputRangeProps<T = InputRangeValueType> extends Omit<FormContr
     clearable?: boolean;
     /** 是否纯文本模式，即无边框 */
     plain?: boolean;
-    /** 表单校验失败 */
-    error?: boolean;
-    /** 表单校验失败 */
-    warning?: boolean;
     /** 选择范围时的分隔符 */
     rangeSeparator?: string;
     /** 输入是否防抖动 */
-    debounceInput?: boolean;
+    // debounceInput?: boolean;
     /** input自定义内联样式 */
     innerStyle?: React.CSSProperties;
     /** 范围选择时开始输入框的占位内容 */

@@ -61,11 +61,11 @@ export interface SelectProps<V = ValueType>
     /** 远程加载时显示的图标 */
     loadingIcon?: React.ReactElement;
     /**  */
-    max?: boolean;
+    // max?: boolean;
     /** 下拉菜单的内容是否有箭头 */
     showArrow?: boolean;
     /**  */
-    required?: boolean;
+    // required?: boolean;
     /** 下拉项最大宽度 */
     maxWidth?: number;
     /** 多选时是否将选中值按文字的形式展示 */
@@ -110,7 +110,7 @@ export interface SelectProps<V = ValueType>
     /** 可清空的单选模式下用户点击清空按钮时触发  */
     onClear?: () => void;
     /** 对于不可搜索的 Select，是否在输入框获得焦点后自动弹出选项菜单 */
-    automaticDropdown?: boolean;
+    // automaticDropdown?: boolean;
     /** 下拉列表顶部的内容 */
     header?: React.ReactElement;
     /** 下拉列表底部的内容 */

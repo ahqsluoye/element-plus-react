@@ -68,10 +68,10 @@ lang: zh-CN
 
 由于这个组件是`ElTree`和`ElSelect`的结合体，他们的原始属性未被更改，故不在此重复。请跳转查看原组件的相应文档。
 
-| 属性                                 | 方法                       | 事件                             |
-| ------------------------------------ | -------------------------- | -------------------------------- |
-| [tree](./tree#attributes)            | [tree](./tree#method)      | [tree](./tree#events)            |
-| [select](./select#select-attributes) | [select](./select#methods) | [select](./select#select-events) |
+| 属性                           | 方法                    | 事件                           |
+| ------------------------------ | ----------------------- | ------------------------------ |
+| [tree](./tree#属性)            | [tree](./tree#方法)     | [tree](./tree#事件)            |
+| [select](./select#select-属性) | [select](./select#方法) | [select](./select#select-事件) |
 
 #### 其他属性
 

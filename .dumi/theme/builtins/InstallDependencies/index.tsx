@@ -43,7 +43,7 @@ const InstallDependencies: React.FC<InstallProps> = props => {
                 <ElTabPane
                     key={item.key}
                     name={item.key}
-                    title={
+                    label={
                         <>
                             {item.icon}
                             {item.label}

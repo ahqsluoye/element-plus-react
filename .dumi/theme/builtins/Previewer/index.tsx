@@ -187,7 +187,7 @@ const Previewer: FC<IPreviewerProps> = props => {
                                 <ElTabPane
                                     key={item[0]}
                                     name={item[0]}
-                                    title={item[0]}
+                                    label={item[0]}
                                     onTabShow={() => {
                                         setActiveName(item[0]);
                                     }}

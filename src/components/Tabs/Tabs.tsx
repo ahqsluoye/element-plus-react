@@ -51,7 +51,7 @@ const Tabs = forwardRef((props: TabsProps, ref?: Ref<HTMLDivElement>) => {
         const componentChildren: React.ReactElement<TabPaneProps>[] = getTabPaneInstance(children);
         return componentChildren.map((node, i) => {
             return {
-                title: node.props.title,
+                title: node.props.label,
                 name: node.props.name,
                 index: i,
                 active: isEmpty(activeName) ? i === 0 : activeName === node.props.name,

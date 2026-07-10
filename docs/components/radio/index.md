@@ -60,27 +60,30 @@ lang: zh-CN
 | value          | 选中项绑定值       | `string` / `number` / `boolean`              | —      |
 | checked        | 是否选中（可控）   | `boolean`                                    | false  |
 | defaultChecked | 是否选中（默认值） | `boolean`                                    | false  |
+| title          | tooltip 提示       | `string`                                     | —      |
 | disabled       | 是否禁用单选框     | `boolean`                                    | false  |
 | size           | 单选框的尺寸       | <Enum>'large' \| 'default' \| 'small'</Enum> | —      |
+| readOnly       | 是否只读           | `boolean`                                    | —      |
+| plaintext      | 是否渲染为纯文本   | `boolean`                                    | —      |
 | name           | 原始 `name` 属性   | `string`                                     | —      |
 
 ### Radio 事件
 
-| 事件名   | 说明                   | 类型                                                                      |
-| -------- | ---------------------- | ------------------------------------------------------------------------- |
-| onChange | 绑定值变化时触发的事件 | <Enum type='Function'>(value: string \| number \| boolean) => void</Enum> |
+| 事件名   | 说明                   | 类型                                                                                                            |
+| -------- | ---------------------- | --------------------------------------------------------------------------------------------------------------- |
+| onChange | 绑定值变化时触发的事件 | <Enum type='Function'>(checked: boolean, value: any, event: React.ChangeEvent<HTMLInputElement>) => void</Enum> |
 
 ## RadioGroup API
 
 ### RadioGroup 属性
 
-| 属性名   | 说明                                                                           | 类型                                                                      | 默认值                                                                            |
-| -------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| value    | 选中项绑定值                                                                   | `string` / `number` / `boolean`                                           | —                                                                                 |
-| size     | 单选框按钮或边框按钮的大小                                                     | `string`                                                                  | default                                                                           |
-| disabled | 是否禁用                                                                       | `boolean`                                                                 | false                                                                             |
-| name     | 原生 `name` 属性                                                               | `string`                                                                  | —                                                                                 |
-| options  | 选项的数据源， `value` 的 key 和 `label` 和 ` disabled`可以通过 `props`自定义. | <Enum type="array">Array<{[key: string]: any}></Enum>                     | —                                                                                 |
+| 属性名   | 说明                                                                           | 类型                                                                             | 默认值                                                                            |
+| -------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| value    | 选中项绑定值                                                                   | `string` / `number` / `boolean`                                                  | —                                                                                 |
+| size     | 单选框按钮或边框按钮的大小                                                     | `string`                                                                         | default                                                                           |
+| disabled | 是否禁用                                                                       | `boolean`                                                                        | false                                                                             |
+| name     | 原生 `name` 属性                                                               | `string`                                                                         | —                                                                                 |
+| options  | 选项的数据源， `value` 的 key 和 `label` 和 ` disabled`可以通过 `props`自定义. | <Enum type="array">Array<{[key: string]: any}></Enum>                            | —                                                                                 |
 | props    | options 的配置                                                                 | <Enum type="object">{ value?: string; label?: string; disabled?: string }</Enum> | <Enum type="object">{value: 'value', label: 'label', disabled: 'disabled'}</Enum> |
 
 ### RadioGroup 事件

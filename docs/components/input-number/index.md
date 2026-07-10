@@ -81,28 +81,40 @@ lang: zh-CN
 
 ### 属性
 
-| 属性名           | 说明                                | 类型                                         | 默认值    |
-| ---------------- | ----------------------------------- | -------------------------------------------- | --------- |
-| value            | 选中项绑定值（可控）                | `number`                                     | —         |
-| defaultValue     | 默认值                              | `number`                                     | —         |
-| min              | 设置计数器允许的最小值              | `number`                                     | -Infinity |
-| max              | 设置计数器允许的最大值              | `number`                                     | Infinity  |
-| step             | 计数器步长                          | `number`                                     | 1         |
-| stepStrictly     | 是否只能输入 step 的倍数            | `boolean`                                    | false     |
-| precision        | 数值精度                            | `number`                                     | —         |
-| size             | 计数器尺寸                          | <Enum>'large' \| 'default' \| 'small'</Enum> | default   |
-| readonly         | 原生 ` readonly` 属性，是否只读     | `boolean`                                    | false     |
-| disabled         | 是否禁用状态                        | `boolean`                                    | false     |
-| controls         | 是否使用控制按钮                    | `boolean`                                    | true      |
-| controlsPosition | 控制按钮位置                        | <Enum>'' \| 'right'</Enum>                   | —         |
-| name             | 等价于原生 input `name` 属性        | `string`                                     | —         |
-| placeholder      | 等价于原生 input `placeholder` 属性 | `string`                                     | —         |
+| 属性名             | 说明                                 | 类型                                                                                             | 默认值    |
+| ------------------ | ------------------------------------ | ------------------------------------------------------------------------------------------------ | --------- |
+| value              | 选中项绑定值（可控）                 | `number` / `string`                                                                              | —         |
+| defaultValue       | 默认值                               | `number` / `string`                                                                              | —         |
+| min                | 设置计数器允许的最小值               | `number`                                                                                         | -Infinity |
+| max                | 设置计数器允许的最大值               | `number`                                                                                         | Infinity  |
+| step               | 计数器步长                           | `number`                                                                                         | 1         |
+| stepStrictly       | 是否只能输入 step 的倍数             | `boolean`                                                                                        | false     |
+| precision          | 数值精度                             | `number`                                                                                         | —         |
+| size               | 计数器尺寸                           | <Enum>'large' \| 'default' \| 'small'</Enum>                                                     | default   |
+| readonly           | 原生 ` readonly` 属性，是否只读      | `boolean`                                                                                        | false     |
+| disabled           | 是否禁用状态                         | `boolean`                                                                                        | false     |
+| controls           | 是否使用控制按钮                     | `boolean`                                                                                        | true      |
+| controlsPosition   | 控制按钮位置                         | <Enum>'' \| 'right'</Enum>                                                                       | —         |
+| name               | 等价于原生 input `name` 属性         | `string`                                                                                         | —         |
+| placeholder        | 等价于原生 input `placeholder` 属性  | `string`                                                                                         | —         |
+| valueOnClear       | 当输入框被清空时显示的值             | <Enum>'min' \| 'max' \| number \| null</Enum>                                                    | —         |
+| prefix             | 输入框头部内容                       | `string` / `Component`                                                                           | —         |
+| suffix             | 输入框尾部内容                       | `string` / `Component`                                                                           | —         |
+| prepend            | 输入框前置内容                       | `string` / `Component`                                                                           | —         |
+| append             | 输入框后置内容                       | `string` / `Component`                                                                           | —         |
+| maxLength          | 最大输入长度                         | `number`                                                                                         | —         |
+| minLength          | 原生属性，最小输入长度               | `number`                                                                                         | —         |
+| align              | 内部输入文本对齐                     | <Enum>'left' \| 'right' \| 'center'</Enum>                                                       | —         |
+| disabledScientific | 禁用科学计数法的输入（例如输入 'e'） | `boolean`                                                                                        | —         |
+| inputmode          | 原生 inputmode 属性                  | <Enum>'none' \| 'text' \| 'tel' \| 'url' \| 'email' \| 'numeric' \| 'decimal' \| 'search'</Enum> | —         |
+| decreaseIcon       | 自定义减少按钮图标                   | `ReactNode`                                                                                      | —         |
+| increaseIcon       | 自定义增加按钮图标                   | `ReactNode`                                                                                      | —         |
 
 ### 事件
 
-| 事件名   | 说明               | 类型                                                                                                    |
-| -------- | ------------------ | ------------------------------------------------------------------------------------------------------- |
-| onChange | 绑定值被改变时触发 | <Enum type='Function'>(currentValue: number \| undefined, oldValue: number \| undefined) => void</Enum> |
+| 事件名   | 说明               | 类型                                                                                               |
+| -------- | ------------------ | -------------------------------------------------------------------------------------------------- |
+| onChange | 绑定值被改变时触发 | <Enum type='Function'>(currentValue: number \| string, oldValue?: number \| string) => void</Enum> |
 
 ### Ref
 

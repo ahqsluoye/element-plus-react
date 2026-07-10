@@ -66,12 +66,16 @@ Config Provider 被用来提供全局的配置选项，让你的配置能够在�
 
 ### Config Provider 属性
 
-| 属性名  | 说明                                     | 类型                                                     | 默认值   |
-| ------- | ---------------------------------------- | -------------------------------------------------------- | -------- |
-| locale  | 翻译文本对象                             | <Enum>'en' \| 'zh-cn'</Enum>                             | en       |
-| size    | 全局组件大小                             | <Enum type="enum">'large' \| 'default' \| 'small'</Enum> | default  |
-| button  | 按钮相关配置，[详见下表](#button-属性)   | <Enum type="object">{autoInsertSpace?: boolean}</Enum>   | 详见下表 |
-| message | 消息相关配置， [详见下表](#message-属性) | <Enum type="object">{max?: number}</Enum>                | 详见下表 |
+| 属性名  | 说明                                     | 类型                                                                                                | 默认值   |
+| ------- | ---------------------------------------- | --------------------------------------------------------------------------------------------------- | -------- |
+| locale  | 翻译文本对象                             | <Enum>'en' \| 'zh-cn'</Enum>                                                                         | en       |
+| size    | 全局组件大小                             | <Enum type="enum">'large' \| 'default' \| 'small'</Enum>                                             | default  |
+| button  | 按钮相关配置，[详见下表](#button-属性)   | <Enum type="object">{autoInsertSpace?: boolean; type?: TypeAttributes.Appearance; plain?: boolean; round?: boolean}</Enum> | 详见下表 |
+| link    | 链接相关配置，[详见下表](#链接属性)       | <Enum type="object">{type?: TypeAttributes.Appearance; underline?: 'always' \| 'hover' \| 'never'}</Enum> | 详见下表 |
+| card    | Card 相关配置，[详见下表](#card-属性)     | <Enum type="object">{shadow?: 'always' \| 'never' \| 'hover'}</Enum>                                  | 详见下表 |
+| message | 消息相关配置， [详见下表](#message-属性) | <Enum type="object">{showClose?: boolean; duration?: number; grouping?: boolean; offset?: number}</Enum> | 详见下表 |
+| inputNumber | 数字输入框相关配置 | <Enum type="object">{controlsPosition?: '' \| 'right'; max?: number; min?: number}</Enum>                | 详见下表 |
+| popper  | Popper 相关配置                          | <Enum type="object">{appendTo?: HTMLElement}</Enum>                                                   | 详见下表 |
 
 <!-- | experimental-features | 将要添加的实验阶段的功能，所有功能都是默认设置为 false                                                                                                | `object`                                                 | —        |
 | zIndex                | 全局初始化 zIndex 的值                                                                                                                                | `number`                                                 | —        |

@@ -43,7 +43,7 @@ const Cascader = memo(
                     label: 'label',
                     children: 'children',
                     disabled: 'disabled',
-                    leafKey: 'leaf',
+                    leaf: 'leaf',
                 },
                 shouldSelect: () => true,
                 placeholder: t('el.cascader.placeholder', { lng: locale }) || '请选择',

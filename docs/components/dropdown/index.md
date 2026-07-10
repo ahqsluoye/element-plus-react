@@ -63,16 +63,21 @@ Dropdown 组件提供除了默认值以外的三种尺寸，可以在不同场�
 
 ## Dropdown 属性
 
-| 属性名        | 说明                                               | 类型                                             | Default                                                                    |
-| ------------- | -------------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------------------------- |
-| maxHeight     | 菜单最大高度                                       | `string` / `number`                              | ''                                                                         |
-| disabled      | 是否禁用                                           | `boolean`                                        | false                                                                      |
-| trigger       | 触发下拉的行为                                     | <Enum>'hover' \| 'click' \| 'contextmenu'</Enum> | hover                                                                      |
-| hideOnClick   | 是否在点击菜单项后隐藏菜单                         | `boolean`                                        | true                                                                       |
-| showTimeout   | 展开下拉菜单的延时，仅在 trigger 为 hover 时有效   | `number`                                         | 150                                                                        |
-| hideTimeout   | 收起下拉菜单的延时（仅在 trigger 为 hover 时有效） | `number`                                         | 150                                                                        |
-| popperClass   | 自定义浮层类名                                     | `string`                                         | ''                                                                         |
-| popperOptions | [popper.js](https://popper.js.org/docs/v2/) 参数   | `object`                                         | `{modifiers: [{name: 'computeStyles',options: {gpuAcceleration: false}}]}` |
+| 属性名         | 说明                                               | 类型                                                                | Default |
+| -------------- | -------------------------------------------------- | ------------------------------------------------------------------- | ------- |
+| menu           | ElDropdownMenu 菜单                                | <Enum type='object'> `React.ReactElement<DropdownMenuProps>`</Enum> | ''      |
+| visible        | 状态是否可见                                       | `boolean`                                                           | —       |
+| defaultVisible | 初始值                                             | `boolean`                                                           | —       |
+| disabled       | 是否禁用                                           | `boolean`                                                           | false   |
+| offset         | 下拉菜单与触发元素的偏移量                         | `number`                                                            | 0       |
+| placement      | 下拉菜单的位置                                     | <Enum>'top' \| 'bottom' \| 'left' \| 'right'</Enum>                 | top     |
+| trigger        | 触发下拉的行为                                     | <Enum>'hover' \| 'click' \| 'contextmenu'</Enum>                    | hover   |
+| hideOnClick    | 是否在点击菜单项后隐藏菜单                         | `boolean`                                                           | true    |
+| showTimeout    | 展开下拉菜单的延时，仅在 trigger 为 hover 时有效   | `number`                                                            | 150     |
+| hideTimeout    | 收起下拉菜单的延时（仅在 trigger 为 hover 时有效） | `number`                                                            | 150     |
+| popperClass    | 自定义浮层类名                                     | `string`                                                            | ''      |
+
+<!-- | popperOptions | [popper.js](https://popper.js.org/docs/v2/) 参数 | `object` | `{modifiers: [{name: 'computeStyles',options: {gpuAcceleration: false}}]}` | -->
 
 ## Dropdown 事件
 
@@ -88,9 +93,17 @@ Dropdown 组件提供除了默认值以外的三种尺寸，可以在不同场�
 | handleOpen  | 打开下拉菜单 | <Enum type="Function">() => void</Enum> |
 | handleClose | 关闭下拉菜单 | <Enum type="Function">() => void</Enum> |
 
-## Dropdown-Item API
+## DropdownMenu API
 
-### Dropdown-Item 属性
+### DropdownMenu 属性
+
+| 属性名    | 说明         | 类型     | Default |
+| --------- | ------------ | -------- | ------- |
+| maxHeight | 菜单最大高度 | `number` | —       |
+
+## DropdownItem API
+
+### DropdownItem 属性
 
 | 属性名   | 说明                              | Type                           | 默认值 |
 | -------- | --------------------------------- | ------------------------------ | ------ |

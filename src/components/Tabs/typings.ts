@@ -39,7 +39,7 @@ export interface TabsProps extends BaseProps, NativeProps<'--el-tabs-header-heig
     /** `activeName` 改变时触发 */
     onTabChange?: (name: TabPaneName | undefined) => void;
     /** 鼠标右键点击 tab 时触发 */
-    formatter?: (name: TabPaneName | undefined) => void;
+    // formatter?: (name: TabPaneName | undefined) => void;
 }
 
 export interface Navs {
@@ -60,7 +60,7 @@ export interface Navs {
 
 export interface TabPaneProps extends BaseProps, NativeProps {
     /** 选项卡标题 */
-    title: string | React.ReactElement;
+    label: string | React.ReactElement;
     /** 与选项卡绑定值 value 对应的标识符，表示选项卡别名 */
     name: string;
     /** 标签是否可关闭 */

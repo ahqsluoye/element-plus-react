@@ -90,16 +90,21 @@ const { appContext } = getCurrentInstance()!;
 | 名称      | 说明                                                                                          | 类型                                                                      | 默认      |
 | --------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | --------- |
 | title     | 标题                                                                                          | `string`                                                                  | ''        |
-| message   | 通知栏正文内容                                                                                | `string` / `VNode` / <Enum type="Function">() => VNode</Enum>             | ''        |
+| message   | 通知栏正文内容                                                                                | `string \| React.ReactElement`                                            | ''        |
 | type      | 通知的类型                                                                                    | <Enum>'success' \| 'warning' \| 'info' \| 'error' \| ''</Enum>            | ''        |
-| icon      | 自定义图标。 若设置了 `type`，则 `icon` 会被覆盖                                              | `string` / `Component`                                                    | —         |
-| className | 自定义类名                                                                                    | `string`                                                                  | ''        |
+| iconClass | 自定义图标类名，用于自定义图标样式                                                            | `string`                                                                  | —         |
 | duration  | 显示时间, 单位为毫秒。 值为 0 则不会自动关闭                                                  | `number`                                                                  | 4500      |
 | position  | 自定义弹出位置                                                                                | <Enum>'top-right' \| 'top-left' \| 'bottom-right' \| 'bottom-left'</Enum> | top-right |
 | showClose | 是否显示关闭按钮                                                                              | `boolean`                                                                 | true      |
 | onClose   | 关闭时的回调函数                                                                              | <Enum type="Function">() => void</Enum>                                   | —         |
 | onClick   | 点击 Notification 时的回调函数                                                                | <Enum type="Function">() => void</Enum>                                   | —         |
+| onSuccess | 通知显示成功时的回调函数                                                                      | <Enum type="Function">(ref: HTMLDivElement) => void</Enum>                | —         |
 | offset    | 相对屏幕顶部的偏移量 偏移的距离，在同一时刻，所有的 Notification 实例应当具有一个相同的偏移量 | `number`                                                                  | 0         |
+
+<!-- 以下属性在当前类型定义中未找到 -->
+<!-- | id        | 通知 id                                                                                       | `string`                                                                  | —         | -->
+<!-- | icon      | 自定义图标。 若设置了 `type`，则 `icon` 会被覆盖                                              | `string` / `Component`                                                    | —         | -->
+<!-- | className | 自定义类名                                                                                    | `string`                                                                  | ''        | -->
 
 ### 方法
 

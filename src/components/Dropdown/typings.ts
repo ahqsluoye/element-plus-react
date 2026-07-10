@@ -25,6 +25,8 @@ export interface DropdownProps
     defaultVisible?: boolean;
     /** 是否禁用 */
     disabled?: boolean;
+    /** [popper.js](https://popper.js.org/docs/v2/) 参数 */
+    // popperOptions?: PopperOptions;
     onMouseEnter?: (e?: React.MouseEvent<any>) => void;
     onMouseLeave?: (e?: React.MouseEvent<any>) => void;
     /** 点击菜单项触发的事件回调 */
