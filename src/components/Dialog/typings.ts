@@ -55,6 +55,8 @@ export interface DialogProps
     beforeClose?: DialogBeforeCloseFn;
     /** 关闭Dialog函数，与 `visible` 属性配合使用，关闭后将 `visible` 设置为 `false`。 */
     onCloseDialog?: () => void;
+    /** 控制是否在关闭 Dialog 之后将子元素全部销毁 */
+    destroyOnClose?: boolean;
     /** 为 Dialog 启用可拖拽功能 */
     draggable?: boolean;
     /** 拖动范围可以超出可视区 */

@@ -117,6 +117,7 @@ Dialog 的内容是懒渲染的——在被打开之前，内容 不会被立即
 | footer            | Dialog 对话框的底部内容，也可通过 Dialog.footer 传入                                            | `ReactNode`                                         | —     |
 | border            | 标题是否有边框                                                                                  | `boolean`                                           | —     |
 | transitionConfig  | Dialog 过渡动画配置                                                                             | `string \| TransitionProps`                         | —     |
+| destroyOnClose    | 控制是否在关闭 Dialog 之后将子元素全部销毁                                                      | `boolean`                                           | true  |
 
 <!-- 以下属性在当前类型定义中未找到 -->
 <!-- | defaultVisible    | 默认是否显示 Dialog                                                                             | `boolean`                                           | —     | -->

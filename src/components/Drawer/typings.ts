@@ -52,6 +52,8 @@ export interface DrawerProps
     openDelay?: number;
     /** dialog 关闭的延时时间，单位毫秒 */
     closeDelay?: number;
+    /** 控制是否在关闭 Drawer 之后将子元素全部销毁 */
+    destroyOnClose?: boolean;
     /** Drawer 打开的回调 */
     onOpen?: () => void;
     /** Drawer 打开动画结束时的回调 */

@@ -24,6 +24,7 @@ const Drawer = memo(
                 withHeader: true,
                 lockScroll: true,
                 size: '30%',
+                destroyOnClose: true,
             },
             props,
         );
@@ -49,6 +50,7 @@ const Drawer = memo(
             classPrefix = 'drawer',
             lockScroll,
             zIndex,
+            destroyOnClose,
         } = props;
         const { b, is } = useClassNames(classPrefix);
 
@@ -123,7 +125,7 @@ const Drawer = memo(
                         visible={visible}
                         showDuration={0}
                         transitionAppear
-                        unmountOnExit
+                        unmountOnExit={destroyOnClose}
                         beforeEnter={() => {
                             props.beforeEnter?.();
                             addClass(wrapperRef.current, b`fade-enter-from`);
@@ -160,7 +162,7 @@ const Drawer = memo(
                             style={modal ? { zIndex: nextZIndex } : { zIndex: nextZIndex, position: 'fixed', top: '0px', right: '0px', bottom: '0px', left: '0px' }}
                             ref={composedRef}
                         >
-                            <div className={classNames(b(), direction, { open: visible }, props.className)} style={sizeStyle} role="dialog" ref={drawerRef}>
+                            <div className={classNames(b(), direction, { open: visible }, props.className)} style={{ ...sizeStyle, ...props.style }} role="dialog" ref={drawerRef}>
                                 {withHeader ? (
                                     <DrawerHeader className={headerClass} showClose={showClose} border={border}>
                                         {title}

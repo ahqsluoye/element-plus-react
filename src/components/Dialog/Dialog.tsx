@@ -29,6 +29,7 @@ const Dialog = React.memo(
                 transitionConfig: 'dialog-fade',
                 openDelay: 0,
                 closeDelay: 0,
+                destroyOnClose: true,
             },
             props,
         );
@@ -61,6 +62,7 @@ const Dialog = React.memo(
             classPrefix,
             modalClass,
             transitionConfig,
+            destroyOnClose,
         } = props;
         const { b, m, is } = useClassNames(classPrefix);
 
@@ -146,7 +148,7 @@ const Dialog = React.memo(
                         nodeRef={wrapperRef}
                         visible={visible}
                         transitionAppear
-                        unmountOnExit={props.unmountOnExit || !draggable}
+                        unmountOnExit={destroyOnClose || !draggable}
                         beforeEnter={() => {
                             props.beforeEnter?.();
                             addClass(wrapperRef.current, transitionName + '-enter-from');
