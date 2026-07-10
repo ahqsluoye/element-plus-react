@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import omit from 'lodash/omit';
-import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Transition from '../Transition/Transition';
 import { PopupManager, addUnit, mergeDefaultProps } from '../Util';
@@ -29,7 +29,7 @@ const Dialog = React.memo(
                 transitionConfig: 'dialog-fade',
                 openDelay: 0,
                 closeDelay: 0,
-                destroyOnClose: true,
+                destroyOnClose: false,
             },
             props,
         );
@@ -72,17 +72,39 @@ const Dialog = React.memo(
         const wrapperRef = useRef<HTMLDivElement>(null);
         // 模态框主题div
         const dialogRef = useRef<HTMLDivElement>(null);
-        // 遮罩div
-        // const backdropRef = useRef<HTMLDivElement>(null);
         const overlayRef = useRef<HTMLDivElement>(null);
         const headerRef = useRef<HTMLDivElement>(null);
-        // const { overflow, mounted, haveFooter } = useContext(DialogContext);
+        const mousedownRef = useRef<React.MouseEvent<HTMLDivElement, MouseEvent>>(null);
 
         const contentRef = useRef<HTMLDivElement>(null);
 
         const nextZIndex = useMemo(() => zIndex || PopupManager.nextZIndex(), [zIndex]);
 
-        useDraggable(dialogRef, headerRef, draggable, overflow);
+        const onMousedown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            mousedownRef.current = e;
+        };
+
+        const onMouseup = (mouseup: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            const mouseUpTarget = mouseup?.target as Node;
+            const mouseDownTarget = mousedownRef?.current?.target as Node;
+            const isTargetExists = !mouseUpTarget || !mouseDownTarget;
+
+            const isContainedByPopper = dialogRef?.current?.contains(mouseUpTarget) || dialogRef?.current?.contains(mouseDownTarget);
+            if (isTargetExists || isContainedByPopper) {
+                return;
+            }
+
+            if (closeOnClickModal) {
+                doClose();
+            } else {
+                addClass(dialogRef.current, b('dialog-shake', false));
+                setTimeout(() => {
+                    removeClass(dialogRef.current, b('dialog-shake', false));
+                }, 300);
+            }
+        };
+
+        useDraggable(dialogRef, headerRef, props);
 
         const doClose = useCallback(() => {
             if (beforeClose) {
@@ -109,34 +131,6 @@ const Dialog = React.memo(
         //     [doClose, visible],
         // );
 
-        /**关闭对话框 */
-        useEffect(() => {
-            if (visible) {
-                let mousedown: MouseEvent;
-                const shadowRef = wrapperRef?.current;
-                shadowRef?.addEventListener('mousedown', (e: MouseEvent) => (mousedown = e));
-                shadowRef?.addEventListener('mouseup', (mouseup: MouseEvent) => {
-                    const mouseUpTarget = mouseup?.target as Node;
-                    const mouseDownTarget = mousedown?.target as Node;
-                    const isTargetExists = !mouseUpTarget || !mouseDownTarget;
-
-                    const isContainedByPopper = dialogRef?.current?.contains(mouseUpTarget) || dialogRef?.current?.contains(mouseDownTarget);
-                    if (isTargetExists || isContainedByPopper) {
-                        return;
-                    }
-
-                    if (closeOnClickModal) {
-                        doClose();
-                    } else {
-                        addClass(dialogRef.current, b('dialog-shake', false));
-                        setTimeout(() => {
-                            removeClass(dialogRef.current, b('dialog-shake', false));
-                        }, 300);
-                    }
-                });
-            }
-        }, [visible]);
-
         useImperativeHandle(ref, () => wrapperRef.current);
 
         const transitionName = typeof transitionConfig === 'string' ? transitionConfig : transitionConfig.name;
@@ -148,7 +142,7 @@ const Dialog = React.memo(
                         nodeRef={wrapperRef}
                         visible={visible}
                         transitionAppear
-                        unmountOnExit={destroyOnClose || !draggable}
+                        unmountOnExit={destroyOnClose}
                         beforeEnter={() => {
                             props.beforeEnter?.();
                             addClass(wrapperRef.current, transitionName + '-enter-from');
@@ -190,6 +184,8 @@ const Dialog = React.memo(
                         <div
                             className={classNames(modal ? b('overlay', false) : '', modalClass || b('modal-dialog', false), is({ penetrable: modalPenetrable }))}
                             style={modal ? { zIndex: nextZIndex } : { zIndex: nextZIndex, position: 'fixed', top: '0px', right: '0px', bottom: '0px', left: '0px' }}
+                            onMouseDown={onMousedown}
+                            onMouseUp={onMouseup}
                             ref={wrapperRef}
                         >
                             <div ref={overlayRef} className={b(`overlay-${classPrefix}`, false)} style={{ display: alignCenter ? 'flex' : 'block' }}>

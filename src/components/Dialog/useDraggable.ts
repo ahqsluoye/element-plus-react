@@ -1,12 +1,15 @@
 import { addUnit } from '@qsxy/element-plus-react/Util';
 import { RefObject, useCallback, useEffect, useRef } from 'react';
+import { DialogProps } from './typings';
 
-export const useDraggable = (targetRef: RefObject<HTMLElement | undefined>, dragRef: RefObject<HTMLElement | undefined>, draggable: boolean, overflow?: boolean) => {
+export const useDraggable = (targetRef: RefObject<HTMLElement | undefined>, dragRef: RefObject<HTMLElement | undefined>, props: DialogProps) => {
+    const { draggable, visible, overflow, showDuration, destroyOnClose } = props;
     const transform = useRef({
         offsetX: 0,
         offsetY: 0,
     });
     const overflowRef = useRef(overflow);
+    const initRef = useRef(false);
 
     const onMousedown = useCallback(
         (e: MouseEvent) => {
@@ -69,24 +72,36 @@ export const useDraggable = (targetRef: RefObject<HTMLElement | undefined>, drag
         if (dragRef.current && targetRef.current) {
             dragRef.current.addEventListener('mousedown', onMousedown);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        if (destroyOnClose) {
+            transform.current = {
+                offsetX: 0,
+                offsetY: 0,
+            };
+        }
+    }, [destroyOnClose, dragRef, onMousedown, targetRef]);
 
     const offDraggable = useCallback(() => {
         if (dragRef.current && targetRef.current) {
             dragRef.current.removeEventListener('mousedown', onMousedown);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dragRef, onMousedown, targetRef]);
 
     useEffect(() => {
-        if (draggable) {
-            onDraggable();
+        overflowRef.current = overflow;
+        if (!draggable || !visible) {
+            offDraggable();
+            return;
+        }
+        if (visible) {
+            setTimeout(() => {
+                onDraggable();
+            }, showDuration);
+            initRef.current = true;
         } else {
             offDraggable();
         }
-        overflowRef.current = overflow;
+        offDraggable();
 
         return offDraggable;
-    }, [draggable, overflow, offDraggable, onDraggable]);
+    }, [draggable, visible, overflow]);
 };

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import { useComposeRef } from 'rc-util';
-import React, { forwardRef, memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { forwardRef, memo, useCallback, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Transition from '../Transition/Transition';
 import { PopupManager, addUnit, mergeDefaultProps } from '../Util';
@@ -24,7 +24,7 @@ const Drawer = memo(
                 withHeader: true,
                 lockScroll: true,
                 size: '30%',
-                destroyOnClose: true,
+                destroyOnClose: false,
             },
             props,
         );
@@ -69,8 +69,33 @@ const Drawer = memo(
         // 模态框主题div
         const drawerRef = useRef<HTMLDivElement>(null);
         const composedRef = useComposeRef(ref, wrapperRef);
+        const mousedownRef = useRef<React.MouseEvent<HTMLDivElement, MouseEvent>>(null);
 
         const nextZIndex = useMemo(() => zIndex || PopupManager.nextZIndex(), [zIndex]);
+
+        const onMousedown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            mousedownRef.current = e;
+        };
+
+        const onMouseup = (mouseup: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            const mouseUpTarget = mouseup?.target as Node;
+            const mouseDownTarget = mousedownRef.current?.target as Node;
+            const isTargetExists = !mouseUpTarget || !mouseDownTarget;
+
+            const isContainedByPopper = drawerRef?.current?.contains(mouseUpTarget) || drawerRef?.current?.contains(mouseDownTarget);
+            if (isTargetExists || isContainedByPopper) {
+                return;
+            }
+
+            if (closeOnClickModal) {
+                doClose();
+            } else {
+                addClass(drawerRef.current, `${namespace}-drawer-shake`);
+                setTimeout(() => {
+                    removeClass(drawerRef.current, `${namespace}-drawer-shake`);
+                }, 300);
+            }
+        };
 
         const doClose = useCallback(() => {
             if (beforeClose) {
@@ -84,38 +109,6 @@ const Drawer = memo(
                 close?.();
             }
         }, [beforeClose, close]);
-
-        /**关闭对话框 */
-        useEffect(() => {
-            if (visible) {
-                // setZIndex({
-                //     modal: PopupManager.nextZIndex(),
-                //     drawer: PopupManager.nextZIndex(),
-                // });
-                let mousedown: MouseEvent;
-                const shadowRef = wrapperRef?.current;
-                shadowRef?.addEventListener('mousedown', (e: MouseEvent) => (mousedown = e));
-                shadowRef?.addEventListener('mouseup', (mouseup: MouseEvent) => {
-                    const mouseUpTarget = mouseup?.target as Node;
-                    const mouseDownTarget = mousedown?.target as Node;
-                    const isTargetExists = !mouseUpTarget || !mouseDownTarget;
-
-                    const isContainedByPopper = drawerRef?.current?.contains(mouseUpTarget) || drawerRef?.current?.contains(mouseDownTarget);
-                    if (isTargetExists || isContainedByPopper) {
-                        return;
-                    }
-
-                    if (closeOnClickModal) {
-                        doClose();
-                    } else {
-                        addClass(drawerRef.current, `${namespace}-drawer-shake`);
-                        setTimeout(() => {
-                            removeClass(drawerRef.current, `${namespace}-drawer-shake`);
-                        }, 300);
-                    }
-                });
-            }
-        }, [visible]);
 
         return (
             <DrawerContext.Provider value={{ doClose }}>
@@ -160,6 +153,8 @@ const Drawer = memo(
                         <div
                             className={classNames(modal ? b('overlay', false) : '', modalClass || b('modal-drawer', false), is('drawer', { penetrable: modalPenetrable }))}
                             style={modal ? { zIndex: nextZIndex } : { zIndex: nextZIndex, position: 'fixed', top: '0px', right: '0px', bottom: '0px', left: '0px' }}
+                            onMouseDown={onMousedown}
+                            onMouseUp={onMouseup}
                             ref={composedRef}
                         >
                             <div className={classNames(b(), direction, { open: visible }, props.className)} style={{ ...sizeStyle, ...props.style }} role="dialog" ref={drawerRef}>
