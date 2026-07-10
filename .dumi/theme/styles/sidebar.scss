@@ -112,3 +112,14 @@
         font-weight: 500;
     }
 }
+.mobile-sidebar-drawer {
+    .sidebar {
+        position: static;
+        width: 100%;
+        transform: none;
+        padding: 16px;
+        padding-right: 16px !important;
+        height: calc(100vh - 55px);
+        overflow-y: auto;
+    }
+}

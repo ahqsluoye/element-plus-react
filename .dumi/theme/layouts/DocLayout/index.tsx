@@ -1,24 +1,31 @@
 import Header from '@/theme/slots/Header';
 import Home from '@/theme/slots/Home';
 import Main from '@/theme/slots/Main';
-import Sidebar from '@/theme/slots/Sidebar';
-import { ElConfigProvider } from '@qsxy/element-plus-react';
+import Sidebar, { SidebarRef } from '@/theme/slots/Sidebar';
+import { ElConfigProvider, ElDrawer } from '@qsxy/element-plus-react';
 import '@theme-chalk/dark/css-vars.scss';
 import '@theme-chalk/dev.scss';
 import { Helmet, useIntl, useRouteMeta, useSidebarData } from 'dumi';
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useRef, useState } from 'react';
 import './style';
 
 const DocLayout: FC = memo(() => {
     const intl = useIntl();
 
     const sidebar = useSidebarData();
-    // const { hash, pathname } = useLocation();
-    // const { loading, hostname, demos } = useSiteData();
-    // const [activateSidebar, updateActivateSidebar] = useState(false);
+    const [drawerVisible, setDrawerVisible] = useState(false);
     const { frontmatter: fm } = useRouteMeta();
 
     const showSidebar = fm.sidebar !== false && sidebar?.length > 0;
+    const sidebarRef = useRef<SidebarRef>(null);
+
+    const handleMenuClick = () => {
+        setDrawerVisible(true);
+    };
+
+    const handleCloseDrawer = () => {
+        setDrawerVisible(false);
+    };
     // handle hash change or visit page hash after async chunk loaded
     //   useEffect(() => {
     //     const id = hash.replace('#', '');
@@ -49,7 +56,7 @@ const DocLayout: FC = memo(() => {
 
             {/* {isHomePage ? <Home /> : <Docs />} */}
             <div className="App theme-default">
-                <Header />
+                <Header onMenuClick={handleMenuClick} />
                 <Home />
                 {showSidebar && <Sidebar />}
 
@@ -58,6 +65,22 @@ const DocLayout: FC = memo(() => {
                         <Main />
                     </ElConfigProvider>
                 )}
+
+                <ElDrawer
+                    visible={drawerVisible}
+                    onCloseDrawer={handleCloseDrawer}
+                    direction="ltr"
+                    size="300px"
+                    className="mobile-sidebar-drawer"
+                    withHeader={false}
+                    destroyOnClose={false}
+                    style={{ '--el-drawer-padding-primary': '0px' }}
+                    afterEnter={() => {
+                        sidebarRef.current?.handleScrollIntoView(true);
+                    }}
+                >
+                    <Sidebar ref={sidebarRef} onCloseDrawer={handleCloseDrawer} />
+                </ElDrawer>
             </div>
         </>
     );

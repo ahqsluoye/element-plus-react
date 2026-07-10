@@ -1,74 +1,96 @@
 import { ElScrollbar, ElTag } from '@qsxy/element-plus-react';
 import classNames from 'classnames';
 import { Link, useFullSidebarData } from 'dumi';
-import React, { FC, memo, useEffect, useMemo, useState } from 'react';
+import React, { forwardRef, memo, useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
-const Sidebar: FC = memo(() => {
-    const location = useLocation();
-    const fullsidebar = useFullSidebarData();
-    const [active, setActive] = useState(location.pathname);
-    const path = useMemo(() => '/' + location.pathname.split('/').filter(item => !!item)[0], [location.pathname]);
+interface SidebarProps {
+    onCloseDrawer?: () => void;
+}
 
-    useEffect(() => {
-        setActive(location.pathname);
-        const node = document.querySelector(`[href="${location.pathname}"]`);
-        if (node) {
-            scrollIntoView(node, {
-                scrollMode: 'if-needed',
-                block: 'center',
-            });
-        }
-    }, [location.pathname]);
+export type SidebarRef = {
+    handleScrollIntoView: (isLayer?: boolean) => void;
+};
 
-    return (
-        <ElScrollbar className="sidebar">
-            <div className="sidebar-groups">
-                {fullsidebar[path].map((group, index) => (
-                    <section key={index} className="sidebar-group">
-                        <p className="sidebar-group__title">{group.title}</p>
-                        {group.children.map(item => (
-                            <Link
-                                key={item.link}
-                                to={item.link}
-                                className={classNames('link', {
-                                    active: active === item.link,
-                                })}
-                                onClick={() => setActive(item.link)}
-                            >
-                                <p className="link-text">
-                                    {item.title}{' '}
-                                    {item.version && (
-                                        <ElTag type="primary" round effect="plain" size="small">
-                                            {item.version}
-                                        </ElTag>
-                                    )}
-                                </p>
-                            </Link>
-                        ))}
-                    </section>
-                ))}
-            </div>
-        </ElScrollbar>
-        // <div className="dumi-default-sidebar">
-        //   {meta[path].map((item, i) => (
-        //     <dl className="dumi-default-sidebar-group" key={String(i)}>
-        //       {item.title && <dt>{item.title}</dt>}
-        //       {item.children.map((child) => (
-        //         <dd key={child.link}>
-        //           <Link to={child.link} title={child.title}>
-        //             {child.title}
-        //           </Link>
-        //           {/* {child.link === pathname && meta.frontmatter.toc === 'menu' && (
-        //             <Toc />
-        //           )} */}
-        //         </dd>
-        //       ))}
-        //     </dl>
-        //   ))}
-        // </div>
-    );
-});
+const Sidebar = memo(
+    forwardRef<SidebarRef, SidebarProps>((props, ref) => {
+        const { onCloseDrawer } = props;
+        const location = useLocation();
+        const fullsidebar = useFullSidebarData();
+        const [active, setActive] = useState(location.pathname);
+        const path = useMemo(() => '/' + location.pathname.split('/').filter(item => !!item)[0], [location.pathname]);
+
+        const handleScrollIntoView = (isLayer = false) => {
+            const node = document.querySelector(`${isLayer ? '.mobile-sidebar-drawer ' : ''}[href="${location.pathname}"]`);
+            if (node) {
+                scrollIntoView(node, {
+                    scrollMode: 'if-needed',
+                    block: 'center',
+                });
+            }
+        };
+
+        useEffect(() => {
+            setActive(location.pathname);
+            handleScrollIntoView();
+        }, [location.pathname]);
+
+        React.useImperativeHandle(ref, () => ({
+            handleScrollIntoView,
+        }));
+
+        return (
+            <ElScrollbar className="sidebar">
+                <div className="sidebar-groups">
+                    {fullsidebar[path].map((group, index) => (
+                        <section key={index} className="sidebar-group">
+                            <p className="sidebar-group__title">{group.title}</p>
+                            {group.children.map(item => (
+                                <Link
+                                    key={item.link}
+                                    to={item.link}
+                                    className={classNames('link', {
+                                        active: active === item.link,
+                                    })}
+                                    onClick={() => {
+                                        setActive(item.link);
+                                        onCloseDrawer?.();
+                                    }}
+                                >
+                                    <p className="link-text">
+                                        {item.title}{' '}
+                                        {item.version && (
+                                            <ElTag type="primary" round effect="plain" size="small">
+                                                {item.version}
+                                            </ElTag>
+                                        )}
+                                    </p>
+                                </Link>
+                            ))}
+                        </section>
+                    ))}
+                </div>
+            </ElScrollbar>
+            // <div className="dumi-default-sidebar">
+            //   {meta[path].map((item, i) => (
+            //     <dl className="dumi-default-sidebar-group" key={String(i)}>
+            //       {item.title && <dt>{item.title}</dt>}
+            //       {item.children.map((child) => (
+            //         <dd key={child.link}>
+            //           <Link to={child.link} title={child.title}>
+            //             {child.title}
+            //           </Link>
+            //           {/* {child.link === pathname && meta.frontmatter.toc === 'menu' && (
+            //             <Toc />
+            //           )} */}
+            //         </dd>
+            //       ))}
+            //     </dl>
+            //   ))}
+            // </div>
+        );
+    }),
+);
 
 export default Sidebar;

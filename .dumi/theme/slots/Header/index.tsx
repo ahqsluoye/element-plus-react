@@ -1,14 +1,17 @@
-import React, { useCallback, useRef, useState } from 'react';
-import './style.scss';
-// import SearchBar from '../SearchBar';
 import config from '@/../package.json';
-import { ElIcon, ElSwitch, ElTag } from '@qsxy/element-plus-react';
+import { ElBacktop, ElIcon, ElSwitch, ElTag } from '@qsxy/element-plus-react';
 import { useMount } from 'ahooks';
 import { addClass, removeClass } from 'dom-lib';
 import { Link, useNavData } from 'dumi';
+import React, { useCallback, useRef, useState } from 'react';
 import SearchBar from '../SearchBar';
+import './style.scss';
 
-const Header = () => {
+interface HeaderProps {
+    onMenuClick?: () => void;
+}
+
+const Header = ({ onMenuClick }: HeaderProps) => {
     const nav = useNavData();
     const [darkMode, setDarkMode] = useState(localStorage.getItem('el-theme-appearance') === 'dark');
     const switchRef = useRef<HTMLDivElement>(null);
@@ -110,6 +113,20 @@ const Header = () => {
                             </div>
                         </nav>
                     </div>
+                </div>
+            </div>
+
+            <div className="mobile-action-bar">
+                <button className="mobile-menu-btn" onClick={onMenuClick}>
+                    <ElIcon name="align-left" className="menu-icon" style={{ color: '--el-text-color-secondary)' }} />
+                    <span className="menu-text" style={{ fontSize: 16 }}>
+                        Menu
+                    </span>
+                </button>
+                <div className="mobile-backtop">
+                    <ElBacktop>
+                        <ElIcon name="angle-up" prefix="far" />
+                    </ElBacktop>
                 </div>
             </div>
         </header>

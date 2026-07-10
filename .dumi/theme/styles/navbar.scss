@@ -57,6 +57,12 @@
         position: sticky;
         width: 100%;
     }
+
+    @media screen and (max-width: 960px) {
+        position: sticky;
+        top: 0;
+        width: 100%;
+    }
 }
 
 .menu + .appearance {
