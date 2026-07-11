@@ -43,7 +43,7 @@ const Sidebar = memo(
         return (
             <ElScrollbar className="sidebar">
                 <div className="sidebar-groups">
-                    {fullsidebar[path].map((group, index) => (
+                    {fullsidebar[path]?.map((group, index) => (
                         <section key={index} className="sidebar-group">
                             <p className="sidebar-group__title">{group.title}</p>
                             {group.children.map(item => (

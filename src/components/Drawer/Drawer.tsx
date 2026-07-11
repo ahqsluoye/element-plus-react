@@ -74,6 +74,7 @@ const Drawer = memo(
         const nextZIndex = useMemo(() => zIndex || PopupManager.nextZIndex(), [zIndex]);
 
         const onMousedown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            e.stopPropagation();
             mousedownRef.current = e;
         };
 
