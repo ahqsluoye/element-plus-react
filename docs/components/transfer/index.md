@@ -49,27 +49,27 @@ Transfer 的数据通过 `data` 属性传入。 数据需要是一个对象数�
 
 ### Transfer 属性
 
-| 属性名                      | 说明                                                                                                                                              | 类型                                                                               | 默认值   |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | -------- |
-| value                       | 选中项绑定值(可控模式)                                                                                                                            | <Enum type="array">Array<string \| number></Enum>                                  | []       |
-| defaultValue                | 默认选中项绑定值                                                                                                                                  | <Enum type="array">Array<string \| number></Enum>                                  | []       |
-| data                        | Transfer 的数据源                                                                                                                                 | <Enum type="array">Record<string, any>[]</Enum>                                    | []       |
-| filterable                  | 是否可搜索                                                                                                                                        | `boolean`                                                                          | false    |
-| filterPlaceholder           | 搜索框占位符                                                                                                                                      | `string`                                                                           | —        |
-| filterMethod                | 自定义搜索方法                                                                                                                                    | <Enum type="Function">(query: string, item: Record<string, any>) => boolean</Enum> | —        |
-| targetOrder                 | 右侧列表元素的排序策略： 若为 `original`，则保持与数据源相同的顺序； 若为 `push`，则新加入的元素排在最后； 若为 `unshift`，则新加入的元素排在最前 | <Enum type="enum">'original' \| 'push' \| 'unshift'</Enum>                         | original |
-| titles                      | 自定义列表标题                                                                                                                                    | <Enum type="array">[string, string]</Enum>                                         | []       |
-| buttonTexts                 | 自定义按钮文案                                                                                                                                    | <Enum type="array">[string, string]</Enum>                                         | []       |
-| renderContent               | 自定义数据项渲染函数                                                                                                                              | <Enum type="object">TransferRender</Enum>                                          | —        |
-| format                      | 列表顶部勾选状态文案                                                                                                                              | <Enum type="object">TransferFormat</Enum>                                          | {}       |
-| [props](#type-declarations) | 数据源的字段别名                                                                                                                                  | <Enum type="object">TransferPropsAlias</Enum>                                      | —        |
-| leftDefaultChecked          | 初始状态下左侧列表的已勾选项的 key 数组                                                                                                           | <Enum type="array">Array<string \| number></Enum>                                  | []       |
-| rightDefaultChecked         | 初始状态下右侧列表的已勾选项的 key 数组                                                                                                           | <Enum type="array">Array<string \| number></Enum>                                  | []       |
-| leftFooter                  | 左侧列表底部的内容                                                                                                                                | <Enum type="Function">(props: TransferListProps) => React.ReactElement</Enum>      | —        |
-| rightFooter                 | 右侧列表底部的内容                                                                                                                                | <Enum type="Function">(props: TransferListProps) => React.ReactElement</Enum>      | —        |
-| leftEmpty                   | 左侧面板为空或没有数据符合筛选条件时的内容                                                                                                        | No Data                                                                            | —        |
-| rightEmpty                  | 右侧面板为空或没有数据符合筛选条件时的内容                                                                                                        | No Data                                                                            | —        |
+| 属性名                      | 说明                                       | 类型                                                                               | 默认值 |
+| --------------------------- | ------------------------------------------ | ---------------------------------------------------------------------------------- | ------ |
+| value                       | 选中项绑定值(可控模式)                     | <Enum type="array">Array<string \| number></Enum>                                  | []     |
+| defaultValue                | 默认选中项绑定值                           | <Enum type="array">Array<string \| number></Enum>                                  | []     |
+| data                        | Transfer 的数据源                          | <Enum type="array">Record<string, any>[]</Enum>                                    | []     |
+| filterable                  | 是否可搜索                                 | `boolean`                                                                          | false  |
+| filterPlaceholder           | 搜索框占位符                               | `string`                                                                           | —      |
+| filterMethod                | 自定义搜索方法                             | <Enum type="Function">(query: string, item: Record<string, any>) => boolean</Enum> | —      |
+| titles                      | 自定义列表标题                             | <Enum type="array">[string, string]</Enum>                                         | []     |
+| buttonTexts                 | 自定义按钮文案                             | <Enum type="array">[string, string]</Enum>                                         | []     |
+| renderContent               | 自定义数据项渲染函数                       | <Enum type="object">TransferRender</Enum>                                          | —      |
+| format                      | 列表顶部勾选状态文案                       | <Enum type="object">TransferFormat</Enum>                                          | {}     |
+| [props](#type-declarations) | 数据源的字段别名                           | <Enum type="object">TransferPropsAlias</Enum>                                      | —      |
+| leftDefaultChecked          | 初始状态下左侧列表的已勾选项的 key 数组    | <Enum type="array">Array<string \| number></Enum>                                  | []     |
+| rightDefaultChecked         | 初始状态下右侧列表的已勾选项的 key 数组    | <Enum type="array">Array<string \| number></Enum>                                  | []     |
+| leftFooter                  | 左侧列表底部的内容                         | <Enum type="Function">(props: TransferListProps) => React.ReactElement</Enum>      | —      |
+| rightFooter                 | 右侧列表底部的内容                         | <Enum type="Function">(props: TransferListProps) => React.ReactElement</Enum>      | —      |
+| leftEmpty                   | 左侧面板为空或没有数据符合筛选条件时的内容 | No Data                                                                            | —      |
+| rightEmpty                  | 右侧面板为空或没有数据符合筛选条件时的内容 | No Data                                                                            | —      |
 
+<!-- | targetOrder                 | 右侧列表元素的排序策略： 若为 `original`，则保持与数据源相同的顺序； 若为 `push`，则新加入的元素排在最后； 若为 `unshift`，则新加入的元素排在最前 | <Enum type="enum">'original' \| 'push' \| 'unshift'</Enum>                         | original | -->
 <!-- | validateEvent               | 是否触发表单验证                                                                                                                                  | `boolean`                                                                          | true     | -->
 
 ### Transfer 事件
