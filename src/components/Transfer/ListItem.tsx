@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import Checkbox from '../Checkbox/Checkbox';
-import { FieldNames, KeyWiseTransferItem } from './typings';
+import { KeyWiseTransferItem, TransferPropsAlias } from './typings';
 
 type ListItemProps<RecordType> = {
     renderedText?: string | number;
@@ -13,7 +13,7 @@ type ListItemProps<RecordType> = {
     onRemove?: (item: RecordType) => void;
     item: RecordType;
     /** 数据源的字段别名 */
-    fieldNames: FieldNames;
+    fieldNames: TransferPropsAlias;
 };
 
 const ListItem = <RecordType extends KeyWiseTransferItem>(props: ListItemProps<RecordType>) => {

@@ -9,6 +9,7 @@ const App = () => {
                     key: i,
                     label: `content${i + 1}`,
                     description: `description of content${i + 1}`,
+                    disabled: i % 4 === 0,
                 };
             }),
         [],
@@ -16,21 +17,19 @@ const App = () => {
 
     const initialTargetKeys: (string | number)[] = useMemo(() => mockData.filter(item => +item.key > 10).map(item => item.key), [mockData]);
     const [targetKeys, setTargetKeys] = useState(initialTargetKeys);
-    const [selectedKeys, setSelectedKeys] = useState<(string | number)[]>([3, 18]);
 
     return (
         <ElTransfer
             data={mockData}
-            titles={['Source', 'Target']}
-            selectedKeys={selectedKeys}
+            leftDefaultChecked={[3]}
+            rightDefaultChecked={[18]}
             value={targetKeys}
             onChange={(nextTargetKeys, direction, newMoveKeys) => {
                 setTargetKeys(nextTargetKeys);
                 console.log(nextTargetKeys, direction, newMoveKeys);
             }}
-            onSelectChange={(sourceSelectedKeys, targetSelectedKeys) => {
-                setSelectedKeys([...sourceSelectedKeys, ...targetSelectedKeys]);
-            }}
+            onLeftCheckChange={console.log}
+            onRightCheckChange={console.log}
         />
     );
 };

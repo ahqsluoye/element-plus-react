@@ -1,7 +1,7 @@
 @use './mixins/config' as *;
 
 .#{$namespace}-transfer {
-    --#{$namespace}-transfer-border-color: var(--#{$namespace}-border-color);
+    --#{$namespace}-transfer-border-color: var(--#{$namespace}-border-color-lighter);
     --#{$namespace}-transfer-border-radius: 4px;
     --#{$namespace}-transfer-panel-width: 200px;
     --#{$namespace}-transfer-panel-header-height: 40px;
@@ -36,7 +36,6 @@
         display: flex;
         flex-direction: column;
         width: var(--#{$namespace}-transfer-panel-width);
-        height: var(--#{$namespace}-transfer-panel-body-height);
         border: 1px solid var(--#{$namespace}-transfer-border-color);
         border-radius: 4px;
 
@@ -56,7 +55,7 @@
             flex: none;
             align-items: center;
             height: var(--#{$namespace}-transfer-panel-header-height);
-            padding: 8px 12px 9px;
+            padding-left: 15px;
             color: var(--#{$namespace}-text-color-regular);
             background: var(--#{$namespace}-transfer-panel-header-bg-color);
             border-bottom: 1px solid;
@@ -64,19 +63,43 @@
             border-radius: var(--#{$namespace}-transfer-border-radius) var(--#{$namespace}-transfer-border-radius) 0 0;
 
             & > *:not(:last-child) {
-                margin-right: 4px;
+                display: flex;
+                flex: 1;
+                align-items: center;
+                min-width: 0;
+                font-size: 16px;
+                color: var(--#{$namespace}-text-color-primary);
+                font-weight: 400;
             }
 
             & > * {
                 flex: none;
             }
 
-            .#{$namespace}-transfer-list-header-title {
-                flex: auto;
+            .#{$namespace}-checkbox .#{$namespace}-checkbox__label {
+                display: flex;
+                flex: 1;
+                align-items: center;
+                min-width: 0;
+                font-size: 16px;
+                color: var(--#{$namespace}-text-color-primary);
+                font-weight: 400;
+            }
+
+            .#{$namespace}-transfer-list__header-title {
                 overflow: hidden;
-                white-space: nowrap;
-                text-align: right;
                 text-overflow: ellipsis;
+                white-space: nowrap;
+                flex: 1;
+                min-width: 0;
+            }
+
+            .#{$namespace}-transfer-list__header-count {
+                flex-shrink: 0;
+                margin-left: 8px;
+                margin-right: 15px;
+                color: var(--#{$namespace}-text-color-secondary);
+                font-size: 12px;
             }
 
             .#{$namespace}-transfer-list-header-dropdown {
@@ -96,6 +119,7 @@
             flex-direction: column;
             overflow: hidden;
             font-size: 14px;
+            height: var(--#{$namespace}-transfer-panel-body-height);
 
             .#{$namespace}-transfer-list-body-search-wrapper {
                 position: relative;
@@ -205,26 +229,28 @@
             flex: none;
             width: 100%;
             margin: auto 0;
-            color: fade(#000, 25%);
+            color: var(--#{$namespace}-text-color-secondary);
             text-align: center;
         }
 
         .#{$namespace}-transfer-list-footer {
             border-top: 1px solid #e4e7ed;
+            height: var(--#{$namespace}-transfer-panel-footer-height);
+            line-height: var(--#{$namespace}-transfer-panel-footer-height);
         }
     }
 
     .#{$namespace}-transfer-operation {
         display: flex;
         flex: none;
-        flex-direction: column;
+        // flex-direction: column;
         align-self: center;
-        margin: 0 8px;
+        margin: 0 30px;
         vertical-align: middle;
 
         .#{$namespace}-button {
             display: block;
-            margin-left: 0;
+            // margin-left: 0;
 
             &:first-child {
                 margin-bottom: 4px;

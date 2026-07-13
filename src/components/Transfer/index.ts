@@ -1,2 +1,2 @@
 export { default as Transfer } from './Transfer';
-export type { ListStyle, SelectAllLabel, TransferDirection, TransferItem, TransferLocale, TransferProps, TransferRender } from './typings';
+export type { ListStyle, TransferDataItem, TransferDirection, TransferFormat, TransferKey, TransferLocale, TransferProps, TransferPropsAlias, TransferRender } from './typings';

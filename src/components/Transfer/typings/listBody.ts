@@ -1,6 +1,6 @@
 import { BaseProps } from '../../types/common';
 import { ElementOf, tuple } from '../../types/type';
-import { FieldNames, KeyWiseTransferItem } from './index';
+import { KeyWiseTransferItem, TransferPropsAlias } from './index';
 import { RenderedItem, TransferListProps } from './list';
 
 export const OmitProps = tuple('handleFilter', 'handleClear', 'checkedKeys', 'instance');
@@ -16,5 +16,5 @@ export interface TransferListBodyProps<RecordType> extends PartialTransferListPr
     filteredRenderItems: RenderedItem<RecordType>[];
     selectedKeys: (string | number)[];
     /** 数据源的字段别名 */
-    fieldNames: FieldNames;
+    fieldNames: TransferPropsAlias;
 }

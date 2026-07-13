@@ -1,7 +1,7 @@
 import React from 'react';
 import { BaseProps, NativeProps } from '../../types/common';
 import { PaginationType } from '../interface';
-import { FieldNames, RenderResult, SelectAllLabel, TransferDirection, TransferLocale } from './index';
+import { RenderResult, TransferDirection, TransferFormat, TransferLocale, TransferPropsAlias } from './index';
 import { TransferListBodyProps } from './listBody';
 
 export interface RenderedItem<RecordType> {
@@ -19,6 +19,8 @@ export interface TransferListProps<RecordType> extends TransferLocale, BaseProps
     data: RecordType[];
     /**  */
     filterOption?: (filterText: string, item: RecordType) => boolean;
+    /** 搜索框占位符 */
+    filterPlaceholder?: string;
     /**  */
     checkedKeys: (string | number)[];
     /**  */
@@ -30,13 +32,11 @@ export interface TransferListProps<RecordType> extends TransferLocale, BaseProps
     /**  */
     onItemRemove?: (keys: (string | number)[]) => void;
     /**  */
-    handleClear: () => void;
-    /**  */
-    render?: (item: RecordType) => RenderResult;
+    handleClearSearch?: () => void;
+    /** 自定义数据项渲染函数 */
+    renderContent?: (item: RecordType) => RenderResult;
     /**  */
     showSearch?: boolean;
-    /**  */
-    searchPlaceholder?: string;
     /**  */
     itemUnit?: string;
     /**  */
@@ -44,7 +44,7 @@ export interface TransferListProps<RecordType> extends TransferLocale, BaseProps
     /**  */
     renderList?: RenderListFunction<RecordType>;
     /**  */
-    footer?: (props: TransferListProps<RecordType>, info?: { direction: TransferDirection }) => React.ReactElement;
+    footer?: (props: TransferListProps<RecordType>) => React.ReactElement;
     /**  */
     onScroll: (e) => void;
     /**  */
@@ -55,11 +55,13 @@ export interface TransferListProps<RecordType> extends TransferLocale, BaseProps
     showSelectAll?: boolean;
     /**  */
     /** 自定义顶部多选框标题 */
-    selectAllLabel?: SelectAllLabel;
+    selectAllLabel?: TransferFormat;
     /**  */
     showRemove?: boolean;
     /** 分页 */
     pagination?: PaginationType;
     /** 数据源的字段别名 */
-    fieldNames: FieldNames;
+    fieldNames: TransferPropsAlias;
+    /** 列表顶部勾选状态文案 */
+    format?: TransferFormat;
 }

@@ -59,4 +59,4 @@ export default App;`,
     });
 }
 
-buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/backtop.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/backtop', true);
+buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/transfer.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/transfer/transfer', true);

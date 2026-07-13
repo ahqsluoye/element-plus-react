@@ -171,7 +171,10 @@ export default {
         transfer: {
             noMatch: 'No matching data',
             noData: 'No data',
-            titles: ['List 1', 'List 2'],
+            titles: {
+                0: 'List 1',
+                1: 'List 2',
+            },
             filterPlaceholder: 'Enter keyword',
             noCheckedFormat: '{total} items',
             hasCheckedFormat: '{checked}/{total} checked',

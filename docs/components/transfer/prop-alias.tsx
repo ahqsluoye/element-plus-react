@@ -1,14 +1,28 @@
-import React from 'react';
-            import {  } from '@qsxy/element-plus-react';
+import { ElTransfer } from '@qsxy/element-plus-react';
+import React, { useMemo } from 'react';
 
-            const App = () => {
+const App = () => {
+    const mockData = useMemo(
+        () =>
+            new Array(20).fill(0).map((_, i) => {
+                return {
+                    value: i,
+                    desc: `Option ${i}`,
+                    disabled: i % 4 === 0,
+                };
+            }),
+        [],
+    );
 
-                return (
+    return (
+        <ElTransfer
+            data={mockData}
+            props={{
+                key: 'value',
+                label: 'desc',
+            }}
+        />
+    );
+};
 
-                );
-            };
-
-            
-
-            export default App;
-            
+export default App;

@@ -32,10 +32,10 @@ const App = () => {
 
     return (
         <ElTransfer
-            fieldNames={{ key: 'val', title: 'desc', disabled: 'disable' }}
+            props={{ key: 'val', label: 'desc', disabled: 'disable' }}
             data={mockData1}
             filterable
-            selectedKeys={selectedKeys}
+            leftDefaultChecked={selectedKeys}
             value={targetKeys}
             onChange={(nextTargetKeys, direction, newMoveKeys) => {
                 setTargetKeys(nextTargetKeys);

@@ -27,14 +27,14 @@ const Operation: FC<TransferOperationProps> = ({
     oneWay,
 }: TransferOperationProps) => (
     <div className={className} style={style}>
-        <Button type="primary" size="small" disabled={disabled || !rightActive} onClick={moveToRight} icon={rightArrowText ? false : 'angle-right'} style={{ marginBottom: 4 }}>
-            {rightArrowText}
-        </Button>
         {!oneWay && (
-            <Button type="primary" size="small" disabled={disabled || !leftActive} onClick={moveToLeft} icon={leftArrowText ? false : 'angle-left'}>
+            <Button type="primary" disabled={disabled || !leftActive} onClick={moveToLeft} icon={'angle-left'}>
                 {leftArrowText}
             </Button>
         )}
+        <Button type="primary" disabled={disabled || !rightActive} onClick={moveToRight} icon={'angle-right'} style={{ marginBottom: 4 }}>
+            {rightArrowText}
+        </Button>
     </div>
 );
 

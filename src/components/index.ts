@@ -82,7 +82,7 @@ export { Segmented as ElSegmented } from './Segmented';
 export type { Option, SegmentedComponentProps, SegmentedProps } from './Segmented';
 
 export { Transfer as ElTransfer } from './Transfer';
-export type { ListStyle, SelectAllLabel, TransferDirection, TransferItem, TransferLocale, TransferProps, TransferRender } from './Transfer';
+export type { ListStyle, TransferDataItem, TransferDirection, TransferFormat, TransferKey, TransferLocale, TransferProps, TransferPropsAlias, TransferRender } from './Transfer';
 
 export { Form as ElForm, FormItem as ElFormItem, List as ElFormList, useForm, useWatch } from './Form';
 export type {

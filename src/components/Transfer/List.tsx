@@ -2,8 +2,6 @@ import classNames from 'classnames';
 import omit from 'lodash/omit';
 import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
 import Checkbox from '../Checkbox/Checkbox';
-import { Dropdown, DropdownItem, DropdownMenu } from '../Dropdown';
-import Icon from '../Icon/Icon';
 import { mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import DefaultListBody from './ListBody';
@@ -26,9 +24,7 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
             data: [],
             titleText: '',
             showSearch: false,
-            itemsUnit: '项',
-            itemUnit: '项',
-            searchPlaceholder: '请输入搜索内容',
+            showSelectAll: true,
         },
         props,
     );
@@ -41,23 +37,21 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
         footer,
         showSearch,
         style,
-        searchPlaceholder,
+        filterPlaceholder,
         notFoundContent,
         renderList,
         onItemSelectAll,
-        showSelectAll = true,
+        showSelectAll,
         pagination,
-        direction,
-        itemsUnit,
-        itemUnit,
-        selectAllLabel,
+        format,
         filterOption,
-        render,
+        renderContent,
         handleFilter,
+        handleClearSearch,
         fieldNames,
     } = props;
 
-    const { b } = useClassNames(classPrefix);
+    const { b, e } = useClassNames(classPrefix);
     const [filterValue, setFilterValue] = useState('');
     const defaultListBodyRef = useRef<ListBodyRef>(null);
 
@@ -89,7 +83,7 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
 
     const handleClear = useCallback(() => {
         setFilterValue('');
-        handleClear();
+        handleClearSearch?.();
     }, []);
 
     const matchFilter = useCallback(
@@ -121,12 +115,12 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
     const renderItem = useCallback(
         (item: RecordType): RenderedItem<RecordType> => {
             return {
-                renderedText: item[fieldNames.title],
-                renderedEl: render?.(item) ?? item[fieldNames.title],
+                renderedText: item[fieldNames.label],
+                renderedEl: renderContent?.(item) ?? item[fieldNames.label],
                 item,
             };
         },
-        [fieldNames.title, render],
+        [fieldNames.label, renderContent],
     );
 
     const { filteredItems, filteredRenderItems } = useMemo<{ filteredItems: RecordType[]; filteredRenderItems: RenderedItem<RecordType>[] }>(() => {
@@ -201,25 +195,20 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
     );
 
     const getSelectAllLabel = useMemo(() => {
-        const selectedCount: number = checkedKeys.length;
-        const totalCount: number = filteredItems.length;
-        if (selectAllLabel) {
-            return typeof selectAllLabel === 'function' ? selectAllLabel?.({ selectedCount, totalCount }) : selectAllLabel;
+        const checked: number = checkedKeys.length;
+        const total: number = filteredItems.length;
+        if (format) {
+            return typeof format === 'function' ? format?.({ checked, total }) : format;
         }
-        const unit = totalCount > 1 ? itemsUnit : itemUnit;
-        return (
-            <>
-                {(selectedCount > 0 ? `${selectedCount}/` : '') + totalCount} {unit}
-            </>
-        );
-    }, [checkedKeys.length, filteredItems.length, itemUnit, itemsUnit, selectAllLabel]);
+        return <>{(checked > 0 ? `${checked}/` : '0') + total}</>;
+    }, [checkedKeys.length, filteredItems.length, format]);
 
     // ================================= List Body =================================
 
     const listBody = useMemo<React.ReactElement>(() => {
         const search = showSearch ? (
             <div className={b`body-search-wrapper`}>
-                <Search prefixCls={b`search`} onChange={onFilter} handleClear={handleClear} placeholder={searchPlaceholder} value={filterValue} disabled={disabled} />
+                <Search prefixCls={b`search`} onChange={onFilter} handleClear={handleClear} placeholder={filterPlaceholder} value={filterValue} disabled={disabled} />
             </div>
         ) : null;
 
@@ -250,10 +239,10 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
                 {bodyNode}
             </div>
         );
-    }, [b, checkedKeys, disabled, filterValue, filteredItems, filteredRenderItems, handleClear, onFilter, notFoundContent, props, renderListBody, searchPlaceholder, showSearch]);
+    }, [b, checkedKeys, disabled, filterValue, filteredItems, filteredRenderItems, handleClear, onFilter, notFoundContent, props, renderListBody, filterPlaceholder, showSearch]);
 
     // Custom Layout
-    const footerDom = useMemo(() => footer && (footer.length < 2 ? footer(props) : footer(props, { direction })), [direction, footer, props]);
+    const footerDom = useMemo(() => (footer ? footer(props) : null), [footer, props]);
 
     // ================================ List Footer ================================
     const listFooter = useMemo(() => (footerDom ? <div className={b`footer`}>{footerDom}</div> : null), [b, footerDom]);
@@ -278,37 +267,37 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
                     );
                 }}
             >
-                {titleText}
+                <span className={e`header-title`}>{titleText}</span>
             </Checkbox>
         );
 
         return result;
-    }, [b, disabled, fieldNames.disabled, filteredItems, getCheckStatus, onItemSelectAll, pagination, titleText]);
+    }, [b, disabled, e, fieldNames.disabled, filteredItems, getCheckStatus, onItemSelectAll, pagination, titleText]);
 
-    const menu: React.ReactElement = useMemo(
-        () => (
-            <DropdownMenu>
-                <DropdownItem key="selectAll" command="selectAll">
-                    全选所有
-                </DropdownItem>
-                {pagination && (
-                    <DropdownItem key="pagination" command="pagination">
-                        全选当页
-                    </DropdownItem>
-                )}
-                <DropdownItem key="selectInvert" command="selectInvert">
-                    反选当页
-                </DropdownItem>
-            </DropdownMenu>
-        ),
-        [pagination],
-    );
+    // const menu: React.ReactElement = useMemo(
+    //     () => (
+    //         <DropdownMenu>
+    //             <DropdownItem key="selectAll" command="selectAll">
+    //                 全选所有
+    //             </DropdownItem>
+    //             {pagination && (
+    //                 <DropdownItem key="pagination" command="pagination">
+    //                     全选当页
+    //                 </DropdownItem>
+    //             )}
+    //             <DropdownItem key="selectInvert" command="selectInvert">
+    //                 反选当页
+    //             </DropdownItem>
+    //         </DropdownMenu>
+    //     ),
+    //     [pagination],
+    // );
 
-    const dropdown = (
-        <Dropdown className={b`header-dropdown`} menu={menu} disabled={disabled} onClick={onDropdownClick}>
-            <Icon name="angle-down" />
-        </Dropdown>
-    );
+    // const dropdown = (
+    //     <Dropdown className={b`header-dropdown`} menu={menu} disabled={disabled} onClick={onDropdownClick}>
+    //         <Icon name="angle-down" />
+    //     </Dropdown>
+    // );
 
     return (
         <div className={classNames(b(), { [b`with-pagination`]: !!pagination, [b`with-footer`]: !!footerDom })} style={style}>
@@ -317,11 +306,11 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
                 {showSelectAll ? (
                     <>
                         {checkAllCheckbox}
-                        {dropdown}
+                        {/* {dropdown} */}
                     </>
                 ) : null}
                 {/* <span className={b`header-selected`}/> */}
-                <span className={b`header-title`}>
+                <span className={e`header-count`}>
                     {getSelectAllLabel}
                     {/* {titleText} */}
                 </span>

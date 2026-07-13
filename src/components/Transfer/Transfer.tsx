@@ -1,66 +1,80 @@
 import classNames from 'classnames';
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { Empty } from '../Empty';
+import React, { FC, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { mergeDefaultProps } from '../Util';
 import { useClassNames, useControlled } from '../hooks';
 import List from './List';
 import Operation from './operation';
-import { KeyWise, TransferDirection, TransferItem, TransferProps } from './typings';
+import { KeyWise, TransferDataItem, TransferDirection, TransferProps } from './typings';
 
-type RecordType = TransferItem;
+type RecordType = TransferDataItem;
 
 const Transfer: FC<TransferProps<RecordType>> = props => {
-    // @ts-ignore
+    const { locale } = useConfigProvider();
+    const { t } = useTranslation();
+
     props = mergeDefaultProps(
         {
             data: [],
-            titles: ['Source', 'Target'],
-            locale: {},
+            titles: [t('el.transfer.titles.0', { lng: locale }), t('el.transfer.titles.1', { lng: locale })],
             filterable: false,
             listStyle: {},
+            leftDefaultChecked: [],
+            rightDefaultChecked: [],
+            leftEmpty: t('el.transfer.noData', { lng: locale }),
+            rightEmpty: t('el.transfer.noData', { lng: locale }),
+            filterPlaceholder: t('el.transfer.filterPlaceholder', { lng: locale }),
         },
         props,
     );
     const {
         className,
         disabled,
-        operations = [],
+        buttonTexts: operations = [],
         filterable,
-        footer,
+        leftFooter,
+        rightFooter,
         style,
         listStyle,
         operationStyle,
         filterMethod,
-        render,
+        filterPlaceholder,
+        renderContent,
         children,
         showSelectAll,
         pagination,
         titles,
         data = [],
-        selectedKeys,
-        selectAllLabels = [],
+        leftDefaultChecked,
+        rightDefaultChecked,
+        format,
         onChange,
         onScroll,
+        onLeftCheckChange,
+        onRightCheckChange,
+        leftEmpty,
+        rightEmpty,
         classPrefix = 'transfer',
     } = props;
     const { b, is } = useClassNames(classPrefix);
 
     const fieldNames = useMemo(() => {
-        return { key: 'key', title: 'label', disabled: 'disabled', ...props.fieldNames };
-    }, [props.fieldNames]);
+        return { key: 'key', label: 'label', disabled: 'disabled', ...props.props };
+    }, [props.props]);
 
     const [value, setValue] = useControlled(props.value, props.defaultValue ?? []);
-    const [sourceSelectedKeys, setSourceSelectedKeys] = useState(selectedKeys?.filter(key => data.some(item => item[fieldNames.key] === key) && !value.includes(key)) ?? []);
-    const [targetSelectedKeys, setTargetSelectedKeys] = useState(selectedKeys?.filter(key => value.includes(key)) ?? []);
+    const [sourceSelectedKeys, setSourceSelectedKeys] = useControlled(undefined, leftDefaultChecked);
+    const [targetSelectedKeys, setTargetSelectedKeys] = useControlled(undefined, rightDefaultChecked);
 
-    useEffect(() => {
-        if (selectedKeys) {
-            const mergedTargetKeys = value || [];
-            setSourceSelectedKeys(selectedKeys.filter(key => data.some(item => item[fieldNames.key] === key) && !mergedTargetKeys.includes(key)));
-            setTargetSelectedKeys(selectedKeys.filter(key => mergedTargetKeys.includes(key)));
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedKeys]);
+    // useEffect(() => {
+    //     if (leftDefaultChecked) {
+    //         setSourceSelectedKeys(leftDefaultChecked);
+    //     }
+    //     if (rightDefaultChecked) {
+    //         setTargetSelectedKeys(rightDefaultChecked);
+    //     }
+    // }, [leftDefaultChecked, rightDefaultChecked]);
 
     const mergedPagination = useMemo(() => !children && pagination, [children, pagination]);
 
@@ -108,7 +122,7 @@ const Transfer: FC<TransferProps<RecordType>> = props => {
                 setTargetSelectedKeys(typeof keys === 'function' ? keys(targetSelectedKeys || []) : keys);
             }
         },
-        [sourceSelectedKeys, targetSelectedKeys],
+        [setSourceSelectedKeys, setTargetSelectedKeys, sourceSelectedKeys, targetSelectedKeys],
     );
 
     const handleSelectChange = useCallback(
@@ -225,13 +239,16 @@ const Transfer: FC<TransferProps<RecordType>> = props => {
             if (checked) {
                 holder.push(selectedKey);
             }
+            if (direction === 'left') {
+                onLeftCheckChange?.(holder, [selectedKey]);
+            } else {
+                onRightCheckChange?.(holder, [selectedKey]);
+            }
             handleSelectChange(direction, holder);
 
-            if (!props.selectedKeys) {
-                setStateKeys(direction, holder);
-            }
+            setStateKeys(direction, holder);
         },
-        [handleSelectChange, props.selectedKeys, setStateKeys, sourceSelectedKeys, targetSelectedKeys],
+        [handleSelectChange, onLeftCheckChange, onRightCheckChange, setStateKeys, sourceSelectedKeys, targetSelectedKeys],
     );
 
     const onLeftItemSelect = useCallback((selectedKey: string, checked: boolean) => onItemSelect('left', selectedKey, checked), [onItemSelect]);
@@ -272,30 +289,31 @@ const Transfer: FC<TransferProps<RecordType>> = props => {
                 style={handleListStyle(listStyle, 'left')}
                 checkedKeys={sourceSelectedKeys}
                 handleFilter={handleLeftFilter}
-                handleClear={handleLeftClear}
+                handleClearSearch={handleLeftClear}
                 onItemSelect={onLeftItemSelect}
                 onItemSelectAll={onLeftItemSelectAll}
-                render={render}
+                renderContent={renderContent}
                 showSearch={filterable}
                 renderList={children}
-                footer={footer}
+                footer={leftFooter}
                 onScroll={handleLeftScroll}
                 disabled={disabled}
                 direction={'left'}
                 showSelectAll={showSelectAll}
-                selectAllLabel={selectAllLabels[0]}
+                format={format}
                 pagination={mergedPagination}
-                notFoundContent={<Empty imageSize={50} />}
+                notFoundContent={leftEmpty}
                 fieldNames={fieldNames}
+                filterPlaceholder={filterPlaceholder}
                 // {...omit(props, ['data', 'onScroll'])}
             />
             <Operation
                 className={b`operation`}
                 rightActive={sourceSelectedKeys.length > 0}
-                rightArrowText={operations[0]}
+                rightArrowText={operations[1]}
                 moveToRight={moveToRight}
                 leftActive={targetSelectedKeys.length > 0}
-                leftArrowText={operations[1]}
+                leftArrowText={operations[0]}
                 moveToLeft={moveToLeft}
                 style={operationStyle}
                 disabled={disabled}
@@ -307,29 +325,29 @@ const Transfer: FC<TransferProps<RecordType>> = props => {
                 style={handleListStyle(listStyle, 'right')}
                 checkedKeys={targetSelectedKeys}
                 handleFilter={handleRightFilter}
-                handleClear={handleRightClear}
+                handleClearSearch={handleRightClear}
                 onItemSelect={onRightItemSelect}
                 onItemSelectAll={onRightItemSelectAll}
                 onItemRemove={onRightItemRemove}
-                render={render}
+                renderContent={renderContent}
                 showSearch={filterable}
                 renderList={children}
-                footer={footer}
+                footer={rightFooter}
                 onScroll={handleRightScroll}
                 disabled={disabled}
                 direction={'right'}
                 showSelectAll={showSelectAll}
-                selectAllLabel={selectAllLabels[1]}
+                format={format}
                 pagination={mergedPagination}
-                notFoundContent={<Empty imageSize={50} />}
+                notFoundContent={rightEmpty}
                 fieldNames={fieldNames}
+                filterPlaceholder={filterPlaceholder}
                 // {...omit(props, ['data', 'onScroll'])}
-                // {...locale}
             />
         </div>
     );
 };
 
-Transfer.displayName = 'Transfer';
+Transfer.displayName = 'ElTransfer';
 
 export default Transfer;
