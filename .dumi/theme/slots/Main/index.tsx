@@ -46,7 +46,7 @@ const Main = () => {
         anchorRef?.scrollTo('');
         const hash = decodeURIComponent(window.location.hash);
         anchorRef?.scrollTo(hash);
-    }, [siteData.loading]);
+    }, [siteData.loading, location.hash]);
 
     return (
         <main id="page-content" className={classNames('page-content', { 'has-sidebar': showSidebar })}>
