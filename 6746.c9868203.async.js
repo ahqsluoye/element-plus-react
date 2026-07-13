@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_qsxy_element_plus_react=self.webpackChunk_qsxy_element_plus_react||[]).push([[6746],{6746:function(s,e,u){u.r(e),e.default=[{date:"2026-07-06",version:"2.0.0",entries:[{type:"bugfix",description:"\u5B9E\u73B0\u957F\u6309\u589E\u51CF\u6309\u94AE\u5FEB\u901F\u8C03\u6574\u6570\u503C\u7684\u529F\u80FD",author:"ahqsluoye"}]}]}}]);
