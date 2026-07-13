@@ -214,7 +214,7 @@
             }
 
             .#{$namespace}-transfer-list-content-item-disabled {
-                color: #c0c4cc;
+                color: var(--#{$namespace}-disabled-text-color);
                 cursor: not-allowed;
             }
         }
@@ -222,7 +222,7 @@
         .#{$namespace}-transfer-list-pagination {
             padding: 8px 0;
             text-align: right;
-            border-top: 1px solid #e4e7ed;
+            border-top: 1px solid var(--#{$namespace}-transfer-border-color);
         }
 
         .#{$namespace}-transfer-list-body-not-found {
@@ -234,7 +234,7 @@
         }
 
         .#{$namespace}-transfer-list-footer {
-            border-top: 1px solid #e4e7ed;
+            border-top: 1px solid var(--#{$namespace}-transfer-border-color);
             height: var(--#{$namespace}-transfer-panel-footer-height);
             line-height: var(--#{$namespace}-transfer-panel-footer-height);
         }
