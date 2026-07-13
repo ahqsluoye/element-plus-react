@@ -464,7 +464,7 @@ const InputNumber = memo(
                                 timerRef.current = setInterval(() => {
                                     const val = userInputRef.current !== null ? Number(userInputRef.current) || 0 : Number(displayValue) || 0;
                                     const newVal = verifyValue(ensurePrecision(val, -1));
-                                    setUserInput(newVal);
+                                    setUserInput(!isUndefined(precisionProp) ? newVal.toFixed(precisionProp) : newVal);
                                     userInputRef.current = newVal;
                                 }, 100);
                             }, 500);
@@ -489,8 +489,7 @@ const InputNumber = memo(
                                 timerRef.current = setInterval(() => {
                                     const val = userInputRef.current !== null ? Number(userInputRef.current) || 0 : Number(displayValue) || 0;
                                     const newVal = verifyValue(ensurePrecision(val));
-                                    setUserInput(newVal);
-                                    // setCurrentValue(newVal, false);
+                                    setUserInput(!isUndefined(precisionProp) ? newVal.toFixed(precisionProp) : newVal);
                                     userInputRef.current = newVal;
                                 }, 100);
                             }, 500);

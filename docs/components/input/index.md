@@ -87,39 +87,40 @@ lang: zh-CN
 
 ### Input 属性
 
-| 属性名            | 说明                                                           | 类型                                                                                                                                              | 默认值 |
-| ----------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| type              | 类型                                                           | `string` `'text' \| 'hidden' \| ...` [native input types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types) | text   |
-| value             | 值（可控）                                                     | `string` / `number`                                                                                                                               | —      |
-| defaultValue      | 默认值                                                         | `string` / `number`                                                                                                                               | —      |
-| size              | 输入框尺寸                                                     | <Enum>'large' \| 'default' \| 'small'</Enum>                                                                                                      | —      |
-| id                | 输入框唯一标识                                                 | `string`                                                                                                                                          | —      |
-| prefix            | 输入框头部内容，只对 type="text" 有效                          | `string` / `Component`                                                                                                                            | —      |
-| suffix            | 输入框尾部内容，只对 type="text" 有效                          | `string` / `Component`                                                                                                                            | —      |
-| prepend           | 输入框前置内容，只对 type="text" 有效                          | `string` / `Component`                                                                                                                            | —      |
-| append            | 输入框后置内容，只对 type="text" 有效                          | `string` / `Component`                                                                                                                            | —      |
-| clearable         | 是否显示清除按钮                                               | `boolean`                                                                                                                                         | false  |
-| formatter         | 指定输入值的格式。(只有当 type 是"text"时才能工作)             | <Enum type='Function'>(value: string \| number) => string</Enum>                                                                                  | —      |
-| showPassword      | 是否显示切换密码图标                                           | `boolean`                                                                                                                                         | false  |
-| plain             | 是否纯文本模式，即无边框                                       | `boolean`                                                                                                                                         | —      |
-| innerStyle        | input 自定义内联样式                                           | `CSSProperties`                                                                                                                                   | —      |
-| maxLength         | 最大输入长度                                                   | `number`                                                                                                                                          | —      |
-| minLength         | 原生属性，最小输入长度                                         | `number`                                                                                                                                          | —      |
-| showWordLimit     | 是否显示统计字数, 只在 type 为 'text' 或 'textarea' 的时候生效 | `boolean`                                                                                                                                         | —      |
+| 属性名        | 说明                                                           | 类型                                                                                                                                              | 默认值 |
+| ------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| type          | 类型                                                           | `string` `'text' \| 'hidden' \| ...` [native input types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types) | text   |
+| value         | 值（可控）                                                     | `string` / `number`                                                                                                                               | —      |
+| defaultValue  | 默认值                                                         | `string` / `number`                                                                                                                               | —      |
+| size          | 输入框尺寸                                                     | <Enum>'large' \| 'default' \| 'small'</Enum>                                                                                                      | —      |
+| id            | 输入框唯一标识                                                 | `string`                                                                                                                                          | —      |
+| prefix        | 输入框头部内容，只对 type="text" 有效                          | `string` / `Component`                                                                                                                            | —      |
+| suffix        | 输入框尾部内容，只对 type="text" 有效                          | `string` / `Component`                                                                                                                            | —      |
+| prepend       | 输入框前置内容，只对 type="text" 有效                          | `string` / `Component`                                                                                                                            | —      |
+| append        | 输入框后置内容，只对 type="text" 有效                          | `string` / `Component`                                                                                                                            | —      |
+| clearable     | 是否显示清除按钮                                               | `boolean`                                                                                                                                         | false  |
+| formatter     | 指定输入值的格式。(只有当 type 是"text"时才能工作)             | <Enum type='Function'>(value: string \| number) => string</Enum>                                                                                  | —      |
+| showPassword  | 是否显示切换密码图标                                           | `boolean`                                                                                                                                         | false  |
+| plain         | 是否纯文本模式，即无边框                                       | `boolean`                                                                                                                                         | —      |
+| innerStyle    | input 自定义内联样式                                           | `CSSProperties`                                                                                                                                   | —      |
+| maxLength     | 最大输入长度                                                   | `number`                                                                                                                                          | —      |
+| minLength     | 原生属性，最小输入长度                                         | `number`                                                                                                                                          | —      |
+| showWordLimit | 是否显示统计字数, 只在 type 为 'text' 或 'textarea' 的时候生效 | `boolean`                                                                                                                                         | —      |
+| placeholder   | 输入框占位文本                                                 | `string`                                                                                                                                          | —      |
+| disabled      | 是否禁用                                                       | `boolean`                                                                                                                                         | false  |
+| name          | 等价于原生 input `name` 属性                                   | `string`                                                                                                                                          | —      |
+| readOnly      | 原生 `readonly` 属性，是否只读                                 | `boolean`                                                                                                                                         | false  |
+| autocomplete  | 原生属性 autocomplete                                          | `string`                                                                                                                                          | —      |
+| tabindex      | 原生属性 tabindex                                              | `number`                                                                                                                                          | —      |
+| ariaLabel     | 原生属性 aria-label                                            | `string`                                                                                                                                          | —      |
+| form          | 原生属性 form                                                  | `string`                                                                                                                                          | —      |
+| autofocus     | 原生属性 autofocus                                             | `boolean`                                                                                                                                         | —      |
+| inputmode     | 原生属性 inputmode                                             | <Enum>'none' \| 'text' \| 'decimal' \| 'numeric' \| 'tel' \| 'search' \| 'email' \| 'url'</Enum>                                                  | —      |
+
+<!--
 | wordLimitPosition | 字数统计的位置，仅当 show-word-limit 为 true 时生效。          | <Enum>'inside' \| 'outside'</Enum>                                                                                                                | —      |
 | hiddenValue       | 是否隐藏值                                                     | `boolean`                                                                                                                                         | —      |
-| placeholder       | 输入框占位文本                                                 | `string`                                                                                                                                          | —      |
-| disabled          | 是否禁用                                                       | `boolean`                                                                                                                                         | false  |
-| name              | 等价于原生 input `name` 属性                                   | `string`                                                                                                                                          | —      |
-| readOnly          | 原生 `readonly` 属性，是否只读                                 | `boolean`                                                                                                                                         | false  |
-| autocomplete      | 原生属性 autocomplete                                          | `string`                                                                                                                                          | —      |
-| tabindex          | 原生属性 tabindex                                              | `number`                                                                                                                                          | —      |
-| ariaLabel         | 原生属性 aria-label                                            | `string`                                                                                                                                          | —      |
-| form              | 原生属性 form                                                  | `string`                                                                                                                                          | —      |
-| autofocus         | 原生属性 autofocus                                             | `boolean`                                                                                                                                         | —      |
-| inputmode         | 原生属性 inputmode                                             | <Enum>'none' \| 'text' \| 'decimal' \| 'numeric' \| 'tel' \| 'search' \| 'email' \| 'url'</Enum>                                                  | —      |
-
-<!-- | containerRole     | 容器的 role 属性                                               | `string`                                                                                                                                          | —      |
+| containerRole     | 容器的 role 属性                                               | `string`                                                                                                                                          | —      |
 | validateEvent     | 是否触发表单验证                                               | `boolean`                                                                                                                                         | —      |
 | modelModifiers    | 修饰符                                                         | `{ trim?: boolean; number?: boolean; lazy?: boolean }`                                                                                            | —      |
 | debounceInput | 输入是否防抖动 | `boolean` | — |
@@ -149,9 +150,10 @@ lang: zh-CN
 | clear     | 重置值                | <Enum type='Function'>() => void</Enum>                    |
 | focus     | 使 input 组件获得焦点 | <Enum type='Function'>() => void</Enum>                    |
 | blur      | 使 input 组件失去焦点 | <Enum type='Function'>() => void</Enum>                    |
-| select    | 选中所有文本          | <Enum type='Function'>() => void</Enum>                    |
 | showClear | 显示一键清除图标      | <Enum type='Function'>(value: ValueType) => void;</Enum>   |
 | hideClear | 隐藏一键清除图标      | <Enum type='Function'>() => void</Enum>                    |
+
+<!-- | select    | 选中所有文本          | <Enum type='Function'>() => void</Enum>                    | -->
 
 ### Textarea 属性
 
@@ -170,7 +172,7 @@ lang: zh-CN
 | clearable     | 是否可清空                                                           | `boolean`                                                   | —      |
 | placeholder   | 输入框占位文本                                                       | `string`                                                    | —      |
 | disabled      | 是否禁用                                                             | `boolean`                                                   | false  |
-| readonly      | 原生 `readonly` 属性，是否只读                                       | `boolean`                                                   | false  |
+| readOnly      | 原生 `readonly` 属性，是否只读                                       | `boolean`                                                   | false  |
 
 ### Textarea 事件
 

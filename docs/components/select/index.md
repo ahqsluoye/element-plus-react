@@ -21,6 +21,12 @@ lang: zh-CN
 
 <code src="./options.tsx"></code>
 
+## data 属性
+
+如果 `Select` 选中后需要获取额外的数据时，请使用 `data` 属性可以传入自定义数据，数据类型不限，可以是 `Object`，可以是 `Boolean`，或者 `String`，在选中的选项后，`onChange` 回调函数会返回该数据。
+
+<code src="./data.tsx"></code>
+
 ## 有禁用选项
 
 在 `ElOption` 中，设定 `disabled` 值为 true，即可禁用该选项
@@ -104,12 +110,6 @@ lang: zh-CN
  <!-- 本例还使用了 `default-first-option` 属性， 在该属性为 `true` 的情况下，按下回车就可以选中当前选项列表中的第一个选项，无需使用鼠标或键盘方向键进行定位。 -->
 
 <code src="./allow-create.tsx"></code>
-
-## 使用值键 data 属性
-
-如果 `Select` 选中后需要获取额外的数据时，请使用 `data` 属性可以传入自定义数据，数据类型不限，可以是 `Object`，可以是 `Boolean`，或者 `String`，在选中的选项后，`onChange` 回调函数会返回该数据。
-
-<code src="./data.tsx"></code>
 
 ## 自定义标签
 

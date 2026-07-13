@@ -29,12 +29,6 @@ lang: zh-CN
 
 ## 显示自定义图标
 
-:::info{title=TIP}
-
-使用 `inactiveIcon` 和 `activeIcon` 属性来添加图标。 您可以传递组件名称的字符串（提前注册）或组件本身是一个 SVG Vue 组件。 Element Plus 提供了一组图标，您可以在 [icon component](/zh-CN/component/icon) 查看。
-
-:::
-
 使用 `inactiveIcon` 和 `activeIcon` 属性来添加图标。 使用 `inlinePrompt` 属性来控制图标显示在点内。
 
 <code src="./custom-icons.tsx"></code>

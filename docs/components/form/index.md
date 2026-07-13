@@ -62,7 +62,7 @@ formRef.current?.setFieldsValue({ note: 'Hi, man!' });
 
 Form 组件允许你验证用户的输入是否符合规范，来帮助你找到和纠正错误。
 
-`Form` 组件提供了表单验证的功能，只需为 `rules` 属性传入约定的验证规则，并将 `formItem` 的 `prop` 属性设置为需要验证的特殊键值即可。 更多高级用法可参考 [async-validator](https://github.com/yiminghe/async-validator)。
+`Form` 组件提供了表单验证的功能，只需为 `rules` 属性传入约定的验证规则，并将 `formItem` 的 `name` 属性设置为需要验证的特殊键值即可。 更多高级用法可参考 [async-validator](https://github.com/yiminghe/async-validator)。
 
 <code src="./validation.tsx"></code>
 
@@ -181,7 +181,7 @@ const validateMessages = {
 <ElForm validateMessages={validateMessages} />;
 ```
 
-此外，[ConfigProvider](/components/config-provider-cn) 也提供了全局化配置方案，允许统一配置错误提示模板：
+<!-- 此外，[ConfigProvider](/components/config-provider-cn) 也提供了全局化配置方案，允许统一配置错误提示模板：
 
 ```typescript
 const validateMessages = {
@@ -192,7 +192,7 @@ const validateMessages = {
 <ConfigProvider form={{ validateMessages }}>
     <ElForm />
 </ConfigProvider>;
-```
+``` -->
 
 ### FormInstance
 

@@ -105,7 +105,7 @@ export interface InputProps
     /** 是否显示统计字数, 只在 type 为 'text' 或 'textarea' 的时候生效	 */
     showWordLimit?: boolean;
     /** 字数统计的位置，仅当 show-word-limit 为 true 时生效。 */
-    wordLimitPosition?: 'inside' | 'outside';
+    // wordLimitPosition?: 'inside' | 'outside';
     /** 是否隐藏值 */
     hiddenValue?: boolean;
     /** 原生属性 autocomplete */

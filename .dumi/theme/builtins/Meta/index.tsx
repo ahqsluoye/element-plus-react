@@ -96,9 +96,9 @@ const Meta = props => {
                                 <ElTimeLineItem key={index} hollow size="large" type={getTimelineItemType(item.entries)}>
                                     <div className="changelog-version-header">
                                         <span className="changelog-version">{item.version}</span>
-                                        <ElTag size="small" round effect="plain">
+                                        {/* <ElTag size="small" round effect="plain">
                                             {item.date}
-                                        </ElTag>
+                                        </ElTag> */}
                                     </div>
                                     <ul className="changelog-entries">
                                         {item.entries.map((entry, idx) => (
