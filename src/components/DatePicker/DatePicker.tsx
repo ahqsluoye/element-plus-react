@@ -188,6 +188,7 @@ const DatePicker = memo(
                     disabled={disabled}
                     required={required}
                     clearable={clearable && !disabled}
+                    isSelect
                     prefix={!plain && <Icon name="calendar-days" />}
                     onClick={onActive}
                     value={formatValue}
