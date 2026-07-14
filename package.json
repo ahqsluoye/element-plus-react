@@ -1,6 +1,6 @@
 {
   "name": "@qsxy/element-plus-react",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "element-plus-react",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "doc": "tsc ./doc.ts && node ./doc.js",
     "publish": "npm run build && npm publish ./packages --scope=@qsxy --access=public --registry https://registry.npmjs.org/",
     "prepublishOnly": "father doctor && npm run build",
-    "test": "gulp clean && npm run build && node copyLib.js"
+    "test": "gulp clean && npm run build && node scripts/copyLib.js"
   },
   "authors": [
     "ahqsluoye@126.com"
