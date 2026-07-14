@@ -1,8 +1,11 @@
+import { isNull } from 'lodash';
 import { useContext, useMemo } from 'react';
 import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
 import { FormItemContext } from '../Form/FormItemContext';
 import InternalFormContext from '../Form/InternalFormContext';
+import { TextareaProps } from '../Input/typings';
 import { TypeAttributes } from '../types/common';
+import { isUndefined } from '../Util';
 
 export const useSize = (fallback?: TypeAttributes.Size | (() => TypeAttributes.Size)) => {
     const { size: globalSize } = useConfigProvider();
@@ -16,11 +19,23 @@ export const useSize = (fallback?: TypeAttributes.Size | (() => TypeAttributes.S
 export const useDisabled = (fallback?: boolean | (() => boolean)) => {
     const disabled = fallback instanceof Function ? fallback() : fallback;
     const form = useContext(InternalFormContext);
-    return useMemo(() => disabled || form?.disabled || false, [disabled, form?.disabled]);
+    return useMemo(() => (isNull(disabled) || isUndefined(disabled) ? form?.disabled || false : disabled), [disabled, form?.disabled]);
 };
 
 export const useStatusIcon = () => {
     const statusIcon = useContext(InternalFormContext).statusIcon;
     const { validateState } = useContext(FormItemContext);
     return { statusIcon, validateState };
+};
+
+export const useClearable = (fallback?: boolean | (() => boolean)) => {
+    const clearable = fallback instanceof Function ? fallback() : fallback;
+    const { clearable: globalClearable } = useConfigProvider();
+    return useMemo(() => (isNull(clearable) || isUndefined(clearable) ? globalClearable || false : clearable), [clearable, globalClearable]);
+};
+
+export const useAutosize = (fallback?: TextareaProps['autosize'] | (() => TextareaProps['autosize'])) => {
+    const autosize = fallback instanceof Function ? fallback() : fallback;
+    const { textarea: globalAutosize } = useConfigProvider();
+    return useMemo(() => (isNull(autosize) || isUndefined(autosize) ? globalAutosize?.autosize || false : autosize), [autosize, globalAutosize?.autosize]);
 };
