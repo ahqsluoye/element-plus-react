@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import omit from 'lodash/omit';
-import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Transition from '../Transition/Transition';
 import { PopupManager, addUnit, mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
-import { useLockscreen } from '../hooks/useLockscreen';
+import { useLockScreen } from '../hooks/useLockscreen';
 import DialogBody from './DialogBody';
 import { DialogContext } from './DialogContext';
 import DialogFooter from './DialogFooter';
@@ -66,7 +66,7 @@ const Dialog = React.memo(
         } = props;
         const { b, m, is } = useClassNames(classPrefix);
 
-        useLockscreen(visible, { shouldLock: lockScroll });
+        useLockScreen(visible, { shouldLock: lockScroll });
 
         // 模态框容器div
         const wrapperRef = useRef<HTMLDivElement>(null);
@@ -74,36 +74,11 @@ const Dialog = React.memo(
         const dialogRef = useRef<HTMLDivElement>(null);
         const overlayRef = useRef<HTMLDivElement>(null);
         const headerRef = useRef<HTMLDivElement>(null);
-        const mousedownRef = useRef<React.MouseEvent<HTMLDivElement, MouseEvent>>(null);
+        const initRef = useRef(false);
 
         const contentRef = useRef<HTMLDivElement>(null);
 
-        const nextZIndex = useMemo(() => zIndex || PopupManager.nextZIndex(), [zIndex]);
-
-        const onMousedown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            e.stopPropagation();
-            mousedownRef.current = e;
-        };
-
-        const onMouseup = (mouseup: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            const mouseUpTarget = mouseup?.target as Node;
-            const mouseDownTarget = mousedownRef?.current?.target as Node;
-            const isTargetExists = !mouseUpTarget || !mouseDownTarget;
-
-            const isContainedByPopper = dialogRef?.current?.contains(mouseUpTarget) || dialogRef?.current?.contains(mouseDownTarget);
-            if (isTargetExists || isContainedByPopper) {
-                return;
-            }
-
-            if (closeOnClickModal) {
-                doClose();
-            } else {
-                addClass(dialogRef.current, b('dialog-shake', false));
-                setTimeout(() => {
-                    removeClass(dialogRef.current, b('dialog-shake', false));
-                }, 300);
-            }
-        };
+        const nextZIndex = useMemo(() => (visible ? zIndex || PopupManager.nextZIndex() : null), [visible, zIndex]);
 
         useDraggable(dialogRef, headerRef, props);
 
@@ -131,6 +106,45 @@ const Dialog = React.memo(
         //     },
         //     [doClose, visible],
         // );
+
+        /**关闭对话框 */
+        useEffect(() => {
+            let mousedown: MouseEvent;
+            const onMousedown = (e: MouseEvent) => {
+                mousedown = e;
+            };
+            const onMouseup = (mouseup: MouseEvent) => {
+                const mouseUpTarget = mouseup?.target as Node;
+                const mouseDownTarget = mousedown?.target as Node;
+                const isTargetExists = !mouseUpTarget || !mouseDownTarget;
+
+                const isContainedByPopper = dialogRef?.current?.contains(mouseUpTarget) || dialogRef?.current?.contains(mouseDownTarget);
+                if (isTargetExists || isContainedByPopper) {
+                    return;
+                }
+
+                if (closeOnClickModal) {
+                    doClose();
+                } else {
+                    addClass(dialogRef.current, b('dialog-shake', false));
+                    setTimeout(() => {
+                        removeClass(dialogRef.current, b('dialog-shake', false));
+                    }, 300);
+                }
+            };
+            if (wrapperRef.current) {
+                const shadowRef = wrapperRef?.current;
+                shadowRef.removeEventListener('mousedown', onMousedown);
+                shadowRef.removeEventListener('mouseup', onMouseup);
+                if (visible) {
+                    if ((!initRef.current && !destroyOnClose) || destroyOnClose) {
+                        initRef.current = true;
+                        shadowRef.addEventListener('mousedown', onMousedown);
+                        shadowRef.addEventListener('mouseup', onMouseup);
+                    }
+                }
+            }
+        }, [visible]);
 
         useImperativeHandle(ref, () => wrapperRef.current);
 
@@ -185,11 +199,9 @@ const Dialog = React.memo(
                         <div
                             className={classNames(modal ? b('overlay', false) : '', modalClass || b('modal-dialog', false), is({ penetrable: modalPenetrable }))}
                             style={modal ? { zIndex: nextZIndex } : { zIndex: nextZIndex, position: 'fixed', top: '0px', right: '0px', bottom: '0px', left: '0px' }}
-                            onMouseDown={onMousedown}
-                            onMouseUp={onMouseup}
                             ref={wrapperRef}
                         >
-                            <div ref={overlayRef} className={b(`overlay-${classPrefix}`, false)} style={{ display: alignCenter ? 'flex' : 'block' }}>
+                            <div ref={overlayRef} className={b(`overlay-${classPrefix}`, false)} style={{ display: alignCenter ? 'flex' : '' }}>
                                 <div
                                     className={classNames(b(), props.className, is({ draggable, 'align-center': alignCenter, fullscreen }), { [m`center`]: center })}
                                     style={{
