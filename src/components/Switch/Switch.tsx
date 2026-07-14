@@ -9,7 +9,6 @@ import { SwitchProps } from './typings';
 const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
     props = mergeDefaultProps(
         {
-            disabled: false,
             activeText: '',
             inactiveText: '',
             activeColor: '',

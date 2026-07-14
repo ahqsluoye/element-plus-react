@@ -26,7 +26,6 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
             readonly: true,
             isoWeek: true,
             clearable: true,
-            disabled: false,
             placeholder: '',
         },
         props,
@@ -195,6 +194,7 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
                 disabled={disabled}
                 size={size}
                 clearable={clearable && !disabled}
+                isSelect
                 prefix={prefixIcon ? prefixIcon : <Icon name="clock" />}
                 onClick={onActive}
                 value={formatValue}

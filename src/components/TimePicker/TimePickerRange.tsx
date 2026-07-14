@@ -34,7 +34,6 @@ const TimePickerRange = memo(
                 disabledSeconds: () => [],
                 isoWeek: true,
                 clearable: true,
-                disabled: false,
                 startPlaceholder: t('el.datepicker.startTime', { lng: locale }),
                 endPlaceholder: t('el.datepicker.endTime', { lng: locale }),
                 rangeSeparator: '-',
