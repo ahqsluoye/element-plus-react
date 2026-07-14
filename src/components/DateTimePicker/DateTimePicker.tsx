@@ -24,7 +24,6 @@ const DateTimePicker = memo(
                 readonly: true,
                 isoWeek: true,
                 clearable: true,
-                disabled: false,
                 placeholder: '',
             },
             props,
@@ -150,6 +149,7 @@ const DateTimePicker = memo(
                     disabled={disabled}
                     size={size}
                     clearable={clearable && !disabled}
+                    isSelect
                     prefix={<Icon name="clock" />}
                     onClick={onActive}
                     value={formatValue}

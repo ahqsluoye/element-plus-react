@@ -6,8 +6,12 @@ import { ConfigProviderProps } from './typings';
 const ConfigProvider = (props: ConfigProviderProps) => {
     props = mergeDefaultProps(
         {
+            textarea: {
+                autosize: true,
+            },
             locale: 'en',
             size: 'default',
+            clearable: false,
             button: {
                 autoInsertSpace: false,
                 type: undefined,

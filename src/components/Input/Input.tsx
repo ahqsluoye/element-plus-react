@@ -1,13 +1,13 @@
 import classNames from 'classnames';
-import { addStyle, hasClass } from 'dom-lib';
+import { addStyle } from 'dom-lib';
 import isObject from 'lodash/isObject';
 import React, { ComponentType, cloneElement, forwardRef, memo, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import Icon from '../Icon/Icon';
 import { IconProps } from '../Icon/typings';
 import { isNotEmpty, mergeDefaultProps } from '../Util';
 import { ValidateComponentsMap } from '../Util/icons';
-import { partitionHTMLProps, useClassNames, useControlled, useDisabled, useSize, useStatusIcon } from '../hooks';
-import { InputProps, InputRef, ValueType } from './typings';
+import { partitionHTMLProps, useClassNames, useClearable, useControlled, useDisabled, useSize, useStatusIcon } from '../hooks';
+import { InputProps, InputRef } from './typings';
 
 const Input = memo(
     forwardRef<InputRef, InputProps>((props, ref) => {
@@ -15,7 +15,6 @@ const Input = memo(
             {
                 type: 'text',
                 placeholder: '',
-                clearable: false,
                 debounceTime: 200,
                 defaultValue: '',
             },
@@ -28,14 +27,12 @@ const Input = memo(
             suffix,
             prepend,
             append,
-
             debounceInput,
             debounceTime,
             placeholder,
             readOnly,
             plain,
             classPrefix = 'input',
-            clearable,
             onInput,
             onChange,
             onClear,
@@ -47,6 +44,7 @@ const Input = memo(
             hiddenValue,
             defaultValue,
             formatter,
+            isSelect,
             ...rest
         } = props;
         const { b, e, m, be, bm, is } = useClassNames(classPrefix);
@@ -55,9 +53,11 @@ const Input = memo(
         const [value, setValue] = useControlled(props.value, defaultValue);
         const [type, setType] = useState(props.type || 'text');
         const [focused, setFocused] = useState(false);
+        const [hovering, setHovering] = useState(false);
         const disabled = useDisabled(props.disabled);
         const size = useSize(props.size);
         const { statusIcon, validateState } = useStatusIcon();
+        const clearable = useClearable(props.clearable);
 
         const containerRef = useRef<HTMLDivElement>(null);
         const inputRef = useRef<HTMLInputElement>(null);
@@ -66,6 +66,9 @@ const Input = memo(
         const suffixRef = useRef<HTMLInputElement>(null);
         // 搜索框是否输入完毕
         const inputOver = useRef(true);
+
+        const renderClear = useMemo(() => clearable && !disabled && (isSelect || !readOnly), [clearable, disabled, isSelect, readOnly]);
+        const showClear = useMemo(() => renderClear && !!value && (focused || hovering), [renderClear, value, focused, hovering]);
 
         // const containerRef = useMemo(() => props.containerRef ?? rootRef, [props.containerRef]);
 
@@ -140,38 +143,6 @@ const Input = memo(
             }
         }, [showPassword]);
 
-        const showClear = useCallback(
-            (_value: ValueType) => {
-                if (clearable && isNotEmpty(_value) && !disabled && clearRef.current) {
-                    addStyle(clearRef.current, 'display', '');
-                    // if (suffixRef.current) {
-                    //     if (type === 'text' && maxLength && showWordLimit) {
-                    //         return;
-                    //     }
-                    //     addStyle(suffixRef.current, 'display', 'none');
-                    // }
-                } else {
-                    // if (suffixRef.current) {
-                    //     addStyle(suffixRef.current, 'display', '');
-                    // }
-                }
-                // addClass((ref ?? contentRef).current, m`suffix`);
-            },
-            [clearable, disabled],
-        );
-
-        const hideClear = useCallback(() => {
-            if (clearRef.current) {
-                addStyle(clearRef.current, 'display', 'none');
-            }
-            // if (suffixRef.current) {
-            //     addStyle(suffixRef.current, 'display', '');
-            // }
-            // if (!suffixSlot) {
-            //     removeClass((ref ?? contentRef).current, m`suffix`);
-            // }
-        }, []);
-
         /** 在点击由 clearable 属性生成的清空按钮时触发 */
         const handelClear = useCallback(
             (event?: any) => {
@@ -180,7 +151,6 @@ const Input = memo(
                 if (clearRef.current) {
                     addStyle(clearRef.current, 'display', 'none');
                 }
-                hideClear();
                 onClear?.(event);
                 onChange?.('', event);
                 if (requestAnimationFrame) {
@@ -191,7 +161,7 @@ const Input = memo(
                     });
                 }
             },
-            [disabled, hideClear, onChange, onClear, readOnly, setValue],
+            [disabled, onChange, onClear, readOnly, setValue],
         );
 
         /** 后缀点击事件 */
@@ -207,14 +177,9 @@ const Input = memo(
                 // }
                 // 让搜索变成异步的
                 setValue(event.target.value);
-                if (clearRef.current && clearable && isNotEmpty(event.target.value)) {
-                    showClear(event.target.value);
-                } else {
-                    hideClear();
-                }
                 onChange?.(event.target.value, event);
             },
-            [setValue, clearable, onChange, showClear, hideClear],
+            [setValue, onChange],
         );
 
         const handleChange = useCallback(
@@ -268,8 +233,6 @@ const Input = memo(
             clear: handelClear,
             focus: () => inputRef.current?.focus(),
             blur: () => inputRef.current?.blur(),
-            showClear,
-            hideClear,
         }));
 
         /** 输入框头部内容 */
@@ -318,16 +281,7 @@ const Input = memo(
                 onClick={event => event.stopPropagation()}
             >
                 {prepend ? <div className={be('group', 'prepend')}>{prepend}</div> : null}
-                <div
-                    ref={wrapperRef}
-                    className={classNames(e`wrapper`, is({ focus: focused }))}
-                    onMouseEnter={() => showClear(value)}
-                    onMouseLeave={() => {
-                        if (!hasClass(wrapperRef.current, is('focus'))) {
-                            hideClear();
-                        }
-                    }}
-                >
+                <div ref={wrapperRef} className={classNames(e`wrapper`, is({ focus: focused }))} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
                     {/* 前缀 */}
                     {['text', 'password'].includes(type) && preffixSlot && (
                         <span className={e`prefix`}>
@@ -360,7 +314,6 @@ const Input = memo(
                             //     addClass(wrapperRef.current, is('focus'));
                             // }
                             setFocused(true);
-                            showClear(value);
                             onFocus?.call(this, event);
                         }}
                         onBlur={event => {
@@ -369,7 +322,6 @@ const Input = memo(
                             //     removeClass(wrapperRef.current, is('focus'));
                             // }
                             setFocused(false);
-                            hideClear();
                             onBlur?.call(this, event);
                             // handleChange(event);
                         }}
@@ -396,19 +348,21 @@ const Input = memo(
                     {suffixVisible && (
                         <span className={classNames(e`suffix`, { [b('click', false)]: suffixCanClick })}>
                             <span className={e`suffix-inner`}>
-                                <Icon
-                                    ref={clearRef}
-                                    style={{ display: 'none' }}
-                                    prefix="fal"
-                                    name="circle-xmark"
-                                    className={classNames(e`icon`, e`clear`)}
-                                    onClick={handelClear}
-                                    onMouseDown={event => {
-                                        event.preventDefault();
-                                        event.stopPropagation();
-                                    }}
-                                />
-                                {!showPwdVisible || !isWordLimitVisible ? suffixContent : null}
+                                {showClear && (
+                                    <Icon
+                                        ref={clearRef}
+                                        prefix="fal"
+                                        name="circle-xmark"
+                                        className={classNames(e`icon`, e`clear`)}
+                                        onClick={handelClear}
+                                        onMouseDown={event => {
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                        }}
+                                    />
+                                )}
+                                {/* 选择框仅当不显示清除图标时才显示 */}
+                                {(isSelect && !showClear) || (!isSelect && (!showPwdVisible || !isWordLimitVisible)) ? suffixContent : null}
                                 {showPwdVisible && (
                                     <Icon name={type === 'text' ? 'eye' : 'eye-slash'} className={classNames(e`icon`, e`password`)} onClick={handlePasswordVisible} />
                                 )}

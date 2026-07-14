@@ -50,7 +50,6 @@ const Cascader = memo(
                 collapseTags: false,
                 collapseTagsTooltip: false,
                 maxCollapseTags: 1,
-                clearable: false,
             },
             props,
         );
@@ -636,6 +635,7 @@ const Cascader = memo(
                                 readOnly
                                 hiddenValue={multiple}
                                 clearable={clearable && !disabled}
+                                isSelect
                                 disabled={disabled}
                                 size={size}
                                 onClick={onClick}

@@ -24,7 +24,6 @@ const DateRangePicker = memo(
             readOnly: false,
             isoWeek: true,
             clearable: true,
-            disabled: false,
             unlinkPanels: false,
             rangeSeparator: '-',
             ...props,

@@ -15,6 +15,7 @@ import {
     partitionPopperPropsUtils,
     useChildrenInstance,
     useClassNames,
+    useClearable,
     useControlled,
     useDisabled,
     useSize,
@@ -35,9 +36,7 @@ const useSelect = (props: SelectProps) => {
             noMatchText: t('el.select.noMatch', { lng: locale }),
             loadingText: t('el.select.loading', { lng: locale }),
             showArrow: true,
-            clearable: false,
             filterable: false,
-            disabled: false,
             maxWidth: 500,
             collapseTagsTooltip: true,
             maxCollapseTags: 1,
@@ -70,7 +69,6 @@ const useSelect = (props: SelectProps) => {
 
     const {
         filterable,
-        clearable,
         clearIcon,
         multiple,
         onChange,
@@ -94,6 +92,7 @@ const useSelect = (props: SelectProps) => {
     const disabled = useDisabled(props.disabled);
     const size = useSize(props.size);
     const { statusIcon, validateState } = useStatusIcon();
+    const clearable = useClearable(props.clearable);
 
     const validateIcon = useMemo(() => validateState && ValidateComponentsMap[validateState], [validateState]);
 
