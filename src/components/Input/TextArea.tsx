@@ -3,13 +3,15 @@ import { addStyle } from 'dom-lib';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import Icon from '../Icon/Icon';
 import { cAF, mergeDefaultProps, rAF } from '../Util';
-import { partitionHTMLProps, useClassNames, useControlled, useDisabled } from '../hooks';
+import { partitionHTMLProps, useAutosize, useClassNames, useClearable, useControlled, useDisabled } from '../hooks';
 import { useResizeObserver } from '../hooks/useResizeObserver';
 import { TextareaProps, TextareaRef } from './typings';
 import { calcTextareaHeight } from './utils';
 
 const TextArea = memo(
     forwardRef<TextareaRef, TextareaProps>((props, ref) => {
+        const autosize = useAutosize(props.autosize);
+        props = mergeDefaultProps({ autosize }, props);
         props = mergeDefaultProps(
             {
                 placeholder: '',
@@ -26,7 +28,6 @@ const TextArea = memo(
             placeholder,
             readOnly,
             plain,
-            clearable,
             rows,
             classPrefix = 'textarea',
             onFocus,
@@ -35,7 +36,6 @@ const TextArea = memo(
             maxLength,
             showWordLimit,
             resize,
-            autosize,
             inputStyle,
             ...rest
         } = props;
@@ -46,6 +46,7 @@ const TextArea = memo(
         const [hovering, setHovering] = useState(false);
         const [textareaCalcStyle, setTextareaCalcStyle] = useState<React.CSSProperties>({});
         const disabled = useDisabled(props.disabled);
+        const clearable = useClearable(props.clearable);
 
         const containerRef = useRef<HTMLDivElement>(null);
         const textareaRef = useRef<HTMLTextAreaElement>(null);

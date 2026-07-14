@@ -108,6 +108,8 @@ export interface InputProps
     // wordLimitPosition?: 'inside' | 'outside';
     /** 是否隐藏值 */
     hiddenValue?: boolean;
+    /** 是否为选择器 */
+    isSelect?: boolean;
     /** 原生属性 autocomplete */
     autocomplete?: string;
     /** 原生属性 tabindex */
