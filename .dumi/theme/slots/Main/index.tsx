@@ -1,7 +1,7 @@
-import { AnchorRef, ElAnchor, ElAnchorLink } from '@qsxy/element-plus-react';
+import { AnchorRef, ElAnchor, ElAnchorLink, ElScrollbar, ScrollbarRef } from '@qsxy/element-plus-react';
 import classNames from 'classnames';
 import { useRouteMeta, useSidebarData, useSiteData, useTabMeta } from 'dumi';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import './style.scss';
 
@@ -17,6 +17,8 @@ const Main = () => {
     const siteData = useSiteData();
     const tab = useTabMeta();
     const location = useLocation();
+
+    const scrollbarRef = useRef<ScrollbarRef>(null);
 
     const showSidebar = useMemo(() => fm.sidebar !== false && sidebar?.length > 0, [fm, sidebar]);
     const anchors = useMemo(
@@ -46,6 +48,7 @@ const Main = () => {
         anchorRef?.scrollTo('');
         const hash = decodeURIComponent(window.location.hash);
         anchorRef?.scrollTo(hash);
+        scrollbarRef.current?.update();
     }, [siteData.loading, location.hash]);
 
     return (
@@ -62,16 +65,18 @@ const Main = () => {
                         {anchors.length > 0 && (
                             <nav className="toc-content">
                                 <h3 className="toc-content__heading">目录</h3>
-                                <ElAnchor ref={setAnchorRef} offset={70}>
-                                    {anchors.map(item => {
-                                        return (
-                                            <ElAnchorLink key={item.id} href={`#${item.id}`} title={item.title}>
-                                                {item?.children?.length > 0 &&
-                                                    item.children.map(child => <ElAnchorLink key={child.id} href={`#${child.id}`} title={child.title} />)}
-                                            </ElAnchorLink>
-                                        );
-                                    })}
-                                </ElAnchor>
+                                <ElScrollbar ref={scrollbarRef} maxHeight="calc(100vh - 140px)">
+                                    <ElAnchor ref={setAnchorRef} offset={70}>
+                                        {anchors.map(item => {
+                                            return (
+                                                <ElAnchorLink key={item.id} href={`#${item.id}`} title={item.title}>
+                                                    {item?.children?.length > 0 &&
+                                                        item.children.map(child => <ElAnchorLink key={child.id} href={`#${child.id}`} title={child.title} />)}
+                                                </ElAnchorLink>
+                                            );
+                                        })}
+                                    </ElAnchor>
+                                </ElScrollbar>
                             </nav>
                         )}
                     </div>
