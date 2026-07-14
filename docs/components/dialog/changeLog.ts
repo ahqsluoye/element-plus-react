@@ -21,8 +21,29 @@ export default [
                 author: 'ahqsluoye',
             },
             {
-                type: 'fix',
+                type: 'bugfix',
                 description: '修复弹窗打开时页面抖动的问题',
+                author: 'ahqsluoye',
+            },
+        ],
+    },
+    {
+        date: '2026-07-14',
+        version: '2.0.1',
+        entries: [
+            {
+                type: 'bugfix',
+                description: '修复点击弹窗组件里的选择器类组件后，弹窗自动关闭的问题',
+                author: 'ahqsluoye',
+            },
+            {
+                type: 'bugfix',
+                description: '修复弹窗组件内的InputNumber组件增减按钮无法触发事件的问题',
+                author: 'ahqsluoye',
+            },
+            {
+                type: 'refactor',
+                description: '优化锁屏滚动锁定逻辑',
                 author: 'ahqsluoye',
             },
         ],

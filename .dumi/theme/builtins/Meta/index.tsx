@@ -51,14 +51,14 @@ const Meta = props => {
         import(`@/../docs/${location.pathname.substring(1)}/changeLog.ts`).then(res => {
             if (res.default) {
                 setLoadingChangeLog(false);
-                setChangeLog(res.default);
+                setChangeLog(res.default.reverse());
             }
         });
 
         import(`@/../docs/${location.pathname.substring(1)}/issues.ts`).then(res => {
             if (res.default) {
                 setLoadingIssues(false);
-                setIssues(res.default);
+                setIssues(res.default.reverse());
             }
         });
     });
