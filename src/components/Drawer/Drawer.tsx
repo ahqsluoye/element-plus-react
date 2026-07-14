@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import { useComposeRef } from 'rc-util';
-import React, { forwardRef, memo, useCallback, useMemo, useRef } from 'react';
+import React, { forwardRef, memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Transition from '../Transition/Transition';
 import { PopupManager, addUnit, mergeDefaultProps } from '../Util';
 import { useClassNames } from '../hooks';
 import { namespace } from '../hooks/prefix';
-import { useLockscreen } from '../hooks/useLockscreen';
+import { useLockScreen } from '../hooks/useLockscreen';
 import DrawerBody from './DrawerBody';
 import { DrawerContext } from './DrawerContext';
 import DrawerFooter from './DrawerFooter';
@@ -43,7 +43,7 @@ const Drawer = memo(
             size,
             direction,
             children,
-            onCloseDrawer: close,
+            onCloseDrawer,
             beforeClose,
             showClose,
             border,
@@ -54,7 +54,7 @@ const Drawer = memo(
         } = props;
         const { b, is } = useClassNames(classPrefix);
 
-        useLockscreen(visible, { shouldLock: lockScroll });
+        useLockScreen(visible, { shouldLock: lockScroll });
 
         const sizeStyle = useMemo(() => {
             if (['ltr', 'rtl'].includes(direction)) {
@@ -69,34 +69,9 @@ const Drawer = memo(
         // 模态框主题div
         const drawerRef = useRef<HTMLDivElement>(null);
         const composedRef = useComposeRef(ref, wrapperRef);
-        const mousedownRef = useRef<React.MouseEvent<HTMLDivElement, MouseEvent>>(null);
+        const initRef = useRef(false);
 
-        const nextZIndex = useMemo(() => zIndex || PopupManager.nextZIndex(), [zIndex]);
-
-        const onMousedown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            e.stopPropagation();
-            mousedownRef.current = e;
-        };
-
-        const onMouseup = (mouseup: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            const mouseUpTarget = mouseup?.target as Node;
-            const mouseDownTarget = mousedownRef.current?.target as Node;
-            const isTargetExists = !mouseUpTarget || !mouseDownTarget;
-
-            const isContainedByPopper = drawerRef?.current?.contains(mouseUpTarget) || drawerRef?.current?.contains(mouseDownTarget);
-            if (isTargetExists || isContainedByPopper) {
-                return;
-            }
-
-            if (closeOnClickModal) {
-                doClose();
-            } else {
-                addClass(drawerRef.current, `${namespace}-drawer-shake`);
-                setTimeout(() => {
-                    removeClass(drawerRef.current, `${namespace}-drawer-shake`);
-                }, 300);
-            }
-        };
+        const nextZIndex = useMemo(() => (visible ? zIndex || PopupManager.nextZIndex() : null), [visible, zIndex]);
 
         const doClose = useCallback(() => {
             if (beforeClose) {
@@ -104,12 +79,53 @@ const Drawer = memo(
                     if (cancle) {
                         return;
                     }
-                    close?.();
+                    onCloseDrawer?.();
                 });
             } else {
-                close?.();
+                onCloseDrawer?.();
             }
-        }, [beforeClose, close]);
+        }, [beforeClose, onCloseDrawer]);
+
+        /**关闭对话框 */
+        useEffect(() => {
+            if (visible) {
+                let mousedown: MouseEvent;
+                const onMousedown = (e: MouseEvent) => {
+                    mousedown = e;
+                };
+                const onMouseup = (mouseup: MouseEvent) => {
+                    const mouseUpTarget = mouseup?.target as Node;
+                    const mouseDownTarget = mousedown?.target as Node;
+                    const isTargetExists = !mouseUpTarget || !mouseDownTarget;
+
+                    const isContainedByPopper = drawerRef?.current?.contains(mouseUpTarget) || drawerRef?.current?.contains(mouseDownTarget);
+                    if (isTargetExists || isContainedByPopper) {
+                        return;
+                    }
+
+                    if (closeOnClickModal) {
+                        doClose();
+                    } else {
+                        addClass(drawerRef.current, `${namespace}-drawer-shake`);
+                        setTimeout(() => {
+                            removeClass(drawerRef.current, `${namespace}-drawer-shake`);
+                        }, 300);
+                    }
+                };
+                if (wrapperRef.current) {
+                    const shadowRef = wrapperRef.current;
+                    shadowRef.removeEventListener('mousedown', onMousedown);
+                    shadowRef.removeEventListener('mouseup', onMouseup);
+                    if (visible) {
+                        if ((!initRef.current && !destroyOnClose) || destroyOnClose) {
+                            initRef.current = true;
+                            shadowRef.addEventListener('mousedown', onMousedown);
+                            shadowRef.addEventListener('mouseup', onMouseup);
+                        }
+                    }
+                }
+            }
+        }, [visible]);
 
         return (
             <DrawerContext.Provider value={{ doClose }}>
@@ -154,8 +170,6 @@ const Drawer = memo(
                         <div
                             className={classNames(modal ? b('overlay', false) : '', modalClass || b('modal-drawer', false), is('drawer', { penetrable: modalPenetrable }))}
                             style={modal ? { zIndex: nextZIndex } : { zIndex: nextZIndex, position: 'fixed', top: '0px', right: '0px', bottom: '0px', left: '0px' }}
-                            onMouseDown={onMousedown}
-                            onMouseUp={onMouseup}
                             ref={composedRef}
                         >
                             <div className={classNames(b(), direction, { open: visible }, props.className)} style={{ ...sizeStyle, ...props.style }} role="dialog" ref={drawerRef}>
