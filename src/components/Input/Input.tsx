@@ -97,31 +97,6 @@ const Input = memo(
 
         /** 输入框尾部内容 */
         const suffixContent = useMemo(() => {
-            // if (type === 'text' && maxLength && showWordLimit) {
-            //     return (
-            //         <span className={e`count`}>
-            //             <span className={e`count-inner`}>
-            //                 {typeof value === 'string' ? value.length : 0} / {maxLength}
-            //             </span>
-            //         </span>
-            //     );
-            // } else if (['text', 'password'].includes(type) && suffix) {
-            //     if (isObject(suffix)) {
-            //         let nodeType = suffix?.type;
-            //         nodeType = (nodeType as ComponentType)?.displayName || nodeType;
-
-            //         if (nodeType.toString().startsWith('Icon')) {
-            //             return cloneElement(suffix as React.ReactElement<IconProps>, {
-            //                 ...suffix.props,
-            //                 className: classNames(suffix.props?.className, e`icon`),
-            //             });
-            //         }
-            //     }
-            //     return suffix;
-            // } else if (showPassword && isNotEmpty(value)) {
-            //     return <Icon name={type === 'text' ? 'eye' : 'eye-slash'} className={classNames(e`icon`, e`clear`)} />;
-            // }
-            // return null;
             if (isObject(suffix)) {
                 let nodeType = suffix?.type;
                 nodeType = (nodeType as ComponentType)?.displayName || nodeType;
@@ -133,7 +108,7 @@ const Input = memo(
                     });
                 }
             }
-            return suffix;
+            return <span className={e`icon`}>{suffix}</span>;
         }, [suffix, e]);
 
         /** 后缀是否可点击 */
