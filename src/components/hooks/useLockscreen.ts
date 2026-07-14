@@ -1,3 +1,4 @@
+import { getStyle, hasClass } from 'dom-lib';
 import addClass from 'dom-lib/esm/addClass';
 import removeClass from 'dom-lib/esm/removeClass';
 import { useEffect } from 'react';
@@ -11,7 +12,12 @@ export type UseLockScreenOptions = {
 };
 let countRef = 0;
 
-export const useLockscreen = (trigger: boolean, options: UseLockScreenOptions = { shouldLock: true }) => {
+let scrollBarWidth = 0;
+let withoutHiddenClass = false;
+let bodyPaddingRight = '0';
+let computedBodyPaddingRight = 0;
+
+export const useLockScreen = (trigger: boolean, options: UseLockScreenOptions = { shouldLock: true }) => {
     const popupNs = useClassNames('popup');
     const ns = options.ns || popupNs;
     const hiddenCls = ns.bm('parent', 'hidden');
@@ -20,9 +26,18 @@ export const useLockscreen = (trigger: boolean, options: UseLockScreenOptions = 
         if (!options.shouldLock) {
             return;
         }
+        withoutHiddenClass = !hasClass(document.body, 'el-popup-parent--hidden');
+        if (withoutHiddenClass) {
+            bodyPaddingRight = document.body.style.paddingRight;
+            computedBodyPaddingRight = Number.parseInt(getStyle(document.body, 'paddingRight') as string, 10);
+        }
+        scrollBarWidth = getScrollBarWidth(namespace);
+        const bodyHasOverflow = document.documentElement.clientHeight < document.body.scrollHeight;
+        const bodyOverflowY = getStyle(document.body, 'overflowY');
+        if (scrollBarWidth > 0 && (bodyHasOverflow || bodyOverflowY === 'scroll') && withoutHiddenClass) {
+            document.body.style.paddingRight = `${computedBodyPaddingRight + scrollBarWidth}px`;
+        }
         addClass(document.body, hiddenCls);
-        const scrollWidth = getScrollBarWidth(namespace);
-        document.body.style.width = `calc(100% - ${scrollWidth}px)`;
     };
 
     const unlockScroll = () => {
@@ -31,7 +46,9 @@ export const useLockscreen = (trigger: boolean, options: UseLockScreenOptions = 
                 return;
             }
             removeClass(document.body, hiddenCls);
-            document.body.style.width = '';
+            if (withoutHiddenClass) {
+                document.body.style.paddingRight = bodyPaddingRight;
+            }
         }, 200);
     };
 
