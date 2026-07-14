@@ -106,9 +106,9 @@ const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref)
     const positionStyle = useMemo<CSSProperties>(() => {
         return {
             [verticalProperty]: `${offset}px`,
-            zIndex: PopupManager.nextZIndex(),
+            zIndex: visible ? PopupManager.nextZIndex() : null,
         };
-    }, [offset, verticalProperty]);
+    }, [offset, verticalProperty, visible]);
 
     /** 关闭图标 */
     // const closeIcon = useMemo(() => showClose && <div className={classNames(e`closeBtn`, b('icon-close', false))} onClick={handleClose} />, [showClose, e, b, handleClose]);

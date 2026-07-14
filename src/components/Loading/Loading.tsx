@@ -13,7 +13,7 @@ const LoadingMain = forwardRef<any, LoadingProps>((props, ref) => {
     const { visible, text, fullscreen, spinner, background, svg, svgViewBox } = props;
     const { b, is, bm } = useClassNames('loading');
 
-    const zIndex = useMemo(() => PopupManager.nextZIndex(), []);
+    const zIndex = useMemo(() => (visible ? PopupManager.nextZIndex() : null), [visible]);
 
     const nodeRef = useRef(null);
 

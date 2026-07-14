@@ -139,7 +139,7 @@ const Message = memo(
         const customStyle = useMemo<CSSProperties>(
             () => ({
                 //   [verticalProperty]: `${offsetValue}px`,
-                zIndex: PopupManager.nextZIndex(),
+                zIndex: visible ? PopupManager.nextZIndex() : null,
             }),
             [],
         );

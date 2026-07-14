@@ -87,7 +87,7 @@ function Tour(props: TourProps) {
     );
     const mergedType = useMemo(() => currentStep?.type ?? typeProp, [currentStep?.type, typeProp]);
 
-    const mergedZIndex = useMemo(() => zIndexProp ?? PopupManager.nextZIndex(), [zIndexProp]);
+    const mergedZIndex = useMemo(() => (visible ? zIndexProp ?? PopupManager.nextZIndex() : null), [zIndexProp, visible]);
 
     const { mergedPosInfo, triggerTarget } = useTarget(currentTarget, visible, gapProp, mergedMask, mergedScrollIntoViewOptions);
 
