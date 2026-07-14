@@ -46,9 +46,7 @@ export const useLockScreen = (trigger: boolean, options: UseLockScreenOptions = 
                 return;
             }
             removeClass(document.body, hiddenCls);
-            if (withoutHiddenClass) {
-                document.body.style.paddingRight = bodyPaddingRight;
-            }
+            document.body.style.paddingRight = bodyPaddingRight;
         }, 200);
     };
 
