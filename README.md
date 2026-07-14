@@ -1,9 +1,9 @@
 # @qsxy/element-plus-react
 
-[![NPM version](https://img.shields.io/npm/v/element-plus-react.svg?style=flat)](https://npmjs.org/package/@qsxy/element-plus-react)
-[![NPM downloads](http://img.shields.io/npm/dm/element-plus-react.svg?style=flat)](https://npmjs.org/package/@qsxy/element-plus-react)
+[![NPM version](https://img.shields.io/npm/v/@qsxy/element-plus-react.svg?style=flat)](https://npmjs.org/package/@qsxy/element-plus-react)
+[![NPM downloads](http://img.shields.io/npm/dm/@qsxy/element-plus-react.svg?style=flat)](https://npmjs.org/package/@qsxy/element-plus-react)
 
--   [API 文档](https://ahqsluoye.github.io/element-plus-react/)
+-   🔥 所有的组件文档和示例在这里哦，戳戳戳 👉👉👉[API 文档](https://ahqsluoye.github.io/element-plus-react/)
 
 ## Usage
 
@@ -46,12 +46,6 @@ element-plus-react 的 theme-chalk 使用 SCSS 编写，如果你的项目也使
 ```scss
 @use '@qsxy/element-plus-react/theme-chalk/common/var' with($fa-font-path: '~@/assets/fonts');
 ```
-
-## Warm Reminder
-
-Currently, this library is in the development and testing stage, and there may be some inevitable issues. If you encounter any problems, please feel free to raise an issue for me, and I will fix them as soon as possible.
-
-目前该库为开发测试阶段，会有一些不可避免的问题，如果您发现了一些问题，欢迎提 Issues 给我，我会尽快修复
 
 ## Development
 
