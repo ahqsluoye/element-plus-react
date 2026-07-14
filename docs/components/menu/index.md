@@ -141,7 +141,7 @@ lang: zh-CN
 
 ## 类型声明
 
-<details>
+<details open>
   <summary>显示类型声明</summary>
 
 ```ts

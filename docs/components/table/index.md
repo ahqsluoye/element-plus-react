@@ -334,7 +334,7 @@ Table 组件提供了单选的支持， 只需要配置 `highlightCurrentRow` �
 
 ## Type Declarations
 
-<details>
+<details open>
   <summary>显示类型声明</summary>
 
 ```ts

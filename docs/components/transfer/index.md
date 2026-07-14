@@ -33,7 +33,7 @@ Transfer 的数据通过 `data` 属性传入。 数据需要是一个对象数�
 
 您可以自定义列表为空或未找到筛选结果时显示的内容。
 
-使用 `left-empty` 和 `right-empty` 插槽来自定义每个面板的空内容。
+使用 `leftEmpty` 和 `rightEmpty` 插槽来自定义每个面板的空内容。
 
 <code src="./empty-content.tsx"></code>
 
@@ -90,7 +90,7 @@ Transfer 的数据通过 `data` 属性传入。 数据需要是一个对象数�
 
 ## Type Declarations
 
-<details>
+<details open>
   <summary>显示类型声明</summary>
 
 ```ts

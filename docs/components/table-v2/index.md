@@ -278,7 +278,7 @@ tip
 
 ## Typings{#typings}
 
-<details>
+<details open>
 <summary>显示类型声明</summary>
 
 ```ts
