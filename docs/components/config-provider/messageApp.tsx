@@ -1,5 +1,4 @@
-import { ElButton } from '@qsxy/element-plus-react';
-import { useConfigProvider } from '@qsxy/element-plus-react/hooks';
+import { ElButton, useConfigProvider } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const Message = () => {

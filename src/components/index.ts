@@ -1,5 +1,3 @@
-import './locale/i18n';
-
 /* Basic 基础组件 */
 export { Button as ElButton, ButtonGroup as ElButtonGroup } from './Button';
 export type { ButtonGroupProps, ButtonProps, ButtonRef } from './Button';
@@ -244,7 +242,6 @@ export { Watermark as ElWatermark } from './Watermark';
 export type { WatermarkFontType, WatermarkProps } from './Watermark';
 
 /* 工具库与hooks */
-export { useConfigProvider } from './ConfigProvider/ConfigProviderContext';
 export { partitionAnimationProps } from './hooks/animationPropsUtils';
 export { htmlInputAttrs, htmlInputEvents, htmlInputProps, partitionHTMLProps } from './hooks/htmlPropsUtils';
 export { partitionPopperPropsUtils } from './hooks/popperPropsUtils';
@@ -255,6 +252,7 @@ export { default as useClassNames } from './hooks/useClassNames';
 export { default as useClickOutside } from './hooks/useClickOutside';
 export { useDisabled, useSize } from './hooks/useCommonProps';
 export { default as useComponentWillMount } from './hooks/useComponentWillMount';
+export { useConfigProvider } from './hooks/useConfigProvider';
 export { default as useControlled } from './hooks/useControlled';
 export { useForceUpdate } from './hooks/useForceUpdate';
 export { download, getScrollWidth, isEmpty, isNotEmpty, randomCode } from './Util/base';

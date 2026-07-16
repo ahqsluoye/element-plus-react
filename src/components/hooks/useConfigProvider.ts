@@ -1,5 +1,5 @@
 import ConfigProviderContext from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
-import { Message } from '@qsxy/element-plus-react/Message';
+import { Message } from '@qsxy/element-plus-react/Message/index';
 import { MessageMethod, MessageParams, MessageProps } from '@qsxy/element-plus-react/Message/typings';
 import { MessageBox, MessageBoxProps, instanceFactory } from '@qsxy/element-plus-react/MessageBox';
 import { Action, MessageBoxInputData } from '@qsxy/element-plus-react/MessageBox/typings';
