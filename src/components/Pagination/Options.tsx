@@ -1,12 +1,12 @@
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import ElInput from '@qsxy/element-plus-react/Input/Input';
 import ElOption from '@qsxy/element-plus-react/Select/Option';
 import Select from '@qsxy/element-plus-react/Select/Select';
 import { TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import classNames from 'classnames';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ElInput } from '..';
 
 interface Props {
     goButton?: React.ReactElement | boolean;

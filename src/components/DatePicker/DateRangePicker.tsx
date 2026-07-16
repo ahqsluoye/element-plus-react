@@ -4,7 +4,7 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import { InputGroup } from '@qsxy/element-plus-react/Input';
+import InputGroup from '@qsxy/element-plus-react/Input/InputGroup';
 import Popper from '@qsxy/element-plus-react/Popper/Popper';
 import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
 import { isNotEmpty } from '@qsxy/element-plus-react/Util/base';
