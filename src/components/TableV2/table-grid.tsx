@@ -123,7 +123,6 @@ const useTableGrid = (props: TableV2GridProps) => {
 
     // Watch bodyWidth changes
     useEffect(() => {
-        console.log(props.bodyWidth);
         if (isNumber(props.estimatedRowHeight)) {
             bodyRef.current?.resetAfter({ columnIndex: 0 }, false);
         }

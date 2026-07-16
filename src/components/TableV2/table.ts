@@ -1,6 +1,6 @@
 import { IconSize } from '@qsxy/element-plus-react/Icon/typings';
 import React, { CSSProperties } from 'react';
-import { GridDefaultSlotParams } from '../../VirtualList';
+import { GridDefaultSlotParams } from '../VirtualList';
 import type { SortOrder } from './constants';
 import { TableV2GridProps } from './grid';
 import { RowEventHandlers, RowExpandParams } from './row';
