@@ -1,6 +1,6 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
-import { useClassNames } from '../hooks';
 import { SliderMarkerProps } from './typings';
 
 const SliderMarker = memo<SliderMarkerProps>(props => {

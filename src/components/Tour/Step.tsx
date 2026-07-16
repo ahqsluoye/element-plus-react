@@ -1,9 +1,9 @@
+import Button from '@qsxy/element-plus-react/Button/Button';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 import React, { useEffect } from 'react';
-import { Button } from '../Button';
-import { Icon } from '../Icon';
-import { useClassNames } from '../hooks';
 import { useTourContext } from './context';
 import type { TourBtnProps, TourStepProps } from './typings';
 

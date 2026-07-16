@@ -1,7 +1,7 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { TooltipContext } from '@qsxy/element-plus-react/Tooltip/TooltipContext';
 import classNames from 'classnames';
 import React, { FC, useContext } from 'react';
-import { TooltipContext } from '../Tooltip/TooltipContext';
-import { useClassNames } from '../hooks';
 import { DropdownContext } from './DropdownContext';
 import { DropdownItemProps } from './typings';
 

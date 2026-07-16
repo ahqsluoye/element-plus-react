@@ -5,8 +5,8 @@ import { Alignment, SortOrder, oppositeOrderMap } from '../constants';
 import { placeholderSign } from '../private';
 import { componentToSlot, enforceUnit, tryCall } from '../utils';
 
+import type { UseNamespaceReturn } from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import type { UseNamespaceReturn } from '../../../hooks/useClassNames';
 import type { TableV2Props } from '../table';
 import type { UseTableReturn } from '../use-table';
 

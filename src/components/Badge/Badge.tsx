@@ -1,8 +1,9 @@
+import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Transition from '@qsxy/element-plus-react/Transition/Transition';
 import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import React, { forwardRef, memo, useMemo, useRef } from 'react';
-import Transition from '../Transition/Transition';
-import { partitionHTMLProps, useClassNames } from '../hooks';
 import { BadgeProps } from './typings';
 
 const Badge = memo(

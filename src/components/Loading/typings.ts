@@ -1,6 +1,6 @@
+import { IconName } from '@qsxy/element-plus-react/Icon';
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import { ReactElement, RefObject } from 'react';
-import { IconName } from '../Icon';
-import { BaseProps, NativeProps } from '../types/common';
 
 export interface LoadingProps extends BaseProps, NativeProps {
     /** Loading 需要覆盖的 DOM 节点。 可传入一个 DOM 对象或字符串； 若传入字符串，则会将其作为参数传入 document.querySelector以获取到对应 DOM 节点 */

@@ -1,10 +1,10 @@
+import { useForceUpdate } from '@qsxy/element-plus-react/hooks/useForceUpdate';
+import { isEmpty, isNotEmpty, nextTick, randomCode } from '@qsxy/element-plus-react/Util/base';
 import cloneDeep from 'lodash/cloneDeep';
 import find from 'lodash/find';
 import isEqual from 'lodash/isEqual';
 import last from 'lodash/last';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useForceUpdate } from '../hooks';
-import { isEmpty, isNotEmpty, nextTick, randomCode } from '../Util';
 import { CascaderNode, CascaderProps } from './typings';
 
 export const useCascader = (initialData: object[], props: CascaderProps, value: string[] | string[][]) => {

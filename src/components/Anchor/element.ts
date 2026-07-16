@@ -1,5 +1,6 @@
+import { isString } from '@qsxy/element-plus-react/Util/base';
+import { isClient } from '@qsxy/element-plus-react/Util/raf';
 import { RefObject } from 'react';
-import { isClient, isString } from '../Util';
 
 type GetElement = <T extends string | HTMLElement | null | undefined>(
     target: string | RefObject<HTMLElement> | Window | null | undefined,

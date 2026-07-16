@@ -1,6 +1,6 @@
+import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
 import classNames from 'classnames';
 import React from 'react';
-import Checkbox from '../Checkbox/Checkbox';
 import { KeyWiseTransferItem, TransferPropsAlias } from './typings';
 
 type ListItemProps<RecordType> = {

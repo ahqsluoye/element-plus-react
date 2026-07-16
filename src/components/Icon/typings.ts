@@ -1,5 +1,5 @@
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { BaseProps, NativeProps } from '../types/common';
 
 export interface IconProps extends Omit<React.AllHTMLAttributes<HTMLElement>, 'size' | 'style' | 'className' | 'readOnly' | 'disabled' | 'children'>, BaseProps, NativeProps {
     /** 图标前缀，定义图标字体粗细 */

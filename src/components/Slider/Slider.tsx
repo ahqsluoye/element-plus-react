@@ -1,8 +1,10 @@
+import InputNumber from '@qsxy/element-plus-react/InputNumber/InputNumber';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo } from 'react';
-import InputNumber from '../InputNumber/InputNumber';
-import { mergeDefaultProps } from '../Util';
-import { useClassNames, useControlled, useSize } from '../hooks';
 import SliderButton from './Button';
 import SliderMarker from './Marker';
 import { SliderContext } from './SliderContext';

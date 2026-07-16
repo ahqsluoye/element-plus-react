@@ -1,12 +1,12 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import React, { FC, RefObject, createRef, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { createRoot } from 'react-dom/client';
-import Icon from '../Icon/Icon';
-import Transition from '../Transition/Transition';
-import { PopupManager } from '../Util';
-import { useClassNames } from '../hooks';
 import { LoadingProps, LoadingService } from './typings';
 
 const LoadingMain = forwardRef<any, LoadingProps>((props, ref) => {

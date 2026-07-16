@@ -1,6 +1,6 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { FC, memo, useContext } from 'react';
-import { useClassNames } from '../hooks';
 import { DialogContext } from './DialogContext';
 import { DialogFooterProps } from './typings';
 

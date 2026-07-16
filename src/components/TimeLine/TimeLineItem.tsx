@@ -1,8 +1,8 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import { isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { cloneElement, FC, useMemo } from 'react';
-import { useClassNames } from '../hooks';
-import Icon from '../Icon/Icon';
-import { isNotEmpty, mergeDefaultProps } from '../Util';
 import { TimeLineItemProps } from './typings';
 
 const TimeLineItem: FC<TimeLineItemProps> = props => {

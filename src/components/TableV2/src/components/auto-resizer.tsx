@@ -1,5 +1,5 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import React, { Children } from 'react';
-import { useClassNames } from '../../../hooks';
 import type { AutoResizerProps } from '../auto-resizer';
 import { useAutoResize } from '../composables/use-auto-resize';
 

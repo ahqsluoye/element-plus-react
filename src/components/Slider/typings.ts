@@ -1,6 +1,6 @@
 import { Placement } from '@popperjs/core';
+import { BaseProps, FormControlBaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import React, { CSSProperties } from 'react';
-import { BaseProps, FormControlBaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export type SliderValue = number | number[];
 

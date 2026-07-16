@@ -4,7 +4,7 @@ import isObject from 'lodash/isObject';
 import some from 'lodash/some';
 import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 // import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
-import { useClassNames } from '../hooks';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import TableCell from './TableCell';
 import { TableBodyContext, TableContext } from './TableContext';
 import { TableColumnCtx } from './typings';

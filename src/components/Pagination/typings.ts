@@ -1,6 +1,6 @@
+import { IconName } from '@qsxy/element-plus-react/Icon';
+import { BaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { IconName } from '../Icon';
-import { BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export interface PaginationRef {
     /** 当前页数 */

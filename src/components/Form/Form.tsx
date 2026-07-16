@@ -1,8 +1,8 @@
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 import React, { ForwardedRef, forwardRef, memo, useCallback, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { mergeDefaultProps } from '../Util';
-import { useClassNames } from '../hooks';
 import FormContext, { FormContextProps } from './FormContext';
 import InternalFormContext, { HOOK_MARK } from './InternalFormContext';
 import { FieldData, FormInstance, FormProps, InternalFormInstance, Store } from './typings';

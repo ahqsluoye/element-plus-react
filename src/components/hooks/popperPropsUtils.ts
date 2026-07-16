@@ -1,6 +1,6 @@
+import type { PopperProps } from '@qsxy/element-plus-react/Popper/typings';
 import forEach from 'lodash/forEach';
 import includes from 'lodash/includes';
-import { PopperProps } from '../Popper';
 
 // @ts-ignore
 export const popperAllProps = [

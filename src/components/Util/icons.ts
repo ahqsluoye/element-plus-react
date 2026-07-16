@@ -1,4 +1,4 @@
-import { IconProps } from '../Icon/typings';
+import { IconProps } from '@qsxy/element-plus-react/Icon/typings';
 
 export const ValidateComponentsMap: Record<'validating' | 'success' | 'error', IconProps> = {
     validating: {

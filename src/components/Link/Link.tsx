@@ -1,9 +1,9 @@
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import Icon from '../Icon/Icon';
-import { mergeDefaultProps } from '../Util';
-import { useClassNames } from '../hooks';
 import { LinkProps } from './typings';
 
 const Link = forwardRef<any, LinkProps>((props: LinkProps, ref) => {

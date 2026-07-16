@@ -1,10 +1,10 @@
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import { useClassNames } from '../hooks';
-import { BaseProps, NativeProps } from '../types/common';
-import { mergeDefaultProps } from '../Util';
 import ImgEmpty from './ImgEmpty';
 
 export interface IEmptyProps extends BaseProps, NativeProps {

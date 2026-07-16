@@ -1,6 +1,6 @@
+import type { ValueType } from '@qsxy/element-plus-react/Checkbox/index';
+import { TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import { createContext } from 'react';
-import type { ValueType } from '../Checkbox/index';
-import { TypeAttributes } from '../types/common';
 
 export interface CheckboxGroupContextValue {
     inline?: boolean;

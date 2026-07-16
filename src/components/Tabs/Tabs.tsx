@@ -1,11 +1,13 @@
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import { isEmpty } from '@qsxy/element-plus-react/Util/base';
+import useChildrenInstance from '@qsxy/element-plus-react/hooks/useChildrenInstance';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import classNames from 'classnames';
 import { addClass, addStyle, hasClass, removeClass } from 'dom-lib';
 import forEach from 'lodash/forEach';
 import omit from 'lodash/omit';
 import React, { Children, Ref, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Icon from '../Icon/Icon';
-import { isEmpty } from '../Util';
-import { useChildrenInstance, useClassNames, useControlled } from '../hooks';
 import { TabsContext } from './TabsContext';
 import { Navs, Scrollable, TabPaneProps, TabsProps } from './typings';
 

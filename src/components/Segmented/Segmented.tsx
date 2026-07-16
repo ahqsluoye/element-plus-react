@@ -1,8 +1,10 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useResizeObserver } from '@qsxy/element-plus-react/hooks/useResizeObserver';
 import classNames from 'classnames';
 import isObject from 'lodash/isObject';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useClassNames, useControlled, useDisabled, useSize } from '../hooks';
-import { useResizeObserver } from '../hooks/useResizeObserver';
 import { Option, SegmentedComponentProps, defaultProps as defaultAliasProps } from './typings';
 
 interface IndicatorState {

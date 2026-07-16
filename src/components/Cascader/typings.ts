@@ -1,8 +1,8 @@
+import { InputRef } from '@qsxy/element-plus-react/Input/typings';
+import { PopperOptions } from '@qsxy/element-plus-react/Popper';
 import React from 'react';
-import { InputRef } from '../Input/typings';
-import { PopperOptions } from '../Popper';
-// import { DataNode, DirectoryTreeProps, Key } from '../Tree';
-import { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps } from '../types/common';
+// import { DataNode, DirectoryTreeProps, Key } from '@qsxy/element-plus-react/Tree';
+import { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 
 export type CascaderValue = string[] | string[][];
 

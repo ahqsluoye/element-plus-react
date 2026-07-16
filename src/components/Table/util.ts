@@ -1,8 +1,8 @@
+import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
+import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
 import React, { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Tooltip } from '../Tooltip';
-import { TooltipRef } from '../Tooltip/typings';
-import { namespace } from '../hooks/prefix';
 import { TableColumnCtx, TableProps } from './typings';
 
 export const TableIdManager: {

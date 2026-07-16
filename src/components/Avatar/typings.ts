@@ -1,6 +1,6 @@
+import { IconName } from '@qsxy/element-plus-react/Icon';
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { IconName } from '../Icon';
-import { BaseProps, NativeProps } from '../types/common';
 
 export interface AvatarProps
     extends BaseProps,

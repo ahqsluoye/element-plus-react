@@ -1,9 +1,9 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Scrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
-import Scrollbar from '../Scrollbar/Scrollbar';
-import { useClassNames } from '../hooks';
 import { SpinnerRef, TimeSpinnerProps, TimeType } from './typings';
 import { getTimeLists } from './useTimePicker';
 

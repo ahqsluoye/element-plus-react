@@ -1,6 +1,6 @@
+import { IconName } from '@qsxy/element-plus-react/Icon/typings';
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React, { RefObject } from 'react';
-import { IconName } from '../Icon';
-import { BaseProps, NativeProps } from '../types/common';
 import Node from './model/node';
 import TreeStore from './model/tree-store';
 import { DragOptions } from './model/useDragNode';

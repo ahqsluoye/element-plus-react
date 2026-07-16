@@ -1,5 +1,5 @@
+import { BaseProps, FormControlBaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { BaseProps, FormControlBaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export type LiteralUnion<T extends U, U> = T | (U & {});
 

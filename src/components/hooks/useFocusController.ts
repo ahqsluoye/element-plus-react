@@ -1,6 +1,6 @@
+import { isFocusable } from '@qsxy/element-plus-react/Util/aria';
 import isFunction from 'lodash/isFunction';
 import { RefObject, useRef, useState } from 'react';
-import { isFocusable } from '../Util/aria';
 
 interface UseFocusControllerOptions {
     disabled?: boolean;
@@ -18,7 +18,7 @@ interface UseFocusControllerOptions {
     afterBlur?: () => void;
 }
 
-export function useFocusController<T extends { focus:() => void }>(
+export function useFocusController<T extends { focus: () => void }>(
     target: RefObject<HTMLElement | undefined>,
     { disabled, beforeFocus, afterFocus, beforeBlur, afterBlur }: UseFocusControllerOptions = {},
 ) {

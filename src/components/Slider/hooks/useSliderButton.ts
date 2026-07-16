@@ -1,5 +1,5 @@
 import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
-import { nextTick } from '@qsxy/element-plus-react/Util';
+import { nextTick } from '@qsxy/element-plus-react/Util/base';
 import clamp from 'lodash/clamp';
 import debounce from 'lodash/debounce';
 import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';

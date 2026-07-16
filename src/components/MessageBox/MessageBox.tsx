@@ -1,14 +1,16 @@
+import Button from '@qsxy/element-plus-react/Button/Button';
+import Dialog from '@qsxy/element-plus-react/Dialog/Dialog';
+import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
+import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import Input from '@qsxy/element-plus-react/Input/Input';
+import { addUnit, isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import isString from 'lodash/isString';
 import React, { cloneElement, forwardRef, memo, RefObject, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '../Button/Button';
-import Dialog from '../Dialog/Dialog';
-import { partitionAnimationProps, useClassNames, useControlled } from '../hooks';
-import { namespace } from '../hooks/prefix';
-import Icon from '../Icon/Icon';
-import Input from '../Input/Input';
-import { addUnit, isNotEmpty, mergeDefaultProps } from '../Util';
 import { Action, MessageBoxRef, MessageState } from './typings';
 
 const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttributes<MessageBoxRef>> = memo(

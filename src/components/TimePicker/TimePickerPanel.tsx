@@ -1,8 +1,9 @@
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import useClickOutside from '@qsxy/element-plus-react/hooks/useClickOutside';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useImperativeHandle, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import { useClassNames, useClickOutside } from '../hooks';
 import TimeSpinnerPanel from './TimeSpinnerPanel';
 import { SpinnerRef, TimePanelProps, TimePanelRef } from './typings';
 

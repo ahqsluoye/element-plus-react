@@ -1,6 +1,6 @@
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import { IconSize } from '@qsxy/element-plus-react/Icon/typings';
 import React from 'react';
-import ElIcon from '../../../Icon/Icon';
-import { IconSize } from '../../../Icon/typings';
 import { TableV2RowCellRenderParam } from './row';
 
 const ExpandIcon = (

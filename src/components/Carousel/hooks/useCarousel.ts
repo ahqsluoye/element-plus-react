@@ -1,7 +1,7 @@
+import { isString, warning } from '@qsxy/element-plus-react/Util/base';
 import { usePrevious } from 'ahooks';
 import throttle from 'lodash/throttle';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { isString, warning } from '../../Util/base';
 import { CarouselItemContext, CarouselProps } from '../typings';
 
 const THROTTLE_TIME = 300;

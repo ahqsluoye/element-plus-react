@@ -1,11 +1,12 @@
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import { EVENT_CODE, TypeComponentsMap } from '@qsxy/element-plus-react/config/Constants';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { CSSProperties, forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import Icon from '../Icon/Icon';
-import Transition from '../Transition/Transition';
-import { PopupManager, mergeDefaultProps } from '../Util';
-import { EVENT_CODE, TypeComponentsMap } from '../config/Constants';
-import { useClassNames } from '../hooks';
 import { NotificationProps, NotificationRef } from './typings';
 
 const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref) => {

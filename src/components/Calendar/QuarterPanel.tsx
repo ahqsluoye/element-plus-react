@@ -1,9 +1,9 @@
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { FC, useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import { useClassNames } from '../hooks';
 import CalendarContext from './CalendarContext';
 import { Cell, CellType, WeekPanelProps } from './typings';
 import { initDate } from './util';

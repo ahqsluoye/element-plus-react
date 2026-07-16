@@ -1,6 +1,6 @@
+import type { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import { Dayjs } from 'dayjs';
 import type { CSSProperties, ReactNode, RefObject } from 'react';
-import type { BaseProps, NativeProps } from '../types/common';
 
 /**
  * @description Countdown 倒计时组件属性

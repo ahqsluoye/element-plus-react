@@ -1,7 +1,7 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import classNames from 'classnames';
 import React, { FC, memo } from 'react';
-import { useClassNames } from '../hooks';
-import { BaseProps, NativeProps } from '../types/common';
 
 export interface DividerProps
     extends BaseProps,

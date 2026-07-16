@@ -1,8 +1,8 @@
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { createContext, FC, memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import { useClassNames } from '../hooks';
 import { BreadcrumbContextProps, BreadcrumbProps } from './typings';
 
 const Breadcrumb: FC<BreadcrumbProps> = memo(props => {

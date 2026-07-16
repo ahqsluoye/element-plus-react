@@ -1,6 +1,6 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Text from '@qsxy/element-plus-react/Text/Text';
 import React from 'react';
-import { useClassNames } from '../hooks';
-import Text from '../Text/Text';
 import type Node from './model/node';
 import { RenderContentFunction } from './typings';
 

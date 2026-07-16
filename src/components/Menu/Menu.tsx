@@ -1,11 +1,12 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import useCssTransiton from '@qsxy/element-plus-react/hooks/useCssTransiton';
+import { More } from '@qsxy/element-plus-react/Icon/IconList/More';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import pick from 'lodash/pick';
 import React, { Children, forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
-import { More } from '../Icon/IconList/More';
-import { mergeDefaultProps } from '../Util';
-import { useClassNames, useControlled } from '../hooks';
-import useCssTransiton from '../hooks/useCssTransiton';
 import { afterEnter, afterLeave, beforeEnter, beforeLeave, onEnter, onLeave } from './MenuCollapseTransition';
 import { MenuContext } from './MenuContext';
 import SubMenu from './SubMenu';

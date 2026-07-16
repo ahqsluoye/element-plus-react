@@ -1,5 +1,5 @@
+import { BaseProps, FormControlBaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React, { RefObject } from 'react';
-import { BaseProps, FormControlBaseProps, NativeProps } from '../types/common';
 
 export type ValueType = string | number | boolean;
 

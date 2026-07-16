@@ -3,7 +3,7 @@ import isNumber from 'lodash/isNumber';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { FixedDir } from '../constants';
 
-import type { UseNamespaceReturn } from '../../../hooks/useClassNames';
+import type { UseNamespaceReturn } from '@qsxy/element-plus-react/hooks/useClassNames';
 import type { onRowRenderedParams } from '../grid';
 import type { RowExpandParams, RowHeightChangedParams, RowHoverParams } from '../row';
 import type { TableV2Props } from '../table';

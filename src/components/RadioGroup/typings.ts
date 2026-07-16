@@ -1,6 +1,6 @@
+import { ValueType } from '@qsxy/element-plus-react/Radio/typings';
+import { BaseProps, FormControlBaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { ValueType } from '../Radio';
-import { BaseProps, FormControlBaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export interface RadioContextProps {
     name?: string;

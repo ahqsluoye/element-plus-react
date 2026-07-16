@@ -1,5 +1,5 @@
+import { useResizeObserver } from '@qsxy/element-plus-react/hooks/useResizeObserver';
 import { RefObject, useEffect, useRef, useState } from 'react';
-import { useResizeObserver } from '../hooks/useResizeObserver';
 import { MenuProps } from './typings';
 
 const useEllipsis = (menuRef: RefObject<HTMLUListElement | null>, props: MenuProps) => {

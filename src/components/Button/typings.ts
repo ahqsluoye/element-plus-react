@@ -1,6 +1,6 @@
+import { IconName, IconProps } from '@qsxy/element-plus-react/Icon';
+import { BaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { IconName, IconProps } from '../Icon';
-import { BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export interface ButtonProps
     extends Omit<React.AllHTMLAttributes<HTMLElement>, 'loading' | 'size' | 'icon' | 'style' | 'children'>,

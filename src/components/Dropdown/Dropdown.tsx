@@ -1,8 +1,11 @@
+import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
+import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
+import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
-import Tooltip from '../Tooltip/Tooltip';
-import { mergeDefaultProps } from '../Util';
-import { partitionAnimationProps, partitionHTMLProps, partitionPopperPropsUtils, useClassNames } from '../hooks';
 import { DropdownContext } from './DropdownContext';
 import { DropdownProps, DropdownRef } from './typings';
 

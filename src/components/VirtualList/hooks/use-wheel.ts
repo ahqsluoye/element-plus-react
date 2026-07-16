@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react';
 import { HORIZONTAL } from '../defaults';
 
-import { cAF, isFirefox, rAF } from '@qsxy/element-plus-react/Util';
+import { cAF, isFirefox, rAF } from '@qsxy/element-plus-react/Util/raf';
 import type { LayoutDirection } from '../types';
 
 interface ListWheelState {

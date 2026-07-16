@@ -1,9 +1,10 @@
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { FC, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import { mergeDefaultProps } from '../Util';
-import { useClassNames, useControlled } from '../hooks';
 import List from './List';
 import Operation from './operation';
 import { KeyWise, TransferDataItem, TransferDirection, TransferProps } from './typings';

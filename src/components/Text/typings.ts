@@ -1,4 +1,4 @@
-import { BaseProps, NativeProps, TypeAttributes } from '../types/common';
+import { BaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 
 export interface TextProps extends BaseProps, NativeProps<'--el-text-font-size' | '--el-text-color'> {
     /** 类型 */

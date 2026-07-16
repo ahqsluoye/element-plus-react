@@ -1,5 +1,5 @@
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import React from 'react';
-import { mergeDefaultProps } from '../Util';
 import ConfigProviderContext from './ConfigProviderContext';
 import { ConfigProviderProps } from './typings';
 

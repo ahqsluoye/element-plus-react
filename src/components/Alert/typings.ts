@@ -1,6 +1,6 @@
+import { IconName } from '@qsxy/element-plus-react/Icon/typings';
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import { ReactElement } from 'react';
-import { IconName } from '../Icon/typings';
-import { BaseProps, NativeProps } from '../types/common';
 
 export interface AlertProps
     extends BaseProps,

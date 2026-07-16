@@ -1,6 +1,6 @@
+import { DatePickerProps } from '@qsxy/element-plus-react/DatePicker';
+import { InputRef } from '@qsxy/element-plus-react/Input/typings';
 import { RefObject } from 'react';
-import { DatePickerProps } from '../DatePicker';
-import { InputRef } from '../Input/typings';
 
 export type DateTimePickerRef = {
     input?: RefObject<InputRef>;

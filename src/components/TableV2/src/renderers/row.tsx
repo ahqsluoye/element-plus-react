@@ -2,8 +2,8 @@ import React from 'react';
 import { Row } from '../components';
 import { tryCall } from '../utils';
 
+import { UseNamespaceReturn } from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import { UseNamespaceReturn } from '../../../hooks/useClassNames';
 import type { TableV2Props } from '../table';
 import type { TableGridRowSlotParams } from '../table-grid';
 import type { UseTableReturn } from '../use-table';

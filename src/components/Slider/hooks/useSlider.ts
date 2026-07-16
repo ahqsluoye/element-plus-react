@@ -1,5 +1,5 @@
-import { useDisabled } from '@qsxy/element-plus-react/hooks';
-import { nextTick } from '@qsxy/element-plus-react/Util';
+import { useDisabled } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import { nextTick } from '@qsxy/element-plus-react/Util/base';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { SliderInitData, SliderProps, SliderValue } from '../typings';
 

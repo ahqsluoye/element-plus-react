@@ -1,5 +1,5 @@
+import type { ComponentChildren } from '@qsxy/element-plus-react/types/common';
 import React, { Children, ComponentType, Fragment, useCallback, useRef } from 'react';
-import { ComponentChildren } from '../types/common';
 
 /**
  * 获取特定名称的子组件

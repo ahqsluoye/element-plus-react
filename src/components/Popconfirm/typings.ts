@@ -1,7 +1,7 @@
+import { IconName } from '@qsxy/element-plus-react/Icon/typings';
+import { PopperOptions } from '@qsxy/element-plus-react/Popper';
+import { BaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { IconName } from '../Icon';
-import { PopperOptions } from '../Popper';
-import { BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export interface PopconfirmProps extends BaseProps<React.ReactElement>, NativeProps, PopperOptions {
     /** 显示的内容 */

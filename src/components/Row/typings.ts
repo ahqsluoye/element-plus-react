@@ -1,4 +1,4 @@
-import { BaseProps, NativeProps } from '../types/common';
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 
 export interface RowProps extends BaseProps, NativeProps {
     /** 栅格间隔 */

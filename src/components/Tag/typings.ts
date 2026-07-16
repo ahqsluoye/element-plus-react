@@ -1,5 +1,5 @@
+import { BaseProps, NativeProps, TooltipBaseProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { BaseProps, NativeProps, TooltipBaseProps, TypeAttributes } from '../types/common';
 
 export interface TagProps
     extends Omit<TooltipBaseProps<HTMLSpanElement>, 'onClick'>,

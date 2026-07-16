@@ -1,7 +1,7 @@
+import { isFunction, isNumber, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useMemo, useRef } from 'react';
-import { isFunction, isNumber, mergeDefaultProps } from '../Util';
-import { useClassNames } from '../hooks';
 import { StatisticProps, StatisticRef } from './typings';
 
 const Statistic = memo(

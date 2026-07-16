@@ -1,5 +1,5 @@
+import { isEmpty } from '@qsxy/element-plus-react/Util/base';
 import { isValidElement, RefObject } from 'react';
-import { isEmpty } from '../Util';
 import Main from './Main';
 import { MessageHandle, MessageMethod, MessageParams, MessageProps, MessageQueue } from './typings';
 

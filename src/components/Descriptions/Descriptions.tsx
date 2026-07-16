@@ -1,6 +1,7 @@
+import useChildrenInstance from '@qsxy/element-plus-react/hooks/useChildrenInstance';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { cloneElement, forwardRef, memo, useCallback, useMemo } from 'react';
-import { useChildrenInstance, useClassNames } from '../hooks';
 import { DescriptionsContext } from './DescriptionsContext';
 import DescriptionsRow from './DescriptionsRow';
 import { DescriptionsItemProps, DescriptionsProps } from './typings';

@@ -1,6 +1,6 @@
+import { warning } from '@qsxy/element-plus-react/Util/base';
 import RawAsyncValidator from 'async-validator';
 import { cloneElement, isValidElement } from 'react';
-import { warning } from '../../Util';
 import type { InternalNamePath, RuleError, RuleObject, StoreValue, ValidateOptions } from '../typings';
 import { defaultValidateMessages } from './messages';
 import { setValues } from './valueUtil';

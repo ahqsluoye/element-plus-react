@@ -1,13 +1,16 @@
+import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
+import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import useClickOutside from '@qsxy/element-plus-react/hooks/useClickOutside';
+import useComponentWillMount from '@qsxy/element-plus-react/hooks/useComponentWillMount';
+import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import { mergeDefaultProps, randomCode } from '@qsxy/element-plus-react/Util/base';
+import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import classNames from 'classnames';
 import startsWith from 'lodash/startsWith';
 import React, { FC, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { usePopper } from 'react-popper';
-import Transition from '../Transition/Transition';
-import { mergeDefaultProps, randomCode } from '../Util';
-import PopupManager from '../Util/PopupManager';
-import { partitionAnimationProps, useClassNames, useClickOutside, useComponentWillMount } from '../hooks';
-import { namespace } from '../hooks/prefix';
 import usePopperOptions from './popperOptions';
 import { PopperProps } from './typings';
 

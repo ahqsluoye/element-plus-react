@@ -1,7 +1,7 @@
+import { DialogFooterProps, DialogProps } from '@qsxy/element-plus-react/Dialog/typings';
+import { IconName, IconProps } from '@qsxy/element-plus-react/Icon';
+import { AnimationEventProps, BaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import React, { RefObject } from 'react';
-import { DialogFooterProps, DialogProps } from '../Dialog/typings';
-import { IconName, IconProps } from '../Icon';
-import { AnimationEventProps, BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export interface MessageBoxProps extends BaseProps, NativeProps, AnimationEventProps {
     /** 标题 */

@@ -1,8 +1,8 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useClassNames } from '../hooks';
 import { useMenuContext } from './MenuContext';
 import { MenuItemProps } from './typings';
 

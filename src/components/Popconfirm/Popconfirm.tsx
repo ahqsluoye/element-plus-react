@@ -1,13 +1,15 @@
+import Button from '@qsxy/element-plus-react/Button/Button';
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
+import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
+import { addUnit, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useImperativeHandle, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '../Button/Button';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import Icon from '../Icon/Icon';
-import Tooltip from '../Tooltip/Tooltip';
-import { TooltipRef } from '../Tooltip/typings';
-import { addUnit, mergeDefaultProps } from '../Util';
-import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames } from '../hooks';
 import { PopconfirmProps } from './typings';
 
 const Popconfirm = memo(

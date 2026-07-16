@@ -1,9 +1,9 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { createContext, FC, memo, useCallback, useEffect, useRef, useState } from 'react';
-import { useClassNames } from '../hooks';
 import { StepItemState, StepsContextProps, StepsProps } from './typings';
 
-import { mergeDefaultProps } from '../Util';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 
 const Steps: FC<StepsProps> = memo(props => {
     props = mergeDefaultProps(

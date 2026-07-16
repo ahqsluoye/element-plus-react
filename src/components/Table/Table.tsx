@@ -1,12 +1,12 @@
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import Loading from '@qsxy/element-plus-react/Loading/Loading';
+import Scrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
+import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { Ref, RefObject, forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import { Loading } from '../Loading';
-import Scrollbar from '../Scrollbar/Scrollbar';
-import { ScrollbarRef } from '../Scrollbar/typings';
-import { mergeDefaultProps } from '../Util';
-import { useClassNames } from '../hooks';
 import Colgroup from './Colgroup';
 import TableBody from './TableBody';
 import { TableBodyContext, TableContext } from './TableContext';

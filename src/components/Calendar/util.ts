@@ -1,5 +1,5 @@
+import { isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import dayjs, { Dayjs, ManipulateType } from 'dayjs';
-import { isNotEmpty } from '../Util';
 import { ValueRagne, ValueRagneTemp } from './typings';
 
 type ValueType = Dayjs | ValueRagne | ValueRagneTemp;

@@ -1,6 +1,6 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { Children, FC, cloneElement, forwardRef } from 'react';
-import { useClassNames } from '../hooks';
 import { SelectOptionGroupProps, SelectOptionProps } from './typings';
 
 const OptionGroup: FC<SelectOptionGroupProps> = forwardRef<HTMLUListElement, SelectOptionGroupProps>((props, ref) => {

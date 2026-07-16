@@ -1,9 +1,9 @@
+import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { FC, useMemo } from 'react';
-import Icon from '../Icon/Icon';
-import { mergeDefaultProps } from '../Util';
-import { useClassNames } from '../hooks';
-import { namespace } from '../hooks/prefix';
 import { PropgressProps } from './typings';
 
 const Progress: FC<PropgressProps> = (props: PropgressProps) => {

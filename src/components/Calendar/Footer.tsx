@@ -1,10 +1,10 @@
+import Button from '@qsxy/element-plus-react/Button/Button';
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { Message } from '@qsxy/element-plus-react/Message';
 import dayjs from 'dayjs';
 import React, { FC, useCallback, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '../Button/Button';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import { Message } from '../Message';
-import { useClassNames } from '../hooks';
 import CalendarContext from './CalendarContext';
 
 const Footer: FC = () => {

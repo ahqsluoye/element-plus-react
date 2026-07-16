@@ -1,10 +1,10 @@
+import ConfigProviderContext from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import { Message } from '@qsxy/element-plus-react/Message';
+import { MessageMethod, MessageParams, MessageProps } from '@qsxy/element-plus-react/Message/typings';
+import { MessageBox, MessageBoxProps, instanceFactory } from '@qsxy/element-plus-react/MessageBox';
+import { Action, MessageBoxInputData } from '@qsxy/element-plus-react/MessageBox/typings';
+import { isEmpty } from '@qsxy/element-plus-react/Util/base';
 import { isValidElement, useContext } from 'react';
-import ConfigProviderContext from '../ConfigProvider/ConfigProviderContext';
-import { Message } from '../Message';
-import { MessageMethod, MessageParams, MessageProps } from '../Message/typings';
-import { MessageBox, MessageBoxProps, instanceFactory } from '../MessageBox';
-import { Action, MessageBoxInputData } from '../MessageBox/typings';
-import { isEmpty } from '../Util';
 
 export const useConfigProvider = () => {
     const { message: messageConfig, locale } = useContext(ConfigProviderContext);

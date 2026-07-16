@@ -1,10 +1,10 @@
+import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import { isFunction, isString } from '@qsxy/element-plus-react/Util/base';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import Checkbox from '../Checkbox/Checkbox';
-import Icon from '../Icon/Icon';
-import Transition from '../Transition/Transition';
-import { isFunction, isString } from '../Util';
-import { useClassNames } from '../hooks';
 import { afterEnter, afterLeave, beforeEnter, beforeLeave, onEnter, onLeave } from './CollapseTransition';
 import useTreeContext, { TreeNodeExpandContext, useDragEventsContext } from './TreeContext';
 import TreeNodeContent from './TreeNodeContent';

@@ -1,6 +1,6 @@
+import { BaseProps, ComponentChildren, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import React, { ComponentClass, FC, RefObject } from 'react';
 import type { Options as ScrollOptions } from 'scroll-into-view-if-needed';
-import { BaseProps, ComponentChildren, NativeProps, TypeAttributes } from '../types/common';
 
 type BaseFormProps = Omit<React.AllHTMLAttributes<HTMLFormElement>, 'onSubmit' | 'form' | 'size' | 'children'>;
 

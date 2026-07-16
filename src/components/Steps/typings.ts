@@ -1,6 +1,6 @@
+import { IconName } from '@qsxy/element-plus-react/Icon/typings';
+import type { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { IconName } from '../Icon';
-import type { BaseProps, NativeProps } from '../types/common';
 
 export type StepsStatus = '' | 'wait' | 'process' | 'finish' | 'error' | 'success';
 

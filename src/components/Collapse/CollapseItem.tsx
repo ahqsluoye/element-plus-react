@@ -1,12 +1,12 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import { IconName } from '@qsxy/element-plus-react/Icon/typings';
+import Transition from '@qsxy/element-plus-react/Transition/Transition';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useContext, useMemo, useRef, useState } from 'react';
-import Icon from '../Icon/Icon';
-import { IconName } from '../Icon/typings';
-import Transition from '../Transition/Transition';
-import { useClassNames } from '../hooks';
 import { CollapseContext } from './CollapseContext';
 import { afterEnter, afterLeave, beforeEnter, beforeLeave, onEnter, onLeave } from './CollapseTransition';
-import { CollapseItemProps, CollapseItemRef } from './typings';
+import type { CollapseItemProps, CollapseItemRef } from './typings';
 
 const CollapseItem = memo(
     forwardRef<CollapseItemRef, CollapseItemProps>((props, ref) => {

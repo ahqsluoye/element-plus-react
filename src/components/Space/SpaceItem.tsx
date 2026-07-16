@@ -1,5 +1,5 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import React, { useMemo } from 'react';
-import { useClassNames } from '../hooks';
 import { SpaceItemProps } from './typings';
 
 const SpaceItem = (props: SpaceItemProps) => {

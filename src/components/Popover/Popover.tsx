@@ -1,9 +1,11 @@
+import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
+import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
+import { addUnit, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useImperativeHandle, useRef } from 'react';
-import Tooltip from '../Tooltip/Tooltip';
-import { TooltipRef } from '../Tooltip/typings';
-import { addUnit, mergeDefaultProps } from '../Util';
-import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames } from '../hooks';
 import { PopoverProps } from './typings';
 
 const Popover = memo(

@@ -1,9 +1,10 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useDisabled } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import Progress from '@qsxy/element-plus-react/Progress/Progress';
+import Transition from '@qsxy/element-plus-react/Transition/Transition';
 import classNames from 'classnames';
 import React, { useCallback, useRef } from 'react';
-import Icon from '../Icon/Icon';
-import { Progress } from '../Progress';
-import Transition from '../Transition/Transition';
-import { useClassNames, useDisabled } from '../hooks';
 import { UploadFile, UploadListProps } from './typings';
 
 const UploadList = (props: UploadListProps) => {

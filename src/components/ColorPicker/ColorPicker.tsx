@@ -1,16 +1,20 @@
 /* eslint-disable indent */
+import Button from '@qsxy/element-plus-react/Button/Button';
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import Input from '@qsxy/element-plus-react/Input/Input';
+import { InputRef } from '@qsxy/element-plus-react/Input/typings';
+import Popper from '@qsxy/element-plus-react/Popper/Popper';
+import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
+import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
+import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
+import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '../Button/Button';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import Input from '../Input/Input';
-import { InputRef } from '../Input/typings';
-import Popper from '../Popper/Popper';
-import { PopperOptionRef } from '../Popper/typings';
-import { isEmpty, isNotEmpty } from '../Util';
-import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import AlphaSlider, { AlphaSliderRef } from './AlphaSlider';
 import HueSlider, { HueSliderRef } from './HueSlider';
 import Predefine, { PredefineRef } from './Predefine';

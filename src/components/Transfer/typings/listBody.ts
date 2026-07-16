@@ -1,5 +1,5 @@
-import { BaseProps } from '../../types/common';
-import { ElementOf, tuple } from '../../types/type';
+import { BaseProps } from '@qsxy/element-plus-react/types/common';
+import { ElementOf, tuple } from '@qsxy/element-plus-react/types/type';
 import { KeyWiseTransferItem, TransferPropsAlias } from './index';
 import { RenderedItem, TransferListProps } from './list';
 

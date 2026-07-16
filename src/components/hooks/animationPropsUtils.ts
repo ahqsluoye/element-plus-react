@@ -1,6 +1,6 @@
+import { TransitionProps } from '@qsxy/element-plus-react/Transition/Transition';
 import forEach from 'lodash/forEach';
 import includes from 'lodash/includes';
-import { TransitionProps } from '../Transition';
 
 // @ts-ignore
 export const animationAllProps = ['transitionAppear', 'unmountOnExit', 'beforeEnter', 'onEnter', 'afterEnter', 'beforeLeave', 'onLeave', 'afterLeave', 'duration', 'display'];

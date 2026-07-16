@@ -1,7 +1,7 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import some from 'lodash/some';
 import React, { useContext, useMemo, useRef, useState } from 'react';
-import { useClassNames } from '../hooks';
 import { TableContext, TableHeaderContext } from './TableContext';
 import TableHeaderCell from './TableHeaderCell';
 

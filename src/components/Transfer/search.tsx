@@ -1,6 +1,6 @@
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import Input from '@qsxy/element-plus-react/Input/Input';
 import React, { useCallback } from 'react';
-import Icon from '../Icon/Icon';
-import Input from '../Input/Input';
 
 export interface TransferSearchProps {
     prefixCls?: string;

@@ -1,4 +1,4 @@
-import { useClassNames } from '@qsxy/element-plus-react/hooks';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import React, { CSSProperties, forwardRef, useImperativeHandle, useMemo } from 'react';
 import { TableV2Props } from './table';
 import { TableV2Context } from './tokens';
@@ -15,7 +15,7 @@ import Overlay from './renderers/overlay';
 import RightTable from './renderers/right-table';
 import Row from './renderers/row';
 
-import { mergeDefaultProps } from '@qsxy/element-plus-react/Util';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import type { TableV2RowCellRenderParam } from './components';
 import type { ScrollStrategy } from './composables/use-scrollbar';

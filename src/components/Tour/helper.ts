@@ -1,8 +1,8 @@
 import { arrow, autoUpdate, computePosition, ComputePositionReturn, detectOverflow, flip, Middleware, offset as offsetMiddleware, shift, Strategy } from '@floating-ui/dom';
 import { Placement, VirtualElement } from '@popperjs/core';
+import { isClient } from '@qsxy/element-plus-react/Util/raf';
 import { useMount, useUnmount } from 'ahooks';
 import { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
-import { isClient } from '../Util';
 import { PosInfo } from './typings';
 
 export function isInViewPort(element: HTMLElement): boolean {

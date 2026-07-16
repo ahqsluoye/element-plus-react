@@ -1,10 +1,12 @@
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import classNames from 'classnames';
 import { useComposeRef } from 'rc-util/lib/ref';
 import React, { forwardRef, memo, useCallback, useRef } from 'react';
-import Icon from '../Icon/Icon';
-import Transition from '../Transition/Transition';
-import { mergeDefaultProps } from '../Util';
-import { partitionHTMLProps, useClassNames, useSize } from '../hooks';
 import { TagProps } from './typings';
 
 const Tag = memo(

@@ -1,8 +1,8 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Transition from '@qsxy/element-plus-react/Transition/Transition';
 import classNames from 'classnames';
 import { addClass, off, on, removeClass } from 'dom-lib';
 import React, { FC, memo, useEffect, useMemo, useRef, useState } from 'react';
-import Transition from '../Transition/Transition';
-import { useClassNames } from '../hooks';
 import { BarProps } from './typings';
 import { BAR_MAP, renderThumbStyle } from './util';
 

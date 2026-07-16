@@ -1,7 +1,7 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useContext, useImperativeHandle } from 'react';
-import { useClassNames } from '../hooks';
-import Tooltip from '../Tooltip/Tooltip';
 import { useSliderButton } from './hooks/useSliderButton';
 import { SliderContext } from './SliderContext';
 import type { SliderButtonProps, SliderButtonRef } from './typings';

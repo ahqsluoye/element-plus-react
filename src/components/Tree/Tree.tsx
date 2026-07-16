@@ -1,10 +1,11 @@
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useForceUpdate } from '@qsxy/element-plus-react/hooks/useForceUpdate';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
 import React, { forwardRef, RefObject, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import { useClassNames, useForceUpdate } from '../hooks';
-import { mergeDefaultProps } from '../Util';
 import Node from './model/node';
 import TreeStore from './model/tree-store';
 import { useDragNodeHandler } from './model/useDragNode';

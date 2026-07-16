@@ -1,5 +1,5 @@
+import useChildrenInstance from '@qsxy/element-plus-react/hooks/useChildrenInstance';
 import React, { FC } from 'react';
-import { useChildrenInstance } from '../hooks';
 import { TableColumnProps } from './typings';
 
 export interface TableColumnRef {

@@ -1,5 +1,5 @@
+import { randomCode } from '@qsxy/element-plus-react/Util/base';
 import React, { useMemo } from 'react';
-import { randomCode } from '../Util';
 
 const ImgEmpty = () => {
     const ids = useMemo(() => [`linearGradient-${randomCode(5)}`, `linearGradient-${randomCode(5)}`], []);

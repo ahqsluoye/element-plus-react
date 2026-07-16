@@ -1,5 +1,5 @@
+import { isNumber } from '@qsxy/element-plus-react/Util/base';
 import { Dayjs } from 'dayjs';
-import { isNumber } from '../Util';
 
 /** 时间单位元组：[标识符, 毫秒值] */
 const timeUnits = [

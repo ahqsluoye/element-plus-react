@@ -1,8 +1,8 @@
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import { mergeDefaultProps } from '../Util';
-import { useClassNames } from '../hooks';
 import { CardProps } from './typings';
 
 const Card = memo(

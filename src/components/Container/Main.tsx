@@ -1,6 +1,6 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { forwardRef } from 'react';
-import { useClassNames } from '../hooks';
 import { MainProps } from './typings';
 
 const Main = forwardRef<HTMLDivElement, MainProps>((props, ref) => {

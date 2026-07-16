@@ -1,7 +1,7 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import castArray from 'lodash/castArray';
 import React, { CSSProperties, forwardRef, useContext, useImperativeHandle, useMemo, useRef } from 'react';
-import { useClassNames } from '../../../hooks';
 import type { TableV2HeaderProps } from '../header';
 import { TABLE_V2_GRID_INJECTION_KEY } from '../tokens';
 import { enforceUnit } from '../utils';

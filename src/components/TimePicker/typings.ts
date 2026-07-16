@@ -1,9 +1,9 @@
+import { ValueRagne } from '@qsxy/element-plus-react/Calendar';
+import { AllDatePickerProps, DatePickerProps, DatePickerRangeProps } from '@qsxy/element-plus-react/DatePicker/typings';
+import { InputRef } from '@qsxy/element-plus-react/Input/typings';
+import { AnimationEventProps, BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import { Dayjs } from 'dayjs';
 import React, { RefObject } from 'react';
-import { ValueRagne } from '../Calendar';
-import { AllDatePickerProps, DatePickerProps, DatePickerRangeProps } from '../DatePicker/typings';
-import { InputRef } from '../Input/typings';
-import { AnimationEventProps, BaseProps, NativeProps } from '../types/common';
 
 export type RoleType = 'start' | string;
 export type Compare = any;

@@ -1,3 +1,11 @@
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import { IconProps } from '@qsxy/element-plus-react/Icon/typings';
+import { formatNumber } from '@qsxy/element-plus-react/Util/Math';
+import { isEmpty, isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import classNames from 'classnames';
 import cloneDeep from 'lodash/cloneDeep';
 import head from 'lodash/head';
@@ -6,11 +14,6 @@ import last from 'lodash/last';
 import noop from 'lodash/noop';
 import toFinite from 'lodash/toFinite';
 import React, { ComponentType, cloneElement, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Icon from '../Icon/Icon';
-import { IconProps } from '../Icon/typings';
-import { formatNumber, isEmpty, isNotEmpty, mergeDefaultProps } from '../Util';
-import { useClassNames, useControlled, useDisabled, useSize } from '../hooks';
-import { namespace } from '../hooks/prefix';
 import InputGroup from './InputGroup';
 import { InputRangeProps, InputRangeValueType } from './typings';
 

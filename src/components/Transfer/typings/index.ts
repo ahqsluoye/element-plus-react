@@ -1,5 +1,5 @@
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { BaseProps, NativeProps } from '../../types/common';
 import { PaginationType } from '../interface';
 import { TransferListProps } from './list';
 import { TransferListBodyProps } from './listBody';

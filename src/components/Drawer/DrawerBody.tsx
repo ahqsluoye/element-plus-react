@@ -1,8 +1,8 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import React, { forwardRef, useCallback, useEffect, useRef } from 'react';
-import { ScrollbarRef } from '../Scrollbar/typings';
-import { useClassNames } from '../hooks';
 import { DrawerBodyProps } from './typings';
 
 const DrawerBody = forwardRef<HTMLDivElement, DrawerBodyProps>((props, ref) => {

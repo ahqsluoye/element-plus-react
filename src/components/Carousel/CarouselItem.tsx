@@ -1,6 +1,6 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { FC, memo, useMemo } from 'react';
-import { useClassNames } from '../hooks';
 import { useCarouselContext } from './CarouselContext';
 import { useCarouselItem } from './hooks/useCarouselItem';
 import { CarouselItemProps } from './typings';

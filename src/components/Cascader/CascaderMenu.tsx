@@ -1,15 +1,15 @@
 /* eslint-disable indent */
+import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import { Radio } from '@qsxy/element-plus-react/Radio';
+import Scrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
+import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useContext, useImperativeHandle, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import scrollIntoView from 'scroll-into-view-if-needed';
-import Checkbox from '../Checkbox/Checkbox';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import Icon from '../Icon/Icon';
-import { Radio } from '../Radio';
-import Scrollbar from '../Scrollbar/Scrollbar';
-import { ScrollbarRef } from '../Scrollbar/typings';
-import { useClassNames } from '../hooks';
 import { CascaderContext } from './CascaderContext';
 import { CascaderNode } from './typings';
 

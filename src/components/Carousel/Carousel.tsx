@@ -1,10 +1,10 @@
+import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useImperativeHandle, useMemo, useRef } from 'react';
-import Icon from '../Icon/Icon';
-import Transition from '../Transition/Transition';
-import { mergeDefaultProps } from '../Util';
-import { useClassNames } from '../hooks';
-import { namespace } from '../hooks/prefix';
 import { CarouselContext } from './CarouselContext';
 import { useCarousel } from './hooks/useCarousel';
 import { CarouselProps, CarouselRef } from './typings';

@@ -1,6 +1,6 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React from 'react';
-import { useClassNames } from '../hooks';
 import { MenuItemGroupProps } from './typings';
 
 const MenuItemGroup = (props: MenuItemGroupProps) => {

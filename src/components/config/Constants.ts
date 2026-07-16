@@ -1,4 +1,4 @@
-import { IconName } from '../Icon';
+import { IconName } from '@qsxy/element-plus-react/Icon/typings';
 
 export const TypeMap = {
     primary: 'primary',

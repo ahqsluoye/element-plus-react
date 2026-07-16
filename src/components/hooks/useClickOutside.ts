@@ -1,6 +1,6 @@
+import { randomCode } from '@qsxy/element-plus-react/Util/base';
 import forIn from 'lodash/forIn';
 import { RefObject, useEffect, useLayoutEffect } from 'react';
-import { randomCode } from '../Util';
 
 type DocumentHandler = <T extends MouseEvent>(mouseup: T, mousedown: T) => void;
 

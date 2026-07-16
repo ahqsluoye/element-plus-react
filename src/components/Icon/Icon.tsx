@@ -1,7 +1,7 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import startsWith from 'lodash/startsWith';
 import React, { forwardRef, memo } from 'react';
-import { useClassNames } from '../hooks';
 import { IconProps } from './typings';
 
 const Icon: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<any>> = memo(

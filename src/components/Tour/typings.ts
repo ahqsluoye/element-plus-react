@@ -1,9 +1,9 @@
 import { Strategy } from '@floating-ui/dom';
 import type { Placement, VirtualElement } from '@popperjs/core';
+import type { ButtonProps } from '@qsxy/element-plus-react/Button/typings';
+import { IconName } from '@qsxy/element-plus-react/Icon/typings';
+import { BaseProps, FormControlBaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import type { CSSProperties, ReactNode } from 'react';
-import type { ButtonProps } from '../Button';
-import { IconName } from '../Icon';
-import { BaseProps, FormControlBaseProps, NativeProps } from '../types/common';
 
 /**
  * @description 遮罩和目标之间的透明间距配置

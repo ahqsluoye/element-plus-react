@@ -3,7 +3,7 @@ import isNumber from 'lodash/isNumber';
 import { CSSProperties, RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ScrollPos, useColumns, useData, useRow, useScrollbar, useStyles } from './composables';
 
-import { useClassNames } from '@qsxy/element-plus-react/hooks';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import type { TableV2Props } from './table';
 import type { TableGridInstance } from './table-grid';
 import type { AnyColumns, KeyType } from './types';

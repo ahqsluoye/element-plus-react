@@ -1,28 +1,23 @@
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
+import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
+import { isEmpty, isNotEmpty, isUndefined, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import { ValidateComponentsMap } from '@qsxy/element-plus-react/Util/icons';
+import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
+import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
+import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
+import useChildrenInstance from '@qsxy/element-plus-react/hooks/useChildrenInstance';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useClearable, useDisabled, useSize, useStatusIcon } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import { useComposition } from '@qsxy/element-plus-react/hooks/useComposition';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useResizeObserver } from '@qsxy/element-plus-react/hooks/useResizeObserver';
 import ensureArray from 'lodash/castArray';
 import filter from 'lodash/filter';
 import max from 'lodash/max';
 import min from 'lodash/min';
 import React, { Children, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import { PopperOptionRef } from '../Popper/typings';
-import { TooltipRef } from '../Tooltip/typings';
-import { isEmpty, isNotEmpty, isUndefined, mergeDefaultProps } from '../Util';
-import { ValidateComponentsMap } from '../Util/icons';
-import {
-    partitionAnimationProps,
-    partitionHTMLProps,
-    partitionPopperPropsUtils,
-    useChildrenInstance,
-    useClassNames,
-    useClearable,
-    useControlled,
-    useDisabled,
-    useSize,
-    useStatusIcon,
-} from '../hooks';
-import { useComposition } from '../hooks/useComposition';
-import { useResizeObserver } from '../hooks/useResizeObserver';
 import { OptionData, OptionValue, SelectDropdownRef, SelectOptionGroupProps, SelectOptionProps, SelectProps, ValueType } from './typings';
 
 const useSelect = (props: SelectProps) => {

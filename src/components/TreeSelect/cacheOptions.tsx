@@ -1,5 +1,5 @@
+import { SelectRef } from '@qsxy/element-plus-react/Select/typings';
 import React, { RefObject, useEffect } from 'react';
-import { SelectRef } from '../Select';
 import { CacheOption } from './typings';
 
 interface Props {

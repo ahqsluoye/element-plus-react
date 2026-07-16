@@ -1,8 +1,10 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { isBoolean, isPromise, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import { debugWarn, throwError } from '@qsxy/element-plus-react/Util/error';
 import classNames from 'classnames';
 import castArray from 'lodash/castArray';
 import React, { forwardRef, memo, useCallback } from 'react';
-import { useClassNames, useControlled } from '../hooks';
-import { debugWarn, isBoolean, isPromise, mergeDefaultProps, throwError } from '../Util';
 import { CollapseContext } from './CollapseContext';
 import { CollapseActiveName, CollapseProps, CollapseRef } from './typings';
 

@@ -1,6 +1,6 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { forwardRef, useCallback, useContext, useMemo } from 'react';
-import { useClassNames } from '../hooks';
 import { SelectContext } from './SelectContext';
 import { SelectOptionProps } from './typings';
 

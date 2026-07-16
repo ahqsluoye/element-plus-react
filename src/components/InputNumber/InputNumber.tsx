@@ -1,3 +1,12 @@
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import Input from '@qsxy/element-plus-react/Input/Input';
+import { InputRef } from '@qsxy/element-plus-react/Input/typings';
+import { isNotEmpty, isNumber, isUndefined, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { useMount, useUnmount } from 'ahooks';
 import classNames from 'classnames';
 import isNil from 'lodash/isNil';
@@ -5,12 +14,6 @@ import omit from 'lodash/omit';
 import toFinite from 'lodash/toFinite';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import Icon from '../Icon/Icon';
-import Input from '../Input/Input';
-import { InputRef } from '../Input/typings';
-import { isNotEmpty, isNumber, isUndefined, mergeDefaultProps } from '../Util';
-import { partitionHTMLProps, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { InputNumberProps, InputNumberRef } from './typings';
 
 const InputNumber = memo(

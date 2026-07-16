@@ -1,6 +1,6 @@
 import { RefObject, useCallback, useEffect, useRef } from 'react';
 
-import { cAF, rAF } from '@qsxy/element-plus-react/Util';
+import { cAF, rAF } from '@qsxy/element-plus-react/Util/raf';
 import { GridScrollOptions, GridStates } from '../types';
 
 export const useGridTouch = (

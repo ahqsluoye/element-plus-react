@@ -1,6 +1,6 @@
+import { useDisabled } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import omit from 'lodash/omit';
 import React, { forwardRef, memo, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
-import { useDisabled } from '../hooks';
 import UploadContent from './UploadContent';
 import { UploadContext } from './UploadContext';
 import UploadList from './UploadList';

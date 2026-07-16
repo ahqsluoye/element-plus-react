@@ -1,6 +1,6 @@
+import { warning } from '@qsxy/element-plus-react/Util/base';
 import { useRef, useState } from 'react';
 import scrollIntoView, { StandardBehaviorOptions } from 'scroll-into-view-if-needed';
-import { warning } from '../Util';
 import { HOOK_MARK } from './InternalFormContext';
 import type {
     Callbacks,

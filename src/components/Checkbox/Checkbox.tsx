@@ -1,8 +1,11 @@
+import { CheckboxGroupContext } from '@qsxy/element-plus-react/CheckboxGroup';
+import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useContext, useImperativeHandle, useMemo, useRef } from 'react';
-import { CheckboxGroupContext } from '../CheckboxGroup';
-import Tooltip from '../Tooltip/Tooltip';
-import { partitionHTMLProps, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { CheckboxProps, CheckboxRef } from './typings';
 
 const Checkbox = memo(

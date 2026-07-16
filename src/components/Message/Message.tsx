@@ -1,14 +1,15 @@
+import Badge from '@qsxy/element-plus-react/Badge/Badge';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import { EVENT_CODE, TypeComponentsMap } from '@qsxy/element-plus-react/config/Constants';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { CSSProperties, forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import Badge from '../Badge/Badge';
-import { Icon } from '../Icon';
-import Transition from '../Transition/Transition';
-import { PopupManager, mergeDefaultProps } from '../Util';
-import { EVENT_CODE, TypeComponentsMap } from '../config/Constants';
-import { useClassNames } from '../hooks';
 import { MessageProps, MessageRef } from './typings';
-// import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
+// import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 
 const Message = memo(
     forwardRef<MessageRef, MessageProps>((props, ref) => {

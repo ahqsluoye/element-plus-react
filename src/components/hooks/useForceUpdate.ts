@@ -1,5 +1,5 @@
+import { randomCode } from '@qsxy/element-plus-react/Util/base';
 import { useState } from 'react';
-import { randomCode } from '../Util';
 
 /** 强制刷新 */
 export const useForceUpdate = () => {

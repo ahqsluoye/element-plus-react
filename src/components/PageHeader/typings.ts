@@ -1,6 +1,6 @@
+import { IconName } from '@qsxy/element-plus-react/Icon/typings';
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { IconName } from '../Icon';
-import { BaseProps, NativeProps } from '../types/common';
 
 /**
  * @description PageHeader 页面头部组件属性

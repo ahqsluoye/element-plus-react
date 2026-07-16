@@ -1,4 +1,4 @@
-import { TreeNodeData } from '../Tree/typings';
+import { TreeNodeData } from '@qsxy/element-plus-react/Tree/typings';
 
 export function isValidValue(val: any) {
     return val || val === 0;

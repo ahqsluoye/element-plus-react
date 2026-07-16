@@ -1,9 +1,11 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import { getOffsetTopDistance } from '@qsxy/element-plus-react/Util/position';
+import { animateScrollTo, getScrollElement, getScrollTop, isWindow } from '@qsxy/element-plus-react/Util/scroll';
+import { throttleByRaf } from '@qsxy/element-plus-react/Util/throttleByRaf';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import React, { createContext, forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useClassNames } from '../hooks';
-import { animateScrollTo, getOffsetTopDistance, getScrollElement, getScrollTop, isWindow, mergeDefaultProps } from '../Util';
-import { throttleByRaf } from '../Util/throttleByRaf';
 import { getElement } from './element';
 import { AnchorContext as AnchorContextType, AnchorLinkState, AnchorProps, AnchorRef } from './typings';
 

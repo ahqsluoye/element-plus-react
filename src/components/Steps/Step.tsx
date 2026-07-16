@@ -1,8 +1,8 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import { isNumber, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { FC, memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { useClassNames } from '../hooks';
-import Icon from '../Icon/Icon';
-import { isNumber, mergeDefaultProps } from '../Util';
 import { StepsContext } from './Steps';
 import { StepItemState, StepProps, StepsContextProps } from './typings';
 

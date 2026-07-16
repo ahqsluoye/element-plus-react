@@ -244,26 +244,23 @@ export { Watermark as ElWatermark } from './Watermark';
 export type { WatermarkFontType, WatermarkProps } from './Watermark';
 
 /* 工具库与hooks */
-export {
-    htmlInputAttrs,
-    htmlInputEvents,
-    htmlInputProps,
-    partitionAnimationProps,
-    partitionHTMLProps,
-    partitionPopperPropsUtils,
-    partitionTreePropsUtils,
-    prefix,
-    useChildrenInstance,
-    useClassNames,
-    useClickOutside,
-    useComponentWillMount,
-    useConfigProvider,
-    useControlled,
-    useDisabled,
-    useForceUpdate,
-    useSize,
-} from './hooks';
-export { PopupManager, download, genFileId, generateTree, getScrollWidth, isEmpty, isNotEmpty, randomCode } from './Util';
+export { useConfigProvider } from './ConfigProvider/ConfigProviderContext';
+export { partitionAnimationProps } from './hooks/animationPropsUtils';
+export { htmlInputAttrs, htmlInputEvents, htmlInputProps, partitionHTMLProps } from './hooks/htmlPropsUtils';
+export { partitionPopperPropsUtils } from './hooks/popperPropsUtils';
+export { prefix } from './hooks/prefix';
+export { partitionTreePropsUtils } from './hooks/treePropsUtils';
+export { default as useChildrenInstance } from './hooks/useChildrenInstance';
+export { default as useClassNames } from './hooks/useClassNames';
+export { default as useClickOutside } from './hooks/useClickOutside';
+export { useDisabled, useSize } from './hooks/useCommonProps';
+export { default as useComponentWillMount } from './hooks/useComponentWillMount';
+export { default as useControlled } from './hooks/useControlled';
+export { useForceUpdate } from './hooks/useForceUpdate';
+export { download, getScrollWidth, isEmpty, isNotEmpty, randomCode } from './Util/base';
+export { genFileId } from './Util/genFileId';
+export { default as PopupManager } from './Util/PopupManager';
+export { generateTree } from './Util/treeUtils';
 
 /* 通用types */
 export type { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps, StandardProps, TooltipBaseProps, TypeAttributes } from './types/common';

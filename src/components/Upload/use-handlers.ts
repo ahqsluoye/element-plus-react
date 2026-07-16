@@ -1,7 +1,9 @@
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useForceUpdate } from '@qsxy/element-plus-react/hooks/useForceUpdate';
+import { warning } from '@qsxy/element-plus-react/Util/base';
+import { genFileId } from '@qsxy/element-plus-react/Util/genFileId';
 import isNil from 'lodash/isNil';
 import { RefObject, useCallback, useEffect, useRef } from 'react';
-import { genFileId, warning } from '../Util';
-import { useControlled, useForceUpdate } from '../hooks';
 import { UploadContentProps, UploadContentRef, UploadFile, UploadFiles, UploadProps, UploadRawFile, UploadStatus } from './typings';
 
 const revokeObjectURL = (file: UploadFile) => {

@@ -1,10 +1,10 @@
-import { ButtonProps } from '../Button/typings';
-import { CardProps } from '../Card/typings';
-import { TextareaProps } from '../Input/typings';
-import { InputNumberProps } from '../InputNumber/typings';
-import { LinkProps } from '../Link/typings';
-import { MessageProps } from '../Message/typings';
-import { BaseProps, TypeAttributes } from '../types/common';
+import { ButtonProps } from '@qsxy/element-plus-react/Button/typings';
+import { CardProps } from '@qsxy/element-plus-react/Card/typings';
+import { TextareaProps } from '@qsxy/element-plus-react/Input/typings';
+import { InputNumberProps } from '@qsxy/element-plus-react/InputNumber/typings';
+import { LinkProps } from '@qsxy/element-plus-react/Link/typings';
+import { MessageProps } from '@qsxy/element-plus-react/Message/typings';
+import { BaseProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 
 export interface ConfigProviderProps extends BaseProps {
     /** 对文本域进行配置 */

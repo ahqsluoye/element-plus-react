@@ -1,8 +1,8 @@
+import { isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import isEqual from 'lodash/isEqual';
 import some from 'lodash/some';
 import uniqWith from 'lodash/uniqWith';
 import { useCallback, useEffect, useReducer, useRef } from 'react';
-import { isNotEmpty } from '../../Util';
 import { TableProps } from '../typings';
 import { getRowIdentity } from '../util';
 

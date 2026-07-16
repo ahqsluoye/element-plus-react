@@ -1,12 +1,13 @@
+import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import { cAF, rAF } from '@qsxy/element-plus-react/Util/raf';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import { useComposeRef } from 'rc-util';
 import React, { RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useClassNames } from '../hooks';
-import { namespace } from '../hooks/prefix';
-import Icon from '../Icon/Icon';
-import { Transition } from '../Transition';
-import { cAF, mergeDefaultProps, rAF } from '../Util';
 import { BacktopProps } from './typings';
 
 /**

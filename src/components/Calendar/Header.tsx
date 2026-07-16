@@ -1,8 +1,8 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import Link from '@qsxy/element-plus-react/Link/Link';
 import classNames from 'classnames';
 import React, { FC, useMemo } from 'react';
-import Icon from '../Icon/Icon';
-import Link from '../Link/Link';
-import { useClassNames } from '../hooks';
 import { HeaderProps } from './typings';
 
 const Header: FC<HeaderProps> = props => {

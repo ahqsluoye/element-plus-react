@@ -1,5 +1,5 @@
+import { UseNamespaceReturn } from '@qsxy/element-plus-react/hooks/useClassNames';
 import { createContext, RefObject } from 'react';
-import { UseNamespaceReturn } from '../../hooks/useClassNames';
 
 export type TableV2Context = {
     isScrolling: boolean;

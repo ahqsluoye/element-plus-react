@@ -1,7 +1,7 @@
+import { PopperOptions } from '@qsxy/element-plus-react/Popper';
+import { TransitionProps } from '@qsxy/element-plus-react/Transition';
+import { AnimationEventProps, BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { PopperOptions } from '../Popper';
-import { TransitionProps } from '../Transition';
-import { AnimationEventProps, BaseProps, NativeProps } from '../types/common';
 
 export interface PopoverProps
     extends BaseProps<React.ReactElement>,

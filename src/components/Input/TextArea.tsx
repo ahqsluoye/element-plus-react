@@ -1,10 +1,14 @@
+import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useAutosize, useClearable, useDisabled } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useResizeObserver } from '@qsxy/element-plus-react/hooks/useResizeObserver';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import { cAF, rAF } from '@qsxy/element-plus-react/Util/raf';
 import classNames from 'classnames';
 import { addStyle } from 'dom-lib';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import Icon from '../Icon/Icon';
-import { cAF, mergeDefaultProps, rAF } from '../Util';
-import { partitionHTMLProps, useAutosize, useClassNames, useClearable, useControlled, useDisabled } from '../hooks';
-import { useResizeObserver } from '../hooks/useResizeObserver';
 import { TextareaProps, TextareaRef } from './typings';
 import { calcTextareaHeight } from './utils';
 

@@ -1,9 +1,9 @@
+import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
-import Checkbox from '../Checkbox/Checkbox';
-import { mergeDefaultProps } from '../Util';
-import { useClassNames } from '../hooks';
 import DefaultListBody from './ListBody';
 import Search from './search';
 import { KeyWiseTransferItem } from './typings';

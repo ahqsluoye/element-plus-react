@@ -1,6 +1,6 @@
 /* eslint-disable indent */
+import { ISplitCode, prefix as addPrefix, namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import classNames from 'classnames';
-import { ISplitCode, prefix as addPrefix, namespace } from '../../hooks/prefix';
 
 export type ClassValue = string | number | Record<string, any> | Array<ClassValue> | undefined | null | boolean;
 

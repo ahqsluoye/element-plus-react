@@ -1,7 +1,7 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { BaseProps } from '@qsxy/element-plus-react/types/common';
 import classNames from 'classnames';
 import React, { useCallback, useContext, useState } from 'react';
-import { useClassNames } from '../hooks';
-import { BaseProps } from '../types/common';
 import { UploadContext } from './UploadContext';
 
 interface Props extends BaseProps {

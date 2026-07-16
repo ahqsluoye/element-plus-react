@@ -7,9 +7,9 @@ import { Alignment } from '../constants';
 import { placeholderSign } from '../private';
 import { componentToSlot, enforceUnit, tryCall } from '../utils';
 
+import type { UseNamespaceReturn } from '@qsxy/element-plus-react/hooks/useClassNames';
+import type { IconSize } from '@qsxy/element-plus-react/Icon/typings';
 import classNames from 'classnames';
-import type { UseNamespaceReturn } from '../../../hooks/useClassNames';
-import type { IconSize } from '../../../Icon/typings';
 import type { TableV2Props } from '../table';
 import type { UseTableReturn } from '../use-table';
 

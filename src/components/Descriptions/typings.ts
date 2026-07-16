@@ -1,5 +1,5 @@
+import { BaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export interface DescriptionsProps
     extends BaseProps<React.ReactElement<DescriptionsItemProps> | React.ReactElement<DescriptionsItemProps>[]>,

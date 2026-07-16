@@ -1,8 +1,9 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import React, { Children, FC, useEffect, useRef } from 'react';
-import { mergeDefaultProps } from '../Util';
-import { useClassNames, useControlled } from '../hooks';
 import { SkeletonContext } from './SkeletonContext';
 import SkeletonItem from './SkeletonItem';
 import { SkeletonProps } from './typings';

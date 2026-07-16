@@ -1,4 +1,4 @@
-import { isNumber } from '../Util/base';
+import { isNumber } from '@qsxy/element-plus-react/Util/base';
 
 let hiddenTextarea: HTMLTextAreaElement | undefined = undefined;
 

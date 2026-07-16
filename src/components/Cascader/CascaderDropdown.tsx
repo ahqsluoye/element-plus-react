@@ -1,12 +1,12 @@
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import Scrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
+import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import classNames from 'classnames';
 import last from 'lodash/last';
 import React, { memo, useContext, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import Icon from '../Icon/Icon';
-import Scrollbar from '../Scrollbar/Scrollbar';
-import { ScrollbarRef } from '../Scrollbar/typings';
-import { useClassNames } from '../hooks';
 import { CascaderContext } from './CascaderContext';
 import { CascaderNode } from './typings';
 

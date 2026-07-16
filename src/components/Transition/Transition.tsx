@@ -1,10 +1,10 @@
+import { AnimationEventProps, ComponentChildren } from '@qsxy/element-plus-react/types/common';
 import classNames from 'classnames';
 import getTransitionEnd from 'dom-lib/getTransitionEnd';
 import on from 'dom-lib/on';
 import isFunction from 'lodash/isFunction';
 import omit from 'lodash/omit';
 import React, { Children, cloneElement, Component, createRef, RefObject } from 'react';
-import { AnimationEventProps, ComponentChildren } from '../types/common';
 import { getAnimationEnd } from './util';
 
 export enum STATUS {

@@ -1,5 +1,5 @@
+import { warning } from '@qsxy/element-plus-react/Util/base';
 import { createContext } from 'react';
-import { warning } from '../Util';
 import { InternalFormInstance } from './typings';
 
 export const HOOK_MARK = 'RC_FORM_INTERNAL_HOOKS';

@@ -1,9 +1,9 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { RowContext } from '@qsxy/element-plus-react/Row';
+import { floatDivide } from '@qsxy/element-plus-react/Util/Math';
 import classNames from 'classnames';
 import isObject from 'lodash/isObject';
 import React, { FC, memo, useContext, useMemo } from 'react';
-import { RowContext } from '../Row';
-import { floatDivide } from '../Util';
-import { useClassNames } from '../hooks';
 import { ColProps, MediaLayout, MediaSize } from './typings';
 
 const Col: FC<ColProps> = memo(props => {

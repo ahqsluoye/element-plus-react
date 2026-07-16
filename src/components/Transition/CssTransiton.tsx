@@ -1,6 +1,6 @@
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import { useComposeRef } from 'rc-util';
 import React, { FC } from 'react';
-import { BaseProps, NativeProps } from '../types/common';
 
 export interface CssTransitonProps extends BaseProps<React.ReactElement>, NativeProps {}
 

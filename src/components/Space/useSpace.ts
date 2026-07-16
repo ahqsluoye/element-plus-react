@@ -1,8 +1,8 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import isArray from 'lodash/isArray';
 import isNumber from 'lodash/isNumber';
 import React, { useMemo } from 'react';
-import { useClassNames } from '../hooks';
 import { SpaceProps } from './typings';
 
 const SIZE_MAP = {

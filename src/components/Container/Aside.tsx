@@ -1,7 +1,7 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { addUnit, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { forwardRef } from 'react';
-import { addUnit, mergeDefaultProps } from '../Util';
-import { useClassNames } from '../hooks';
 import { AsideProps } from './typings';
 
 const Aside = forwardRef<HTMLDivElement, AsideProps>((props, ref) => {

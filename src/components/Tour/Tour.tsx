@@ -1,11 +1,12 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import isBoolean from 'lodash/isBoolean';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import { useClassNames, useControlled } from '../hooks';
-import { mergeDefaultProps } from '../Util';
-import PopupManager from '../Util/PopupManager';
 import Content from './Content';
 import { TourContext } from './context';
 import { useTarget } from './helper';

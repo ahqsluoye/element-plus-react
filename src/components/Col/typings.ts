@@ -1,4 +1,4 @@
-import { BaseProps, NativeProps } from '../types/common';
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 
 export type MediaType = keyof Pick<ColProps, 'span' | 'offset' | 'push' | 'pull'>;
 export type MediaLayout = Partial<Record<MediaType, number>>;

@@ -2,12 +2,12 @@ import pick from 'lodash/pick';
 import { RefObject, useEffect, useMemo } from 'react';
 
 // 假设这些工具函数和常量已存在
+import { popperAllProps } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { SelectProps, SelectRef } from '@qsxy/element-plus-react/Select/typings';
+import { TreeRef } from '@qsxy/element-plus-react/Tree/typings';
+import { nextTick } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
-import { SelectProps, SelectRef } from '../Select';
-import { TreeRef } from '../Tree/typings';
-import { nextTick } from '../Util';
-import { useClassNames } from '../hooks';
-import { popperAllProps } from '../hooks/popperPropsUtils';
 import { TreeSelectProps } from './typings';
 
 const formControlBaseKeys = ['name', 'value', 'defaultValue', 'disabled', 'size', 'readOnly', 'classPrefix', 'className', 'style'];

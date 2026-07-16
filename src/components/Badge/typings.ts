@@ -1,5 +1,5 @@
+import { AnimationEventProps, BaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { AnimationEventProps, BaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export interface BadgeProps
     extends BaseProps,

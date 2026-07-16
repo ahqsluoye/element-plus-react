@@ -1,5 +1,5 @@
+import InputGroup from '@qsxy/element-plus-react/Input/InputGroup';
 import React, { Ref, forwardRef, memo, useRef } from 'react';
-import { InputGroup } from '../Input';
 import SelectCore from './SelectCore';
 import { SelectProps, SelectRef } from './typings';
 

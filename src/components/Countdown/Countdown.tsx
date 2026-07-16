@@ -1,9 +1,9 @@
+import Statistic from '@qsxy/element-plus-react/Statistic/Statistic';
+import { StatisticRef } from '@qsxy/element-plus-react/Statistic/typings';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import { cAF, rAF } from '@qsxy/element-plus-react/Util/raf';
 import { useMount, useUnmount } from 'ahooks';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import Statistic from '../Statistic/Statistic';
-import { StatisticRef } from '../Statistic/typings';
-import { cAF, rAF } from '../Util';
-import { mergeDefaultProps } from '../Util/base';
 import type { CountdownProps, CountdownRef } from './typings';
 import { formatTime, getTime } from './util';
 

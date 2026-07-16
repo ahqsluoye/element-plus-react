@@ -1,6 +1,6 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useResizeObserver } from '@qsxy/element-plus-react/hooks/useResizeObserver';
 import React, { memo, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
-import { useClassNames } from '../hooks';
-import { useResizeObserver } from '../hooks/useResizeObserver';
 import { FormItemContext } from './FormItemContext';
 import FieldContext from './InternalFormContext';
 

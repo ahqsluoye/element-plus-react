@@ -1,7 +1,7 @@
 import { NODE_KEY, markNodeData } from './util';
 
+import { isBoolean, isFunction, isString, isUndefined } from '@qsxy/element-plus-react/Util/base';
 import isNil from 'lodash/isNil';
-import { isBoolean, isFunction, isString, isUndefined } from '../../Util';
 import { FakeNode, TreeKey, TreeNodeChildState, TreeNodeData, TreeNodeLoadedDefaultProps, TreeNodeOptions } from '../typings';
 import TreeStore from './tree-store';
 

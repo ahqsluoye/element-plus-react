@@ -1,10 +1,13 @@
+import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
+import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import Popper from '@qsxy/element-plus-react/Popper/Popper';
+import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
 import classNames from 'classnames';
 import noop from 'lodash/noop';
 import React, { Children, cloneElement, forwardRef, memo, useCallback, useImperativeHandle, useRef } from 'react';
 import * as ReactIs from 'react-is';
-import Popper from '../Popper/Popper';
-import { PopperOptionRef } from '../Popper/typings';
-import { partitionAnimationProps, partitionPopperPropsUtils, useClassNames, useControlled } from '../hooks';
 import { TooltipContext } from './TooltipContext';
 import { TooltipProps, TooltipRef } from './typings';
 

@@ -1,5 +1,5 @@
+import { warning } from '@qsxy/element-plus-react/Util/base';
 import React, { FC, memo, useContext, useMemo, useRef } from 'react';
-import { warning } from '../Util';
 import FormItem from './FormItem';
 import FieldContext from './InternalFormContext';
 import ListContext, { ListContextProps } from './ListContext';

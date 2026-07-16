@@ -1,5 +1,5 @@
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React, { CSSProperties } from 'react';
-import { BaseProps, NativeProps } from '../types/common';
 
 export interface SpaceProps extends BaseProps, NativeProps {
     /** 排列的方向 */

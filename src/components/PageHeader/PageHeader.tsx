@@ -1,10 +1,10 @@
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import Divider from '@qsxy/element-plus-react/Divider/Divider';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import Divider from '../Divider/Divider';
-import { useClassNames } from '../hooks';
-import Icon from '../Icon/Icon';
 import { PageHeaderProps } from './typings';
 
 /**

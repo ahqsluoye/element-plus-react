@@ -1,5 +1,5 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useClassNames } from '../hooks';
 import { useFloating } from './helper';
 import type { TourContentProps } from './typings';
 

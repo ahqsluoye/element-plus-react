@@ -1,6 +1,6 @@
+import type { UseNamespaceReturn } from '@qsxy/element-plus-react/hooks/useClassNames';
+import type { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React, { RefObject } from 'react';
-import type { UseNamespaceReturn } from '../hooks';
-import type { BaseProps, NativeProps } from '../types/common';
 
 /**
  * 锚点链接状态

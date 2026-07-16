@@ -1,6 +1,6 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { forwardRef } from 'react';
-import { useClassNames } from '../hooks';
 
 export interface SkeletonGraphProps {
     // height of rows

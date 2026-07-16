@@ -1,8 +1,8 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { addUnit, mergeDefaultProps, nextTick } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useClassNames } from '../hooks';
-import { addUnit, mergeDefaultProps, nextTick } from '../Util';
 import type { AffixProps, AffixRef } from './typings';
 
 /** 判断是否 window 对象 */

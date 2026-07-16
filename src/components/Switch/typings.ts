@@ -1,6 +1,6 @@
+import { IconName } from '@qsxy/element-plus-react/Icon/typings';
+import { BaseProps, FormControlBaseProps, NativeProps, TooltipBaseProps } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { IconName } from '../Icon';
-import { BaseProps, FormControlBaseProps, NativeProps, TooltipBaseProps } from '../types/common';
 
 export type ValueType = boolean | string | number;
 export type ChangeValue = {

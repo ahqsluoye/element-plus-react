@@ -1,8 +1,8 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { BAR_MAP } from '@qsxy/element-plus-react/Scrollbar/util';
+import { cAF, rAF } from '@qsxy/element-plus-react/Util/raf';
 import classNames from 'classnames';
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
-import { useClassNames } from '../../hooks';
-import { BAR_MAP } from '../../Scrollbar/util';
-import { cAF, rAF } from '../../Util';
 import { HORIZONTAL, SCROLLBAR_MIN_SIZE, ScrollbarDirKey } from '../defaults';
 import { VirtualizedScrollbarProps } from '../props';
 import { ScrollbarExpose } from '../types';

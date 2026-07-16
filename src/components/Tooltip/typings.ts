@@ -1,8 +1,8 @@
 import { VirtualElement } from '@popperjs/core';
+import { PopperOptionRef, PopperOptions } from '@qsxy/element-plus-react/Popper';
+import { TransitionProps } from '@qsxy/element-plus-react/Transition';
+import { AnimationEventProps, BaseProps, ComponentChildren, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { PopperOptionRef, PopperOptions } from '../Popper';
-import { TransitionProps } from '../Transition';
-import { AnimationEventProps, BaseProps, ComponentChildren, NativeProps } from '../types/common';
 
 export type TooltipRef = {
     popperRef: React.MutableRefObject<PopperOptionRef>;

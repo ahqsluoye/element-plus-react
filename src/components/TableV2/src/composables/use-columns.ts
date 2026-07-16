@@ -3,7 +3,7 @@ import { SortOrder, oppositeOrderMap } from '../constants';
 import { placeholderSign } from '../private';
 import { calcColumnStyle } from './utils';
 
-import { isObject } from '@qsxy/element-plus-react/Util';
+import { isObject } from '@qsxy/element-plus-react/Util/base';
 import { TableV2Props } from '../table';
 import { AnyColumns, Column, KeyType } from '../types';
 

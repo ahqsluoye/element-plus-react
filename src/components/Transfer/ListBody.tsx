@@ -1,8 +1,8 @@
+import Pagination from '@qsxy/element-plus-react/Pagination/Pagination';
+import Scrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { Pagination } from '../Pagination';
-import Scrollbar from '../Scrollbar/Scrollbar';
-import { useClassNames } from '../hooks';
 import ListItem from './ListItem';
 import { PaginationType } from './interface';
 import { KeyWiseTransferItem } from './typings';

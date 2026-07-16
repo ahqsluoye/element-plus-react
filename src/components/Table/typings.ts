@@ -1,7 +1,7 @@
 import { Placement } from '@popperjs/core';
+import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React, { RefObject } from 'react';
-import { ScrollbarRef } from '../Scrollbar';
-import { BaseProps, NativeProps } from '../types/common';
 
 type CI<T> = { column: TableColumnCtx<T>; $index: number };
 

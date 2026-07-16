@@ -1,6 +1,6 @@
+import type { TreeProps } from '@qsxy/element-plus-react/Tree/typings';
 import forEach from 'lodash/forEach';
 import includes from 'lodash/includes';
-import { TreeProps } from '../Tree';
 
 export const treeAllProps = [
     'data',

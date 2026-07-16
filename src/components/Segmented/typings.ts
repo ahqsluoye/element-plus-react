@@ -1,5 +1,5 @@
+import { BaseProps, FormControlBaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import { ReactElement } from 'react';
-import { BaseProps, FormControlBaseProps, NativeProps } from '../types/common';
 
 export type Option = Record<string, any> | string | number | boolean;
 

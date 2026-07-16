@@ -1,6 +1,6 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { FC } from 'react';
-import { useClassNames } from '../../hooks';
 import { SvgIconProps } from '../typings';
 
 export const Up: FC<SvgIconProps> = props => {

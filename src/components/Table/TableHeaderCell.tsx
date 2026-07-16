@@ -1,12 +1,12 @@
+import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
+import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { NativeProps } from '@qsxy/element-plus-react/types/common';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
 import sortBy from 'lodash/sortBy';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import Checkbox from '../Checkbox/Checkbox';
-import { isEmpty, isNotEmpty } from '../Util';
-import { useClassNames } from '../hooks';
-import { NativeProps } from '../types/common';
 import { TableBodyContext, TableContext, TableHeaderContext } from './TableContext';
 import { useResize } from './hooks/useResize';
 import { onCheck } from './hooks/useSelection';

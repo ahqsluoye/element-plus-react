@@ -1,7 +1,8 @@
+import { genFileId } from '@qsxy/element-plus-react/Util/genFileId';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useDisabled } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import classNames from 'classnames';
 import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
-import { genFileId } from '../Util';
-import { useClassNames, useDisabled } from '../hooks';
 import UploadDrag from './UploadDrag';
 import { ajaxUpload } from './ajax';
 import { UploadContentProps, UploadContentRef, UploadFile, UploadHooks, UploadRawFile, UploadRequestOptions } from './typings';

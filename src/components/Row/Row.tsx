@@ -1,7 +1,8 @@
+import { floatDivide } from '@qsxy/element-plus-react/Util/Math';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { FC } from 'react';
-import { floatDivide, mergeDefaultProps } from '../Util';
-import { useClassNames } from '../hooks';
 import { RowContext } from './RowContext';
 import { RowProps } from './typings';
 

@@ -1,9 +1,12 @@
+import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import { mergeDefaultProps, warning } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import isBoolean from 'lodash/isBoolean';
 import React, { forwardRef, isValidElement, useCallback, useMemo, useRef } from 'react';
-import Icon from '../Icon/Icon';
-import { mergeDefaultProps, warning } from '../Util';
-import { partitionHTMLProps, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
 import { SwitchProps } from './typings';
 
 const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {

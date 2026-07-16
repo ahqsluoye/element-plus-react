@@ -1,6 +1,6 @@
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import isArray from 'lodash/isArray';
 import React, { forwardRef, memo, useCallback, useMemo } from 'react';
-import { mergeDefaultProps } from '../Util';
 import SpaceItem from './SpaceItem';
 import { SpaceProps } from './typings';
 import { useSpace } from './useSpace';

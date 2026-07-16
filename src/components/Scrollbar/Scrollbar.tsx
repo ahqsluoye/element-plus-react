@@ -1,10 +1,11 @@
+import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import { addResizeListener, removeResizeListener } from '@qsxy/element-plus-react/Util/resize-event';
 import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import isObject from 'lodash/isObject';
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import { mergeDefaultProps } from '../Util';
-import { addResizeListener, removeResizeListener } from '../Util/resize-event';
-import { partitionHTMLProps, useClassNames } from '../hooks';
 import Thumb from './Thumb';
 import { ScrollToOptions, ScrollbarProps, ScrollbarRef } from './typings';
 

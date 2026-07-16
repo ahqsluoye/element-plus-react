@@ -1,6 +1,6 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
-import { useClassNames } from '../hooks';
 import { DialogBodyProps } from './typings';
 
 const DialogBody: React.ForwardRefExoticComponent<DialogBodyProps & React.RefAttributes<HTMLDivElement>> = memo(

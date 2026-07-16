@@ -1,5 +1,5 @@
+import { TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import { createContext, MutableRefObject } from 'react';
-import { TypeAttributes } from '../types/common';
 import { FormItemValidateState } from './typings';
 
 interface Props {

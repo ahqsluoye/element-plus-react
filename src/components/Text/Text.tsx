@@ -1,7 +1,8 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import { isUndefined, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { FC, memo, useEffect, useMemo, useRef } from 'react';
-import { isUndefined, mergeDefaultProps } from '../Util';
-import { useClassNames, useSize } from '../hooks';
 import { TextProps } from './typings';
 
 const Text: FC<TextProps> = memo((props: TextProps) => {

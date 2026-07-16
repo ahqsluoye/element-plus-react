@@ -1,5 +1,5 @@
+import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import { addClass, hasClass, removeClass } from 'dom-lib';
-import { namespace } from '../hooks/prefix';
 
 export const beforeEnter = el => {
     el.style.opacity = '0.2';

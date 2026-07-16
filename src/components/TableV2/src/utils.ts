@@ -1,4 +1,4 @@
-import { addUnit, isFunction } from '@qsxy/element-plus-react/Util';
+import { addUnit, isFunction } from '@qsxy/element-plus-react/Util/base';
 import isArray from 'lodash/isArray';
 import React, { ReactElement, type CSSProperties, type ReactNode } from 'react';
 

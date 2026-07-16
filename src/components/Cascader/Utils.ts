@@ -1,4 +1,4 @@
-import { isNotEmpty } from '../Util';
+import { isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 
 export const toArray = (val: string | string[] | string[][], separator = '/'): string[] | string[][] => {
     if (isNotEmpty(val)) {

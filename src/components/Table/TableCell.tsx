@@ -10,11 +10,12 @@ import React, { RefObject, useCallback, useContext, useEffect, useMemo, useRef, 
 import { createPortal } from 'react-dom';
 import { Root, createRoot } from 'react-dom/client';
 // import { SortableHandle } from 'react-sortable-hoc';
-import Checkbox from '../Checkbox/Checkbox';
-import Icon from '../Icon/Icon';
-import { TooltipRef } from '../Tooltip/typings';
-import { isEmpty, isNotEmpty } from '../Util';
-import { useClassNames, useUpdateEffect } from '../hooks';
+import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
+import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
+import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import useUpdateEffect from '@qsxy/element-plus-react/hooks/useUpdateEffect';
 import { TableBodyContext, TableContext } from './TableContext';
 import { activeRow, onCheck } from './hooks/useSelection';
 import { addTreeChildren, getAllChildren, mergeTreeData } from './treeUtil';

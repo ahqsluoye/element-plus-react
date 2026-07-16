@@ -1,16 +1,17 @@
+import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useForceUpdate } from '@qsxy/element-plus-react/hooks/useForceUpdate';
+import { isNumber, isUndefined, nextTick } from '@qsxy/element-plus-react/Util/base';
+import { getScrollBarWidth } from '@qsxy/element-plus-react/Util/scroll';
 import React, { CSSProperties, useCallback, useEffect, useMemo, useRef } from 'react';
-import { useClassNames, useForceUpdate } from '../../hooks';
-import { namespace } from '../../hooks/prefix';
-import { getScrollBarWidth, isNumber, isUndefined, nextTick } from '../../Util';
 import Scrollbar from '../components/scrollbar';
 import { AUTO_ALIGNMENT, BACKWARD, FORWARD, RTL, RTL_OFFSET_NAG, RTL_OFFSET_POS_ASC, RTL_OFFSET_POS_DESC } from '../defaults';
 import { useCache } from '../hooks/use-cache';
 import { useGridTouch } from '../hooks/use-grid-touch';
 import { useGridWheel } from '../hooks/use-grid-wheel';
-import { getRTLOffsetType, getScrollDir, isRTL } from '../utils';
-
 import { VirtualizedGridProps } from '../props';
 import { Alignment, GridConstructorProps, GridExposes, GridStates, Indices, ScrollbarExpose } from '../types';
+import { getRTLOffsetType, getScrollDir, isRTL } from '../utils';
 
 const createGrid = ({
     name,

@@ -1,4 +1,4 @@
-import type { BaseProps, NativeProps } from '../types/common';
+import type { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 
 export interface AffixProps extends BaseProps, NativeProps {
     /**

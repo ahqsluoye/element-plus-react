@@ -1,4 +1,4 @@
-export { default as InputRange } from '../Input/InputRange';
+export { default as InputRange } from '@qsxy/element-plus-react/Input/InputRange';
 export { default as Input } from './Input';
 export { default as InputGroup } from './InputGroup';
 export { default as TextArea } from './TextArea';

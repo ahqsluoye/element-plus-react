@@ -1,5 +1,4 @@
-import React from 'react';
-import { BaseProps, NativeProps } from '../types/common';
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 
 /**
  * @description 水印字体样式配置

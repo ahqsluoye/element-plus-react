@@ -1,5 +1,5 @@
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import { ReactElement } from 'react';
-import { BaseProps, NativeProps } from '../types/common';
 
 export interface SkeletonProps extends BaseProps, NativeProps<'--el-skeleton-color' | '--el-skeleton-to-color'> {
     /** 是否显示骨架屏（可控） */

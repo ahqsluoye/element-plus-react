@@ -1,9 +1,9 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import { Dayjs } from 'dayjs';
 import head from 'lodash/head';
 import last from 'lodash/last';
 import React, { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
-import { useClassNames } from '../hooks';
 import TimeSpinnerPanel from './TimeSpinnerPanel';
 import { TimeRangePanelProps, TimeRangePanelRef } from './typings';
 import { makeRange } from './util';

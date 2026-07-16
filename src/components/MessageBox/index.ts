@@ -1,5 +1,5 @@
+import { isObject, isUndefined } from '@qsxy/element-plus-react/Util/base';
 import React from 'react';
-import { isObject, isUndefined } from '../Util';
 import Main from './Main';
 import { Action, MessageBoxData, MessageBoxInputData, MessageBoxProps, MessageState } from './typings';
 

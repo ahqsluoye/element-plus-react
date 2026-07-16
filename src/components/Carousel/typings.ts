@@ -1,5 +1,5 @@
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import { RefObject } from 'react';
-import { BaseProps, NativeProps } from '../types/common';
 
 export interface CarouselProps
     extends BaseProps,

@@ -1,7 +1,7 @@
+import { IconName } from '@qsxy/element-plus-react/Icon/typings';
+import { PopperOptionRef, PopperOptions } from '@qsxy/element-plus-react/Popper/typings';
+import { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import React, { RefObject } from 'react';
-import { IconName } from '../Icon';
-import { PopperOptionRef, PopperOptions } from '../Popper';
-import { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps, TypeAttributes } from '../types/common';
 
 export type OptionValue = string | number | boolean;
 export type ValueType = OptionValue | OptionValue[];

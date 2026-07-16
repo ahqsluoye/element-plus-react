@@ -1,4 +1,4 @@
-import { isObject, isPropAbsent, nextTick } from '@qsxy/element-plus-react/Util';
+import { isObject, isPropAbsent, nextTick } from '@qsxy/element-plus-react/Util/base';
 import isEqual from 'lodash/isEqual';
 import isNil from 'lodash/isNil';
 import noop from 'lodash/noop';

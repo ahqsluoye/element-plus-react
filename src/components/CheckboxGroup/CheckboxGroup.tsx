@@ -1,11 +1,15 @@
+import { Checkbox, type CheckboxProps, type ValueType } from '@qsxy/element-plus-react/Checkbox/index';
+import useChildrenInstance from '@qsxy/element-plus-react/hooks/useChildrenInstance';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { BaseProps, FormControlBaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
+import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import shallowEqual from '@qsxy/element-plus-react/Util/shallowEqual';
 import classNames from 'classnames';
 import cloneDeep from 'lodash/cloneDeep';
 import remove from 'lodash/remove';
 import React, { Children, FC, forwardRef, memo, useCallback, useMemo } from 'react';
-import { Checkbox, type CheckboxProps, type ValueType } from '../Checkbox/index';
-import { mergeDefaultProps, shallowEqual } from '../Util';
-import { useChildrenInstance, useClassNames, useControlled, useDisabled, useSize } from '../hooks';
-import { BaseProps, FormControlBaseProps, NativeProps, TypeAttributes } from '../types/common';
 import { CheckboxGroupContext } from './CheckboxGroupContext';
 
 export interface CheckboxGroupProps<V = ValueType[] | boolean> extends FormControlBaseProps<V>, BaseProps, NativeProps {

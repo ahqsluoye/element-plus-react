@@ -1,6 +1,6 @@
 // import { RefObject } from 'react';
-// import { EVENT_CODE } from '../../config/Constants';
-// import { useClassNames } from '../../hooks';
+// import { EVENT_CODE } from '@qsxy/element-plus-react/config/Constants';
+// import { useClassNames } from '@qsxy/element-plus-react/hooks';
 // import TreeStore from './tree-store';
 
 // interface UseKeydownOption {

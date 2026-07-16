@@ -2,7 +2,7 @@ import isNumber from 'lodash/isNumber';
 import { CSSProperties, useMemo } from 'react';
 import { enforceUnit, sum } from '../utils';
 
-import { addUnit } from '@qsxy/element-plus-react/Util';
+import { addUnit } from '@qsxy/element-plus-react/Util/base';
 import type { TableV2Props } from '../table';
 import type { UseColumnsReturn } from './use-columns';
 

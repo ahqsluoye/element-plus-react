@@ -1,8 +1,8 @@
+import { getScrollBarWidth } from '@qsxy/element-plus-react/Util/scroll';
 import { getStyle, hasClass } from 'dom-lib';
 import addClass from 'dom-lib/esm/addClass';
 import removeClass from 'dom-lib/esm/removeClass';
 import { useEffect } from 'react';
-import { getScrollBarWidth } from '../Util/scroll';
 import { namespace } from './prefix';
 import useClassNames, { UseNamespaceReturn } from './useClassNames';
 

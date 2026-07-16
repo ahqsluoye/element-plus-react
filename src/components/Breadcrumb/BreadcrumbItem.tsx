@@ -1,8 +1,8 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { cloneElement, FC, memo, useCallback, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useClassNames } from '../hooks';
-import { isNotEmpty } from '../Util';
 import { BreadcrumbContext } from './Breadcrumb';
 import { BreadcrumbItemProps } from './typings';
 

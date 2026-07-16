@@ -1,5 +1,5 @@
+import { AnimationEventProps, BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { AnimationEventProps, BaseProps, NativeProps } from '../types/common';
 
 export interface DrawerProps
     extends AnimationEventProps,

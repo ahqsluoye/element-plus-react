@@ -1,5 +1,5 @@
+import { nextTick } from '@qsxy/element-plus-react/Util/base';
 import React, { CSSProperties, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { nextTick } from '../../../Util';
 import { placeholderSign } from '../private';
 import type { RowEventHandlers, TableV2RowProps } from '../row';
 import { TableV2Context } from '../tokens';

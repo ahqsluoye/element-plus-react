@@ -1,5 +1,5 @@
+import { useResizeObserver } from '@qsxy/element-plus-react/hooks/useResizeObserver';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useResizeObserver } from '../../../hooks/useResizeObserver';
 
 import type { AutoResizerProps } from '../auto-resizer';
 

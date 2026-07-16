@@ -1,4 +1,4 @@
-import { addUnit } from '@qsxy/element-plus-react/Util';
+import { addUnit } from '@qsxy/element-plus-react/Util/base';
 import { RefObject, useCallback, useEffect, useRef } from 'react';
 import { DialogProps } from './typings';
 

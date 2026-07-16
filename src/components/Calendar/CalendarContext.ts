@@ -1,6 +1,6 @@
+import { PopperOptionRef } from '@qsxy/element-plus-react/Popper';
 import { Dayjs } from 'dayjs';
 import React, { createContext, RefObject } from 'react';
-import { PopperOptionRef } from '../Popper';
 import { DateRangeType, DateType, Shortcuts } from './typings';
 
 export interface ChangeParams {

@@ -1,6 +1,6 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { forwardRef, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { useClassNames } from '../hooks';
 import { TabsContext } from './TabsContext';
 import { TabPaneProps } from './typings';
 

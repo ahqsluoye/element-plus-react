@@ -1,10 +1,10 @@
+import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import Scrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
+import { isNotEmpty } from '@qsxy/element-plus-react/Util/base';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { Children, ComponentType, cloneElement, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfigProvider } from '../ConfigProvider/ConfigProviderContext';
-import Scrollbar from '../Scrollbar/Scrollbar';
-import { isNotEmpty } from '../Util';
-import { useClassNames } from '../hooks';
 import Option from './Option';
 import { SelectContext } from './SelectContext';
 import { SelectDropdownProps, SelectDropdownRef, SelectOptionGroupProps, SelectOptionProps } from './typings';

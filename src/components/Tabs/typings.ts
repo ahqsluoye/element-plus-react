@@ -1,5 +1,5 @@
+import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
-import { BaseProps, NativeProps } from '../types/common';
 
 export interface TabsProps extends BaseProps, NativeProps<'--el-tabs-header-height' | '--el-tabs-header-margin-bottom'> {
     /** 选中选项卡的 name */

@@ -1,7 +1,7 @@
-import { useClassNames } from '@qsxy/element-plus-react/hooks';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { isFunction } from '@qsxy/element-plus-react/Util/base';
 import { addClass, removeClass } from 'dom-lib';
 import React, { useCallback, useRef } from 'react';
-import { isFunction } from '../../Util';
 import { FakeNode, NodeDropType, TreeProps } from '../typings';
 import type Node from './node';
 import type TreeStore from './tree-store';

@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-escape */
+import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import get from 'lodash/get';
-import { isEmpty, isNotEmpty } from '../../Util';
 import { NamePath, RuleObject, ValidateOptions } from '../typings';
 
 export function getName(path: NamePath | null): string {

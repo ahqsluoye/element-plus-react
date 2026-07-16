@@ -1,4 +1,4 @@
-import { cAF, rAF } from '@qsxy/element-plus-react/Util';
+import { cAF, rAF } from '@qsxy/element-plus-react/Util/raf';
 import { useCallback, useRef } from 'react';
 
 interface GridWheelState {

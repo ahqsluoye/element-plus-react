@@ -1,6 +1,7 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import classNames from 'classnames';
 import React, { FC, forwardRef, memo } from 'react';
-import { useClassNames, useDisabled, useSize } from '../hooks';
 import { ButtonGroupContext } from './ButtonGroupContext';
 import { ButtonGroupProps } from './typings';
 

@@ -1,6 +1,6 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { createElement, memo, useContext, useMemo } from 'react';
-import { useClassNames } from '../hooks';
 import { DescriptionsContext } from './DescriptionsContext';
 import { DescriptionsItemProps } from './typings';
 

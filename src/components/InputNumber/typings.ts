@@ -1,6 +1,6 @@
+import { InputRef } from '@qsxy/element-plus-react/Input/typings';
+import { BaseProps, FormControlBaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React, { Ref } from 'react';
-import { InputRef } from '../Input/typings';
-import { BaseProps, FormControlBaseProps, NativeProps } from '../types/common';
 
 export type LiteralUnion<T extends U, U> = T | (U & {});
 
