@@ -111,7 +111,7 @@ const Input = memo(
                     });
                 }
             }
-            return <span className={e`icon`}>{suffix}</span>;
+            return suffix ? <span className={e`icon`}>{suffix}</span> : null;
         }, [suffix, e]);
 
         /** 后缀是否可点击 */
