@@ -1,4 +1,4 @@
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import { addUnit, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
@@ -154,7 +154,7 @@ const Dialog = React.memo(
         return (
             <DialogContext.Provider value={{ modal, doClose, center, overflow }}>
                 {createPortal(
-                    <Transition
+                    <ElTransition
                         nodeRef={wrapperRef}
                         visible={visible}
                         transitionAppear
@@ -225,7 +225,7 @@ const Dialog = React.memo(
                                 </div>
                             </div>
                         </div>
-                    </Transition>,
+                    </ElTransition>,
                     document.body,
                 )}
             </DialogContext.Provider>

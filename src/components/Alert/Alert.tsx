@@ -1,7 +1,7 @@
 import { TypeComponentsMap } from '@qsxy/element-plus-react/config/Constants';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
@@ -39,10 +39,10 @@ const Alert = (props: AlertProps) => {
     };
 
     return (
-        <Transition visible={visible} name={b`fade`} duration={300} nodeRef={nodeRef} display="flex">
+        <ElTransition visible={visible} name={b`fade`} duration={300} nodeRef={nodeRef} display="flex">
             <div ref={nodeRef} className={classNames(b(), m(type), is({ center }, effect), className)} role="alert" style={style}>
                 {showIcon && (icon || TypeComponentsMap[type]) && (
-                    <Icon name={icon || TypeComponentsMap[type]} prefix="fas" className={classNames(e('icon'), is({ big: hasDesc }))} />
+                    <ElIcon name={icon || TypeComponentsMap[type]} prefix="fas" className={classNames(e('icon'), is({ big: hasDesc }))} />
                 )}
 
                 <div className={e`content`}>
@@ -65,13 +65,13 @@ const Alert = (props: AlertProps) => {
                                     {closeText}
                                 </div>
                             ) : (
-                                <Icon name="xmark" className={e`close-btn`} onClick={handleClose} />
+                                <ElIcon name="xmark" className={e`close-btn`} onClick={handleClose} />
                             )}
                         </>
                     )}
                 </div>
             </div>
-        </Transition>
+        </ElTransition>
     );
 };
 

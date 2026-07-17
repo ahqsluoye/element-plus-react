@@ -1,7 +1,7 @@
 import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useImperativeHandle, useMemo, useRef } from 'react';
@@ -98,7 +98,7 @@ const Carousel: React.ForwardRefExoticComponent<CarouselProps & React.RefAttribu
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                 >
-                    <Transition nodeRef={buttonLeft} visible={(arrow === 'always' || hover) && (loop || activeIndex > 0)} name="carousel-arrow-left">
+                    <ElTransition nodeRef={buttonLeft} visible={(arrow === 'always' || hover) && (loop || activeIndex > 0)} name="carousel-arrow-left">
                         <button
                             ref={buttonLeft}
                             type="button"
@@ -107,11 +107,11 @@ const Carousel: React.ForwardRefExoticComponent<CarouselProps & React.RefAttribu
                             onMouseLeave={handleButtonLeave}
                             onClick={() => throttledArrowClick(activeIndex - 1)}
                         >
-                            <Icon name="angle-left" prefix="far" />
+                            <ElIcon name="angle-left" prefix="far" />
                         </button>
-                    </Transition>
+                    </ElTransition>
 
-                    <Transition nodeRef={buttonRight} visible={(arrow === 'always' || hover) && (loop || activeIndex < items.length - 1)} name="carousel-arrow-right">
+                    <ElTransition nodeRef={buttonRight} visible={(arrow === 'always' || hover) && (loop || activeIndex < items.length - 1)} name="carousel-arrow-right">
                         <button
                             ref={buttonRight}
                             type="button"
@@ -120,9 +120,9 @@ const Carousel: React.ForwardRefExoticComponent<CarouselProps & React.RefAttribu
                             onMouseLeave={handleButtonLeave}
                             onClick={() => throttledArrowClick(activeIndex + 1)}
                         >
-                            <Icon name="angle-right" prefix="far" />
+                            <ElIcon name="angle-right" prefix="far" />
                         </button>
-                    </Transition>
+                    </ElTransition>
 
                     <div className={carouselContainer} style={containerStyle} onTransitionEnd={handleTransitionEnd}>
                         {children}

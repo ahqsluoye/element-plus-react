@@ -1,4 +1,4 @@
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import { addUnit, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
@@ -131,7 +131,7 @@ const Drawer = memo(
         return (
             <DrawerContext.Provider value={{ doClose }}>
                 {createPortal(
-                    <Transition
+                    <ElTransition
                         nodeRef={wrapperRef}
                         visible={visible}
                         showDuration={0}
@@ -183,7 +183,7 @@ const Drawer = memo(
                                 {footer && <DrawerFooter className={footerClass}>{footer}</DrawerFooter>}
                             </div>
                         </div>
-                    </Transition>,
+                    </ElTransition>,
                     document.body,
                 )}
             </DrawerContext.Provider>

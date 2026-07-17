@@ -1,5 +1,5 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Scrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
+import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
@@ -323,7 +323,7 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
                 <div className={classNames(b`spinner`, { 'has-seconds': props.showSeconds })}>
                     {spinnerItems.map(item => {
                         return (
-                            <Scrollbar
+                            <ElScrollbar
                                 key={item}
                                 maxHeight="inherit"
                                 className={be('spinner', 'wrapper')}
@@ -346,7 +346,7 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
                                         </li>
                                     );
                                 })}
-                            </Scrollbar>
+                            </ElScrollbar>
                         );
                     })}
                 </div>

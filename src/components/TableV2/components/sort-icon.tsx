@@ -1,4 +1,4 @@
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { NativeProps } from '@qsxy/element-plus-react/types/common';
 import React, { FC } from 'react';
 import { SortOrder } from '../constants';
@@ -13,7 +13,7 @@ const SortIcon: FC<SortIconProps> = props => {
 
     return (
         <button type="button" aria-label={props.ariaLabel} className={props.className}>
-            <Icon name={sortOrder === SortOrder.ASC ? 'arrow-up-long' : 'arrow-down-long'}></Icon>
+            <ElIcon name={sortOrder === SortOrder.ASC ? 'arrow-up-long' : 'arrow-down-long'}></ElIcon>
         </button>
     );
 };

@@ -1,5 +1,5 @@
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Input from '@qsxy/element-plus-react/Input/Input';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElInput from '@qsxy/element-plus-react/Input/Input';
 import React, { useCallback } from 'react';
 
 export interface TransferSearchProps {
@@ -25,7 +25,7 @@ export default function Search(props: TransferSearchProps) {
     );
 
     return (
-        <Input
+        <ElInput
             placeholder={placeholder}
             className={prefixCls}
             value={value}
@@ -34,7 +34,7 @@ export default function Search(props: TransferSearchProps) {
             disabled={disabled}
             clearable
             onClear={handleClear}
-            prefix={<Icon name="search" />}
+            prefix={<ElIcon name="search" />}
         />
     );
 }

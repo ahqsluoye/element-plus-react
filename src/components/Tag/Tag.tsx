@@ -1,5 +1,5 @@
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
@@ -45,7 +45,7 @@ const Tag = memo(
         );
 
         return (
-            <Transition
+            <ElTransition
                 nodeRef={containerRef}
                 name={disableTransitions ? '' : b('zoom-in-center', false)}
                 visible
@@ -62,9 +62,9 @@ const Tag = memo(
                     onClick={onClickTag}
                 >
                     <span className={e`content`}>{props.children}</span>
-                    {closable && <Icon name="xmark" className={e`close`} onClick={onCloseTag} />}
+                    {closable && <ElIcon name="xmark" className={e`close`} onClick={onCloseTag} />}
                 </span>
-            </Transition>
+            </ElTransition>
         );
     }),
 );

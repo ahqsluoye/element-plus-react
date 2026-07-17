@@ -3,7 +3,7 @@ import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import useClickOutside from '@qsxy/element-plus-react/hooks/useClickOutside';
 import useComponentWillMount from '@qsxy/element-plus-react/hooks/useComponentWillMount';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import { mergeDefaultProps, randomCode } from '@qsxy/element-plus-react/Util/base';
 import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import classNames from 'classnames';
@@ -132,7 +132,7 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
             ) : null;
         } else {
             return (
-                <Transition nodeRef={{ current: popperElement }} visible={visible} name={animation} className={className} afterLeave={afterLeave} {...transitionProps}>
+                <ElTransition nodeRef={{ current: popperElement }} visible={visible} name={animation} className={className} afterLeave={afterLeave} {...transitionProps}>
                     <div
                         id={`${namespace}-popper-${id}`}
                         className={classNames(b(), is(effect), popperClass)}
@@ -146,7 +146,7 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
                         {props.children}
                         {showArrow ? <div className={e`arrow`} data-popper-arrow ref={setArrowElement} style={{ ...styles.arrow }} /> : null}
                     </div>
-                </Transition>
+                </ElTransition>
             );
         }
     }, [
@@ -175,7 +175,7 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
     ]);
 
     return appendToBody ? createPortal(content, appendTo) : content;
-    // <Transition visible={visible} name={animation} className={className} afterLeave={afterLeave} {...transitionProps}>
+    // <ElTransition visible={visible} name={animation} className={className} afterLeave={afterLeave} {...transitionProps}>
     //     {Children.toArray(props.children).map(child => {
     //         if (typeof child === 'string' || typeof child === 'number') {
     //             child = <span>{child}</span>;
@@ -196,7 +196,7 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
     //         });
     //     })}
     //     {showArrow ? <div className={e`arrow`} data-popper-arrow ref={setArrowElement} style={{ ...styles.arrow }} /> : null}
-    // </Transition>
+    // </ElTransition>
 });
 
 export default Popper;

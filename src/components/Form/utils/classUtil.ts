@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import { ISplitCode, prefix as addPrefix, namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import classNames from 'classnames';
 

@@ -3,7 +3,7 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useAutosize, useClearable, useDisabled } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import { useResizeObserver } from '@qsxy/element-plus-react/hooks/useResizeObserver';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { cAF, rAF } from '@qsxy/element-plus-react/Util/raf';
 import classNames from 'classnames';
@@ -202,7 +202,7 @@ const TextArea = memo(
                     {...htmlInputProps}
                 />
                 {showClear && (
-                    <Icon
+                    <ElIcon
                         ref={iconRef}
                         name="circle-xmark"
                         className={classNames(e`icon`, e`clear`)}

@@ -10,8 +10,8 @@ import React, { RefObject, useCallback, useContext, useEffect, useMemo, useRef, 
 import { createPortal } from 'react-dom';
 import { Root, createRoot } from 'react-dom/client';
 // import { SortableHandle } from 'react-sortable-hoc';
-import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElCheckbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
 import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
@@ -383,7 +383,7 @@ const TableCell = (p: Props) => {
                     {column.level > 0 && <span className={e`indent`} style={{ paddingLeft: indent * column.level }} />}
                     {(isNotEmpty(row[treeProps.children]) || row[treeProps.hasChildren]) && (
                         <button ref={expandCell} className={classNames(e`expand-icon`, { [em('expand-icon', 'expanded')]: row?.expanded })} onClick={handleExpandTreeCell}>
-                            {loading ? <Icon name="loader" prefix="far" spin /> : <Icon name="angle-right" />}
+                            {loading ? <ElIcon name="loader" prefix="far" spin /> : <ElIcon name="angle-right" />}
                         </button>
                     )}
                     {isEmpty(row[treeProps.children]) && !row[treeProps.hasChildren] && <span className={e`placeholder`} />}
@@ -396,8 +396,8 @@ const TableCell = (p: Props) => {
     // const DragHandle = useMemo(() => {
     //     return SortableHandle(() => (
     //         <div style={{ cursor: 'grab' }}>
-    //             <Icon name="grip-vertical" prefix="fas" />
-    //             {/* <Icon name="grip-dots-vertical" prefix="fas" /> */}
+    //             <ElIcon name="grip-vertical" prefix="fas" />
+    //             {/* <ElIcon name="grip-dots-vertical" prefix="fas" /> */}
     //         </div>
     //     ));
     // }, []);
@@ -446,12 +446,12 @@ const TableCell = (p: Props) => {
                     } else if (column.type === 'expand') {
                         return (
                             <button ref={expandCell} className={e`expand-icon`} onClick={handleExpand}>
-                                <Icon name="angle-right" />
+                                <ElIcon name="angle-right" />
                             </button>
                         );
                     } else if (column.type === 'selection') {
                         return (
-                            <Checkbox
+                            <ElCheckbox
                                 onClick={event => event.stopPropagation()}
                                 checked={
                                     !disabled && some(state.selection || [], item => (rowKey ? getRowIdentity(item, rowKey) === getRowIdentity(row, rowKey) : isEqual(item, row)))

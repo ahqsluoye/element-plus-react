@@ -11,7 +11,7 @@ import Content from './Content';
 import { TourContext } from './context';
 import { useTarget } from './helper';
 import Mask from './Mask';
-import Step from './Step';
+import ElStep from './Step';
 import type { TourMask, TourProps, TourStepProps } from './typings';
 
 function resolveAppendTo(appendTo: string | HTMLElement): HTMLElement {
@@ -67,7 +67,7 @@ function Tour(props: TourProps) {
     const [total, setTotal] = useState(0);
 
     const childrenArray = useMemo(() => React.Children.toArray(children), [children]);
-    const stepChildren = useMemo(() => childrenArray.filter(child => React.isValidElement(child) && (child as React.ReactElement).type === Step), [childrenArray]);
+    const stepChildren = useMemo(() => childrenArray.filter(child => React.isValidElement(child) && (child as React.ReactElement).type === ElStep), [childrenArray]);
     const currentChild = useMemo(() => stepChildren[current] || null, [stepChildren, current]);
     const currentStep = useMemo(() => (React.isValidElement(currentChild) ? ((currentChild as React.ReactElement).props as TourStepProps) : undefined), [currentChild]);
 

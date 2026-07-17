@@ -1,5 +1,5 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useContext, useMemo } from 'react';
 import { DialogContext } from './DialogContext';
@@ -23,7 +23,7 @@ const DialogHeader: React.ForwardRefExoticComponent<DialogHeaderProps & React.Re
                         </span>
                         {showClose && (
                             <button className={e`headerbtn`} onClick={doClose}>
-                                <Icon name={'xmark'} className={e`close`} />
+                                <ElIcon name={'xmark'} className={e`close`} />
                             </button>
                         )}
                     </>

@@ -1,4 +1,4 @@
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { isEmpty } from '@qsxy/element-plus-react/Util/base';
 import useChildrenInstance from '@qsxy/element-plus-react/hooks/useChildrenInstance';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
@@ -283,12 +283,12 @@ const Tabs = forwardRef((props: TabsProps, ref?: Ref<HTMLDivElement>) => {
             <div className={classNames(e`nav-wrap`, is(tabPosition, { scrollable: isScroll }))} ref={elRef}>
                 {isScroll && (
                     <span ref={scrollLeftRef} className={classNames(e`nav-prev`, is('disabled'))} onClick={scrollPrev}>
-                        <Icon name="angle-left" />
+                        <ElIcon name="angle-left" />
                     </span>
                 )}
                 {isScroll && (
                     <span ref={scrollRightRef} className={classNames(e`nav-next`)} onClick={scrollNext}>
-                        <Icon name="angle-right" />
+                        <ElIcon name="angle-right" />
                     </span>
                 )}
                 <div className={classNames(e`nav-scroll`, is({ center }))} style={props.headerStyle} ref={navScrollRef}>
@@ -309,7 +309,7 @@ const Tabs = forwardRef((props: TabsProps, ref?: Ref<HTMLDivElement>) => {
                                     <div>
                                         {item?.title}
                                         {item.closable && !item.disabled && (
-                                            <Icon
+                                            <ElIcon
                                                 name="close"
                                                 className={is`icon-close`}
                                                 onClick={event => {
@@ -324,7 +324,7 @@ const Tabs = forwardRef((props: TabsProps, ref?: Ref<HTMLDivElement>) => {
                         })}
                         {(addable || editable) && (
                             <div className={classNames(e`item`, is(tabPosition))} style={{ padding: '0 10px' }} onClick={props.onTabAdd}>
-                                <Icon name="plus" />
+                                <ElIcon name="plus" />
                             </div>
                         )}
                     </div>

@@ -1,5 +1,5 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Scrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
+import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { TooltipContext } from '@qsxy/element-plus-react/Tooltip/TooltipContext';
 import classNames from 'classnames';
 import noop from 'lodash/noop';
@@ -12,7 +12,7 @@ const DropdownMenu = (props: DropdownMenuProps) => {
     const { onMouseEnter, onMouseLeave, trigger } = useContext(TooltipContext);
 
     return (
-        <Scrollbar viewClass={e`list`} height={maxHeight}>
+        <ElScrollbar viewClass={e`list`} height={maxHeight}>
             <ul
                 onMouseEnter={trigger === 'hover' ? onMouseEnter : noop}
                 onMouseLeave={trigger === 'hover' ? onMouseLeave : noop}
@@ -21,7 +21,7 @@ const DropdownMenu = (props: DropdownMenuProps) => {
             >
                 {props.children}
             </ul>
-        </Scrollbar>
+        </ElScrollbar>
     );
 };
 

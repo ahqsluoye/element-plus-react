@@ -1,5 +1,5 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import classNames from 'classnames';
 import React, { FC, useContext } from 'react';
 import { DrawerContext } from './DrawerContext';
@@ -18,7 +18,7 @@ const DrawerHeader: FC<DrawerHeaderProps> = props => {
             </span>
             {showClose && (
                 <button className={e`close-btn`} type="button" onClick={doClose}>
-                    <Icon className={e`close`} name={'xmark'} />
+                    <ElIcon className={e`close`} name={'xmark'} />
                 </button>
             )}
         </header>

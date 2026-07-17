@@ -1,5 +1,5 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import classNames from 'classnames';
 import { addClass, off, on, removeClass } from 'dom-lib';
 import React, { FC, memo, useEffect, useMemo, useRef, useState } from 'react';
@@ -141,11 +141,11 @@ const Thumb: FC<BarProps> = props => {
     }, []);
 
     return (
-        <Transition nodeRef={instanceRef} name={b`fade`} visible={always || visible} transitionAppear afterEnter={onEnter}>
+        <ElTransition nodeRef={instanceRef} name={b`fade`} visible={always || visible} transitionAppear afterEnter={onEnter}>
             <div ref={instanceRef} className={classNames(e`bar`, is(bar.key, { always }))} onMouseDown={clickTrackHandler}>
                 <div ref={thumbRef} className={classNames(e`thumb`)} style={thumbStyle} onMouseDown={clickThumbHandler} />
             </div>
-        </Transition>
+        </ElTransition>
     );
 };
 

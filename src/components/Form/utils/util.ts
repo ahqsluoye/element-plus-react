@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import get from 'lodash/get';
 import { NamePath, RuleObject, ValidateOptions } from '../typings';

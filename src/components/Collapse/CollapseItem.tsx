@@ -1,7 +1,7 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { IconName } from '@qsxy/element-plus-react/Icon/typings';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import { CollapseContext } from './CollapseContext';
@@ -65,12 +65,12 @@ const CollapseItem = memo(
 
         const getIcon = () => {
             if (!icon) {
-                return <Icon name="angle-right" className={classNames(e`arrow`, is({ active }))} />;
+                return <ElIcon name="angle-right" className={classNames(e`arrow`, is({ active }))} />;
             }
             if (typeof icon === 'function') {
                 return icon(active);
             }
-            return React.isValidElement(icon) ? icon : <Icon name={icon as IconName} className={classNames(e`arrow`, is({ active }))} />;
+            return React.isValidElement(icon) ? icon : <ElIcon name={icon as IconName} className={classNames(e`arrow`, is({ active }))} />;
         };
 
         React.useImperativeHandle(ref, () => ({
@@ -91,7 +91,7 @@ const CollapseItem = memo(
                     {getIcon()}
                 </div>
 
-                <Transition
+                <ElTransition
                     nodeRef={containerRef}
                     // name={b('menu-collapse', false)}
                     duration={300}
@@ -107,7 +107,7 @@ const CollapseItem = memo(
                     <div ref={containerRef} className={classNames(e`wrap`)} style={{ display: 'none' }}>
                         <div className={e`content`}>{props.children}</div>
                     </div>
-                </Transition>
+                </ElTransition>
             </div>
         );
     }),

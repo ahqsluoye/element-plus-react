@@ -1,7 +1,6 @@
-/* eslint-disable indent */
 import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { addUnit, isNotEmpty, isNumber, isString } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useEffect, useMemo, useState } from 'react';
@@ -48,7 +47,7 @@ const Avatar = memo(
                 : {};
         }, [cssVarBlock, size]);
 
-        const children = useMemo(() => (icon ? <Icon name={icon} /> : props.children), [icon, props.children]);
+        const children = useMemo(() => (icon ? <ElIcon name={icon} /> : props.children), [icon, props.children]);
 
         return (
             <span ref={ref} className={avatarClass} style={{ ...sizeStyle, ...props.style }} {...tooltipEvents}>

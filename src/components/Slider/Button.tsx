@@ -1,5 +1,5 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useContext, useImperativeHandle } from 'react';
 import { useSliderButton } from './hooks/useSliderButton';
@@ -71,7 +71,7 @@ const SliderButton = memo(
                 onKeyDown={onKeyDown}
                 onTouchStartCapture={onButtonDown}
             >
-                <Tooltip
+                <ElTooltip
                     ref={tooltipRef}
                     visible={tooltipVisible}
                     placement={placement}
@@ -87,7 +87,7 @@ const SliderButton = memo(
                             dragging,
                         })}
                     />
-                </Tooltip>
+                </ElTooltip>
             </div>
         );
     }),

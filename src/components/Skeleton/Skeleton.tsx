@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import React, { Children, FC, useEffect, useRef } from 'react';
 import { SkeletonContext } from './SkeletonContext';
-import SkeletonItem from './SkeletonItem';
+import ElSkeletonItem from './SkeletonItem';
 import { SkeletonProps } from './typings';
 
 const SkeletonCore = (props: SkeletonProps) => {
@@ -31,7 +31,7 @@ const SkeletonCore = (props: SkeletonProps) => {
                 )}
 
                 <div className={b`paragraph-rows`}>
-                    {Children.count(formatter) === 0 ? new Array(rows).fill(0).map((_, index) => <SkeletonItem key={index} isFirst={index === 0} />) : formatter}
+                    {Children.count(formatter) === 0 ? new Array(rows).fill(0).map((_, index) => <ElSkeletonItem key={index} isFirst={index === 0} />) : formatter}
                 </div>
             </div>
         </SkeletonContext.Provider>

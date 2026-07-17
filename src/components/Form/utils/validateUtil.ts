@@ -184,7 +184,6 @@ export function validateRules(
         // >>>>> Validate by serialization
         // eslint-disable-next-line no-async-promise-executor
         summaryPromise = new Promise(async (resolve, reject) => {
-            /* eslint-disable no-await-in-loop */
             for (let i = 0; i < filledRules.length; i += 1) {
                 const rule = filledRules[i];
                 const errors = await validateRule(name, value, rule, options, messageVariables);
@@ -193,7 +192,6 @@ export function validateRules(
                     return;
                 }
             }
-            /* eslint-enable */
 
             resolve([]);
         });

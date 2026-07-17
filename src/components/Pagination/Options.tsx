@@ -2,7 +2,7 @@ import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/Confi
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import ElInput from '@qsxy/element-plus-react/Input/Input';
 import ElOption from '@qsxy/element-plus-react/Select/Option';
-import Select from '@qsxy/element-plus-react/Select/Select';
+import ElSelect from '@qsxy/element-plus-react/Select/Select';
 import { TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import classNames from 'classnames';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
@@ -86,7 +86,7 @@ const Options: FC<Props> = props => {
     const changeSelect = useMemo(() => {
         return (
             changeSize && (
-                <Select
+                <ElSelect
                     disabled={disabled}
                     filterable={false}
                     className={b`size-changer`}
@@ -99,7 +99,7 @@ const Options: FC<Props> = props => {
                     {pageSizeOptions.map((opt, i) => (
                         <ElOption key={i} value={opt} label={`${opt} ${t('el.pagination.pagesize', { lng: locale })}`} />
                     ))}
-                </Select>
+                </ElSelect>
             )
         );
     }, [changeSize, disabled, b, size, pageSize, defaultPageSize, _pageSizeOptions, handleChangeSize, pageSizeOptions, t, locale]);

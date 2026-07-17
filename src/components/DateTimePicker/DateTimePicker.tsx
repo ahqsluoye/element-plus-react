@@ -5,14 +5,14 @@ import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popper
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Input from '@qsxy/element-plus-react/Input/Input';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElInput from '@qsxy/element-plus-react/Input/Input';
 import { InputRef } from '@qsxy/element-plus-react/Input/typings';
-import Popper from '@qsxy/element-plus-react/Popper/Popper';
+import ElPopper from '@qsxy/element-plus-react/Popper/Popper';
 import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
 import TimePickerPanel from '@qsxy/element-plus-react/TimePicker/TimePickerPanel';
 import { TimePanelRef } from '@qsxy/element-plus-react/TimePicker/typings';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import { isEmpty, isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
@@ -146,7 +146,7 @@ const DateTimePicker = memo(
 
         return (
             <>
-                <Input
+                <ElInput
                     ref={inputRef}
                     name={name}
                     placeholder={placeholder}
@@ -155,7 +155,7 @@ const DateTimePicker = memo(
                     size={size}
                     clearable={clearable && !disabled}
                     isSelect
-                    prefix={<Icon name="clock" />}
+                    prefix={<ElIcon name="clock" />}
                     onClick={onActive}
                     value={formatValue}
                     onClear={() => {
@@ -190,7 +190,7 @@ const DateTimePicker = memo(
                     ])}
                 />
 
-                <Popper
+                <ElPopper
                     visible={visible}
                     referenceElement={() => inputRef?.current?.ref}
                     popperInstRef={popperInstRef}
@@ -233,11 +233,11 @@ const DateTimePicker = memo(
                         <Calendar hasTime>
                             <div className={e`time-header`}>
                                 <div className={e`editor-wrap`}>
-                                    <Input placeholder="选择日期" value={date} clearable={false} readOnly />
+                                    <ElInput placeholder="选择日期" value={date} clearable={false} readOnly />
                                 </div>
                                 <div className={e`editor-wrap`}>
-                                    <Input placeholder="选择时间" value={time} clearable={false} onClick={() => setShowTime(true)} ref={timePickerRef} readOnly />
-                                    <Transition
+                                    <ElInput placeholder="选择时间" value={time} clearable={false} onClick={() => setShowTime(true)} ref={timePickerRef} readOnly />
+                                    <ElTransition
                                         nodeRef={() => ({ current: timePanelRef.current.ref })}
                                         visible={showTime}
                                         name={b('slide-up', false)}
@@ -261,12 +261,12 @@ const DateTimePicker = memo(
                                                 setShowTime(false);
                                             }}
                                         />
-                                    </Transition>
+                                    </ElTransition>
                                 </div>
                             </div>
                         </Calendar>
                     </CalendarContext.Provider>
-                </Popper>
+                </ElPopper>
             </>
         );
     }),

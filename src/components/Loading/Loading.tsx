@@ -1,6 +1,6 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
@@ -44,11 +44,11 @@ const LoadingMain = forwardRef<any, LoadingProps>((props, ref) => {
 
     const content = useMemo(
         () => (
-            <Transition nodeRef={nodeRef} name="loading-fade" transitionAppear unmountOnExit visible={visible} onEnter={onEnter}>
+            <ElTransition nodeRef={nodeRef} name="loading-fade" transitionAppear unmountOnExit visible={visible} onEnter={onEnter}>
                 <div ref={nodeRef} className={classNames(b`mask`, is({ fullscreen }), props.className)} style={{ ...props.style, background, zIndex }}>
                     <div className={b`spinner`}>
                         {spinner ? (
-                            <Icon name={spinner} spin />
+                            <ElIcon name={spinner} spin />
                         ) : (
                             <svg className="circular" viewBox={svgViewBox ?? '25 25 50 50'}>
                                 {svg ? svg : <circle className="path" cx="50" cy="50" r="20" fill="none" />}
@@ -58,7 +58,7 @@ const LoadingMain = forwardRef<any, LoadingProps>((props, ref) => {
                         {text && <p className={b`text`}>{text}</p>}
                     </div>
                 </div>
-            </Transition>
+            </ElTransition>
         ),
         [b, background, fullscreen, is, onEnter, props.className, props.style, spinner, svg, svgViewBox, text, visible, zIndex],
     );

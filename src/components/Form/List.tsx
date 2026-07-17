@@ -1,6 +1,6 @@
 import { warning } from '@qsxy/element-plus-react/Util/base';
 import React, { FC, memo, useContext, useMemo, useRef } from 'react';
-import FormItem from './FormItem';
+import ElFormItem from './FormItem';
 import FieldContext from './InternalFormContext';
 import ListContext, { ListContextProps } from './ListContext';
 import type { InternalNamePath, Meta, NamePath, StoreValue, ValidatorRule } from './typings';
@@ -70,7 +70,7 @@ const List: FC<ListProps> = ({ name, initialValue, children, rules, validateTrig
     return (
         <ListContext.Provider value={listContext}>
             <FieldContext.Provider value={fieldContext}>
-                <FormItem name={[]} shouldUpdate={shouldUpdate} rules={rules} validateTrigger={validateTrigger} initialValue={initialValue} isList>
+                <ElFormItem name={[]} shouldUpdate={shouldUpdate} rules={rules} validateTrigger={validateTrigger} initialValue={initialValue} isList>
                     {({ value = [], onChange }, meta) => {
                         const { getFieldValue } = context;
                         const getNewValue = () => {
@@ -156,7 +156,7 @@ const List: FC<ListProps> = ({ name, initialValue, children, rules, validateTrig
                             meta,
                         );
                     }}
-                </FormItem>
+                </ElFormItem>
             </FieldContext.Provider>
         </ListContext.Provider>
     );

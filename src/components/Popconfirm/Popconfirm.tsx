@@ -1,10 +1,10 @@
-import Button from '@qsxy/element-plus-react/Button/Button';
+import ElButton from '@qsxy/element-plus-react/Button/Button';
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
 import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
 import { addUnit, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
@@ -55,7 +55,7 @@ const Popconfirm = memo(
         useImperativeHandle(ref, () => tooltipRef.current);
 
         return (
-            <Tooltip
+            <ElTooltip
                 ref={tooltipRef}
                 visible={visible}
                 classPrefix={classPrefix}
@@ -70,11 +70,11 @@ const Popconfirm = memo(
                 contentSlot={
                     <div className={classNames(b())}>
                         <div className={e`main`}>
-                            {!hideIcon && <Icon className={e`icon`} name={icon} style={{ color: iconColor }} prefix="fas" />}
+                            {!hideIcon && <ElIcon className={e`icon`} name={icon} style={{ color: iconColor }} prefix="fas" />}
                             {title}
                         </div>
                         <div className={e`action`}>
-                            <Button
+                            <ElButton
                                 type={cancelButtonType}
                                 link
                                 size="small"
@@ -85,8 +85,8 @@ const Popconfirm = memo(
                                 style={{ marginRight: 5 }}
                             >
                                 {cancelButtonText}
-                            </Button>
-                            <Button
+                            </ElButton>
+                            <ElButton
                                 type={confirmButtonType}
                                 size="small"
                                 onClick={() => {
@@ -95,7 +95,7 @@ const Popconfirm = memo(
                                 }}
                             >
                                 {confirmButtonText}
-                            </Button>
+                            </ElButton>
                         </div>
                     </div>
                 }

@@ -1,5 +1,5 @@
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { EVENT_CODE, TypeComponentsMap } from '@qsxy/element-plus-react/config/Constants';
@@ -113,10 +113,10 @@ const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref)
 
     /** 关闭图标 */
     // const closeIcon = useMemo(() => showClose && <div className={classNames(e`closeBtn`, b('icon-close', false))} onClick={handleClose} />, [showClose, e, b, handleClose]);
-    const closeIcon = useMemo(() => showClose && <Icon name="xmark" prefix="fal" className={classNames(e`closeBtn`)} onClick={handleClose} />, [showClose, e, handleClose]);
+    const closeIcon = useMemo(() => showClose && <ElIcon name="xmark" prefix="fal" className={classNames(e`closeBtn`)} onClick={handleClose} />, [showClose, e, handleClose]);
 
     return createPortal(
-        <Transition nodeRef={notificationRef} name={b('notification-fade', false)} visible={visible} display="flex" afterLeave={afterLeave}>
+        <ElTransition nodeRef={notificationRef} name={b('notification-fade', false)} visible={visible} display="flex" afterLeave={afterLeave}>
             <div
                 ref={notificationRef}
                 className={classNames(b(), horizontalProperty, props.className)}
@@ -130,7 +130,7 @@ const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref)
                 onClick={props.onClick}
             >
                 {(type || iconClass) && (
-                    <Icon name={TypeComponentsMap[type]} prefix="fas" className={classNames(e`icon`, { [m(type)]: type && TypeComponentsMap[type] }, iconClass)} />
+                    <ElIcon name={TypeComponentsMap[type]} prefix="fas" className={classNames(e`icon`, { [m(type)]: type && TypeComponentsMap[type] }, iconClass)} />
                 )}
                 <div className={classNames(e`group`)}>
                     <h2 className={e`title`}>{title}</h2>
@@ -140,7 +140,7 @@ const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref)
                     {closeIcon}
                 </div>
             </div>
-        </Transition>,
+        </ElTransition>,
         document.body,
     );
 });

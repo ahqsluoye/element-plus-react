@@ -3,10 +3,10 @@ import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtil
 import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Input from '@qsxy/element-plus-react/Input/Input';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElInput from '@qsxy/element-plus-react/Input/Input';
 import { InputRef } from '@qsxy/element-plus-react/Input/typings';
-import Popper from '@qsxy/element-plus-react/Popper/Popper';
+import ElPopper from '@qsxy/element-plus-react/Popper/Popper';
 import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
 import { isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { useMount } from 'ahooks';
@@ -190,7 +190,7 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
 
     return (
         <>
-            <Input
+            <ElInput
                 name={name}
                 placeholder={placeholder}
                 readOnly={readonly}
@@ -198,7 +198,7 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
                 size={size}
                 clearable={clearable && !disabled}
                 isSelect
-                prefix={prefixIcon ? prefixIcon : <Icon name="clock" />}
+                prefix={prefixIcon ? prefixIcon : <ElIcon name="clock" />}
                 onClick={onActive}
                 value={formatValue}
                 onClear={() => {
@@ -237,7 +237,7 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
                 ])}
             />
 
-            <Popper
+            <ElPopper
                 visible={visible}
                 referenceElement={() => inputRef?.current?.ref}
                 popperClass="is-pure"
@@ -285,7 +285,7 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
                     disabledMinutes={disabledMinutes}
                     disabledSeconds={disabledSeconds}
                 />
-            </Popper>
+            </ElPopper>
         </>
     );
 });

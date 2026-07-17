@@ -1,6 +1,6 @@
-import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElCheckbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import { isFunction, isString } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
@@ -278,7 +278,7 @@ const TreeNode = (props: TreeNodeProps) => {
                 onDrop={handleDrop}
             >
                 <div className={ns.be('node', 'content')} style={{ paddingLeft: contentPaddingLeft }}>
-                    <Icon
+                    <ElIcon
                         name={tree.props.icon || 'angle-right'}
                         prefix="far"
                         className={classNames([
@@ -295,7 +295,7 @@ const TreeNode = (props: TreeNodeProps) => {
                     />
 
                     {props.showCheckbox && (
-                        <Checkbox
+                        <ElCheckbox
                             checked={props.node?.checked}
                             indeterminate={props.node?.indeterminate}
                             disabled={!!props.node?.disabled}
@@ -306,14 +306,14 @@ const TreeNode = (props: TreeNodeProps) => {
 
                     {props.node?.loading && (
                         <span className={classNames([ns.be('node', 'loading-icon'), ns.is('loading')])}>
-                            <Icon name="loader" prefix="far" spin />
+                            <ElIcon name="loader" prefix="far" spin />
                         </span>
                     )}
 
                     <TreeNodeContent node={props.node} renderContent={props.renderContent} />
                 </div>
 
-                <Transition
+                <ElTransition
                     nodeRef={transitionNodeRef}
                     name={ns.b('menu-collapse', false)}
                     duration={10}
@@ -347,7 +347,7 @@ const TreeNode = (props: TreeNodeProps) => {
                             ))}
                         </div>
                     ) : null}
-                </Transition>
+                </ElTransition>
             </div>
         </TreeNodeExpandContext.Provider>
     );

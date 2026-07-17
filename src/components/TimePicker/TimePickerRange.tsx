@@ -1,13 +1,11 @@
-/* eslint-disable no-console */
-/* eslint-disable indent */
 import { ValueRagne } from '@qsxy/element-plus-react/Calendar';
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Popper from '@qsxy/element-plus-react/Popper/Popper';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElPopper from '@qsxy/element-plus-react/Popper/Popper';
 import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
 import { isEmpty, isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { useMount } from 'ahooks';
@@ -340,7 +338,7 @@ const TimePickerRange = memo(
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
                 >
-                    {prefixIcon ? prefixIcon : <Icon name="clock" className={e`icon`} />}
+                    {prefixIcon ? prefixIcon : <ElIcon name="clock" className={e`icon`} />}
                     <input
                         ref={startInputRef}
                         name={name instanceof Array ? head(name) : ''}
@@ -361,7 +359,7 @@ const TimePickerRange = memo(
                         defaultValue={formatValue instanceof Array ? last(formatValue) : ''}
                     />
                     {clearable && (
-                        <Icon
+                        <ElIcon
                             ref={closeRef}
                             prefix="fal"
                             name="circle-xmark"
@@ -374,7 +372,7 @@ const TimePickerRange = memo(
                         />
                     )}
                 </div>
-                <Popper
+                <ElPopper
                     visible={visible}
                     referenceElement={containerRef}
                     popperInstRef={popperInstRef}
@@ -419,7 +417,7 @@ const TimePickerRange = memo(
                         startPlaceholder={startPlaceholder}
                         endPlaceholder={endPlaceholder}
                     />
-                </Popper>
+                </ElPopper>
             </>
         );
     }),

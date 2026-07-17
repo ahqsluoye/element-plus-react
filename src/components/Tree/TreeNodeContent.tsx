@@ -1,5 +1,5 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Text from '@qsxy/element-plus-react/Text/Text';
+import ElText from '@qsxy/element-plus-react/Text/Text';
 import React from 'react';
 import type Node from './model/node';
 import { RenderContentFunction } from './typings';
@@ -17,9 +17,9 @@ const TreeNodeContent = (props: Props) => {
     return props.renderContent ? (
         props.renderContent({ _self: null, node, data, store })
     ) : (
-        <Text className={be('node', 'label')} truncated>
+        <ElText className={be('node', 'label')} truncated>
             {node.label}
-        </Text>
+        </ElText>
     );
 };
 

@@ -1,6 +1,6 @@
 import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { FC, useMemo } from 'react';
@@ -52,13 +52,13 @@ const Progress: FC<PropgressProps> = (props: PropgressProps) => {
     const text = useMemo(() => {
         if (!textInside) {
             if (status === 'success' && percentage === 100) {
-                return props.children ?? <Icon name="circle-check" prefix="far" />;
+                return props.children ?? <ElIcon name="circle-check" prefix="far" />;
             }
             if (status === 'warning') {
-                return props.children ?? <Icon name="circle-exclamation" prefix="fas" />;
+                return props.children ?? <ElIcon name="circle-exclamation" prefix="fas" />;
             }
             if (status === 'exception') {
-                return props.children ?? <Icon name="circle-xmark" prefix="fas" />;
+                return props.children ?? <ElIcon name="circle-xmark" prefix="fas" />;
             }
         }
         if (format) {

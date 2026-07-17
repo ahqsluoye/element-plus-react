@@ -1,10 +1,10 @@
 import React, { forwardRef, memo } from 'react';
-import Cascader from './Cascader';
+import ElCascader from './Cascader';
 import { CascaderPanelProps, CascaderRef } from './typings';
 
 const CascaderPanel = memo(
     forwardRef<CascaderRef, CascaderPanelProps>((props, ref) => {
-        return <Cascader {...props} ref={ref} panel />;
+        return <ElCascader {...props} ref={ref} panel />;
     }),
 );
 

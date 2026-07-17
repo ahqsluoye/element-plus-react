@@ -1,6 +1,6 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Link from '@qsxy/element-plus-react/Link/Link';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElLink from '@qsxy/element-plus-react/Link/Link';
 import classNames from 'classnames';
 import React, { FC, useMemo } from 'react';
 import { HeaderProps } from './typings';
@@ -33,13 +33,13 @@ const Header: FC<HeaderProps> = props => {
         <div className={classNames(e`header`, { [em('header', 'bordered')]: border })}>
             {showBackward && (
                 <div className={e`prev-btn`}>
-                    <Link disabled={disabledBackwards} underline="never" className={classNames(iconClass, 'd-arrow-left')} onClick={onMoveBackwards}>
-                        <Icon name="angles-left" />
-                    </Link>
+                    <ElLink disabled={disabledBackwards} underline="never" className={classNames(iconClass, 'd-arrow-left')} onClick={onMoveBackwards}>
+                        <ElIcon name="angles-left" />
+                    </ElLink>
                     {showMonth && (
-                        <Link disabled={disabledBackward} underline="never" className={classNames(iconClass, 'arrow-left')} onClick={onMoveBackward}>
-                            <Icon name="angle-left" />
-                        </Link>
+                        <ElLink disabled={disabledBackward} underline="never" className={classNames(iconClass, 'arrow-left')} onClick={onMoveBackward}>
+                            <ElIcon name="angle-left" />
+                        </ElLink>
                     )}
                 </div>
             )}
@@ -59,13 +59,13 @@ const Header: FC<HeaderProps> = props => {
             {showForward && (
                 <div className={e`next-btn`}>
                     {showMonth && (
-                        <Link disabled={disabledForward} underline="never" className={classNames(iconClass, 'arrow-right')} onClick={onMoveForward}>
-                            <Icon name="angle-right" />
-                        </Link>
+                        <ElLink disabled={disabledForward} underline="never" className={classNames(iconClass, 'arrow-right')} onClick={onMoveForward}>
+                            <ElIcon name="angle-right" />
+                        </ElLink>
                     )}
-                    <Link disabled={disabledForwards} underline="never" className={classNames(iconClass, 'd-arrow-right')} onClick={onMoveForwards}>
-                        <Icon name="angles-right" />
-                    </Link>
+                    <ElLink disabled={disabledForwards} underline="never" className={classNames(iconClass, 'd-arrow-right')} onClick={onMoveForwards}>
+                        <ElIcon name="angles-right" />
+                    </ElLink>
                 </div>
             )}
 

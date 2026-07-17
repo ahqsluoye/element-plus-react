@@ -20,9 +20,9 @@ export interface TransitionGroupProps {
      */
     component: any;
     /**
-     * A set of `<Transition>` components, that are toggled `in` and out as they
+     * A set of `<ElTransition>` components, that are toggled `in` and out as they
      * leave. the `<TransitionGroup>` will inject specific transition props, so
-     * remember to spread them through if you are wrapping the `<Transition>` as
+     * remember to spread them through if you are wrapping the `<ElTransition>` as
      * with our `<Fade>` example.
      *
      * While this component is meant for multiple `Transition` or `CSSTransition`
@@ -73,7 +73,7 @@ interface State {
 
 /**
  * The `<TransitionGroup>` component manages a set of transition components
- * (`<Transition>` and `<CSSTransition>`) in a list. Like with the transition
+ * (`<ElTransition>` and `<CSSTransition>`) in a list. Like with the transition
  * components, `<TransitionGroup>` is a state machine for managing the mounting
  * and unmounting of components over time.
  *

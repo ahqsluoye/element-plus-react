@@ -3,7 +3,7 @@ import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtil
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
-import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import classNames from 'classnames';
 import React, { FC, forwardRef, memo, useCallback, useContext, useImperativeHandle, useMemo, useRef } from 'react';
 import { CheckboxProps, CheckboxRef } from './typings';
@@ -103,7 +103,7 @@ const CheckboxButton = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
         [b, checked, children, className, disabled, e, handleChange, htmlInputProps, indeterminate, is, m, name, onCheckboxClick, prevent, readOnly, size, tooltipEvents, value],
     );
 
-    return title ? <Tooltip content={title}>{main}</Tooltip> : main;
+    return title ? <ElTooltip content={title}>{main}</ElTooltip> : main;
 });
 
 const Comp: FC<CheckboxProps> = memo(CheckboxButton);

@@ -1,4 +1,4 @@
-import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
+import ElCheckbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
 import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { NativeProps } from '@qsxy/element-plus-react/types/common';
@@ -159,7 +159,7 @@ const TableHeaderCell = (p: Props) => {
                 {(() => {
                     if (data.length > 0 && column.type === 'selection') {
                         return (
-                            <Checkbox
+                            <ElCheckbox
                                 disabled={disabledRows.current?.length === data.length}
                                 checked={state.selection?.length > 0 && state.selection?.length + disabledRows.current?.length === data.length}
                                 indeterminate={state.selection?.length > 0 && state.isIndeterminate}

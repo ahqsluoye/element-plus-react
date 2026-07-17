@@ -1,4 +1,4 @@
-import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
 import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
@@ -69,7 +69,7 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
 
     return (
         <div ref={containerRef} className={classNames(b(), props.className)} style={props.style} {...tooltipEvents}>
-            <Tooltip
+            <ElTooltip
                 classPrefix={classPrefix}
                 triggerRef={props.children}
                 popperClass={classNames(e`popper`, is`pure`)}

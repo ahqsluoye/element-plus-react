@@ -1,5 +1,5 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { isNumber, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { FC, memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
@@ -199,13 +199,13 @@ const Step: FC<StepProps> = memo(props => {
 
     const renderIcon = () => {
         if (icon) {
-            return <Icon className={e`icon-inner`} name={icon} />;
+            return <ElIcon className={e`icon-inner`} name={icon} />;
         }
         if (currentStatus === 'success') {
-            return <Icon className={classNames(e`icon-inner`, is`status`)} name="check" />;
+            return <ElIcon className={classNames(e`icon-inner`, is`status`)} name="check" />;
         }
         if (currentStatus === 'error') {
-            return <Icon className={classNames(e`icon-inner`, is`status`)} name="close" />;
+            return <ElIcon className={classNames(e`icon-inner`, is`status`)} name="close" />;
         }
         if (!isSimple) {
             return <span className={e`icon-inner`}>{index + 1}</span>;

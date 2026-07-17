@@ -1,4 +1,4 @@
-import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
+import ElCheckbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
@@ -254,7 +254,7 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
         const checkStatus = getCheckStatus(filteredItems);
         const checkedAll = checkStatus === 'all';
         const result = (
-            <Checkbox
+            <ElCheckbox
                 disabled={disabled}
                 checked={checkedAll}
                 indeterminate={checkStatus === 'part'}
@@ -268,7 +268,7 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
                 }}
             >
                 <span className={e`header-title`}>{titleText}</span>
-            </Checkbox>
+            </ElCheckbox>
         );
 
         return result;
@@ -276,27 +276,27 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
 
     // const menu: React.ReactElement = useMemo(
     //     () => (
-    //         <DropdownMenu>
-    //             <DropdownItem key="selectAll" command="selectAll">
+    //         <ElDropdownMenu>
+    //             <ElDropdownItem key="selectAll" command="selectAll">
     //                 全选所有
-    //             </DropdownItem>
+    //             </ElDropdownItem>
     //             {pagination && (
-    //                 <DropdownItem key="pagination" command="pagination">
+    //                 <ElDropdownItem key="pagination" command="pagination">
     //                     全选当页
-    //                 </DropdownItem>
+    //                 </ElDropdownItem>
     //             )}
-    //             <DropdownItem key="selectInvert" command="selectInvert">
+    //             <ElDropdownItem key="selectInvert" command="selectInvert">
     //                 反选当页
-    //             </DropdownItem>
-    //         </DropdownMenu>
+    //             </ElDropdownItem>
+    //         </ElDropdownMenu>
     //     ),
     //     [pagination],
     // );
 
     // const dropdown = (
-    //     <Dropdown className={b`header-dropdown`} menu={menu} disabled={disabled} onClick={onDropdownClick}>
-    //         <Icon name="angle-down" />
-    //     </Dropdown>
+    //     <ElDropdown className={b`header-dropdown`} menu={menu} disabled={disabled} onClick={onDropdownClick}>
+    //         <ElIcon name="angle-down" />
+    //     </ElDropdown>
     // );
 
     return (

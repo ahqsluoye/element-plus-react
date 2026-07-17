@@ -1,8 +1,8 @@
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import { useForceUpdate } from '@qsxy/element-plus-react/hooks/useForceUpdate';
-import Select from '@qsxy/element-plus-react/Select/Select';
+import ElSelect from '@qsxy/element-plus-react/Select/Select';
 import { SelectRef } from '@qsxy/element-plus-react/Select/typings';
-import Tree from '@qsxy/element-plus-react/Tree/Tree';
+import ElTree from '@qsxy/element-plus-react/Tree/Tree';
 import { TreeRef } from '@qsxy/element-plus-react/Tree/typings';
 import { isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { useMount } from 'ahooks';
@@ -84,10 +84,10 @@ const TreeSelect = forwardRef<TreeSelectRef, TreeSelectProps>((props, ref) => {
     );
 
     return (
-        <Select ref={selectRef} {...selectProps} value={value} onChange={handleChange} unmountOnExit={false}>
+        <ElSelect ref={selectRef} {...selectProps} value={value} onChange={handleChange} unmountOnExit={false}>
             <CacheOptions data={cacheOptions} select={selectRef} />
-            <Tree ref={treeRef} {...treeProps} />
-        </Select>
+            <ElTree ref={treeRef} {...treeProps} />
+        </ElSelect>
     );
 });
 

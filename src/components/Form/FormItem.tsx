@@ -1,6 +1,6 @@
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import { addUnit, isNotEmpty, mergeDefaultProps, warning } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useForceUpdate } from '@qsxy/element-plus-react/hooks/useForceUpdate';
@@ -515,16 +515,16 @@ function Field(props: FieldProps) {
     const getValidateLabel = useCallback(
         () => (
             <>
-                <Transition nodeRef={errorRef} name={b('slide-up')} visible={errorsRef.current.length > 0} transitionAppear unmountOnExit display="">
+                <ElTransition nodeRef={errorRef} name={b('slide-up')} visible={errorsRef.current.length > 0} transitionAppear unmountOnExit display="">
                     <label ref={errorRef} className={e`error`} style={errorStyle}>
                         {head(errorsRef.current)}
                     </label>
-                </Transition>
-                <Transition nodeRef={warningRef} name={b('slide-up')} visible={warningsRef.current.length > 0} transitionAppear unmountOnExit display="">
+                </ElTransition>
+                <ElTransition nodeRef={warningRef} name={b('slide-up')} visible={warningsRef.current.length > 0} transitionAppear unmountOnExit display="">
                     <label ref={warningRef} className={e`warning`} style={warningStyle}>
                         {head(warningsRef.current)}
                     </label>
-                </Transition>
+                </ElTransition>
             </>
         ),
         [b, e, errorStyle, warningStyle],
@@ -672,9 +672,9 @@ function Field(props: FieldProps) {
                         <label className={e`label`} style={['left', 'right'].includes(labelPosition) ? { width: labelWidth, ...labelStyle } : labelStyle}>
                             {typeof label === 'string' || typeof label === 'number' ? `${label}${colonContext ?? colon ? '：' : ''}` : label}
                             {help && (
-                                <Tooltip className={e`label--help`} content={help} placement="top" enterable>
-                                    <Icon name="circle-question" prefix="fas" />
-                                </Tooltip>
+                                <ElTooltip className={e`label--help`} content={help} placement="top" enterable>
+                                    <ElIcon name="circle-question" prefix="fas" />
+                                </ElTooltip>
                             )}
                         </label>
                     )}

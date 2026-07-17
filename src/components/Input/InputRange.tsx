@@ -1,4 +1,4 @@
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { IconProps } from '@qsxy/element-plus-react/Icon/typings';
 import { formatNumber } from '@qsxy/element-plus-react/Util/Math';
 import { isEmpty, isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
@@ -14,7 +14,7 @@ import last from 'lodash/last';
 import noop from 'lodash/noop';
 import toFinite from 'lodash/toFinite';
 import React, { ComponentType, cloneElement, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import InputGroup from './InputGroup';
+import ElInputGroup from './InputGroup';
 import { InputRangeProps, InputRangeValueType } from './typings';
 
 const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) => {
@@ -303,7 +303,7 @@ const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) =>
                     onKeyUp={type === 'number' ? onKeyUp : noop}
                 />
                 {(canClear ? null : suffixSlot) ?? (
-                    <Icon
+                    <ElIcon
                         prefix="fal"
                         name="circle-xmark"
                         className={classNames(be('input', 'icon', false), e`close-icon`, { [ebm('close', 'icon', 'hidden')]: !canClear })}
@@ -352,9 +352,9 @@ const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) =>
 
     if (append || prepend) {
         return (
-            <InputGroup prepend={prepend} append={append} className={props.className} style={props.style}>
+            <ElInputGroup prepend={prepend} append={append} className={props.className} style={props.style}>
                 {content}
-            </InputGroup>
+            </ElInputGroup>
         );
     } else {
         return content;

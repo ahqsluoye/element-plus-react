@@ -2,7 +2,7 @@ import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtil
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { mergeDefaultProps, warning } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import isBoolean from 'lodash/isBoolean';
@@ -124,7 +124,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
             return (
                 <span className={classNames(e`label`, em('label', 'left'), is({ active: !active }))}>
                     {isValidElement(inactiveIcon) && inactiveIcon}
-                    {typeof inactiveIcon === 'string' && <Icon name={inactiveIcon} />}
+                    {typeof inactiveIcon === 'string' && <ElIcon name={inactiveIcon} />}
                     {!inactiveIcon && inactiveText ? <span>{inactiveText}</span> : null}
                 </span>
             );
@@ -136,7 +136,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
             return (
                 <span className={classNames(e`label`, em('label', 'right'), is({ active }))}>
                     {isValidElement(activeIcon) && activeIcon}
-                    {typeof activeIcon === 'string' && <Icon name={activeIcon} />}
+                    {typeof activeIcon === 'string' && <ElIcon name={activeIcon} />}
                     {!activeIcon && activeText ? <span>{activeText}</span> : null}
                 </span>
             );
@@ -146,9 +146,9 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
 
     const actions = useMemo(() => {
         if (active && activeAction) {
-            return typeof activeIcon === 'string' ? <Icon name={activeIcon} /> : activeAction;
+            return typeof activeIcon === 'string' ? <ElIcon name={activeIcon} /> : activeAction;
         } else if (!active && inactiveAction) {
-            return typeof inactiveAction === 'string' ? <Icon name={inactiveAction} /> : inactiveAction;
+            return typeof inactiveAction === 'string' ? <ElIcon name={inactiveAction} /> : inactiveAction;
         }
     }, [active, activeAction, activeIcon, inactiveAction]);
 
@@ -185,7 +185,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
                                       return <span className="is-text">{activeText}</span>;
                                   } else if (activeIcon) {
                                       if (typeof activeIcon === 'string') {
-                                          <Icon className="is-icon" name={activeIcon} />;
+                                          <ElIcon className="is-icon" name={activeIcon} />;
                                       } else {
                                           return activeIcon;
                                       }
@@ -198,7 +198,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
                                       return <span className="is-text">{inactiveText}</span>;
                                   } else if (inactiveIcon) {
                                       if (typeof inactiveIcon === 'string') {
-                                          <Icon className="is-icon" name={inactiveIcon} />;
+                                          <ElIcon className="is-icon" name={inactiveIcon} />;
                                       } else {
                                           return inactiveIcon;
                                       }
@@ -209,7 +209,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
                 )}
 
                 <div className={e`action`} style={{ color: currentColor }}>
-                    {loading ? <Icon name="spinner" spin /> : actions}
+                    {loading ? <ElIcon name="spinner" spin /> : actions}
                 </div>
             </span>
             {!inlinePrompt && trueLabel}

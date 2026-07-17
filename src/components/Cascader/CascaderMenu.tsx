@@ -1,10 +1,9 @@
-/* eslint-disable indent */
-import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
+import ElCheckbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Radio from '@qsxy/element-plus-react/Radio/Radio';
-import Scrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElRadio from '@qsxy/element-plus-react/Radio/Radio';
+import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useContext, useImperativeHandle, useRef } from 'react';
@@ -55,7 +54,7 @@ const CascaderMenu = memo(
         }));
 
         return (
-            <Scrollbar
+            <ElScrollbar
                 ref={ulRef}
                 tag="ul"
                 className={classNames(b`menu`, is('list'))}
@@ -89,7 +88,7 @@ const CascaderMenu = memo(
                                 }}
                             >
                                 {checkStrictly && !multiple && (
-                                    <Radio
+                                    <ElRadio
                                         checked={item.__checked}
                                         onClick={e => e.stopPropagation()}
                                         onChange={e => {
@@ -100,7 +99,7 @@ const CascaderMenu = memo(
                                     />
                                 )}
                                 {multiple && (
-                                    <Checkbox
+                                    <ElCheckbox
                                         checked={item.__checked}
                                         indeterminate={item.__indeterminate}
                                         onClick={e => e.stopPropagation()}
@@ -115,13 +114,13 @@ const CascaderMenu = memo(
                                     />
                                 )}
                                 {nodeFormatter ? nodeFormatter?.({ node: item, data: item.data }) : <span className={be('node', 'label')}>{item[labelKey]}</span>}
-                                {!item.__leaf && loading !== item.__id && <Icon name="angle-right" className={be('node', 'postfix')} />}
-                                {loading === item.__id && <Icon prefix="fas" name="spinner" spin className={be('node', 'postfix')} />}
+                                {!item.__leaf && loading !== item.__id && <ElIcon name="angle-right" className={be('node', 'postfix')} />}
+                                {loading === item.__id && <ElIcon prefix="fas" name="spinner" spin className={be('node', 'postfix')} />}
                             </li>
                         );
                     })}
                 {data?.length === 0 && (loading ? t('el.cascader.loading', { lng: locale }) : t('el.cascader.noData', { lng: locale }))}
-            </Scrollbar>
+            </ElScrollbar>
         );
     }),
     // (prev, next) => {

@@ -3,8 +3,8 @@ import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtil
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Input from '@qsxy/element-plus-react/Input/Input';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElInput from '@qsxy/element-plus-react/Input/Input';
 import { InputRef } from '@qsxy/element-plus-react/Input/typings';
 import { isNotEmpty, isNumber, isUndefined, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { useMount, useUnmount } from 'ahooks';
@@ -474,7 +474,7 @@ const InputNumber = memo(
                         }}
                         // onClick={decrease}
                     >
-                        {decreaseIcon || <Icon name={controlsAtRight ? 'angle-down' : 'minus'} prefix={controlsAtRight ? 'fal' : 'far'} />}
+                        {decreaseIcon || <ElIcon name={controlsAtRight ? 'angle-down' : 'minus'} prefix={controlsAtRight ? 'fal' : 'far'} />}
                     </span>
                 )}
 
@@ -499,11 +499,11 @@ const InputNumber = memo(
                         }}
                         // onClick={increase}
                     >
-                        {increaseIcon || <Icon name={controlsAtRight ? 'angle-up' : 'plus'} prefix={controlsAtRight ? 'fal' : 'far'} />}
+                        {increaseIcon || <ElIcon name={controlsAtRight ? 'angle-up' : 'plus'} prefix={controlsAtRight ? 'fal' : 'far'} />}
                     </span>
                 )}
 
-                <Input
+                <ElInput
                     id={id}
                     placeholder={placeholder}
                     prefix={prefix}

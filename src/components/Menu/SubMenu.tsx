@@ -1,9 +1,9 @@
 import { Placement } from '@popperjs/core';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
@@ -145,7 +145,7 @@ const SubMenu = (props: SubMenuProps) => {
             role="menuitem"
         >
             {mode === 'horizontal' || collapse ? (
-                <Tooltip
+                <ElTooltip
                     ref={tooltipRef}
                     disabled={disabled}
                     className={e`title`}
@@ -195,16 +195,16 @@ const SubMenu = (props: SubMenuProps) => {
                 >
                     <div>
                         {title}
-                        <Icon className={e`icon-arrow`} name={level > 1 ? 'angle-right' : 'angle-down'} prefix="fal" style={{ transform: open ? 'rotateZ(180deg)' : 'none' }} />
+                        <ElIcon className={e`icon-arrow`} name={level > 1 ? 'angle-right' : 'angle-down'} prefix="fal" style={{ transform: open ? 'rotateZ(180deg)' : 'none' }} />
                     </div>
-                </Tooltip>
+                </ElTooltip>
             ) : (
                 <>
                     <div className={classNames(e`title`)}>
                         {title}
-                        <Icon className={e`icon-arrow`} name="angle-down" prefix="fal" style={{ transform: expand ? 'rotateZ(180deg)' : 'none' }} />
+                        <ElIcon className={e`icon-arrow`} name="angle-down" prefix="fal" style={{ transform: expand ? 'rotateZ(180deg)' : 'none' }} />
                     </div>
-                    <Transition
+                    <ElTransition
                         name="el-menu-collapse"
                         nodeRef={ulRef}
                         disabled={disabled}
@@ -243,7 +243,7 @@ const SubMenu = (props: SubMenuProps) => {
                                 {props.children}
                             </MenuContext.Provider>
                         </ul>
-                    </Transition>
+                    </ElTransition>
                 </>
             )}
         </li>

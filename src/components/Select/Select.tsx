@@ -1,4 +1,4 @@
-import InputGroup from '@qsxy/element-plus-react/Input/InputGroup';
+import ElInputGroup from '@qsxy/element-plus-react/Input/InputGroup';
 import React, { Ref, forwardRef, memo, useRef } from 'react';
 import SelectCore from './SelectCore';
 import { SelectProps, SelectRef } from './typings';
@@ -11,9 +11,9 @@ const Select = memo(
 
         if (append || prepend) {
             return (
-                <InputGroup prepend={prepend} append={append} ref={groupRef} style={props.style}>
+                <ElInputGroup prepend={prepend} append={append} ref={groupRef} style={props.style}>
                     <SelectCore ref={ref} {...props} />
-                </InputGroup>
+                </ElInputGroup>
             );
         } else {
             return <SelectCore ref={ref} {...props} />;

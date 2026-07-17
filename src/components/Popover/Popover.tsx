@@ -1,7 +1,7 @@
 import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
 import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
 import { addUnit, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
@@ -47,7 +47,7 @@ const Popover = memo(
         useImperativeHandle(ref, () => tooltipRef.current);
 
         return (
-            <Tooltip
+            <ElTooltip
                 ref={tooltipRef}
                 classPrefix={classPrefix}
                 popperClass={classNames(b(), { [m`plain`]: plain }, props.className)}

@@ -1,6 +1,6 @@
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
-import Loading from '@qsxy/element-plus-react/Loading/Loading';
-import Scrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
+import ElLoading from '@qsxy/element-plus-react/Loading/Loading';
+import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
@@ -145,7 +145,7 @@ function InternalTable<RecordType extends object = TreeNode>(props: TableProps<R
                     )}
 
                     <div className={e`body-wrapper`}>
-                        <Scrollbar
+                        <ElScrollbar
                             ref={refs.scrollBarRef}
                             viewStyle={{ display: 'inline-block', verticalAlign: 'middle' }}
                             onScroll={({ scrollLeft }) => {
@@ -172,7 +172,7 @@ function InternalTable<RecordType extends object = TreeNode>(props: TableProps<R
                                 </TableBodyContext.Provider>
                             </table>
                             {append && <div className={e`append-wrapper`}>{append}</div>}
-                        </Scrollbar>
+                        </ElScrollbar>
 
                         {!loading && data.length === 0 && (
                             // @ts-ignore
@@ -181,7 +181,7 @@ function InternalTable<RecordType extends object = TreeNode>(props: TableProps<R
                             </div>
                         )}
 
-                        <Loading className={e`loading`} fullscreen={false} background="rgba(255, 255, 255, 0.6)" text="正在加载中..." visible={loading} />
+                        <ElLoading className={e`loading`} fullscreen={false} background="rgba(255, 255, 255, 0.6)" text="正在加载中..." visible={loading} />
                     </div>
                     {showSummary && <div className={e`footer-wrapper`} ref={refs.footerWrapper} />}
                 </div>

@@ -6,10 +6,10 @@ import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popper
 import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Input from '@qsxy/element-plus-react/Input/Input';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElInput from '@qsxy/element-plus-react/Input/Input';
 import { InputRef } from '@qsxy/element-plus-react/Input/typings';
-import Popper from '@qsxy/element-plus-react/Popper/Popper';
+import ElPopper from '@qsxy/element-plus-react/Popper/Popper';
 import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
 import { isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
@@ -184,7 +184,7 @@ const DatePicker = memo(
 
         return (
             <>
-                <Input
+                <ElInput
                     ref={inputRef}
                     name={name}
                     placeholder={placeholder}
@@ -193,7 +193,7 @@ const DatePicker = memo(
                     required={required}
                     clearable={clearable && !disabled}
                     isSelect
-                    prefix={!plain && <Icon name="calendar-days" />}
+                    prefix={!plain && <ElIcon name="calendar-days" />}
                     onClick={onActive}
                     value={formatValue}
                     onChange={noop}
@@ -223,7 +223,7 @@ const DatePicker = memo(
                     ])}
                 />
 
-                <Popper
+                <ElPopper
                     visible={visible}
                     referenceElement={() => inputRef?.current?.ref}
                     popperInstRef={popperInstRef}
@@ -254,7 +254,7 @@ const DatePicker = memo(
                     >
                         <Calendar />
                     </CalendarContext.Provider>
-                </Popper>
+                </ElPopper>
             </>
         );
     }),

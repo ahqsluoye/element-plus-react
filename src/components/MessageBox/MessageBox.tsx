@@ -1,11 +1,11 @@
-import Button from '@qsxy/element-plus-react/Button/Button';
-import Dialog from '@qsxy/element-plus-react/Dialog/Dialog';
+import ElButton from '@qsxy/element-plus-react/Button/Button';
+import ElDialog from '@qsxy/element-plus-react/Dialog/Dialog';
 import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
 import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Input from '@qsxy/element-plus-react/Input/Input';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElInput from '@qsxy/element-plus-react/Input/Input';
 import { addUnit, isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import isString from 'lodash/isString';
@@ -94,7 +94,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
         const iconContent = useMemo(() => {
             if (isNotEmpty(icon)) {
                 if (isString(icon)) {
-                    return <Icon className={e`status`} name={icon} />;
+                    return <ElIcon className={e`status`} name={icon} />;
                 } else {
                     return cloneElement(icon, {
                         ...(icon?.props ?? {}),
@@ -104,16 +104,16 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
             } else {
                 switch (type) {
                     case 'success':
-                        return <Icon className={classNames(e`status`, bm('icon', type))} name="check" />;
+                        return <ElIcon className={classNames(e`status`, bm('icon', type))} name="check" />;
 
                     case 'info':
-                        return <Icon className={classNames(e`status`, bm('icon', type))} name="circle-info" />;
+                        return <ElIcon className={classNames(e`status`, bm('icon', type))} name="circle-info" />;
 
                     case 'warning':
-                        return <Icon className={classNames(e`status`, bm('icon', type))} name="circle-exclamation" prefix="fas" />;
+                        return <ElIcon className={classNames(e`status`, bm('icon', type))} name="circle-exclamation" prefix="fas" />;
 
                     case 'error':
-                        return <Icon className={classNames(e`status`, bm('icon', type))} name="circle-xmark" prefix="fas" />;
+                        return <ElIcon className={classNames(e`status`, bm('icon', type))} name="circle-xmark" prefix="fas" />;
 
                     default:
                         return null;
@@ -201,7 +201,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
         }));
 
         return (
-            <Dialog
+            <ElDialog
                 ref={containerRef}
                 classPrefix={classPrefix}
                 visible={visible}
@@ -222,12 +222,12 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
                     showCancelButton || showConfirmButton ? (
                         <>
                             {showCancelButton && (
-                                <Button className={cancelButtonClass} size={buttonSize} round={roundButton} onClick={() => handleAction('cancel')}>
+                                <ElButton className={cancelButtonClass} size={buttonSize} round={roundButton} onClick={() => handleAction('cancel')}>
                                     {cancelButtonText}
-                                </Button>
+                                </ElButton>
                             )}
                             {showConfirmButton && (
-                                <Button
+                                <ElButton
                                     className={confirmButtonClass}
                                     type="primary"
                                     size={buttonSize}
@@ -236,7 +236,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
                                     onClick={() => handleAction('confirm')}
                                 >
                                     {confirmButtonText}
-                                </Button>
+                                </ElButton>
                             )}
                         </>
                     ) : null
@@ -255,7 +255,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
                         </div>
                         {boxType === 'prompt' && showInput && (
                             <div className={e`input`}>
-                                <Input
+                                <ElInput
                                     value={inputValue}
                                     type={inputType}
                                     // error={validateError}
@@ -270,7 +270,7 @@ const MessageBox: React.ForwardRefExoticComponent<MessageState & React.RefAttrib
                         )}
                     </>
                 )}
-            </Dialog>
+            </ElDialog>
         );
     }),
 );

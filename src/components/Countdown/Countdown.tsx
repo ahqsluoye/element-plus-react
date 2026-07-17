@@ -1,4 +1,4 @@
-import Statistic from '@qsxy/element-plus-react/Statistic/Statistic';
+import ElStatistic from '@qsxy/element-plus-react/Statistic/Statistic';
 import { StatisticRef } from '@qsxy/element-plus-react/Statistic/typings';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { cAF, rAF } from '@qsxy/element-plus-react/Util/raf';
@@ -95,7 +95,7 @@ const Countdown = memo(
         }));
 
         return (
-            <Statistic
+            <ElStatistic
                 ref={statisticRef}
                 value={rawValue}
                 title={title}
@@ -107,7 +107,7 @@ const Countdown = memo(
                 style={style}
             >
                 {children}
-            </Statistic>
+            </ElStatistic>
         );
     }),
 );

@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import classNames from 'classnames';
 import isBoolean from 'lodash/isBoolean';
 import last from 'lodash/last';

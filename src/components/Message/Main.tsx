@@ -1,6 +1,6 @@
 import React, { createRef } from 'react';
 import { createRoot } from 'react-dom/client';
-import Message from './Message';
+import ElMessage from './Message';
 import { MessageProps, MessageRef } from './typings';
 
 export class Main {
@@ -13,7 +13,7 @@ export class Main {
         const renderDom = document.createDocumentFragment();
         const root = createRoot(renderDom);
         root.render(
-            <Message
+            <ElMessage
                 {...props}
                 afterLeave={() => {
                     setTimeout(() => {

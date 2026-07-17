@@ -1,7 +1,7 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
-import Radio from '@qsxy/element-plus-react/Radio/Radio';
+import ElRadio from '@qsxy/element-plus-react/Radio/Radio';
 import { ValueType } from '@qsxy/element-plus-react/Radio/typings';
 import { isNotEmpty, mergeDefaultProps, randomCode } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
@@ -53,9 +53,9 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, ref) => {
         }
         if (options.length > 0) {
             const radios = options.map(item => (
-                <Radio key={item[aliasProps.value]} value={item[aliasProps.value]} disabled={item[aliasProps.disabled]}>
+                <ElRadio key={item[aliasProps.value]} value={item[aliasProps.value]} disabled={item[aliasProps.disabled]}>
                     {item[aliasProps.label]}
-                </Radio>
+                </ElRadio>
             ));
             return radios;
         }

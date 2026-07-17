@@ -2,7 +2,7 @@ import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/Confi
 import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useContext, useImperativeHandle, useMemo, useRef } from 'react';
@@ -44,7 +44,7 @@ const Button = memo(
 
         const buttonStyle = useButtonCustomStyle({ color: bgColor, ...props }, cssVarBlock, cssVarName, cssVarBlockName);
 
-        const spin = useMemo(() => loadingSlot ?? <Icon name={loadingIcon} className={classNames(b`spin`, is`loading`)} spin />, [loadingSlot, loadingIcon, b, is]);
+        const spin = useMemo(() => loadingSlot ?? <ElIcon name={loadingIcon} className={classNames(b`spin`, is`loading`)} spin />, [loadingSlot, loadingIcon, b, is]);
         // const type = useMemo(() => groupType ?? (props.type || 'default'), [groupType, props.type]);
 
         const children = useMemo(() => {
@@ -81,7 +81,7 @@ const Button = memo(
                 }}
             >
                 {loading && spin}
-                {icon && !loading && typeof icon === 'string' ? <Icon name={icon} {...iconProps} /> : null}
+                {icon && !loading && typeof icon === 'string' ? <ElIcon name={icon} {...iconProps} /> : null}
                 {children}
             </button>
         );

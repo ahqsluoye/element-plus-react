@@ -1,6 +1,6 @@
-import Button from '@qsxy/element-plus-react/Button/Button';
+import ElButton from '@qsxy/element-plus-react/Button/Button';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 import React, { useEffect } from 'react';
@@ -70,7 +70,7 @@ function Step(props: TourStepProps) {
         <>
             {mergedShowClose && (
                 <button aria-label="Close tour" className={ns.e('closebtn')} type="button" onClick={handleClose}>
-                    <Icon className={ns.e('close')} name={closeIcon} />
+                    <ElIcon className={ns.e('close')} name={closeIcon} />
                 </button>
             )}
             <header className={classNames(ns.e('header'), { 'show-close': mergedShowClose })}>
@@ -89,14 +89,14 @@ function Step(props: TourStepProps) {
                 </div>
                 <div className={ns.b('buttons')}>
                     {current > 0 && (
-                        <Button size="small" type={mergedType as any} {...filterButtonProps(props.prevButtonProps)} onClick={handlePrev}>
+                        <ElButton size="small" type={mergedType as any} {...filterButtonProps(props.prevButtonProps)} onClick={handlePrev}>
                             {(props.prevButtonProps?.children as React.ReactNode) ?? 'Previous'}
-                        </Button>
+                        </ElButton>
                     )}
                     {current <= total - 1 && (
-                        <Button size="small" type={mergedType === 'primary' ? 'default' : 'primary'} {...filterButtonProps(props.nextButtonProps)} onClick={handleNext}>
+                        <ElButton size="small" type={mergedType === 'primary' ? 'default' : 'primary'} {...filterButtonProps(props.nextButtonProps)} onClick={handleNext}>
                             {(props.nextButtonProps?.children as React.ReactNode) ?? (current === total - 1 ? 'Finish' : 'Next')}
-                        </Button>
+                        </ElButton>
                     )}
                 </div>
             </footer>

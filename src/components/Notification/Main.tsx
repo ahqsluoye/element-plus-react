@@ -1,6 +1,6 @@
 import React, { createRef, RefObject } from 'react';
 import { createRoot } from 'react-dom/client';
-import Notification from './Notification';
+import ElNotification from './Notification';
 import { NotificationProps, NotificationRef } from './typings';
 
 export class Main {
@@ -13,7 +13,7 @@ export class Main {
         const renderDom = document.createDocumentFragment();
         const root = createRoot(renderDom);
         root.render(
-            <Notification
+            <ElNotification
                 {...props}
                 afterLeave={() => {
                     setTimeout(() => {

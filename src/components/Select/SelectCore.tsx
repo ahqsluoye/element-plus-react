@@ -1,15 +1,15 @@
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Popper from '@qsxy/element-plus-react/Popper/Popper';
-import Tag from '@qsxy/element-plus-react/Tag/Tag';
-import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElPopper from '@qsxy/element-plus-react/Popper/Popper';
+import ElTag from '@qsxy/element-plus-react/Tag/Tag';
+import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import { ValidateComponentsMap } from '@qsxy/element-plus-react/Util/icons';
 import { useCalcInputWidth } from '@qsxy/element-plus-react/hooks/useCalcInputWidth';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { Children, forwardRef, useImperativeHandle, useMemo } from 'react';
-import Option from './Option';
-import OptionGroup from './OptionGroup';
+import ElOption from './Option';
+import ElOptionGroup from './OptionGroup';
 import SelectDropdown from './SelectDropdown';
 import { SelectProps, SelectRef } from './typings';
 import useSelect from './useSelect';
@@ -92,9 +92,9 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
             const radios = options.map(item => {
                 if (item[aliasProps.options]?.length > 0) {
                     return (
-                        <OptionGroup key={item[aliasProps.value]} label={item[aliasProps.label]} disabled={item[aliasProps.disabled]}>
+                        <ElOptionGroup key={item[aliasProps.value]} label={item[aliasProps.label]} disabled={item[aliasProps.disabled]}>
                             {item[aliasProps.options].map(child => (
-                                <Option
+                                <ElOption
                                     key={child[aliasProps.value]}
                                     value={child[aliasProps.value]}
                                     label={child[aliasProps.label]}
@@ -102,11 +102,11 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                                     data={child[aliasProps.data]}
                                 />
                             ))}
-                        </OptionGroup>
+                        </ElOptionGroup>
                     );
                 }
                 return (
-                    <Option
+                    <ElOption
                         key={item[aliasProps.value]}
                         value={item[aliasProps.value]}
                         label={item[aliasProps.label]}
@@ -148,7 +148,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                                 {(collapseTags ? multiOptionData.slice(0, maxCollapseTags) : multiOptionData).map((item, i) => {
                                     return (
                                         <div key={`${item.value}_${i}`} className={e`selected-item`}>
-                                            <Tag
+                                            <ElTag
                                                 type={tagType}
                                                 closable={!disabled}
                                                 effect={tagEffect}
@@ -159,12 +159,12 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                                                 {isNotEmpty(item.value) && typeof item.value === 'string' && labelFormat
                                                     ? labelFormat?.(-1, item.value, item.label)
                                                     : item.label ?? item.value}
-                                            </Tag>
+                                            </ElTag>
                                         </div>
                                     );
                                 })}
                                 {collapseTags && multiValue?.length > maxCollapseTags && (
-                                    <Tooltip
+                                    <ElTooltip
                                         ref={tagTooltipRef}
                                         popperClass={e`tooltip`}
                                         placement="top"
@@ -173,7 +173,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                                             <div className={e`selection`}>
                                                 {multiOptionData.slice(maxCollapseTags, multiOptionData.length).map((item, i) => (
                                                     <div key={`${item.value}_${i}`} className={e`selected-item`}>
-                                                        <Tag
+                                                        <ElTag
                                                             type={tagType}
                                                             disableTransitions
                                                             closable={!disabled}
@@ -184,7 +184,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                                                             {isNotEmpty(item.value) && typeof item.value === 'string' && labelFormat
                                                                 ? labelFormat?.(-1, item.value, item.label)
                                                                 : item.label ?? item.value}
-                                                        </Tag>
+                                                        </ElTag>
                                                     </div>
                                                 ))}
                                             </div>
@@ -193,13 +193,13 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                                         enterable
                                     >
                                         <div className={e`selected-item`}>
-                                            <Tag type={tagType} onClick={toggleMenu} disableTransitions effect={tagEffect}>
+                                            <ElTag type={tagType} onClick={toggleMenu} disableTransitions effect={tagEffect}>
                                                 {collapseTips
                                                     ? collapseTips(multiOptionData.length - maxCollapseTags, multiOptionData.length)
                                                     : `+ ${multiOptionData.length - maxCollapseTags}`}
-                                            </Tag>
+                                            </ElTag>
                                         </div>
-                                    </Tooltip>
+                                    </ElTooltip>
                                 )}
                             </>
                         ))}
@@ -230,7 +230,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                             onFocus={() => setIsFocused(true)}
                             onBlur={() => setIsFocused(false)}
                             // style={multiple ? { height: inputHeight } : {}}
-                            // suffix={<Icon prefix="fal" name="angle-down" rotate={visible ? 180 : null} onClick={toggleMenu} />}
+                            // suffix={<ElIcon prefix="fal" name="angle-down" rotate={visible ? 180 : null} onClick={toggleMenu} />}
                         />
                         {filterable ? (
                             <span ref={calculatorRef} aria-hidden="true" className={e`input-calculator`}>
@@ -246,10 +246,10 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                 </div>
                 {!plain && (
                     <div ref={suffixWrapperRef} className={classNames(e`suffix`, is`hidden-clear`)}>
-                        {iconComponent ? <Icon name={iconComponent} className={classNames(e`caret`, e`icon`, e`arrow`, iconReverse)} onClick={toggleMenu}></Icon> : null}
-                        {clearIcon ? <Icon prefix="fal" name={clearIcon} className={classNames(e`caret`, e`icon`, e`clear`)} onClick={onClear} /> : null}
+                        {iconComponent ? <ElIcon name={iconComponent} className={classNames(e`caret`, e`icon`, e`arrow`, iconReverse)} onClick={toggleMenu}></ElIcon> : null}
+                        {clearIcon ? <ElIcon prefix="fal" name={clearIcon} className={classNames(e`caret`, e`icon`, e`clear`)} onClick={onClear} /> : null}
                         {validateState && validateIcon && statusIcon && (
-                            <Icon
+                            <ElIcon
                                 {...ValidateComponentsMap[validateState]}
                                 className={classNames(nsInput.e('icon'), nsInput.e('validateIcon'), is('loading', validateState === 'validating'))}
                             />
@@ -258,7 +258,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                 )}
             </div>
 
-            <Popper
+            <ElPopper
                 referenceElement={containerRef}
                 visible={visible}
                 popperClass={classNames(e`popper`, is`pure`)}
@@ -292,7 +292,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                 >
                     {optionChilds}
                 </SelectDropdown>
-            </Popper>
+            </ElPopper>
         </div>
     );
 });

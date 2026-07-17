@@ -1,11 +1,11 @@
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
-import Scrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
+import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { Children, ComponentType, cloneElement, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Option from './Option';
+import ElOption from './Option';
 import { SelectContext } from './SelectContext';
 import { SelectDropdownProps, SelectDropdownRef, SelectOptionGroupProps, SelectOptionProps } from './typings';
 
@@ -112,13 +112,13 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
             if (!multiple && value === searchText) {
                 return (
                     <>
-                        {searchText && !multiple && <Option value={searchText} label={searchText} />}
+                        {searchText && !multiple && <ElOption value={searchText} label={searchText} />}
                         {props.children}
                     </>
                 );
             }
             return (
-                <Option
+                <ElOption
                     value={searchText}
                     label={searchText}
                     onClick={() => {
@@ -188,11 +188,11 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
             <>
                 {header ? <div className={be('dropdown', 'header')}>{header}</div> : null}
                 <SelectContext.Provider value={{ value, onChoose, hover, setHover, multiple, cachedOptions }}>
-                    <Scrollbar wrapClass={be('dropdown', 'wrap')} wrapStyle={{ display: props.loading ? 'none' : undefined }}>
+                    <ElScrollbar wrapClass={be('dropdown', 'wrap')} wrapStyle={{ display: props.loading ? 'none' : undefined }}>
                         <ul className={be('dropdown', 'list')} ref={ulRef}>
                             {options}
                         </ul>
-                    </Scrollbar>
+                    </ElScrollbar>
                     {props.loading ? loading : null}
                 </SelectContext.Provider>
                 {footer ? <div className={be('dropdown', 'footer')}>{footer}</div> : null}

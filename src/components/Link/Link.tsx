@@ -1,6 +1,6 @@
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { forwardRef, memo } from 'react';
@@ -27,7 +27,7 @@ const Link = forwardRef<any, LinkProps>((props: LinkProps, ref) => {
             }}
             {...rest}
         >
-            {icon && <Icon name={icon} />}
+            {icon && <ElIcon name={icon} />}
             {props.children}
         </a>
     );

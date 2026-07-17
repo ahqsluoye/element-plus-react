@@ -1,7 +1,7 @@
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Scrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import classNames from 'classnames';
 import last from 'lodash/last';
@@ -57,7 +57,7 @@ const CascaderDropdown = memo((props: Props) => {
                     }}
                 >
                     {suggestionItemFormatter ? suggestionItemFormatter(item) : item.map(node => node[labelKey]).join(separator)}
-                    {multiple && checkedNode.includes(key) ? <Icon name="check" /> : null}
+                    {multiple && checkedNode.includes(key) ? <ElIcon name="check" /> : null}
                 </li>
             );
         });
@@ -65,12 +65,12 @@ const CascaderDropdown = memo((props: Props) => {
 
     return (
         <div className={classNames(e`dorpdown`)} onClick={event => event.stopPropagation()}>
-            <Scrollbar wrapClass={e`suggestion-panel`} ref={scrollBarRef}>
+            <ElScrollbar wrapClass={e`suggestion-panel`} ref={scrollBarRef}>
                 <ul className={e`suggestion-list`} ref={ulRef}>
                     {list}
                     {options?.length === 0 && <li className={classNames(e`empty-text`)}>{t('el.cascader.noMatch', { lng: locale })}</li>}
                 </ul>
-            </Scrollbar>
+            </ElScrollbar>
         </div>
     );
 });

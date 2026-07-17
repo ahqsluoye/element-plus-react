@@ -2,7 +2,7 @@ import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtil
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useClearable, useDisabled, useSize, useStatusIcon } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { IconProps } from '@qsxy/element-plus-react/Icon/typings';
 import { isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { ValidateComponentsMap } from '@qsxy/element-plus-react/Util/icons';
@@ -308,7 +308,7 @@ const Input = memo(
 
                     {/* <span className={e`suffix`}>
                         <span className={e`suffix-inner`}>
-                            <Icon
+                            <ElIcon
                                 ref={clearRef}
                                 style={{ display: 'none' }}
                                 prefix="fal"
@@ -327,7 +327,7 @@ const Input = memo(
                         <span className={classNames(e`suffix`, { [b('click', false)]: suffixCanClick })}>
                             <span className={e`suffix-inner`}>
                                 {showClear && (
-                                    <Icon
+                                    <ElIcon
                                         ref={clearRef}
                                         prefix="fal"
                                         name="circle-xmark"
@@ -342,7 +342,7 @@ const Input = memo(
                                 {/* 选择框仅当不显示清除图标时才显示 */}
                                 {(isSelect && !showClear) || (!isSelect && (!showPwdVisible || !isWordLimitVisible)) ? suffixContent : null}
                                 {showPwdVisible && (
-                                    <Icon name={type === 'text' ? 'eye' : 'eye-slash'} className={classNames(e`icon`, e`password`)} onClick={handlePasswordVisible} />
+                                    <ElIcon name={type === 'text' ? 'eye' : 'eye-slash'} className={classNames(e`icon`, e`password`)} onClick={handlePasswordVisible} />
                                 )}
                                 {isWordLimitVisible && (
                                     <span className={e`count`}>
@@ -352,7 +352,7 @@ const Input = memo(
                                     </span>
                                 )}
                                 {validateState && validateIcon && statusIcon && (
-                                    <Icon
+                                    <ElIcon
                                         {...ValidateComponentsMap[validateState]}
                                         className={classNames(e`icon`, e`validateIcon`, is('loading', validateState === 'validating'))}
                                     />

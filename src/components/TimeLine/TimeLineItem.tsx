@@ -1,5 +1,5 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { cloneElement, FC, useMemo } from 'react';
@@ -19,7 +19,7 @@ const TimeLineItem: FC<TimeLineItemProps> = props => {
     const nodeIcon = useMemo(() => {
         if (isNotEmpty(props.icon)) {
             return typeof icon === 'string' ? (
-                <Icon name={icon} className={e`icon`} />
+                <ElIcon name={icon} className={e`icon`} />
             ) : (
                 cloneElement(icon, icon?.props && 'className' in icon.props ? { ...icon.props.className, className: e`icon` } : { className: e`icon` })
             );

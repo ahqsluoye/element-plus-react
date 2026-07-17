@@ -1,5 +1,5 @@
 import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
-import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
 import React, { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -80,7 +80,7 @@ export function createTablePopper(
         }
     };
     if (!tooltipRef.current) {
-        const vm = createElement(Tooltip, {
+        const vm = createElement(ElTooltip, {
             enterable: true,
             // onMouseLeave: removePopper,
             virtualTriggering: true,

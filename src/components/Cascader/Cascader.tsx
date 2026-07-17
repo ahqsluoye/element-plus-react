@@ -1,13 +1,13 @@
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import ElDivider from '@qsxy/element-plus-react/Divider/Divider';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Input from '@qsxy/element-plus-react/Input/Input';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElInput from '@qsxy/element-plus-react/Input/Input';
 import { InputRef } from '@qsxy/element-plus-react/Input/typings';
-import Popper from '@qsxy/element-plus-react/Popper/Popper';
+import ElPopper from '@qsxy/element-plus-react/Popper/Popper';
 import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
 import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
-import Tag from '@qsxy/element-plus-react/Tag/Tag';
-import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import ElTag from '@qsxy/element-plus-react/Tag/Tag';
+import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import { isEmpty, isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
 import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
@@ -577,7 +577,7 @@ const Cascader = memo(
                 <div className={classNames(b`panel`, is({ bordered: panel }))}>
                     {filterable && (
                         <div className={e`search`} style={level === 0 && !searchText ? { width: 180 } : {}} onClick={event => event.stopPropagation()}>
-                            <Input
+                            <ElInput
                                 ref={searchInstance}
                                 placeholder={t('el.select.search', { lng: locale })}
                                 clearable
@@ -585,7 +585,7 @@ const Cascader = memo(
                                 debounceInput
                                 onClear={onClearSearch}
                                 onChange={onSearch}
-                                prefix={<Icon prefix="fal" name="search" />}
+                                prefix={<ElIcon prefix="fal" name="search" />}
                             />
                             <ElDivider style={{ margin: 0 }} />
                         </div>
@@ -633,7 +633,7 @@ const Cascader = memo(
                             ref={containerRef}
                             onClick={event => event.stopPropagation()}
                         >
-                            <Input
+                            <ElInput
                                 ref={inputRef}
                                 value={multiple ? multiValue.join(separator) : label}
                                 placeholder={placeholder}
@@ -648,7 +648,7 @@ const Cascader = memo(
                                 plain={props.plain}
                                 className={is({ focus: visible })}
                                 innerStyle={multiple ? { height: inputHeight } : {}}
-                                suffix={<Icon prefix="fal" name="angle-down" className={visible ? 'fa-rotate-180' : ''} onClick={onClick} />}
+                                suffix={<ElIcon prefix="fal" name="angle-down" className={visible ? 'fa-rotate-180' : ''} onClick={onClick} />}
                                 prefix={props.prefix}
                                 append={props.append}
                                 prepend={props.prepend}
@@ -681,13 +681,13 @@ const Cascader = memo(
                                 >
                                     {(collapseTags ? checkedNodes().slice(0, maxCollapseTags) : checkedNodes()).map((item, i) => {
                                         return (
-                                            <Tag key={i} type="info" closable={!disabled} onClick={onClick} onClose={() => onCloseTag(item)} disableTransitions>
+                                            <ElTag key={i} type="info" closable={!disabled} onClick={onClick} onClose={() => onCloseTag(item)} disableTransitions>
                                                 {item.map(node => node[labelKey]).join(separator)}
-                                            </Tag>
+                                            </ElTag>
                                         );
                                     })}
                                     {collapseTags && multiLabel()?.length > maxCollapseTags && (
-                                        <Tooltip
+                                        <ElTooltip
                                             popperClass={e`tooltip`}
                                             placement="top"
                                             disabled={!collapseTagsTooltip}
@@ -698,9 +698,9 @@ const Cascader = memo(
                                                             .slice(maxCollapseTags, checkedNodes().length)
                                                             .map((item, i) => (
                                                                 <div key={i} className={e`collapse-tag`}>
-                                                                    <Tag type="info" className="in-tooltip" disableTransitions>
+                                                                    <ElTag type="info" className="in-tooltip" disableTransitions>
                                                                         {item.map(node => node[labelKey]).join(separator)}
-                                                                    </Tag>
+                                                                    </ElTag>
                                                                 </div>
                                                             ))}
                                                     </div>
@@ -709,12 +709,12 @@ const Cascader = memo(
                                             effect="light"
                                             enterable
                                         >
-                                            <Tag type="info" onClick={onClick} disableTransitions>
+                                            <ElTag type="info" onClick={onClick} disableTransitions>
                                                 {collapseTips
                                                     ? collapseTips(multiLabel().length - maxCollapseTags, multiLabel().length)
                                                     : `+ ${multiLabel().length - maxCollapseTags}`}
-                                            </Tag>
-                                        </Tooltip>
+                                            </ElTag>
+                                        </ElTooltip>
                                     )}
                                     {/* <div className={classNames(b`tags-wrapper`, 'has-prefix')}>
                             </div> */}
@@ -722,7 +722,7 @@ const Cascader = memo(
                             )}
                             {/* <div className={e`trigger`}></div> */}
                         </div>
-                        <Popper
+                        <ElPopper
                             referenceElement={() => inputRef?.current?.ref}
                             visible={visible}
                             popperInstRef={popperInstRef}
@@ -754,7 +754,7 @@ const Cascader = memo(
                             {...popperProps}
                         >
                             {content}
-                        </Popper>
+                        </ElPopper>
                     </>
                 )}
             </CascaderContext.Provider>

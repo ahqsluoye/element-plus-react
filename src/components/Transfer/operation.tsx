@@ -1,4 +1,4 @@
-import Button from '@qsxy/element-plus-react/Button/Button';
+import ElButton from '@qsxy/element-plus-react/Button/Button';
 import React, { FC } from 'react';
 
 export interface TransferOperationProps {
@@ -28,13 +28,13 @@ const Operation: FC<TransferOperationProps> = ({
 }: TransferOperationProps) => (
     <div className={className} style={style}>
         {!oneWay && (
-            <Button type="primary" disabled={disabled || !leftActive} onClick={moveToLeft} icon={'angle-left'}>
+            <ElButton type="primary" disabled={disabled || !leftActive} onClick={moveToLeft} icon={'angle-left'}>
                 {leftArrowText}
-            </Button>
+            </ElButton>
         )}
-        <Button type="primary" disabled={disabled || !rightActive} onClick={moveToRight} icon={'angle-right'} style={{ marginBottom: 4 }}>
+        <ElButton type="primary" disabled={disabled || !rightActive} onClick={moveToRight} icon={'angle-right'} style={{ marginBottom: 4 }}>
             {rightArrowText}
-        </Button>
+        </ElButton>
     </div>
 );
 

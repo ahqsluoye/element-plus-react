@@ -1,4 +1,4 @@
-import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
+import ElCheckbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
 import { type CheckboxProps, type ValueType } from '@qsxy/element-plus-react/Checkbox/typings';
 import useChildrenInstance from '@qsxy/element-plus-react/hooks/useChildrenInstance';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
@@ -124,9 +124,9 @@ const CheckboxGroup: FC<CheckboxGroupProps> = memo(
             let checkboxs = null;
             if (options.length > 0) {
                 checkboxs = options.map(item => (
-                    <Checkbox key={item[aliasProps.value]} value={item[aliasProps.value]} disabled={item[aliasProps.disabled]}>
+                    <ElCheckbox key={item[aliasProps.value]} value={item[aliasProps.value]} disabled={item[aliasProps.disabled]}>
                         {item[aliasProps.label]}
-                    </Checkbox>
+                    </ElCheckbox>
                 ));
                 if (min > 0 && value instanceof Array && value.length <= min) {
                     return checkboxs.map((item, index) => {

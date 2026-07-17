@@ -1,6 +1,6 @@
 import React, { createRef, RefObject } from 'react';
 import { createRoot } from 'react-dom/client';
-import MessageBox from './MessageBox';
+import ElMessageBox from './MessageBox';
 import { MessageBoxRef, MessageState } from './typings';
 
 export class Main {
@@ -13,7 +13,7 @@ export class Main {
         const renderDom = document.createDocumentFragment();
         const root = createRoot(renderDom);
         root.render(
-            <MessageBox
+            <ElMessageBox
                 options={{
                     ...options,
                     afterLeave: () => {

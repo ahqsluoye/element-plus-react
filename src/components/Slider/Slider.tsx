@@ -1,4 +1,4 @@
-import InputNumber from '@qsxy/element-plus-react/InputNumber/InputNumber';
+import ElInputNumber from '@qsxy/element-plus-react/InputNumber/InputNumber';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
@@ -247,7 +247,7 @@ const Slider = memo(
                         )}
                     </div>
                     {renderInput && (
-                        <InputNumber
+                        <ElInputNumber
                             value={firstValue}
                             className={ns.e('input')}
                             step={sliderInputStep}

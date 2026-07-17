@@ -1,7 +1,7 @@
 import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { cAF, rAF } from '@qsxy/element-plus-react/Util/raf';
 import { useMount } from 'ahooks';
@@ -120,11 +120,11 @@ const Backtop = React.memo(
         );
 
         return (
-            <Transition visible={visible} name={`${namespace}-fade-in`} duration={300} nodeRef={() => nodeRef as RefObject<HTMLElement>} display="flex">
+            <ElTransition visible={visible} name={`${namespace}-fade-in`} duration={300} nodeRef={() => nodeRef as RefObject<HTMLElement>} display="flex">
                 <div ref={mergedRef} className={classNames(b(), className)} style={backTopStyle} onClick={handleClick}>
-                    {children || <Icon className={e`icon`} name="caret-up" prefix="fas" />}
+                    {children || <ElIcon className={e`icon`} name="caret-up" prefix="fas" />}
                 </div>
-            </Transition>
+            </ElTransition>
         );
     }),
 );

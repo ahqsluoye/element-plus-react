@@ -1,6 +1,6 @@
-import Badge from '@qsxy/element-plus-react/Badge/Badge';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElBadge from '@qsxy/element-plus-react/Badge/Badge';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { EVENT_CODE, TypeComponentsMap } from '@qsxy/element-plus-react/config/Constants';
@@ -146,10 +146,10 @@ const Message = memo(
         );
 
         /** 关闭图标 */
-        const closeIcon = useMemo(() => showClose && <Icon name="xmark" prefix="fal" className={classNames(e`closeBtn`)} onClick={handleClose} />, [showClose, e, handleClose]);
+        const closeIcon = useMemo(() => showClose && <ElIcon name="xmark" prefix="fal" className={classNames(e`closeBtn`)} onClick={handleClose} />, [showClose, e, handleClose]);
 
         return createPortal(
-            <Transition nodeRef={messageRef} name={b('message-fade', false)} visible={visible} display="flex" unmountOnExit afterEnter={startTimer} afterLeave={afterLeave}>
+            <ElTransition nodeRef={messageRef} name={b('message-fade', false)} visible={visible} display="flex" unmountOnExit afterEnter={startTimer} afterLeave={afterLeave}>
                 <div
                     ref={messageRef}
                     className={classNames(
@@ -168,14 +168,14 @@ const Message = memo(
                     onMouseEnter={clearTimer}
                     onMouseLeave={startTimer}
                 >
-                    {repeatNum > 1 && <Badge value={repeatNum} type={badgeType} className={e`badge`} />}
+                    {repeatNum > 1 && <ElBadge value={repeatNum} type={badgeType} className={e`badge`} />}
                     {(type || iconClass) && (
-                        <Icon name={TypeComponentsMap[type]} prefix="fas" className={classNames(e`icon`, { [bm('icon', type)]: type && TypeComponentsMap[type] }, iconClass)} />
+                        <ElIcon name={TypeComponentsMap[type]} prefix="fas" className={classNames(e`icon`, { [bm('icon', type)]: type && TypeComponentsMap[type] }, iconClass)} />
                     )}
                     <p className={e`content`}>{message}</p>
                     {closeIcon}
                 </div>
-            </Transition>,
+            </ElTransition>,
             document.body,
         );
     }),

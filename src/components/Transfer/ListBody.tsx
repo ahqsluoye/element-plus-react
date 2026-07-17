@@ -1,5 +1,5 @@
-import Pagination from '@qsxy/element-plus-react/Pagination/Pagination';
-import Scrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
+import ElPagination from '@qsxy/element-plus-react/Pagination/Pagination';
+import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
@@ -83,7 +83,7 @@ const ListBody: FC<TransferListBodyProps<RecordType>> = props => {
     const paginationNode: React.ReactElement = useMemo(() => {
         if (mergedPagination) {
             return (
-                <Pagination
+                <ElPagination
                     simple
                     size="small"
                     disabled={globalDisabled}
@@ -99,7 +99,7 @@ const ListBody: FC<TransferListBodyProps<RecordType>> = props => {
 
     return (
         <>
-            <Scrollbar>
+            <ElScrollbar>
                 <ul className={classNames(b`content`, {})} onScroll={onScroll}>
                     {getItems.map(({ renderedEl, renderedText, item }: RenderedItem<RecordType>) => {
                         const checked = selectedKeys.indexOf(item.key) >= 0;
@@ -120,7 +120,7 @@ const ListBody: FC<TransferListBodyProps<RecordType>> = props => {
                         );
                     })}
                 </ul>
-            </Scrollbar>
+            </ElScrollbar>
 
             {paginationNode}
         </>

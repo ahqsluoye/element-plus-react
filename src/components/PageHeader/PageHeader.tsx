@@ -1,7 +1,7 @@
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
-import Divider from '@qsxy/element-plus-react/Divider/Divider';
+import ElDivider from '@qsxy/element-plus-react/Divider/Divider';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -48,14 +48,14 @@ const PageHeader = memo(
                             {/* 图标区域 */}
                             {icon && (
                                 <div className={e('icon')}>
-                                    <Icon name={icon} />
+                                    <ElIcon name={icon} />
                                 </div>
                             )}
                             {/* 标题区域 */}
                             <div className={e('title')}>{title || t('el.pageHeader.title', { lng: locale })}</div>
                         </div>
 
-                        <Divider direction="vertical" />
+                        <ElDivider direction="vertical" />
 
                         {/* 内容区域 */}
                         <div className={e('content')}>{content}</div>

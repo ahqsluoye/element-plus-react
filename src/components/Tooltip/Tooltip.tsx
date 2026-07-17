@@ -2,7 +2,7 @@ import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animatio
 import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
-import Popper from '@qsxy/element-plus-react/Popper/Popper';
+import ElPopper from '@qsxy/element-plus-react/Popper/Popper';
 import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
 import classNames from 'classnames';
 import noop from 'lodash/noop';
@@ -156,7 +156,7 @@ const Tooltip = memo(
                     // @ts-ignore
                     return cloneElement(child, newProps);
                 })}
-                <Popper
+                <ElPopper
                     visible={visible}
                     referenceElement={() => (virtualTriggering ? { current: virtualRef } : referenceElement?.current?.ref ?? referenceElement)}
                     popperInstRef={popperInstRef}
@@ -201,7 +201,7 @@ const Tooltip = memo(
                     >
                         {contentSlot ?? <span>{content}</span>}
                     </TooltipContext.Provider>
-                </Popper>
+                </ElPopper>
             </>
         );
     }),

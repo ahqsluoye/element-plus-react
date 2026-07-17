@@ -1,18 +1,18 @@
-import DateTimePicker from '@qsxy/element-plus-react/DateTimePicker/DateTimePicker';
+import ElDateTimePicker from '@qsxy/element-plus-react/DateTimePicker/DateTimePicker';
 import { DateTimePickerProps } from '@qsxy/element-plus-react/DateTimePicker/typings';
 import React, { forwardRef } from 'react';
-import DatePicker from './DatePicker';
-import DateRangePicker from './DateRangePicker';
+import ElDatePicker from './DatePicker';
+import ElDateRangePicker from './DateRangePicker';
 import { AllDatePickerProps, DatePickerProps, DatePickerRangeProps, DatePickerRef } from './typings';
 
 const Index = forwardRef<DatePickerRef, AllDatePickerProps>((props, ref) => {
     const { type = 'date' } = props;
     if (['year', 'years', 'month', 'months', 'date', 'dates', 'week', 'quarter'].includes(type)) {
-        return <DatePicker ref={ref} {...(props as unknown as DatePickerProps)} />;
+        return <ElDatePicker ref={ref} {...(props as unknown as DatePickerProps)} />;
     } else if (['daterange', 'monthrange', 'yearrange'].includes(type)) {
-        return <DateRangePicker ref={ref} {...(props as unknown as DatePickerRangeProps)} />;
+        return <ElDateRangePicker ref={ref} {...(props as unknown as DatePickerRangeProps)} />;
     } else if (['datetime'].includes(type)) {
-        return <DateTimePicker ref={ref} {...(props as unknown as DateTimePickerProps)} />;
+        return <ElDateTimePicker ref={ref} {...(props as unknown as DateTimePickerProps)} />;
     }
 });
 

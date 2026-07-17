@@ -1,7 +1,7 @@
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
-import Icon from '@qsxy/element-plus-react/Icon/Icon';
+import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
@@ -251,7 +251,7 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
         let comp = null;
         if (isNotEmpty(prevIcon)) {
             if (typeof prevIcon === 'string') {
-                comp = <Icon name={prevIcon} prefix="fal" />;
+                comp = <ElIcon name={prevIcon} prefix="fal" />;
             } else if (isValidElement(prevIcon)) {
                 comp = prevIcon;
             }
@@ -270,7 +270,7 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
         let comp = null;
         if (isNotEmpty(nextIcon)) {
             if (typeof nextIcon === 'string') {
-                comp = <Icon name={nextIcon} prefix="fal" />;
+                comp = <ElIcon name={nextIcon} prefix="fal" />;
             } else if (isValidElement(nextIcon)) {
                 comp = nextIcon;
             }
@@ -326,7 +326,7 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
                 onMouseEnter={() => setHoverJumpPrev(true)}
                 onMouseLeave={() => setHoverJumpPrev(false)}
             >
-                {hoverJumpPrev ? <Icon name="angles-left" /> : <Icon name="ellipsis" />}
+                {hoverJumpPrev ? <ElIcon name="angles-left" /> : <ElIcon name="ellipsis" />}
             </li>
         );
         const jumpNext = (
@@ -338,7 +338,7 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
                 onMouseEnter={() => setHoverJumpNext(true)}
                 onMouseLeave={() => setHoverJumpNext(false)}
             >
-                {hoverJumpNext ? <Icon name="angles-right" /> : <Icon name="ellipsis" />}
+                {hoverJumpNext ? <ElIcon name="angles-right" /> : <ElIcon name="ellipsis" />}
             </li>
         );
         const _pagerList = [];

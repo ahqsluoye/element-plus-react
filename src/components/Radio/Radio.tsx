@@ -3,7 +3,7 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import { RadioContext } from '@qsxy/element-plus-react/RadioGroup/RadioGroup';
-import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
+import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import classNames from 'classnames';
 import React, { forwardRef, memo, useCallback, useContext, useImperativeHandle, useMemo, useRef } from 'react';
 import { RadioProps, RadioRef } from './typings';
@@ -126,7 +126,7 @@ const Radio = memo(
             ) : null;
         }
 
-        return title ? <Tooltip content={title}>{main}</Tooltip> : main;
+        return title ? <ElTooltip content={title}>{main}</ElTooltip> : main;
     }),
 );
 

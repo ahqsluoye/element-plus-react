@@ -1,4 +1,4 @@
-import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
+import ElCheckbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
 import classNames from 'classnames';
 import React from 'react';
 import { KeyWiseTransferItem, TransferPropsAlias } from './typings';
@@ -37,7 +37,7 @@ const ListItem = <RecordType extends KeyWiseTransferItem>(props: ListItemProps<R
     liProps.onClick = disabled || item[fieldNames.disabled] ? undefined : () => onClick(item);
     return (
         <li {...liProps}>
-            <Checkbox className={`${prefixCls}-checkbox`} checked={checked} disabled={disabled || item[fieldNames.disabled]} prevent />
+            <ElCheckbox className={`${prefixCls}-checkbox`} checked={checked} disabled={disabled || item[fieldNames.disabled]} prevent />
             {labelNode}
         </li>
     );

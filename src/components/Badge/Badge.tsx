@@ -1,6 +1,6 @@
 import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import Transition from '@qsxy/element-plus-react/Transition/Transition';
+import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import React, { forwardRef, memo, useMemo, useRef } from 'react';
@@ -28,7 +28,7 @@ const Badge = memo(
         return (
             <div ref={ref} className={classNames(b(), props.className)} style={props.style} {...tooltipEvents}>
                 {props.children}
-                <Transition nodeRef={nodeRef} name={b('zoom-in-center', false)} visible={!hidden && (!!content || isDot) && !(!showZero && value === 0)} display="inline-flex">
+                <ElTransition nodeRef={nodeRef} name={b('zoom-in-center', false)} visible={!hidden && (!!content || isDot) && !(!showZero && value === 0)} display="inline-flex">
                     <sup
                         ref={nodeRef}
                         className={classNames(e`content`, em('content', type), is({ fixed: !!props.children, dot: isDot }), badgeClass)}
@@ -36,7 +36,7 @@ const Badge = memo(
                     >
                         {content}
                     </sup>
-                </Transition>
+                </ElTransition>
             </div>
         );
     }),

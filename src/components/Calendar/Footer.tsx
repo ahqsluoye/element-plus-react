@@ -1,4 +1,4 @@
-import Button from '@qsxy/element-plus-react/Button/Button';
+import ElButton from '@qsxy/element-plus-react/Button/Button';
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { Message } from '@qsxy/element-plus-react/Message';
@@ -27,18 +27,18 @@ const Footer: FC = () => {
     return (
         <div className={e`footer`}>
             {showToday && (
-                <Button type="primary" link className={e`today-btn`} onClick={onPickToday}>
+                <ElButton type="primary" link className={e`today-btn`} onClick={onPickToday}>
                     {t('el.datepicker.today', { lng: locale })}
-                </Button>
+                </ElButton>
             )}
             {showNow && (
                 <>
-                    <Button type="default" size="small" text className={e`link-btn`} onClick={onPickToday}>
+                    <ElButton type="default" size="small" text className={e`link-btn`} onClick={onPickToday}>
                         {t('el.datepicker.now', { lng: locale })}
-                    </Button>
-                    <Button type="default" size="small" className={e`link-btn`} onClick={close}>
+                    </ElButton>
+                    <ElButton type="default" size="small" className={e`link-btn`} onClick={close}>
                         {t('el.datepicker.confirm', { lng: locale })}
-                    </Button>
+                    </ElButton>
                 </>
             )}
         </div>

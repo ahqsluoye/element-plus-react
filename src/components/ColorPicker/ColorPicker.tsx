@@ -1,9 +1,8 @@
-/* eslint-disable indent */
-import Button from '@qsxy/element-plus-react/Button/Button';
+import ElButton from '@qsxy/element-plus-react/Button/Button';
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
-import Input from '@qsxy/element-plus-react/Input/Input';
+import ElInput from '@qsxy/element-plus-react/Input/Input';
 import { InputRef } from '@qsxy/element-plus-react/Input/typings';
-import Popper from '@qsxy/element-plus-react/Popper/Popper';
+import ElPopper from '@qsxy/element-plus-react/Popper/Popper';
 import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
 import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
@@ -175,7 +174,7 @@ const ColorPicker = memo(
                     </div>
                 </div>
 
-                <Popper
+                <ElPopper
                     visible={visible}
                     referenceElement={containerRef}
                     onDestroy={() => setVisible(false)}
@@ -198,7 +197,7 @@ const ColorPicker = memo(
 
                         <div className={be('dropdown', 'btns')}>
                             <span className={be('dropdown', 'value')}>
-                                <Input
+                                <ElInput
                                     ref={inputRef}
                                     defaultValue={displayedColor === 'transparent' ? '' : color.current.value}
                                     size="small"
@@ -212,19 +211,19 @@ const ColorPicker = memo(
                                     // onChange={value=>setdisplayedColor(value)}
                                 />
                             </span>
-                            <Button size="small" type="primary" link className={be('dropdown', 'link-btn')} onClick={onClear}>
+                            <ElButton size="small" type="primary" link className={be('dropdown', 'link-btn')} onClick={onClear}>
                                 {t('el.colorpicker.clear', {
                                     lng: locale,
                                 })}
-                            </Button>
-                            <Button plain size="small" className={be('dropdown', 'btn')} onClick={confirmValue}>
+                            </ElButton>
+                            <ElButton plain size="small" className={be('dropdown', 'btn')} onClick={confirmValue}>
                                 {t('el.colorpicker.confirm', {
                                     lng: locale,
                                 })}
-                            </Button>
+                            </ElButton>
                         </div>
                     </div>
-                </Popper>
+                </ElPopper>
             </>
         );
     }),
