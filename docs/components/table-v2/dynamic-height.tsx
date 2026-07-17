@@ -1,5 +1,4 @@
-import { ElButton, ElTableV2, ElTag } from '@qsxy/element-plus-react';
-import { Column, TableV2FixedDir, TableV2SortOrder } from '@qsxy/element-plus-react/TableV2';
+import { ElButton, ElTableV2, ElTag, TableV2Column, TableV2FixedDir, TableV2SortOrder } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {
@@ -20,7 +19,7 @@ const App = () => {
         description: textList[Math.floor(Math.random() * 3)],
     });
 
-    const columns: Column[] = [
+    const columns: TableV2Column[] = [
         {
             key: 'id',
             title: 'Id',

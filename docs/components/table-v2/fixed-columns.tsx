@@ -1,5 +1,4 @@
-import { ElTableV2 } from '@qsxy/element-plus-react';
-import { Column, TableV2FixedDir, TableV2SortOrder } from '@qsxy/element-plus-react/TableV2';
+import { ElTableV2, TableV2Column, TableV2FixedDir, TableV2SortOrder } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {
@@ -8,9 +7,9 @@ const App = () => {
             ...props,
             key: `${prefix}${columnIndex}`,
             dataKey: `${prefix}${columnIndex}`,
-            title: `Column ${columnIndex}`,
+            title: `TableV2Column ${columnIndex}`,
             width: 150,
-        })) as Column[];
+        })) as TableV2Column[];
 
     const generateData = (columns, length = 200, prefix = 'row-') =>
         Array.from({ length }).map((_, rowIndex) => {

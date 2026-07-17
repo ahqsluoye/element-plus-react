@@ -1,5 +1,4 @@
-import { ElButton, ElCheckbox, ElIcon, ElPopover, ElTableV2 } from '@qsxy/element-plus-react';
-import { Column, TableV2FixedDir } from '@qsxy/element-plus-react/TableV2';
+import { ElButton, ElCheckbox, ElIcon, ElPopover, ElTableV2, TableV2Column, TableV2FixedDir } from '@qsxy/element-plus-react';
 import React, { useRef, useState } from 'react';
 import './filter.scss';
 
@@ -9,9 +8,9 @@ const App = () => {
             ...props,
             key: `${prefix}${columnIndex}`,
             dataKey: `${prefix}${columnIndex}`,
-            title: `Column ${columnIndex}`,
+            title: `TableV2Column ${columnIndex}`,
             width: 150,
-        })) as Column[];
+        })) as TableV2Column[];
 
     const generateData = (columns, length = 200, prefix = 'row-') =>
         Array.from({ length }).map((_, rowIndex) => {

@@ -1,5 +1,4 @@
-import { ElTableV2 } from '@qsxy/element-plus-react';
-import { TableV2FixedDir } from '@qsxy/element-plus-react/TableV2';
+import { ElTableV2, TableV2FixedDir } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

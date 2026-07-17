@@ -1,5 +1,4 @@
-import { ElButton, ElIcon, ElTableV2, ElTag, ElTooltip } from '@qsxy/element-plus-react';
-import { TableV2FixedDir } from '@qsxy/element-plus-react/TableV2';
+import { ElButton, ElIcon, ElTableV2, ElTag, ElTooltip, TableV2FixedDir } from '@qsxy/element-plus-react';
 import dayjs from 'dayjs';
 import React from 'react';
 import './row-class.scss';

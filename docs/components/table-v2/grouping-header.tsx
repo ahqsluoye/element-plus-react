@@ -1,5 +1,4 @@
-import { ElTableV2 } from '@qsxy/element-plus-react';
-import { TableV2FixedDir, TableV2Placeholder } from '@qsxy/element-plus-react/TableV2';
+import { ElTableV2, TableV2FixedDir, TableV2Placeholder } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 import './grouping-header.scss';
 
