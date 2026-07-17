@@ -1,4 +1,5 @@
-import { Checkbox, type CheckboxProps, type ValueType } from '@qsxy/element-plus-react/Checkbox/index';
+import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
+import { type CheckboxProps, type ValueType } from '@qsxy/element-plus-react/Checkbox/typings';
 import useChildrenInstance from '@qsxy/element-plus-react/hooks/useChildrenInstance';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';

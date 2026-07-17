@@ -1,5 +1,5 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import { RowContext } from '@qsxy/element-plus-react/Row';
+import { RowContext } from '@qsxy/element-plus-react/Row/RowContext';
 import { floatDivide } from '@qsxy/element-plus-react/Util/Math';
 import classNames from 'classnames';
 import isObject from 'lodash/isObject';

@@ -1,5 +1,5 @@
 import type { Options, Placement, Instance as PopperInstance, PositioningStrategy, State, VirtualElement } from '@popperjs/core';
-import { TransitionProps } from '@qsxy/element-plus-react/Transition';
+import { TransitionProps } from '@qsxy/element-plus-react/Transition/Transition';
 import { ComponentChildren } from '@qsxy/element-plus-react/types/common';
 import React, { RefObject } from 'react';
 

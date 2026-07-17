@@ -1,4 +1,4 @@
-import { PopperOptions } from '@qsxy/element-plus-react/Popper';
+import { PopperOptions } from '@qsxy/element-plus-react/Popper/typings';
 import { AnimationEventProps, BaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 
 export interface ColorPickerProps extends BaseProps, NativeProps<'--el-color-picker-alpha-bg-a' | '--el-color-picker-alpha-bg-b'>, AnimationEventProps, PopperOptions {

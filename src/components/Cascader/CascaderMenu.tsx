@@ -3,7 +3,7 @@ import Checkbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import Icon from '@qsxy/element-plus-react/Icon/Icon';
-import { Radio } from '@qsxy/element-plus-react/Radio';
+import Radio from '@qsxy/element-plus-react/Radio/Radio';
 import Scrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import classNames from 'classnames';

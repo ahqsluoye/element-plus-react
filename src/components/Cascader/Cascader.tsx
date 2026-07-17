@@ -1,11 +1,11 @@
 import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
-import { Divider } from '@qsxy/element-plus-react/Divider';
+import ElDivider from '@qsxy/element-plus-react/Divider/Divider';
 import Icon from '@qsxy/element-plus-react/Icon/Icon';
 import Input from '@qsxy/element-plus-react/Input/Input';
 import { InputRef } from '@qsxy/element-plus-react/Input/typings';
 import Popper from '@qsxy/element-plus-react/Popper/Popper';
 import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
-import { Scrollbar } from '@qsxy/element-plus-react/Scrollbar';
+import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import Tag from '@qsxy/element-plus-react/Tag/Tag';
 import Tooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import { isEmpty, isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
@@ -587,7 +587,7 @@ const Cascader = memo(
                                 onChange={onSearch}
                                 prefix={<Icon prefix="fal" name="search" />}
                             />
-                            <Divider style={{ margin: 0 }} />
+                            <ElDivider style={{ margin: 0 }} />
                         </div>
                     )}
                     {isNotEmpty(searchText) ? (
@@ -692,7 +692,7 @@ const Cascader = memo(
                                             placement="top"
                                             disabled={!collapseTagsTooltip}
                                             content={
-                                                <Scrollbar maxHeight={maxCollapseTagsTooltipHeight}>
+                                                <ElScrollbar maxHeight={maxCollapseTagsTooltipHeight}>
                                                     <div className={e`collapse-tags`}>
                                                         {checkedNodes()
                                                             .slice(maxCollapseTags, checkedNodes().length)
@@ -704,7 +704,7 @@ const Cascader = memo(
                                                                 </div>
                                                             ))}
                                                     </div>
-                                                </Scrollbar>
+                                                </ElScrollbar>
                                             }
                                             effect="light"
                                             enterable

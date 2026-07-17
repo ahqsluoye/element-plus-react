@@ -1,5 +1,5 @@
-import { PopperOptions } from '@qsxy/element-plus-react/Popper';
-import { TransitionProps } from '@qsxy/element-plus-react/Transition';
+import { PopperOptions } from '@qsxy/element-plus-react/Popper/typings';
+import { TransitionProps } from '@qsxy/element-plus-react/Transition/Transition';
 import { AnimationEventProps, BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React, { RefObject } from 'react';
 

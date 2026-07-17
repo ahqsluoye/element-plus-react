@@ -1,4 +1,4 @@
-import { IconName } from '@qsxy/element-plus-react/Icon';
+import { IconName } from '@qsxy/element-plus-react/Icon/typings';
 import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import { ReactElement, RefObject } from 'react';
 

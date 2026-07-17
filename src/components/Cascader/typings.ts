@@ -1,5 +1,5 @@
 import { InputRef } from '@qsxy/element-plus-react/Input/typings';
-import { PopperOptions } from '@qsxy/element-plus-react/Popper';
+import { PopperOptions } from '@qsxy/element-plus-react/Popper/typings';
 import React from 'react';
 // import { DataNode, DirectoryTreeProps, Key } from '@qsxy/element-plus-react/Tree';
 import { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';

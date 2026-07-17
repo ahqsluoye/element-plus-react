@@ -1,4 +1,4 @@
-import type { ValueType } from '@qsxy/element-plus-react/Checkbox/index';
+import type { ValueType } from '@qsxy/element-plus-react/Checkbox/typings';
 import { TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import { createContext } from 'react';
 

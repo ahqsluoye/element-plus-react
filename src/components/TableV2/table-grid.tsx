@@ -5,16 +5,9 @@ import { Header, TableV2HeaderInstance } from './components';
 import { TableV2Context } from './tokens';
 import { sum } from './utils';
 
-import {
-    DynamicSizeGrid,
-    DynamicSizeGridInstance,
-    FixedSizeGrid,
-    GridDefaultSlotParams,
-    GridItemKeyGetter,
-    GridItemRenderedEvtParams,
-    GridScrollOptions,
-    ResetAfterIndex,
-} from '@qsxy/element-plus-react/VirtualList';
+import DynamicSizeGrid, { DynamicSizeGridInstance, ResetAfterIndex } from '@qsxy/element-plus-react/VirtualList/components/dynamic-size-grid';
+import FixedSizeGrid from '@qsxy/element-plus-react/VirtualList/components/fixed-size-grid';
+import { GridDefaultSlotParams, GridItemKeyGetter, GridItemRenderedEvtParams, GridScrollOptions } from '@qsxy/element-plus-react/VirtualList/types';
 import classNames from 'classnames';
 import { ScrollStrategy } from './composables';
 import { TableV2GridProps } from './grid';

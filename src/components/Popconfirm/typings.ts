@@ -1,5 +1,5 @@
 import { IconName } from '@qsxy/element-plus-react/Icon/typings';
-import { PopperOptions } from '@qsxy/element-plus-react/Popper';
+import { PopperOptions } from '@qsxy/element-plus-react/Popper/typings';
 import { BaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
 

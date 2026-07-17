@@ -1,4 +1,5 @@
-import { DateTimePicker, DateTimePickerProps } from '@qsxy/element-plus-react/DateTimePicker';
+import DateTimePicker from '@qsxy/element-plus-react/DateTimePicker/DateTimePicker';
+import { DateTimePickerProps } from '@qsxy/element-plus-react/DateTimePicker/typings';
 import React, { forwardRef } from 'react';
 import DatePicker from './DatePicker';
 import DateRangePicker from './DateRangePicker';

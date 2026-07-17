@@ -1,4 +1,4 @@
-import { DatePickerProps } from '@qsxy/element-plus-react/DatePicker';
+import { DatePickerProps } from '@qsxy/element-plus-react/DatePicker/typings';
 import { InputRef } from '@qsxy/element-plus-react/Input/typings';
 import { RefObject } from 'react';
 

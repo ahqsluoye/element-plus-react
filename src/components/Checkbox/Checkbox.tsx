@@ -1,4 +1,4 @@
-import { CheckboxGroupContext } from '@qsxy/element-plus-react/CheckboxGroup';
+import { CheckboxGroupContext } from '@qsxy/element-plus-react/CheckboxGroup/CheckboxGroupContext';
 import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';

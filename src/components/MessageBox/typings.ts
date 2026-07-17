@@ -1,5 +1,5 @@
 import { DialogFooterProps, DialogProps } from '@qsxy/element-plus-react/Dialog/typings';
-import { IconName, IconProps } from '@qsxy/element-plus-react/Icon';
+import { IconName, IconProps } from '@qsxy/element-plus-react/Icon/typings';
 import { AnimationEventProps, BaseProps, NativeProps, TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import React, { RefObject } from 'react';
 

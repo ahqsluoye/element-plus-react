@@ -1,6 +1,6 @@
 import { VirtualElement } from '@popperjs/core';
-import { PopperOptionRef, PopperOptions } from '@qsxy/element-plus-react/Popper';
-import { TransitionProps } from '@qsxy/element-plus-react/Transition';
+import { PopperOptionRef, PopperOptions } from '@qsxy/element-plus-react/Popper/typings';
+import { TransitionProps } from '@qsxy/element-plus-react/Transition/Transition';
 import { AnimationEventProps, BaseProps, ComponentChildren, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
 

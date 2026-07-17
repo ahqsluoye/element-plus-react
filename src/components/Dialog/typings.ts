@@ -1,4 +1,4 @@
-import { TransitionProps } from '@qsxy/element-plus-react/Transition';
+import { TransitionProps } from '@qsxy/element-plus-react/Transition/Transition';
 import { AnimationEventProps, BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
 

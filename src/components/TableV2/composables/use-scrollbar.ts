@@ -1,7 +1,7 @@
 import throttle from 'lodash/throttle';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import type { Alignment as ScrollStrategy } from '@qsxy/element-plus-react/VirtualList';
+import type { Alignment as ScrollStrategy } from '@qsxy/element-plus-react/VirtualList/types';
 import type { TableV2Props } from '../table';
 import type { TableGridInstance } from '../table-grid';
 
