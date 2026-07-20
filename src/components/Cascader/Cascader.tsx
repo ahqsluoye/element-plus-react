@@ -607,7 +607,9 @@ const Cascader = memo(
                                 return (
                                     <CascaderMenu
                                         key={getValueOfLevel(l) + '_' + l}
-                                        ref={_ref => (menuRefs.current[l] = _ref)}
+                                        ref={_ref => {
+                                            menuRefs.current[l] = _ref;
+                                        }}
                                         data={getOptions(l)}
                                         level={l}
                                         value={getValueOfLevel(l)}
@@ -676,8 +678,8 @@ const Cascader = memo(
                                     ref={wrapperRef}
                                     className={e`tags`}
                                     onClick={onClick}
-                                    onMouseEnter={() => inputRef.current?.showClear(multiple ? multiValue.join(',') : label)}
-                                    onMouseLeave={() => inputRef.current?.hideClear()}
+                                    // onMouseEnter={() => inputRef.current?.showClear(multiple ? multiValue.join(',') : label)}
+                                    // onMouseLeave={() => inputRef.current?.hideClear()}
                                 >
                                     {(collapseTags ? checkedNodes().slice(0, maxCollapseTags) : checkedNodes()).map((item, i) => {
                                         return (
