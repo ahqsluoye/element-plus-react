@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require('fs');
 
 function copyFiles(srcPath, destPath) {
@@ -25,7 +23,11 @@ function copyFiles(srcPath, destPath) {
 
 copyFiles(
     './packages/',
-    'D:\\JavaScript\\private_projects\\evaluate-app-react\\node_modules\\.pnpm\\@qsxy+element-plus-react@1._bb4778be105180eaf084b16d8aeb5522\\node_modules\\@qsxy\\element-plus-react\\',
+    'D:\\JavaScript\\private_projects\\Demo\\node_modules\\.pnpm\\@qsxy+element-plus-react@2._a14c54230fb9f66c8defa6adbecde239\\node_modules\\@qsxy\\element-plus-react\\',
+);
+copyFiles(
+    './packages/',
+    'D:\\JavaScript\\private_projects\\evaluate-app-react\\node_modules\\.pnpm\\@qsxy+element-plus-react@2._a14c54230fb9f66c8defa6adbecde239\\node_modules\\@qsxy\\element-plus-react\\',
 );
 // copyFiles('./packages/ib/', 'D:/JavaScript/Project/krm-libs/index-pre-process/node_modules/@krm/report-platform/lib/');
 // copyFiles('./packages/ib/', 'D:/JavaScript/Project/krm-libs/portal/node_modules/@krm/report-platform/lib/');
