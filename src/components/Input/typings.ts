@@ -25,8 +25,8 @@ export type BaseInputRef = {
     blur: () => void;
     /** 选中所有文本 */
     select?: () => void;
-    showClear?: (value: ValueType) => void;
-    hideClear?: () => void;
+    // showClear?: (value: ValueType) => void;
+    // hideClear?: () => void;
 };
 
 export type InputRef = {

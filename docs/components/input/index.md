@@ -150,9 +150,9 @@ lang: zh-CN
 | clear     | 重置值                | <Enum type='Function'>() => void</Enum>                    |
 | focus     | 使 input 组件获得焦点 | <Enum type='Function'>() => void</Enum>                    |
 | blur      | 使 input 组件失去焦点 | <Enum type='Function'>() => void</Enum>                    |
-| showClear | 显示一键清除图标      | <Enum type='Function'>(value: ValueType) => void;</Enum>   |
-| hideClear | 隐藏一键清除图标      | <Enum type='Function'>() => void</Enum>                    |
 
+<!-- | showClear | 显示一键清除图标      | <Enum type='Function'>(value: ValueType) => void;</Enum>   |
+| hideClear | 隐藏一键清除图标      | <Enum type='Function'>() => void</Enum>                    | -->
 <!-- | select    | 选中所有文本          | <Enum type='Function'>() => void</Enum>                    | -->
 
 ### Textarea 属性
