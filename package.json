@@ -4,7 +4,6 @@
   "description": "element-plus-react",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "type": "module",
   "scripts": {
     "start": "npm run dev",
     "dev": "dumi dev",
@@ -88,7 +87,6 @@
     "babel-plugin-prismjs": "^2.1.0",
     "circular-dependency-plugin": "^5.2.2",
     "clipboard-copy": "^4.0.1",
-    "dart-sass": "^1.25.0",
     "del": "^6.0.0",
     "dumi": "^2.4.13",
     "eslint": "^8.23.0",
