@@ -1,6 +1,8 @@
+import config from '@/../package.json';
 import SourceCode from '@/theme/slots/SourceCode';
-import { ElIcon, ElTabPane, ElTabs, ElTooltip, ElTransition } from '@qsxy/element-plus-react';
+import { ElIcon, ElMessage, ElTabPane, ElTabs, ElTooltip, ElTransition } from '@qsxy/element-plus-react';
 import classNames from 'classnames';
+import clipboardCopy from 'clipboard-copy';
 import { addClass, removeClass } from 'dom-lib';
 import { IPreviewerProps, openCodeSandbox } from 'dumi';
 import React, { FC, forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
@@ -53,7 +55,7 @@ const Previewer: FC<IPreviewerProps> = props => {
     const preRef = useRef<HTMLPreElement>(null);
 
     const scrollParent = useRef(null);
-    const codepen = useRef<string[]>([]);
+    const codepen = useRef<string>('');
 
     // const getCodeAreaHeight = () => {
     //     if (description.current) {
@@ -64,20 +66,29 @@ const Previewer: FC<IPreviewerProps> = props => {
 
     const setHeight = useCallback((height: string) => (meta.current.style.height = height), []);
 
-    const copy = useCallback(e => {
-        e.stopPropagation();
-        // const res = clipboardCopy(codepen.current.join(''));
+    const copy = useCallback(
+        e => {
+            e.stopPropagation();
+            if (files.length === 1) {
+                codepen.current = files[0][1].value;
+            } else if (files.length > 1) {
+                const index = files.findIndex(([name]) => name === activeName);
+                codepen.current = files[index][1].value;
+            }
+            const res = clipboardCopy(codepen.current);
 
-        // res.then(() => {
-        //     Message.success({
-        //         message: '已复制！',
-        //     });
-        // }).catch(() => {
-        //     Message.error({
-        //         message: '该浏览器不支持自动复制！',
-        //     });
-        // });
-    }, []);
+            res.then(() => {
+                ElMessage.success({
+                    message: '已复制！',
+                });
+            }).catch(() => {
+                ElMessage.error({
+                    message: '该浏览器不支持自动复制！',
+                });
+            });
+        },
+        [files, activeName],
+    );
 
     const scrollHandler = useCallback(() => {
         const { top, bottom, left } = meta.current.getBoundingClientRect();
@@ -151,6 +162,13 @@ const Previewer: FC<IPreviewerProps> = props => {
                                             ...props.asset,
                                             dependencies: {
                                                 ...props.asset.dependencies,
+                                                ...Object.keys(config.dependencies).reduce(
+                                                    (prev, item) => {
+                                                        prev[item] = { type: 'NPM', value: config.dependencies[item] };
+                                                        return prev;
+                                                    },
+                                                    { 'react-router-dom': { type: 'NPM', value: '6.22.1' } },
+                                                ),
                                                 ['index.tsx']: {
                                                     type: 'FILE',
                                                     value: "import '@qsxy/element-plus-react/dist/index.css';\n" + props.asset.dependencies['index.tsx'].value,
