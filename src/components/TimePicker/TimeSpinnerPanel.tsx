@@ -329,7 +329,9 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
                                 className={be('spinner', 'wrapper')}
                                 viewClass={be('spinner', 'list')}
                                 tag="ul"
-                                ref={_ref => (listRefsMap[item].current = _ref?.ref?.current)}
+                                ref={_ref => {
+                                    listRefsMap[item].current = _ref?.ref?.current;
+                                }}
                                 noresize
                                 onScroll={() => handleScroll(item)}
                                 onMouseEnter={() => handleSelectRange(item)}

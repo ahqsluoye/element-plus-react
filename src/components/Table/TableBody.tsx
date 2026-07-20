@@ -97,7 +97,9 @@ const TableBody = () => {
             let columnIndex = -1;
             return (
                 <tr
-                    ref={ref => (rowRef.current[rowIndex] = ref)}
+                    ref={ref => {
+                        rowRef.current[rowIndex] = ref;
+                    }}
                     className={classNames(
                         e`row`,
                         { [em('row', 'striped')]: stripe && rowIndex % 2 === 1, 'current-row': highlightCurrentRow && isEqual(row, state.currentRow) },
