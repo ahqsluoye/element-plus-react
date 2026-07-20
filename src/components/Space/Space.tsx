@@ -18,11 +18,11 @@ const Space = memo(
                 childrenArray.forEach((child, loopKey) => {
                     if (React.isValidElement(child) && child.type === React.Fragment) {
                         // Handle React Fragment
-                        const fragmentChildren = (child as React.ReactElement).props?.children;
+                        const fragmentChildren = (child as React.ReactElement<any>).props?.children || null;
                         if (isArray(fragmentChildren)) {
                             fragmentChildren.forEach((nested: React.ReactNode, key: number) => {
                                 if (React.isValidElement(nested) && nested.type === React.Fragment) {
-                                    const nestedChildren = (nested as React.ReactElement).props?.children;
+                                    const nestedChildren = (nested as React.ReactElement<any>).props?.children || null;
                                     if (isArray(nestedChildren)) {
                                         extractChildren(nestedChildren, `${parentKey}${key}-`, extractedChildren);
                                     } else {

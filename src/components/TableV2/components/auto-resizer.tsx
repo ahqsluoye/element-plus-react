@@ -20,7 +20,7 @@ const AutoResizer: React.FC<AutoResizerProps> = ({ children, disableWidth, disab
                 height: '100%',
             }}
         >
-            {Children.map(children, child => React.cloneElement(child, { height, width }))}
+            {Children.map(children, child => React.cloneElement<any>(child, { height, width }))}
         </div>
     );
 };
