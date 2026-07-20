@@ -29,8 +29,8 @@ const Backtop = React.memo(
 
         const { b, e } = useClassNames(classPrefix);
 
-        const elRef = useRef<HTMLElement>();
-        const containerRef = useRef<Document | HTMLElement>();
+        const elRef = useRef<HTMLElement>(null);
+        const containerRef = useRef<Document | HTMLElement>(null);
         const [visible, setVisible] = useState(false);
 
         const nodeRef = useRef<HTMLDivElement | null>(null);
@@ -46,7 +46,7 @@ const Backtop = React.memo(
         const throttledRef = useRef(handleScroll);
         throttledRef.current = handleScroll;
 
-        const handleScrollThrottled = useRef<(() => void) & { cancel?: () => void }>();
+        const handleScrollThrottled = useRef<(() => void) & { cancel?: () => void }>(null);
 
         // 初始化节流函数
         useEffect(() => {

@@ -36,7 +36,7 @@ const Anchor = memo(
 
         const anchorRef = useRef<HTMLDivElement>(null);
         const markerRef = useRef<HTMLDivElement>(null);
-        const containerElRef = useRef<HTMLElement | Window>();
+        const containerElRef = useRef<HTMLElement | Window>(null);
 
         const linksRef = useRef<Record<string, HTMLElement>>({});
         const isScrollingRef = useRef(false);

@@ -66,7 +66,7 @@ const Watermark = memo(
         }, [zIndex, offsetLeft, offsetTop, gapXCenter, gapYCenter]);
 
         const containerRef = useRef<HTMLDivElement | null>(null);
-        const watermarkRef = useRef<HTMLDivElement>();
+        const watermarkRef = useRef<HTMLDivElement | null>(null);
         const [stopObservation, setStopObservation] = useState(false);
 
         /**

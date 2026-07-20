@@ -31,8 +31,8 @@ const TreeSelect = forwardRef<TreeSelectRef, TreeSelectProps>((props, ref) => {
         props,
     );
 
-    const selectRef = useRef<SelectRef>();
-    const treeRef = useRef<TreeRef>();
+    const selectRef = useRef<SelectRef>(null);
+    const treeRef = useRef<TreeRef>(null);
 
     const key = useMemo(() => props.nodeKey || props.valueKey || 'value', [props.nodeKey, props.valueKey]);
 

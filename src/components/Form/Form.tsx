@@ -148,7 +148,7 @@ function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: For
     useSubscribe(!childrenRenderProps);
 
     // Listen if fields provided. We use ref to save prev data here to avoid additional render
-    const prevFieldsRef = useRef<FieldData[] | undefined>();
+    const prevFieldsRef = useRef<FieldData[] | undefined>(null);
     useEffect(() => {
         if (!isSimilar(prevFieldsRef.current || [], fields || [])) {
             formInstance.setFields(fields || []);

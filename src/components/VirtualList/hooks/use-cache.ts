@@ -2,10 +2,10 @@ import memoize from 'memoize-one';
 import { useCallback, useRef } from 'react';
 
 export const useCache = <T>() => {
-    const cacheRef = useRef<ReturnType<typeof memoize>>();
+    const cacheRef = useRef<ReturnType<typeof memoize>>(null);
 
     if (!cacheRef.current) {
-        const getItemStyleCache = (_: any, __: any, ___: any) => ({} as Record<string, T>);
+        const getItemStyleCache = (_: any, __: any, ___: any) => ({}) as Record<string, T>;
         cacheRef.current = memoize(getItemStyleCache);
     }
 

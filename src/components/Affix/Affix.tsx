@@ -40,8 +40,8 @@ const Affix = memo(
         const { b, m } = useClassNames(classPrefix);
 
         const rootRef = useRef<HTMLDivElement>(null);
-        const targetRef = useRef<HTMLElement>();
-        const scrollContainerRef = useRef<Window | HTMLElement>();
+        const targetRef = useRef<HTMLElement>(null);
+        const scrollContainerRef = useRef<Window | HTMLElement>(null);
 
         const [fixed, setFixed] = useState(false);
         const [scrollTop, setScrollTop] = useState(0);

@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from 'react';
 import { useResizeObserver } from './useResizeObserver';
 
 export function useCalcInputWidth() {
-    const calculatorRef = useRef<HTMLElement>();
+    const calculatorRef = useRef<HTMLElement>(null);
     const [calculatorWidth, setCalculatorWidth] = useState(0);
 
     const inputStyle = useMemo(
