@@ -142,7 +142,7 @@ const Message = memo(
                 //   [verticalProperty]: `${offsetValue}px`,
                 zIndex: visible ? PopupManager.nextZIndex() : null,
             }),
-            [],
+            [visible],
         );
 
         /** 关闭图标 */
