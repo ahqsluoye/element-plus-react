@@ -1,8 +1,8 @@
 const path = require('path');
-const del = require('del');
+const { deleteSync } = require('del');
 const gulp = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
-const through = require('through2');
+const { objectTransform } = require('through2');
 const rename = require('gulp-rename');
 const fs = require('fs');
 
@@ -11,19 +11,19 @@ const distRoot = path.join(__dirname, './packages/dist/');
 const styleRoot = path.join(__dirname, './packages/theme-chalk/');
 
 function clean(done) {
-    del.sync([distRoot, styleRoot], { force: true });
+    deleteSync([distRoot, styleRoot], { force: true });
     done();
 }
 
 function cleanDistThemeChalk(done) {
-    del.sync([path.join(__dirname, './packages/dist/theme-chalk/')], { force: true });
+    deleteSync([path.join(__dirname, './packages/dist/theme-chalk/')], { force: true });
     done();
 }
 
 function buildComponentStyles() {
     return gulp
         .src(`${srcRoot}/theme-chalk/build.scss`)
-        .pipe(sass({ outputStyle: 'compressed', sourceComments: false }).on('error', sass.logError))
+        .pipe(sass({ style: 'compressed', sourceComments: false }).on('error', sass.logError))
         .pipe(rename('index.css'))
         .pipe(gulp.dest(distRoot));
 }
@@ -31,7 +31,7 @@ function buildComponentStyles() {
 function buildDisplayStyle() {
     return gulp
         .src(`${srcRoot}/theme-chalk/display.scss`)
-        .pipe(sass({ outputStyle: 'compressed', sourceComments: false }).on('error', sass.logError))
+        .pipe(sass({ style: 'compressed', sourceComments: false }).on('error', sass.logError))
         .pipe(rename('display.css'))
         .pipe(gulp.dest(distRoot));
 }
@@ -40,7 +40,7 @@ function generatePackageJSON() {
     return gulp
         .src('./package.json')
         .pipe(
-            through.obj((file, enc, cb) => {
+            objectTransform((file, enc, cb) => {
                 const rawJSON = file.contents.toString();
                 const parsed = JSON.parse(rawJSON);
                 delete parsed.scripts;
@@ -61,7 +61,7 @@ function generateReadme() {
     return gulp
         .src('./README.md')
         .pipe(
-            through.obj((file, enc, cb) => {
+            objectTransform((file, enc, cb) => {
                 const rawJSON = file.contents.toString();
                 file.contents = Buffer.from(rawJSON);
                 cb(null, file);
