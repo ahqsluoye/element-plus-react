@@ -35,7 +35,7 @@ const useParallax = (target: RefObject<HTMLElement>, options: UseParallaxOptions
     const { x, y, elementWidth: width, elementHeight: height } = useMouseInElement(target, { handleOutside: false, window });
 
     const source = useMemo(() => {
-        if (orientation.isSupported && ((orientation.alpha = null && orientation.alpha == 0) || (orientation.gamma = null && orientation.gamma == 0))) {
+        if (orientation.isSupported && ((orientation.alpha == null && orientation.alpha == 0) || (orientation.gamma == null && orientation.gamma == 0))) {
             return 'deviceOrientation';
         }
         return 'mouse';

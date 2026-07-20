@@ -43,7 +43,7 @@ declare class ResizeObserver {
 export function useResizeObserver(target: RefObject<HTMLElement>, callback: ResizeObserverCallback, options: UseResizeObserverOptions = {}) {
     const { window, ...observerOptions } = options;
     let observer: ResizeObserver | undefined;
-    const isSupported = useMemo(() => window && 'ResizeObserver' in window, []);
+    const isSupported = useMemo(() => window && 'ResizeObserver' in window, [window]);
 
     const cleanup = () => {
         if (observer) {

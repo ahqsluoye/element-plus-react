@@ -70,13 +70,13 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
 
     // =============================== Filter ===============================
     const onFilter = useCallback(
-        e => {
+        event => {
             const {
                 // eslint-disable-next-line @typescript-eslint/no-shadow
                 target: { value: filterValue },
-            } = e;
+            } = event;
             setFilterValue(filterValue);
-            handleFilter?.(e);
+            handleFilter?.(event);
         },
         [handleFilter],
     );
@@ -84,7 +84,7 @@ const TransferList: FC<TransferListProps<RecordType>> = props => {
     const handleClear = useCallback(() => {
         setFilterValue('');
         handleClearSearch?.();
-    }, []);
+    }, [handleClearSearch]);
 
     const matchFilter = useCallback(
         (text: string, item: RecordType) => {

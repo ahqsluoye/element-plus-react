@@ -18,7 +18,7 @@ export const useStyles = (props: TableV2Props, { columnsTotalWidth, rowsHeight, 
         const { fixed, width, vScrollbarSize } = props;
         const ret = width - vScrollbarSize;
         return fixed ? Math.max(Math.round(columnsTotalWidth), ret) : ret;
-    }, [columnsTotalWidth, props.fixed, props.vScrollbarSize, props.width]);
+    }, [columnsTotalWidth, props]);
 
     const headerHeight = useMemo(() => sum(props.headerHeight), [props.headerHeight]);
 
@@ -36,7 +36,7 @@ export const useStyles = (props: TableV2Props, { columnsTotalWidth, rowsHeight, 
         }
 
         return height - footerHeight;
-    }, [headerHeight, fixedRowsHeight, props.footerHeight, props.hScrollbarSize, props.height, props.maxHeight, rowsHeight]);
+    }, [props, headerHeight, fixedRowsHeight, rowsHeight]);
 
     const fixedTableHeight = useMemo(() => {
         const { maxHeight } = props;
@@ -48,7 +48,7 @@ export const useStyles = (props: TableV2Props, { columnsTotalWidth, rowsHeight, 
         const totalHeight = rowsHeight + headerHeight + fixedRowsHeight;
 
         return Math.min(tableHeight, totalHeight);
-    }, [headerHeight, fixedRowsHeight, mainTableHeight, props.maxHeight, rowsHeight]);
+    }, [props, mainTableHeight, rowsHeight, headerHeight, fixedRowsHeight]);
 
     const mapColumn = (column: TableV2Props['columns'][number]) => column.width;
 
@@ -66,7 +66,7 @@ export const useStyles = (props: TableV2Props, { columnsTotalWidth, rowsHeight, 
             height,
             width,
         });
-    }, [props.height, props.width]);
+    }, [props]);
 
     const footerHeight = useMemo(() => enforceUnit({ height: props.footerHeight }), [props.footerHeight]);
 

@@ -21,7 +21,6 @@ export default (api: IApi) => {
             .filter(f => !f.path.includes(':'))
             .map(file => {
                 let globalStyles = '';
-                console.log(file.content);
                 // Debug for file content: uncomment this if need check raw out
                 // const tmpFileName = `_${file.path.replace(/\//g, '-')}`;
                 // const tmpFilePath = path.join(api.paths.absOutputPath, tmpFileName);

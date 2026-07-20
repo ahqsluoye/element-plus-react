@@ -412,7 +412,7 @@ const TableV2 = forwardRef<TableV2Instance, TableV2Props>((props, ref) => {
                             />
                         )
                     }
-                ></Row>
+                />
             ),
             headerFormatter: (headerParams: any) => (
                 <Header
@@ -439,7 +439,7 @@ const TableV2 = forwardRef<TableV2Instance, TableV2Props>((props, ref) => {
                             />
                         )
                     }
-                ></Header>
+                />
             ),
         };
     }, [cellFormatter, columnsStyles, headerCellFormatter, headerFormatter, rowFormatter, tableCellProps, tableHeaderCellProps, tableHeaderProps, tableRowProps]);
@@ -447,9 +447,9 @@ const TableV2 = forwardRef<TableV2Instance, TableV2Props>((props, ref) => {
     return (
         <TableV2Context.Provider value={contextValue}>
             <div className={rootKls} style={rootStyle}>
-                <MainTable ref={mainTableRef} {...mainTableProps} {...formatters}></MainTable>
-                <LeftTable ref={leftTableRef} {...leftTableProps} {...formatters}></LeftTable>
-                <RightTable ref={rightTableRef} {...rightTableProps} {...formatters}></RightTable>
+                <MainTable ref={mainTableRef} {...mainTableProps} {...formatters} />
+                <LeftTable ref={leftTableRef} {...leftTableProps} {...formatters} />
+                <RightTable ref={rightTableRef} {...rightTableProps} {...formatters} />
                 {footer && <Footer {...footerProps}>{footer}</Footer>}
                 {showEmpty && (
                     <Empty className={ns.e('empty')} style={emptyStyle}>

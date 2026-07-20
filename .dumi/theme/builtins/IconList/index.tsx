@@ -285,9 +285,9 @@ const IconList = () => {
                         onClear={onClear}
                         prepend={
                             <ElSelect value={searchType} placeholder="请选择" style={{ width: 130 }} onChange={onChangeType} clearable={false}>
-                                <ElOption label="关键词" value="1"></ElOption>
-                                <ElOption label="Unicode" value="2"></ElOption>
-                                <ElOption label="名称" value="3"></ElOption>
+                                <ElOption label="关键词" value="1" />
+                                <ElOption label="Unicode" value="2" />
+                                <ElOption label="名称" value="3" />
                             </ElSelect>
                         }
                     />
@@ -335,7 +335,7 @@ const IconList = () => {
                     </div>
                     <div className="r-right">
                         {self.length === 0 ? (
-                            <ElEmpty description="未搜索到匹配的图标！"></ElEmpty>
+                            <ElEmpty description="未搜索到匹配的图标！" />
                         ) : (
                             <ElScrollbar>
                                 <div className="r-icon-display-area">
@@ -412,7 +412,7 @@ const IconList = () => {
                             <small className="text-left">React</small>
                             <ElTooltip content="复制React" placement="top">
                                 <div className="r-copy-code" onClick={() => onCopy('jsx')}>
-                                    <pre className="language-html" dangerouslySetInnerHTML={{ __html: focusIcon.pre }}></pre>
+                                    <pre className="language-html" dangerouslySetInnerHTML={{ __html: focusIcon.pre }} />
                                 </div>
                             </ElTooltip>
                         </div>

@@ -13,7 +13,6 @@ const Overview = () => {
     const navigation = useNavigate();
 
     const toPage = link => {
-        console.log(link);
         navigation(link);
     };
 

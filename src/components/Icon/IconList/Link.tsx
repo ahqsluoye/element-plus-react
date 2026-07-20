@@ -16,7 +16,7 @@ export const Link: FC<SvgIconProps> = props => {
               42.666667 0 0 0-42.666667-42.666667z
             "
                 fill="currentColor"
-            ></path>
+            />
             <path
                 d="
               M682.666667 213.333333h67.413333l-268.373333 267.946667a42.666667
@@ -28,7 +28,7 @@ export const Link: FC<SvgIconProps> = props => {
               42.666667 0 0 0 0 85.333333z
             "
                 fill="currentColor"
-            ></path>
+            />
         </svg>
     );
 };

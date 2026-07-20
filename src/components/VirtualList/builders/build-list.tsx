@@ -7,7 +7,7 @@ import { useCache } from '../hooks/use-cache';
 import { useWheel } from '../hooks/use-wheel';
 import { getRTLOffsetType, getScrollDir, isHorizontal } from '../utils';
 
-import { isNumber, isString } from '@qsxy/element-plus-react/Util/base';
+import { isNumber } from '@qsxy/element-plus-react/Util/base';
 import { isClient } from '@qsxy/element-plus-react/Util/raf';
 import type { VirtualizedListProps } from '../props';
 import type { Alignment, Dir, ListConstructorProps, ListExposes, ScrollbarExpose } from '../types';
@@ -150,7 +150,7 @@ const createList = ({
                 idx = Math.max(0, Math.min(idx, total - 1));
                 scrollTo(getOffset(props, idx, alignment, states.scrollOffset, dynamicSizeCache.current));
             },
-            [total, props, states.scrollOffset],
+            [total, scrollTo, props, states.scrollOffset],
         );
 
         const { onWheel } = useWheel(
@@ -252,7 +252,7 @@ const createList = ({
 
                 requestAnimationFrame(() => resetIsScrolling());
             },
-            [direction, resetIsScrolling],
+            [direction, resetIsScrolling, states.scrollOffset],
         );
 
         const onScroll = useCallback(
@@ -279,9 +279,9 @@ const createList = ({
             (idx: number) => {
                 const itemStyleCache = getItemStyleCache(clearCache && itemSize, clearCache && layout, clearCache && direction);
 
-                let style: CSSProperties;
+                let _style: CSSProperties;
                 if (Object.prototype.hasOwnProperty.call(itemStyleCache, String(idx))) {
-                    style = itemStyleCache[idx];
+                    _style = itemStyleCache[idx];
                 } else {
                     const offset = getItemOffset(props, idx, dynamicSizeCache.current);
                     const size = getItemSize(props, idx, dynamicSizeCache.current);
@@ -289,7 +289,7 @@ const createList = ({
 
                     const isRtl = direction === RTL;
                     const offsetHorizontal = horizontal ? offset : 0;
-                    itemStyleCache[idx] = style = {
+                    itemStyleCache[idx] = _style = {
                         position: 'absolute',
                         left: isRtl ? undefined : `${offsetHorizontal}px`,
                         right: isRtl ? `${offsetHorizontal}px` : undefined,
@@ -299,9 +299,9 @@ const createList = ({
                     };
                 }
 
-                return style;
+                return _style;
             },
-            [getItemStyleCache, clearCache, itemSize, layout, direction, getItemOffset, getItemSize, props, _isHorizontal],
+            [getItemStyleCache, itemSize, layout, direction, props, _isHorizontal],
         );
 
         const resetScrollTop = useCallback(() => {
@@ -408,14 +408,17 @@ const createList = ({
             childrenNodes,
         );
 
-        const listContainer = React.createElement(Container as any, {
-            className: classNames(ns.e('window'), className),
-            style: Object.assign({}, ...windowStyle),
-            onScroll,
-            ref: windowRef,
-            key: 0,
-            children: !isString(Container) ? { default: () => [InnerNode] } : [InnerNode],
-        });
+        const listContainer = React.createElement(
+            Container as any,
+            {
+                className: classNames(ns.e('window'), className),
+                style: Object.assign({}, ...windowStyle),
+                onScroll,
+                ref: windowRef,
+                key: 0,
+            },
+            InnerNode,
+        );
 
         const scrollbar = React.createElement(Scrollbar, {
             ref: scrollbarRef,

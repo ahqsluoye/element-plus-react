@@ -24,7 +24,7 @@ const ExpandIcon = (
 
     return (
         <button {...expandIconProps} type="button">
-            <ElIcon name="angle-right" size={size} prefix="fal" style={style}></ElIcon>
+            <ElIcon name="angle-right" size={size} prefix="fal" style={style} />
         </button>
     );
 };

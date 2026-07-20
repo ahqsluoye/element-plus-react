@@ -12,7 +12,7 @@ export interface ScreenOrientation extends EventTarget {
 }
 
 export function useScreenOrientation(window?: Window) {
-    const isSupported = useMemo(() => window && 'screen' in window && 'orientation' in window.screen, []);
+    const isSupported = useMemo(() => window && 'screen' in window && 'orientation' in window.screen, [window]);
 
     const screenOrientation = (isSupported ? window!.screen.orientation : {}) as ScreenOrientation;
 

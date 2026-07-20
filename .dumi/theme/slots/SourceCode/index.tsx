@@ -22,7 +22,7 @@ const SourceCode: FC<Props> = memo(props => {
     const highlight = useRef<HTMLDivElement>(null);
     const preRef = useRef<HTMLPreElement>(null);
 
-    const fileType = useMemo(() => last(fileName.split('.')), []);
+    const fileType = useMemo(() => last(fileName.split('.')), [fileName]);
 
     const setCodeAreaHeight = useCallback(() => {
         if (highlight.current) {
@@ -56,7 +56,7 @@ const SourceCode: FC<Props> = memo(props => {
                 scrollbarRef.current?.update();
             }, 200);
         }
-    }, [expand]);
+    }, [activeName, expand, setHeight]);
 
     // useEffect(() => {
     //     if (expand && scrollbarRef.current) {
@@ -91,7 +91,7 @@ const SourceCode: FC<Props> = memo(props => {
                     }, 200);
                 }
             }
-        }, [activeName]),
+        }, [activeName, fileName]),
         200,
     );
 
@@ -110,7 +110,7 @@ const SourceCode: FC<Props> = memo(props => {
                         dangerouslySetInnerHTML={{
                             __html: Prism.highlight(content.value, Prism.languages[fileType], fileType),
                         }}
-                    ></code>
+                    />
                 </pre>
             </div>
         </ElScrollbar>

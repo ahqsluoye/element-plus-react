@@ -29,9 +29,15 @@ const getTypeIcon = (type: string) => {
 };
 
 const getTimelineItemType = (entries: VersionChangelog['entries']): TimeLineItemProps['type'] => {
-    if (entries.some(e => e.type === 'breaking')) return 'danger';
-    if (entries.some(e => e.type === 'feature')) return 'success';
-    if (entries.some(e => e.type === 'bugfix')) return 'primary';
+    if (entries.some(e => e.type === 'breaking')) {
+        return 'danger';
+    }
+    if (entries.some(e => e.type === 'feature')) {
+        return 'success';
+    }
+    if (entries.some(e => e.type === 'bugfix')) {
+        return 'primary';
+    }
     return 'info';
 };
 

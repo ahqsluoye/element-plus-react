@@ -246,7 +246,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                 </div>
                 {!plain && (
                     <div ref={suffixWrapperRef} className={classNames(e`suffix`, is`hidden-clear`)}>
-                        {iconComponent ? <ElIcon name={iconComponent} className={classNames(e`caret`, e`icon`, e`arrow`, iconReverse)} onClick={toggleMenu}></ElIcon> : null}
+                        {iconComponent ? <ElIcon name={iconComponent} className={classNames(e`caret`, e`icon`, e`arrow`, iconReverse)} onClick={toggleMenu} /> : null}
                         {clearIcon ? <ElIcon prefix="fal" name={clearIcon} className={classNames(e`caret`, e`icon`, e`clear`)} onClick={onClear} /> : null}
                         {validateState && validateIcon && statusIcon && (
                             <ElIcon

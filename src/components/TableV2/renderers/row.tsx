@@ -105,7 +105,7 @@ const RowRenderer = (props: RowRendererProps) => {
                 onMouseLeave: handlerMouseLeave,
             }}
             rowKey={_rowKey}
-        ></Row>
+        />
     );
 };
 

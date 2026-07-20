@@ -172,7 +172,6 @@ const Segmented = memo(
                 <div className={classNames(ns.e('group'), ns.m(direction))}>
                     <div style={selectedStyle} className={selectedCls} />
                     {options.map((item, index) => {
-                        const value = getValue(item);
                         let label = getLabel(item);
                         if (children) {
                             if (children && typeof children === 'function') {
