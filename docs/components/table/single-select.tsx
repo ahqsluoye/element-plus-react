@@ -1,4 +1,5 @@
-import { ElTable, ElTableColumn, TableRef } from '@qsxy/element-plus-react';
+import type { TableRef } from '@qsxy/element-plus-react';
+import { ElTable, ElTableColumn } from '@qsxy/element-plus-react';
 import React, { useCallback, useRef, useState } from 'react';
 import { tableData } from './data';
 

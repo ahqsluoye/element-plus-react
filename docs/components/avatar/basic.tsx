@@ -1,4 +1,5 @@
-import { AvatarProps, ElAvatar, ElCol, ElRow } from '@qsxy/element-plus-react';
+import type { AvatarProps } from '@qsxy/element-plus-react';
+import { ElAvatar, ElCol, ElRow } from '@qsxy/element-plus-react';
 import React from 'react';
 import './style.scss';
 

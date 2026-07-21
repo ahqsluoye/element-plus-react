@@ -1,4 +1,5 @@
-import { ElButton, ElTree, TreeNode, TreeNodeData, TreeRef, TreeStore } from '@qsxy/element-plus-react';
+import type { TreeNode, TreeNodeData, TreeRef, TreeStore } from '@qsxy/element-plus-react';
+import { ElButton, ElTree } from '@qsxy/element-plus-react';
 import React, { useRef, useState } from 'react';
 import './customized-node.scss';
 

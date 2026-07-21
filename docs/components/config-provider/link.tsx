@@ -1,4 +1,5 @@
-import { ConfigProviderProps, ElCol, ElConfigProvider, ElDivider, ElLink, ElOption, ElRow, ElSelect, TypeAttributes } from '@qsxy/element-plus-react';
+import type { ConfigProviderProps, TypeAttributes } from '@qsxy/element-plus-react';
+import { ElCol, ElConfigProvider, ElDivider, ElLink, ElOption, ElRow, ElSelect } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

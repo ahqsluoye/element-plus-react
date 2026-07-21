@@ -1,4 +1,5 @@
-import { ElButton, ElUpload, UploadProps, UploadRawFile, UploadRef, genFileId } from '@qsxy/element-plus-react';
+import type { UploadProps, UploadRawFile, UploadRef } from '@qsxy/element-plus-react';
+import { ElButton, ElUpload, genFileId } from '@qsxy/element-plus-react';
 import React, { useRef } from 'react';
 
 const App = () => {

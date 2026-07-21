@@ -1,4 +1,5 @@
-import { ElInput, ElTree, FilterNodeMethodFunction, TreeRef } from '@qsxy/element-plus-react';
+import type { FilterNodeMethodFunction, TreeRef } from '@qsxy/element-plus-react';
+import { ElInput, ElTree } from '@qsxy/element-plus-react';
 import React, { useRef } from 'react';
 
 interface Tree {

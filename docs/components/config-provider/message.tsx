@@ -1,4 +1,5 @@
-import { ConfigProviderProps, ElConfigProvider } from '@qsxy/element-plus-react';
+import type { ConfigProviderProps } from '@qsxy/element-plus-react';
+import { ElConfigProvider } from '@qsxy/element-plus-react';
 import React from 'react';
 import Message from './messageApp';
 

@@ -1,4 +1,5 @@
-import { AvatarProps, ElAvatar } from '@qsxy/element-plus-react';
+import type { AvatarProps } from '@qsxy/element-plus-react';
+import { ElAvatar } from '@qsxy/element-plus-react';
 import React from 'react';
 import './style.scss';
 

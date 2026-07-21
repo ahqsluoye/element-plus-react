@@ -1,4 +1,5 @@
-import { DrawerProps, ElButton, ElDrawer, ElSkeleton } from '@qsxy/element-plus-react';
+import type { DrawerProps } from '@qsxy/element-plus-react';
+import { ElButton, ElDrawer, ElSkeleton } from '@qsxy/element-plus-react';
 import React, { useCallback, useState } from 'react';
 
 const App = () => {

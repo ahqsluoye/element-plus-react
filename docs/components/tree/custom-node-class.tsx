@@ -1,4 +1,5 @@
-import { ElTree, TreeNodeData } from '@qsxy/element-plus-react';
+import type { TreeNodeData } from '@qsxy/element-plus-react';
+import { ElTree } from '@qsxy/element-plus-react';
 import React from 'react';
 import './custom-node-class.scss';
 

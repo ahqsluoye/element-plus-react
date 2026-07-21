@@ -1,4 +1,5 @@
-import { ElTag, TagProps } from '@qsxy/element-plus-react';
+import type { TagProps } from '@qsxy/element-plus-react';
+import { ElTag } from '@qsxy/element-plus-react';
 import React, { useMemo } from 'react';
 import './theme.scss';
 

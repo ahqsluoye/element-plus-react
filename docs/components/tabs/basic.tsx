@@ -1,4 +1,5 @@
-import { ElTabPane, ElTable, ElTableColumn, ElTabs, TableRef, TabsPaneContext } from '@qsxy/element-plus-react';
+import type { TableRef, TabsPaneContext } from '@qsxy/element-plus-react';
+import { ElTabPane, ElTable, ElTableColumn, ElTabs } from '@qsxy/element-plus-react';
 import React, { useCallback, useRef } from 'react';
 
 interface Data {

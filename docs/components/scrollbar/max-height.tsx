@@ -1,4 +1,5 @@
-import { ElButton, ElScrollbar, ScrollbarRef } from '@qsxy/element-plus-react';
+import type { ScrollbarRef } from '@qsxy/element-plus-react';
+import { ElButton, ElScrollbar } from '@qsxy/element-plus-react';
 import React, { useCallback, useRef, useState } from 'react';
 
 const App = () => {

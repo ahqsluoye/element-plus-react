@@ -1,4 +1,5 @@
-import { ElButton, ElMessage, ElMessageBox, ElUpload, UploadProps, UploadUserFile } from '@qsxy/element-plus-react';
+import type { UploadProps, UploadUserFile } from '@qsxy/element-plus-react';
+import { ElButton, ElMessage, ElMessageBox, ElUpload } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

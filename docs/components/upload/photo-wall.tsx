@@ -1,4 +1,5 @@
-import { ElDialog, ElIcon, ElUpload, UploadProps, UploadUserFile } from '@qsxy/element-plus-react';
+import type { UploadProps, UploadUserFile } from '@qsxy/element-plus-react';
+import { ElDialog, ElIcon, ElUpload } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

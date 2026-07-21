@@ -1,4 +1,5 @@
-import { CountdownRef, ElButton, ElCol, ElCountdown, ElIcon, ElRow } from '@qsxy/element-plus-react';
+import type { CountdownRef } from '@qsxy/element-plus-react';
+import { ElButton, ElCol, ElCountdown, ElIcon, ElRow } from '@qsxy/element-plus-react';
 import dayjs from 'dayjs';
 import React, { useRef, useState } from 'react';
 

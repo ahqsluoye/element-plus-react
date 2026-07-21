@@ -1,4 +1,5 @@
-import { ButtonRef, ElButton, ElDivider, ElSpace, ElTour, ElTourStep } from '@qsxy/element-plus-react';
+import type { ButtonRef } from '@qsxy/element-plus-react';
+import { ElButton, ElDivider, ElSpace, ElTour, ElTourStep } from '@qsxy/element-plus-react';
 import React, { useRef, useState } from 'react';
 
 export default function IndicatorTour() {

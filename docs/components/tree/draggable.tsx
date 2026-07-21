@@ -1,4 +1,5 @@
-import { AllowDropType, ElTree, NodeDropType, TreeNode } from '@qsxy/element-plus-react';
+import type { AllowDropType, NodeDropType, TreeNode } from '@qsxy/element-plus-react';
+import { ElTree } from '@qsxy/element-plus-react';
 import React from 'react';
 
 interface Tree {

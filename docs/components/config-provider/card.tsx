@@ -1,4 +1,5 @@
-import { CardProps, ConfigProviderProps, ElCard, ElConfigProvider, ElDivider, ElRadio, ElRadioGroup } from '@qsxy/element-plus-react';
+import type { CardProps, ConfigProviderProps } from '@qsxy/element-plus-react';
+import { ElCard, ElConfigProvider, ElDivider, ElRadio, ElRadioGroup } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

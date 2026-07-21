@@ -1,4 +1,5 @@
-import { ElButton, ElTree, TreeNode, TreeRef } from '@qsxy/element-plus-react';
+import type { TreeNode, TreeRef } from '@qsxy/element-plus-react';
+import { ElButton, ElTree } from '@qsxy/element-plus-react';
 import React, { useRef } from 'react';
 
 interface Tree {
