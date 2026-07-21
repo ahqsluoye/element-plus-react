@@ -6,7 +6,7 @@ import ElPopper from '@qsxy/element-plus-react/Popper/Popper';
 import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
 import classNames from 'classnames';
 import noop from 'lodash/noop';
-import React, { Children, cloneElement, forwardRef, memo, useCallback, useImperativeHandle, useRef } from 'react';
+import React, { Children, cloneElement, forwardRef, isValidElement, memo, useCallback, useImperativeHandle, useRef } from 'react';
 import * as ReactIs from 'react-is';
 import { TooltipContext } from './TooltipContext';
 import { TooltipProps, TooltipRef } from './typings';
@@ -109,56 +109,55 @@ const Tooltip = memo(
             <>
                 {/* <React.ReactNode, React.ReactElement> */}
                 {Children.map(filterChildren, child => {
-                    if (typeof child === 'string' || typeof child === 'number') {
+                    if (typeof child === 'string' || typeof child === 'number' || typeof child === 'bigint') {
                         child = <span>{child}</span>;
                     }
-                    // @ts-ignore
-                    const _props = child?.props ?? {};
-                    const newProps = {
-                        ..._props,
-                        // @ts-ignore
-                        ref: (referenceElement = child.ref ?? referenceElement),
-                        className: classNames(_props?.className, props.className, e('tooltip', 'trigger')),
-                        // @ts-ignore
-                        style: { ...child?.props?.style, ...props.style },
-                    };
-                    // 禁用
-                    if (disabled) {
-                        Object.assign(newProps, {
-                            onMouseEnter: noop,
-                            onMouseLeave: noop,
-                        });
-                    } else {
-                        if (trigger === 'hover') {
+                    if (isValidElement(child)) {
+                        const _props: Record<string, any> = child?.props ?? {};
+                        const newProps = {
+                            ..._props,
+                            // @ts-ignore
+                            ref: (referenceElement = child.ref ?? _props.ref ?? referenceElement),
+                            className: classNames(_props?.className, props.className, e('tooltip', 'trigger')),
+                            style: { ..._props?.style, ...props.style },
+                        };
+                        // 禁用
+                        if (disabled) {
                             Object.assign(newProps, {
-                                onMouseEnter: handleMouseEnter,
-                                onMouseLeave: handleMouseLeave,
+                                onMouseEnter: noop,
+                                onMouseLeave: noop,
                             });
-                        } else if (trigger === 'click') {
-                            Object.assign(newProps, {
-                                onClick: (event: React.MouseEvent<any>) => {
-                                    setVisible(!visible);
-                                    onMouseEnter?.(event);
-                                    (child as React.ReactElement<any>)?.props?.onClick?.(event);
-                                },
-                            });
-                        } else if (trigger === 'contextmenu') {
-                            Object.assign(newProps, {
-                                onContextMenu: (event: React.MouseEvent<any>) => {
-                                    event.preventDefault();
-                                    setVisible(!visible);
-                                    onMouseLeave?.(event);
-                                    (child as React.ReactElement<any>)?.props?.onContextMenu?.(event);
-                                },
-                            });
+                        } else {
+                            if (trigger === 'hover') {
+                                Object.assign(newProps, {
+                                    onMouseEnter: handleMouseEnter,
+                                    onMouseLeave: handleMouseLeave,
+                                });
+                            } else if (trigger === 'click') {
+                                Object.assign(newProps, {
+                                    onClick: (event: React.MouseEvent<any>) => {
+                                        setVisible(!visible);
+                                        onMouseEnter?.(event);
+                                        (child as React.ReactElement<any>)?.props?.onClick?.(event);
+                                    },
+                                });
+                            } else if (trigger === 'contextmenu') {
+                                Object.assign(newProps, {
+                                    onContextMenu: (event: React.MouseEvent<any>) => {
+                                        event.preventDefault();
+                                        setVisible(!visible);
+                                        onMouseLeave?.(event);
+                                        (child as React.ReactElement<any>)?.props?.onContextMenu?.(event);
+                                    },
+                                });
+                            }
                         }
+                        return cloneElement(child, newProps);
                     }
-                    // @ts-ignore
-                    return cloneElement(child, newProps);
                 })}
                 <ElPopper
                     visible={visible}
-                    referenceElement={() => (virtualTriggering ? { current: virtualRef } : referenceElement?.current?.ref ?? referenceElement)}
+                    referenceElement={() => (virtualTriggering ? { current: virtualRef } : (referenceElement?.current?.ref ?? referenceElement))}
                     popperInstRef={popperInstRef}
                     disableTransition={disableTransition}
                     onEnter={useCallback(() => {
