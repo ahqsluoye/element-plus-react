@@ -1,4 +1,5 @@
-import { ElCol, ElPagination, ElRadioButton, ElRadioGroup, ElRow, ElSwitch, TypeAttributes } from '@qsxy/element-plus-react';
+import type { TypeAttributes } from '@qsxy/element-plus-react';
+import { ElCol, ElPagination, ElRadioButton, ElRadioGroup, ElRow, ElSwitch } from '@qsxy/element-plus-react';
 import React, { useState } from 'react';
 
 const App = () => {

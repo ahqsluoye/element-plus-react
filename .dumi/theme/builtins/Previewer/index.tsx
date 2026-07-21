@@ -1,11 +1,13 @@
-import config from '@/../package.json';
+import pkg from '@/../package.json';
 import SourceCode from '@/theme/slots/SourceCode';
 import { ElIcon, ElMessage, ElTabPane, ElTabs, ElTooltip, ElTransition } from '@qsxy/element-plus-react';
+import stackblitzSdk from '@stackblitz/sdk';
 import classNames from 'classnames';
 import clipboardCopy from 'clipboard-copy';
 import { addClass, removeClass } from 'dom-lib';
-import { IPreviewerProps, openCodeSandbox } from 'dumi';
+import { IPreviewerProps } from 'dumi';
 import React, { FC, forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import getStackblitzConfig from './stackblitzConfig';
 import './style.scss';
 
 interface ExtraFile {
@@ -40,7 +42,7 @@ const BlockControl = forwardRef<any, { expand: boolean }>(({ expand }, ref) => {
 });
 
 const Previewer: FC<IPreviewerProps> = props => {
-    const { path, children, asset } = props;
+    const { title, path, children, asset } = props;
     const [expand, setExpand] = useState(false);
     const [activeName, setActiveName] = useState('');
 
@@ -123,6 +125,32 @@ const Previewer: FC<IPreviewerProps> = props => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [expand]);
 
+    const runtimeDependencies = {
+        // ...Object.keys(props.asset.dependencies).reduce((prev, item) => {
+        //     if (item.type === 'NPM') {
+        //         prev[item] = props.asset.dependencies[item].value;
+        //     }
+        //     return prev;
+        // }, {}),
+        ...pkg.dependencies,
+        'react-router-dom': '6.22.1',
+        react: '^19.0.0',
+        'react-dom': '^19.0.0',
+        [pkg.name]: pkg.version,
+    };
+
+    const stackblitzPrefillConfig = getStackblitzConfig({
+        title: `@qsxy/element-plus-react@${pkg.version}`,
+        dependencies: runtimeDependencies,
+        devDependencies: {
+            'react-router-dom': '6.22.1',
+            react: '^19.0.0',
+            'react-dom': '^19.0.0',
+            [pkg.name]: pkg.version,
+        },
+        props,
+    });
+
     return (
         <>
             {/* {props.title && <h3>{props.title}</h3>}
@@ -152,33 +180,17 @@ const Previewer: FC<IPreviewerProps> = props => {
                 <div ref={control} className={classNames('demo-block-control')} onClick={() => setExpand(!expand)}>
                     <BlockControl ref={blockControl} expand={expand} />
                     <div className="control-button-container">
-                        <ElTooltip content="在 CodeSandbox 中打开" placement="top">
+                        <ElTooltip content="在 Stackblitz 中打开" placement="top">
                             <span
                                 className="control-button copy-button"
                                 onClick={e => {
                                     e.stopPropagation();
-                                    openCodeSandbox({
-                                        asset: {
-                                            ...props.asset,
-                                            dependencies: {
-                                                ...props.asset.dependencies,
-                                                ...Object.keys(config.dependencies).reduce(
-                                                    (prev, item) => {
-                                                        prev[item] = { type: 'NPM', value: config.dependencies[item] };
-                                                        return prev;
-                                                    },
-                                                    { 'react-router-dom': { type: 'NPM', value: '6.22.1' } },
-                                                ),
-                                                ['index.tsx']: {
-                                                    type: 'FILE',
-                                                    value: "import '@qsxy/element-plus-react/dist/index.css';\n" + props.asset.dependencies['index.tsx'].value,
-                                                },
-                                            },
-                                        },
+                                    stackblitzSdk.openProject(stackblitzPrefillConfig, {
+                                        openFile: [`src/demo.tsx`],
                                     });
                                 }}
                             >
-                                <ElIcon name="box-open-full" prefix="far" />
+                                <ElIcon name="bolt-lightning" prefix="far" />
                             </span>
                         </ElTooltip>
                         <ElTooltip content="复制代码" placement="top">

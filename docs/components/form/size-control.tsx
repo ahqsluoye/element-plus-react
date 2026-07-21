@@ -1,3 +1,4 @@
+import type { TypeAttributes } from '@qsxy/element-plus-react';
 import {
     ElButton,
     ElCheckbox,
@@ -16,7 +17,6 @@ import {
     ElSwitch,
     ElTextArea,
     ElTimePicker,
-    TypeAttributes,
     useForm,
 } from '@qsxy/element-plus-react';
 import React, { useCallback, useMemo, useState } from 'react';

@@ -283,6 +283,7 @@ const IconList = () => {
                         }}
                         onChange={onInput}
                         onClear={onClear}
+                        clearable
                         prepend={
                             <ElSelect value={searchType} placeholder="请选择" style={{ width: 130 }} onChange={onChangeType} clearable={false}>
                                 <ElOption label="关键词" value="1" />

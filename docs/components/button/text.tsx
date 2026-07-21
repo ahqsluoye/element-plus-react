@@ -1,4 +1,5 @@
-import { ElButton, TypeAttributes } from '@qsxy/element-plus-react';
+import type { TypeAttributes } from '@qsxy/element-plus-react';
+import { ElButton } from '@qsxy/element-plus-react';
 import React from 'react';
 
 const buttons: {

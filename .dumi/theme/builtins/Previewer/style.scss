@@ -379,6 +379,11 @@ div[class*='language-'].line-numbers-mode {
             padding-left: 5px;
             padding-right: 25px;
             color: var(--el-color-primary);
+            display: flex;
+        }
+
+        .code-box-code-action {
+            margin: 0 10px;
         }
 
         .control-button-container-left {

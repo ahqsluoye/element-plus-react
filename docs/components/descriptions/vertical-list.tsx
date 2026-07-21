@@ -1,4 +1,5 @@
-import { ElDescriptions, ElDescriptionsItem, ElIcon, ElRadio, ElRadioGroup, ElTag, TypeAttributes } from '@qsxy/element-plus-react';
+import type { TypeAttributes } from '@qsxy/element-plus-react';
+import { ElDescriptions, ElDescriptionsItem, ElIcon, ElRadio, ElRadioGroup, ElTag } from '@qsxy/element-plus-react';
 import React, { useMemo, useState } from 'react';
 import './sizes.scss';
 
