@@ -259,6 +259,7 @@
     white-space: nowrap;
     cursor: pointer;
     outline: none;
+    box-sizing: border-box;
 
     &:after {
         color: var(--#{$namespace}-checkbox-checked-icon-color);
@@ -273,8 +274,11 @@
         position: absolute;
         top: 50%;
         transform: rotate(45deg) scale(0) translate(-50%, -50%);
-        transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6), opacity 0.1s;
+        transition:
+            all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6),
+            opacity 0.1s;
         width: 5.71428571px;
+        box-sizing: border-box;
     }
 
     &.is-checked + .#{$namespace}-checkbox__label {
