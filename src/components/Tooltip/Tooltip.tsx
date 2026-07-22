@@ -137,7 +137,11 @@ const Tooltip = memo(
                                 Object.assign(newProps, {
                                     onClick: (event: React.MouseEvent<any>) => {
                                         setVisible(!visible);
-                                        onMouseEnter?.(event);
+                                        if (visible) {
+                                            onMouseLeave?.(event);
+                                        } else {
+                                            onMouseEnter?.(event);
+                                        }
                                         (child as React.ReactElement<any>)?.props?.onClick?.(event);
                                     },
                                 });
@@ -146,7 +150,11 @@ const Tooltip = memo(
                                     onContextMenu: (event: React.MouseEvent<any>) => {
                                         event.preventDefault();
                                         setVisible(!visible);
-                                        onMouseLeave?.(event);
+                                        if (visible) {
+                                            onMouseLeave?.(event);
+                                        } else {
+                                            onMouseEnter?.(event);
+                                        }
                                         (child as React.ReactElement<any>)?.props?.onContextMenu?.(event);
                                     },
                                 });
@@ -184,6 +192,7 @@ const Tooltip = memo(
                     className={classNames(props.popperClass, { [e`popper`]: classPrefix === 'tooltip' })}
                     effect={effect}
                     unmountOnExit={unmountOnExit}
+                    showDuration={0}
                     {...popperProps}
                     {...transitionProps}
                 >
