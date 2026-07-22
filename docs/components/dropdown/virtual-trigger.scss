@@ -1,0 +1,10 @@
+.dropdown-virtual-trigger-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.dropdown-virtual-trigger-content :deep(.card-body) {
+    flex-grow: 0;
+}

@@ -7,11 +7,11 @@ const App = () => {
             hideOnClick={false}
             menu={
                 <ElDropdownMenu>
-                    <ElDropdownItem>黄金糕</ElDropdownItem>
-                    <ElDropdownItem>狮子头</ElDropdownItem>
-                    <ElDropdownItem>螺蛳粉</ElDropdownItem>
-                    <ElDropdownItem disabled>双皮奶</ElDropdownItem>
-                    <ElDropdownItem divided>蚵仔煎</ElDropdownItem>
+                    <ElDropdownItem>Action 1</ElDropdownItem>
+                    <ElDropdownItem>Action 2</ElDropdownItem>
+                    <ElDropdownItem>Action 3</ElDropdownItem>
+                    <ElDropdownItem disabled>Action 4</ElDropdownItem>
+                    <ElDropdownItem divided>Action 5</ElDropdownItem>
                 </ElDropdownMenu>
             }
         >
