@@ -123,7 +123,7 @@ export type { DrawerProps } from './Drawer/typings';
 export { default as ElDropdown } from './Dropdown/Dropdown';
 export { default as ElDropdownItem } from './Dropdown/DropdownItem';
 export { default as ElDropdownMenu } from './Dropdown/DropdownMenu';
-export type { DropdownItemProps, DropdownMenuProps, DropdownProps } from './Dropdown/typings';
+export type { DropdownItemProps, DropdownMenuProps, DropdownProps, DropdownRef } from './Dropdown/typings';
 
 // 空状态 (Empty)
 export { default as ElEmpty } from './Empty/Empty';
