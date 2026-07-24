@@ -77,14 +77,14 @@ const YearRangePanel: FC<DateRangePanelProps> = props => {
      * @param unlinkPanels 在范围选择器里取消两个日期面板之间的联动
      */
     const switchDate = useCallback(
-        (duration: number, unit?: ManipulateType, positon?: RangePosition) => {
+        (duration: number, unit?: ManipulateType, position?: RangePosition) => {
             if (unlinkPanels) {
                 const start = startDate.add(duration, unit);
                 const end = endDate.add(duration, unit);
                 onPickDateRange?.([start, end], false);
             } else {
-                const start = positon === 'left' ? startDate.add(duration, unit) : startDate;
-                const end = positon === 'right' ? endDate.add(duration, unit) : endDate;
+                const start = position === 'left' ? startDate.add(duration, unit) : startDate;
+                const end = position === 'right' ? endDate.add(duration, unit) : endDate;
                 onPickDateRange?.([start, end], false);
             }
         },

@@ -57,7 +57,7 @@ const WeekPanel: FC<WeekPanelProps> = props => {
     // }, [valueRange]);
 
     // 日期范围时的开始日期，与悬浮日期动态比较获取
-    const [startDate, setSartDate] = useState(null);
+    const [startDate, setStartDate] = useState(null);
     // 日期范围时的结束日期
     const [endDate, setEndDate] = useState(null);
 
@@ -201,7 +201,7 @@ const WeekPanel: FC<WeekPanelProps> = props => {
         ({ text, type }: Cell) => {
             if (dateType === 'week') {
                 const date = getFormattedDate(text, type);
-                setSartDate(isoWeek ? date.isoWeekday(1) : date.isoWeekday(0));
+                setStartDate(isoWeek ? date.isoWeekday(1) : date.isoWeekday(0));
                 setEndDate(isoWeek ? date.isoWeekday(7) : date.isoWeekday(6));
                 // console.log(date.isoWeekday(1).format('YYYY-MM-DD'), date.isoWeekday(7).format('YYYY-MM-DD'));
             }
