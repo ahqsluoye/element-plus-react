@@ -15,6 +15,7 @@ const Header = ({ onMenuClick }: HeaderProps) => {
     const nav = useNavData();
     const [darkMode, setDarkMode] = useState(localStorage.getItem('el-theme-appearance') === 'dark');
     const switchRef = useRef<HTMLDivElement>(null);
+    const navbarRef = useRef<HTMLDivElement>(null);
 
     useMount(() => {
         const themeMode = localStorage.getItem('el-theme-appearance');
@@ -25,6 +26,13 @@ const Header = ({ onMenuClick }: HeaderProps) => {
             setDarkMode(false);
             removeClass(document.documentElement, 'dark');
         }
+        // document.addEventListener('scroll', () => {
+        //     if (document.documentElement.scrollTop > 0) {
+        //         addStyle(navbarRef.current, 'style', 'display: none');
+        //     } else {
+        //         addStyle(navbarRef.current, 'style', 'display: block');
+        //     }
+        // });
     });
 
     const beforeChange = useCallback(() => {
@@ -71,7 +79,7 @@ const Header = ({ onMenuClick }: HeaderProps) => {
 
     return (
         <header className="navbar">
-            <div className="navbar-wrapper">
+            <div ref={navbarRef} className="navbar-wrapper">
                 <div className="header-container">
                     <div className="logo-container">
                         <Link to="/">

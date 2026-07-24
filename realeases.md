@@ -1,3 +1,27 @@
+## v2.0.4
+
+2026-07-
+
+### Features
+
+- **Card** add bodyClass prop to support custom body class
+- **Dropdown** 新增拆分按钮、虚拟触发等多项功能，新增splitButton、type、size、buttonProps等十余项属性
+- **Dropdown** 新增主题effect参数支持，默认主题改为light
+- **Popover** 新增persistent属性，控制非激活时是否销毁Popover
+- **Dropdown** 新增persistent属性，控制非激活时是否销毁Dropdown
+- **Popconfirm** 新增persistent属性，控制非激活时是否销毁Popconfirm
+- **Tooltip** 新增persistent属性，控制非激活时是否销毁Tooltip
+
+### Refactor
+
+- **Dropdown** 重构事件回调命名，修正onVisiblechange为onVisibleChange，拆分点击事件为onClick和onCommand
+- **useClickOutside** 重构hooks实现，升级API适配更多场景，新增enabled、shouldIgnore等配置项，优化控制逻辑
+
+### Bug fixes
+
+- **Checkbox** 修复 Checkbox 组件样式未添加`box-sizing: border-box`导致高度计算问题
+- **Tooltip** 修复点击/右键切换显示时的鼠标事件调用错误
+
 ## v2.0.3
 
 2026-07-20
