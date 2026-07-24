@@ -57,4 +57,4 @@ export default App;`,
     });
 }
 
-buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/transfer.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/transfer/transfer', true);
+buildDoc('D:/JavaScript/Project/libs/element-plus/docs/zh-CN/component/dropdown.md', 'D:/JavaScript/private_projects/element-plus-react/docs/components/dropdown/dropdown', true);

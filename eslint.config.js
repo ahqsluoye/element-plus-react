@@ -1,5 +1,6 @@
 import eslint from '@eslint/js';
 import reactPlugin from 'eslint-plugin-react';
+// import eslintReact from '@eslint-react/eslint-plugin';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -60,11 +61,13 @@ export default tseslint.config(
             '@typescript-eslint': tseslint.plugin,
             'react-hooks': reactHooksPlugin,
             react: reactPlugin,
+            // '@eslint-react': eslintReact,
             // 'jsx-a11y': jsxA11yPlugin,
         },
         rules: {
             ...tseslint.configs.recommended.rules,
             ...reactPlugin.configs.recommended.rules,
+            // ...eslintReact.configs.recommended.rules,
             // ...jsxA11yPlugin.configs.recommended.rules,
 
             // 'jsx-a11y/click-events-have-key-events': 'off',
@@ -283,7 +286,7 @@ export default tseslint.config(
         },
         settings: {
             react: {
-                version: 'detect',
+                version: '19',
             },
         },
     },
