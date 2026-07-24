@@ -44,6 +44,8 @@ export interface DropdownProps
     virtualTriggering?: boolean;
     /** 标识虚拟触发时的触发元素 */
     virtualRef?: VirtualElement;
+    /** 当dropdown未激活且 persistent 为 false 时，dropdown将被销毁。 */
+    persistent?: boolean;
     /** [popper.js](https://popper.js.org/docs/v2/) 参数 */
     // popperOptions?: PopperOptions;
     onMouseEnter?: (e?: React.MouseEvent<any>) => void;

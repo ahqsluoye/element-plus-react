@@ -23,6 +23,7 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
             hideTimeout: 100,
             trigger: 'hover',
             effect: 'light',
+            persistent: true,
         },
         props,
     );
@@ -47,6 +48,7 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
         type,
         buttonProps,
         onCommand,
+        persistent,
         ...rest
     } = props;
     const [popperProps] = partitionPopperPropsUtils(rest);
@@ -117,7 +119,7 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                         contentSlot={<DropdownContext.Provider value={{ hideOnClick, onCommand: onClick, maxHeight, size }}>{menu}</DropdownContext.Provider>}
-                        unmountOnExit
+                        persistent={persistent}
                         {...popperProps}
                         {...transitionProps}
                     />
@@ -146,7 +148,7 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
                             {maxHeight ? <ElScrollbar maxHeight={maxHeight}>{menu}</ElScrollbar> : menu}
                         </DropdownContext.Provider>
                     }
-                    unmountOnExit
+                    persistent={persistent}
                     {...popperProps}
                     {...transitionProps}
                 />
