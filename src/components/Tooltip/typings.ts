@@ -48,4 +48,6 @@ export interface TooltipProps extends BaseProps<React.ReactNode>, NativeProps, P
     contentSlot?: ComponentChildren;
     /** 是否禁用过渡动画 */
     disableTransition?: boolean;
+    /** 当tooltip未激活且 persistent 为 false 时，tooltip将被销毁。 */
+    persistent?: boolean;
 }

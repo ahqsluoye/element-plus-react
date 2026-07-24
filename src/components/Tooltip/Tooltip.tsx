@@ -30,7 +30,7 @@ const Tooltip = memo(
             contentSlot,
             virtualTriggering,
             virtualRef,
-            unmountOnExit = true,
+            persistent,
             disableTransition,
             ...rest
         } = props;
@@ -191,8 +191,9 @@ const Tooltip = memo(
                     }}
                     className={classNames(props.popperClass, { [e`popper`]: classPrefix === 'tooltip' })}
                     effect={effect}
-                    unmountOnExit={unmountOnExit}
+                    unmountOnExit={!persistent}
                     showDuration={0}
+                    trigger={trigger}
                     {...popperProps}
                     {...transitionProps}
                 >
