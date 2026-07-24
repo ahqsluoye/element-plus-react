@@ -4,7 +4,8 @@ import { AnimationEventProps, BaseProps, NativeProps } from '@qsxy/element-plus-
 import React from 'react';
 
 export interface PopoverProps
-    extends BaseProps<React.ReactElement>,
+    extends
+        BaseProps<React.ReactElement>,
         NativeProps<
             | '--el-popover-bg-color'
             | '--el-popover-font-size'
@@ -40,6 +41,8 @@ export interface PopoverProps
     defaultVisible?: boolean;
     /** 是否纯文本 */
     plain?: boolean;
+    /** 当popover 未激活且 persistent 为 false 时，Popover将被销毁。 */
+    persistent?: boolean;
     onMouseEnter?: (e?: React.MouseEvent<any>) => void;
     onMouseLeave?: (e?: React.MouseEvent<any>) => void;
 }

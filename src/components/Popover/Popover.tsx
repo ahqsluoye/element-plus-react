@@ -18,10 +18,28 @@ const Popover = memo(
                 hideAfter: 100,
                 width: 200,
                 trigger: 'click',
+                persistent: true,
             },
             props,
         );
-        const { title, classPrefix = 'popover', plain, width, showAfter, hideAfter, offset, trigger, content, onEnter, onMouseEnter, onMouseLeave, placement, ...rest } = props;
+        const {
+            title,
+            classPrefix = 'popover',
+            plain,
+            width,
+            showAfter,
+            hideAfter,
+            offset,
+            trigger,
+            content,
+            onEnter,
+            onMouseEnter,
+            onMouseLeave,
+            placement,
+            disabled,
+            persistent,
+            ...rest
+        } = props;
         const { b, e, m } = useClassNames(classPrefix);
         const [popperProps] = partitionPopperPropsUtils(rest);
         const [transitionProps] = partitionAnimationProps(rest);
@@ -69,6 +87,8 @@ const Popover = memo(
                         {content}
                     </>
                 }
+                disabled={disabled}
+                persistent={persistent}
                 {...popperProps}
                 {...transitionProps}
             />
