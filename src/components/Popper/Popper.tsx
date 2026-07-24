@@ -1,7 +1,6 @@
 import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
 import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import useClickOutside from '@qsxy/element-plus-react/hooks/useClickOutside';
 import useComponentWillMount from '@qsxy/element-plus-react/hooks/useComponentWillMount';
 import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import { mergeDefaultProps, randomCode } from '@qsxy/element-plus-react/Util/base';
@@ -11,6 +10,7 @@ import startsWith from 'lodash/startsWith';
 import React, { FC, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { usePopper } from 'react-popper';
+import useClickOutside from '../hooks/useClickOutside';
 import usePopperOptions from './popperOptions';
 import { PopperProps } from './typings';
 
@@ -26,6 +26,7 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
             gpuAcceleration: false,
             strategy: 'absolute',
             disableTransition: false,
+            trigger: 'click',
         },
         props,
     );
@@ -45,6 +46,7 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
         onMouseLeave,
         effect = 'light',
         disableTransition,
+        trigger,
         ...rest
     } = props;
     const [transitionProps] = partitionAnimationProps(rest);
@@ -54,8 +56,8 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
 
     const { b, e, is } = useClassNames('popper');
 
-    const [popperElement, setPopperElement] = useState(null);
-    const [arrowElement, setArrowElement] = useState(null);
+    const [popperElement, setPopperElement] = useState<HTMLDivElement>(null);
+    const [arrowElement, setArrowElement] = useState<HTMLDivElement>(null);
 
     const popperOptions = usePopperOptions(props, arrowElement);
 
@@ -81,13 +83,28 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.afterLeave]);
 
-    // @ts-ignore
-    useClickOutside(reference, {
-        popperRef: popperElement,
-        value: () => {
+    const handleDestroy = useCallback(() => {
+        if (visible) {
             onDestroy?.();
-        },
-    });
+        }
+    }, [visible, onDestroy]);
+
+    const options = useMemo(
+        () => ({
+            enabled: trigger !== 'hover',
+            enabledListener: visible,
+            shouldIgnore: event => {
+                if (event instanceof MouseEvent) {
+                    const elements = event.composedPath();
+                    return event.button !== 0 || popperElement === event.target || elements.includes(popperElement);
+                }
+                return false;
+            },
+        }),
+        [popperElement, trigger, visible],
+    );
+
+    useClickOutside(reference, handleDestroy, options);
 
     // useEffect(() => {
     //     popperInstRef.current = popperInstance;

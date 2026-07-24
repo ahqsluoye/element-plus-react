@@ -27,13 +27,23 @@ const TimePickerPanel = memo(
             adjustSpinners: spinnerRef.current.adjustSpinners,
         }));
 
-        useClickOutside(reference, {
-            popperRef: containerRef.current,
-            value: () => {
+        useClickOutside(
+            reference,
+            () => {
                 // spinnerDate.current = null;
                 props?.onDestroy?.();
             },
-        });
+            {
+                enabled: true,
+                shouldIgnore: event => {
+                    if (event instanceof MouseEvent && containerRef.current) {
+                        const elements = event.composedPath();
+                        return event.button !== 0 || containerRef.current === event.target || elements.includes(containerRef.current);
+                    }
+                    return false;
+                },
+            },
+        );
 
         return (
             <div className={classNames(b`panel`, props.className)} style={props.style} ref={containerRef}>
