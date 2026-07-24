@@ -22,6 +22,8 @@ export interface PopconfirmProps extends BaseProps<React.ReactElement>, NativePr
     hideIcon?: boolean;
     /** 弹层宽度，最小宽度 150px  */
     width?: number;
+    /** 当popconfirm未激活且 persistent 为 false 时，popconfirm将被销毁。 */
+    persistent?: boolean;
     /** 点击确认按钮时触发 */
     onConfirm?: () => void;
     /** 点击取消按钮时触发 */

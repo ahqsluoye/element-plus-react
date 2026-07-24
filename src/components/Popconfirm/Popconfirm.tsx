@@ -43,6 +43,7 @@ const Popconfirm = memo(
             hideIcon,
             classPrefix = 'popconfirm',
             width,
+            persistent,
             ...rest
         } = props;
         const [popperProps] = partitionPopperPropsUtils(rest);
@@ -99,7 +100,7 @@ const Popconfirm = memo(
                         </div>
                     </div>
                 }
-                unmountOnExit
+                persistent={persistent}
                 {...popperProps}
                 {...transitionProps}
             />
