@@ -16,7 +16,6 @@ export const formItemValidateStates = ['', 'error', 'validating', 'success'] as 
 export type FormItemValidateState = (typeof formItemValidateStates)[number];
 
 export interface ChildProps {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [name: string]: any;
 }
 
@@ -75,7 +74,6 @@ export interface FormProps<Values = Store> extends BaseFormProps {
     className?: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface FormItemProps<Values = any> extends Omit<BaseProps, 'children'>, NativeProps {
     /**
      * 配合 label 属性使用，表示是否显示 label 后面的冒号
@@ -447,7 +445,6 @@ export type InternalFormInstance = Omit<FormInstance, 'validateFields'> & {
     deregisterLabelWidth?: (width: number) => void;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type EventArgs = any[];
 
 type ValidateMessage = string | (() => string);

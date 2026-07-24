@@ -14,7 +14,6 @@ export function getError(action: string, option: UploadRequestOptions, xhr: XMLH
     return new UploadAjaxError(msg, xhr.status, option.method, action);
 }
 
-// eslint-disable-next-line no-undef
 export function getBody(xhr: XMLHttpRequest): XMLHttpRequestResponseType {
     const text = xhr.responseText || xhr.response;
     if (!text) {

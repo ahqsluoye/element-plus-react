@@ -143,7 +143,6 @@ export function getScrollWidth(elem: HTMLElement) {
 export function warning(valid: boolean, message: string) {
     // Support uglify
     if (!valid && console !== undefined && process.env.NODE_ENV === 'development') {
-        // eslint-disable-next-line no-console
         console.warn(`Warning: ${message}`);
     }
 }

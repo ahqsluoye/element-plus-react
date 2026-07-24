@@ -34,7 +34,6 @@ async function validateRule(name: string, value: StoreValue, rule: RuleObject, o
             try {
                 return originValidator(...args);
             } catch (error) {
-                // eslint-disable-next-line no-console
                 console.error(error);
                 return Promise.reject(CODE_LOGIC_ERROR);
             }
@@ -67,7 +66,6 @@ async function validateRule(name: string, value: StoreValue, rule: RuleObject, o
                 return isValidElement(mergedMessage) ? cloneElement(mergedMessage, { key: `error_${index}` }) : mergedMessage;
             });
         } else {
-            // eslint-disable-next-line no-console
             console.error(errObj);
             result = [messages.default];
         }
@@ -182,7 +180,6 @@ export function validateRules(
 
     if (validateFirst === true) {
         // >>>>> Validate by serialization
-        // eslint-disable-next-line no-async-promise-executor
         summaryPromise = new Promise(async (resolve, reject) => {
             for (let i = 0; i < filledRules.length; i += 1) {
                 const rule = filledRules[i];

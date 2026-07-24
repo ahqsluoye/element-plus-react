@@ -1,8 +1,5 @@
 export function isInteger(value) {
-    return (
-        // eslint-disable-next-line no-restricted-globals
-        typeof value === 'number' && isFinite(value) && Math.floor(value) === value
-    );
+    return typeof value === 'number' && isFinite(value) && Math.floor(value) === value;
 }
 
 export function defaultItemRender(page, type, element) {

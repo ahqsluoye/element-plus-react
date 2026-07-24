@@ -236,7 +236,6 @@ function Field(props: FieldProps) {
             const value = getValue();
             const mergedGetValueProps = getValueProps || ((val: StoreValue) => ({ [valuePropName]: val }));
 
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const originTriggerFunc: any = childProps[trigger];
 
             const control = {
@@ -670,7 +669,7 @@ function Field(props: FieldProps) {
                 <FormLabelWrap key={key} isAutoWidth={labelWidth === 'auto'} updateAll={fieldContext.labelWidth === 'auto'}>
                     {label && !pure && (
                         <label className={e`label`} style={['left', 'right'].includes(labelPosition) ? { width: labelWidth, ...labelStyle } : labelStyle}>
-                            {typeof label === 'string' || typeof label === 'number' ? `${label}${colonContext ?? colon ? '：' : ''}` : label}
+                            {typeof label === 'string' || typeof label === 'number' ? `${label}${(colonContext ?? colon) ? '：' : ''}` : label}
                             {help && (
                                 <ElTooltip className={e`label--help`} content={help} placement="top" enterable>
                                     <ElIcon name="circle-question" prefix="fas" />

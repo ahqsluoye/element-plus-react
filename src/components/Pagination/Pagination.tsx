@@ -68,7 +68,6 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
         const hasOnChange = !!onChange;
         const hasCurrent = 'currentPage' in props;
         if (hasCurrent && !hasOnChange) {
-            // eslint-disable-next-line no-console
             console.warn('Warning: You provided a `currentPage` prop to a Pagination component without an `onChange` handler. This will render a read-only component.');
         }
 
@@ -195,7 +194,6 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
             let value: number;
             if (inputVal === '') {
                 value = +inputVal;
-                // eslint-disable-next-line no-restricted-globals
             } else if (isNaN(Number(inputVal))) {
                 value = current;
             } else if (+inputVal >= _allPages) {

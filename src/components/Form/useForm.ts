@@ -153,7 +153,6 @@ export class FormStore {
 
             // We will take consider prev form unmount fields.
             // When the field is not `preserve`, we need fill this with initialValues instead of store.
-            // eslint-disable-next-line array-callback-return
             this.prevWithoutPreserves?.map(({ key: namePath }) => {
                 nextStore = setValue(nextStore, namePath, getValue(initialValues, namePath));
             });
@@ -532,7 +531,6 @@ export class FormStore {
         const namePathList: InternalNamePath[] = [];
 
         fields.forEach((fieldData: FieldData) => {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { name, errors, ...data } = fieldData;
             const namePath = getNamePath(name);
             namePathList.push(namePath);
@@ -800,7 +798,6 @@ export class FormStore {
                 });
 
                 fields.forEach(field => {
-                    // eslint-disable-next-line no-param-reassign
                     field.errors = cache.get(field.name) || field.errors;
                 });
             }
@@ -944,7 +941,6 @@ export class FormStore {
                         onFinish(values);
                     } catch (err) {
                         // Should print error if user `onFinish` callback failed
-                        // eslint-disable-next-line no-console
                         console.error(err);
                     }
                 }

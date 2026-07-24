@@ -50,8 +50,7 @@ const List: FC<ListProps> = ({ name, initialValue, children, rules, validateTrig
                 return [keyManager.keys[pathName], namePath.slice(len + 1)];
             },
         }),
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [prefixName],
+        [keyManager.keys, prefixName.length],
     );
 
     // User should not pass `children` as other type.

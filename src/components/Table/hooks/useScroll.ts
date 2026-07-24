@@ -52,7 +52,6 @@ export const useScroll = <T>(props: TableProps<T>, data: T[], refs: TableRefs, m
 
     /** 滚动到一组特定坐标 */
     const scrollTo = useCallback(
-        // eslint-disable-next-line no-undef
         (options: number, yCoord?: number) => {
             const scrollbar = refs.scrollBarRef;
             if (scrollbar.current) {

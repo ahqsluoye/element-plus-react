@@ -89,7 +89,6 @@ const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref)
 
     useLayoutEffect(() => {
         setVisible(true);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {

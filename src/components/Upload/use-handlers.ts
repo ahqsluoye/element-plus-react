@@ -60,7 +60,6 @@ export const useHandlers = (props: Omit<UploadProps, 'fileList'> & { fileList: U
             return;
         }
 
-        // eslint-disable-next-line no-console
         // console.error(err);
         file.status = 'fail';
         uploadFilesRef.current.splice(uploadFilesRef.current.indexOf(file), 1);
