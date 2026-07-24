@@ -89,6 +89,7 @@ Dropdown 组件提供除了默认值以外的三种尺寸，可以在不同场�
 | showArrow         | tooltip 的内容是否有箭头                                                      | `boolean`                                                                                                                    | true    |
 | showTimeout       | 展开下拉菜单的延时，仅在 trigger 为 hover 时有效                              | `number`                                                                                                                     | 150     |
 | hideTimeout       | 收起下拉菜单的延时（仅在 trigger 为 hover 时有效）                            | `number`                                                                                                                     | 150     |
+| persistent        | 当下拉菜单处于非活动状态且 persistent 为 false 时，下拉菜单将被销毁           | `boolean`                                                                                                                    | true    |
 | popperClass       | 自定义浮层类名                                                                | `string` / `object`                                                                                                          | ''      |
 | popperStyle       | 自定义浮层类名                                                                | `string` / `object`                                                                                                          | —       |
 

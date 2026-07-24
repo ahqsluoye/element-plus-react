@@ -36,6 +36,8 @@ export type PopperProps = {
     onDestroy: () => void;
     /** 是否禁用过渡动画 */
     disableTransition?: boolean;
+    /** 触发下拉的行为 */
+    trigger?: 'hover' | 'click' | 'contextmenu';
 } & Partial<
     {
         id?: string;
