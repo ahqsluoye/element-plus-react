@@ -3,7 +3,19 @@ import forEach from 'lodash/forEach';
 import includes from 'lodash/includes';
 
 // @ts-ignore
-export const animationAllProps = ['transitionAppear', 'unmountOnExit', 'beforeEnter', 'onEnter', 'afterEnter', 'beforeLeave', 'onLeave', 'afterLeave', 'duration', 'display'];
+export const animationAllProps = [
+    'transitionAppear',
+    'unmountOnExit',
+    'beforeEnter',
+    'onEnter',
+    'afterEnter',
+    'beforeLeave',
+    'onLeave',
+    'afterLeave',
+    'showDuration',
+    'duration',
+    'display',
+];
 
 /**
  * Returns an array of objects consisting of: props of html input element and rest.

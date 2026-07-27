@@ -1,5 +1,6 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
+import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
@@ -25,6 +26,10 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
         // useEffect(() => {
         //     spinnerDate.current = valueProp;
         // }, [valueProp]);
+
+        const listScrollbarHoursRef = useRef<ScrollbarRef>(null);
+        const listScrollbarMinutesRef = useRef<ScrollbarRef>(null);
+        const listScrollbarSecondsRef = useRef<ScrollbarRef>(null);
 
         const listHoursRef = useRef<HTMLElement>(null);
         const listMinutesRef = useRef<HTMLElement>(null);
@@ -144,6 +149,13 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
                 const el = listRefsMap[type].current;
                 if (el) {
                     el.querySelector('.el-scrollbar__wrap').scrollTop = Math.max(0, value * typeItemHeight(type));
+                    if (type === 'hours') {
+                        listScrollbarHoursRef.current?.update();
+                    } else if (type === 'minutes') {
+                        listScrollbarMinutesRef.current?.update();
+                    } else if (type === 'seconds') {
+                        listScrollbarSecondsRef.current?.update();
+                    }
                 }
             },
             [listRefsMap, typeItemHeight],
@@ -331,6 +343,13 @@ const TimeSpinnerPanel: React.ForwardRefExoticComponent<TimeSpinnerProps & React
                                 tag="ul"
                                 ref={_ref => {
                                     listRefsMap[item].current = _ref?.ref?.current;
+                                    if (item === 'hours') {
+                                        listScrollbarHoursRef.current = _ref;
+                                    } else if (item === 'minutes') {
+                                        listScrollbarMinutesRef.current = _ref;
+                                    } else if (item === 'seconds') {
+                                        listScrollbarSecondsRef.current = _ref;
+                                    }
                                 }}
                                 noresize
                                 onScroll={() => handleScroll(item)}
