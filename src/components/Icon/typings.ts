@@ -21,7 +21,7 @@ export interface IconProps extends Omit<React.AllHTMLAttributes<HTMLElement>, 's
 export type SvgIconProps = Omit<IconProps, 'name'>;
 
 export type IconPrefix = 'fat' | 'fal' | 'far' | 'fas' | 'fab' | 'fad';
-export type IconSize = 'xs' | 'small' | 'large' | '1x' | '2x' | '3x' | '4x' | '5x' | '6x' | '7x' | '8x' | '9x' | '10x';
+export type IconSize = 'xs' | 'small' | 'large' | '1x' | '2x' | '3x' | '4x' | '5x' | '6x' | '7x' | '8x' | '9x' | '10x' | number | string;
 export type Rotate = 90 | 180 | 270;
 export type Flip = 'horizontal' | 'vertical' | 'both';
 
