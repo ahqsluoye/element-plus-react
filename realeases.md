@@ -1,6 +1,6 @@
 ## v2.0.4
 
-2026-07-
+2026-07-27
 
 ### Features
 
@@ -11,6 +11,8 @@
 - **Dropdown** 新增persistent属性，控制非激活时是否销毁Dropdown
 - **Popconfirm** 新增persistent属性，控制非激活时是否销毁Popconfirm
 - **Tooltip** 新增persistent属性，控制非激活时是否销毁Tooltip
+- **Tooltip** 新增persistent属性，控制非激活时是否销毁Tooltip
+- **Icon** 新增支持自定义数字/字符串类型的图标尺寸
 
 ### Refactor
 
