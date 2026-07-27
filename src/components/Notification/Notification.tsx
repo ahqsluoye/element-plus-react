@@ -1,9 +1,9 @@
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
-import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { EVENT_CODE, TypeComponentsMap } from '@qsxy/element-plus-react/config/Constants';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useZIndex } from '@qsxy/element-plus-react/hooks/useZIndex';
 import classNames from 'classnames';
 import React, { CSSProperties, forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -103,12 +103,14 @@ const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visible]);
 
+    const zIndex = useZIndex(visible);
+
     const positionStyle = useMemo<CSSProperties>(() => {
         return {
             [verticalProperty]: `${offset}px`,
-            zIndex: visible ? PopupManager.nextZIndex() : null,
+            zIndex: visible ? zIndex : null,
         };
-    }, [offset, verticalProperty, visible]);
+    }, [offset, verticalProperty, visible, zIndex]);
 
     /** 关闭图标 */
     // const closeIcon = useMemo(() => showClose && <div className={classNames(e`closeBtn`, b('icon-close', false))} onClick={handleClose} />, [showClose, e, b, handleClose]);

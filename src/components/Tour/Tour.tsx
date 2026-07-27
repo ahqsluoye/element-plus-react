@@ -1,7 +1,7 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useZIndex } from '@qsxy/element-plus-react/hooks/useZIndex';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
-import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import isBoolean from 'lodash/isBoolean';
@@ -88,7 +88,7 @@ function Tour(props: TourProps) {
     );
     const mergedType = useMemo(() => currentStep?.type ?? typeProp, [currentStep?.type, typeProp]);
 
-    const mergedZIndex = useMemo(() => (visible ? zIndexProp ?? PopupManager.nextZIndex() : null), [zIndexProp, visible]);
+    const mergedZIndex = useZIndex(visible, zIndexProp);
 
     const { mergedPosInfo, triggerTarget } = useTarget(currentTarget, visible, gapProp, mergedMask, mergedScrollIntoViewOptions);
 

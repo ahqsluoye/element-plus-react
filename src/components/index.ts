@@ -413,6 +413,7 @@ export { default as useComponentWillMount } from './hooks/useComponentWillMount'
 export { useConfigProvider } from './hooks/useConfigProvider';
 export { default as useControlled } from './hooks/useControlled';
 export { useForceUpdate } from './hooks/useForceUpdate';
+export { useZIndex } from './hooks/useZIndex';
 export { download, getScrollWidth, isEmpty, isNotEmpty, randomCode } from './Util/base';
 export { genFileId } from './Util/genFileId';
 export { default as PopupManager } from './Util/PopupManager';

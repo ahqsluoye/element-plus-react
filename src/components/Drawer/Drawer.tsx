@@ -1,9 +1,9 @@
 import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
-import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import { addUnit, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useLockScreen } from '@qsxy/element-plus-react/hooks/useLockscreen';
+import { useZIndex } from '@qsxy/element-plus-react/hooks/useZIndex';
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import { useComposeRef } from 'rc-util';
@@ -72,7 +72,7 @@ const Drawer = memo(
         const composedRef = useComposeRef(ref, wrapperRef);
         const initRef = useRef(false);
 
-        const nextZIndex = useMemo(() => (visible ? zIndex || PopupManager.nextZIndex() : null), [visible, zIndex]);
+        const nextZIndex = useZIndex(visible, zIndex);
 
         const doClose = useCallback(() => {
             if (beforeClose) {

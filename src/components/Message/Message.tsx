@@ -1,10 +1,10 @@
 import ElBadge from '@qsxy/element-plus-react/Badge/Badge';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
-import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { EVENT_CODE, TypeComponentsMap } from '@qsxy/element-plus-react/config/Constants';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useZIndex } from '@qsxy/element-plus-react/hooks/useZIndex';
 import classNames from 'classnames';
 import React, { CSSProperties, forwardRef, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -137,12 +137,14 @@ const Message = memo(
         }, [is, placement]);
         const verticalProperty = useMemo(() => (placement.startsWith('top') ? 'top' : 'bottom'), [placement]);
 
+        const zIndex = useZIndex(visible);
+
         const customStyle = useMemo<CSSProperties>(
             () => ({
                 //   [verticalProperty]: `${offsetValue}px`,
-                zIndex: visible ? PopupManager.nextZIndex() : null,
+                zIndex,
             }),
-            [visible],
+            [zIndex],
         );
 
         /** 关闭图标 */

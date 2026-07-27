@@ -1,12 +1,12 @@
 import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
-import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import { addUnit, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useLockScreen } from '@qsxy/element-plus-react/hooks/useLockscreen';
+import { useZIndex } from '@qsxy/element-plus-react/hooks/useZIndex';
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import omit from 'lodash/omit';
-import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import DialogBody from './DialogBody';
 import { DialogContext } from './DialogContext';
@@ -79,7 +79,7 @@ const Dialog = React.memo(
 
         const contentRef = useRef<HTMLDivElement>(null);
 
-        const nextZIndex = useMemo(() => (visible ? zIndex || PopupManager.nextZIndex() : null), [visible, zIndex]);
+        const nextZIndex = useZIndex(visible, zIndex);
 
         useDraggable(dialogRef, headerRef, props);
 

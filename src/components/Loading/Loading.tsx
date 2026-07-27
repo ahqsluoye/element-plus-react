@@ -1,7 +1,7 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useZIndex } from '@qsxy/element-plus-react/hooks/useZIndex';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
-import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import React, { FC, RefObject, createRef, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
@@ -13,7 +13,7 @@ const LoadingMain = forwardRef<any, LoadingProps>((props, ref) => {
     const { visible, text, fullscreen, spinner, background, svg, svgViewBox } = props;
     const { b, is, bm } = useClassNames('loading');
 
-    const zIndex = useMemo(() => (visible ? PopupManager.nextZIndex() : null), [visible]);
+    const zIndex = useZIndex(visible);
 
     const nodeRef = useRef(null);
 

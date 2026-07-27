@@ -3,9 +3,9 @@ import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import useClickOutside from '@qsxy/element-plus-react/hooks/useClickOutside';
 import useComponentWillMount from '@qsxy/element-plus-react/hooks/useComponentWillMount';
+import { useZIndex } from '@qsxy/element-plus-react/hooks/useZIndex';
 import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import { mergeDefaultProps, randomCode } from '@qsxy/element-plus-react/Util/base';
-import PopupManager from '@qsxy/element-plus-react/Util/PopupManager';
 import classNames from 'classnames';
 import startsWith from 'lodash/startsWith';
 import React, { FC, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
@@ -52,7 +52,7 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
     const [transitionProps] = partitionAnimationProps(rest);
 
     const id = useMemo(() => props.id ?? randomCode(5), [props.id]);
-    const zIndex = useMemo(() => (visible ? PopupManager.nextZIndex() : null), [visible]);
+    const zIndex = useZIndex(visible);
 
     const { b, e, is } = useClassNames('popper');
 
