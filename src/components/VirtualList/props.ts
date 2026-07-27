@@ -1,7 +1,7 @@
 import { VERTICAL } from './defaults';
 
+import { TableGridRowSlotParams } from '@qsxy/element-plus-react/TableV2/table';
 import React, { CSSProperties } from 'react';
-import { TableGridRowSlotParams } from '../TableV2/table';
 import type { Dir, GridItemKeyGetter, ItemSize } from './types';
 
 export interface VirtualizedProps {

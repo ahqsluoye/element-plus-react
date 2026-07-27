@@ -1,5 +1,5 @@
+import '@qsxy/element-plus-react/locale/i18n';
 import { createContext, useContext } from 'react';
-import '../locale/i18n';
 import { ConfigProviderContextProps } from './typings';
 
 const ConfigProviderContext = createContext<ConfigProviderContextProps>({
