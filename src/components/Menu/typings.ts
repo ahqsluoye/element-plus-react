@@ -1,5 +1,6 @@
 import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import React from 'react';
+import type { NavigateFunction } from 'react-router-dom';
 
 export interface MenuRef {
     open: MenuOpenEvent;
@@ -8,7 +9,8 @@ export interface MenuRef {
 }
 
 export interface MenuProps
-    extends BaseProps,
+    extends
+        BaseProps,
         NativeProps<
             | '--el-menu-active-color'
             | '--el-menu-text-color'
@@ -64,6 +66,8 @@ export interface MenuProps
     onOpen?: MenuSelectEvent;
     /** sub-menu 收起的回调 */
     onClose?: MenuSelectEvent;
+    /** 路由跳转函数 */
+    navigate?: NavigateFunction;
 }
 
 export interface SubMenuProps extends BaseProps, NativeProps {

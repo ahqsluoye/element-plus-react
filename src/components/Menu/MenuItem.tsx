@@ -2,7 +2,6 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useMenuContext } from './MenuContext';
 import { MenuItemProps } from './typings';
 
@@ -10,9 +9,7 @@ const MenuItem = (props: MenuItemProps) => {
     const { classPrefix = 'menu-item', index, route, disabled, onClick } = props;
     const { b, is } = useClassNames(classPrefix);
 
-    const { handleSubMenuClick, activeIndex, setActiveIndex, parentIndex, addMenuItem, onOpen, onSelect, router } = useMenuContext();
-
-    const navigate = useNavigate();
+    const { handleSubMenuClick, activeIndex, setActiveIndex, parentIndex, addMenuItem, onOpen, onSelect, router, navigate } = useMenuContext();
 
     const indexPath = useMemo(() => [...parentIndex, index], [index, parentIndex]);
 

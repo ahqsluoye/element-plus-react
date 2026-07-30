@@ -1,4 +1,5 @@
 import React, { createContext, useContext } from 'react';
+import type { NavigateFunction } from 'react-router-dom';
 import { MenuItemRegistered, MenuProps, SubMenuProvider } from './typings';
 
 interface MenuContextProps extends Pick<MenuProps, 'menuTrigger' | 'onSelect' | 'onOpen' | 'onClose' | 'showTimeout' | 'hideTimeout' | 'popperOffset' | 'router' | 'collapse'> {
@@ -12,6 +13,8 @@ interface MenuContextProps extends Pick<MenuProps, 'menuTrigger' | 'onSelect' | 
     mode?: 'horizontal' | 'vertical';
     addItem?: (menu: SubMenuProvider) => void;
     removeItem?: (menu: SubMenuProvider) => void;
+    /** 路由跳转函数 */
+    navigate?: NavigateFunction;
     themeStyle?: React.CSSProperties &
         Partial<
             Record<

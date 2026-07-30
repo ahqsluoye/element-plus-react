@@ -1,21 +1,19 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
-import React, { cloneElement, FC, memo, useCallback, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { cloneElement, memo, useCallback, useContext } from 'react';
 import { BreadcrumbContext } from './Breadcrumb';
 import { BreadcrumbItemProps } from './typings';
 
-const BreadcrumbItem: FC<BreadcrumbItemProps> = memo(props => {
+const BreadcrumbItem = memo((props: BreadcrumbItemProps) => {
     const { classPrefix = 'breadcrumb', to, onClick } = props;
     const { e, is } = useClassNames(classPrefix);
-    const { separator } = useContext(BreadcrumbContext);
-    const navigate = useNavigate();
+    const { separator, navigate } = useContext(BreadcrumbContext);
 
     /** 点击链接跳转 */
     const onClickLink = useCallback(() => {
         if (isNotEmpty(to)) {
-            navigate(typeof to === 'string' ? to : to?.path ?? '*');
+            navigate?.(typeof to === 'string' ? to : (to?.path ?? '*'));
         }
         onClick?.(to);
     }, [navigate, onClick, to]);

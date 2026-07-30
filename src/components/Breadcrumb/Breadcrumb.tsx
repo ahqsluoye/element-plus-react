@@ -6,14 +6,14 @@ import { useTranslation } from 'react-i18next';
 import { BreadcrumbContextProps, BreadcrumbProps } from './typings';
 
 const Breadcrumb: FC<BreadcrumbProps> = memo(props => {
-    const { classPrefix = 'breadcrumb', separator = '/' } = props;
+    const { classPrefix = 'breadcrumb', separator = '/', navigate } = props;
     const { b } = useClassNames(classPrefix);
 
     const { locale } = useConfigProvider();
     const { t } = useTranslation();
 
     return (
-        <BreadcrumbContext.Provider value={{ separator }}>
+        <BreadcrumbContext.Provider value={{ separator, navigate }}>
             <div
                 className={classNames(b(), props.className)}
                 aria-label={t('el.breadcrumb.label', {
@@ -33,4 +33,5 @@ export default Breadcrumb;
 
 export const BreadcrumbContext = createContext<BreadcrumbContextProps>({
     separator: '/',
+    navigate: undefined,
 });

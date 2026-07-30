@@ -44,6 +44,7 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
         popperOffset,
         router,
         ellipsisIcon,
+        navigate,
     } = props;
     const { b, m } = useClassNames(classPrefix);
 
@@ -276,6 +277,7 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
                         '--el-menu-level-padding',
                         '--el-menu-icon-width',
                     ]),
+                    navigate,
                 }}
             >
                 {sliceIndex > 1 ? (

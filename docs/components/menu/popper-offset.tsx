@@ -1,9 +1,11 @@
 import { ElMenu, ElMenuItem, ElSubMenu } from '@qsxy/element-plus-react';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const App = () => {
+    const navigate = useNavigate();
     return (
-        <ElMenu mode="horizontal" defaultActive="/guide/installation" popperOffset={16} ellipsis router style={{ maxWidth: 600 }}>
+        <ElMenu mode="horizontal" defaultActive="/guide/installation" popperOffset={16} ellipsis router navigate={navigate} style={{ maxWidth: 600 }}>
             <ElMenuItem index="/guide/installation">指南</ElMenuItem>
             <ElSubMenu index="components" title="Basic 基础组件">
                 <ElMenuItem index="/components/button">Button 按钮</ElMenuItem>

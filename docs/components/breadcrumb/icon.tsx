@@ -1,9 +1,11 @@
 import { ElBreadcrumb, ElBreadcrumbItem, ElIcon } from '@qsxy/element-plus-react';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const App = () => {
+    const navigate = useNavigate();
     return (
-        <ElBreadcrumb separator={<ElIcon name="angle-right" />}>
+        <ElBreadcrumb separator={<ElIcon name="angle-right" />} navigate={navigate}>
             <ElBreadcrumbItem to={{ path: '/' }}>
                 <ElIcon name="home" /> 主页
             </ElBreadcrumbItem>

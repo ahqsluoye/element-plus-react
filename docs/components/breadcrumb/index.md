@@ -25,17 +25,18 @@ lang: zh-CN
 
 ### Breadcrumb 属性
 
-| 属性名    | 说明   | 类型                   | 默认值 |
-| --------- | ------ | ---------------------- | ------ |
-| separator | 分隔符 | `string` / `Component` | /      |
+| 属性名    | 说明                                               | 类型                   | 默认值 |
+| --------- | -------------------------------------------------- | ---------------------- | ------ |
+| separator | 分隔符                                             | `string` / `Component` | /      |
+| navigate  | `react-router-dom` 的 hooks `useNavigate` 返回值。 | `NavigateFunction`     | —      |
 
 ## BreadcrumbItem API
 
 ### BreadcrumbItem 属性
 
-| 属性名 | 说明                                      | 类型                                                     | 默认值 |
-| ------ | ----------------------------------------- | -------------------------------------------------------- | ------ |
-| to     | 路由跳转目标，同 `vueRouter` 的 `to` 属性 | `string` / <Enum type='object'>RouteProps</Enum>         | ''     |
-| onClick | 点击事件回调                              | <Enum type="Function">(to?: string \| RouteProps) => void</Enum> | —      |
+| 属性名  | 说明                                                                              | 类型                                                             | 默认值 |
+| ------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------ |
+| to      | 路由跳转目标，会调用 `react-router-dom` 的 hooks `useNavigate` 函数进行路由跳转。 | `string` / <Enum type='object'>RouteProps</Enum>                 | ''     |
+| onClick | 点击事件回调                                                                      | <Enum type="Function">(to?: string \| RouteProps) => void</Enum> | —      |
 
 <!-- | replace | 如果设置该属性为 `true`, 导航将不会留下历史记录 | `boolean`                                              | false  | -->
