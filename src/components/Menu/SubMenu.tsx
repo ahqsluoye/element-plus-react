@@ -195,14 +195,14 @@ const SubMenu = (props: SubMenuProps) => {
                 >
                     <div>
                         {title}
-                        <ElIcon className={e`icon-arrow`} name={level > 1 ? 'angle-right' : 'angle-down'} prefix="fal" rotate={open ? 180 : undefined} />
+                        <ElIcon className={e`icon-arrow`} name={level > 1 ? 'angle-right' : 'angle-down'} prefix="fal" style={{ transform: open ? 'rotateZ(180deg)' : 'none' }} />
                     </div>
                 </ElTooltip>
             ) : (
                 <>
                     <div className={classNames(e`title`)}>
                         {title}
-                        <ElIcon className={e`icon-arrow`} name="angle-down" prefix="fal" rotate={open ? 180 : undefined} />
+                        <ElIcon className={e`icon-arrow`} name="angle-down" prefix="fal" style={{ transform: expand ? 'rotateZ(180deg)' : 'none' }} />
                     </div>
                     <ElTransition
                         name="el-menu-collapse"
