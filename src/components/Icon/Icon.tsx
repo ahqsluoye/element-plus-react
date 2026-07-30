@@ -20,7 +20,7 @@ const Icon: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<any>
                     'fa-spin': spin,
                     'fa-pulse': pulse,
                 })}
-                style={!defaultSize ? { fontSize: addUnit(size) } : undefined}
+                style={!defaultSize ? { ...style, fontSize: addUnit(size) } : style}
                 onClick={onClick}
                 ref={ref}
                 {...other}
