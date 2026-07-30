@@ -340,7 +340,7 @@ export type { TimePanelRef, AllTimePickerProps as TimePickerProps, TimePickerRef
 export { default as ElTooltip } from './Tooltip/Tooltip';
 export { TooltipContext } from './Tooltip/TooltipContext';
 export type { TooltipContextProps } from './Tooltip/TooltipContext';
-export type { TooltipProps } from './Tooltip/typings';
+export type { TooltipProps, TooltipRef } from './Tooltip/typings';
 
 // 引导 (Tour)
 export { default as ElTourStep } from './Tour/Step';
