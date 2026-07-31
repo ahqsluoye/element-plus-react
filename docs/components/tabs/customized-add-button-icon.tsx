@@ -1,4 +1,4 @@
-import { ElTabPane, ElTabs, TabPaneName } from '@qsxy/element-plus-react';
+import { ElIcon, ElTabPane, ElTabs, TabPaneName } from '@qsxy/element-plus-react';
 import cloneDeep from 'lodash/cloneDeep';
 import React, { useState } from 'react';
 
@@ -50,7 +50,14 @@ const App = () => {
     };
 
     return (
-        <ElTabs type="card" activeName={editableTabsValue} onTabClick={tab => setEditableTabsValue(tab.paneName as string)} editable onTabEdit={handleTabsEdit}>
+        <ElTabs
+            type="card"
+            activeName={editableTabsValue}
+            onTabClick={tab => setEditableTabsValue(tab.paneName as string)}
+            editable
+            addIcon={<ElIcon name="check" />}
+            onTabEdit={handleTabsEdit}
+        >
             {editableTabs.map(item => (
                 <ElTabPane key={item.name} label={item.title} name={item.name}>
                     {item.content}

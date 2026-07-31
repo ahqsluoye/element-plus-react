@@ -14,12 +14,12 @@ export interface TabsProps extends BaseProps, NativeProps<'--el-tabs-header-heig
     addable?: boolean;
     /** 标签是否同时可增加和关闭 */
     editable?: boolean;
+    /** 自定义添加按钮图标 */
+    addIcon?: React.ReactNode;
     /** 选项卡所在位置 */
     tabPosition?: 'top' | 'right' | 'bottom' | 'left';
     /** 标签的宽度是否自撑开 */
     stretch?: boolean;
-    /** 是否居中显示 */
-    center?: boolean;
     /** 样式前缀 */
     classPrefix?: string;
     /** 标签页标题栏div样式 */
@@ -35,9 +35,11 @@ export interface TabsProps extends BaseProps, NativeProps<'--el-tabs-header-heig
     /** 点击 tabs 的新增按钮后触发 */
     onTabAdd?: () => void;
     /** 点击 tab 移除按钮时触发 */
-    onTabRemove?: (name: TabPaneName | undefined) => void;
+    onTabRemove?: (paneName: TabPaneName | undefined) => void;
     /** `activeName` 改变时触发 */
-    onTabChange?: (name: TabPaneName | undefined) => void;
+    onTabChange?: (paneName: TabPaneName | undefined) => void;
+    /** 点击 tab 的新增或移除按钮后触发 */
+    onTabEdit?: (paneName: TabPaneName | undefined, action: 'remove' | 'add') => void;
     /** 鼠标右键点击 tab 时触发 */
     // formatter?: (name: TabPaneName | undefined) => void;
 }

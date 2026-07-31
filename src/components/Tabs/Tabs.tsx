@@ -4,15 +4,31 @@ import useChildrenInstance from '@qsxy/element-plus-react/hooks/useChildrenInsta
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import classNames from 'classnames';
-import { addClass, addStyle, hasClass, removeClass } from 'dom-lib';
+import { addClass, addStyle, hasClass, removeClass, removeStyle } from 'dom-lib';
 import forEach from 'lodash/forEach';
 import omit from 'lodash/omit';
-import React, { Children, Ref, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Children, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { TabsContext } from './TabsContext';
 import { Navs, Scrollable, TabPaneProps, TabsProps } from './typings';
 
-const Tabs = forwardRef((props: TabsProps, ref?: Ref<HTMLDivElement>) => {
-    const { type, tabPosition = 'top', stretch, classPrefix = 'tabs', children, onTabClick, onTabChange, beforeLeave, center, editable, addable, closable, onTabRemove } = props;
+const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
+    const {
+        type,
+        tabPosition = 'top',
+        stretch,
+        classPrefix = 'tabs',
+        children,
+        onTabClick,
+        onTabChange,
+        onTabEdit,
+        beforeLeave,
+        editable,
+        onTabAdd,
+        addable,
+        addIcon,
+        closable,
+        onTabRemove,
+    } = props;
     const [activeName, setActiveName] = useControlled(props.activeName, props.defaultActiveName);
     const { b, m, e, is } = useClassNames(classPrefix);
 
@@ -198,6 +214,7 @@ const Tabs = forwardRef((props: TabsProps, ref?: Ref<HTMLDivElement>) => {
         });
 
         if (activeBarRef.current) {
+            removeStyle(activeBarRef.current, sizeName !== 'offsetWidth' ? 'width' : 'height');
             addStyle(activeBarRef.current, {
                 [sizeName === 'offsetWidth' ? 'width' : 'height']: `${tabSize}px`,
                 transform: `translate${sizeDir}(${offset}px)`,
@@ -257,8 +274,7 @@ const Tabs = forwardRef((props: TabsProps, ref?: Ref<HTMLDivElement>) => {
         if (isEmpty(type)) {
             getBarStyle();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activeName, tabPosition, type, navOffset, navs]);
+    }, [activeName, tabPosition, type, navOffset, navs, update, getBarStyle]);
 
     /**
      * 切换标签页后，滚动到
@@ -279,7 +295,7 @@ const Tabs = forwardRef((props: TabsProps, ref?: Ref<HTMLDivElement>) => {
     }, []);
 
     const header = (
-        <div className={classNames(e`header`, is(tabPosition))}>
+        <div className={classNames(e`header`, { [e`header-vertical`]: ['left', 'right'].includes(tabPosition) }, is(tabPosition))}>
             <div className={classNames(e`nav-wrap`, is(tabPosition, { scrollable: isScroll }))} ref={elRef}>
                 {isScroll && (
                     <span ref={scrollLeftRef} className={classNames(e`nav-prev`, is('disabled'))} onClick={scrollPrev}>
@@ -291,7 +307,7 @@ const Tabs = forwardRef((props: TabsProps, ref?: Ref<HTMLDivElement>) => {
                         <ElIcon name="angle-right" />
                     </span>
                 )}
-                <div className={classNames(e`nav-scroll`, is({ center }))} style={props.headerStyle} ref={navScrollRef}>
+                <div className={e`nav-scroll`} style={props.headerStyle} ref={navScrollRef}>
                     <div
                         className={classNames(e`nav`, is(tabPosition, { stretch: stretch && tabPosition && ['top', 'bottom'].includes(tabPosition) }))}
                         style={navStyle}
@@ -315,6 +331,7 @@ const Tabs = forwardRef((props: TabsProps, ref?: Ref<HTMLDivElement>) => {
                                                 onClick={event => {
                                                     event.stopPropagation();
                                                     onTabRemove?.(item.name);
+                                                    onTabEdit?.(item.name, 'remove');
                                                 }}
                                             />
                                         )}
@@ -322,14 +339,20 @@ const Tabs = forwardRef((props: TabsProps, ref?: Ref<HTMLDivElement>) => {
                                 </div>
                             );
                         })}
-                        {(addable || editable) && (
-                            <div className={classNames(e`item`, is(tabPosition))} style={{ padding: '0 10px' }} onClick={props.onTabAdd}>
-                                <ElIcon name="plus" />
-                            </div>
-                        )}
                     </div>
                 </div>
             </div>
+            {(addable || editable) && (
+                <div
+                    className={classNames(e`new-tab`, { [e`new-tab-vertical`]: ['left', 'right'].includes(tabPosition) })}
+                    onClick={() => {
+                        onTabAdd?.();
+                        onTabEdit?.(undefined, 'add');
+                    }}
+                >
+                    {addIcon || <ElIcon name="plus" />}
+                </div>
+            )}
         </div>
     );
 

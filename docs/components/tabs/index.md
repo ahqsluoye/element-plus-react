@@ -42,7 +42,7 @@ Tabs 组件提供了选项卡功能， 默认选中第一个标签页，你也�
 <code src="./tab-position.tsx"></code>
 
 <!-- ## 自定义标签页的内容
-
+`
 可以通过具名插槽来实现自定义标签页的内容
 
 <code src="./custom-tab.tsx"></code> -->
@@ -53,9 +53,15 @@ Tabs 组件提供了选项卡功能， 默认选中第一个标签页，你也�
 
 <code src="./dynamic-tabs.tsx"></code>
 
-<!-- ## 自定义增加标签页触发器
+## 添加按钮自定义图标
 
-<code src="./customized-trigger.tsx"></code> -->
+可以通过 `addIcon` 属性来自定义添加按钮图标。
+
+<code src="./customized-add-button-icon.tsx"></code>
+
+## 自定义增加标签页触发器
+
+<code src="./customized-trigger.tsx"></code>
 
 ## Tabs API
 
@@ -68,6 +74,7 @@ Tabs 组件提供了选项卡功能， 默认选中第一个标签页，你也�
 | type              | 风格类型                                                                              | <Enum>'' \| 'card' \| 'border-card'</Enum>                                                                                        | ''         |
 | closable          | 标签是否可关闭                                                                        | `boolean`                                                                                                                         | false      |
 | addable           | 标签是否可增加                                                                        | `boolean`                                                                                                                         | false      |
+| addIcon           | 自定义添加按钮图标                                                                    | `React.ReactNode`                                                                                                                 | —          |
 | editable          | 标签是否同时可增加和关闭                                                              | `boolean`                                                                                                                         | false      |
 | tabPosition       | 选项卡所在位置                                                                        | <Enum>'top' \| 'right' \| 'bottom' \| 'left'</Enum>                                                                               | top        |
 | stretch           | 标签的宽度是否自撑开                                                                  | `boolean`                                                                                                                         | false      |
@@ -79,12 +86,13 @@ Tabs 组件提供了选项卡功能， 默认选中第一个标签页，你也�
 
 ### Tabs 事件
 
-| 事件名      | 说明                    | 类型                                                                  |
-| ----------- | ----------------------- | --------------------------------------------------------------------- |
-| onTabClick  | tab 被选中时触发        | <Enum type="Function">(context: TabsPaneContext) => void</Enum>       |
-| onTabChange | `activeName` 改变时触发 | <Enum type="Function">(name: TabPaneName \| undefined) => void</Enum> |
-| onTabRemove | 点击 tab 移除按钮时触发 | <Enum type="Function">(name: TabPaneName \| undefined) => void</Enum> |
-| onTabAdd    | 点击 tab 新增按钮时触发 | <Enum type="Function">() => void</Enum>                               |
+| 事件名      | 说明                          | 类型                                                                                           |
+| ----------- | ----------------------------- | ---------------------------------------------------------------------------------------------- |
+| onTabClick  | tab 被选中时触发              | <Enum type="Function">(context: TabsPaneContext) => void</Enum>                                |
+| onTabChange | `activeName` 改变时触发       | <Enum type="Function">(name: TabPaneName \| undefined) => void</Enum>                          |
+| onTabRemove | 点击 tab 移除按钮时触发       | <Enum type="Function">(name: TabPaneName \| undefined) => void</Enum>                          |
+| onTabAdd    | 点击 tab 新增按钮时触发       | <Enum type="Function">() => void</Enum>                                                        |
+| onTabEdit   | 击 tab 的新增或移除按钮后触发 | <Enum type="Function">(name: TabPaneName \| undefined, type: 'add' \| 'remove') => void</Enum> | —   |
 
 ## Tab-pane API
 
