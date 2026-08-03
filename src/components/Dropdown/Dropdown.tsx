@@ -106,7 +106,10 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
                         triggerRef={<ElButton {...buttonProps} className={e`caret-button`} type={type} size={size} disabled={disabled} icon="angle-down" />}
                         virtualRef={virtualRef}
                         virtualTriggering={virtualTriggering}
-                        popperClass={classNames(e`popper`, is`pure`)}
+                        className={props.className}
+                        style={props.style}
+                        popperClass={classNames(e`popper`, is`pure`, props.popperClass)}
+                        popperStyle={props.popperStyle}
                         disabled={disabled}
                         enterable
                         hideOnClick={hideOnClick}
@@ -131,7 +134,10 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
                     triggerRef={triggerRef}
                     virtualRef={virtualRef}
                     virtualTriggering={virtualTriggering}
-                    popperClass={classNames(e`popper`, is`pure`)}
+                    className={props.className}
+                    style={props.style}
+                    popperClass={classNames(e`popper`, is`pure`, props.popperClass)}
+                    popperStyle={props.popperStyle}
                     disabled={disabled}
                     enterable
                     hideOnClick={hideOnClick}

@@ -68,8 +68,10 @@ const Popover = memo(
             <ElTooltip
                 ref={tooltipRef}
                 classPrefix={classPrefix}
-                popperClass={classNames(b(), { [m`plain`]: plain }, props.className)}
-                popperStyle={{ width: addUnit(width), ...props.style }}
+                className={props.className}
+                style={props.style}
+                popperClass={classNames(b(), { [m`plain`]: plain }, props.popperClass)}
+                popperStyle={{ width: addUnit(width), ...props.popperStyle }}
                 triggerRef={props.children}
                 enterable
                 effect="light"

@@ -10,6 +10,11 @@ export interface TooltipContextProps {
     trigger: 'hover' | 'click' | 'contextmenu';
 
     onClose: () => void;
+
+    /** 当嵌套子 Tooltip 的 Popper 内容被鼠标进入/离开时，
+     *  用于向父级 Tooltip 传播 entering 状态，
+     *  防止父级 Tooltip 因 mouseLeave 而误隐藏 */
+    onPopperEntering?: (entering: boolean) => void;
 }
 
 export const TooltipContext = createContext<TooltipContextProps>({
@@ -17,4 +22,5 @@ export const TooltipContext = createContext<TooltipContextProps>({
     onMouseLeave: noop,
     trigger: 'hover',
     onClose: noop,
+    onPopperEntering: noop,
 });

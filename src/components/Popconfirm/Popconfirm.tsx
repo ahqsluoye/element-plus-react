@@ -60,8 +60,10 @@ const Popconfirm = memo(
                 ref={tooltipRef}
                 visible={visible}
                 classPrefix={classPrefix}
-                popperClass={b('popover', false)}
-                popperStyle={{ minWidth: addUnit(width) }}
+                className={props.className}
+                style={props.style}
+                popperClass={classNames(b('popover', false, props.popperClass), props.popperClass)}
+                popperStyle={{ minWidth: addUnit(width), ...props.popperStyle }}
                 triggerRef={props.children}
                 enterable
                 effect="light"

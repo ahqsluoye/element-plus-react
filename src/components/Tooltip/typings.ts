@@ -14,6 +14,7 @@ export type TooltipRef = {
     // setVisible: (value: boolean) => void;
 };
 export interface TooltipProps extends BaseProps<React.ReactNode>, NativeProps, PopperOptions, AnimationEventProps, Omit<TransitionProps, 'children'> {
+    ref?: React.Ref<TooltipRef>;
     /** class 前缀 */
     classPrefix?: string;
     /** 指示 Tooltip 的内容将附加在哪一个网页元素上 */
