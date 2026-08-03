@@ -4,7 +4,7 @@ import './basic.scss';
 
 const App = () => {
     return (
-        <ElCard className="box-card">
+        <ElCard className="demo-box-card">
             {new Array(4).fill('').map((_, o) => (
                 <div key={o} className="text item">
                     {'List item ' + o}

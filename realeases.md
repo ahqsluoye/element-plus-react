@@ -1,3 +1,22 @@
+## v2.0.5
+
+2026-08-03
+
+### Features
+
+- **Tooltip** 补充导出Tooltip组件的 TooltipRef 类型定义
+- **tabs** 新增addIcon属性支持自定义添加按钮图标，整合onTabAdd/onTabRemove为统一的onTabEdit事件
+
+### Refactor
+
+- **Breadcrumb** 为 Breadcrumb 组件添加 navigate 属性，支持传入 react-router-dom 的 useNavigate 返回值
+- **Menu** 为 Menu 组件添加 navigate 属性，支持传入 react-router-dom 的 useNavigate 返回值
+
+### Bug fixes
+
+- **Menu** 修复 Menu 组件点击子菜单时，父菜单图标未展开的问题
+- **Tooltip** 修复嵌套 Tooltip 误隐藏问题
+
 ## v2.0.4
 
 2026-07-27
