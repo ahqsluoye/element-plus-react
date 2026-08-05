@@ -9,3 +9,4 @@ backup.txt
 /docs-dist
 tip.js
 /backup
+.npmrc
