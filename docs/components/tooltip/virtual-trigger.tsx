@@ -10,7 +10,7 @@ const App = () => {
         right: 0,
     } as DOMRect);
 
-    const triggerRef = useMemo(
+    const virtualRef = useMemo(
         () => ({
             getBoundingClientRect: () => position,
         }),
@@ -43,7 +43,7 @@ const App = () => {
             effect="light"
             trigger="click"
             virtualTriggering
-            virtualRef={triggerRef}
+            virtualRef={virtualRef}
         >
             <ElButton onClick={() => setVisible(!visible)}>Top center</ElButton>
         </ElTooltip>

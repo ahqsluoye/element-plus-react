@@ -82,7 +82,7 @@ tooltip 内不支持 disabled form 元素，参考 [MDN](https://developer.mozil
 :::
 <code src="./virtual-trigger.tsx"></code>
 
-<!-- ## 单例模式
+## 单例模式
 
 Tooltip 可以作为单例，也就是是说你可以同时有多个触发同一个 tooltip 的触发元素，这个功能是在 `虚拟触发` 的基础上开发的。
 
@@ -92,7 +92,7 @@ Tooltip 可以作为单例，也就是是说你可以同时有多个触发同一
 
 :::
 
-<code src="./singleton.tsx"></code> -->
+<code src="./singleton.tsx"></code>
 
 ## 受控模式
 
