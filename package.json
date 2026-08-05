@@ -19,9 +19,8 @@
     "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
     "lint:dumi": "eslint \".dumi/**/*.{js,jsx,ts,tsx}\" --fix",
     "doc": "tsc ./doc.ts && node ./doc.js",
-    "publish": "npm run build && npm publish ./packages --scope=@qsxy --access=public --registry https://registry.npmjs.org/",
-    "prepublishOnly": "father doctor && npm run build",
-    "test": "gulp clean && npm run build && node scripts/copyLib.js"
+    "publish": "npm run build && npm publish ./packages --scope=@qsxy --access=public",
+    "prepublishOnly": "father doctor && npm run build"
   },
   "authors": [
     "ahqsluoye@126.com"
