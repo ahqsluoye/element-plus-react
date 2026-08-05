@@ -3,7 +3,8 @@
 [![NPM version](https://img.shields.io/npm/v/@qsxy/element-plus-react.svg?style=flat)](https://npmjs.org/package/@qsxy/element-plus-react)
 [![NPM downloads](http://img.shields.io/npm/dm/@qsxy/element-plus-react.svg?style=flat)](https://npmjs.org/package/@qsxy/element-plus-react)
 
--   🔥 所有的组件文档和示例在这里哦，戳戳戳 👉👉👉[API 文档](https://ahqsluoye.github.io/element-plus-react/)
+- 🔥 所有的组件文档和示例在这里哦，戳戳戳 👉👉👉[API 文档](https://ahqsluoye.github.io/element-plus-react/)
+- 🔥 支持按需导入，避免打包时引入所有组件，减少打包体积，插件入口：[webpack 插件](https://www.npmjs.com/package/@qsxy/babel-plugin-element-plus-react)， [vite 插件](https://www.npmjs.com/package/@qsxy/vite-plugin-element-plus-react-import)
 
 ## Usage
 
@@ -26,12 +27,12 @@ element-plus-react 的 theme-chalk 使用 SCSS 编写，如果你的项目也使
 /_ 改变主题色变量 _/
 
 ```scss
-@use '@qsxy/element-plus-react/theme-chalk/common/var' with(
+@use '@qsxy/element-plus-react/theme-chalk/common/var'
+    with(
         // 字体文件路径必填
         $fa-font-path: '~/node_modules/@qsxy/element-plus-react/theme-chalk/fonts',
         // 其他变量可自定义
-        $colors:
-            (
+        $colors: (
                 'primary': (
                     'base': green,
                 )
