@@ -21,9 +21,4 @@ function copyFiles(srcPath, destPath) {
     });
 }
 
-// copyFiles(
-//     './packages/',
-//     'D:\\JavaScript\\private_projects\\Demo\\node_modules\\.pnpm\\@qsxy+element-plus-react@2._8f10580ce31deee004368360dd14ec81\\node_modules\\@qsxy\\element-plus-react\\',
-// );
-
 copyFiles('./src/components/', './dist/');

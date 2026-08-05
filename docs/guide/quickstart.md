@@ -11,7 +11,7 @@ lang: zh-CN
 
 ### 完整引入
 
-如果你对打包后的文件大小不是很在乎，那么在不适用插件的情况下就是完整引入
+如果你对打包后的文件大小不是很在乎，那么在不使用插件的情况下就是完整引入
 
 ```ts [main.ts]
 import '@qsxy/element-plus-react/dist/index.css';
@@ -22,37 +22,34 @@ import { ElButton, ElLink } from '@qsxy/element-plus-react';
 
 您需要使用额外的插件来导入要使用的组件。
 
-#### 自动导入
+#### Vite
 
-首先你需要安装`@qsxy/babel-plugin-element-plus-reac`这款插件
+首先你需要安装 <ElLink href="https://www.npmjs.com/package/@qsxy/vite-plugin-element-plus-react-import">vite插件</ElLink>
 
-<InstallDependencies npm='$ npm install @qsxy/babel-plugin-element-plus-react --save' yarn='$ yarn add @qsxy/babel-plugin-element-plus-react' pnpm='$ pnpm install @qsxy/babel-plugin-element-plus-react'></InstallDependencies>
+<InstallDependencies npm='$ npm install @qsxy/vite-plugin-element-plus-react-import --save' yarn='$ yarn add @qsxy/vite-plugin-element-plus-react-import' pnpm='$ pnpm install @qsxy/vite-plugin-element-plus-react-import'></InstallDependencies>
 
-然后把下列代码插入到你的 `Vite` 或 `Webpack` 的配置文件中（Vite 待验证）
-
-<!-- ##### Vite
+然后把下列代码插入到你的 `Vite` 的配置文件中
 
 ```ts [vite.config.ts]
 import { defineConfig } from 'vite';
-import AutoImport from 'unplugin-auto-import/vite';
-import Components from 'unplugin-vue-components/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import react from '@vitejs/plugin-react';
+import elementPlusReactTransform from '@qsxy/vite-plugin-element-plus-react-import';
 
 export default defineConfig({
-    // ...
-    plugins: [
-        // ...
-        AutoImport({
-            resolvers: [ElementPlusResolver()],
-        }),
-        Components({
-            resolvers: [ElementPlusResolver()],
-        }),
-    ],
+    devtools: true,
+    plugins: [react(), elementPlusReactTransform()],
 });
-``` -->
+```
 
-##### Webpack
+<br>
+
+#### Webpack
+
+首先你需要安装 <ElLink href="https://www.npmjs.com/package/@qsxy/babel-plugin-element-plus-react">babel插件</ElLink>
+
+<InstallDependencies npm='$ npm install @qsxy/babel-plugin-element-plus-react --save' yarn='$ yarn add @qsxy/babel-plugin-element-plus-react' pnpm='$ pnpm install @qsxy/babel-plugin-element-plus-react'></InstallDependencies>
+
+然后把下列代码插入到你的 `Webpack` 的配置文件中
 
 ```js [.babelrc或babel.config.js]
 module.exports = {
