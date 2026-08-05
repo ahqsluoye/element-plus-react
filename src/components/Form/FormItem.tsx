@@ -9,7 +9,6 @@ import { useMount, useUnmount } from 'ahooks';
 import classNames from 'classnames';
 import head from 'lodash/head';
 import React, { Children, cloneElement, isValidElement, memo, useCallback, useContext, useMemo, useRef, useState } from 'react';
-import FormContext from './FormContext';
 import { FormItemContext } from './FormItemContext';
 import FormLabelWrap from './FormLabelWrap';
 import FieldContext, { HOOK_MARK } from './InternalFormContext';
@@ -690,27 +689,27 @@ function Field(props: FieldProps) {
     );
 }
 
-function InternalFormItem<Values = any>({ name, rules = [], ...restProps }: FieldProps<Values>) {
-    const formContext = useContext(FormContext);
-    const fieldContext = useContext(FieldContext);
+// function InternalFormItem<Values = any>({ name, rules = [], ...restProps }: FieldProps<Values>) {
+//     const formContext = useContext(FormContext);
+//     const fieldContext = useContext(FieldContext);
 
-    const namePath = name !== undefined ? getNameArray(name) : undefined;
+//     const namePath = name !== undefined ? getNameArray(name) : undefined;
 
-    let key = 'keep';
-    if (!restProps.isListField) {
-        key = `_${(namePath || []).join('_')}`;
-    }
+//     let key = 'keep';
+//     if (!restProps.isListField) {
+//         key = `_${(namePath || []).join('_')}`;
+//     }
 
-    // Warning if it's a directly list field.
-    // We can still support multiple level field preserve.
-    if (process.env.NODE_ENV !== 'production' && restProps.preserve === false && restProps.isListField && namePath.length <= 1) {
-        warning(false, '`preserve` should not apply on ElFormList fields.');
-    }
+//     // Warning if it's a directly list field.
+//     // We can still support multiple level field preserve.
+//     if (process.env.NODE_ENV !== 'production' && restProps.preserve === false && restProps.isListField && namePath.length <= 1) {
+//         warning(false, '`preserve` should not apply on ElFormList fields.');
+//     }
 
-    const formRules = namePath?.length > 0 ? get(fieldContext?.rules ?? {}, namePath) : undefined;
+//     const formRules = namePath?.length > 0 ? get(fieldContext?.rules ?? {}, namePath) : undefined;
 
-    return <Field key={key} name={namePath} rules={[...(formRules || []), ...rules]} {...restProps} />;
-}
+//     return <Field key={key} name={namePath} rules={[...(formRules || []), ...rules]} {...restProps} />;
+// }
 
 const FormItem = memo(Field);
 FormItem.displayName = 'ElFormItem';

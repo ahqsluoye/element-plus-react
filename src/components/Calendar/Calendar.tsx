@@ -23,7 +23,7 @@ import YearRangePanel from './YearRangePanel';
 import { CalendarProps, DateRangeType, DateType, RangePosition, ValueRagne, ValueRagneTemp } from './typings';
 import { initDate } from './util';
 
-require('dayjs/locale/zh-cn');
+import 'dayjs/locale/zh-cn';
 
 dayjs.extend(localeData);
 
