@@ -26,7 +26,7 @@ import { ElButton, ElLink } from '@qsxy/element-plus-react';
 
 首先你需要安装 <ElLink href="https://www.npmjs.com/package/@qsxy/vite-plugin-element-plus-react-import">vite插件</ElLink>
 
-<InstallDependencies npm='$ npm install @qsxy/vite-plugin-element-plus-react-import --save' yarn='$ yarn add @qsxy/vite-plugin-element-plus-react-import' pnpm='$ pnpm install @qsxy/vite-plugin-element-plus-react-import'></InstallDependencies>
+<InstallDependencies npm='$ npm install @qsxy/vite-plugin-element-plus-react-import --save-dev' yarn='$ yarn add @qsxy/vite-plugin-element-plus-react-import -D' pnpm='$ pnpm add @qsxy/vite-plugin-element-plus-react-import -D'></InstallDependencies>
 
 然后把下列代码插入到你的 `Vite` 的配置文件中
 
@@ -47,7 +47,7 @@ export default defineConfig({
 
 首先你需要安装 <ElLink href="https://www.npmjs.com/package/@qsxy/babel-plugin-element-plus-react">babel插件</ElLink>
 
-<InstallDependencies npm='$ npm install @qsxy/babel-plugin-element-plus-react --save' yarn='$ yarn add @qsxy/babel-plugin-element-plus-react' pnpm='$ pnpm install @qsxy/babel-plugin-element-plus-react'></InstallDependencies>
+<InstallDependencies npm='$ npm install @qsxy/babel-plugin-element-plus-react --save-dev' yarn='$ yarn add @qsxy/babel-plugin-element-plus-react -D' pnpm='$ pnpm add @qsxy/babel-plugin-element-plus-react -D'></InstallDependencies>
 
 然后把下列代码插入到你的 `Webpack` 的配置文件中
 

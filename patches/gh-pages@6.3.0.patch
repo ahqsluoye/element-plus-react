@@ -1,0 +1,16 @@
+diff --git a/lib/git.js b/lib/git.js
+index d4c5724272d00bd1f0d76c47dab47d21ccd094d9..af000f1c2b16c00ecc5a3aada8f149ae98869920 100644
+--- a/lib/git.js
++++ b/lib/git.js
+@@ -140,10 +140,7 @@ Git.prototype.checkout = function (remote, branch) {
+  * @return {Promise} A promise.
+  */
+ Git.prototype.rm = function (files) {
+-  if (!Array.isArray(files)) {
+-    files = [files];
+-  }
+-  return this.exec('rm', '--ignore-unmatch', '-r', '-f', '--', ...files);
++  return this.exec('rm', '--ignore-unmatch', '-r', '-f', '.');
+ };
+ 
+ /**
