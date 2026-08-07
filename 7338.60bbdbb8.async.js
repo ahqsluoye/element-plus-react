@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_qsxy_element_plus_react=self.webpackChunk_qsxy_element_plus_react||[]).push([[7338],{57338:function(t,e,s){s.r(e),e.default=[{version:"2.0.0",date:"2023-01-01",entries:[{type:"feature",description:"\u652F\u6301\u79D1\u5B66\u8BA1\u6570\u6CD5\u8F93\u5165"}]}]}}]);
