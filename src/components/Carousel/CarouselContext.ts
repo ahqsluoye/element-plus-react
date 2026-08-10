@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, use } from 'react';
 import { CarouselContextProps } from './typings';
 
 export const CarouselContext = createContext<CarouselContextProps>({
@@ -22,4 +22,4 @@ export const CarouselContext = createContext<CarouselContextProps>({
     },
 });
 
-export const useCarouselContext = () => useContext(CarouselContext);
+export const useCarouselContext = () => use(CarouselContext);

@@ -3,14 +3,14 @@ import { RowContext } from '@qsxy/element-plus-react/Row/RowContext';
 import { floatDivide } from '@qsxy/element-plus-react/Util/Math';
 import classNames from 'classnames';
 import isObject from 'lodash/isObject';
-import React, { FC, memo, useContext, useMemo } from 'react';
+import React, { FC, memo, use, useMemo } from 'react';
 import { ColProps, MediaLayout, MediaSize } from './typings';
 
 const Col: FC<ColProps> = memo(props => {
     const { tag = 'div', span = 24, offset = 0, push = 0, pull = 0, classPrefix = 'col' } = props;
     const { wb, b, is } = useClassNames(classPrefix);
 
-    const { gutter = 0 } = useContext(RowContext);
+    const { gutter = 0 } = use(RowContext);
 
     const mediaClassName = useMemo(() => {
         const result: string[] = [];

@@ -4,15 +4,15 @@ import { TooltipContext } from '@qsxy/element-plus-react/Tooltip/TooltipContext'
 import { addUnit } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import noop from 'lodash/noop';
-import React, { useContext } from 'react';
+import React, { use } from 'react';
 import { DropdownContext } from './DropdownContext';
 import { DropdownMenuProps } from './typings';
 
 const DropdownMenu = (props: DropdownMenuProps) => {
     const { classPrefix = 'dropdown' } = props;
     const { b, e } = useClassNames(classPrefix);
-    const { onMouseEnter, onMouseLeave, trigger } = useContext(TooltipContext);
-    const { maxHeight, size } = useContext(DropdownContext);
+    const { onMouseEnter, onMouseLeave, trigger } = use(TooltipContext);
+    const { maxHeight, size } = use(DropdownContext);
 
     return (
         <ElScrollbar viewClass={e`list`} height={addUnit(maxHeight)}>

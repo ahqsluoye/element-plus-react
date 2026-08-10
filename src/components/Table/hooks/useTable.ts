@@ -45,7 +45,7 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
         } else {
             setData(props?.data ? [...props.data] : []);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [props?.data]);
 
     // 多级列
@@ -424,12 +424,12 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
         setIsGroup(flatColumns.current.length > 1);
         flatColumns.current = [];
         // requestAnimationFrame(scheduleLayout);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [props.children]);
 
     useEffect(() => {
         scheduleLayout();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [columns]);
 
     const treeExpandCell = useMemo(() => {

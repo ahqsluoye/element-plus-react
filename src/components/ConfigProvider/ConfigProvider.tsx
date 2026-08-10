@@ -36,7 +36,7 @@ const ConfigProvider = (props: ConfigProviderProps) => {
     );
     const { children, locale, ...values } = props;
 
-    return <ConfigProviderContext.Provider value={{ ...values, locale: locale === 'zh-cn' ? 'zh-CN' : locale }}>{children}</ConfigProviderContext.Provider>;
+    return <ConfigProviderContext value={{ ...values, locale: locale === 'zh-cn' ? 'zh-CN' : locale }}>{children}</ConfigProviderContext>;
 };
 
 export default ConfigProvider;

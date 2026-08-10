@@ -3,13 +3,13 @@ import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { Children, ComponentType, cloneElement, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { Children, ComponentType, cloneElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ElOption from './Option';
 import { SelectContext } from './SelectContext';
 import { SelectDropdownProps, SelectDropdownRef, SelectOptionGroupProps, SelectOptionProps } from './typings';
 
-const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props, ref) => {
+const SelectDropdown = ({ ref, ...props }: SelectDropdownProps & { ref?: React.Ref<SelectDropdownRef | null> }) => {
     const {
         value,
         filterable,
@@ -51,8 +51,6 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
         if (filterable && filterMethod) {
             filterMethod?.(searchText);
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchText]);
 
     const filterAction = useCallback(
@@ -187,18 +185,18 @@ const SelectDropdown = forwardRef<SelectDropdownRef, SelectDropdownProps>((props
         >
             <>
                 {header ? <div className={be('dropdown', 'header')}>{header}</div> : null}
-                <SelectContext.Provider value={{ value, onChoose, hover, setHover, multiple, cachedOptions }}>
+                <SelectContext value={{ value, onChoose, hover, setHover, multiple, cachedOptions }}>
                     <ElScrollbar wrapClass={be('dropdown', 'wrap')} wrapStyle={{ display: props.loading ? 'none' : undefined }}>
                         <ul className={be('dropdown', 'list')} ref={ulRef}>
                             {options}
                         </ul>
                     </ElScrollbar>
                     {props.loading ? loading : null}
-                </SelectContext.Provider>
+                </SelectContext>
                 {footer ? <div className={be('dropdown', 'footer')}>{footer}</div> : null}
             </>
         </div>
     );
-});
+};
 
 export default SelectDropdown;

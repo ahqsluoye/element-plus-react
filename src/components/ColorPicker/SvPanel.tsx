@@ -1,6 +1,6 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useMount } from 'ahooks';
-import React, { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
+import React, { useCallback, useImperativeHandle, useRef, useState } from 'react';
 import Color from './color';
 import draggable from './draggable';
 import { getClientXY } from './util';
@@ -14,7 +14,7 @@ export interface SvPanelRef {
     update: () => void;
 }
 
-const SvPanel = forwardRef<SvPanelRef, Props>((props, ref) => {
+const SvPanel = ({ ref, ...props }: Props & { ref?: React.Ref<SvPanelRef | null> }) => {
     const { color, onChange } = props;
     const { b, e } = useClassNames('color-svpanel');
 
@@ -87,7 +87,7 @@ const SvPanel = forwardRef<SvPanelRef, Props>((props, ref) => {
             </div>
         </div>
     );
-});
+};
 
 SvPanel.displayName = 'SvPanel';
 

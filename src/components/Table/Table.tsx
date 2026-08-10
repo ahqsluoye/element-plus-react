@@ -5,7 +5,7 @@ import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { Ref, RefObject, forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { useImperativeHandle, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import Colgroup from './Colgroup';
 import TableBody from './TableBody';
@@ -17,7 +17,7 @@ import { useTable } from './hooks/useTable';
 import { TableProps, TableRef, TableRefs, TreeNode } from './typings';
 import { TableIdManager } from './util';
 
-function InternalTable<RecordType extends object = TreeNode>(props: TableProps<RecordType>, ref: RefObject<TableRef<RecordType>>) {
+function InternalTable<RecordType extends object = TreeNode>({ ref, ...props }: TableProps<RecordType> & { ref?: React.Ref<TableRef<RecordType>> | null }) {
     const { locale } = useConfigProvider();
     const { t } = useTranslation();
 
@@ -92,7 +92,7 @@ function InternalTable<RecordType extends object = TreeNode>(props: TableProps<R
     }));
 
     return (
-        <TableContext.Provider
+        <TableContext
             value={{
                 props,
                 tableId,
@@ -135,11 +135,11 @@ function InternalTable<RecordType extends object = TreeNode>(props: TableProps<R
                             {/* @ts-ignore */}
                             <table ref={refs.tableHeader} className={e`header`} border={0} cellPadding={0} cellSpacing={0}>
                                 <Colgroup columns={flattenColumns} tableLayout={tableLayout} />
-                                <TableBodyContext.Provider
+                                <TableBodyContext
                                     value={{ oldActiveRow, state, dispatch, initialData, sortedData, disabledRows, treeProps, isTreeTable, isTreeExpandCell, treeNodes }}
                                 >
                                     <TableHeader scheduleLayout={scheduleLayout} />
-                                </TableBodyContext.Provider>
+                                </TableBodyContext>
                             </table>
                         </div>
                     )}
@@ -164,12 +164,12 @@ function InternalTable<RecordType extends object = TreeNode>(props: TableProps<R
                             {/* @ts-ignore */}
                             <table ref={refs.tableBody} className={e`body`} border={0} cellPadding={0} cellSpacing={0} style={{ tableLayout }}>
                                 <Colgroup columns={flattenColumns} tableLayout={tableLayout} />
-                                <TableBodyContext.Provider
+                                <TableBodyContext
                                     value={{ oldActiveRow, state, dispatch, initialData, sortedData, disabledRows, treeProps, isTreeTable, isTreeExpandCell, treeNodes }}
                                 >
                                     {tableLayout === 'auto' && <TableHeader scheduleLayout={scheduleLayout} />}
                                     <TableBody />
-                                </TableBodyContext.Provider>
+                                </TableBodyContext>
                             </table>
                             {append && <div className={e`append-wrapper`}>{append}</div>}
                         </ElScrollbar>
@@ -187,19 +187,17 @@ function InternalTable<RecordType extends object = TreeNode>(props: TableProps<R
                 </div>
                 <div className={e`column-resize-proxy`} ref={refs.resizeHelper} style={{ display: 'none' }} />
             </div>
-        </TableContext.Provider>
+        </TableContext>
     );
 }
 
-const ForwardTable = forwardRef(InternalTable) as <RecordType extends object = any>(props: TableProps<RecordType> & { ref?: Ref<TableRef<RecordType>> }) => React.ReactElement;
-
-type InternalTableType = typeof ForwardTable;
+type InternalTableType = typeof InternalTable;
 
 interface TableInterface extends InternalTableType {
     displayName?: string;
 }
 
-const Table = ForwardTable as TableInterface;
+const Table = InternalTable as TableInterface;
 
 Table.displayName = 'ElTable';
 

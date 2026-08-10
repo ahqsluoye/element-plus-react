@@ -8,7 +8,7 @@ import { ComponentChildren } from '@qsxy/element-plus-react/types/common';
 import { useMount, useUnmount } from 'ahooks';
 import classNames from 'classnames';
 import head from 'lodash/head';
-import React, { Children, cloneElement, isValidElement, memo, useCallback, useContext, useMemo, useRef, useState } from 'react';
+import React, { Children, cloneElement, isValidElement, memo, use, useCallback, useMemo, useRef, useState } from 'react';
 import { FormItemContext } from './FormItemContext';
 import FormLabelWrap from './FormLabelWrap';
 import FieldContext, { HOOK_MARK } from './InternalFormContext';
@@ -97,7 +97,7 @@ function Field(props: FieldProps) {
         warningStyle,
     } = props;
 
-    const fieldContext = useContext(FieldContext);
+    const fieldContext = use(FieldContext);
 
     const name = useMemo(() => (props.name !== undefined ? getNameArray(props.name) : undefined), [props.name]);
 
@@ -690,8 +690,8 @@ function Field(props: FieldProps) {
 }
 
 // function InternalFormItem<Values = any>({ name, rules = [], ...restProps }: FieldProps<Values>) {
-//     const formContext = useContext(FormContext);
-//     const fieldContext = useContext(FieldContext);
+//     const formContext = use(FormContext);
+//     const fieldContext = use(FieldContext);
 
 //     const namePath = name !== undefined ? getNameArray(name) : undefined;
 

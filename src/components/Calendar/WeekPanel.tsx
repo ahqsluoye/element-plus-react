@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
 import IsBetween from 'dayjs/plugin/isBetween';
 import IsoWeek from 'dayjs/plugin/isoWeek';
-import React, { FC, useCallback, useContext, useMemo, useState } from 'react';
+import React, { FC, use, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import CalendarContext from './CalendarContext';
 import { Cell, CellType, WeekPanelProps } from './typings';
@@ -16,7 +16,7 @@ dayjs.extend(IsBetween);
 const WeekPanel: FC<WeekPanelProps> = props => {
     const { value, valueRange, onPickDate, onPickDateRange } = props;
     const { b, e, be } = useClassNames('date-table');
-    const { value: valueProp, dateType, isoWeek, disabledDate, formatter } = useContext(CalendarContext);
+    const { value: valueProp, dateType, isoWeek, disabledDate, formatter } = use(CalendarContext);
 
     const { locale } = useConfigProvider();
     const { t } = useTranslation();

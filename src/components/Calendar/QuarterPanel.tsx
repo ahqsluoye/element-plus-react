@@ -2,7 +2,7 @@ import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/Confi
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
-import React, { FC, useCallback, useContext, useMemo } from 'react';
+import React, { FC, use, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import CalendarContext from './CalendarContext';
 import { Cell, CellType, WeekPanelProps } from './typings';
@@ -11,7 +11,7 @@ import { initDate } from './util';
 const QuarterPanel: FC<WeekPanelProps> = props => {
     const { value, onPickDate } = props;
     const { b, be } = useClassNames('quarter-table');
-    const { value: valueProp, disabledDate, formatter } = useContext(CalendarContext);
+    const { value: valueProp, disabledDate, formatter } = use(CalendarContext);
 
     const { locale } = useConfigProvider();
     const { t } = useTranslation();

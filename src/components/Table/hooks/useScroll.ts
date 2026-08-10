@@ -93,7 +93,7 @@ export const useScroll = <T>(props: TableProps<T>, data: T[], refs: TableRefs, m
                 }
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [data.length, maxHeight]);
 
     return { setHeight, scrollTo, setScrollTop, setScrollLeft };

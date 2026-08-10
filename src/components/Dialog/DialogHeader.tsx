@@ -1,16 +1,16 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import classNames from 'classnames';
-import React, { forwardRef, memo, useContext, useMemo } from 'react';
+import React, { memo, use, useMemo } from 'react';
 import { DialogContext } from './DialogContext';
 import { DialogHeaderProps } from './typings';
 
 const DialogHeader: React.ForwardRefExoticComponent<DialogHeaderProps & React.RefAttributes<HTMLDivElement>> = memo(
-    forwardRef<HTMLDivElement, DialogHeaderProps>((props, ref) => {
+    ({ ref, ...props }: DialogHeaderProps & { ref?: React.Ref<HTMLDivElement | null> }) => {
         const { showClose = true, classPrefix = 'dialog', border } = props;
         const { e, is } = useClassNames(classPrefix);
 
-        const { doClose, center } = useContext(DialogContext);
+        const { doClose, center } = use(DialogContext);
 
         const isString = useMemo(() => typeof props.children === 'string', [props.children]);
 
@@ -32,7 +32,7 @@ const DialogHeader: React.ForwardRefExoticComponent<DialogHeaderProps & React.Re
                 )}
             </header>
         );
-    }),
+    },
 );
 
 DialogHeader.displayName = 'ElDialogHeader';

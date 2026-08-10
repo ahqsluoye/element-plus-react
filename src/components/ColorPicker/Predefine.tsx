@@ -1,6 +1,6 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { forwardRef, useCallback, useImperativeHandle, useState } from 'react';
+import React, { useCallback, useImperativeHandle, useState } from 'react';
 import Color from './color';
 import { parseColors } from './util';
 
@@ -14,7 +14,7 @@ export interface PredefineRef {
     update: () => void;
 }
 
-const Predefine = forwardRef<PredefineRef, Props>((props, ref) => {
+const Predefine = ({ ref, ...props }: Props & { ref?: React.Ref<PredefineRef | null> }) => {
     const { color, colors, onChange } = props;
     const { b, e } = useClassNames('color-predefine');
 
@@ -55,7 +55,7 @@ const Predefine = forwardRef<PredefineRef, Props>((props, ref) => {
             </div>
         </div>
     );
-});
+};
 
 Predefine.displayName = 'Predefine';
 

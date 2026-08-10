@@ -1,11 +1,11 @@
 import { nextTick } from '@qsxy/element-plus-react/Util/base';
-import React, { CSSProperties, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { CSSProperties, use, useEffect, useMemo, useRef, useState } from 'react';
 import { placeholderSign } from '../private';
 import type { RowEventHandlers, TableV2RowProps } from '../row';
 import { TableV2Context } from '../tokens';
 
 const useTableRow = (props: TableV2RowProps) => {
-    const context = useContext(TableV2Context);
+    const context = use(TableV2Context);
     if (!context) {
         throw new Error('TableV2Row must be used within TableV2Context.Provider');
     }

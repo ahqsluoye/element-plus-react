@@ -1,9 +1,9 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { Children, ComponentType, forwardRef, useMemo } from 'react';
+import React, { Children, ComponentType, useMemo } from 'react';
 import { ContainerProps } from './typings';
 
-const Container = forwardRef<HTMLDivElement, ContainerProps>((props, ref) => {
+const Container = ({ ref, ...props }: ContainerProps & { ref?: React.Ref<HTMLDivElement | null> }) => {
     const { direction, children } = props;
     const { b, is } = useClassNames('container');
 
@@ -30,7 +30,7 @@ const Container = forwardRef<HTMLDivElement, ContainerProps>((props, ref) => {
             {props.children}
         </section>
     );
-});
+};
 
 Container.displayName = 'ElContainer';
 export default Container;

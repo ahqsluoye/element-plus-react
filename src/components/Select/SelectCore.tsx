@@ -7,14 +7,14 @@ import { ValidateComponentsMap } from '@qsxy/element-plus-react/Util/icons';
 import { useCalcInputWidth } from '@qsxy/element-plus-react/hooks/useCalcInputWidth';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { Children, forwardRef, useImperativeHandle, useMemo } from 'react';
+import React, { Children, useImperativeHandle, useMemo } from 'react';
 import ElOption from './Option';
 import ElOptionGroup from './OptionGroup';
 import SelectDropdown from './SelectDropdown';
 import { SelectProps, SelectRef } from './typings';
 import useSelect from './useSelect';
 
-const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
+const SelectCore = ({ ref, ...props }: SelectProps & { ref?: React.Ref<SelectRef | null> }) => {
     const _props = useSelect(props);
     const {
         nsSelect,
@@ -158,7 +158,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                                             >
                                                 {isNotEmpty(item.value) && typeof item.value === 'string' && labelFormat
                                                     ? labelFormat?.(-1, item.value, item.label)
-                                                    : item.label ?? item.value}
+                                                    : (item.label ?? item.value)}
                                             </ElTag>
                                         </div>
                                     );
@@ -183,7 +183,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
                                                         >
                                                             {isNotEmpty(item.value) && typeof item.value === 'string' && labelFormat
                                                                 ? labelFormat?.(-1, item.value, item.label)
-                                                                : item.label ?? item.value}
+                                                                : (item.label ?? item.value)}
                                                         </ElTag>
                                                     </div>
                                                 ))}
@@ -295,7 +295,7 @@ const SelectCore = forwardRef<SelectRef, SelectProps>((props, ref) => {
             </ElPopper>
         </div>
     );
-});
+};
 
 SelectCore.displayName = 'SelectCore';
 

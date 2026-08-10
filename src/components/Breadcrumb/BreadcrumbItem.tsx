@@ -1,14 +1,14 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
-import React, { cloneElement, memo, useCallback, useContext } from 'react';
+import React, { cloneElement, memo, use, useCallback } from 'react';
 import { BreadcrumbContext } from './Breadcrumb';
 import { BreadcrumbItemProps } from './typings';
 
 const BreadcrumbItem = memo((props: BreadcrumbItemProps) => {
     const { classPrefix = 'breadcrumb', to, onClick } = props;
     const { e, is } = useClassNames(classPrefix);
-    const { separator, navigate } = useContext(BreadcrumbContext);
+    const { separator, navigate } = use(BreadcrumbContext);
 
     /** 点击链接跳转 */
     const onClickLink = useCallback(() => {

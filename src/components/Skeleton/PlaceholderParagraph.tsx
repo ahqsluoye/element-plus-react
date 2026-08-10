@@ -1,6 +1,6 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { forwardRef, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 export interface PlaceholderParagraphProps {
     // number of rows
@@ -21,7 +21,7 @@ export interface PlaceholderParagraphProps {
     style?: React.CSSProperties;
 }
 
-const PlaceholderParagraph = forwardRef<HTMLDivElement, PlaceholderParagraphProps>((props, ref) => {
+const PlaceholderParagraph = ({ ref, ...props }: PlaceholderParagraphProps & { ref?: React.Ref<HTMLDivElement | null> }) => {
     const { className, rows = 2, rowHeight = 16, rowMargin = 16, variant: graph, animated: active, classPrefix = 'skeleton', ...rest } = props;
 
     const { b, wb } = useClassNames(classPrefix);
@@ -61,7 +61,7 @@ const PlaceholderParagraph = forwardRef<HTMLDivElement, PlaceholderParagraphProp
             <div className={b`paragraph-rows`}>{rowElements}</div>
         </div>
     );
-});
+};
 
 PlaceholderParagraph.displayName = 'PlaceholderParagraph';
 

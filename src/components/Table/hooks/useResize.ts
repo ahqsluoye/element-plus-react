@@ -1,10 +1,10 @@
 import { addClass, hasClass, removeClass } from 'dom-lib';
-import React, { useContext, useRef } from 'react';
+import React, { use, useRef } from 'react';
 import { TableContext } from '../TableContext';
 import { TableColumnCtx } from '../typings';
 
 export const useResize = <T>(scheduleLayout: (/* needUpdateColumns?: boolean,  */ immediate?: boolean) => void) => {
-    const { props, tableRefs } = useContext(TableContext);
+    const { props, tableRefs } = use(TableContext);
     const draggingColumn = useRef<TableColumnCtx<T> | null>(null);
     const dragging = useRef(false);
     const dragState = useRef({});

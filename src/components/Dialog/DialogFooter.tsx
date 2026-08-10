@@ -1,6 +1,6 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { FC, memo, useContext } from 'react';
+import React, { FC, memo, use } from 'react';
 import { DialogContext } from './DialogContext';
 import { DialogFooterProps } from './typings';
 
@@ -8,7 +8,7 @@ const DialogFooter: FC<DialogFooterProps> = memo(props => {
     const { classPrefix = 'dialog', position } = props;
     const { e, is } = useClassNames(classPrefix);
 
-    const { center } = useContext(DialogContext);
+    const { center } = use(DialogContext);
 
     return (
         <div className={classNames(e`footer`, is(position || (center ? 'center' : 'right')), props.className)} style={props.style}>

@@ -2,11 +2,11 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { SelectContext } from '@qsxy/element-plus-react/Select/SelectContext';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
-import React, { useCallback, useContext, useMemo, useRef } from 'react';
+import React, { use, useCallback, useMemo, useRef } from 'react';
 
 const TreeSelectOption = props => {
     const { e, is } = useClassNames('select-dropdown');
-    const { value: selectedValue, hover: hoverValue, setHover, multiple, cachedOptions } = useContext(SelectContext);
+    const { value: selectedValue, hover: hoverValue, setHover, multiple, cachedOptions } = use(SelectContext);
     const { value, label, disabled } = props;
 
     const elRef = useRef(null);

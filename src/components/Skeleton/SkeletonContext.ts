@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, use } from 'react';
 
 export const SkeletonContext = createContext<{
     /** 骨架屏段落数量 */
@@ -11,4 +11,4 @@ export const SkeletonContext = createContext<{
     rowMargin?: number;
 }>({});
 
-export const useSkeletonContext = () => useContext(SkeletonContext);
+export const useSkeletonContext = () => use(SkeletonContext);

@@ -1,9 +1,9 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { InputGroupProps } from './typings';
 
-const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>((props, ref) => {
+const InputGroup = ({ ref, ...props }: InputGroupProps & { ref?: React.Ref<HTMLDivElement | null> }) => {
     const { prepend, append } = props;
     const { b, m, e } = useClassNames('input-group');
 
@@ -14,7 +14,7 @@ const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>((props, ref) => {
             {append && <div className={e`append`}>{append}</div>}
         </div>
     );
-});
+};
 
 InputGroup.displayName = 'ElInputGroup';
 

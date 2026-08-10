@@ -10,7 +10,7 @@ import shallowEqual from '@qsxy/element-plus-react/Util/shallowEqual';
 import classNames from 'classnames';
 import cloneDeep from 'lodash/cloneDeep';
 import remove from 'lodash/remove';
-import React, { Children, FC, forwardRef, memo, useCallback, useMemo } from 'react';
+import React, { Children, FC, memo, useCallback, useMemo } from 'react';
 import { CheckboxGroupContext } from './CheckboxGroupContext';
 
 export interface CheckboxGroupProps<V = ValueType[] | boolean> extends FormControlBaseProps<V>, BaseProps, NativeProps {
@@ -29,78 +29,106 @@ export interface CheckboxGroupProps<V = ValueType[] | boolean> extends FormContr
     props?: { value?: string; label?: string; disabled?: string };
 }
 
-const CheckboxGroup: FC<CheckboxGroupProps> = memo(
-    forwardRef<HTMLDivElement, CheckboxGroupProps>((props, ref) => {
-        props = mergeDefaultProps(
-            {
-                props: {},
-                options: [],
-            },
-            props,
-        );
-        const { className, name, value: valueProp, defaultValue, classPrefix = 'checkbox-group', readOnly, onChange, getBooleanOnSingle, min, max, options } = props;
+const CheckboxGroup: FC<CheckboxGroupProps> = memo(({ ref, ...props }: CheckboxGroupProps & { ref?: React.Ref<HTMLDivElement | null> }) => {
+    props = mergeDefaultProps(
+        {
+            props: {},
+            options: [],
+        },
+        props,
+    );
+    const { className, name, value: valueProp, defaultValue, classPrefix = 'checkbox-group', readOnly, onChange, getBooleanOnSingle, min, max, options } = props;
 
-        const { m } = useClassNames(classPrefix);
-        const [value, setValue, isControlled] = useControlled(valueProp, defaultValue);
-        const disabled = useDisabled(props.disabled);
-        const size = useSize(props.size);
-        const aliasProps = mergeDefaultProps({ value: 'value', label: 'label', disabled: 'disabled' }, props.props);
+    const { m } = useClassNames(classPrefix);
+    const [value, setValue, isControlled] = useControlled(valueProp, defaultValue);
+    const disabled = useDisabled(props.disabled);
+    const size = useSize(props.size);
+    const aliasProps = mergeDefaultProps({ value: 'value', label: 'label', disabled: 'disabled' }, props.props);
 
-        /** 获取子组件 */
-        const getTabPaneInstance = useChildrenInstance<CheckboxProps>(['ElCheckbox', 'ElCheckboxButton']);
+    /** 获取子组件 */
+    const getTabPaneInstance = useChildrenInstance<CheckboxProps>(['ElCheckbox', 'ElCheckboxButton']);
 
-        /** 获取TabPane组件中的配置数据 */
-        const children = useMemo(() => {
-            const componentChildren: React.ReactElement<CheckboxProps>[] = getTabPaneInstance(props?.children);
-            return componentChildren;
-        }, [getTabPaneInstance, props?.children]);
+    /** 获取TabPane组件中的配置数据 */
+    const children = useMemo(() => {
+        const componentChildren: React.ReactElement<CheckboxProps>[] = getTabPaneInstance(props?.children);
+        return componentChildren;
+    }, [getTabPaneInstance, props?.children]);
 
-        const isSingle = useMemo(() => {
-            return children.length === 1;
-        }, [children]);
+    const isSingle = useMemo(() => {
+        return children.length === 1;
+    }, [children]);
 
-        const handleChange = useCallback(
-            (itemValue: any, itemChecked: boolean, event) => {
-                let nextValue: any[] | boolean = cloneDeep(value) ?? [];
-                if (isSingle) {
-                    if (itemChecked) {
-                        nextValue = getBooleanOnSingle ? itemChecked : [cloneDeep(itemValue)];
-                    } else {
-                        nextValue = getBooleanOnSingle ? itemChecked : [];
-                    }
+    const handleChange = useCallback(
+        (itemValue: any, itemChecked: boolean, event) => {
+            let nextValue: any[] | boolean = cloneDeep(value) ?? [];
+            if (isSingle) {
+                if (itemChecked) {
+                    nextValue = getBooleanOnSingle ? itemChecked : [cloneDeep(itemValue)];
                 } else {
-                    if (nextValue instanceof Array) {
-                        if (itemChecked) {
-                            nextValue.push(itemValue);
-                        } else {
-                            // @ts-ignore
-                            remove(nextValue, i => shallowEqual(i, itemValue));
-                        }
+                    nextValue = getBooleanOnSingle ? itemChecked : [];
+                }
+            } else {
+                if (nextValue instanceof Array) {
+                    if (itemChecked) {
+                        nextValue.push(itemValue);
+                    } else {
+                        // @ts-ignore
+                        remove(nextValue, i => shallowEqual(i, itemValue));
                     }
                 }
+            }
 
-                setValue(nextValue);
-                onChange?.(nextValue, event);
-            },
-            [getBooleanOnSingle, isSingle, onChange, setValue, value],
-        );
+            setValue(nextValue);
+            onChange?.(nextValue, event);
+        },
+        [getBooleanOnSingle, isSingle, onChange, setValue, value],
+    );
 
-        const contextValue = useMemo(
-            () => ({
-                name,
-                value,
-                readOnly,
-                disabled,
-                size,
-                controlled: isControlled,
-                onChange: handleChange,
-            }),
-            [disabled, handleChange, isControlled, name, readOnly, size, value],
-        );
+    const contextValue = useMemo(
+        () => ({
+            name,
+            value,
+            readOnly,
+            disabled,
+            size,
+            controlled: isControlled,
+            onChange: handleChange,
+        }),
+        [disabled, handleChange, isControlled, name, readOnly, size, value],
+    );
 
-        const childs = useMemo(() => {
+    const childs = useMemo(() => {
+        if (min > 0 && value instanceof Array && value.length <= min) {
+            return children.map((item, index) => {
+                const isChcked = value.some(i => i === item.props.value);
+                if (isChcked && value.length < max) {
+                    return React.cloneElement(item, { key: index, ...item.props, disabled: isChcked });
+                } else if (value.length == max) {
+                    return React.cloneElement(item, { key: index, ...item.props, disabled: !isChcked });
+                } else {
+                    return React.cloneElement(item, { key: index, ...item.props });
+                }
+            });
+        }
+        if (max > 0 && value instanceof Array && value.length == max) {
+            return children.map((item, index) => {
+                const isChcked = value.some(i => i === item.props.value);
+                return React.cloneElement(item, { key: index, ...item.props, disabled: !isChcked });
+            });
+        }
+        return children;
+    }, [children, max, min, value]);
+
+    const optionChilds = useMemo(() => {
+        let checkboxs = null;
+        if (options.length > 0) {
+            checkboxs = options.map(item => (
+                <ElCheckbox key={item[aliasProps.value]} value={item[aliasProps.value]} disabled={item[aliasProps.disabled]}>
+                    {item[aliasProps.label]}
+                </ElCheckbox>
+            ));
             if (min > 0 && value instanceof Array && value.length <= min) {
-                return children.map((item, index) => {
+                return checkboxs.map((item, index) => {
                     const isChcked = value.some(i => i === item.props.value);
                     if (isChcked && value.length < max) {
                         return React.cloneElement(item, { key: index, ...item.props, disabled: isChcked });
@@ -112,53 +140,23 @@ const CheckboxGroup: FC<CheckboxGroupProps> = memo(
                 });
             }
             if (max > 0 && value instanceof Array && value.length == max) {
-                return children.map((item, index) => {
+                return checkboxs.map((item, index) => {
                     const isChcked = value.some(i => i === item.props.value);
                     return React.cloneElement(item, { key: index, ...item.props, disabled: !isChcked });
                 });
             }
-            return children;
-        }, [children, max, min, value]);
+        }
+        return checkboxs;
+    }, [max, min, options, aliasProps.disabled, aliasProps.label, aliasProps.value, value]);
 
-        const optionChilds = useMemo(() => {
-            let checkboxs = null;
-            if (options.length > 0) {
-                checkboxs = options.map(item => (
-                    <ElCheckbox key={item[aliasProps.value]} value={item[aliasProps.value]} disabled={item[aliasProps.disabled]}>
-                        {item[aliasProps.label]}
-                    </ElCheckbox>
-                ));
-                if (min > 0 && value instanceof Array && value.length <= min) {
-                    return checkboxs.map((item, index) => {
-                        const isChcked = value.some(i => i === item.props.value);
-                        if (isChcked && value.length < max) {
-                            return React.cloneElement(item, { key: index, ...item.props, disabled: isChcked });
-                        } else if (value.length == max) {
-                            return React.cloneElement(item, { key: index, ...item.props, disabled: !isChcked });
-                        } else {
-                            return React.cloneElement(item, { key: index, ...item.props });
-                        }
-                    });
-                }
-                if (max > 0 && value instanceof Array && value.length == max) {
-                    return checkboxs.map((item, index) => {
-                        const isChcked = value.some(i => i === item.props.value);
-                        return React.cloneElement(item, { key: index, ...item.props, disabled: !isChcked });
-                    });
-                }
-            }
-            return checkboxs;
-        }, [max, min, options, aliasProps.disabled, aliasProps.label, aliasProps.value, value]);
-
-        return (
-            <CheckboxGroupContext.Provider value={contextValue}>
-                <div ref={ref} /* {...omit(rest, ['disabled', 'size'])} */ className={classNames(className, m({ [size]: size }))}>
-                    {Children.count(children) === 0 ? optionChilds : childs}
-                </div>
-            </CheckboxGroupContext.Provider>
-        );
-    }),
-);
+    return (
+        <CheckboxGroupContext value={contextValue}>
+            <div ref={ref} /* {...omit(rest, ['disabled', 'size'])} */ className={classNames(className, m({ [size]: size }))}>
+                {Children.count(children) === 0 ? optionChilds : childs}
+            </div>
+        </CheckboxGroupContext>
+    );
+});
 
 CheckboxGroup.displayName = 'ElCheckboxGroup';
 

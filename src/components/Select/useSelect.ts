@@ -416,7 +416,7 @@ const useSelect = (props: SelectProps) => {
     // 打开后搜索框自动获取焦点
     useEffect(() => {
         onVisibleChange?.(visible);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [visible]);
 
     /** 搜索时 */

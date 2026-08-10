@@ -1,7 +1,7 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
-import React, { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
+import React, { useCallback, useImperativeHandle, useRef, useState } from 'react';
 import Color from './color';
 import draggable from './draggable';
 import { getClientXY } from './util';
@@ -16,7 +16,7 @@ export interface HueSliderRef {
     update: () => void;
 }
 
-const HueSlider = forwardRef<HueSliderRef, Props>((props, ref) => {
+const HueSlider = ({ ref, ...props }: Props & { ref?: React.Ref<HueSliderRef | null> }) => {
     const { color, vertical, onChange } = props;
     const { b, e, is } = useClassNames('color-hue-slider');
 
@@ -119,7 +119,7 @@ const HueSlider = forwardRef<HueSliderRef, Props>((props, ref) => {
             <div className={e`thumb`} ref={thumb} style={{ left: thumbLeft, top: thumbTop }} />
         </div>
     );
-});
+};
 
 HueSlider.displayName = 'HueSlider';
 

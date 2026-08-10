@@ -4,7 +4,7 @@ import { useForceUpdate } from '@qsxy/element-plus-react/hooks/useForceUpdate';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
-import React, { forwardRef, RefObject, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { RefObject, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Node from './model/node';
 import TreeStore from './model/tree-store';
@@ -16,7 +16,7 @@ import TreeNode from './TreeNode';
 import { TreeData, TreeKey, TreeNodeData, TreeNodeRef, TreeProps, TreeRef } from './typings';
 
 // 主组件
-const Tree = forwardRef<TreeRef, TreeProps>((props, ref) => {
+const Tree = ({ ref, ...props }: TreeProps & { ref?: React.Ref<TreeRef | null> }) => {
     props = mergeDefaultProps(
         {
             renderAfterExpand: true,
@@ -428,7 +428,7 @@ const Tree = forwardRef<TreeRef, TreeProps>((props, ref) => {
             </DragEventsContext.Provider>
         </TreeContext.Provider>
     );
-});
+};
 
 Tree.displayName = 'ElTree';
 export default Tree;

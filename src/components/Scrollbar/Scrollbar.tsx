@@ -5,11 +5,11 @@ import { addResizeListener, removeResizeListener } from '@qsxy/element-plus-reac
 import classNames from 'classnames';
 import isNumber from 'lodash/isNumber';
 import isObject from 'lodash/isObject';
-import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import Thumb from './Thumb';
 import { ScrollToOptions, ScrollbarProps, ScrollbarRef } from './typings';
 
-const Scrollbar = forwardRef<ScrollbarRef, ScrollbarProps>((props, ref) => {
+const Scrollbar = ({ ref, ...props }: ScrollbarProps & { ref?: React.Ref<ScrollbarRef | null> }) => {
     props = mergeDefaultProps(
         {
             native: false,
@@ -123,7 +123,6 @@ const Scrollbar = forwardRef<ScrollbarRef, ScrollbarProps>((props, ref) => {
         }
         return () => {
             if (!props.noresize) {
-                // eslint-disable-next-line react-hooks/exhaustive-deps
                 removeResizeListener(resizeRef.current, update);
                 removeEventListener('resize', update);
             }
@@ -157,7 +156,7 @@ const Scrollbar = forwardRef<ScrollbarRef, ScrollbarProps>((props, ref) => {
             ) : null}
         </div>
     );
-});
+};
 
 Scrollbar.displayName = 'ElScrollbar';
 

@@ -24,7 +24,7 @@ const createList = ({
     clearCache,
     validateProps,
 }: ListConstructorProps<VirtualizedListProps>) => {
-    const ListComponent = React.forwardRef<ListExposes, VirtualizedListProps & { children: (props: any) => React.ReactNode }>((props, ref) => {
+    const ListComponent = ({ ref, ...props }: VirtualizedListProps & { children: (props: any) => React.ReactNode; ref?: React.Ref<ListExposes | null> }) => {
         const {
             total,
             cache = 2,
@@ -439,7 +439,7 @@ const createList = ({
             },
             [listContainer, scrollbar],
         );
-    });
+    };
 
     ListComponent.displayName = name ?? 'ElVirtualList';
 

@@ -4,12 +4,12 @@ import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
-import React, { FC, RefObject, createRef, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { FC, RefObject, createRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import { LoadingProps, LoadingService } from './typings';
 
-const LoadingMain = forwardRef<any, LoadingProps>((props, ref) => {
+const LoadingMain = ({ ref, ...props }: LoadingProps & { ref?: React.Ref<any> }) => {
     const { visible, text, fullscreen, spinner, background, svg, svgViewBox } = props;
     const { b, is, bm } = useClassNames('loading');
 
@@ -35,7 +35,6 @@ const LoadingMain = forwardRef<any, LoadingProps>((props, ref) => {
         if (!visible) {
             onDestory();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visible]);
 
     useImperativeHandle(ref, () => ({
@@ -71,7 +70,7 @@ const LoadingMain = forwardRef<any, LoadingProps>((props, ref) => {
     ) : (
         content
     );
-});
+};
 
 export class Main {
     ref: RefObject<any>;

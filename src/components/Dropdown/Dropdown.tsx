@@ -10,11 +10,11 @@ import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popper
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import classNames from 'classnames';
-import React, { forwardRef, isValidElement, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { isValidElement, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
 import { DropdownContext } from './DropdownContext';
 import type { DropdownProps, DropdownRef } from './typings';
 
-const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
+const Dropdown = ({ ref, ...props }: DropdownProps & { ref?: React.Ref<DropdownRef | null> }) => {
     props = mergeDefaultProps(
         {
             hideOnClick: true,
@@ -161,7 +161,7 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
             )}
         </div>
     );
-});
+};
 
 Dropdown.displayName = 'ElDropdown';
 

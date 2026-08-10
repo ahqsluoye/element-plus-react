@@ -1,7 +1,7 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import some from 'lodash/some';
-import React, { useContext, useMemo, useRef, useState } from 'react';
+import React, { use, useMemo, useRef, useState } from 'react';
 import { TableContext, TableHeaderContext } from './TableContext';
 import TableHeaderCell from './TableHeaderCell';
 
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const TableHeader = ({ scheduleLayout }: Props) => {
-    const { tableId, columns, fixedLeftColumns, fixedRightColumns, props } = useContext(TableContext);
+    const { tableId, columns, fixedLeftColumns, fixedRightColumns, props } = use(TableContext);
     const { headerRowClassName, headerRowStyle, defaultSort } = props;
     const { is, bm } = useClassNames('table');
 

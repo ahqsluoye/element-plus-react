@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import some from 'lodash/some';
-import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
+import React, { use, useCallback, useEffect, useMemo, useRef } from 'react';
 // import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import TableCell from './TableCell';
@@ -11,8 +11,8 @@ import { TableColumnCtx } from './typings';
 import { getRowIdentity } from './util';
 
 const TableBody = () => {
-    const { data, /* setData, */ props, tableId, flattenColumns, fixedLeftColumns, fixedRightColumns } = useContext(TableContext);
-    const { state, oldActiveRow, treeProps } = useContext(TableBodyContext);
+    const { data, /* setData, */ props, tableId, flattenColumns, fixedLeftColumns, fixedRightColumns } = use(TableContext);
+    const { state, oldActiveRow, treeProps } = use(TableBodyContext);
     const { stripe, rowClassName, rowStyle, onCurrentChange, highlightCurrentRow, currentRowKey, rowKey, onDragChange, spanMethod } = props;
     const { e, em, bm, is } = useClassNames('table');
 
@@ -28,7 +28,7 @@ const TableBody = () => {
         ) {
             onCurrentChange?.(state.currentRow, oldActiveRow.current);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [state.currentRow, onCurrentChange]);
 
     useEffect(() => {

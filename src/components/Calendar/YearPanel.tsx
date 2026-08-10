@@ -2,7 +2,7 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import React, { FC, useCallback, useContext, useMemo } from 'react';
+import React, { FC, use, useCallback, useMemo } from 'react';
 import CalendarContext from './CalendarContext';
 import { Cell, YearPanelProps } from './typings';
 import { initDate } from './util';
@@ -10,7 +10,7 @@ import { initDate } from './util';
 const YearPanel: FC<YearPanelProps> = props => {
     const { value, valueRange, onPickYear } = props;
     const { e, b } = useClassNames('picker-panel');
-    const { value: valueProp, dateType, disabledDate } = useContext(CalendarContext);
+    const { value: valueProp, dateType, disabledDate } = use(CalendarContext);
 
     // 当前日期
     const currentDate = useMemo(() => {

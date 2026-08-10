@@ -1,12 +1,12 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { forwardRef, useCallback, useContext, useMemo } from 'react';
+import React, { use, useCallback, useMemo } from 'react';
 import { SelectContext } from './SelectContext';
 import { SelectOptionProps } from './typings';
 
-const Option = forwardRef<HTMLLIElement, SelectOptionProps>((props, ref) => {
+const Option = ({ ref, ...props }: SelectOptionProps & { ref?: React.Ref<HTMLLIElement | null> }) => {
     const { e, is } = useClassNames('select-dropdown');
-    const { value: selectedValue, onChoose, hover: hoverValue, setHover, multiple } = useContext(SelectContext);
+    const { value: selectedValue, onChoose, hover: hoverValue, setHover, multiple } = use(SelectContext);
     const { value, label, data, disabled, onClick } = props;
 
     /** 选中回调 */
@@ -49,7 +49,7 @@ const Option = forwardRef<HTMLLIElement, SelectOptionProps>((props, ref) => {
             {props.children || <span>{label}</span>}
         </li>
     );
-});
+};
 
 Option.displayName = 'ElOption';
 

@@ -1,6 +1,6 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 export interface PlaceholderGridProps {
     // number of rows
@@ -21,7 +21,7 @@ export interface PlaceholderGridProps {
     style?: React.CSSProperties;
 }
 
-const PlaceholderGrid = forwardRef<HTMLDivElement, PlaceholderGridProps>((props, ref) => {
+const PlaceholderGrid = ({ ref, ...props }: PlaceholderGridProps & { ref?: React.Ref<HTMLDivElement | null> }) => {
     const { className, classPrefix = 'skeleton', rows = 5, columns = 5, rowHeight = 10, rowMargin = 20, animated: active, ...rest } = props;
 
     const { b, wb } = useClassNames(classPrefix);
@@ -59,7 +59,7 @@ const PlaceholderGrid = forwardRef<HTMLDivElement, PlaceholderGridProps>((props,
             {colItems}
         </div>
     );
-});
+};
 
 PlaceholderGrid.displayName = 'PlaceholderGrid';
 

@@ -1,7 +1,7 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
-import React, { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
+import React, { useCallback, useImperativeHandle, useRef, useState } from 'react';
 import Color from './color';
 import draggable from './draggable';
 import { getClientXY } from './util';
@@ -16,7 +16,7 @@ export interface AlphaSliderRef {
     update: () => void;
 }
 
-const AlphaSlider = forwardRef<AlphaSliderRef, Props>((props, ref) => {
+const AlphaSlider = ({ ref, ...props }: Props & { ref?: React.Ref<AlphaSliderRef | null> }) => {
     const { color, vertical, onChange } = props;
     const { b, e, is } = useClassNames('color-alpha-slider');
 
@@ -130,7 +130,7 @@ const AlphaSlider = forwardRef<AlphaSliderRef, Props>((props, ref) => {
             <div className={e`thumb`} ref={thumb} style={{ left: thumbLeft, top: thumbTop }} />
         </div>
     );
-});
+};
 
 AlphaSlider.displayName = 'AlphaSlider';
 

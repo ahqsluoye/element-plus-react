@@ -56,7 +56,7 @@ const Skeleton: FC<SkeletonProps> = (props: SkeletonProps) => {
             props.visible ? display() : hide();
         }
         initLoad.current = true;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [props.visible]);
 
     return visible ? <SkeletonCore {...props} /> : <>{children}</>;

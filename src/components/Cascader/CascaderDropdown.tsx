@@ -5,7 +5,7 @@ import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import classNames from 'classnames';
 import last from 'lodash/last';
-import React, { memo, useContext, useMemo, useRef, useState } from 'react';
+import React, { memo, use, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CascaderContext } from './CascaderContext';
 import { CascaderNode } from './typings';
@@ -20,7 +20,7 @@ interface Props {
 }
 
 const CascaderDropdown = memo((props: Props) => {
-    const { props: menuProps, onSelect, onCheckedChange, suggestionItemFormatter } = useContext(CascaderContext);
+    const { props: menuProps, onSelect, onCheckedChange, suggestionItemFormatter } = use(CascaderContext);
     const { options, separator, value, checkedNodes, onClearSearch } = props;
     const { value: valueKey = 'value', label: labelKey = 'label', multiple } = menuProps;
     const { e, is } = useClassNames('cascader');

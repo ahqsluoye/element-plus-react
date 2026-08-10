@@ -5,18 +5,11 @@ import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonPr
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import classNames from 'classnames';
-import React, { FC, forwardRef, memo, useCallback, useContext, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { FC, memo, use, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
 import { CheckboxProps, CheckboxRef } from './typings';
 
-const CheckboxButton = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
-    const {
-        name: nameContext,
-        disabled: disabledContext,
-        readOnly: readOnlyContext,
-        value: groupValue,
-        size: groupSize,
-        onChange: onGroupChange,
-    } = useContext(CheckboxGroupContext);
+const CheckboxButton = ({ ref, ...props }: CheckboxProps & { ref?: React.Ref<CheckboxRef | null> }) => {
+    const { name: nameContext, disabled: disabledContext, readOnly: readOnlyContext, value: groupValue, size: groupSize, onChange: onGroupChange } = use(CheckboxGroupContext);
 
     const {
         checked: controlledChecked,
@@ -104,7 +97,7 @@ const CheckboxButton = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
     );
 
     return title ? <ElTooltip content={title}>{main}</ElTooltip> : main;
-});
+};
 
 const Comp: FC<CheckboxProps> = memo(CheckboxButton);
 

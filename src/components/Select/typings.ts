@@ -11,14 +11,15 @@ export type SelectRef = {
     setValue: (value: ValueType) => void;
     onClear: (event?: any) => void;
     setVisible: (value: boolean) => void;
-    cachedOptions: React.RefObject<Map<OptionValue, OptionData>>;
+    cachedOptions: React.Ref<Map<OptionValue, OptionData>>;
     onChoose: <T = any>(val: string, data: OptionData<T>, event?: any) => ValueType;
 };
 
 type Child = React.ReactElement<SelectOptionGroupProps | SelectOptionProps> | React.ReactElement<SelectOptionGroupProps | SelectOptionProps>[];
 
 export interface SelectProps<V = ValueType>
-    extends Omit<FormControlBaseProps<V>, 'onChange'>,
+    extends
+        Omit<FormControlBaseProps<V>, 'onChange'>,
         BaseProps<Child | Child[]>,
         NativeProps<
             | '--el-select-border-color-hover'

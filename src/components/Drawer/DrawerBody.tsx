@@ -2,10 +2,10 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
-import React, { forwardRef, useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { DrawerBodyProps } from './typings';
 
-const DrawerBody = forwardRef<HTMLDivElement, DrawerBodyProps>((props, ref) => {
+const DrawerBody = ({ ref, ...props }: DrawerBodyProps & { ref?: React.Ref<HTMLDivElement | null> }) => {
     const { classPrefix = 'drawer' } = props;
     const { e } = useClassNames(classPrefix);
 
@@ -24,7 +24,6 @@ const DrawerBody = forwardRef<HTMLDivElement, DrawerBodyProps>((props, ref) => {
         return () => {
             window.removeEventListener('resize', resizeFn);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -32,7 +31,7 @@ const DrawerBody = forwardRef<HTMLDivElement, DrawerBodyProps>((props, ref) => {
             {props.children}
         </div>
     );
-});
+};
 
 DrawerBody.displayName = 'ElDrawerBody';
 

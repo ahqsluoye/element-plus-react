@@ -2,7 +2,7 @@ import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
 import { nextTick } from '@qsxy/element-plus-react/Util/base';
 import clamp from 'lodash/clamp';
 import debounce from 'lodash/debounce';
-import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
+import React, { use, useCallback, useMemo, useRef, useState } from 'react';
 import { SliderContext } from '../SliderContext';
 import { SliderButtonInitData, SliderButtonProps, SliderContextValue, SliderValue } from '../typings';
 
@@ -50,7 +50,7 @@ const useTooltip = (modelValue: number, formatTooltip: SliderContextValue['forma
 };
 
 export const useSliderButton = (modelValue: number, props: SliderButtonProps, onChange: (val: SliderValue) => void) => {
-    const context = useContext(SliderContext);
+    const context = use(SliderContext);
 
     const disabled = context?.disabled ?? false;
     const min = context?.min ?? 0;

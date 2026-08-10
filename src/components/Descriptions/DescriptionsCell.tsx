@@ -1,6 +1,6 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { createElement, memo, useContext, useMemo } from 'react';
+import React, { createElement, memo, use, useMemo } from 'react';
 import { DescriptionsContext } from './DescriptionsContext';
 import { DescriptionsItemProps } from './typings';
 
@@ -13,7 +13,7 @@ interface Props {
 
 const DescriptionsCell = memo(({ cell, tag, type, _key }: Props) => {
     const { label, span = 1, align, labelAlign, className, labelClassName, width, minWidth, children } = cell.props;
-    const { direction, border } = useContext(DescriptionsContext);
+    const { direction, border } = use(DescriptionsContext);
     const { e, is } = useClassNames('descriptions');
 
     const isVertical = useMemo(() => direction === 'vertical', [direction]);

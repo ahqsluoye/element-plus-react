@@ -29,7 +29,7 @@ const createGrid = ({
     initCache,
     validateProps,
 }: GridConstructorProps<VirtualizedGridProps>) => {
-    const GridComponent = React.forwardRef<GridExposes, VirtualizedGridProps>((props, ref) => {
+    const GridComponent = ({ ref, ...props }: VirtualizedGridProps & { ref?: React.Ref<GridExposes | null> }) => {
         const {
             totalColumn,
             totalRow,
@@ -608,7 +608,7 @@ const createGrid = ({
                 verticalScrollbar,
             ],
         );
-    });
+    };
 
     GridComponent.displayName = name ?? 'ElVirtualGrid';
 

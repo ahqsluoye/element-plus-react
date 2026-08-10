@@ -1,5 +1,5 @@
 import noop from 'lodash/noop';
-import React, { createContext, FC, useContext, useRef } from 'react';
+import React, { createContext, FC, use, useRef } from 'react';
 import type { FieldData, FormInstance, Store, ValidateMessages } from './typings';
 
 export type Forms = Record<string, FormInstance>;
@@ -36,7 +36,7 @@ const FormContext = createContext<FormContextProps>({
 });
 
 const FormProvider: FC<FormProviderProps> = ({ validateMessages, onFormChange, onFormFinish, children }) => {
-    const formContext = useContext(FormContext);
+    const formContext = use(FormContext);
 
     const formsRef = useRef<Forms>({});
 

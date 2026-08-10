@@ -1,5 +1,5 @@
 import { warning } from '@qsxy/element-plus-react/Util/base';
-import React, { FC, memo, useContext, useMemo, useRef } from 'react';
+import React, { FC, memo, use, useMemo, useRef } from 'react';
 import ElFormItem from './FormItem';
 import FieldContext from './InternalFormContext';
 import ListContext, { ListContextProps } from './ListContext';
@@ -27,7 +27,7 @@ export interface ListProps {
 }
 
 const List: FC<ListProps> = ({ name, initialValue, children, rules, validateTrigger }) => {
-    const context = useContext(FieldContext);
+    const context = use(FieldContext);
     const keyRef = useRef({
         keys: [],
         id: 0,

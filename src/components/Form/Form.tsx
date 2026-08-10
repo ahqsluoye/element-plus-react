@@ -2,7 +2,7 @@ import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
-import React, { ForwardedRef, forwardRef, memo, useCallback, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { memo, use, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import FormContext, { FormContextProps } from './FormContext';
 import InternalFormContext, { HOOK_MARK } from './InternalFormContext';
 import { FieldData, FormInstance, FormProps, InternalFormInstance, Store } from './typings';
@@ -11,7 +11,7 @@ import { isSimilar } from './utils/valueUtil';
 
 type RenderProps = (values: Store, form: FormInstance) => React.ReactElement;
 
-function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: ForwardedRef<FormInstance<RecordType>>) {
+function InternalForm<RecordType = Store>({ ref, ...props }: FormProps<RecordType> & { ref?: React.Ref<FormInstance<RecordType> | null> }) {
     props = mergeDefaultProps(
         {
             inline: false,
@@ -57,7 +57,7 @@ function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: For
         statusIcon,
         ...restProps
     } = props;
-    const formContext: FormContextProps = useContext(FormContext);
+    const formContext: FormContextProps = use(FormContext);
     const [formInstance] = useForm(props.form);
     const { useSubscribe, setInitialValues, setCallbacks, setValidateMessages, setPreserve, destroyForm } = (formInstance as InternalFormInstance).getInternalHooks(HOOK_MARK);
     const { b, m, is } = useClassNames('form');
@@ -134,7 +134,7 @@ function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: For
 
     useEffect(
         () => destroyForm,
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
         [],
     );
     let childrenNode = children;
@@ -237,6 +237,6 @@ function InternalForm<RecordType = Store>(props: FormProps<RecordType>, ref: For
     );
 }
 
-const ForwardForm = memo(forwardRef(InternalForm));
+const ForwardForm = memo(InternalForm);
 
 export default ForwardForm;

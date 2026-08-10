@@ -1,5 +1,5 @@
 import warning from 'rc-util/lib/warning';
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { use, useEffect, useMemo, useRef, useState } from 'react';
 import FieldContext, { HOOK_MARK } from './InternalFormContext';
 import { FormInstance, InternalFormInstance, NamePath, Store } from './typings';
 import { getNamePath, getValue } from './utils/valueUtil';
@@ -54,7 +54,7 @@ function useWatch(...args: [NamePath, FormInstance]) {
     const valueStrRef = useRef(valueStr);
     valueStrRef.current = valueStr;
 
-    const fieldContext = useContext(FieldContext);
+    const fieldContext = use(FieldContext);
     const formInstance = (form as InternalFormInstance) || fieldContext;
     const isValidForm = formInstance && formInstance._init;
 
@@ -97,7 +97,7 @@ function useWatch(...args: [NamePath, FormInstance]) {
         },
 
         // We do not need re-register since namePath content is the same
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
         [isValidForm],
     );
 

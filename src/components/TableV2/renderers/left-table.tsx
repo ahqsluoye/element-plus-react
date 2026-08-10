@@ -1,6 +1,6 @@
 import Table, { TableGridInstance } from '../table-grid';
 
-import React, { forwardRef, RefObject } from 'react';
+import React, { RefObject } from 'react';
 import { TableV2GridProps } from '../grid';
 
 type LeftTableProps = TableV2GridProps & {
@@ -8,7 +8,7 @@ type LeftTableProps = TableV2GridProps & {
     children?: React.ReactNode;
 };
 
-const LeftTable = forwardRef<TableGridInstance, LeftTableProps>((props, ref) => {
+const LeftTable = ({ ref, ...props }: LeftTableProps & { ref?: React.Ref<TableGridInstance | null> }) => {
     if (!props.columns.length) {
         return;
     }
@@ -18,7 +18,7 @@ const LeftTable = forwardRef<TableGridInstance, LeftTableProps>((props, ref) => 
             {params => props.rowFormatter && props.rowFormatter(params)}
         </Table>
     );
-});
+};
 
 LeftTable.displayName = 'LeftTable';
 

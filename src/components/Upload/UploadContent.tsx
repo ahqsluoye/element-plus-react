@@ -2,12 +2,12 @@ import { genFileId } from '@qsxy/element-plus-react/Util/genFileId';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import classNames from 'classnames';
-import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
+import React, { useCallback, useImperativeHandle, useRef } from 'react';
 import UploadDrag from './UploadDrag';
 import { ajaxUpload } from './ajax';
 import { UploadContentProps, UploadContentRef, UploadFile, UploadHooks, UploadRawFile, UploadRequestOptions } from './typings';
 
-const UploadContent = forwardRef<UploadContentRef, UploadContentProps>((props, ref) => {
+const UploadContent = ({ ref, ...props }: UploadContentProps & { ref?: React.Ref<UploadContentRef | null> }) => {
     const {
         listType,
         drag,
@@ -219,6 +219,6 @@ const UploadContent = forwardRef<UploadContentRef, UploadContentProps>((props, r
             <input ref={inputRef} className={e`input`} name={filename} multiple={multiple} accept={accept} type="file" onChange={handleChange} />
         </div>
     );
-});
+};
 
 export default UploadContent;

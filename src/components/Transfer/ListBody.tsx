@@ -45,7 +45,7 @@ const ListBody: FC<TransferListBodyProps<RecordType>> = props => {
                 setCurrent(maxPageCount);
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [current, pagination]);
 
     const handleItemSelect = useCallback(

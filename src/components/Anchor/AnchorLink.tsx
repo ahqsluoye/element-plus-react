@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FC, memo, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
+import React, { FC, memo, use, useCallback, useEffect, useMemo, useRef } from 'react';
 import { AnchorContext } from './Anchor';
 import { AnchorLinkProps } from './typings';
 
@@ -7,7 +7,7 @@ const AnchorLink: FC<AnchorLinkProps> = memo(props => {
     const { title = '', href = '', className, style, children } = props;
 
     const linkRef = useRef<HTMLAnchorElement>(null);
-    const context = useContext(AnchorContext);
+    const context = use(AnchorContext);
 
     const { ns, direction, currentAnchor, addLink, removeLink, handleClick: contextHandleClick } = context;
 

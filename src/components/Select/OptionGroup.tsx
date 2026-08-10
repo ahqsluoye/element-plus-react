@@ -1,9 +1,9 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { Children, FC, cloneElement, forwardRef } from 'react';
+import React, { Children, cloneElement } from 'react';
 import { SelectOptionGroupProps, SelectOptionProps } from './typings';
 
-const OptionGroup: FC<SelectOptionGroupProps> = forwardRef<HTMLUListElement, SelectOptionGroupProps>((props, ref) => {
+const OptionGroup = ({ ref, ...props }: SelectOptionGroupProps & { ref?: React.Ref<HTMLUListElement | null> }) => {
     const { e, b } = useClassNames('select-group');
     const { label, disabled } = props;
 
@@ -22,7 +22,7 @@ const OptionGroup: FC<SelectOptionGroupProps> = forwardRef<HTMLUListElement, Sel
             </li>
         </ul>
     );
-});
+};
 
 OptionGroup.displayName = 'ElOptionGroup';
 

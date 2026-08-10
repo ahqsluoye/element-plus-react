@@ -1,4 +1,4 @@
-import React, { Fragment, memo, useContext } from 'react';
+import React, { Fragment, memo, use } from 'react';
 import DescriptionsCell from './DescriptionsCell';
 import { DescriptionsContext } from './DescriptionsContext';
 import { DescriptionsItemProps } from './typings';
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const DescriptionsRow = memo(({ row }: Props) => {
-    const { direction, border } = useContext(DescriptionsContext);
+    const { direction, border } = use(DescriptionsContext);
 
     return direction === 'vertical' ? (
         <>

@@ -5,137 +5,128 @@ import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonPr
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import classNames from 'classnames';
-import React, { forwardRef, memo, useCallback, useContext, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { memo, use, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
 import { CheckboxProps, CheckboxRef } from './typings';
 
-const Checkbox = memo(
-    forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
-        const {
-            name: nameContext,
-            disabled: disabledContext,
-            readOnly: readOnlyContext,
-            value: groupValue,
-            size: groupSize,
-            onChange: onGroupChange,
-        } = useContext(CheckboxGroupContext);
+const Checkbox = memo(({ ref, ...props }: CheckboxProps & { ref?: React.Ref<CheckboxRef | null> }) => {
+    const { name: nameContext, disabled: disabledContext, readOnly: readOnlyContext, value: groupValue, size: groupSize, onChange: onGroupChange } = use(CheckboxGroupContext);
 
-        const {
-            checked: controlledChecked,
-            className,
-            children,
-            defaultChecked = false,
-            title,
-            indeterminate,
-            readOnly = readOnlyContext,
-            name = nameContext,
-            value,
-            onClick,
-            onCheckboxClick,
-            onChange,
-            prevent = false,
-            ...rest
-        } = props;
-        const disabled = useDisabled(disabledContext || props.disabled);
-        const size = useSize(groupSize ?? props.size);
+    const {
+        checked: controlledChecked,
+        className,
+        children,
+        defaultChecked = false,
+        title,
+        indeterminate,
+        readOnly = readOnlyContext,
+        name = nameContext,
+        value,
+        onClick,
+        onCheckboxClick,
+        onChange,
+        prevent = false,
+        ...rest
+    } = props;
+    const disabled = useDisabled(disabledContext || props.disabled);
+    const size = useSize(groupSize ?? props.size);
 
-        const isChecked = useCallback(() => {
-            if (typeof groupValue !== 'undefined') {
-                return groupValue instanceof Array ? groupValue.some(i => i === value) : groupValue;
+    const isChecked = useCallback(() => {
+        if (typeof groupValue !== 'undefined') {
+            return groupValue instanceof Array ? groupValue.some(i => i === value) : groupValue;
+        }
+        return controlledChecked;
+    }, [controlledChecked, groupValue, value]);
+
+    const [checked, setChecked] = useControlled<boolean>(isChecked(), defaultChecked);
+    const { b, m, e, is } = useClassNames('checkbox');
+    const [htmlInputProps] = partitionHTMLProps(rest);
+    const [tooltipEvents] = partitionHTMLProps(props, { htmlProps: ['onMouseEnter', 'onMouseLeave', 'onClick', 'onContextMenu'] });
+
+    const inputRef = useRef<HTMLInputElement>(null);
+    const containerRef = useRef(null);
+
+    const handleChange = useCallback(
+        event => {
+            const nextChecked = !checked;
+
+            if (disabled || readOnly) {
+                return;
             }
-            return controlledChecked;
-        }, [controlledChecked, groupValue, value]);
 
-        const [checked, setChecked] = useControlled<boolean>(isChecked(), defaultChecked);
-        const { b, m, e, is } = useClassNames('checkbox');
-        const [htmlInputProps] = partitionHTMLProps(rest);
-        const [tooltipEvents] = partitionHTMLProps(props, { htmlProps: ['onMouseEnter', 'onMouseLeave', 'onClick', 'onContextMenu'] });
+            setChecked(nextChecked);
+            onChange?.(nextChecked, value, event);
+            onGroupChange?.(value, nextChecked, event);
+        },
+        [checked, disabled, readOnly, setChecked, onChange, value, onGroupChange],
+    );
 
-        const inputRef = useRef<HTMLInputElement>(null);
-        const containerRef = useRef(null);
+    useImperativeHandle(ref, () => ({
+        ref: containerRef,
+        get input() {
+            return inputRef.current;
+        },
+        isChcked: () => checked,
+        setChecked,
+    }));
 
-        const handleChange = useCallback(
-            event => {
-                const nextChecked = !checked;
+    const main = useMemo(
+        () => (
+            <label
+                className={classNames(b(), is({ checked, disabled }), m({ [size]: size }), className)}
+                style={props.style}
+                ref={containerRef}
+                {...tooltipEvents}
+                onClick={onClick}
+            >
+                <input
+                    key={name}
+                    {...htmlInputProps}
+                    name={name}
+                    value={value}
+                    type="checkbox"
+                    ref={inputRef}
+                    className={classNames(e`hidden`, is({ indeterminate }))}
+                    checked={checked}
+                    data-checked={checked}
+                    readOnly={readOnly}
+                    disabled={disabled}
+                    onClick={event => {
+                        event.stopPropagation();
+                        prevent && event.preventDefault();
+                        onCheckboxClick?.(event);
+                    }}
+                    onChange={handleChange}
+                />
+                <span className={classNames(e`inner`, is({ checked, disabled }))} />
+                {children && <span className={e`label`}>{children}</span>}
+            </label>
+        ),
+        [
+            b,
+            checked,
+            children,
+            className,
+            disabled,
+            e,
+            handleChange,
+            htmlInputProps,
+            indeterminate,
+            is,
+            m,
+            name,
+            onCheckboxClick,
+            onClick,
+            prevent,
+            props.style,
+            readOnly,
+            size,
+            tooltipEvents,
+            value,
+        ],
+    );
 
-                if (disabled || readOnly) {
-                    return;
-                }
-
-                setChecked(nextChecked);
-                onChange?.(nextChecked, value, event);
-                onGroupChange?.(value, nextChecked, event);
-            },
-            [checked, disabled, readOnly, setChecked, onChange, value, onGroupChange],
-        );
-
-        useImperativeHandle(ref, () => ({
-            ref: containerRef,
-            get input() {
-                return inputRef.current;
-            },
-            isChcked: () => checked,
-            setChecked,
-        }));
-
-        const main = useMemo(
-            () => (
-                <label
-                    className={classNames(b(), is({ checked, disabled }), m({ [size]: size }), className)}
-                    style={props.style}
-                    ref={containerRef}
-                    {...tooltipEvents}
-                    onClick={onClick}
-                >
-                    <input
-                        key={name}
-                        {...htmlInputProps}
-                        name={name}
-                        value={value}
-                        type="checkbox"
-                        ref={inputRef}
-                        className={classNames(e`hidden`, is({ indeterminate }))}
-                        checked={checked}
-                        data-checked={checked}
-                        readOnly={readOnly}
-                        disabled={disabled}
-                        onClick={event => {
-                            event.stopPropagation();
-                            prevent && event.preventDefault();
-                            onCheckboxClick?.(event);
-                        }}
-                        onChange={handleChange}
-                    />
-                    <span className={classNames(e`inner`, is({ checked, disabled }))} />
-                    {children && <span className={e`label`}>{children}</span>}
-                </label>
-            ),
-            [
-                b,
-                checked,
-                children,
-                className,
-                disabled,
-                e,
-                handleChange,
-                htmlInputProps,
-                indeterminate,
-                is,
-                m,
-                name,
-                onCheckboxClick,
-                onClick,
-                prevent,
-                props.style,
-                readOnly,
-                size,
-                tooltipEvents,
-                value,
-            ],
-        );
-
-        return title ? <ElTooltip content={title}>{main}</ElTooltip> : main;
-    }),
-);
+    return title ? <ElTooltip content={title}>{main}</ElTooltip> : main;
+});
 
 Checkbox.displayName = 'ElCheckbox';
 

@@ -1,15 +1,15 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { TooltipContext } from '@qsxy/element-plus-react/Tooltip/TooltipContext';
 import classNames from 'classnames';
-import React, { useContext } from 'react';
+import React, { use } from 'react';
 import { DropdownContext } from './DropdownContext';
 import { DropdownItemProps } from './typings';
 
 const DropdownItem = (props: DropdownItemProps) => {
     const { classPrefix = 'dropdown-menu', disabled, command, divided, active } = props;
     const { e, em, is } = useClassNames(classPrefix);
-    const { hideOnClick, onCommand: onClick } = useContext(DropdownContext);
-    const { onMouseLeave } = useContext(TooltipContext);
+    const { hideOnClick, onCommand: onClick } = use(DropdownContext);
+    const { onMouseLeave } = use(TooltipContext);
 
     return (
         <>

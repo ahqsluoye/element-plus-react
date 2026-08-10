@@ -8,107 +8,105 @@ import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
 import { addUnit, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
-import React, { forwardRef, memo, useImperativeHandle, useRef, useState } from 'react';
+import React, { memo, useImperativeHandle, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PopconfirmProps } from './typings';
 
-const Popconfirm = memo(
-    forwardRef<TooltipRef, PopconfirmProps>((props, ref) => {
-        const { locale } = useConfigProvider();
-        const { t } = useTranslation();
+const Popconfirm = memo(({ ref, ...props }: PopconfirmProps & { ref?: React.Ref<TooltipRef | null> }) => {
+    const { locale } = useConfigProvider();
+    const { t } = useTranslation();
 
-        props = mergeDefaultProps(
-            {
-                showArrow: true,
-                confirmButtonText: t('el.popconfirm.confirmButtonText', { lng: locale }),
-                cancelButtonText: t('el.popconfirm.cancelButtonText', { lng: locale }),
-                confirmButtonType: 'primary',
-                cancelButtonType: 'primary',
-                icon: 'circle-question',
-                iconColor: '#f90',
-                width: 150,
-            },
-            props,
-        );
-        const {
-            title,
-            confirmButtonText,
-            confirmButtonType,
-            cancelButtonText,
-            cancelButtonType,
-            onCancel,
-            onConfirm,
-            icon,
-            iconColor,
-            hideIcon,
-            classPrefix = 'popconfirm',
-            width,
-            persistent,
-            ...rest
-        } = props;
-        const [popperProps] = partitionPopperPropsUtils(rest);
-        const [transitionProps] = partitionAnimationProps(rest);
-        const { b, e } = useClassNames(classPrefix);
-        const [visible, setVisible] = useState(false);
+    props = mergeDefaultProps(
+        {
+            showArrow: true,
+            confirmButtonText: t('el.popconfirm.confirmButtonText', { lng: locale }),
+            cancelButtonText: t('el.popconfirm.cancelButtonText', { lng: locale }),
+            confirmButtonType: 'primary',
+            cancelButtonType: 'primary',
+            icon: 'circle-question',
+            iconColor: '#f90',
+            width: 150,
+        },
+        props,
+    );
+    const {
+        title,
+        confirmButtonText,
+        confirmButtonType,
+        cancelButtonText,
+        cancelButtonType,
+        onCancel,
+        onConfirm,
+        icon,
+        iconColor,
+        hideIcon,
+        classPrefix = 'popconfirm',
+        width,
+        persistent,
+        ...rest
+    } = props;
+    const [popperProps] = partitionPopperPropsUtils(rest);
+    const [transitionProps] = partitionAnimationProps(rest);
+    const { b, e } = useClassNames(classPrefix);
+    const [visible, setVisible] = useState(false);
 
-        const tooltipRef = useRef<TooltipRef>(null);
+    const tooltipRef = useRef<TooltipRef>(null);
 
-        useImperativeHandle(ref, () => tooltipRef.current);
+    useImperativeHandle(ref, () => tooltipRef.current);
 
-        return (
-            <ElTooltip
-                ref={tooltipRef}
-                visible={visible}
-                classPrefix={classPrefix}
-                className={props.className}
-                style={props.style}
-                popperClass={classNames(b('popover', false, props.popperClass), props.popperClass)}
-                popperStyle={{ minWidth: addUnit(width), ...props.popperStyle }}
-                triggerRef={props.children}
-                enterable
-                effect="light"
-                trigger="click"
-                onMouseEnter={() => setVisible(true)}
-                onMouseLeave={() => setVisible(false)}
-                contentSlot={
-                    <div className={classNames(b())}>
-                        <div className={e`main`}>
-                            {!hideIcon && <ElIcon className={e`icon`} name={icon} style={{ color: iconColor }} prefix="fas" />}
-                            {title}
-                        </div>
-                        <div className={e`action`}>
-                            <ElButton
-                                type={cancelButtonType}
-                                link
-                                size="small"
-                                onClick={() => {
-                                    setVisible(false);
-                                    onCancel?.();
-                                }}
-                                style={{ marginRight: 5 }}
-                            >
-                                {cancelButtonText}
-                            </ElButton>
-                            <ElButton
-                                type={confirmButtonType}
-                                size="small"
-                                onClick={() => {
-                                    setVisible(false);
-                                    onConfirm?.();
-                                }}
-                            >
-                                {confirmButtonText}
-                            </ElButton>
-                        </div>
+    return (
+        <ElTooltip
+            ref={tooltipRef}
+            visible={visible}
+            classPrefix={classPrefix}
+            className={props.className}
+            style={props.style}
+            popperClass={classNames(b('popover', false, props.popperClass), props.popperClass)}
+            popperStyle={{ minWidth: addUnit(width), ...props.popperStyle }}
+            triggerRef={props.children}
+            enterable
+            effect="light"
+            trigger="click"
+            onMouseEnter={() => setVisible(true)}
+            onMouseLeave={() => setVisible(false)}
+            contentSlot={
+                <div className={classNames(b())}>
+                    <div className={e`main`}>
+                        {!hideIcon && <ElIcon className={e`icon`} name={icon} style={{ color: iconColor }} prefix="fas" />}
+                        {title}
                     </div>
-                }
-                persistent={persistent}
-                {...popperProps}
-                {...transitionProps}
-            />
-        );
-    }),
-);
+                    <div className={e`action`}>
+                        <ElButton
+                            type={cancelButtonType}
+                            link
+                            size="small"
+                            onClick={() => {
+                                setVisible(false);
+                                onCancel?.();
+                            }}
+                            style={{ marginRight: 5 }}
+                        >
+                            {cancelButtonText}
+                        </ElButton>
+                        <ElButton
+                            type={confirmButtonType}
+                            size="small"
+                            onClick={() => {
+                                setVisible(false);
+                                onConfirm?.();
+                            }}
+                        >
+                            {confirmButtonText}
+                        </ElButton>
+                    </div>
+                </div>
+            }
+            persistent={persistent}
+            {...popperProps}
+            {...transitionProps}
+        />
+    );
+});
 
 Popconfirm.displayName = 'ElPopconfirm';
 

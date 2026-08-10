@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, use } from 'react';
 import type { NavigateFunction } from 'react-router-dom';
 import { MenuItemRegistered, MenuProps, SubMenuProvider } from './typings';
 
@@ -55,4 +55,4 @@ export const MenuContext = createContext<MenuContextProps>({
     themeStyle: {},
 });
 
-export const useMenuContext = () => useContext(MenuContext);
+export const useMenuContext = () => use(MenuContext);

@@ -4,10 +4,10 @@ import { MessageMethod, MessageParams, MessageProps } from '@qsxy/element-plus-r
 import { MessageBox, MessageBoxProps, instanceFactory } from '@qsxy/element-plus-react/MessageBox';
 import { Action, MessageBoxInputData } from '@qsxy/element-plus-react/MessageBox/typings';
 import { isEmpty } from '@qsxy/element-plus-react/Util/base';
-import { isValidElement, useContext } from 'react';
+import { isValidElement, use } from 'react';
 
 export const useConfigProvider = () => {
-    const { message: messageConfig, locale } = useContext(ConfigProviderContext);
+    const { message: messageConfig, locale } = use(ConfigProviderContext);
 
     const ElMessage: MessageMethod = function (opts: MessageParams = {} as MessageParams) {
         if (typeof opts === 'string' || isValidElement(opts)) {

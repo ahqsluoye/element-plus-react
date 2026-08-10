@@ -2,7 +2,7 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { isNumber, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
-import React, { FC, memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FC, memo, use, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { StepsContext } from './Steps';
 import { StepItemState, StepProps, StepsContextProps } from './typings';
 
@@ -28,7 +28,7 @@ const Step: FC<StepProps> = memo(props => {
 
     const { b, e, is } = useClassNames(classPrefix);
 
-    const parent = useContext(StepsContext) as StepsContextProps;
+    const parent = use(StepsContext) as StepsContextProps;
     const uidRef = useRef(getUid());
 
     const [index, setIndexState] = useState(-1);

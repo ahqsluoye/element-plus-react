@@ -133,11 +133,11 @@ const Thumb: FC<BarProps> = props => {
             off(document, 'mouseup', mouseUpDocumentHandler);
             if (scrollbar.current) {
                 off(scrollbar.current, 'mousemove', mouseMoveScrollbarHandler);
-                // eslint-disable-next-line react-hooks/exhaustive-deps
+                 
                 off(scrollbar.current, 'mouseleave', mouseLeaveScrollbarHandler);
             }
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, []);
 
     return (

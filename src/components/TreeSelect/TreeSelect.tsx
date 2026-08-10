@@ -6,13 +6,13 @@ import ElTree from '@qsxy/element-plus-react/Tree/Tree';
 import { TreeRef } from '@qsxy/element-plus-react/Tree/typings';
 import { isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { useMount } from 'ahooks';
-import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { useCallback, useImperativeHandle, useMemo, useRef } from 'react';
 import CacheOptions from './cacheOptions';
 import { TreeSelectProps, TreeSelectRef } from './typings';
 import useSelect from './useSelect';
 import useTree from './useTree';
 
-const TreeSelect = forwardRef<TreeSelectRef, TreeSelectProps>((props, ref) => {
+const TreeSelect = ({ ref, ...props }: TreeSelectProps & { ref?: React.Ref<TreeSelectRef | null> }) => {
     props = mergeDefaultProps(
         {
             renderAfterExpand: true,
@@ -89,7 +89,7 @@ const TreeSelect = forwardRef<TreeSelectRef, TreeSelectProps>((props, ref) => {
             <ElTree ref={treeRef} {...treeProps} />
         </ElSelect>
     );
-});
+};
 
 TreeSelect.displayName = 'ElTreeSelect';
 

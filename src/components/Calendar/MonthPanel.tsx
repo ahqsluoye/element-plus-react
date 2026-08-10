@@ -3,7 +3,7 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import React, { FC, useCallback, useContext, useMemo } from 'react';
+import React, { FC, use, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import CalendarContext from './CalendarContext';
 import { Cell, MonthPanelProps } from './typings';
@@ -12,7 +12,7 @@ import { initDate } from './util';
 const MonthPanel: FC<MonthPanelProps> = props => {
     const { value, valueRange, onPickMonth } = props;
     const { e, b } = useClassNames('picker-panel');
-    const { value: valueProp, dateType, disabledDate } = useContext(CalendarContext);
+    const { value: valueProp, dateType, disabledDate } = use(CalendarContext);
 
     const { locale } = useConfigProvider();
     const { t } = useTranslation();

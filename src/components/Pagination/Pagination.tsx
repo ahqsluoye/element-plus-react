@@ -5,14 +5,14 @@ import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
-import React, { forwardRef, isValidElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { isValidElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Options from './Options';
 import Pager from './Pager';
 import { PaginationProps, PaginationRef } from './typings';
 import { calculatePage, isValid } from './util';
 
-const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
+const Pagination = ({ ref, ...props }: PaginationProps & { ref?: React.Ref<PaginationRef | null> }) => {
     props = mergeDefaultProps(
         {
             defaultCurrentPage: 1,
@@ -103,7 +103,6 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
                 !disabled && onChange?.(_current, pageSize);
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageSize, total]);
 
     /** 是否有上一页 */
@@ -478,7 +477,7 @@ const Pagination = forwardRef<PaginationRef, PaginationProps>((props, ref) => {
             {simple ? simplePage : content}
         </div>
     );
-});
+};
 
 Pagination.displayName = 'ElPagination';
 

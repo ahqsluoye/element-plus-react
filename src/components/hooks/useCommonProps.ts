@@ -5,26 +5,26 @@ import { TextareaProps } from '@qsxy/element-plus-react/Input/typings';
 import { TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import { isUndefined } from '@qsxy/element-plus-react/Util/base';
 import isNull from 'lodash/isNull';
-import { useContext, useMemo } from 'react';
+import { use, useMemo } from 'react';
 
 export const useSize = (fallback?: TypeAttributes.Size | (() => TypeAttributes.Size)) => {
     const { size: globalSize } = useConfigProvider();
 
     const size = fallback instanceof Function ? fallback() : fallback;
-    const form = useContext(InternalFormContext);
-    const formItem = useContext(FormItemContext);
+    const form = use(InternalFormContext);
+    const formItem = use(FormItemContext);
     return useMemo(() => size || formItem?.size || form?.size || globalSize || null, [size, form?.size, formItem?.size, globalSize]);
 };
 
 export const useDisabled = (fallback?: boolean | (() => boolean)) => {
     const disabled = fallback instanceof Function ? fallback() : fallback;
-    const form = useContext(InternalFormContext);
+    const form = use(InternalFormContext);
     return useMemo(() => (isNull(disabled) || isUndefined(disabled) ? form?.disabled || false : disabled), [disabled, form?.disabled]);
 };
 
 export const useStatusIcon = () => {
-    const statusIcon = useContext(InternalFormContext).statusIcon;
-    const { validateState } = useContext(FormItemContext);
+    const statusIcon = use(InternalFormContext).statusIcon;
+    const { validateState } = use(FormItemContext);
     return { statusIcon, validateState };
 };
 

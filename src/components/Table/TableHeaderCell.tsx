@@ -6,7 +6,7 @@ import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
 import sortBy from 'lodash/sortBy';
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { use, useCallback, useEffect, useMemo, useState } from 'react';
 import { TableBodyContext, TableContext, TableHeaderContext } from './TableContext';
 import { useResize } from './hooks/useResize';
 import { onCheck } from './hooks/useSelection';
@@ -24,9 +24,9 @@ interface Props extends NativeProps {
 
 const TableHeaderCell = (p: Props) => {
     const { row, rowIndex, column, columnIndex, scheduleLayout, className, style } = p;
-    const { data, props, setData, flattenColumns } = useContext(TableContext);
-    const { sortProp, setSortProp, init } = useContext(TableHeaderContext);
-    const { state, dispatch, initialData, sortedData, disabledRows, treeProps, treeNodes } = useContext(TableBodyContext);
+    const { data, props, setData, flattenColumns } = use(TableContext);
+    const { sortProp, setSortProp, init } = use(TableHeaderContext);
+    const { state, dispatch, initialData, sortedData, disabledRows, treeProps, treeNodes } = use(TableBodyContext);
     const { rowKey, headerCellClassName, headerCellStyle, onHeaderClick, onHeaderContextmenu, onSelectAll, onSelectionChange, selectOnIndeterminate, defaultSort, onSortChange } =
         props;
     const { e, is, bm } = useClassNames('table');
@@ -53,7 +53,7 @@ const TableHeaderCell = (p: Props) => {
             // 设置为最后一个排序，为了在下次点击时切换到第一个
             setOrder(sortOrders[sortOrders.length - 1]);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [sortProp]);
 
     /** 全选点击事件 */

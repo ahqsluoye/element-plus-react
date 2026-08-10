@@ -1,15 +1,15 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import castArray from 'lodash/castArray';
-import React, { CSSProperties, forwardRef, useContext, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { CSSProperties, use, useImperativeHandle, useMemo, useRef } from 'react';
 import type { TableV2HeaderProps } from '../header';
 import { TABLE_V2_GRID_INJECTION_KEY } from '../tokens';
 import { enforceUnit } from '../utils';
 
-const TableV2Header = forwardRef<TableV2HeaderInstance, TableV2HeaderProps>((props, ref) => {
+const TableV2Header = ({ ref, ...props }: TableV2HeaderProps & { ref?: React.Ref<TableV2HeaderInstance | null> }) => {
     const { className, columns, fixedHeaderData, headerData, headerHeight, rowWidth, rowHeight, height, width, dynamic, fixed } = props;
     const ns = useClassNames('table-v2');
-    const scrollLeftInfo = useContext(TABLE_V2_GRID_INJECTION_KEY);
+    const scrollLeftInfo = use(TABLE_V2_GRID_INJECTION_KEY);
 
     const headerRef = useRef<HTMLDivElement>(null);
 
@@ -103,7 +103,7 @@ const TableV2Header = forwardRef<TableV2HeaderInstance, TableV2HeaderProps>((pro
             </div>
         </div>
     );
-});
+};
 
 TableV2Header.displayName = 'ElTableV2Header';
 

@@ -6,7 +6,7 @@ import dayjs, { Dayjs, ManipulateType } from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
 import head from 'lodash/head';
 import last from 'lodash/last';
-import React, { FC, forwardRef, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { use, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import CalendarContext, { ChangeParams } from './CalendarContext';
 import DatePanel from './DatePanel';
@@ -27,7 +27,7 @@ import 'dayjs/locale/zh-cn';
 
 dayjs.extend(localeData);
 
-const Calendar: FC<CalendarProps> = forwardRef<HTMLDivElement, CalendarProps>((props, ref) => {
+const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivElement | null> }) => {
     const {
         initialValue,
         value: valueProp,
@@ -40,7 +40,7 @@ const Calendar: FC<CalendarProps> = forwardRef<HTMLDivElement, CalendarProps>((p
         close,
         onChangeRange,
         shortcuts,
-    } = useContext(CalendarContext);
+    } = use(CalendarContext);
     const { wb, e } = useClassNames('picker-panel');
 
     const { locale } = useConfigProvider();
@@ -348,7 +348,7 @@ const Calendar: FC<CalendarProps> = forwardRef<HTMLDivElement, CalendarProps>((p
             {(showToday || showNow) && <Footer />}
         </div>
     );
-});
+};
 
 Calendar.displayName = 'ElCalendar';
 

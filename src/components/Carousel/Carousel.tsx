@@ -4,13 +4,13 @@ import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
-import React, { forwardRef, memo, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { memo, useImperativeHandle, useMemo, useRef } from 'react';
 import { CarouselContext } from './CarouselContext';
 import { useCarousel } from './hooks/useCarousel';
 import { CarouselProps, CarouselRef } from './typings';
 
 const Carousel: React.ForwardRefExoticComponent<CarouselProps & React.RefAttributes<CarouselRef>> = memo(
-    forwardRef<CarouselRef, CarouselProps>((props, ref) => {
+    ({ ref, ...props }: CarouselProps & { ref?: React.Ref<CarouselRef | null> }) => {
         props = mergeDefaultProps(
             {
                 trigger: 'hover',
@@ -159,7 +159,7 @@ const Carousel: React.ForwardRefExoticComponent<CarouselProps & React.RefAttribu
                 </div>
             </CarouselContext.Provider>
         );
-    }),
+    },
 );
 
 Carousel.displayName = 'ElCarousel';

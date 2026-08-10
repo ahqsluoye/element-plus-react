@@ -15,8 +15,13 @@ export const defaultProps: Required<SegmentedProps> = {
     disabled: 'disabled',
 };
 
+export type SegmentedRef = {
+    updateSelect: () => void;
+};
+
 export interface SegmentedComponentProps<T extends Option = Option>
-    extends BaseProps<ReactElement | ReactElement[] | ((data: T) => ReactElement | ReactElement[])>,
+    extends
+        BaseProps<ReactElement | ReactElement[] | ((data: T) => ReactElement | ReactElement[])>,
         NativeProps<
             | '--el-segmented-color'
             | '--el-segmented-bg-color'

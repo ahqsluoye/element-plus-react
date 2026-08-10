@@ -5,12 +5,12 @@ import ElRadio from '@qsxy/element-plus-react/Radio/Radio';
 import { ValueType } from '@qsxy/element-plus-react/Radio/typings';
 import { isNotEmpty, mergeDefaultProps, randomCode } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
-import React, { Children, createContext, forwardRef, useCallback, useMemo } from 'react';
+import React, { Children, createContext, useCallback, useMemo } from 'react';
 import { RadioContextProps, RadioGroupProps } from './typings';
 
 export const RadioContext = createContext<RadioContextProps>({});
 
-const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, ref) => {
+const RadioGroup = ({ ref, ...props }: RadioGroupProps & { ref?: React.Ref<HTMLDivElement | null> }) => {
     props = mergeDefaultProps(
         {
             appearance: 'default',
@@ -73,7 +73,7 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>((props, ref) => {
             </div>
         </RadioContext.Provider>
     );
-});
+};
 
 RadioGroup.displayName = 'ElRadioGroup';
 

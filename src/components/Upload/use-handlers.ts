@@ -32,7 +32,7 @@ export const useHandlers = (props: Omit<UploadProps, 'fileList'> & { fileList: U
                 return { uid: genFileId(), status: 'success', ...item };
             });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [fileList]);
 
     useEffect(() => {
@@ -169,7 +169,7 @@ export const useHandlers = (props: Omit<UploadProps, 'fileList'> & { fileList: U
         });
         setUploadFiles(uploadFilesRef.current);
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [listType]);
 
     // useEffect(() => {

@@ -3,10 +3,10 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
-import React, { forwardRef, memo } from 'react';
+import React, { memo } from 'react';
 import { LinkProps } from './typings';
 
-const Link = forwardRef<any, LinkProps>((props: LinkProps, ref) => {
+const Link = ({ ref, ...props }: LinkProps & { ref?: React.Ref<any> }) => {
     const { link = {} } = useConfigProvider();
     props = mergeDefaultProps({ type: link?.type ?? 'default', underline: link?.underline ?? 'hover', target: '_self' }, props);
 
@@ -31,7 +31,7 @@ const Link = forwardRef<any, LinkProps>((props: LinkProps, ref) => {
             {props.children}
         </a>
     );
-});
+};
 
 Link.displayName = 'ElLink';
 

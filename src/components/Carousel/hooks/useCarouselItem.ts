@@ -115,7 +115,7 @@ export const useCarouselItem = (props: CarouselItemProps) => {
         });
 
         return () => removeItem(id);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, []);
 
     return {

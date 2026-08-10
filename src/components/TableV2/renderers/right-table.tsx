@@ -1,13 +1,13 @@
 import Table, { TableGridInstance } from '../table-grid';
 
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { TableV2GridProps } from '../grid';
 
 type RightTableProps = TableV2GridProps & {
     children?: React.ReactNode;
 };
 
-const RightTable = forwardRef<TableGridInstance, RightTableProps>((props, ref) => {
+const RightTable = ({ ref, ...props }: RightTableProps & { ref?: React.Ref<TableGridInstance | null> }) => {
     if (!props.columns.length) {
         return;
     }
@@ -17,7 +17,7 @@ const RightTable = forwardRef<TableGridInstance, RightTableProps>((props, ref) =
             {params => props.rowFormatter && props.rowFormatter(params)}
         </Table>
     );
-});
+};
 
 RightTable.displayName = 'RightTable';
 

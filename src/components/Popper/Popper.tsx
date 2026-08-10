@@ -8,13 +8,13 @@ import ElTransition from '@qsxy/element-plus-react/Transition/Transition';
 import { mergeDefaultProps, randomCode } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import startsWith from 'lodash/startsWith';
-import React, { FC, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { usePopper } from 'react-popper';
 import usePopperOptions from './popperOptions';
 import { PopperProps } from './typings';
 
-const Popper: FC<PopperProps> = forwardRef((props, ref) => {
+const Popper = ({ ref, ...props }: PopperProps & { ref?: React.Ref<any | null> }) => {
     props = mergeDefaultProps(
         {
             arrowOffset: 5,
@@ -80,7 +80,6 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
     const afterLeave = useCallback(() => {
         setArrowElement(null);
         props.afterLeave?.();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.afterLeave]);
 
     const handleDestroy = useCallback(() => {
@@ -117,7 +116,6 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
                 popperInstRef.current = popperInstance;
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [popperInstance]);
 
     useComponentWillMount(() => {
@@ -214,6 +212,6 @@ const Popper: FC<PopperProps> = forwardRef((props, ref) => {
     //     })}
     //     {showArrow ? <div className={e`arrow`} data-popper-arrow ref={setArrowElement} style={{ ...styles.arrow }} /> : null}
     // </ElTransition>
-});
+};
 
 export default Popper;

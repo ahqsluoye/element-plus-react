@@ -1,14 +1,14 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { forwardRef, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { use, useEffect, useMemo, useRef, useState } from 'react';
 import { TabsContext } from './TabsContext';
 import { TabPaneProps } from './typings';
 
-const TabPane = forwardRef<HTMLDivElement, TabPaneProps>((props, ref) => {
+const TabPane = ({ ref, ...props }: TabPaneProps & { ref?: React.Ref<HTMLDivElement | null> }) => {
     const { name, classPrefix = 'tab-pane', lazy, onTabShow, onTabClose } = props;
     const { b } = useClassNames(classPrefix);
 
-    const { activeName } = useContext(TabsContext);
+    const { activeName } = use(TabsContext);
 
     // 懒加载模式下，记录是否加载过
     // const hasLoad = useRef(activeName === name);
@@ -48,7 +48,7 @@ const TabPane = forwardRef<HTMLDivElement, TabPaneProps>((props, ref) => {
     } else {
         return main;
     }
-});
+};
 
 TabPane.displayName = 'ElTabPane';
 

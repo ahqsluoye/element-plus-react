@@ -5,11 +5,11 @@ import { EVENT_CODE, TypeComponentsMap } from '@qsxy/element-plus-react/config/C
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useZIndex } from '@qsxy/element-plus-react/hooks/useZIndex';
 import classNames from 'classnames';
-import React, { CSSProperties, forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { CSSProperties, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { NotificationProps, NotificationRef } from './typings';
 
-const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref) => {
+const Notification = ({ ref, ...props }: NotificationProps & { ref?: React.Ref<NotificationRef | null> }) => {
     props = mergeDefaultProps(
         {
             duration: 4500, // default 4500
@@ -100,7 +100,6 @@ const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref)
                 document.removeEventListener('keydown', keydown, false);
             };
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visible]);
 
     const zIndex = useZIndex(visible);
@@ -144,7 +143,7 @@ const Notification = forwardRef<NotificationRef, NotificationProps>((props, ref)
         </ElTransition>,
         document.body,
     );
-});
+};
 
 Notification.displayName = 'ElNotification';
 

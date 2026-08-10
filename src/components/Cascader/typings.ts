@@ -7,11 +7,7 @@ import { AnimationEventProps, BaseProps, FormControlBaseProps, NativeProps } fro
 export type CascaderValue = string[] | string[][];
 
 export interface CascaderProps<V = CascaderValue, S = any>
-    extends Omit<FormControlBaseProps<V>, 'onChange' | 'value' | 'defaultValue'>,
-        BaseProps,
-        NativeProps,
-        AnimationEventProps,
-        PopperOptions {
+    extends Omit<FormControlBaseProps<V>, 'onChange' | 'value' | 'defaultValue'>, BaseProps, NativeProps, AnimationEventProps, PopperOptions {
     /** 初始值 */
     defaultValue?: CascaderValue;
     /** 值（可控） */
@@ -115,8 +111,8 @@ export interface CascaderMenuProps {
 }
 
 export interface CascaderRef {
-    ref?: React.RefObject<HTMLDivElement>;
-    input?: React.RefObject<InputRef>;
+    ref?: React.Ref<HTMLDivElement>;
+    input?: React.Ref<InputRef>;
     presentText?: string;
     setLabel: (label: string) => void;
     clear: () => void;

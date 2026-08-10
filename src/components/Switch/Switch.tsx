@@ -6,10 +6,10 @@ import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { mergeDefaultProps, warning } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import isBoolean from 'lodash/isBoolean';
-import React, { forwardRef, isValidElement, useCallback, useMemo, useRef } from 'react';
+import React, { isValidElement, useCallback, useMemo, useRef } from 'react';
 import { SwitchProps } from './typings';
 
-const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
+const Switch = ({ ref, ...props }: SwitchProps & { ref?: React.Ref<HTMLDivElement | null> }) => {
     props = mergeDefaultProps(
         {
             activeText: '',
@@ -215,6 +215,6 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>((props, ref) => {
             {!inlinePrompt && trueLabel}
         </div>
     );
-});
+};
 
 export default Switch;

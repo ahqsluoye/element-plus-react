@@ -1,6 +1,6 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 export interface SkeletonGraphProps {
     // height of rows
@@ -17,14 +17,14 @@ export interface SkeletonGraphProps {
     style?: React.CSSProperties;
 }
 
-const SkeletonGraph = forwardRef<HTMLDivElement, SkeletonGraphProps>((props, ref) => {
+const SkeletonGraph = ({ ref, ...props }: SkeletonGraphProps & { ref?: React.Ref<HTMLDivElement | null> }) => {
     const { className, width, height = 200, style, animated: active, classPrefix = 'skeleton', ...rest } = props;
     const { wb } = useClassNames(classPrefix);
 
     const classes = classNames(className, wb('graph', { active }));
     const styles = { width: width || '100%', height, ...style };
     return <div {...rest} ref={ref} className={classes} style={styles} />;
-});
+};
 
 SkeletonGraph.displayName = 'ElSkeletonGraph';
 

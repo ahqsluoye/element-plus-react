@@ -3,7 +3,7 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import { Dayjs, ManipulateType } from 'dayjs';
-import React, { FC, useCallback, useContext, useMemo, useRef } from 'react';
+import React, { FC, use, useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import CalendarContext from './CalendarContext';
 import DatePanel from './DatePanel';
@@ -14,9 +14,9 @@ import { initDate } from './util';
 const DateRangePanel: FC<DateRangePanelProps> = props => {
     const { value, valueRange, onHoverDate, onPickDateRange } = props;
     const { e, is } = useClassNames('date-range-picker');
-    const { unlinkPanels } = useContext(CalendarContext);
+    const { unlinkPanels } = use(CalendarContext);
 
-    const hoverDate = useRef<Dayjs>(null);
+    const hoverDateRef = useRef<Dayjs>(null);
 
     const { t } = useTranslation();
     const { locale } = useConfigProvider();
@@ -81,22 +81,22 @@ const DateRangePanel: FC<DateRangePanelProps> = props => {
             // 记录悬浮时的日期，用来处理样式
             if (hover) {
                 if (isNotEmpty(date)) {
-                    hoverDate.current = date;
+                    hoverDateRef.current = date;
                     onHoverDate?.([valueRange[0], valueRange[1], date]);
                 }
             } else {
                 // 当两个日期同时为空和不为空时，填充开始日期
                 // 然后判断悬浮日期和开始日期的大小，动态改变两个日期的位置
                 if ((isEmpty(valueRange[0]) && isEmpty(valueRange[1])) || (isNotEmpty(valueRange[0]) && isNotEmpty(valueRange[1]))) {
-                    onHoverDate?.([date, null, hoverDate.current]);
+                    onHoverDate?.([date, null, hoverDateRef.current]);
                 } else if (date.isSame(valueRange[0])) {
-                    onHoverDate?.([date, date, hoverDate.current]);
+                    onHoverDate?.([date, date, hoverDateRef.current]);
                     onPickDateRange?.([date, date], true);
                 } else if (date.isBefore(valueRange[0])) {
-                    onHoverDate?.([date, valueRange[0], hoverDate.current]);
+                    onHoverDate?.([date, valueRange[0], hoverDateRef.current]);
                     onPickDateRange?.([date, valueRange[0]], true);
                 } else if (date.isAfter(valueRange[0])) {
-                    onHoverDate?.([valueRange[0], date, hoverDate.current]);
+                    onHoverDate?.([valueRange[0], date, hoverDateRef.current]);
                     onPickDateRange?.([valueRange[0], date], true);
                 }
             }

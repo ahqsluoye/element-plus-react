@@ -6,14 +6,14 @@ import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import { addClass, removeClass } from 'dom-lib';
 import pick from 'lodash/pick';
-import React, { Children, forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
+import React, { Children, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { afterEnter, afterLeave, beforeEnter, beforeLeave, onEnter, onLeave } from './MenuCollapseTransition';
 import { MenuContext } from './MenuContext';
 import SubMenu from './SubMenu';
 import { MenuItemClicked, MenuItemRegistered, MenuProps, MenuRef, SubMenuProvider } from './typings';
 import useEllipsis from './useEllipsis';
 
-const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
+const Menu = ({ ref, ...props }: MenuProps & { ref?: React.Ref<MenuRef | null> }) => {
     props = mergeDefaultProps(
         {
             mode: 'vertical',
@@ -241,7 +241,7 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
     return (
         // @ts-ignore
         <ul ref={menuRef} className={classNames(b(), m(mode), /* { [m('collapse')]: mounted },  */ props.className)} style={{ '--el-menu-level': 0, ...props.style }}>
-            <MenuContext.Provider
+            <MenuContext
                 value={{
                     activeIndex: active,
                     setActiveIndex: setActive,
@@ -290,10 +290,10 @@ const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
                 ) : (
                     props.children
                 )}
-            </MenuContext.Provider>
+            </MenuContext>
         </ul>
     );
-});
+};
 
 Menu.displayName = 'ElMenu';
 

@@ -1,6 +1,6 @@
 import isNumber from 'lodash/isNumber';
 import isObject from 'lodash/isObject';
-import React, { forwardRef, useCallback, useContext, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { use, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { Header, TableV2HeaderInstance } from './components';
 import { TableV2Context } from './tokens';
 import { sum } from './utils';
@@ -150,8 +150,8 @@ export interface TableGridInstance {
     resetAfterRowIndex: ResetAfterIndex;
 }
 
-const TableGrid = forwardRef<TableGridInstance, TableV2GridProps>((props, ref) => {
-    const context = useContext(TableV2Context);
+const TableGrid = ({ ref, ...props }: TableV2GridProps & { ref?: React.Ref<TableGridInstance | null> }) => {
+    const context = use(TableV2Context);
     if (!context) {
         throw new Error('TableGrid must be used within TableV2Context.Provider');
     }
@@ -289,7 +289,7 @@ const TableGrid = forwardRef<TableGridInstance, TableV2GridProps>((props, ref) =
             </div>
         </TableV2Context.Provider>
     );
-});
+};
 
 TableGrid.displayName = COMPONENT_NAME;
 

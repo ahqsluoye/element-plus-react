@@ -1,11 +1,11 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
-import React, { FC, memo, useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { useCarouselContext } from './CarouselContext';
 import { useCarouselItem } from './hooks/useCarouselItem';
 import { CarouselItemProps } from './typings';
 
-const CarouselItem: FC<CarouselItemProps> = memo((props: CarouselItemProps) => {
+const CarouselItem = memo((props: CarouselItemProps) => {
     const { classPrefix = 'carousel', children } = props;
     const { e, em, is } = useClassNames(classPrefix);
 

@@ -6,7 +6,7 @@ import ElPopper from '@qsxy/element-plus-react/Popper/Popper';
 import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
 import classNames from 'classnames';
 import noop from 'lodash/noop';
-import React, { Children, cloneElement, ComponentType, isValidElement, memo, useCallback, useContext, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { Children, cloneElement, ComponentType, isValidElement, memo, use, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
 import * as ReactIs from 'react-is';
 import { TooltipContext } from './TooltipContext';
 import { TooltipProps } from './typings';
@@ -45,7 +45,7 @@ const Tooltip = memo((props: TooltipProps) => {
 
     // const [tooltipRef, setTooltipRef] = useState<any>(null);
     // 消费父级 Tooltip 的 context，用于向父级传播 Popper entering 状态
-    const parentContext = useContext(TooltipContext);
+    const parentContext = use(TooltipContext);
 
     /** 当鼠标进入/离开本 Tooltip 的 Popper 内容时，
      *  同时向父级 Tooltip 传播 entering 状态，

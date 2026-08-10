@@ -6,7 +6,7 @@ import omit from 'lodash/omit';
 import some from 'lodash/some';
 import uniqWith from 'lodash/uniqWith';
 import words from 'lodash/words';
-import React, { RefObject, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { RefObject, use, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Root, createRoot } from 'react-dom/client';
 // import { SortableHandle } from 'react-sortable-hoc';
@@ -38,8 +38,8 @@ let removePopper: () => void | undefined;
 
 const TableCell = (p: Props) => {
     const { row, column, columnIndex, className = '', style = {}, rowSpan = 1, colSpan = 1 } = p;
-    const { data, setData, props, tableRefs, flattenColumns } = useContext(TableContext);
-    const { state, dispatch, disabledRows, isTreeExpandCell, treeProps, treeNodes, initialData, sortedData } = useContext(TableBodyContext);
+    const { data, setData, props, tableRefs, flattenColumns } = use(TableContext);
+    const { state, dispatch, disabledRows, isTreeExpandCell, treeProps, treeNodes, initialData, sortedData } = use(TableBodyContext);
     const {
         cellClassName,
         cellStyle,
@@ -331,7 +331,7 @@ const TableCell = (p: Props) => {
                 );
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [disabled, row]);
 
     /** 展开/折叠行 */

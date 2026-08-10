@@ -1,5 +1,5 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import React, { CSSProperties, forwardRef, useImperativeHandle, useMemo } from 'react';
+import React, { CSSProperties, useImperativeHandle, useMemo } from 'react';
 import { TableV2Props } from './table';
 import { TableV2Context } from './tokens';
 import { useTable } from './use-table';
@@ -48,7 +48,7 @@ export interface TableV2Instance {
     scrollToRow(row: number, strategy?: ScrollStrategy): void;
 }
 
-const TableV2 = forwardRef<TableV2Instance, TableV2Props>((props, ref) => {
+const TableV2 = ({ ref, ...props }: TableV2Props & { ref?: React.Ref<TableV2Instance | null> }) => {
     props = mergeDefaultProps<any>(
         {
             cache: 2,
@@ -460,7 +460,7 @@ const TableV2 = forwardRef<TableV2Instance, TableV2Props>((props, ref) => {
             </div>
         </TableV2Context.Provider>
     );
-});
+};
 
 TableV2.displayName = COMPONENT_NAME;
 

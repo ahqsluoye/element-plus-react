@@ -14,12 +14,12 @@ import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
 import head from 'lodash/head';
 import omit from 'lodash/omit';
-import React, { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import TimePickerPanel from './TimePickerPanel';
 import { TimePanelRef, TimePickerProps, TimePickerRef, TimeType } from './typings';
 import { getAvailableArrs } from './useTimePicker';
 
-const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
+const TimePicker = ({ ref, ...props }: TimePickerProps & { ref?: React.Ref<TimePickerRef | null> }) => {
     props = mergeDefaultProps(
         {
             format: 'HH:mm:ss',
@@ -288,7 +288,7 @@ const TimePicker = forwardRef<TimePickerRef, TimePickerProps>((props, ref) => {
             </ElPopper>
         </>
     );
-});
+};
 
 TimePicker.displayName = 'ElTimePicker';
 

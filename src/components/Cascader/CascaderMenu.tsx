@@ -6,7 +6,7 @@ import ElRadio from '@qsxy/element-plus-react/Radio/Radio';
 import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import classNames from 'classnames';
-import React, { forwardRef, memo, useCallback, useContext, useImperativeHandle, useRef } from 'react';
+import React, { memo, use, useCallback, useImperativeHandle, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import scrollIntoView from 'scroll-into-view-if-needed';
 import { CascaderContext } from './CascaderContext';
@@ -23,9 +23,9 @@ export interface CascaderMenuRef {
 }
 
 const CascaderMenu = memo(
-    forwardRef<CascaderMenuRef, Props>((props, ref) => {
+    ({ ref, ...props }: Props & { ref?: React.Ref<CascaderMenuRef | null> }) => {
         const { data = [], level, value } = props;
-        const { props: menuProps, onSelect, onCheckedChange, loading, nodeFormatter } = useContext(CascaderContext);
+        const { props: menuProps, onSelect, onCheckedChange, loading, nodeFormatter } = use(CascaderContext);
         const { value: valueKey = 'value', label: labelKey = 'label', disabled: disabledKey = 'disabled', multiple, expandTrigger, checkStrictly } = menuProps;
         const { b, be, is } = useClassNames('cascader');
         const ulRef = useRef<ScrollbarRef>(null);
@@ -91,7 +91,7 @@ const CascaderMenu = memo(
                                     <ElRadio
                                         checked={item.__checked}
                                         onClick={e => e.stopPropagation()}
-                                        onChange={e => {
+                                        onChange={() => {
                                             if (!item[disabledKey]) {
                                                 onSelect?.(level, item, true);
                                             }
@@ -122,7 +122,7 @@ const CascaderMenu = memo(
                 {data?.length === 0 && (loading ? t('el.cascader.loading', { lng: locale }) : t('el.cascader.noData', { lng: locale }))}
             </ElScrollbar>
         );
-    }),
+    },
     // (prev, next) => {
     //     console.log(isEqual(prev, next));
     //     return isEqual(prev, next);

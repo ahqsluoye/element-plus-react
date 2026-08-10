@@ -294,17 +294,17 @@ export const useCarousel = (props: CarouselProps) => {
         if (preActiveIndex > -1) {
             onChange?.(current, _prev);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [activeIndex]);
 
     useEffect(() => {
         setActiveItem(activeIndex);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [loop]);
 
     useEffect(() => {
         resetTimer();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [interval]);
 
     useEffect(() => {
@@ -313,7 +313,7 @@ export const useCarousel = (props: CarouselProps) => {
         }
         itemLen.current = items.length;
         isItemsTwoLength.current = items?.length === 2 && props.loop && !isCardType;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [items]);
 
     useEffect(() => {
@@ -322,7 +322,7 @@ export const useCarousel = (props: CarouselProps) => {
         } else {
             pauseTimer();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [autoplay, items.length]);
 
     useEffect(() => {
@@ -340,7 +340,7 @@ export const useCarousel = (props: CarouselProps) => {
                 resizeObserver.current.disconnect();
             }
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, []);
 
     return {

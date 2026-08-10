@@ -1,5 +1,5 @@
 import '@qsxy/element-plus-react/locale/i18n';
-import { createContext, useContext } from 'react';
+import { createContext, use } from 'react';
 import { ConfigProviderContextProps } from './typings';
 
 const ConfigProviderContext = createContext<ConfigProviderContextProps>({
@@ -36,6 +36,6 @@ const ConfigProviderContext = createContext<ConfigProviderContextProps>({
     },
 });
 
-export const useConfigProvider = () => useContext(ConfigProviderContext);
+export const useConfigProvider = () => use(ConfigProviderContext);
 
 export default ConfigProviderContext;

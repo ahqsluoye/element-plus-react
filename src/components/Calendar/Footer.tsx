@@ -3,13 +3,13 @@ import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/Confi
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { Message } from '@qsxy/element-plus-react/Message';
 import dayjs from 'dayjs';
-import React, { FC, useCallback, useContext } from 'react';
+import React, { FC, use, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import CalendarContext from './CalendarContext';
 
 const Footer: FC = () => {
     const { e } = useClassNames('picker-panel');
-    const { showToday, showNow, onChange, close, disabledDate } = useContext(CalendarContext);
+    const { showToday, showNow, onChange, close, disabledDate } = use(CalendarContext);
 
     const { locale } = useConfigProvider();
     const { t } = useTranslation();

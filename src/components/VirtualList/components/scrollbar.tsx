@@ -2,7 +2,7 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { BAR_MAP } from '@qsxy/element-plus-react/Scrollbar/util';
 import { cAF, rAF } from '@qsxy/element-plus-react/Util/raf';
 import classNames from 'classnames';
-import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { HORIZONTAL, SCROLLBAR_MIN_SIZE, ScrollbarDirKey } from '../defaults';
 import { VirtualizedScrollbarProps } from '../props';
 import { ScrollbarExpose } from '../types';
@@ -14,7 +14,7 @@ interface ScrollState {
     [key: string]: unknown;
 }
 
-const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props, ref) => {
+const Scrollbar = ({ ref, ...props }: VirtualizedScrollbarProps & { ref?: React.Ref<ScrollbarExpose | null> }) => {
     const {
         alwaysOn,
         class: className,
@@ -303,6 +303,6 @@ const Scrollbar = forwardRef<ScrollbarExpose, VirtualizedScrollbarProps>((props,
             <div ref={thumbRef} className={nsScrollbar.e('thumb')} style={thumbStyle()} onMouseDown={onThumbMouseDown} />
         </div>
     );
-});
+};
 
 export default Scrollbar;

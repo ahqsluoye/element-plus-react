@@ -7,11 +7,11 @@ import classNames from 'classnames';
 import { addClass, addStyle, hasClass, removeClass, removeStyle } from 'dom-lib';
 import forEach from 'lodash/forEach';
 import omit from 'lodash/omit';
-import React, { Children, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Children, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { TabsContext } from './TabsContext';
 import { Navs, Scrollable, TabPaneProps, TabsProps } from './typings';
 
-const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
+const Tabs = ({ ref, ...props }: TabsProps & { ref?: React.Ref<HTMLDivElement | null> }) => {
     const {
         type,
         tabPosition = 'top',
@@ -281,7 +281,6 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
      */
     useEffect(() => {
         setTimeout(() => scrollToActiveTab(), 0);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeName, tabPosition, type]);
 
     /**
@@ -291,7 +290,6 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
         if (isEmpty(activeName) && navs.length > 0) {
             setActiveName(navs[0].name);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const header = (
@@ -370,7 +368,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
             </div>
         </TabsContext.Provider>
     );
-});
+};
 
 Tabs.displayName = 'ElTabs';
 

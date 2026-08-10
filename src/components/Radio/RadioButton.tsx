@@ -4,120 +4,118 @@ import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonPr
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import { RadioContext } from '@qsxy/element-plus-react/RadioGroup/RadioGroup';
 import classNames from 'classnames';
-import React, { forwardRef, memo, useCallback, useContext, useImperativeHandle, useRef } from 'react';
+import React, { memo, use, useCallback, useImperativeHandle, useRef } from 'react';
 import { RadioProps, RadioRef } from './typings';
 
-const RadioButton = memo(
-    forwardRef<RadioRef, RadioProps>((props, ref) => {
-        const {
-            value: groupValue,
-            name: nameContext,
-            disabled: disabledContext,
-            size: sizeContext,
-            readOnly: readOnlyContext,
-            plaintext: plaintextContext,
-            onChange: onGroupChange,
-        } = useContext(RadioContext);
+const RadioButton = memo(({ ref, ...props }: RadioProps & { ref?: React.Ref<RadioRef | null> }) => {
+    const {
+        value: groupValue,
+        name: nameContext,
+        disabled: disabledContext,
+        size: sizeContext,
+        readOnly: readOnlyContext,
+        plaintext: plaintextContext,
+        onChange: onGroupChange,
+    } = use(RadioContext);
 
-        const {
-            className,
-            children,
-            checked: checkedProp,
-            defaultChecked,
-            classPrefix = 'radio-button',
-            readOnly = readOnlyContext,
-            plaintext = plaintextContext,
-            name = nameContext,
-            value,
-            onChange,
-            ...rest
-        } = props;
+    const {
+        className,
+        children,
+        checked: checkedProp,
+        defaultChecked,
+        classPrefix = 'radio-button',
+        readOnly = readOnlyContext,
+        plaintext = plaintextContext,
+        name = nameContext,
+        value,
+        onChange,
+        ...rest
+    } = props;
 
-        const [checked, setChecked] = useControlled(typeof groupValue !== 'undefined' ? groupValue === value : checkedProp, defaultChecked || false);
+    const [checked, setChecked] = useControlled(typeof groupValue !== 'undefined' ? groupValue === value : checkedProp, defaultChecked || false);
 
-        const { wb, b, e, m, is } = useClassNames(classPrefix);
-        const [htmlInputProps, restProps] = partitionHTMLProps(rest);
-        const [tooltipEvents] = partitionHTMLProps(props, { htmlProps: ['onMouseEnter', 'onMouseLeave', 'onClick', 'onContextMenu'] });
-        const disabled = useDisabled(disabledContext ?? props.disabled);
-        const size = useSize(sizeContext ?? props.size);
+    const { wb, b, e, m, is } = useClassNames(classPrefix);
+    const [htmlInputProps, restProps] = partitionHTMLProps(rest);
+    const [tooltipEvents] = partitionHTMLProps(props, { htmlProps: ['onMouseEnter', 'onMouseLeave', 'onClick', 'onContextMenu'] });
+    const disabled = useDisabled(disabledContext ?? props.disabled);
+    const size = useSize(sizeContext ?? props.size);
 
-        const containerRef = useRef(null);
-        const inputRef = useRef<HTMLInputElement>(null);
+    const containerRef = useRef(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
-        const handleChange = useCallback(
-            (event: React.ChangeEvent<HTMLInputElement>) => {
-                if (disabled || readOnly) {
-                    return;
-                }
+    const handleChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            if (disabled || readOnly) {
+                return;
+            }
 
-                setChecked(true);
-                onGroupChange?.(value, event);
-                onChange?.(true, value, event);
-            },
-            [disabled, onChange, onGroupChange, readOnly, setChecked, value],
-        );
+            setChecked(true);
+            onGroupChange?.(value, event);
+            onChange?.(true, value, event);
+        },
+        [disabled, onChange, onGroupChange, readOnly, setChecked, value],
+    );
 
-        // if (typeof controlled !== 'undefined') {
-        //     // In uncontrolled situations, use defaultChecked instead of checked
-        //     htmlInputProps[controlled ? 'checked' : 'defaultChecked'] = checked;
-        // }
+    // if (typeof controlled !== 'undefined') {
+    //     // In uncontrolled situations, use defaultChecked instead of checked
+    //     htmlInputProps[controlled ? 'checked' : 'defaultChecked'] = checked;
+    // }
 
-        useImperativeHandle(ref, () => ({
-            ref: containerRef,
-            get input() {
-                return inputRef.current;
-            },
-            isChcked: () => checked,
-            setChecked,
-        }));
+    useImperativeHandle(ref, () => ({
+        ref: containerRef,
+        get input() {
+            return inputRef.current;
+        },
+        isChcked: () => checked,
+        setChecked,
+    }));
 
-        if (plaintext) {
-            return checked ? (
-                <div {...restProps} ref={containerRef} className={classNames(wb({ disabled, checked }), m({ [size]: size }), className)}>
-                    {children}
-                </div>
-            ) : null;
-        }
+    if (plaintext) {
+        return checked ? (
+            <div {...restProps} ref={containerRef} className={classNames(wb({ disabled, checked }), m({ [size]: size }), className)}>
+                {children}
+            </div>
+        ) : null;
+    }
 
-        return (
-            <div
-                className={classNames(b(), m({ [size]: size }), className, is({ active: checked, disabled }))}
-                ref={containerRef}
-                {...tooltipEvents}
-                onClick={() => {
-                    inputRef.current.checked = true;
-                    // @ts-ignore
-                    props.onClick?.();
+    return (
+        <div
+            className={classNames(b(), m({ [size]: size }), className, is({ active: checked, disabled }))}
+            ref={containerRef}
+            {...tooltipEvents}
+            onClick={() => {
+                inputRef.current.checked = true;
+                // @ts-ignore
+                props.onClick?.();
+            }}
+        >
+            <input
+                key={name}
+                {...htmlInputProps}
+                name={name}
+                // value={value}
+                type="radio"
+                ref={inputRef}
+                className={e`original-radio`}
+                checked={checked}
+                data-checked={checked}
+                readOnly={readOnly}
+                disabled={disabled}
+                onChange={handleChange}
+            />
+            <span
+                className={classNames(e`inner`, is({ checked, disabled }))}
+                onClick={event => {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    handleChange?.(event as unknown as React.ChangeEvent<HTMLInputElement>);
                 }}
             >
-                <input
-                    key={name}
-                    {...htmlInputProps}
-                    name={name}
-                    // value={value}
-                    type="radio"
-                    ref={inputRef}
-                    className={e`original-radio`}
-                    checked={checked}
-                    data-checked={checked}
-                    readOnly={readOnly}
-                    disabled={disabled}
-                    onChange={handleChange}
-                />
-                <span
-                    className={classNames(e`inner`, is({ checked, disabled }))}
-                    onClick={event => {
-                        event.stopPropagation();
-                        event.preventDefault();
-                        handleChange?.(event as unknown as React.ChangeEvent<HTMLInputElement>);
-                    }}
-                >
-                    {children}
-                </span>
-            </div>
-        );
-    }),
-);
+                {children}
+            </span>
+        </div>
+    );
+});
 
 RadioButton.displayName = 'ElRadioButton';
 export default RadioButton;

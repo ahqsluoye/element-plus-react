@@ -645,7 +645,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
         //     }),
         // );
         setDataTypes(new Array(l).fill(null));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [props.options]);
 
     const initSelectedValue = (_value: string[]) => {
@@ -711,7 +711,7 @@ export const useCascader = (initialData: object[], props: CascaderProps, value: 
         }
 
         // setDataTypes(new Array(allLevel).fill(null));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [value, allLevel, props.options]);
 
     return {

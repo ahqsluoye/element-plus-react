@@ -1,6 +1,6 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useResizeObserver } from '@qsxy/element-plus-react/hooks/useResizeObserver';
-import React, { memo, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
+import React, { memo, use, useCallback, useEffect, useMemo, useRef } from 'react';
 import { FormItemContext } from './FormItemContext';
 import FieldContext from './InternalFormContext';
 
@@ -13,8 +13,8 @@ export interface FormLabelWrapProps {
 const FormLabelWrap: React.FC<FormLabelWrapProps> = memo(props => {
     const { isAutoWidth = false, updateAll = false, children } = props;
 
-    const formContext = useContext(FieldContext);
-    const formItemContext = useContext(FormItemContext);
+    const formContext = use(FieldContext);
+    const formItemContext = use(FormItemContext);
 
     const { computedWidth, setComputedWidth, oldWidthRef } = formItemContext;
 

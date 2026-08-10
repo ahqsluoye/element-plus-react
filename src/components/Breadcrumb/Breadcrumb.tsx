@@ -13,7 +13,7 @@ const Breadcrumb: FC<BreadcrumbProps> = memo(props => {
     const { t } = useTranslation();
 
     return (
-        <BreadcrumbContext.Provider value={{ separator, navigate }}>
+        <BreadcrumbContext value={{ separator, navigate }}>
             <div
                 className={classNames(b(), props.className)}
                 aria-label={t('el.breadcrumb.label', {
@@ -23,7 +23,7 @@ const Breadcrumb: FC<BreadcrumbProps> = memo(props => {
             >
                 {props.children}
             </div>
-        </BreadcrumbContext.Provider>
+        </BreadcrumbContext>
     );
 });
 

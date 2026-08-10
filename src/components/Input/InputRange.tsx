@@ -13,11 +13,11 @@ import isObject from 'lodash/isObject';
 import last from 'lodash/last';
 import noop from 'lodash/noop';
 import toFinite from 'lodash/toFinite';
-import React, { ComponentType, cloneElement, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ComponentType, cloneElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ElInputGroup from './InputGroup';
 import { InputRangeProps, InputRangeValueType } from './typings';
 
-const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) => {
+const InputRange = ({ ref, ...props }: InputRangeProps & { ref?: React.Ref<HTMLInputElement | null> }) => {
     props = mergeDefaultProps(
         {
             name: ['', ''],
@@ -359,7 +359,7 @@ const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((props, ref) =>
     } else {
         return content;
     }
-});
+};
 
 InputRange.displayName = 'ElInputRange';
 

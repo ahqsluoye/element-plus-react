@@ -1,7 +1,7 @@
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { BaseProps } from '@qsxy/element-plus-react/types/common';
 import classNames from 'classnames';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { use, useCallback, useState } from 'react';
 import { UploadContext } from './UploadContext';
 
 interface Props extends BaseProps {
@@ -11,7 +11,7 @@ interface Props extends BaseProps {
 
 const UploadDrag = ({ disabled, onFiles, children }: Props) => {
     const { b, is } = useClassNames('upload');
-    const { accept } = useContext(UploadContext);
+    const { accept } = use(UploadContext);
 
     const [dragover, setDragover] = useState(false);
 

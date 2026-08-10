@@ -3,7 +3,7 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import { Dayjs, ManipulateType } from 'dayjs';
-import React, { FC, useCallback, useContext, useMemo, useRef } from 'react';
+import React, { FC, use, useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import CalendarContext from './CalendarContext';
 import Header from './Header';
@@ -14,7 +14,7 @@ import { initDate } from './util';
 const MonthRangePanel: FC<DateRangePanelProps> = props => {
     const { value, valueRange, onPickDateRange, onHoverDate } = props;
     const { e, is } = useClassNames('date-range-picker');
-    const { unlinkPanels } = useContext(CalendarContext);
+    const { unlinkPanels } = use(CalendarContext);
 
     const { t } = useTranslation();
     const { locale } = useConfigProvider();
