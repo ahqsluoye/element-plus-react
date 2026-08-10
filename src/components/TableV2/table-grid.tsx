@@ -153,7 +153,7 @@ export interface TableGridInstance {
 const TableGrid = ({ ref, ...props }: TableV2GridProps & { ref?: React.Ref<TableGridInstance | null> }) => {
     const context = use(TableV2Context);
     if (!context) {
-        throw new Error('TableGrid must be used within TableV2Context.Provider');
+        throw new Error('TableGrid must be used within TableV2Context');
     }
     const { ns } = context;
 
@@ -231,7 +231,7 @@ const TableGrid = ({ ref, ...props }: TableV2GridProps & { ref?: React.Ref<Table
     const _headerHeight = headerHeight;
 
     return (
-        <TableV2Context.Provider value={{ ...context, scrollLeft: scrollLeft.current }}>
+        <TableV2Context value={{ ...context, scrollLeft: scrollLeft.current }}>
             <div role="table" className={classNames(ns.e('table'), className)} style={style}>
                 <Grid
                     ref={bodyRef}
@@ -287,7 +287,7 @@ const TableGrid = ({ ref, ...props }: TableV2GridProps & { ref?: React.Ref<Table
                     />
                 )}
             </div>
-        </TableV2Context.Provider>
+        </TableV2Context>
     );
 };
 

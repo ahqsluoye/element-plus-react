@@ -63,7 +63,7 @@ const RadioGroup = ({ ref, ...props }: RadioGroupProps & { ref?: React.Ref<HTMLD
     }, [children, options, aliasProps.disabled, aliasProps.label, aliasProps.value]);
 
     return (
-        <RadioContext.Provider value={contextValue}>
+        <RadioContext value={contextValue}>
             <div
                 /* {...omit(rest, ['disabled', 'size', 'error', 'warning'])} */ ref={ref}
                 className={classNames(className, wb(appearance), m({ [size]: size }))}
@@ -71,7 +71,7 @@ const RadioGroup = ({ ref, ...props }: RadioGroupProps & { ref?: React.Ref<HTMLD
             >
                 {optionChilds}
             </div>
-        </RadioContext.Provider>
+        </RadioContext>
     );
 };
 

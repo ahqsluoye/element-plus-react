@@ -620,7 +620,7 @@ function Field(props: FieldProps) {
     };
 
     return noStyle ? (
-        <FormItemContext.Provider key={resetCount} value={contextValue}>
+        <FormItemContext key={resetCount} value={contextValue}>
             <div
                 ref={containerRef}
                 className={classNames(
@@ -640,9 +640,9 @@ function Field(props: FieldProps) {
                 <div className={classNames(e`content`)}>{returnChildNode()}</div>
                 {showMessage ? getValidateLabel() : null}
             </div>
-        </FormItemContext.Provider>
+        </FormItemContext>
     ) : (
-        <FormItemContext.Provider key={resetCount} value={contextValue}>
+        <FormItemContext key={resetCount} value={contextValue}>
             <div
                 ref={containerRef}
                 className={classNames(
@@ -685,7 +685,7 @@ function Field(props: FieldProps) {
                     </>
                 </div>
             </div>
-        </FormItemContext.Provider>
+        </FormItemContext>
     );
 }
 

@@ -193,7 +193,7 @@ function Tour(props: TourProps) {
                 targetAreaClickable={targetAreaClickable}
             />
             {visible && currentChild ? (
-                <TourContext.Provider value={contextValue}>
+                <TourContext value={contextValue}>
                     <Content
                         reference={triggerTarget || undefined}
                         placement={mergedPlacement}
@@ -204,7 +204,7 @@ function Tour(props: TourProps) {
                     >
                         {currentChild}
                     </Content>
-                </TourContext.Provider>
+                </TourContext>
             ) : null}
         </div>,
         portalContainer,

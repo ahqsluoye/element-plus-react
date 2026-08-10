@@ -128,7 +128,7 @@ const Drawer = memo(({ ref, ...props }: DrawerProps & { ref?: React.Ref<HTMLDivE
     }, [visible]);
 
     return (
-        <DrawerContext.Provider value={{ doClose }}>
+        <DrawerContext value={{ doClose }}>
             {createPortal(
                 <ElTransition
                     nodeRef={wrapperRef}
@@ -185,7 +185,7 @@ const Drawer = memo(({ ref, ...props }: DrawerProps & { ref?: React.Ref<HTMLDivE
                 </ElTransition>,
                 document.body,
             )}
-        </DrawerContext.Provider>
+        </DrawerContext>
     );
 });
 

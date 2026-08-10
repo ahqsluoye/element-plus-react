@@ -55,7 +55,7 @@ const Menu = ({ ref, ...props }: MenuProps & { ref?: React.Ref<MenuRef | null> }
     const menuRef = useRef<HTMLUListElement>(null);
     const menuItemsRef = useRef<MenuItemRegistered[]>([]);
     const subMenuRef = useRef<SubMenuProvider[]>([]);
-    const openedMenus = useRef<Record<string, SubMenuProvider>>({});
+    const openedMenusRef = useRef<Record<string, SubMenuProvider>>({});
 
     useCssTransiton({
         nodeRef: menuRef,
@@ -77,9 +77,9 @@ const Menu = ({ ref, ...props }: MenuProps & { ref?: React.Ref<MenuRef | null> }
                 subMenuRef.current.forEach(sub => {
                     sub.closeMenu(sub.index, sub.indexPath);
                 });
-                for (const key in openedMenus.current) {
-                    if (Object.prototype.hasOwnProperty.call(openedMenus.current, key)) {
-                        const item = openedMenus.current[key];
+                for (const key in openedMenusRef.current) {
+                    if (Object.prototype.hasOwnProperty.call(openedMenusRef.current, key)) {
+                        const item = openedMenusRef.current[key];
                         item.openMenu(item.index, item.indexPath);
                     }
                 }
@@ -90,11 +90,11 @@ const Menu = ({ ref, ...props }: MenuProps & { ref?: React.Ref<MenuRef | null> }
     const { sliceIndex } = useEllipsis(menuRef, props);
 
     const addItem = useCallback((menu: SubMenuProvider) => {
-        openedMenus.current = { ...openedMenus.current, [menu.index]: menu };
+        openedMenusRef.current = { ...openedMenusRef.current, [menu.index]: menu };
     }, []);
 
     const removeItem = useCallback((menu: SubMenuProvider) => {
-        delete openedMenus.current[menu.index];
+        delete openedMenusRef.current[menu.index];
     }, []);
 
     const handleOpenMenu = useCallback(

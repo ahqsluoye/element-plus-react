@@ -197,7 +197,7 @@ function InternalForm<RecordType = Store>({ ref, ...props }: FormProps<RecordTyp
     );
 
     // @ts-ignore
-    const wrapperNode = <InternalFormContext.Provider value={formContextValue}>{childrenNode}</InternalFormContext.Provider>;
+    const wrapperNode = <InternalFormContext value={formContextValue}>{childrenNode}</InternalFormContext>;
 
     if (Comp === false) {
         return wrapperNode;

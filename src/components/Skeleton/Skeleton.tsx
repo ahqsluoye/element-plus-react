@@ -14,7 +14,7 @@ const SkeletonCore = (props: SkeletonProps) => {
     const { b, wb } = useClassNames(classPrefix);
 
     return (
-        <SkeletonContext.Provider value={{ rowHeight, rowMargin, rows }}>
+        <SkeletonContext value={{ rowHeight, rowMargin, rows }}>
             <div className={classNames(className, wb('paragraph', { active: animated }))} style={style}>
                 {variant && (
                     <div className={b('paragraph-graph', `paragraph-graph-${variant}`)}>
@@ -34,7 +34,7 @@ const SkeletonCore = (props: SkeletonProps) => {
                     {Children.count(formatter) === 0 ? new Array(rows).fill(0).map((_, index) => <ElSkeletonItem key={index} isFirst={index === 0} />) : formatter}
                 </div>
             </div>
-        </SkeletonContext.Provider>
+        </SkeletonContext>
     );
 };
 
@@ -46,8 +46,8 @@ const Skeleton: FC<SkeletonProps> = (props: SkeletonProps) => {
 
     const [visible, setVisible] = useControlled(undefined, defaultVisible ?? props.visible);
 
-    const display = debounce(() => setVisible(true), typeof throttle === 'number' ? throttle : throttle?.leading ?? 0);
-    const hide = debounce(() => setVisible(false), typeof throttle !== 'number' ? throttle?.trailing ?? 0 : 0);
+    const display = debounce(() => setVisible(true), typeof throttle === 'number' ? throttle : (throttle?.leading ?? 0));
+    const hide = debounce(() => setVisible(false), typeof throttle !== 'number' ? (throttle?.trailing ?? 0) : 0);
 
     useEffect(() => {
         if (defaultVisible === true && !initLoad.current) {
@@ -56,7 +56,6 @@ const Skeleton: FC<SkeletonProps> = (props: SkeletonProps) => {
             props.visible ? display() : hide();
         }
         initLoad.current = true;
-         
     }, [props.visible]);
 
     return visible ? <SkeletonCore {...props} /> : <>{children}</>;

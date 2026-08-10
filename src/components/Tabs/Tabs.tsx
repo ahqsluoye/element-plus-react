@@ -361,12 +361,12 @@ const Tabs = ({ ref, ...props }: TabsProps & { ref?: React.Ref<HTMLDivElement | 
     );
 
     return (
-        <TabsContext.Provider value={{ activeName }}>
+        <TabsContext value={{ activeName }}>
             <div className={classNames(b(), m(tabPosition), { [m(type)]: type }, props.className)} style={props.style} ref={ref}>
                 {tabPosition === 'bottom' ? content : header}
                 {tabPosition === 'bottom' ? header : content}
             </div>
-        </TabsContext.Provider>
+        </TabsContext>
     );
 };
 

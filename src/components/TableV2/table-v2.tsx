@@ -445,7 +445,7 @@ const TableV2 = ({ ref, ...props }: TableV2Props & { ref?: React.Ref<TableV2Inst
     }, [cellFormatter, columnsStyles, headerCellFormatter, headerFormatter, rowFormatter, tableCellProps, tableHeaderCellProps, tableHeaderProps, tableRowProps]);
 
     return (
-        <TableV2Context.Provider value={contextValue}>
+        <TableV2Context value={contextValue}>
             <div className={rootKls} style={rootStyle}>
                 <MainTable ref={mainTableRef} {...mainTableProps} {...formatters} />
                 <LeftTable ref={leftTableRef} {...leftTableProps} {...formatters} />
@@ -458,7 +458,7 @@ const TableV2 = ({ ref, ...props }: TableV2Props & { ref?: React.Ref<TableV2Inst
                 )}
                 {overlay && <Overlay className={ns.e('overlay')}>{overlay}</Overlay>}
             </div>
-        </TableV2Context.Provider>
+        </TableV2Context>
     );
 };
 

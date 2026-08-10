@@ -1,12 +1,12 @@
 import { useRef } from 'react';
 
 const useComponentWillMount = (func: () => void) => {
-    const willMount = useRef(true);
+    const willMountRef = useRef(true);
 
-    if (willMount.current) {
+    if (willMountRef.current) {
         func();
     }
 
-    willMount.current = false;
+    willMountRef.current = false;
 };
 export default useComponentWillMount;

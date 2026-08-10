@@ -403,9 +403,9 @@ const Tree = ({ ref, ...props }: TreeProps & { ref?: React.Ref<TreeRef | null> }
     };
 
     return (
-        <TreeContext.Provider value={contextValue}>
-            <DragEventsContext.Provider value={dragEvents}>
-                <TreeNodeExpandContext.Provider value={{ parentNodeMap }}>
+        <TreeContext value={contextValue}>
+            <DragEventsContext value={dragEvents}>
+                <TreeNodeExpandContext value={{ parentNodeMap }}>
                     <div
                         ref={elRef}
                         className={classNames(
@@ -424,9 +424,9 @@ const Tree = ({ ref, ...props }: TreeProps & { ref?: React.Ref<TreeRef | null> }
                             className={ns.e('drop-indicator')}
                         />
                     </div>
-                </TreeNodeExpandContext.Provider>
-            </DragEventsContext.Provider>
-        </TreeContext.Provider>
+                </TreeNodeExpandContext>
+            </DragEventsContext>
+        </TreeContext>
     );
 };
 

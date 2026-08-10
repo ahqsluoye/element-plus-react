@@ -41,7 +41,7 @@ const FormProvider: FC<FormProviderProps> = ({ validateMessages, onFormChange, o
     const formsRef = useRef<Forms>({});
 
     return (
-        <FormContext.Provider
+        <FormContext
             value={{
                 ...formContext,
                 validateMessages: {
@@ -92,7 +92,7 @@ const FormProvider: FC<FormProviderProps> = ({ validateMessages, onFormChange, o
             }}
         >
             {children}
-        </FormContext.Provider>
+        </FormContext>
     );
 };
 

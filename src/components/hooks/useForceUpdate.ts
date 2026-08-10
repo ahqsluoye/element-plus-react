@@ -3,10 +3,9 @@ import { useState } from 'react';
 
 /** 强制刷新 */
 export const useForceUpdate = () => {
-    const [, setForceUpdate] = useState('');
+    const [forceUpdate, setForceUpdate] = useState('');
 
     return {
-        // forceUpdate,
         forceUpdate: () => {
             setForceUpdate(randomCode(5));
         },

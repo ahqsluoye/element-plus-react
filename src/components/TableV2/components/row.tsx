@@ -7,7 +7,7 @@ import { TableV2Context } from '../tokens';
 const useTableRow = (props: TableV2RowProps) => {
     const context = use(TableV2Context);
     if (!context) {
-        throw new Error('TableV2Row must be used within TableV2Context.Provider');
+        throw new Error('TableV2Row must be used within TableV2Context');
     }
 
     const { isScrolling } = context;

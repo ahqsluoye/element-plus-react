@@ -90,7 +90,7 @@ const Carousel: React.ForwardRefExoticComponent<CarouselProps & React.RefAttribu
         }));
 
         return (
-            <CarouselContext.Provider value={{ root, isCardType, isVertical, items, addItem, removeItem, loop, cardScale, setActiveItem, setContainerHeight }}>
+            <CarouselContext value={{ root, isCardType, isVertical, items, addItem, removeItem, loop, cardScale, setActiveItem, setContainerHeight }}>
                 <div
                     ref={root}
                     className={classNames(b(), m(direction), { [m`card`]: isCardType }, props.className)}
@@ -157,7 +157,7 @@ const Carousel: React.ForwardRefExoticComponent<CarouselProps & React.RefAttribu
                         </svg>
                     )}
                 </div>
-            </CarouselContext.Provider>
+            </CarouselContext>
         );
     },
 );

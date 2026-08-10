@@ -19,7 +19,7 @@ const Row: FC<RowProps> = props => {
     const { b, is } = useClassNames(classPrefix);
 
     return (
-        <RowContext.Provider value={{ gutter }}>
+        <RowContext value={{ gutter }}>
             {React.createElement(
                 tag,
                 {
@@ -31,7 +31,7 @@ const Row: FC<RowProps> = props => {
                 },
                 props.children,
             )}
-        </RowContext.Provider>
+        </RowContext>
     );
 };
 

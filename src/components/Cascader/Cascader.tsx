@@ -619,7 +619,7 @@ const Cascader = memo(({ ref, ...props }: CascaderProps & { ref?: React.Ref<Casc
     );
 
     return (
-        <CascaderContext.Provider value={{ props: menuProps, onSelect, onCheckedChange, loading, getDataType, searchText, nodeFormatter, suggestionItemFormatter }}>
+        <CascaderContext value={{ props: menuProps, onSelect, onCheckedChange, loading, getDataType, searchText, nodeFormatter, suggestionItemFormatter }}>
             {panel ? (
                 content
             ) : (
@@ -747,7 +747,7 @@ const Cascader = memo(({ ref, ...props }: CascaderProps & { ref?: React.Ref<Casc
                     </ElPopper>
                 </>
             )}
-        </CascaderContext.Provider>
+        </CascaderContext>
     );
 });
 

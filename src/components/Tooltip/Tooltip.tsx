@@ -316,7 +316,7 @@ const Tooltip = memo((props: TooltipProps) => {
                 {...popperProps}
                 {...transitionProps}
             >
-                <TooltipContext.Provider value={contextValue}>{contentSlot ?? <span>{content}</span>}</TooltipContext.Provider>
+                <TooltipContext value={contextValue}>{contentSlot ?? <span>{content}</span>}</TooltipContext>
             </ElPopper>
         </>
     );

@@ -9,7 +9,7 @@ import React, { Children, ComponentType, Fragment, useCallback, useRef } from 'r
  * @returns 返回获取组件的函数以供随时调用
  */
 function useChildrenInstance<T, S = T>(compName: string | string[], ...virtualCompName: string[]): (componentChildren: ComponentChildren) => React.ReactElement<S>[] {
-    const result = useRef<React.ReactElement<S>[] | null>([]);
+    const resultRef = useRef<React.ReactElement<S>[] | null>([]);
     virtualCompName = ['Fragment', ...virtualCompName];
 
     if (typeof compName === 'string') {
@@ -23,7 +23,7 @@ function useChildrenInstance<T, S = T>(compName: string | string[], ...virtualCo
                 nodeType = (nodeType as ComponentType)?.displayName || nodeType;
                 if (typeof nodeType === 'string' && compName.includes(nodeType)) {
                     const temp = node as React.ReactElement<S>;
-                    result.current.push(temp);
+                    resultRef.current.push(temp);
                 } else if (typeof nodeType === 'string' && virtualCompName.includes(nodeType)) {
                     getInstanceFromChildren(node.props.children);
                 } else if (nodeType === Fragment) {
@@ -41,9 +41,9 @@ function useChildrenInstance<T, S = T>(compName: string | string[], ...virtualCo
     const getValue = useCallback(
         (componentChildren: ComponentChildren) => {
             if (componentChildren) {
-                result.current = [];
+                resultRef.current = [];
                 getInstanceFromChildren(componentChildren);
-                return result.current;
+                return resultRef.current;
             }
             return [];
         },

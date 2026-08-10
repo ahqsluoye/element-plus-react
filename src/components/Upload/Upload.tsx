@@ -55,7 +55,7 @@ const Upload: React.ForwardRefExoticComponent<UploadProps & React.RefAttributes<
 
     return (
         <div className={props.className} style={props.style}>
-            <UploadContext.Provider value={{ accept }}>
+            <UploadContext value={{ accept }}>
                 {/* 照片墙模式 */}
                 {isPictureCard && showFileList && (
                     <UploadList
@@ -93,7 +93,7 @@ const Upload: React.ForwardRefExoticComponent<UploadProps & React.RefAttributes<
                         formatter={formatter}
                     />
                 )}
-            </UploadContext.Provider>
+            </UploadContext>
         </div>
     );
 });

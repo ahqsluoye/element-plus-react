@@ -75,11 +75,11 @@ const Steps: FC<StepsProps> = memo(props => {
     };
 
     return (
-        <StepsContext.Provider value={contextValue}>
+        <StepsContext value={contextValue}>
             <div className={classNames(b(), m(simple ? 'simple' : direction), className)} style={style}>
                 {children}
             </div>
-        </StepsContext.Provider>
+        </StepsContext>
     );
 });
 

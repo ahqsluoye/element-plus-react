@@ -249,7 +249,7 @@ const TreeNode = (props: TreeNodeProps) => {
     const contentPaddingLeft = useMemo(() => `${(props.node?.level - 1) * tree.props.indent}px`, [props.node?.level, tree.props.indent]);
 
     return (
-        <TreeNodeExpandContext.Provider value={{ parentNodeMap }}>
+        <TreeNodeExpandContext value={{ parentNodeMap }}>
             <div
                 ref={nodeRef}
                 className={classNames([
@@ -349,7 +349,7 @@ const TreeNode = (props: TreeNodeProps) => {
                     ) : null}
                 </ElTransition>
             </div>
-        </TreeNodeExpandContext.Provider>
+        </TreeNodeExpandContext>
     );
 };
 

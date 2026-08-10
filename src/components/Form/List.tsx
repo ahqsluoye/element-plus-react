@@ -67,8 +67,8 @@ const List: FC<ListProps> = ({ name, initialValue, children, rules, validateTrig
     };
 
     return (
-        <ListContext.Provider value={listContext}>
-            <FieldContext.Provider value={fieldContext}>
+        <ListContext value={listContext}>
+            <FieldContext value={fieldContext}>
                 <ElFormItem name={[]} shouldUpdate={shouldUpdate} rules={rules} validateTrigger={validateTrigger} initialValue={initialValue} isList>
                     {({ value = [], onChange }, meta) => {
                         const { getFieldValue } = context;
@@ -156,8 +156,8 @@ const List: FC<ListProps> = ({ name, initialValue, children, rules, validateTrig
                         );
                     }}
                 </ElFormItem>
-            </FieldContext.Provider>
-        </ListContext.Provider>
+            </FieldContext>
+        </ListContext>
     );
 };
 

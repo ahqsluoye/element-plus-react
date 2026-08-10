@@ -153,12 +153,12 @@ class TransitionGroup extends Component<TransitionGroupProps, State> {
         delete props.exit;
 
         if (Component === null) {
-            return <TransitionGroupContext.Provider value={contextValue}>{children}</TransitionGroupContext.Provider>;
+            return <TransitionGroupContext value={contextValue}>{children}</TransitionGroupContext>;
         }
         return (
-            <TransitionGroupContext.Provider value={contextValue}>
+            <TransitionGroupContext value={contextValue}>
                 <Component {...props}>{children}</Component>
-            </TransitionGroupContext.Provider>
+            </TransitionGroupContext>
         );
     }
 }

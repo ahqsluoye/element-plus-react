@@ -29,7 +29,7 @@ const TableHeader = ({ scheduleLayout }: Props) => {
     );
 
     return (
-        <TableHeaderContext.Provider value={{ sortProp, setSortProp, init: initSortRef }}>
+        <TableHeaderContext value={{ sortProp, setSortProp, init: initSortRef }}>
             <thead className={is({ group: columns.length > 1 })}>
                 {middleColumns.map((row, rowIndex) => {
                     let columnIndex = -1;
@@ -84,7 +84,7 @@ const TableHeader = ({ scheduleLayout }: Props) => {
                     );
                 })}
             </thead>
-        </TableHeaderContext.Provider>
+        </TableHeaderContext>
     );
 };
 

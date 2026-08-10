@@ -121,7 +121,7 @@ const Dropdown = ({ ref, ...props }: DropdownProps & { ref?: React.Ref<DropdownR
                         onEnter={onEnter}
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
-                        contentSlot={<DropdownContext.Provider value={{ hideOnClick, onCommand: onClick, maxHeight, size }}>{menu}</DropdownContext.Provider>}
+                        contentSlot={<DropdownContext value={{ hideOnClick, onCommand: onClick, maxHeight, size }}>{menu}</DropdownContext>}
                         persistent={persistent}
                         {...popperProps}
                         {...transitionProps}
@@ -149,11 +149,7 @@ const Dropdown = ({ ref, ...props }: DropdownProps & { ref?: React.Ref<DropdownR
                     onEnter={onEnter}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
-                    contentSlot={
-                        <DropdownContext.Provider value={{ hideOnClick, onCommand }}>
-                            {maxHeight ? <ElScrollbar maxHeight={maxHeight}>{menu}</ElScrollbar> : menu}
-                        </DropdownContext.Provider>
-                    }
+                    contentSlot={<DropdownContext value={{ hideOnClick, onCommand }}>{maxHeight ? <ElScrollbar maxHeight={maxHeight}>{menu}</ElScrollbar> : menu}</DropdownContext>}
                     persistent={persistent}
                     {...popperProps}
                     {...transitionProps}

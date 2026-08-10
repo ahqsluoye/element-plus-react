@@ -160,7 +160,7 @@ const SubMenu = (props: SubMenuProps) => {
                     onMouseLeave={handleMouseLeave}
                     fallbackPlacements={fallbackPlacements}
                     content={
-                        <MenuContext.Provider
+                        <MenuContext
                             value={{
                                 activeIndex,
                                 parentIndex: [...parentIndex, index],
@@ -187,7 +187,7 @@ const SubMenu = (props: SubMenuProps) => {
                                     {props.children}
                                 </ul>
                             </div>
-                        </MenuContext.Provider>
+                        </MenuContext>
                     }
                     showArrow={false}
                     placement={placement}
@@ -219,7 +219,7 @@ const SubMenu = (props: SubMenuProps) => {
                     >
                         {/* @ts-ignore */}
                         <ul ref={ulRef} className={classNames(mb(), mm`inline`, 'collapse-transition')} style={{ '--el-menu-level': level }}>
-                            <MenuContext.Provider
+                            <MenuContext
                                 value={{
                                     activeIndex,
                                     parentIndex: [...parentIndex, index],
@@ -241,7 +241,7 @@ const SubMenu = (props: SubMenuProps) => {
                                 }}
                             >
                                 {props.children}
-                            </MenuContext.Provider>
+                            </MenuContext>
                         </ul>
                     </ElTransition>
                 </>
