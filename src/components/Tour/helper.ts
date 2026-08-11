@@ -192,10 +192,10 @@ export const useFloating = (
             return {};
         }
 
-        const { arrow } = states.middlewareData;
+        const { arrow: _arrow } = states.middlewareData;
         return {
-            left: arrow?.x != null ? `${arrow?.x}px` : '',
-            top: arrow?.y != null ? `${arrow?.y}px` : '',
+            left: _arrow?.x != null ? `${_arrow?.x}px` : '',
+            top: _arrow?.y != null ? `${_arrow?.y}px` : '',
         };
     }, [states.middlewareData, showArrow]);
 

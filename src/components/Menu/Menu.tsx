@@ -18,7 +18,7 @@ const Menu = ({ ref, ...props }: MenuProps & { ref?: React.Ref<MenuRef | null> }
         {
             mode: 'vertical',
             showTimeout: 150,
-            hideTimeout: 300,
+            hideTimeout: 150,
             uniqueOpened: false,
             collapseTransition: true,
             defaultOpeneds: [],

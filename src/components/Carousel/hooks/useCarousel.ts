@@ -8,11 +8,11 @@ const THROTTLE_TIME = 300;
 
 export const useCarousel = (props: CarouselProps) => {
     const { direction, arrow, height, type, autoplay, loop, interval, pauseOnHover, trigger, initialIndex, onChange } = props;
-    const [items, setItem] = useState<CarouselItemContext[]>([]);
+    const [items, setItems] = useState<CarouselItemContext[]>([]);
 
-    const addItem = (item: CarouselItemContext) => setItem(pre => [...pre, item]);
+    const addItem = (item: CarouselItemContext) => setItems(pre => [...pre, item]);
 
-    const removeItem = (uid: string) => setItem(pre => pre.filter(children => children.uid !== uid));
+    const removeItem = (uid: string) => setItems(pre => pre.filter(children => children.uid !== uid));
 
     const [activeIndex, setActiveIndex] = useState(-1);
     const [hover, setHover] = useState(false);
@@ -294,17 +294,14 @@ export const useCarousel = (props: CarouselProps) => {
         if (preActiveIndex > -1) {
             onChange?.(current, _prev);
         }
-         
     }, [activeIndex]);
 
     useEffect(() => {
         setActiveItem(activeIndex);
-         
     }, [loop]);
 
     useEffect(() => {
         resetTimer();
-         
     }, [interval]);
 
     useEffect(() => {
@@ -313,7 +310,6 @@ export const useCarousel = (props: CarouselProps) => {
         }
         itemLen.current = items.length;
         isItemsTwoLength.current = items?.length === 2 && props.loop && !isCardType;
-         
     }, [items]);
 
     useEffect(() => {
@@ -322,7 +318,6 @@ export const useCarousel = (props: CarouselProps) => {
         } else {
             pauseTimer();
         }
-         
     }, [autoplay, items.length]);
 
     useEffect(() => {
@@ -340,7 +335,6 @@ export const useCarousel = (props: CarouselProps) => {
                 resizeObserver.current.disconnect();
             }
         };
-         
     }, []);
 
     return {

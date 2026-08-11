@@ -153,7 +153,7 @@ const SubMenu = (props: SubMenuProps) => {
                     popperClass={classNames(is('pure'), popperClass)}
                     popperStyle={themeStyle}
                     offset={popperOffset ?? props.popperOffset}
-                    showAfter={level > 1 || mode === 'vertical' ? 0 : (showTimeout ?? props.showTimeout)}
+                    showAfter={level > 1 ? 0 : (showTimeout ?? props.showTimeout)}
                     hideAfter={hideTimeout ?? props.hideTimeout}
                     unmountOnExit={false}
                     onMouseEnter={handleMouseEnter}

@@ -412,7 +412,7 @@ const createList = ({
             Container as any,
             {
                 className: classNames(ns.e('window'), className),
-                style: Object.assign({}, ...windowStyle),
+                style: { ...windowStyle },
                 onScroll,
                 ref: windowRef,
                 key: 0,

@@ -1,5 +1,5 @@
-import { addStyle } from 'dom-lib';
-import React, { useCallback, useEffect, useState } from 'react';
+import { nextTick } from '@qsxy/element-plus-react/Util/base';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 export interface CssTransitonProps {
     nodeRef: React.RefObject<HTMLElement>;
@@ -26,53 +26,64 @@ export enum STATUS {
 }
 const useCssTransiton = (props: CssTransitonProps) => {
     const { nodeRef, visible, disabled, duration = 250, beforeLeave, onLeave, afterLeave, beforeEnter, onEnter, afterEnter, done } = props;
-    const [status, setStatus] = useState(STATUS.UNMOUNTED);
 
-    const [mounted, setMounted] = useState(false);
+    const mountedRef = useRef(false);
+    const statusRef = useRef(STATUS.UNMOUNTED);
+
+    const nextAnimFrame = useCallback(
+        async (callback: () => void) => {
+            await nextTick(callback);
+            if (statusRef.current === STATUS.LEAVE) {
+                onLeave?.(nodeRef.current);
+                nextAnimFrame(() => {
+                    statusRef.current = STATUS.AFTER_LEAVE;
+                });
+            } else if (statusRef.current === STATUS.AFTER_LEAVE) {
+                setTimeout(() => {
+                    afterLeave?.(nodeRef.current);
+                    nextAnimFrame(() => {
+                        statusRef.current = STATUS.BEFORE_ENTER;
+                    });
+                    // addStyle(nodeRef.current, { display: 'none' });
+                }, duration);
+            } else if (statusRef.current === STATUS.BEFORE_ENTER) {
+                beforeEnter?.(nodeRef.current);
+                nextAnimFrame(() => {
+                    statusRef.current = STATUS.ENTER;
+                });
+            } else if (statusRef.current === STATUS.ENTER) {
+                // addStyle(nodeRef.current, { display: '' });
+                onEnter?.(nodeRef.current, done);
+                nextAnimFrame(() => {
+                    statusRef.current = STATUS.AFTER_ENTER;
+                });
+            } else if (statusRef.current === STATUS.AFTER_ENTER) {
+                afterEnter?.(nodeRef.current);
+            }
+        },
+        [afterEnter, afterLeave, beforeEnter, done, duration, nodeRef, onEnter, onLeave],
+    );
 
     const startCssTransition = useCallback(() => {
-        setStatus(STATUS.BEFORE_LEAVE);
-    }, []);
+        statusRef.current = STATUS.BEFORE_LEAVE;
+        beforeLeave?.(nodeRef.current);
+        nextAnimFrame(() => {
+            statusRef.current = STATUS.LEAVE;
+        });
+    }, [beforeLeave, nextAnimFrame, nodeRef]);
 
     useEffect(() => {
         if (!disabled) {
-            if (mounted) {
+            if (mountedRef.current) {
                 startCssTransition();
             } else {
-                setMounted(true);
+                mountedRef.current = true;
                 done?.();
             }
         } else {
             done?.();
         }
     }, [visible]);
-
-    useEffect(() => {
-        if (status === STATUS.BEFORE_LEAVE) {
-            beforeLeave?.(nodeRef.current);
-            setStatus(STATUS.LEAVE);
-        } else if (status === STATUS.LEAVE) {
-            onLeave?.(nodeRef.current);
-            setStatus(STATUS.AFTER_LEAVE);
-        } else if (status === STATUS.AFTER_LEAVE) {
-            setTimeout(() => {
-                afterLeave?.(nodeRef.current);
-                setStatus(STATUS.BEFORE_ENTER);
-                addStyle(nodeRef.current, { display: 'none' });
-            }, duration);
-        } else if (status === STATUS.BEFORE_ENTER) {
-            beforeEnter?.(nodeRef.current);
-            setStatus(STATUS.ENTER);
-        } else if (status === STATUS.ENTER) {
-            addStyle(nodeRef.current, { display: '' });
-            onEnter?.(nodeRef.current, done);
-            setStatus(STATUS.AFTER_ENTER);
-        } else if (status === STATUS.AFTER_ENTER) {
-            afterEnter?.(nodeRef.current);
-        }
-    }, [status]);
-
-    return { mounted };
 };
 
 export default useCssTransiton;

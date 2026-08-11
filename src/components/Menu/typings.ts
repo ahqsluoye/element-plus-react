@@ -104,6 +104,8 @@ export interface MenuItemProps extends BaseProps, NativeProps {
     disabled?: boolean;
     /** react-router-dom 路由位置参数 */
     route?: string;
+    /** 菜单项标题 */
+    title?: string;
     /** 点击菜单项时回调函数, 参数为菜单项实例 */
     onClick?: (item: MenuItemRegistered) => void;
 }

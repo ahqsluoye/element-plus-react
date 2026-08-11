@@ -44,11 +44,11 @@ const App = () => {
                     <ElMenuItem index="2-1">item one</ElMenuItem>
                     <ElMenuItem index="2-2">item two</ElMenuItem>
                 </ElSubMenu>
-                <ElMenuItem index="3" disabled>
+                <ElMenuItem index="3" disabled title="Navigator Three">
                     <ElIcon name="file-lines" prefix="fal" />
                     <span>Navigator Three</span>
                 </ElMenuItem>
-                <ElMenuItem index="4">
+                <ElMenuItem index="4" title="Navigator Four">
                     <ElIcon name="gear" prefix="fal" />
                     <span>Navigator Four</span>
                 </ElMenuItem>
