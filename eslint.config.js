@@ -1,6 +1,6 @@
 import eslint from '@eslint/js';
-import reactPlugin from 'eslint-plugin-react';
-// import eslintReact from '@eslint-react/eslint-plugin';
+// import reactPlugin from 'eslint-plugin-react';
+import eslintReact from '@eslint-react/eslint-plugin';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -60,14 +60,14 @@ export default tseslint.config(
         plugins: {
             '@typescript-eslint': tseslint.plugin,
             'react-hooks': reactHooksPlugin,
-            react: reactPlugin,
-            // '@eslint-react': eslintReact,
+            // react: reactPlugin,
+            '@eslint-react': eslintReact,
             // 'jsx-a11y': jsxA11yPlugin,
         },
         rules: {
             ...tseslint.configs.recommended.rules,
-            ...reactPlugin.configs.recommended.rules,
-            // ...eslintReact.configs.recommended.rules,
+            // ...reactPlugin.configs.recommended.rules,
+            ...eslintReact.configs.recommended.rules,
             // ...jsxA11yPlugin.configs.recommended.rules,
 
             // 'jsx-a11y/click-events-have-key-events': 'off',
@@ -111,13 +111,24 @@ export default tseslint.config(
             'react/prop-types': 'off',
             'react/display-name': 'off',
             'react/jsx-uses-react': 'off',
-            'react/self-closing-comp': 'warn',
-            'react/jsx-no-target-blank': 'error',
+            // 'react/self-closing-comp': 'warn',
+            // 'react/jsx-no-target-blank': 'error',
             'react/no-unescaped-entities': 'off',
 
             // React Hooks rules
             'react-hooks/rules-of-hooks': 'error',
-            'react-hooks/exhaustive-deps': 'warn',
+            'react-hooks/exhaustive-deps': 'off',
+
+            '@eslint-react/no-clone-element': 'off',
+            '@eslint-react/no-set-state-in-component-did-mount': 'off',
+            '@eslint-react/set-state-in-effect': 'off',
+            '@eslint-react/no-children-to-array': 'off',
+            '@eslint-react/no-children-for-each': 'off',
+            '@eslint-react/naming-convention-ref-name': 'off',
+            '@eslint-react/no-array-index-key': 'off',
+            '@eslint-react/no-children-count': 'off',
+            '@eslint-react/no-children-map': 'off',
+            '@eslint-react/use-state': 'off',
 
             // 要求使用 === 和 !==
             eqeqeq: 0,
