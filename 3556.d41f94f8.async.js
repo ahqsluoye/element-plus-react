@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_qsxy_element_plus_react=self.webpackChunk_qsxy_element_plus_react||[]).push([[3556],{13556:function(u,e,t){t.r(e),e.default=[{date:"2026-07-03",version:"2.0.0",entries:[{type:"refactor",description:"\u91CD\u6784Button\u7EC4\u4EF6\u5B9E\u73B0\u65B9\u5F0F\uFF0C\u5BFC\u51FAButtonGroup\u7EC4\u4EF6",author:"ahqsluoye"}]}]}}]);
