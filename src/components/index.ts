@@ -414,8 +414,26 @@ export { useConfigProvider } from './hooks/useConfigProvider';
 export { default as useControlled } from './hooks/useControlled';
 export { useForceUpdate } from './hooks/useForceUpdate';
 export { useZIndex } from './hooks/useZIndex';
-export { download, getScrollWidth, isEmpty, isNotEmpty, randomCode } from './Util/base';
+export {
+    download,
+    getScrollWidth,
+    isBoolean,
+    isEmpty,
+    isFunction,
+    isNotEmpty,
+    isNumber,
+    isObject,
+    isPromise,
+    isPropAbsent,
+    isString,
+    isStringNumber,
+    isUndefined,
+    mergeDefaultProps,
+    nextTick,
+    randomCode,
+} from './Util/base';
 export { genFileId } from './Util/genFileId';
+export { floatAdd, floatDivide, floatMultiply, floatSub } from './Util/Math';
 export { default as PopupManager } from './Util/PopupManager';
 export { generateTree } from './Util/treeUtils';
 
