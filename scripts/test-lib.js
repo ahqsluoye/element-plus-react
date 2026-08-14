@@ -218,7 +218,7 @@ function step2_replaceAliases() {
 }
 
 function step3_cleanTargetDist() {
-    step(3, '清理目标 dist 目录（保留 index.d.ts）');
+    step(3, '清理目标 dist 目录（保留 index.d.ts, index.css, display.css）');
 
     // 保存 index.d.ts 到内存
     const indexDtPath = path.join(TARGET_DIST_DIR, 'index.d.ts');
