@@ -91,11 +91,27 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
                     return t('el.datepicker.placeholder.week', { lng: locale });
                 case 'quarter':
                     return t('el.datepicker.placeholder.quarter', { lng: locale });
+                case 'dates':
+                    return t('el.datepicker.placeholder.dates', { lng: locale });
                 default:
                     return t('el.datepicker.placeholder.date', { lng: locale });
             }
         }
     }, [locale, props.placeholder, t, type]);
+
+    const formatValueToDayjs = useCallback(
+        (val: string | number | Date) => {
+            if (val instanceof Date) {
+                return dayjs(val);
+            } else if (typeof val === 'number') {
+                return dayjs(new Date(val));
+            } else if (typeof val === 'string') {
+                return toDayjs<Dayjs>(val, props.valueFormat ?? format);
+            }
+            return initDate();
+        },
+        [format, props.valueFormat],
+    );
 
     /** 日期参数转成dayjs对象 */
     const dateProp = useMemo(() => {
@@ -120,7 +136,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
                     result = toDayjs<Dayjs>(value, props.valueFormat ?? format);
                 }
             }
-            if (type === 'quarter') {
+            if (type === 'quarter' && !Array.isArray(result)) {
                 const quarter = result.quarter();
                 result = result.month((quarter - 1) * 3).date(1);
             }
@@ -141,6 +157,13 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
             ? ([isoWeek ? dateProp.isoWeekday(1) : dateProp.isoWeekday(0), isoWeek ? dateProp.isoWeekday(7) : dateProp.isoWeekday(6)] as ValueRagne)
             : ([null, null] as ValueRagne);
     }, [dateProp, isoWeek, value]);
+
+    const values = useMemo(() => {
+        if (Array.isArray(value)) {
+            return value.map(formatValueToDayjs);
+        }
+        return [];
+    }, [formatValueToDayjs, value]);
 
     const onActive = useCallback(
         e => {
@@ -239,10 +262,12 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
                 <CalendarContext
                     value={{
                         value: dateProp,
+                        values,
                         valueRange,
                         dateType: type,
                         isoWeek: props.isoWeek,
                         showToday: props.showToday,
+                        showConfirm: type === 'dates',
                         popperInstRef,
                         onChange: handleChange,
                         disabledDate: props.disabledDate,

@@ -15,7 +15,8 @@ export type DatePickerRef = {
 // type ValueType = string | number | Date;
 
 export interface DatePickerProps
-    extends Omit<FormControlBaseProps, 'name' | 'value' | 'defaultValue' | 'onChange'>,
+    extends
+        Omit<FormControlBaseProps, 'name' | 'value' | 'defaultValue' | 'onChange'>,
         BaseProps,
         NativeProps,
         AnimationEventProps,
@@ -27,9 +28,9 @@ export interface DatePickerProps
     /** 等价于原生 name 属性 */
     name?: string;
     /** 选中项绑定值 */
-    value?: string | number | Date;
+    value?: string | number | Date | number[] | string[] | Date[];
     /** 默认值 */
-    defaultValue?: string | number | Date;
+    defaultValue?: string | number | Date | number[] | string[] | Date[];
     /** 只读 */
     readonly?: boolean;
     /** 必输项*/
@@ -71,9 +72,9 @@ export interface DatePickerRangeProps extends Omit<FormControlBaseProps, 'name' 
     /** 等价于原生 name 属性 */
     name?: [string, string];
     /** 选中项绑定值 */
-    value?: [string, string] | [number, number] | [Date, Date];
+    value?: number[] | string[] | Date[];
     /** 默认值 */
-    defaultValue?: [string, string] | [number, number] | [Date, Date];
+    defaultValue?: number[] | string[] | Date[];
     /** 只读 */
     readOnly?: boolean;
     /** 禁用 */
@@ -103,7 +104,7 @@ export interface DatePickerRangeProps extends Omit<FormControlBaseProps, 'name' 
     onOk?: () => void;
     /** 一个用来判断该日期是否被禁用的函数，接受一个 Date 对象作为参数。 应该返回一个 Boolean 值。 */
     disabledDate?: (time: Date) => boolean;
-    onChange?: (value: [string, string] | [Date, Date] | [number, number], event?: Event) => void;
+    onChange?: (value: number[] | string[] | Date[], event?: Event) => void;
     /** 格式化 */
     formatter?: (value: Dayjs, text: number) => React.ReactElement;
 }
@@ -118,7 +119,8 @@ export type CommonProps = {
 };
 
 export interface AllDatePickerProps
-    extends Omit<FormControlBaseProps, 'name' | 'value' | 'defaultValue' | 'onChange'>,
+    extends
+        Omit<FormControlBaseProps, 'name' | 'value' | 'defaultValue' | 'onChange'>,
         BaseProps,
         NativeProps,
         AnimationEventProps,
@@ -130,9 +132,9 @@ export interface AllDatePickerProps
     /** 等价于原生 name 属性 */
     name?: string | [string, string];
     /** 选中项绑定值 */
-    value?: string | Date | number | [string, string] | [Date, Date] | [number, number];
+    value?: string | Date | number | number[] | string[] | Date[];
     /** 默认值 */
-    defaultValue?: string | Date | number | [string, string] | [Date, Date] | [number, number];
+    defaultValue?: string | Date | number | number[] | string[] | Date[];
     /** 只读 */
     readonly?: boolean;
     /** 必输项*/
@@ -165,7 +167,7 @@ export interface AllDatePickerProps
     appendToBody?: boolean;
     /** 点击确定按钮的回调 */
     onOk?: () => void;
-    onChange?: (value: string | Date | number | [string, string] | [Date, Date] | [number, number], event?: Event) => void;
+    onChange?: (value: string | Date | number | number[] | string[] | Date[], event?: Event) => void;
     /** 格式化 */
     formatter?: (value: Dayjs, text: number) => React.ReactElement;
 

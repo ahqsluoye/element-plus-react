@@ -9,15 +9,18 @@ export interface ChangeParams {
 }
 
 export interface CalendarContextProps {
-    initialValue?: string | [v1: string, v2: string];
+    initialValue?: string | string[];
     value?: Dayjs;
-    valueRange?: [value: Dayjs, value: Dayjs];
+    values?: Dayjs[];
+    valueRange?: Dayjs[];
     /** 显示类型 */
     dateType?: DateType | DateRangeType;
     /** 是否展示“今天”按钮 */
     showToday?: boolean;
     /** 是否展示“此刻”按钮 */
     showNow?: boolean;
+    /** 是否展示“确认”按钮 */
+    showConfirm?: boolean;
     /** 设置ISO周数，其中1为星期一，7为星期日 */
     isoWeek?: boolean;
     /** 在范围选择器里取消两个日期面板之间的联动 */
@@ -32,14 +35,17 @@ export interface CalendarContextProps {
     /** 单选框提交数据方法 */
     onChange?: (value: Dayjs, params?: ChangeParams) => void;
     /** 日期范围框提交数据方法 */
-    onChangeRange?: (value: [value: Dayjs, value: Dayjs], finish: boolean) => void;
+    onChangeRange?: (value: Dayjs[], finish: boolean) => void;
     formatter?: (value: Dayjs, text: number) => React.ReactElement;
 }
 
 const CalendarContext = createContext<CalendarContextProps>({
     value: null,
+    values: [],
     dateType: null,
     showToday: false,
+    showNow: false,
+    showConfirm: false,
     isoWeek: true,
     unlinkPanels: false,
     popperInstRef: null,

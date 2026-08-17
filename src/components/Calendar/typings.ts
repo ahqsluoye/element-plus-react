@@ -4,8 +4,8 @@ import { Dayjs } from 'dayjs';
 export type DateType = 'year' | 'month' | 'date' | 'dates' | 'week' | 'datetime' | 'datetimerange' | 'time' | 'quarter';
 export type DateRangeType = 'daterange' | 'monthrange' | 'yearrange';
 export type RangePosition = 'left' | 'right';
-export type ValueRagne = [value: Dayjs, value: Dayjs];
-export type ValueRagneTemp = [value: Dayjs, value: Dayjs, value: Dayjs];
+export type ValueRagne = Dayjs[];
+export type ValueRagneTemp = Dayjs[];
 /** 快捷方式 */
 export interface Shortcuts {
     text: string;

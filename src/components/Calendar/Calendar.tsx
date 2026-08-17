@@ -7,7 +7,6 @@ import localeData from 'dayjs/plugin/localeData';
 import head from 'lodash/head';
 import last from 'lodash/last';
 import React, { use, useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import CalendarContext, { ChangeParams } from './CalendarContext';
 import DatePanel from './DatePanel';
 import DateRangePanel from './DateRangePanel';
@@ -24,6 +23,7 @@ import { CalendarProps, DateRangeType, DateType, RangePosition, ValueRagne, Valu
 import { initDate } from './util';
 
 import 'dayjs/locale/zh-cn';
+import DatesPanel from './DatesPanel';
 
 dayjs.extend(localeData);
 
@@ -31,10 +31,12 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
     const {
         initialValue,
         value: valueProp,
+        values: valuesProp,
         valueRange: valueRangeProp,
         dateType,
         showToday,
         showNow,
+        showConfirm,
         popperInstRef,
         onChange,
         close,
@@ -44,10 +46,12 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
     const { wb, e } = useClassNames('picker-panel');
 
     const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     // 单日期的默认日期
     const [value, setValue] = useState(valueProp);
+    // 多日期的默认日期
+    const [values, setValues] = useState(valuesProp);
 
     useEffect(() => {
         setValue(valueProp);
@@ -259,6 +263,14 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
     );
 
     /**
+     * 选中日期后的回调
+     * @param date
+     */
+    const onPickDates = useCallback((dates: Dayjs[]) => {
+        setValues(dates);
+    }, []);
+
+    /**
      * 选中范围日期后的回调
      * @param date 日期范围
      * @param finish 是否两个值都选中
@@ -332,6 +344,7 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
                     {view === 'year' && <YearPanel value={defaultValue} onPickYear={onPickYear} />}
                     {view === 'month' && <MonthPanel value={defaultValue} onPickMonth={onPickMonth} />}
                     {view === 'date' && <DatePanel value={defaultValue} onPickDate={onPickDate} />}
+                    {view === 'dates' && <DatesPanel value={values} onPickDate={onPickDates} />}
                     {view === 'quarter' && <QuarterPanel value={defaultValue} onPickDate={onPickDate} />}
                     {view === 'week' && <WeekPanel value={defaultValue} valueRange={valueRange} onPickDate={onPickDate} onPickDateRange={onPickWeek} />}
                     {view === 'daterange' && (
@@ -345,7 +358,7 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
                     )}
                 </div>
             </div>
-            {(showToday || showNow) && <Footer />}
+            {(showToday || showNow || showConfirm) && <Footer />}
         </div>
     );
 };
