@@ -1,5 +1,5 @@
 import { useIntl } from 'dumi';
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, { useImperativeHandle, useRef } from 'react';
 
 type NativeInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
@@ -7,7 +7,7 @@ type InputProps = {
     onChange: (keywords: string) => void;
 } & Pick<NativeInputProps, 'onFocus' | 'onBlur'>;
 
-export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+export const Input = ({ ref, ...props }: InputProps & { ref?: React.RefObject<HTMLInputElement | null> }) => {
     const intl = useIntl();
 
     const imeWaiting = useRef(false);
@@ -47,4 +47,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
             ref={nativeInputRef}
         />
     );
-});
+};

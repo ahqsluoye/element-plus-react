@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import clipboardCopy from 'clipboard-copy';
 import { addClass, removeClass } from 'dom-lib';
 import { IPreviewerProps } from 'dumi';
-import React, { FC, forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import getStackblitzConfig from './stackblitzConfig';
 import './style.scss';
 
@@ -17,7 +17,7 @@ interface ExtraFile {
     type: 'jsx' | 'scss' | 'ts';
 }
 
-const BlockControl = forwardRef<any, { expand: boolean }>(({ expand }, ref) => {
+const BlockControl = ({ ref, expand }: { expand: boolean } & { ref?: React.Ref<any | null> }) => {
     const [hovering, setHovering] = useState(false);
 
     const nodeRef = useRef(null);
@@ -39,7 +39,7 @@ const BlockControl = forwardRef<any, { expand: boolean }>(({ expand }, ref) => {
             </ElTransition>
         </>
     );
-});
+};
 
 const Previewer: FC<IPreviewerProps> = props => {
     const { title, path, children, asset } = props;
@@ -122,7 +122,6 @@ const Previewer: FC<IPreviewerProps> = props => {
         //     scrollParent?.current.addEventListener('scroll', scrollHandler);
         //     scrollHandler();
         // }, 200);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [expand]);
 
     const runtimeDependencies = {

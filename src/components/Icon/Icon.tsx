@@ -5,7 +5,7 @@ import startsWith from 'lodash/startsWith';
 import React, { memo, useMemo } from 'react';
 import { IconProps } from './typings';
 
-const Icon: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<any>> = memo(({ ref, ...props }: IconProps & { ref?: React.Ref<any | null> }) => {
+const Icon = memo(({ ref, ...props }: IconProps & { ref?: React.Ref<any | null> }) => {
     const { prefix = 'far', name, size, rotate, flip, spin, pulse, className, style, onClick, classPrefix = 'icon', ...other } = props;
     const { b } = useClassNames(classPrefix, 'el');
     const hasFa = startsWith(name, 'fa-');

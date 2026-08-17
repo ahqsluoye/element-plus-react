@@ -7,7 +7,7 @@ import UploadList from './UploadList';
 import { UploadContentProps, UploadContentRef, UploadProps, UploadRef } from './typings';
 import { useHandlers } from './use-handlers';
 
-const Upload: React.ForwardRefExoticComponent<UploadProps & React.RefAttributes<any>> = memo(({ ref, ...props }: UploadProps & { ref?: React.Ref<UploadRef | null> }) => {
+const Upload = memo(({ ref, ...props }: UploadProps & { ref?: React.Ref<UploadRef | null> }) => {
     props = {
         action: '#',
         method: 'post',
