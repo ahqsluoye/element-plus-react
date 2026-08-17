@@ -89,6 +89,7 @@ export default {
                 dates: '请选择一个或多个日期',
                 years: '请选择一个或多个年份',
                 months: '请选择一个或多个月份',
+                quarters: '请选择一个或多个季度',
             },
         },
         input: {

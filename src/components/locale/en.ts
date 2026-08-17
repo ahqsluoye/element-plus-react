@@ -90,6 +90,7 @@ export default {
                 dates: 'Pick one or more dates',
                 years: 'Pick one or more years',
                 months: 'Pick one or more months',
+                quarters: 'Pick one or more quarters',
             },
         },
         input: {

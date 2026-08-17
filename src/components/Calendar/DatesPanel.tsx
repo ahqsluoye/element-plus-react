@@ -141,6 +141,9 @@ const DatesPanel = (props: Props) => {
                 if (date.isSame(today, 'day')) {
                     classes.push('today');
                 }
+                if (values.some(item => item.isSame(date, 'day'))) {
+                    classes.push('current');
+                }
                 return classNames(...classes);
             } else {
                 const classes: string[] = [disabled ? 'normal disabled' : `${type}-month`];

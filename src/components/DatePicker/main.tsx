@@ -7,7 +7,7 @@ import { AllDatePickerProps, DatePickerProps, DatePickerRangeProps, DatePickerRe
 
 const Index = ({ ref, ...props }: AllDatePickerProps & { ref?: React.Ref<DatePickerRef | null> }) => {
     const { type = 'date' } = props;
-    if (['year', 'years', 'month', 'months', 'date', 'dates', 'week', 'quarter'].includes(type)) {
+    if (['year', 'years', 'month', 'months', 'date', 'dates', 'week', 'quarter', 'quarters'].includes(type)) {
         return <ElDatePicker ref={ref} {...(props as unknown as DatePickerProps)} />;
     } else if (['daterange', 'monthrange', 'yearrange'].includes(type)) {
         return <ElDateRangePicker ref={ref} {...(props as unknown as DatePickerRangeProps)} />;

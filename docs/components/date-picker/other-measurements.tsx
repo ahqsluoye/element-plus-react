@@ -9,42 +9,42 @@ const App = () => {
                 <div className="container">
                     <div className="block">
                         <span className="demonstration">Week</span>
-                        <ElDatePicker type="week" format="[Week] ww" isoWeek defaultValue="2024-5-30" style={{ width: 200 }} />
+                        <ElDatePicker type="week" format="[Week] ww" isoWeek defaultValue="2024-5-30" style={{ width: 200 }} onChange={console.log} />
                     </div>
-                    {/* <div className="block">
+                    <div className="block">
                         <span className="demonstration">Dates</span>
-                        <ElDatePicker type="dates" style={{ width: 200 }} />
-                    </div> */}
+                        <ElDatePicker type="dates" style={{ width: 200 }} onChange={console.log} />
+                    </div>
                 </div>
                 <div className="container">
                     <div className="block">
                         <span className="demonstration">Year</span>
-                        <ElDatePicker type="year" style={{ width: 200 }} />
+                        <ElDatePicker type="year" style={{ width: 200 }} onChange={console.log} />
                     </div>
-                    {/* <div className="block">
+                    <div className="block">
                         <span className="demonstration">Years</span>
-                        <ElDatePicker type="years" style={{ width: 200 }} />
-                    </div> */}
+                        <ElDatePicker type="years" style={{ width: 200 }} onChange={console.log} />
+                    </div>
                 </div>
                 <div className="container">
                     <div className="block">
                         <span className="demonstration">Month</span>
-                        <ElDatePicker type="month" style={{ width: 200 }} />
+                        <ElDatePicker type="month" style={{ width: 200 }} onChange={console.log} />
                     </div>
-                    {/* <div className="block">
+                    <div className="block">
                         <span className="demonstration">Months</span>
-                        <ElDatePicker type="months" style={{ width: 200 }} />
-                    </div> */}
+                        <ElDatePicker type="months" style={{ width: 200 }} onChange={console.log} />
+                    </div>
                 </div>
                 <div className="container">
                     <div className="block">
                         <span className="demonstration">Quarter</span>
-                        <ElDatePicker defaultValue={new Date('2025-6-6')} type="quarter" style={{ width: 200 }} />
+                        <ElDatePicker defaultValue={new Date('2025-6-6')} type="quarter" style={{ width: 200 }} onChange={console.log} />
                     </div>
-                    {/* <div className="block">
-                        <span className="demonstration">Months</span>
-                        <ElDatePicker type="months" style={{ width: 200 }} />
-                    </div> */}
+                    <div className="block">
+                        <span className="demonstration">Quarters</span>
+                        <ElDatePicker type="quarters" style={{ width: 200 }} onChange={console.log} />
+                    </div>
                 </div>
             </div>
         </>
