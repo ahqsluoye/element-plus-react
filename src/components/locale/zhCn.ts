@@ -86,6 +86,7 @@ export default {
                 week: '请选择周',
                 quarter: '请选择季度',
                 date: '请选择日期',
+                dates: '请选择一个或多个日期',
             },
         },
         input: {

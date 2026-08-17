@@ -613,7 +613,7 @@ const Cascader = memo(({ ref, ...props }: CascaderProps & { ref?: React.Ref<Casc
                 )}
             </div>
         ),
-        [b, checkedNodes, e, filterList, filterable, getOptions, getValueOfLevel, is, level, locale, onClearSearch, onSearch, panel, searchText, separator, t, value],
+        [b, checkedNodes, e, filterList, filterable, getOptions, getValueOfLevel, is, level, onClearSearch, onSearch, panel, searchText, separator, t, value],
     );
 
     return (

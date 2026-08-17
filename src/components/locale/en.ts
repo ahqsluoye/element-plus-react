@@ -87,6 +87,7 @@ export default {
                 week: 'Pick a week',
                 quarter: 'Pick a quarter',
                 date: 'Pick a day',
+                dates: 'Pick one or more dates',
             },
         },
         input: {

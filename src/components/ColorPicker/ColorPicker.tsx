@@ -209,14 +209,10 @@ const ColorPicker = memo(({ ref, ...props }: ColorPickerProps & { ref?: React.Re
                             />
                         </span>
                         <ElButton size="small" type="primary" link className={be('dropdown', 'link-btn')} onClick={onClear}>
-                            {t('el.colorpicker.clear', {
-                                lng: locale,
-                            })}
+                            {t('el.colorpicker.clear')}
                         </ElButton>
                         <ElButton plain size="small" className={be('dropdown', 'btn')} onClick={confirmValue}>
-                            {t('el.colorpicker.confirm', {
-                                lng: locale,
-                            })}
+                            {t('el.colorpicker.confirm')}
                         </ElButton>
                     </div>
                 </div>

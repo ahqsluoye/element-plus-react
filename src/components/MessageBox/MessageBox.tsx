@@ -16,10 +16,6 @@ import { Action, MessageBoxRef, MessageState } from './typings';
 const MessageBox = memo(({ ref, ...props }: MessageState & { ref?: React.Ref<MessageBoxRef | null> }) => {
     const { t } = useLocale();
 
-    const locale = useMemo(() => {
-        return props?.options?.locale || 'en';
-    }, [props?.options?.locale]);
-
     props = mergeDefaultProps(
         {
             options: {},

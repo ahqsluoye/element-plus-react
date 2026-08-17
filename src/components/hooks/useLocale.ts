@@ -5,5 +5,5 @@ export const useLocale = () => {
     const { t } = useTranslation();
     const { locale } = useConfigProvider();
 
-    return { t: (key: string) => t(key, { lng: locale }) };
+    return { t: (key: string, options?: Record<string, any>) => t(key, { lng: locale, ...options }) };
 };
