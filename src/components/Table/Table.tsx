@@ -1,12 +1,11 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import ElLoading from '@qsxy/element-plus-react/Loading/Loading';
 import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import classNames from 'classnames';
 import React, { useImperativeHandle, useMemo, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import Colgroup from './Colgroup';
 import TableBody from './TableBody';
 import { TableBodyContext, TableContext } from './TableContext';
@@ -18,8 +17,7 @@ import { TableProps, TableRef, TableRefs, TreeNode } from './typings';
 import { TableIdManager } from './util';
 
 function InternalTable<RecordType extends object = TreeNode>({ ref, ...props }: TableProps<RecordType> & { ref?: React.Ref<TableRef<RecordType>> | null }) {
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     props = mergeDefaultProps(
         {
@@ -28,9 +26,7 @@ function InternalTable<RecordType extends object = TreeNode>({ ref, ...props }: 
             showHeader: true,
             tableLayout: 'fixed',
             style: {},
-            emptyText: t('el.table.emptyText', {
-                lng: locale,
-            }),
+            emptyText: t('el.table.emptyText'),
             selectOnIndeterminate: true,
         },
         props,

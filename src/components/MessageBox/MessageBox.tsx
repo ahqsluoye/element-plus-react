@@ -4,17 +4,17 @@ import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animatio
 import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElInput from '@qsxy/element-plus-react/Input/Input';
 import { addUnit, isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import isString from 'lodash/isString';
 import React, { cloneElement, memo, RefObject, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Action, MessageBoxRef, MessageState } from './typings';
 
 const MessageBox = memo(({ ref, ...props }: MessageState & { ref?: React.Ref<MessageBoxRef | null> }) => {
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     const locale = useMemo(() => {
         return props?.options?.locale || 'en';
@@ -33,8 +33,8 @@ const MessageBox = memo(({ ref, ...props }: MessageState & { ref?: React.Ref<Mes
             showClose: true,
             showCancelButton: true,
             showConfirmButton: true,
-            cancelButtonText: t('el.messagebox.cancel', { lng: locale }),
-            confirmButtonText: t('el.messagebox.confirm', { lng: locale }),
+            cancelButtonText: t('el.messagebox.cancel'),
+            confirmButtonText: t('el.messagebox.confirm'),
             distinguishCancelAndClose: false,
             draggable: false,
             buttonPosition: 'right',

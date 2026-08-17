@@ -1,12 +1,11 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import classNames from 'classnames';
 import last from 'lodash/last';
 import React, { memo, use, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { CascaderContext } from './CascaderContext';
 import { CascaderNode } from './typings';
 
@@ -27,8 +26,7 @@ const CascaderDropdown = memo((props: Props) => {
     const ulRef = useRef<HTMLUListElement>(null);
     const scrollBarRef = useRef<ScrollbarRef>(null);
 
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     const [checkedNode, setCheckedNode] = useState(multiple ? (value as string[][]).map(item => item.join(separator)) : [value.join(separator)]);
 
@@ -68,7 +66,7 @@ const CascaderDropdown = memo((props: Props) => {
             <ElScrollbar wrapClass={e`suggestion-panel`} ref={scrollBarRef}>
                 <ul className={e`suggestion-list`} ref={ulRef}>
                     {list}
-                    {options?.length === 0 && <li className={classNames(e`empty-text`)}>{t('el.cascader.noMatch', { lng: locale })}</li>}
+                    {options?.length === 0 && <li className={classNames(e`empty-text`)}>{t('el.cascader.noMatch')}</li>}
                 </ul>
             </ElScrollbar>
         </div>

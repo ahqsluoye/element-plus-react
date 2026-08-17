@@ -9,7 +9,6 @@ import classNames from 'classnames';
 import React, { CSSProperties, memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { MessageProps, MessageRef } from './typings';
-// import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 
 const Message = memo(({ ref, ...props }: MessageProps & { ref?: React.Ref<MessageRef | null> }) => {
     props = mergeDefaultProps(

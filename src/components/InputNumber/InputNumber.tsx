@@ -3,6 +3,7 @@ import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtil
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElInput from '@qsxy/element-plus-react/Input/Input';
 import { InputRef } from '@qsxy/element-plus-react/Input/typings';
@@ -13,12 +14,10 @@ import isNil from 'lodash/isNil';
 import omit from 'lodash/omit';
 import toFinite from 'lodash/toFinite';
 import React, { memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { InputNumberProps, InputNumberRef } from './typings';
 
 const InputNumber = memo(({ ref, ...props }: InputNumberProps & { ref?: React.Ref<InputNumberRef | null> }) => {
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     props = mergeDefaultProps(
         {
@@ -451,7 +450,7 @@ const InputNumber = memo(({ ref, ...props }: InputNumberProps & { ref?: React.Re
                 <span
                     className={classNames(e`decrease`, is({ disabled: minDisabled() }))}
                     role="button"
-                    aria-label={t('el.inputNumber.decrease', { lng: locale })}
+                    aria-label={t('el.inputNumber.decrease')}
                     tabIndex={0}
                     onKeyDown={event => event.key === 'Enter' && decrease()}
                     onMouseDown={() => {
@@ -476,7 +475,7 @@ const InputNumber = memo(({ ref, ...props }: InputNumberProps & { ref?: React.Re
                 <span
                     className={classNames(e`increase`, is({ disabled: maxDisabled() }))}
                     role="button"
-                    aria-label={t('el.inputNumber.increase', { lng: locale })}
+                    aria-label={t('el.inputNumber.increase')}
                     tabIndex={0}
                     onKeyDown={event => event.key === 'Enter' && increase()}
                     onMouseDown={() => {

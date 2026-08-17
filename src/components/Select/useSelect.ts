@@ -1,8 +1,3 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
-import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
-import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
-import { isEmpty, isNotEmpty, isUndefined, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
-import { ValidateComponentsMap } from '@qsxy/element-plus-react/Util/icons';
 import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
 import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
 import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
@@ -11,25 +6,28 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useClearable, useDisabled, useSize, useStatusIcon } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import { useComposition } from '@qsxy/element-plus-react/hooks/useComposition';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import { useResizeObserver } from '@qsxy/element-plus-react/hooks/useResizeObserver';
+import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
+import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
+import { isEmpty, isNotEmpty, isUndefined, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
+import { ValidateComponentsMap } from '@qsxy/element-plus-react/Util/icons';
 import ensureArray from 'lodash/castArray';
 import filter from 'lodash/filter';
 import max from 'lodash/max';
 import min from 'lodash/min';
 import React, { Children, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { OptionData, OptionValue, SelectDropdownRef, SelectOptionGroupProps, SelectOptionProps, SelectProps, ValueType } from './typings';
 
 const useSelect = (props: SelectProps) => {
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     props = mergeDefaultProps(
         {
-            placeholder: t('el.select.placeholder', { lng: locale }),
-            noDataText: t('el.select.noData', { lng: locale }),
-            noMatchText: t('el.select.noMatch', { lng: locale }),
-            loadingText: t('el.select.loading', { lng: locale }),
+            placeholder: t('el.select.placeholder'),
+            noDataText: t('el.select.noData'),
+            noMatchText: t('el.select.noMatch'),
+            loadingText: t('el.select.loading'),
             showArrow: true,
             filterable: false,
             maxWidth: 500,
@@ -184,13 +182,13 @@ const useSelect = (props: SelectProps) => {
             _placeholder = '';
         }
         if (!allowCreate && filterable && isEmpty(inputValue)) {
-            _placeholder = t('el.select.search', { lng: locale });
+            _placeholder = t('el.select.search');
         }
         if (props.placeholder) {
             _placeholder = props.placeholder;
         }
         return multiple || isEmpty(label) ? _placeholder : label;
-    }, [allowCreate, filterable, inputValue, label, locale, multiValue, multiple, props.placeholder, t]);
+    }, [allowCreate, filterable, inputValue, label, multiValue, multiple, props.placeholder, t]);
 
     const shouldShowPlaceholder = useMemo(() => {
         if (multiple && !isUndefined(value)) {
@@ -416,7 +414,6 @@ const useSelect = (props: SelectProps) => {
     // 打开后搜索框自动获取焦点
     useEffect(() => {
         onVisibleChange?.(visible);
-         
     }, [visible]);
 
     /** 搜索时 */

@@ -1,12 +1,11 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import ElInput from '@qsxy/element-plus-react/Input/Input';
 import ElOption from '@qsxy/element-plus-react/Select/Option';
 import ElSelect from '@qsxy/element-plus-react/Select/Select';
 import { TypeAttributes } from '@qsxy/element-plus-react/types/common';
 import classNames from 'classnames';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 interface Props {
     goButton?: React.ReactElement | boolean;
@@ -30,8 +29,7 @@ const Options: FC<Props> = props => {
     const { rootPrefixCls, changeSize, quickGo, current, goButton, disabled, simple, pageSizeOptions: _pageSizeOptions, pageSize, defaultPageSize, type, size } = props;
     const [goInputText, setGoInputText] = useState('');
     const { b, e, is } = useClassNames(rootPrefixCls);
-    const { t } = useTranslation();
-    const { locale } = useConfigProvider();
+    const { t } = useLocale();
 
     const getValidValue = useMemo(() => (!goInputText || typeof goInputText === 'number' ? undefined : Number(goInputText)), [goInputText]);
 
@@ -97,24 +95,24 @@ const Options: FC<Props> = props => {
                     onChange={handleChangeSize}
                 >
                     {pageSizeOptions.map((opt, i) => (
-                        <ElOption key={i} value={opt} label={`${opt} ${t('el.pagination.pagesize', { lng: locale })}`} />
+                        <ElOption key={i} value={opt} label={`${opt} ${t('el.pagination.pagesize')}`} />
                     ))}
                 </ElSelect>
             )
         );
-    }, [changeSize, disabled, b, size, pageSize, defaultPageSize, _pageSizeOptions, handleChangeSize, pageSizeOptions, t, locale]);
+    }, [changeSize, disabled, b, size, pageSize, defaultPageSize, _pageSizeOptions, handleChangeSize, pageSizeOptions, t]);
 
     useEffect(() => setGoInputText(current + ''), [current]);
 
     const goInput = useMemo(() => {
         return (
             <>
-                {simple ? null : <span className={e`goto`}>{t('el.pagination.goto', { lng: locale })}</span>}
+                {simple ? null : <span className={e`goto`}>{t('el.pagination.goto')}</span>}
                 <ElInput className={e`editor`} disabled={disabled} value={goInputText} size={size} onChange={handleChange} onKeyUp={go} placeholder="" clearable={false} />
-                {simple ? null : <span className={e`classifier`}>{t('el.pagination.pageClassifier', { lng: locale })}</span>}
+                {simple ? null : <span className={e`classifier`}>{t('el.pagination.pageClassifier')}</span>}
             </>
         );
-    }, [disabled, e, go, goInputText, handleChange, locale, simple, size, t]);
+    }, [disabled, e, go, goInputText, handleChange, simple, size, t]);
 
     if (type === 'sizes') {
         return <span className={classNames(e`sizes`, b`item`)}>{changeSelect}</span>;

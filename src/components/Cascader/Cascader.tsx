@@ -1,4 +1,3 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import ElDivider from '@qsxy/element-plus-react/Divider/Divider';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElInput from '@qsxy/element-plus-react/Input/Input';
@@ -15,6 +14,7 @@ import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popper
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import { useResizeObserver } from '@qsxy/element-plus-react/hooks/useResizeObserver';
 import classNames from 'classnames';
 import find from 'lodash/find';
@@ -24,7 +24,6 @@ import max from 'lodash/max';
 import omit from 'lodash/omit';
 import trim from 'lodash/trim';
 import React, { memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { CascaderContext } from './CascaderContext';
 import CascaderDropdown from './CascaderDropdown';
 import CascaderMenu, { CascaderMenuRef } from './CascaderMenu';
@@ -33,8 +32,7 @@ import { CascaderNode, CascaderProps, CascaderRef } from './typings';
 import { useCascader } from './useCascader';
 
 const Cascader = memo(({ ref, ...props }: CascaderProps & { ref?: React.Ref<CascaderRef | null> }) => {
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     props = mergeDefaultProps(
         {
@@ -50,7 +48,7 @@ const Cascader = memo(({ ref, ...props }: CascaderProps & { ref?: React.Ref<Casc
                 leaf: 'leaf',
             },
             shouldSelect: () => true,
-            placeholder: t('el.cascader.placeholder', { lng: locale }) || '请选择',
+            placeholder: t('el.cascader.placeholder') || '请选择',
             collapseTags: false,
             collapseTagsTooltip: false,
             maxCollapseTags: 1,
@@ -574,7 +572,7 @@ const Cascader = memo(({ ref, ...props }: CascaderProps & { ref?: React.Ref<Casc
                     <div className={e`search`} style={level === 0 && !searchText ? { width: 180 } : {}} onClick={event => event.stopPropagation()}>
                         <ElInput
                             ref={searchInstance}
-                            placeholder={t('el.select.search', { lng: locale })}
+                            placeholder={t('el.select.search')}
                             clearable
                             plain
                             debounceInput

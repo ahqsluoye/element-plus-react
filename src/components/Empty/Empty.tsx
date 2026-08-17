@@ -1,10 +1,9 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import { BaseProps, NativeProps } from '@qsxy/element-plus-react/types/common';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { FC, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import ImgEmpty from './ImgEmpty';
 
 export interface IEmptyProps extends BaseProps, NativeProps {
@@ -14,11 +13,10 @@ export interface IEmptyProps extends BaseProps, NativeProps {
 }
 
 const Empty: FC<IEmptyProps> = props => {
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
     props = mergeDefaultProps(
         {
-            description: t('el.tree.emptyText', { lng: locale }),
+            description: t('el.tree.emptyText'),
         },
         props,
     );

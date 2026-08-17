@@ -1,11 +1,11 @@
 import { Calendar, CalendarContext, ValueRagne, initDate, toDayjs } from '@qsxy/element-plus-react/Calendar';
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
 import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
 import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
 import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElInput from '@qsxy/element-plus-react/Input/Input';
 import { InputRef } from '@qsxy/element-plus-react/Input/typings';
@@ -20,7 +20,6 @@ import weekOfYear from 'dayjs/plugin/weekOfYear';
 import noop from 'lodash/noop';
 import omit from 'lodash/omit';
 import React, { memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { DatePickerProps, DatePickerRef } from './typings';
 
 dayjs.extend(advancedFormat);
@@ -39,8 +38,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
     const disabled = useDisabled(props.disabled);
     const size = useSize(props.size);
 
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     const [htmlInputProps] = partitionHTMLProps(rest);
     const [animationInputProps] = partitionAnimationProps(rest);
@@ -84,20 +82,20 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
         } else {
             switch (type) {
                 case 'year':
-                    return t('el.datepicker.placeholder.year', { lng: locale });
+                    return t('el.datepicker.placeholder.year');
                 case 'month':
-                    return t('el.datepicker.placeholder.month', { lng: locale });
+                    return t('el.datepicker.placeholder.month');
                 case 'week':
-                    return t('el.datepicker.placeholder.week', { lng: locale });
+                    return t('el.datepicker.placeholder.week');
                 case 'quarter':
-                    return t('el.datepicker.placeholder.quarter', { lng: locale });
+                    return t('el.datepicker.placeholder.quarter');
                 case 'dates':
-                    return t('el.datepicker.placeholder.dates', { lng: locale });
+                    return t('el.datepicker.placeholder.dates');
                 default:
-                    return t('el.datepicker.placeholder.date', { lng: locale });
+                    return t('el.datepicker.placeholder.date');
             }
         }
-    }, [locale, props.placeholder, t, type]);
+    }, [props.placeholder, t, type]);
 
     const formatValueToDayjs = useCallback(
         (val: string | number | Date) => {

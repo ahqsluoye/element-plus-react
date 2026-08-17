@@ -1,11 +1,10 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useForceUpdate } from '@qsxy/element-plus-react/hooks/useForceUpdate';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
 import React, { RefObject, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import Node from './model/node';
 import TreeStore from './model/tree-store';
 import { useDragNodeHandler } from './model/useDragNode';
@@ -58,8 +57,7 @@ const Tree = ({ ref, ...props }: TreeProps & { ref?: React.Ref<TreeRef | null> }
         onNodeExpand,
     } = props;
 
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
     const ns = useClassNames('tree');
     const { forceUpdate } = useForceUpdate();
 
@@ -381,11 +379,7 @@ const Tree = ({ ref, ...props }: TreeProps & { ref?: React.Ref<TreeRef | null> }
     // 渲染函数
     const renderTreeNodes = () => {
         if (isEmpty()) {
-            return (
-                <div className={ns.e('empty-block')}>
-                    {renderEmpty ? renderEmpty() : <span className={ns.e('empty-text')}>{emptyText || t('el.tree.emptyText', { lng: locale })}</span>}
-                </div>
-            );
+            return <div className={ns.e('empty-block')}>{renderEmpty ? renderEmpty() : <span className={ns.e('empty-text')}>{emptyText || t('el.tree.emptyText')}</span>}</div>;
         }
 
         return root.childNodes.map(child => (

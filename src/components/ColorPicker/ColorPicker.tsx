@@ -1,5 +1,4 @@
 import ElButton from '@qsxy/element-plus-react/Button/Button';
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import ElInput from '@qsxy/element-plus-react/Input/Input';
 import { InputRef } from '@qsxy/element-plus-react/Input/typings';
 import ElPopper from '@qsxy/element-plus-react/Popper/Popper';
@@ -10,10 +9,10 @@ import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popper
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import React, { memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import AlphaSlider, { AlphaSliderRef } from './AlphaSlider';
 import HueSlider, { HueSliderRef } from './HueSlider';
 import Predefine, { PredefineRef } from './Predefine';
@@ -30,8 +29,7 @@ const ColorPicker = memo(({ ref, ...props }: ColorPickerProps & { ref?: React.Re
     const disabled = useDisabled(props.disabled);
     const size = useSize(props.size);
 
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     const [value, setValue] = useControlled(props.value, props.defaultValue);
     const initialColor = useRef<string>(null);

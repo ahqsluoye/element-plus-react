@@ -1,9 +1,9 @@
 import { ValueRagne } from '@qsxy/element-plus-react/Calendar';
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElPopper from '@qsxy/element-plus-react/Popper/Popper';
 import { PopperOptionRef } from '@qsxy/element-plus-react/Popper/typings';
@@ -16,15 +16,13 @@ import head from 'lodash/head';
 import isEqual from 'lodash/isEqual';
 import last from 'lodash/last';
 import React, { memo, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import TimeRangePanel from './TimeRangePanel';
 import { RoleType, TimePanelRef, TimePickerRangeProps, TimePickerRef, TimeType } from './typings';
 import { getAvailableArrs } from './useTimePicker';
 import { makeRange } from './util';
 
 const TimePickerRange = memo(({ ref, ...props }: TimePickerRangeProps & { ref?: React.Ref<TimePickerRef | null> }) => {
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     props = mergeDefaultProps(
         {
@@ -34,8 +32,8 @@ const TimePickerRange = memo(({ ref, ...props }: TimePickerRangeProps & { ref?: 
             disabledSeconds: () => [],
             isoWeek: true,
             clearable: true,
-            startPlaceholder: t('el.datepicker.startTime', { lng: locale }),
-            endPlaceholder: t('el.datepicker.endTime', { lng: locale }),
+            startPlaceholder: t('el.datepicker.startTime'),
+            endPlaceholder: t('el.datepicker.endTime'),
             rangeSeparator: '-',
         },
         props,
@@ -70,7 +68,7 @@ const TimePickerRange = memo(({ ref, ...props }: TimePickerRangeProps & { ref?: 
 
     const containerRef = useRef<HTMLDivElement>(null);
     const popperInstRef = useRef<PopperOptionRef>(null);
-    const initialValue = useRef<[string, string] | [number, number] | [Date, Date]>(['', '']);
+    const initialValue = useRef<string[] | number[] | Date[]>(['', '']);
     const timePanelRef = useRef<TimePanelRef>(null);
     const closeRef = useRef(null);
     const isCancelRef = useRef(false);

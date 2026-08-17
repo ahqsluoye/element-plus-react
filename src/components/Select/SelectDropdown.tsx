@@ -1,10 +1,9 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { isNotEmpty } from '@qsxy/element-plus-react/Util/base';
-import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import React, { Children, ComponentType, cloneElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import ElOption from './Option';
 import { SelectContext } from './SelectContext';
 import { SelectDropdownProps, SelectDropdownRef, SelectOptionGroupProps, SelectOptionProps } from './typings';
@@ -34,8 +33,7 @@ const SelectDropdown = ({ ref, ...props }: SelectDropdownProps & { ref?: React.R
     const { b, e, be, is } = useClassNames('select');
     const ulRef = useRef<HTMLUListElement>(null);
 
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     // 下拉项高亮
     const [hover, setHover] = useState(value);

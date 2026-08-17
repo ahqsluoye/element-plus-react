@@ -1,49 +1,47 @@
 import ElButton from '@qsxy/element-plus-react/Button/Button';
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import { Message } from '@qsxy/element-plus-react/Message';
 import dayjs from 'dayjs';
 import React, { FC, use, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import CalendarContext from './CalendarContext';
 
 const Footer: FC = () => {
     const { e } = useClassNames('picker-panel');
     const { showToday, showNow, showConfirm, onChange, close, disabledDate } = use(CalendarContext);
 
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     const onPickToday = useCallback(() => {
         const today = dayjs();
         if (disabledDate && disabledDate(today.toDate())) {
-            Message.error(`“${showToday ? t('el.datepicker.today', { lng: locale }) : t('el.datepicker.now', { lng: locale })}”在禁选日期范围内!`);
+            Message.error(`“${showToday ? t('el.datepicker.today') : t('el.datepicker.now')}”在禁选日期范围内!`);
             return;
         }
         onChange(dayjs());
         close?.();
-    }, [close, disabledDate, locale, onChange, showToday, t]);
+    }, [close, disabledDate, onChange, showToday, t]);
 
     return (
         <div className={e`footer`}>
             {showToday && (
                 <ElButton type="primary" link className={e`today-btn`} onClick={onPickToday}>
-                    {t('el.datepicker.today', { lng: locale })}
+                    {t('el.datepicker.today')}
                 </ElButton>
             )}
             {showNow && (
                 <>
                     <ElButton type="default" size="small" text className={e`link-btn`} onClick={onPickToday}>
-                        {t('el.datepicker.now', { lng: locale })}
+                        {t('el.datepicker.now')}
                     </ElButton>
                     <ElButton type="default" size="small" className={e`link-btn`} onClick={close}>
-                        {t('el.datepicker.confirm', { lng: locale })}
+                        {t('el.datepicker.confirm')}
                     </ElButton>
                 </>
             )}
             {showConfirm && (
                 <ElButton type="default" size="small" className={e`link-btn`} onClick={close}>
-                    {t('el.datepicker.confirm', { lng: locale })}
+                    {t('el.datepicker.confirm')}
                 </ElButton>
             )}
         </div>

@@ -1,9 +1,8 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { FC, use, useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import CalendarContext from './CalendarContext';
 import { Cell, CellType, WeekPanelProps } from './typings';
 import { initDate } from './util';
@@ -13,8 +12,7 @@ const QuarterPanel: FC<WeekPanelProps> = props => {
     const { b, be } = useClassNames('quarter-table');
     const { value: valueProp, disabledDate, formatter } = use(CalendarContext);
 
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     // 当前日期
     const currentDate = useMemo(() => {

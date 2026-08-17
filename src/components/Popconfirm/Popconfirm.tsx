@@ -1,26 +1,24 @@
 import ElButton from '@qsxy/element-plus-react/Button/Button';
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
 import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElTooltip from '@qsxy/element-plus-react/Tooltip/Tooltip';
 import { TooltipRef } from '@qsxy/element-plus-react/Tooltip/typings';
 import { addUnit, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { memo, useImperativeHandle, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { PopconfirmProps } from './typings';
 
 const Popconfirm = memo(({ ref, ...props }: PopconfirmProps & { ref?: React.Ref<TooltipRef | null> }) => {
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     props = mergeDefaultProps(
         {
             showArrow: true,
-            confirmButtonText: t('el.popconfirm.confirmButtonText', { lng: locale }),
-            cancelButtonText: t('el.popconfirm.cancelButtonText', { lng: locale }),
+            confirmButtonText: t('el.popconfirm.confirmButtonText'),
+            cancelButtonText: t('el.popconfirm.cancelButtonText'),
             confirmButtonType: 'primary',
             cancelButtonType: 'primary',
             icon: 'circle-question',

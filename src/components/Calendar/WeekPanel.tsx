@@ -1,11 +1,10 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
 import IsBetween from 'dayjs/plugin/isBetween';
 import IsoWeek from 'dayjs/plugin/isoWeek';
 import React, { FC, use, useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import CalendarContext from './CalendarContext';
 import { Cell, CellType, WeekPanelProps } from './typings';
 import { initDate } from './util';
@@ -18,8 +17,7 @@ const WeekPanel: FC<WeekPanelProps> = props => {
     const { b, e, be } = useClassNames('date-table');
     const { value: valueProp, dateType, isoWeek, disabledDate, formatter } = use(CalendarContext);
 
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     // 当前日期
     const currentDate = useMemo(() => {
@@ -70,24 +68,24 @@ const WeekPanel: FC<WeekPanelProps> = props => {
     const WEEK_DAYS = useMemo(() => {
         return isoWeek
             ? [
-                  t('el.datepicker.weeks.mon', { lng: locale }),
-                  t('el.datepicker.weeks.tue', { lng: locale }),
-                  t('el.datepicker.weeks.wed', { lng: locale }),
-                  t('el.datepicker.weeks.thu', { lng: locale }),
-                  t('el.datepicker.weeks.fri', { lng: locale }),
-                  t('el.datepicker.weeks.sat', { lng: locale }),
-                  t('el.datepicker.weeks.sun', { lng: locale }),
+                  t('el.datepicker.weeks.mon'),
+                  t('el.datepicker.weeks.tue'),
+                  t('el.datepicker.weeks.wed'),
+                  t('el.datepicker.weeks.thu'),
+                  t('el.datepicker.weeks.fri'),
+                  t('el.datepicker.weeks.sat'),
+                  t('el.datepicker.weeks.sun'),
               ]
             : [
-                  t('el.datepicker.weeks.sun', { lng: locale }),
-                  t('el.datepicker.weeks.mon', { lng: locale }),
-                  t('el.datepicker.weeks.tue', { lng: locale }),
-                  t('el.datepicker.weeks.wed', { lng: locale }),
-                  t('el.datepicker.weeks.thu', { lng: locale }),
-                  t('el.datepicker.weeks.fri', { lng: locale }),
-                  t('el.datepicker.weeks.sat', { lng: locale }),
+                  t('el.datepicker.weeks.sun'),
+                  t('el.datepicker.weeks.mon'),
+                  t('el.datepicker.weeks.tue'),
+                  t('el.datepicker.weeks.wed'),
+                  t('el.datepicker.weeks.thu'),
+                  t('el.datepicker.weeks.fri'),
+                  t('el.datepicker.weeks.sat'),
               ];
-    }, [isoWeek, locale, t]);
+    }, [isoWeek, t]);
 
     const rows: Cell[] = useMemo(() => {
         const TOTAL_DAYS = 7 * 6;

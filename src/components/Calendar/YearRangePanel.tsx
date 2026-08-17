@@ -1,10 +1,9 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import classNames from 'classnames';
 import { Dayjs, ManipulateType } from 'dayjs';
 import React, { FC, use, useCallback, useMemo, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import CalendarContext from './CalendarContext';
 import Header from './Header';
 import YearPanel from './YearPanel';
@@ -16,8 +15,7 @@ const YearRangePanel: FC<DateRangePanelProps> = props => {
     const { e, is } = useClassNames('date-range-picker');
     const { unlinkPanels } = use(CalendarContext);
 
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     const hoverDate = useRef<Dayjs>(null);
 
@@ -62,8 +60,8 @@ const YearRangePanel: FC<DateRangePanelProps> = props => {
     const leftYear = useMemo(() => {
         const curYear: number = startDate.year();
         const position: number = startDate.year() % 10;
-        return `${curYear - position} ${t('el.datepicker.year', { lng: locale })} - ${curYear + (9 - position)} ${t('el.datepicker.year', { lng: locale })}`;
-    }, [locale, startDate, t]);
+        return `${curYear - position} ${t('el.datepicker.year')} - ${curYear + (9 - position)} ${t('el.datepicker.year')}`;
+    }, [startDate, t]);
 
     // 当前年份
     const rightYear = useMemo(() => {

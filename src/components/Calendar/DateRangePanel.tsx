@@ -1,10 +1,9 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import { Dayjs, ManipulateType } from 'dayjs';
 import React, { FC, use, useCallback, useMemo, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import CalendarContext from './CalendarContext';
 import DatePanel from './DatePanel';
 import Header from './Header';
@@ -18,8 +17,7 @@ const DateRangePanel: FC<DateRangePanelProps> = props => {
 
     const hoverDateRef = useRef<Dayjs>(null);
 
-    const { t } = useTranslation();
-    const { locale } = useConfigProvider();
+    const { t } = useLocale();
 
     // 开始日期
     const startDate = useMemo(() => {
@@ -108,8 +106,8 @@ const DateRangePanel: FC<DateRangePanelProps> = props => {
         <>
             <DatePanel value={startDate} valueRange={valueRange} className={classNames(e`content`, is`left`)} onPickDate={handlePickDate}>
                 <Header
-                    year={startDate.year() + t('el.datepicker.year', { lng: locale })}
-                    month={t(`el.datepicker.month${startDate.month() + 1}`, { lng: locale })}
+                    year={startDate.year() + t('el.datepicker.year')}
+                    month={t(`el.datepicker.month${startDate.month() + 1}`)}
                     showForward={!unlinkPanels}
                     plain={unlinkPanels}
                     prefix="date-range-picker"
@@ -125,8 +123,8 @@ const DateRangePanel: FC<DateRangePanelProps> = props => {
             </DatePanel>
             <DatePanel value={endDate} valueRange={valueRange} className={classNames(e`content`, is`right`)} onPickDate={handlePickDate}>
                 <Header
-                    year={endDate.year() + t('el.datepicker.year', { lng: locale })}
-                    month={t(`el.datepicker.month${endDate.month() + 1}`, { lng: locale })}
+                    year={endDate.year() + t('el.datepicker.year')}
+                    month={t(`el.datepicker.month${endDate.month() + 1}`)}
                     showBackward={!unlinkPanels}
                     plain={unlinkPanels}
                     prefix="date-range-picker"

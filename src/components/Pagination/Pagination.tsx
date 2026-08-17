@@ -1,12 +1,11 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import { isNotEmpty, mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import React, { isValidElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import Options from './Options';
 import Pager from './Pager';
 import { PaginationProps, PaginationRef } from './typings';
@@ -53,8 +52,7 @@ const Pagination = ({ ref, ...props }: PaginationProps & { ref?: React.Ref<Pagin
     } = props;
 
     const { b, is, m, e } = useClassNames(classPrefix);
-    const { t } = useTranslation();
-    const { locale } = useConfigProvider();
+    const { t } = useLocale();
 
     const [current, setCurrent] = useControlled<number>(props.currentPage, props.defaultCurrentPage);
     const [pageSize, setPageSize] = useControlled<number>(props.pageSize, props.defaultPageSize);
@@ -291,13 +289,10 @@ const Pagination = ({ ref, ...props }: PaginationProps & { ref?: React.Ref<Pagin
                 </span>
             ) : (
                 <span className={classNames(e`total`, b`item`)}>
-                    {t('el.pagination.total', {
-                        lng: locale,
-                        total,
-                    })}
+                    {t('el.pagination.total')}
                 </span>
             ),
-        [b, current, e, locale, pageSize, showTotal, t, total],
+        [b, current, e, pageSize, showTotal, t, total],
     );
 
     /** 页码 */

@@ -1,10 +1,9 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import ElDivider from '@qsxy/element-plus-react/Divider/Divider';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import classNames from 'classnames';
 import React, { memo, useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { PageHeaderProps } from './typings';
 
 /**
@@ -16,8 +15,7 @@ const PageHeader = memo(({ ref, ...props }: PageHeaderProps & { ref?: React.Ref<
 
     const { b, e, m } = useClassNames('page-header');
 
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     /**
      * @description 处理返回按钮点击事件
@@ -51,7 +49,7 @@ const PageHeader = memo(({ ref, ...props }: PageHeaderProps & { ref?: React.Ref<
                             </div>
                         )}
                         {/* 标题区域 */}
-                        <div className={e('title')}>{title || t('el.pageHeader.title', { lng: locale })}</div>
+                        <div className={e('title')}>{title || t('el.pageHeader.title')}</div>
                     </div>
 
                     <ElDivider direction="vertical" />

@@ -1,8 +1,8 @@
 import { Calendar, CalendarContext, ValueRagne, initDateRange, toDayjs } from '@qsxy/element-plus-react/Calendar';
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElInputGroup from '@qsxy/element-plus-react/Input/InputGroup';
 import ElPopper from '@qsxy/element-plus-react/Popper/Popper';
@@ -15,7 +15,6 @@ import head from 'lodash/head';
 import last from 'lodash/last';
 import noop from 'lodash/noop';
 import React, { memo, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { DatePickerRangeProps, DatePickerRef } from './typings';
 
 const DateRangePicker = memo(({ ref, ...props }: DatePickerRangeProps & { ref?: React.Ref<DatePickerRef | null> }) => {
@@ -43,8 +42,7 @@ const DateRangePicker = memo(({ ref, ...props }: DatePickerRangeProps & { ref?: 
     const disabled = useDisabled(props.disabled);
     const size = useSize(props.size);
 
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     /** 没有指定格式时，根据日期类型初始格式 */
     const format = useMemo(() => {
@@ -84,14 +82,14 @@ const DateRangePicker = memo(({ ref, ...props }: DatePickerRangeProps & { ref?: 
         } else {
             switch (props.type) {
                 case 'monthrange':
-                    return t('el.datepicker.startMonth', { lng: locale });
+                    return t('el.datepicker.startMonth');
                 case 'yearrange':
-                    return t('el.datepicker.startYear', { lng: locale });
+                    return t('el.datepicker.startYear');
                 default:
-                    return t('el.datepicker.startDate', { lng: locale });
+                    return t('el.datepicker.startDate');
             }
         }
-    }, [locale, props.startPlaceholder, props.type, t]);
+    }, [props.startPlaceholder, props.type, t]);
 
     /** 根据日期类型设定占位符 */
     const endPlaceholder = useMemo(() => {
@@ -100,14 +98,14 @@ const DateRangePicker = memo(({ ref, ...props }: DatePickerRangeProps & { ref?: 
         } else {
             switch (props.type) {
                 case 'monthrange':
-                    return t('el.datepicker.endMonth', { lng: locale });
+                    return t('el.datepicker.endMonth');
                 case 'yearrange':
-                    return t('el.datepicker.endYear', { lng: locale });
+                    return t('el.datepicker.endYear');
                 default:
-                    return t('el.datepicker.endDate', { lng: locale });
+                    return t('el.datepicker.endDate');
             }
         }
-    }, [locale, props.endPlaceholder, props.type, t]);
+    }, [props.endPlaceholder, props.type, t]);
 
     /** 日期参数转成dayjs对象 */
     const dateProp = useMemo(() => {

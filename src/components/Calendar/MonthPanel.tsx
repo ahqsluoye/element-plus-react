@@ -1,10 +1,9 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import { isEmpty, isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import React, { FC, use, useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import CalendarContext from './CalendarContext';
 import { Cell, MonthPanelProps } from './typings';
 import { initDate } from './util';
@@ -14,8 +13,7 @@ const MonthPanel: FC<MonthPanelProps> = props => {
     const { e, b } = useClassNames('picker-panel');
     const { value: valueProp, dateType, disabledDate } = use(CalendarContext);
 
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     const monthsI18n = useMemo(
         () =>
@@ -162,7 +160,7 @@ const MonthPanel: FC<MonthPanelProps> = props => {
                                     return (
                                         <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickMonth(cell)} onMouseEnter={() => onHoverDate(cell)}>
                                             <div>
-                                                <a className="cell">{t('el.datepicker.months.' + monthsI18n[cell.text], { lng: locale })}</a>
+                                                <a className="cell">{t('el.datepicker.months.' + monthsI18n[cell.text])}</a>
                                             </div>
                                         </td>
                                     );

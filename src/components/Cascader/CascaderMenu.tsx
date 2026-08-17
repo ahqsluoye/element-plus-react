@@ -1,13 +1,12 @@
 import ElCheckbox from '@qsxy/element-plus-react/Checkbox/Checkbox';
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElRadio from '@qsxy/element-plus-react/Radio/Radio';
 import ElScrollbar from '@qsxy/element-plus-react/Scrollbar/Scrollbar';
 import { ScrollbarRef } from '@qsxy/element-plus-react/Scrollbar/typings';
 import classNames from 'classnames';
 import React, { memo, use, useCallback, useImperativeHandle, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import scrollIntoView from 'scroll-into-view-if-needed';
 import { CascaderContext } from './CascaderContext';
 import { CascaderNode } from './typings';
@@ -30,8 +29,7 @@ const CascaderMenu = memo(
         const { b, be, is } = useClassNames('cascader');
         const ulRef = useRef<ScrollbarRef>(null);
 
-        const { locale } = useConfigProvider();
-        const { t } = useTranslation();
+        const { t } = useLocale();
 
         const scrollToSelected = useCallback(() => {
             if (ulRef.current?.resizeRef?.current) {
@@ -119,7 +117,7 @@ const CascaderMenu = memo(
                             </li>
                         );
                     })}
-                {data?.length === 0 && (loading ? t('el.cascader.loading', { lng: locale }) : t('el.cascader.noData', { lng: locale }))}
+                {data?.length === 0 && (loading ? t('el.cascader.loading') : t('el.cascader.noData'))}
             </ElScrollbar>
         );
     },

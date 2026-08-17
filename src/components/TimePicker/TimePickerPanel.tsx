@@ -1,9 +1,8 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import useClickOutside from '@qsxy/element-plus-react/hooks/useClickOutside';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import classNames from 'classnames';
 import React, { memo, useImperativeHandle, useMemo, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import TimeSpinnerPanel from './TimeSpinnerPanel';
 import { SpinnerRef, TimePanelProps, TimePanelRef } from './typings';
 
@@ -11,8 +10,7 @@ const TimePickerPanel = memo(({ ref, ...props }: TimePanelProps & { ref?: React.
     const { classPrefix = 'time', referenceElement, ...other } = props;
     const { b, be } = useClassNames(classPrefix);
 
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     const containerRef = useRef<HTMLDivElement>(null);
     const spinnerRef = useRef<SpinnerRef>(null);
@@ -55,10 +53,10 @@ const TimePickerPanel = memo(({ ref, ...props }: TimePanelProps & { ref?: React.
                         props.onDestroy?.();
                     }}
                 >
-                    {t('el.datepicker.cancel', { lng: locale })}
+                    {t('el.datepicker.cancel')}
                 </button>
                 <button className={classNames(be('panel', 'btn'), 'confirm')} onClick={() => props.onOk?.()}>
-                    {t('el.datepicker.confirm', { lng: locale })}
+                    {t('el.datepicker.confirm')}
                 </button>
             </div>
         </div>

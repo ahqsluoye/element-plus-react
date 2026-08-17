@@ -1,10 +1,9 @@
-import { useConfigProvider } from '@qsxy/element-plus-react/ConfigProvider/ConfigProviderContext';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
+import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import classNames from 'classnames';
 import React, { FC, useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import List from './List';
 import Operation from './operation';
 import { KeyWise, TransferDataItem, TransferDirection, TransferProps } from './typings';
@@ -12,20 +11,19 @@ import { KeyWise, TransferDataItem, TransferDirection, TransferProps } from './t
 type RecordType = TransferDataItem;
 
 const Transfer: FC<TransferProps<RecordType>> = props => {
-    const { locale } = useConfigProvider();
-    const { t } = useTranslation();
+    const { t } = useLocale();
 
     props = mergeDefaultProps(
         {
             data: [],
-            titles: [t('el.transfer.titles.0', { lng: locale }), t('el.transfer.titles.1', { lng: locale })],
+            titles: [t('el.transfer.titles.0'), t('el.transfer.titles.1')],
             filterable: false,
             listStyle: {},
             leftDefaultChecked: [],
             rightDefaultChecked: [],
-            leftEmpty: t('el.transfer.noData', { lng: locale }),
-            rightEmpty: t('el.transfer.noData', { lng: locale }),
-            filterPlaceholder: t('el.transfer.filterPlaceholder', { lng: locale }),
+            leftEmpty: t('el.transfer.noData'),
+            rightEmpty: t('el.transfer.noData'),
+            filterPlaceholder: t('el.transfer.filterPlaceholder'),
         },
         props,
     );
