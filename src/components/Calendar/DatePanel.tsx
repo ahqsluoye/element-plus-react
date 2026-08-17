@@ -264,6 +264,6 @@ const DatePanel = props => {
     );
 };
 
-DatePanel.displayName = 'Calendar.DatePanel';
+DatePanel.displayName = 'ElDatePanel';
 
 export default DatePanel;
