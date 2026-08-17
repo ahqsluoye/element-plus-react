@@ -92,19 +92,21 @@ const QuarterPanel: FC<WeekPanelProps> = props => {
             {props.children}
             <table cellSpacing="0" cellPadding="0" className={classNames(b(), 'is-week-mode')}>
                 <tbody>
-                    {rows.map(cell => {
-                        return (
-                            <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickDate(cell)}>
-                                {formatter ? (
-                                    formatter(getFormattedDate(cell.text, cell.type), cell.text)
-                                ) : (
-                                    <div>
-                                        <span className="cell">{t('el.datepicker.quarter', { lng: locale, quarter: cell.text })}</span>
-                                    </div>
-                                )}
-                            </td>
-                        );
-                    })}
+                    <tr>
+                        {rows.map(cell => {
+                            return (
+                                <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickDate(cell)}>
+                                    {formatter ? (
+                                        formatter(getFormattedDate(cell.text, cell.type), cell.text)
+                                    ) : (
+                                        <div>
+                                            <span className="cell">{t('el.datepicker.quarter', { quarter: cell.text })}</span>
+                                        </div>
+                                    )}
+                                </td>
+                            );
+                        })}
+                    </tr>
                 </tbody>
             </table>
         </div>

@@ -1,4 +1,4 @@
-import { Calendar, CalendarContext, ValueRagne, initDate, toDayjs } from '@qsxy/element-plus-react/Calendar';
+import { Calendar, CalendarContext, ChangeParams, ValueRagne, initDate, toDayjs } from '@qsxy/element-plus-react/Calendar';
 import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animationPropsUtils';
 import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
 import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
@@ -65,15 +65,31 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
     }, [props.format, type]);
 
     const formatValue = useMemo<string>(() => {
-        if (typeof value === 'string') {
-            return value;
-        } else if (typeof value === 'number') {
-            return dayjs(new Date(value)).format(format);
-        } else if (value instanceof Date) {
-            return dayjs(value).format(valueFormat ?? format);
+        if (type === 'dates') {
+            if (Array.isArray(value)) {
+                return value
+                    .map(item => {
+                        if (typeof item === 'string') {
+                            return item;
+                        } else if (typeof item === 'number') {
+                            return dayjs(new Date(item)).format(format);
+                        } else if (item instanceof Date) {
+                            return dayjs(item).format(valueFormat ?? format);
+                        }
+                    })
+                    .join(', ');
+            }
+        } else {
+            if (typeof value === 'string') {
+                return value;
+            } else if (typeof value === 'number') {
+                return dayjs(new Date(value)).format(format);
+            } else if (value instanceof Date) {
+                return dayjs(value).format(valueFormat ?? format);
+            }
         }
         return '';
-    }, [format, value, valueFormat]);
+    }, [format, type, value, valueFormat]);
 
     /** 根据日期类型设定占位符 */
     const placeholder = useMemo(() => {
@@ -125,7 +141,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
                 } else if (typeof value === 'string') {
                     result = currentDate.current = toDayjs<Dayjs>(value, props.valueFormat ?? format);
                 }
-            } else {
+            } else if (type !== 'dates') {
                 if (value instanceof Date) {
                     result = dayjs(value);
                 } else if (typeof value === 'number') {
@@ -143,7 +159,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
     }, [format, props.valueFormat, type, value]);
 
     useEffect(() => {
-        if (isNotEmpty(value)) {
+        if (isNotEmpty(value) && type !== 'dates') {
             setValue(dateProp.format(format));
             // inputRef.current.setValue(dateProp.format(format));
         }
@@ -178,19 +194,40 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
      * @param val
      */
     const handleChange = useCallback(
-        (val: Dayjs) => {
-            setValue(val ? val.format(format) : '');
+        (val: Dayjs, params?: ChangeParams) => {
             currentDate.current = val;
-            if (valueFormat == 'x') {
-                onChange(val ? val.toDate().getTime() : '', formatValue);
-            } else if (isNotEmpty(props.valueFormat)) {
-                onChange?.(val ? val.format(valueFormat) : '', formatValue);
+            if (type === 'dates' && Array.isArray(params?.values)) {
+                setValue(params.values.map(item => item.format(format)));
+
+                if (valueFormat == 'x') {
+                    onChange(
+                        params.values.map(item => item.toDate().getTime()),
+                        formatValue,
+                    );
+                } else if (isNotEmpty(props.valueFormat)) {
+                    onChange?.(
+                        params.values.map(item => item.format(valueFormat)),
+                        formatValue,
+                    );
+                } else {
+                    onChange?.(
+                        params.values.map(item => item.toDate()),
+                        formatValue,
+                    );
+                }
             } else {
-                onChange?.(val ? val.toDate() : '', formatValue);
+                setValue(val ? val.format(format) : '');
+                if (valueFormat == 'x') {
+                    onChange(val ? val.toDate().getTime() : '', formatValue);
+                } else if (isNotEmpty(props.valueFormat)) {
+                    onChange?.(val ? val.format(valueFormat) : '', formatValue);
+                } else {
+                    onChange?.(val ? val.toDate() : '', formatValue);
+                }
+                setVisible(false);
             }
-            setVisible(false);
         },
-        [format, formatValue, onChange, props.valueFormat, setValue, valueFormat],
+        [format, formatValue, onChange, props.valueFormat, setValue, type, valueFormat],
     );
 
     useImperativeHandle(ref, () => ({
@@ -249,7 +286,6 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
                 onDestroy={() => setVisible(false)}
                 popperClass="is-pure"
                 transitionAppear
-                unmountOnExit
                 {...animationInputProps}
                 onEnter={() => {
                     props.onEnter?.();
@@ -259,7 +295,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
             >
                 <CalendarContext
                     value={{
-                        value: dateProp,
+                        value: type === 'dates' && values.length > 0 ? values[0] : dateProp,
                         values,
                         valueRange,
                         dateType: type,
@@ -271,6 +307,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
                         disabledDate: props.disabledDate,
                         shortcuts,
                         formatter,
+                        close: () => setVisible(false),
                     }}
                 >
                     <Calendar />

@@ -13,14 +13,15 @@ dayjs.extend(IsoWeek);
 dayjs.extend(IsBetween);
 
 type Props = {
-    value: Dayjs[];
+    value: Dayjs;
+    values: Dayjs[];
     className?: string;
     children?: React.ReactNode;
-    onPickDate: (dates: Dayjs[]) => void;
+    onPickDate: (date: Dayjs, dates: Dayjs[]) => void;
 };
 
 const DatesPanel = (props: Props) => {
-    const { value, onPickDate } = props;
+    const { value, values, onPickDate } = props;
     const { b, e, be } = useClassNames('date-table');
     const { value: valueProp, dateType, isoWeek, disabledDate, formatter } = use(CalendarContext);
 
@@ -28,14 +29,11 @@ const DatesPanel = (props: Props) => {
 
     // 当前日期
     const currentDate = useMemo(() => {
-        if (dateType === 'dates') {
-            if (value.length > 0) {
-                return value[0];
-            }
-            return initDate();
+        if (value.isValid()) {
+            return value;
         }
         return initDate();
-    }, [dateType, value]);
+    }, [value]);
 
     // 今天
     const today = useMemo(() => {
@@ -49,7 +47,7 @@ const DatesPanel = (props: Props) => {
                   t('el.datepicker.weeks.mon'),
                   t('el.datepicker.weeks.tue'),
                   t('el.datepicker.weeks.wed'),
-                  +t('el.datepicker.weeks.thu'),
+                  t('el.datepicker.weeks.thu'),
                   t('el.datepicker.weeks.fri'),
                   t('el.datepicker.weeks.sat'),
                   t('el.datepicker.weeks.sun'),
@@ -145,7 +143,7 @@ const DatesPanel = (props: Props) => {
                 }
                 // 日期范围时的样式
                 if (dateType === 'dates') {
-                    if (value.some(item => item.isSame(date, 'day'))) {
+                    if (values.some(item => item.isSame(date, 'day'))) {
                         classes.push('current');
                     }
                 } else {
@@ -158,7 +156,7 @@ const DatesPanel = (props: Props) => {
                 return disabled ? 'normal disabled' : `${type}-month`;
             }
         },
-        [getFormattedDate, today, dateType, value, valueProp],
+        [getFormattedDate, today, dateType, values, valueProp],
     );
 
     /**
@@ -171,13 +169,16 @@ const DatesPanel = (props: Props) => {
                 return;
             }
             const date = getFormattedDate(text, type);
-            if (value.some(item => item.isSame(date, 'date'))) {
-                onPickDate(value.filter(item => item.isSame(date, 'date') === false));
+            if (values.some(item => item.isSame(date, 'date'))) {
+                onPickDate(
+                    date,
+                    values.filter(item => item.isSame(date, 'date') === false),
+                );
             } else {
-                onPickDate?.([...value, date]);
+                onPickDate?.(date, [...values, date]);
             }
         },
-        [getFormattedDate, onPickDate, value],
+        [getFormattedDate, onPickDate, values],
     );
 
     return (

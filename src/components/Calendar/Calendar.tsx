@@ -53,8 +53,14 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
     const [values, setValues] = useState(valuesProp);
 
     useEffect(() => {
-        setValue(valueProp);
-    }, [valueProp]);
+        if (['dates'].includes(dateType)) {
+            if (valuesProp && valuesProp.length === 1) {
+                setValue(valueProp);
+            }
+        } else {
+            setValues(valuesProp);
+        }
+    }, [dateType, valueProp, valuesProp]);
 
     // 日期范围的默认日期
     const [valueRange, setValueRange] = useState<ValueRagne>(valueRangeProp);
@@ -265,9 +271,14 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
      * 选中日期后的回调
      * @param date
      */
-    const onPickDates = useCallback((dates: Dayjs[]) => {
-        setValues(dates);
-    }, []);
+    const onPickDates = useCallback(
+        (date: Dayjs, dates: Dayjs[]) => {
+            setValue(date);
+            setValues(dates);
+            onChange?.(date, { values: dates });
+        },
+        [onChange],
+    );
 
     /**
      * 选中范围日期后的回调
@@ -343,7 +354,7 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
                     {view === 'year' && <YearPanel value={defaultValue} onPickYear={onPickYear} />}
                     {view === 'month' && <MonthPanel value={defaultValue} onPickMonth={onPickMonth} />}
                     {view === 'date' && <DatePanel value={defaultValue} onPickDate={onPickDate} />}
-                    {view === 'dates' && <DatesPanel value={values} onPickDate={onPickDates} />}
+                    {view === 'dates' && <DatesPanel value={value} values={values} onPickDate={onPickDates} />}
                     {view === 'quarter' && <QuarterPanel value={defaultValue} onPickDate={onPickDate} />}
                     {view === 'week' && <WeekPanel value={defaultValue} valueRange={valueRange} onPickDate={onPickDate} onPickDateRange={onPickWeek} />}
                     {view === 'daterange' && (
