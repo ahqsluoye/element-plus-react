@@ -54,6 +54,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
                 case 'years':
                     return 'YYYY';
                 case 'month':
+                case 'months':
                     return 'YYYY-MM';
                 case 'week':
                     return 'YYYY[w]ww';

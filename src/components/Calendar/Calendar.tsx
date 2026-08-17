@@ -16,6 +16,7 @@ import Footer from './Footer';
 import Header from './Header';
 import MonthPanel from './MonthPanel';
 import MonthRangePanel from './MonthRangePanel';
+import MonthsPanel from './MonthsPanel';
 import QuarterPanel from './QuarterPanel';
 import ShortCuts from './ShortCuts';
 import WeekPanel from './WeekPanel';
@@ -354,7 +355,7 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
 
                     {view === 'year' && <YearPanel value={defaultValue} onPickYear={onPickYear} />}
                     {view === 'years' && <YearsPanel value={value} values={values} onPickDate={onPickDates} />}
-                    {view === 'months' && <MonthPanel value={defaultValue} onPickMonth={onPickMonth} />}
+                    {view === 'months' && <MonthsPanel value={value} values={values} onPickDate={onPickDates} />}
                     {view === 'month' && <MonthPanel value={defaultValue} onPickMonth={onPickMonth} />}
                     {view === 'date' && <DatePanel value={defaultValue} onPickDate={onPickDate} />}
                     {view === 'dates' && <DatesPanel value={value} values={values} onPickDate={onPickDates} />}
