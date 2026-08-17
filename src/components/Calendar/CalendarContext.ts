@@ -6,6 +6,7 @@ import { DateRangeType, DateType, Shortcuts } from './typings';
 export interface ChangeParams {
     month?: number;
     defaultTime?: boolean;
+    values?: Dayjs[];
 }
 
 export interface CalendarContextProps {
@@ -33,7 +34,7 @@ export interface CalendarContextProps {
     /** 关闭下拉框方法 */
     close?: () => void;
     /** 单选框提交数据方法 */
-    onChange?: (value: Dayjs, params?: ChangeParams) => void;
+    onChange?: (value: Dayjs | Dayjs[], params?: ChangeParams) => void;
     /** 日期范围框提交数据方法 */
     onChangeRange?: (value: Dayjs[], finish: boolean) => void;
     formatter?: (value: Dayjs, text: number) => React.ReactElement;

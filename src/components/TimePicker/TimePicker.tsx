@@ -73,7 +73,7 @@ const TimePicker = ({ ref, ...props }: TimePickerProps & { ref?: React.Ref<TimeP
     // const containerRef = useRef<HTMLInputElement>(null);
     const timeReferenceElement = useRef<HTMLInputElement>(null);
     const popperInstRef = useRef<PopperOptionRef>(null);
-    const initialValue = useRef<string | number | Date>('');
+    const initialValue = useRef<string | number | Date | number[] | string[] | Date[]>('');
     const timePanelRef = useRef<TimePanelRef>(null);
     const inputRef = useRef<InputRef>(null);
 

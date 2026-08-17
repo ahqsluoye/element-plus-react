@@ -3,6 +3,7 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import classNames from 'classnames';
 import dayjs, { Dayjs, ManipulateType } from 'dayjs';
+import 'dayjs/locale/zh-cn';
 import localeData from 'dayjs/plugin/localeData';
 import head from 'lodash/head';
 import last from 'lodash/last';
@@ -22,8 +23,6 @@ import YearPanel from './YearPanel';
 import YearRangePanel from './YearRangePanel';
 import { CalendarProps, DateRangeType, DateType, RangePosition, ValueRagne, ValueRagneTemp } from './typings';
 import { initDate } from './util';
-
-import 'dayjs/locale/zh-cn';
 
 dayjs.extend(localeData);
 
