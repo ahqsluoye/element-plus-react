@@ -9,7 +9,7 @@ import CalendarContext from './CalendarContext';
 
 const Footer: FC = () => {
     const { e } = useClassNames('picker-panel');
-    const { showToday, showNow, onChange, close, disabledDate } = use(CalendarContext);
+    const { showToday, showNow, showConfirm, onChange, close, disabledDate } = use(CalendarContext);
 
     const { locale } = useConfigProvider();
     const { t } = useTranslation();
@@ -41,10 +41,15 @@ const Footer: FC = () => {
                     </ElButton>
                 </>
             )}
+            {showConfirm && (
+                <ElButton type="default" size="small" className={e`link-btn`} onClick={close}>
+                    {t('el.datepicker.confirm', { lng: locale })}
+                </ElButton>
+            )}
         </div>
     );
 };
 
-Footer.displayName = 'Calendar.Footer';
+Footer.displayName = 'ElFooter';
 
 export default Footer;
