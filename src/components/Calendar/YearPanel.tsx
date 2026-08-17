@@ -171,6 +171,6 @@ const YearPanel: FC<YearPanelProps> = props => {
     );
 };
 
-YearPanel.displayName = 'Calendar.YearPanel';
+YearPanel.displayName = 'ElYearPanel';
 
 export default YearPanel;

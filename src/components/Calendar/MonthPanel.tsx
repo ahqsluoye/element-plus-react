@@ -176,6 +176,6 @@ const MonthPanel: FC<MonthPanelProps> = props => {
     );
 };
 
-MonthPanel.displayName = 'Calendar.MonthPanel';
+MonthPanel.displayName = 'ElMonthPanel';
 
 export default MonthPanel;

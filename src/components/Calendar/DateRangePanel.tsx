@@ -144,6 +144,6 @@ const DateRangePanel: FC<DateRangePanelProps> = props => {
     );
 };
 
-DateRangePanel.displayName = 'Calendar.DateRangePanel';
+DateRangePanel.displayName = 'ElDateRangePanel';
 
 export default DateRangePanel;

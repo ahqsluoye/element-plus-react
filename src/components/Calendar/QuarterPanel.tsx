@@ -113,6 +113,6 @@ const QuarterPanel: FC<WeekPanelProps> = props => {
     );
 };
 
-QuarterPanel.displayName = 'Calendar.QuarterPanel';
+QuarterPanel.displayName = 'ElQuarterPanel';
 
 export default QuarterPanel;

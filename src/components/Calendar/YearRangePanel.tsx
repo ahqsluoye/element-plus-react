@@ -158,6 +158,6 @@ const YearRangePanel: FC<DateRangePanelProps> = props => {
     );
 };
 
-YearRangePanel.displayName = 'Calendar.YearRangePanel';
+YearRangePanel.displayName = 'ElYearRangePanel';
 
 export default YearRangePanel;

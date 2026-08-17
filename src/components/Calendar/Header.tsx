@@ -74,6 +74,6 @@ const Header: FC<HeaderProps> = props => {
     );
 };
 
-Header.displayName = 'Calendar.Header';
+Header.displayName = 'ElHeader';
 
 export default Header;
