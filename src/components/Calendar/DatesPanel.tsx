@@ -141,22 +141,16 @@ const DatesPanel = (props: Props) => {
                 if (date.isSame(today, 'day')) {
                     classes.push('today');
                 }
-                // 日期范围时的样式
-                if (dateType === 'dates') {
-                    if (values.some(item => item.isSame(date, 'day'))) {
-                        classes.push('current');
-                    }
-                } else {
-                    if (valueProp && date.isSame(valueProp, 'day')) {
-                        classes.push('current');
-                    }
-                }
                 return classNames(...classes);
             } else {
-                return disabled ? 'normal disabled' : `${type}-month`;
+                const classes: string[] = [disabled ? 'normal disabled' : `${type}-month`];
+                if (values.some(item => item.isSame(date, 'day'))) {
+                    classes.push('current');
+                }
+                return classNames(...classes);
             }
         },
-        [getFormattedDate, today, dateType, values, valueProp],
+        [getFormattedDate, today, values],
     );
 
     /**

@@ -1,7 +1,7 @@
 import { BaseProps, ComponentChildren, NativeProps } from '@qsxy/element-plus-react/types/common';
 import { Dayjs } from 'dayjs';
 
-export type DateType = 'year' | 'month' | 'date' | 'dates' | 'week' | 'datetime' | 'datetimerange' | 'time' | 'quarter';
+export type DateType = 'year' | 'years' | 'months' | 'month' | 'date' | 'dates' | 'week' | 'datetime' | 'datetimerange' | 'time' | 'quarter';
 export type DateRangeType = 'daterange' | 'monthrange' | 'yearrange';
 export type RangePosition = 'left' | 'right';
 export type ValueRagne = Dayjs[];

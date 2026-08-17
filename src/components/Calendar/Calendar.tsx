@@ -21,6 +21,7 @@ import ShortCuts from './ShortCuts';
 import WeekPanel from './WeekPanel';
 import YearPanel from './YearPanel';
 import YearRangePanel from './YearRangePanel';
+import YearsPanel from './YearsPanel';
 import { CalendarProps, DateRangeType, DateType, RangePosition, ValueRagne, ValueRagneTemp } from './typings';
 import { initDate } from './util';
 
@@ -52,13 +53,14 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
     const [values, setValues] = useState(valuesProp);
 
     useEffect(() => {
-        if (['dates'].includes(dateType)) {
-            if (valuesProp && valuesProp.length === 1) {
+        if (['years', 'months', 'dates'].includes(dateType)) {
+            if (valuesProp && valuesProp.length < 1) {
                 setValue(valueProp);
             }
         } else {
-            setValues(valuesProp);
+            setValue(valueProp);
         }
+        setValues(valuesProp);
     }, [dateType, valueProp, valuesProp]);
 
     // 日期范围的默认日期
@@ -90,7 +92,7 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
 
     // 当前年份
     const currentYear = useMemo(() => {
-        if (view === 'year') {
+        if (view === 'year' || view === 'years') {
             const curYear: number = currentDate.year();
             const position: number = currentDate.year() % 10;
             return `${curYear - position} ${t('el.datepicker.year')} - ${curYear + (9 - position)} ${t('el.datepicker.year')}`;
@@ -101,7 +103,7 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
 
     // 是否要选择月份
     const hasMonth = useMemo(() => {
-        return !['year', 'quarter'].includes(dateType);
+        return !['years', 'year', 'quarter'].includes(dateType);
     }, [dateType]);
 
     // 当前面板是否是范围组件
@@ -113,7 +115,7 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
     const switchDate = useCallback(
         (duration: number, unit?: ManipulateType) => {
             let date: Dayjs;
-            if (view === 'year') {
+            if (view === 'year' || view === 'years') {
                 date = currentDate.add(duration * 10, 'y');
                 setValue(date);
             } else {
@@ -272,7 +274,7 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
      */
     const onPickDates = useCallback(
         (date: Dayjs, dates: Dayjs[]) => {
-            setValue(date);
+            // setValue(date);
             setValues(dates);
             onChange?.(date, { values: dates });
         },
@@ -341,7 +343,7 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
                             year={currentYear}
                             month={t(`el.datepicker.month${currentDate.month() + 1}`)}
                             showMonth={['date', 'dates', 'week'].includes(view)}
-                            border={['year', 'month', 'quarter'].includes(view)}
+                            border={['years', 'months', 'year', 'month', 'quarter'].includes(view)}
                             onToggleView={onToggleView}
                             onMoveBackward={() => switchDate(-1, 'M')}
                             onMoveForward={() => switchDate(1, 'M')}
@@ -351,6 +353,8 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
                     )}
 
                     {view === 'year' && <YearPanel value={defaultValue} onPickYear={onPickYear} />}
+                    {view === 'years' && <YearsPanel value={value} values={values} onPickDate={onPickDates} />}
+                    {view === 'months' && <MonthPanel value={defaultValue} onPickMonth={onPickMonth} />}
                     {view === 'month' && <MonthPanel value={defaultValue} onPickMonth={onPickMonth} />}
                     {view === 'date' && <DatePanel value={defaultValue} onPickDate={onPickDate} />}
                     {view === 'dates' && <DatesPanel value={value} values={values} onPickDate={onPickDates} />}

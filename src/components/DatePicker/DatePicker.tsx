@@ -51,6 +51,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
         } else {
             switch (type) {
                 case 'year':
+                case 'years':
                     return 'YYYY';
                 case 'month':
                     return 'YYYY-MM';
@@ -65,7 +66,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
     }, [props.format, type]);
 
     const formatValue = useMemo<string>(() => {
-        if (type === 'dates') {
+        if (['years', 'months', 'dates'].includes(type)) {
             if (Array.isArray(value)) {
                 return value
                     .map(item => {
@@ -105,6 +106,10 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
                     return t('el.datepicker.placeholder.week');
                 case 'quarter':
                     return t('el.datepicker.placeholder.quarter');
+                case 'years':
+                    return t('el.datepicker.placeholder.years');
+                case 'months':
+                    return t('el.datepicker.placeholder.months');
                 case 'dates':
                     return t('el.datepicker.placeholder.dates');
                 default:
@@ -141,7 +146,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
                 } else if (typeof value === 'string') {
                     result = currentDate.current = toDayjs<Dayjs>(value, props.valueFormat ?? format);
                 }
-            } else if (type !== 'dates') {
+            } else if (!['years', 'months', 'dates'].includes(type)) {
                 if (value instanceof Date) {
                     result = dayjs(value);
                 } else if (typeof value === 'number') {
@@ -159,7 +164,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
     }, [format, props.valueFormat, type, value]);
 
     useEffect(() => {
-        if (isNotEmpty(value) && type !== 'dates') {
+        if (isNotEmpty(value) && !['years', 'months', 'dates'].includes(type)) {
             setValue(dateProp.format(format));
             // inputRef.current.setValue(dateProp.format(format));
         }
@@ -196,7 +201,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
     const handleChange = useCallback(
         (val: Dayjs, params?: ChangeParams) => {
             currentDate.current = val;
-            if (type === 'dates' && Array.isArray(params?.values)) {
+            if (['years', 'months', 'dates'].includes(type) && Array.isArray(params?.values)) {
                 setValue(params.values.map(item => item.format(format)));
 
                 if (valueFormat == 'x') {
@@ -230,6 +235,12 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
         [format, formatValue, onChange, props.valueFormat, setValue, type, valueFormat],
     );
 
+    const handleClear = useCallback(() => {
+        setValue('');
+        onChange?.(['years', 'months', 'dates'].includes(type) ? '' : '', formatValue);
+        setVisible(false);
+    }, [setValue, onChange, type, formatValue]);
+
     useImperativeHandle(ref, () => ({
         input: inputRef,
         focus: () => inputRef.current.focus(),
@@ -253,7 +264,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
                 onClick={onActive}
                 value={formatValue}
                 onChange={noop}
-                onClear={() => handleChange?.(null)}
+                onClear={handleClear}
                 className={classNames({ [`${namespace}-date`]: readonly, 'is-focus': visible })}
                 style={props.style}
                 prepend={prepend}
@@ -295,13 +306,13 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
             >
                 <CalendarContext
                     value={{
-                        value: type === 'dates' && values.length > 0 ? values[0] : dateProp,
+                        value: ['years', 'months', 'dates'].includes(type) && values.length > 0 ? values[0] : dateProp,
                         values,
                         valueRange,
                         dateType: type,
                         isoWeek: props.isoWeek,
                         showToday: props.showToday,
-                        showConfirm: type === 'dates',
+                        showConfirm: ['years', 'months', 'dates'].includes(type),
                         popperInstRef,
                         onChange: handleChange,
                         disabledDate: props.disabledDate,

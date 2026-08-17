@@ -88,6 +88,8 @@ export default {
                 quarter: 'Pick a quarter',
                 date: 'Pick a day',
                 dates: 'Pick one or more dates',
+                years: 'Pick one or more years',
+                months: 'Pick one or more months',
             },
         },
         input: {
