@@ -61,7 +61,7 @@ const DocLayout: FC = memo(() => {
                 {showSidebar && <Sidebar />}
 
                 {'hero' in fm ? null : (
-                    <ElConfigProvider locale="zh-cn">
+                    <ElConfigProvider locale="en">
                         <Main />
                     </ElConfigProvider>
                 )}
