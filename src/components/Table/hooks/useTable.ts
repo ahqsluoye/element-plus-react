@@ -1,6 +1,6 @@
 import { isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import useChildrenInstance from '@qsxy/element-plus-react/hooks/useChildrenInstance';
-import { useDebounceFn } from 'ahooks';
+import { useDebounceFn, useMount, useUnmount } from 'ahooks';
 import cloneDeep from 'lodash/cloneDeep';
 import React, { Children, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { flatTreeData } from '../treeUtil';
@@ -45,7 +45,6 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
         } else {
             setData(props?.data ? [...props.data] : []);
         }
-         
     }, [props?.data]);
 
     // 多级列
@@ -99,8 +98,8 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
                     isColumnGroup: children.length > 0,
                     isSubColumn: children.length === 0,
                     renderCell,
-                    width: ['index', 'selection', 'expand'].includes(item.props?.type) ? item.props?.width ?? 48 : item.props?.width,
-                    align: ['index', 'selection', 'expand'].includes(item.props?.type) ? item.props?.align ?? 'center' : item.props?.align ?? 'left',
+                    width: ['index', 'selection', 'expand'].includes(item.props?.type) ? (item.props?.width ?? 48) : item.props?.width,
+                    align: ['index', 'selection', 'expand'].includes(item.props?.type) ? (item.props?.align ?? 'center') : (item.props?.align ?? 'left'),
                     resizable: item.props?.type === 'expand' ? false : props?.border && item.props?.resizable !== false,
                 };
                 return column;
@@ -409,7 +408,13 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
         },
     );
 
-    window.addEventListener('resize', run);
+    useMount(() => {
+        window.addEventListener('resize', run);
+    });
+
+    useUnmount(() => {
+        window.removeEventListener('resize', run);
+    });
 
     useEffect(() => {
         if (refs.tableWrapper.current?.clientWidth === 0) {
@@ -424,12 +429,10 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
         setIsGroup(flatColumns.current.length > 1);
         flatColumns.current = [];
         // requestAnimationFrame(scheduleLayout);
-         
     }, [props.children]);
 
     useEffect(() => {
         scheduleLayout();
-         
     }, [columns]);
 
     const treeExpandCell = useMemo(() => {
