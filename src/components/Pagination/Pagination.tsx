@@ -289,7 +289,7 @@ const Pagination = ({ ref, ...props }: PaginationProps & { ref?: React.Ref<Pagin
                 </span>
             ) : (
                 <span key="total" className={classNames(e`total`, b`item`)}>
-                    {t('el.pagination.total')}
+                    {t('el.pagination.total', { total })}
                 </span>
             ),
         [b, current, e, pageSize, showTotal, t, total],
