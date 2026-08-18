@@ -56,7 +56,7 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
 
     useEffect(() => {
         if (['years', 'months', 'dates', 'quarters'].includes(dateType)) {
-            if (valuesProp && valuesProp.length < 1) {
+            if (valuesProp && valuesProp.length <= 1) {
                 setValue(valueProp);
             }
         } else {
