@@ -27,7 +27,6 @@ const TimePicker = ({ ref, ...props }: TimePickerProps & { ref?: React.Ref<TimeP
             disabledMinutes: () => [],
             disabledSeconds: () => [],
             readonly: true,
-            isoWeek: true,
             clearable: true,
             placeholder: '',
         },

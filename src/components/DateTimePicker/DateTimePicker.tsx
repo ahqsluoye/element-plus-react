@@ -3,7 +3,7 @@ import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animatio
 import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
 import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import { useDisabled, useIsoWeek, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElInput from '@qsxy/element-plus-react/Input/Input';
@@ -26,7 +26,6 @@ const DateTimePicker = memo(({ ref, ...props }: DateTimePickerProps & { ref?: Re
         {
             format: 'YYYY-MM-DD HH:mm:ss',
             readonly: true,
-            isoWeek: true,
             clearable: true,
             placeholder: '',
         },
@@ -58,6 +57,7 @@ const DateTimePicker = memo(({ ref, ...props }: DateTimePickerProps & { ref?: Re
 
     const disabled = useDisabled(props.disabled);
     const size = useSize(props.size);
+    const isoWeek = useIsoWeek(props.isoWeek);
 
     const timePickerRef = useRef<InputRef>(null);
     const timePanelRef = useRef<TimePanelRef>(null);
@@ -212,7 +212,7 @@ const DateTimePicker = memo(({ ref, ...props }: DateTimePickerProps & { ref?: Re
                     value={{
                         value: dateProp,
                         dateType: 'date',
-                        isoWeek: props.isoWeek,
+                        isoWeek,
                         showNow: true,
                         popperInstRef,
                         onChange: handleChange,

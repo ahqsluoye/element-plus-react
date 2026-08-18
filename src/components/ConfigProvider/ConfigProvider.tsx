@@ -31,6 +31,9 @@ const ConfigProvider = (props: ConfigProviderProps) => {
                 grouping: undefined,
                 offset: undefined,
             },
+            datePicker: {
+                isoWeek: undefined,
+            },
         },
         props,
     );

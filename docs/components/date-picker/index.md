@@ -23,6 +23,12 @@ lang: zh-CN
 
 <code src="./other-measurements.tsx"></code>
 
+## ISO标准周数
+
+国际标准化组织ISO 8601对周数的计算有明确定义：每周从周一开始，周日结束；每年的第一周必须包含该年至少4天。设置 `isoWeek` 为 `true` 即可开启ISO标准周数。默认情况下，日期选择器会展示非ISO标准周数。
+
+<code src="./iso-week.tsx"></code>
+
 ## 选择一段时间
 
 你可以通过如下例子来学习如何设置一个日期范围选择器。

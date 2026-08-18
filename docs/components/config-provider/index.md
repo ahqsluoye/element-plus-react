@@ -37,6 +37,10 @@ Config Provider 被用来提供全局的配置选项，让你的配置能够在�
 
 <code src="./message.tsx"></code>
 
+## 对日期选择器进行配置
+
+<code src="./date-picker.tsx"></code>
+
 <!-- ## 空值配置
 
 <details open>

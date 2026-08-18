@@ -30,7 +30,6 @@ const TimePickerRange = memo(({ ref, ...props }: TimePickerRangeProps & { ref?: 
             disabledHours: () => [],
             disabledMinutes: () => [],
             disabledSeconds: () => [],
-            isoWeek: true,
             clearable: true,
             startPlaceholder: t('el.datepicker.startTime'),
             endPlaceholder: t('el.datepicker.endTime'),

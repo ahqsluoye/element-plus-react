@@ -1,5 +1,6 @@
 import { ButtonProps } from '@qsxy/element-plus-react/Button/typings';
 import { CardProps } from '@qsxy/element-plus-react/Card/typings';
+import { DatePickerProps } from '@qsxy/element-plus-react/DatePicker/typings';
 import { TextareaProps } from '@qsxy/element-plus-react/Input/typings';
 import { InputNumberProps } from '@qsxy/element-plus-react/InputNumber/typings';
 import { LinkProps } from '@qsxy/element-plus-react/Link/typings';
@@ -26,6 +27,8 @@ export interface ConfigProviderProps extends BaseProps {
         appendTo?: HTMLElement;
     };
     locale?: 'en' | 'zh-cn';
+    /** 对日期选择器进行配置 */
+    datePicker?: Pick<DatePickerProps, 'isoWeek'>;
 }
 
 export type ConfigProviderContextProps = Omit<ConfigProviderProps, 'locale'> & {

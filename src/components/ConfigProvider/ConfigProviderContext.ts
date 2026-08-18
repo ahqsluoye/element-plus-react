@@ -34,6 +34,9 @@ const ConfigProviderContext = createContext<ConfigProviderContextProps>({
         grouping: undefined,
         offset: undefined,
     },
+    datePicker: {
+        isoWeek: undefined,
+    },
 });
 
 export const useConfigProvider = () => use(ConfigProviderContext);

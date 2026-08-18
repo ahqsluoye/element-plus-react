@@ -39,3 +39,9 @@ export const useAutosize = (fallback?: TextareaProps['autosize'] | (() => Textar
     const { textarea: globalAutosize } = useConfigProvider();
     return useMemo(() => (isNull(autosize) || isUndefined(autosize) ? globalAutosize?.autosize || false : autosize), [autosize, globalAutosize?.autosize]);
 };
+
+export const useIsoWeek = (fallback?: boolean | (() => boolean)) => {
+    const isoWeek = fallback instanceof Function ? fallback() : fallback;
+    const { datePicker: { isoWeek: globalIsoWeek } = {} } = useConfigProvider();
+    return useMemo(() => (isNull(isoWeek) || isUndefined(isoWeek) ? globalIsoWeek || false : isoWeek), [isoWeek, globalIsoWeek]);
+};

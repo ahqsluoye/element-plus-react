@@ -1,6 +1,6 @@
 import { Calendar, CalendarContext, ValueRagne, initDateRange, toDayjs } from '@qsxy/element-plus-react/Calendar';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
-import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import { useDisabled, useIsoWeek, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
@@ -22,7 +22,6 @@ const DateRangePicker = memo(({ ref, ...props }: DatePickerRangeProps & { ref?: 
         name: ['', ''],
         type: 'daterange',
         readOnly: false,
-        isoWeek: true,
         clearable: true,
         unlinkPanels: false,
         rangeSeparator: '-',
@@ -41,6 +40,7 @@ const DateRangePicker = memo(({ ref, ...props }: DatePickerRangeProps & { ref?: 
 
     const disabled = useDisabled(props.disabled);
     const size = useSize(props.size);
+    const isoWeek = useIsoWeek(props.isoWeek);
 
     const { t } = useLocale();
 
@@ -294,7 +294,7 @@ const DateRangePicker = memo(({ ref, ...props }: DatePickerRangeProps & { ref?: 
                         initialValue: formatValue,
                         valueRange: dateProp,
                         dateType: props.type,
-                        isoWeek: props.isoWeek,
+                        isoWeek,
                         unlinkPanels: props.unlinkPanels,
                         popperInstRef,
                         onChangeRange,

@@ -3,7 +3,7 @@ import { partitionAnimationProps } from '@qsxy/element-plus-react/hooks/animatio
 import { partitionHTMLProps } from '@qsxy/element-plus-react/hooks/htmlPropsUtils';
 import { partitionPopperPropsUtils } from '@qsxy/element-plus-react/hooks/popperPropsUtils';
 import { namespace } from '@qsxy/element-plus-react/hooks/prefix';
-import { useDisabled, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
+import { useDisabled, useIsoWeek, useSize } from '@qsxy/element-plus-react/hooks/useCommonProps';
 import useControlled from '@qsxy/element-plus-react/hooks/useControlled';
 import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
@@ -27,8 +27,9 @@ dayjs.extend(weekOfYear);
 dayjs.extend(quarterOfYear);
 
 const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<DatePickerRef | null> }) => {
-    props = mergeDefaultProps({ readonly: true, clearable: true, type: 'date', isoWeek: true }, props);
-    const { name, readonly, clearable, required, valueFormat, plain, onClick, prepend, append, shortcuts, onChange, formatter, type, isoWeek, ...rest } = props;
+    props = mergeDefaultProps({ readonly: true, clearable: true, type: 'date' }, props);
+    const { name, readonly, clearable, required, valueFormat, plain, onClick, prepend, append, shortcuts, onChange, formatter, type, ...rest } = props;
+
     const [value, setValue] = useControlled(props.value, props.defaultValue);
     const [visible, setVisible] = useState(false);
     const popperInstRef = useRef<PopperOptionRef>(null);
@@ -38,6 +39,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
 
     const disabled = useDisabled(props.disabled);
     const size = useSize(props.size);
+    const isoWeek = useIsoWeek(props.isoWeek);
 
     const { t } = useLocale();
 
@@ -175,8 +177,15 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
     }, [format, props.valueFormat, type, value]);
 
     useEffect(() => {
-        if (isNotEmpty(value) && !['years', 'months', 'dates', 'quarters'].includes(type)) {
-            setValue(dateProp.format(format));
+        if (isNotEmpty(value) && !['years', 'months', 'dates'].includes(type)) {
+            if (type === 'quarters' && Array.isArray(value)) {
+                currentDatesRef.current = value.map(formatValueToDayjs).map(item => {
+                    const quarter = item.quarter();
+                    return item.month((quarter - 1) * 3).date(1);
+                });
+            } else {
+                setValue(dateProp.format(format));
+            }
             // inputRef.current.setValue(dateProp.format(format));
         }
     }, []);
@@ -188,7 +197,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
             : ([null, null] as ValueRagne);
     }, [dateProp, isoWeek, value]);
 
-    const values = useMemo(() => {
+    const values = useCallback(() => {
         if (type === 'quarters') {
             return currentDatesRef.current;
         }
@@ -323,11 +332,11 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
             >
                 <CalendarContext
                     value={{
-                        value: ['years', 'months', 'dates', 'quarters'].includes(type) && values.length > 0 ? values[0] : dateProp,
-                        values,
+                        value: ['years', 'months', 'dates', 'quarters'].includes(type) && values().length > 0 ? values()[0] : dateProp,
+                        values: values(),
                         valueRange,
                         dateType: type,
-                        isoWeek: props.isoWeek,
+                        isoWeek,
                         showToday: props.showToday,
                         showConfirm: ['years', 'months', 'dates', 'quarters'].includes(type),
                         popperInstRef,
