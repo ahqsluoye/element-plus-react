@@ -216,9 +216,22 @@ const WeekPanel: FC<WeekPanelProps> = props => {
             if (disabled) {
                 return;
             }
-            const date = getFormattedDate(text, type);
+            let date = getFormattedDate(text, type);
+            const weekYear = isoWeek ? date.isoWeekYear() : date.weekYear();
+            console.log(weekYear, date.isoWeekYear(), date.week(), date.isoWeek(), date.format('YYYY-MM-DD'));
+            const range = [isoWeek ? date.isoWeekday(1) : date.day(0), isoWeek ? date.isoWeekday(7) : date.day(6)];
+            console.log([
+                isoWeek ? date.isoWeekday(1).format('YYYY-MM-DD') : date.day(0).format('YYYY-MM-DD'),
+                isoWeek ? date.isoWeekday(7).format('YYYY-MM-DD') : date.day(6).format('YYYY-MM-DD'),
+            ]);
+            range.forEach(item => {
+                if (item.year() === weekYear) {
+                    date = item;
+                }
+            });
+            // console.log(weekYear, date.format('YYYY-MM-DD'));
             onPickDate?.(date);
-            onPickDateRange?.([isoWeek ? date.isoWeekday(1) : date.isoWeekday(0), isoWeek ? date.isoWeekday(7) : date.isoWeekday(6)]);
+            onPickDateRange?.(range);
         },
         [getFormattedDate, isoWeek, onPickDate, onPickDateRange],
     );

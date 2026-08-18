@@ -47,6 +47,12 @@ export default {
             month10: '10 月',
             month11: '11 月',
             month12: '12 月',
+            week: '周',
+            format: {
+                isoWeek: 'YYYY-W[周]',
+                week: 'YYYY-w[周]',
+                quarter: 'YYYY-Q季度',
+            },
             weeks: {
                 sun: '日',
                 mon: '一',
@@ -79,7 +85,7 @@ export default {
                 nov: '十一月',
                 dec: '十二月',
             },
-            quarter: '第{quarter}季度',
+            quarter: '{quarter}季度',
             placeholder: {
                 year: '请选择年份',
                 month: '请选择月份',

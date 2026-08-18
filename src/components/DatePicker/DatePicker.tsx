@@ -16,7 +16,9 @@ import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import quarterOfYear from 'dayjs/plugin/quarterOfYear';
+import weekday from 'dayjs/plugin/weekday';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
+import weekYear from 'dayjs/plugin/weekYear';
 import noop from 'lodash/noop';
 import omit from 'lodash/omit';
 import React, { memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
@@ -24,7 +26,46 @@ import { DatePickerProps, DatePickerRef } from './typings';
 
 dayjs.extend(advancedFormat);
 dayjs.extend(weekOfYear);
+dayjs.extend(weekYear);
+dayjs.extend(weekday);
 dayjs.extend(quarterOfYear);
+
+dayjs.extend((o, c, d) => {
+    const proto = c.prototype;
+    const oldWeek = proto.week;
+
+    proto.weekYear = function () {
+        const date = d(this);
+        // 当前日期所在周的周日（一周的开始）
+        const weekStart = date.startOf('day').subtract(date.day(), 'day');
+        // 当前日期所在周的周六（一周的结束）
+        const weekEnd = weekStart.add(6, 'day');
+        const weekStartYear = weekStart.year();
+        const weekEndYear = weekEnd.year();
+        // 确定周数所属的年份：
+        // 如果1月1日大于周三，属于上一年的最后一周
+        // 如果1月1日小于等于周三，属于当年第一周
+        const year = d(weekEndYear + '-01-01').weekday() > 3 ? weekStartYear : weekEndYear;
+        return year;
+    };
+
+    proto.week = function f(week = null) {
+        if (week !== null) {
+            return oldWeek.bind(this)(week);
+        }
+        const date = d(this);
+        // 当前日期所在周的周日（一周的开始）
+        const weekStart = date.startOf('day').subtract(date.day(), 'day');
+        // 当前日期所在周的周六（一周的结束）
+        const _weekYear = this.weekYear();
+        const yearStart = d(_weekYear + '-01-01');
+        const dayOfWeek = d(yearStart).weekday();
+        const firstWeekStart = dayOfWeek <= 3 ? yearStart.subtract(dayOfWeek, 'day') : yearStart.add(7 - dayOfWeek, 'day');
+        // 计算当前日期所在周距离第一周的周数
+        const diffDays = weekStart.startOf('day').diff(firstWeekStart.startOf('day'), 'day');
+        return Math.floor(diffDays / 7) + 1;
+    };
+});
 
 const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<DatePickerRef | null> }) => {
     props = mergeDefaultProps({ readonly: true, clearable: true, type: 'date' }, props);
@@ -60,15 +101,15 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
                 case 'months':
                     return 'YYYY-MM';
                 case 'week':
-                    return 'YYYY[w]ww';
+                    return isoWeek ? t('el.datepicker.format.isoWeek') : t('el.datepicker.format.week');
                 case 'quarter':
                 case 'quarters':
-                    return 'YYYY-[Q]Q';
+                    return t('el.datepicker.format.quarter');
                 default:
                     return 'YYYY-MM-DD';
             }
         }
-    }, [props.format, type]);
+    }, [isoWeek, props.format, t, type]);
 
     const getFormattedDate = useCallback(
         (date: string | number | string[] | number[] | Date | Date[]) => {
@@ -146,7 +187,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
     );
 
     /** 日期参数转成dayjs对象 */
-    const dateProp = useMemo(() => {
+    const dateProp = useCallback(() => {
         let result = initDate();
         if (isNotEmpty(value)) {
             if (type === 'week' || type === 'quarter') {
@@ -172,9 +213,21 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
                 const quarter = result.quarter();
                 result = result.month((quarter - 1) * 3).date(1);
             }
+            // 处理周类型(跨年份周)
+            if (type === 'week' && !Array.isArray(result)) {
+                const _weekYear = isoWeek ? result.isoWeekYear() : result.weekYear();
+                // console.log('_weekYear', _weekYear);
+                const range = [isoWeek ? result.isoWeekday(1) : result.day(0), isoWeek ? result.isoWeekday(7) : result.day(6)];
+                range.forEach(item => {
+                    if (item.year() === _weekYear) {
+                        result = item;
+                    }
+                });
+                // console.log('result', result.format('YYYY-MM-DD'));
+            }
         }
         return result;
-    }, [format, props.valueFormat, type, value]);
+    }, [format, isoWeek, props.valueFormat, type, value]);
 
     useEffect(() => {
         if (isNotEmpty(value) && !['years', 'months', 'dates'].includes(type)) {
@@ -184,7 +237,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
                     return item.month((quarter - 1) * 3).date(1);
                 });
             } else {
-                setValue(dateProp.format(format));
+                setValue(dateProp().format(format));
             }
             // inputRef.current.setValue(dateProp.format(format));
         }
@@ -192,9 +245,8 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
 
     /** 日期参数转成dayjs对象 */
     const valueRange = useMemo(() => {
-        return isNotEmpty(value)
-            ? ([isoWeek ? dateProp.isoWeekday(1) : dateProp.isoWeekday(0), isoWeek ? dateProp.isoWeekday(7) : dateProp.isoWeekday(6)] as ValueRagne)
-            : ([null, null] as ValueRagne);
+        const date = dateProp();
+        return isNotEmpty(value) ? ([isoWeek ? date.isoWeekday(1) : date.day(0), isoWeek ? date.isoWeekday(7) : date.day(6)] as ValueRagne) : ([null, null] as ValueRagne);
     }, [dateProp, isoWeek, value]);
 
     const values = useCallback(() => {
@@ -332,7 +384,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
             >
                 <CalendarContext
                     value={{
-                        value: ['years', 'months', 'dates', 'quarters'].includes(type) && values().length > 0 ? values()[0] : dateProp,
+                        value: ['years', 'months', 'dates', 'quarters'].includes(type) && values().length > 0 ? values()[0] : dateProp(),
                         values: values(),
                         valueRange,
                         dateType: type,

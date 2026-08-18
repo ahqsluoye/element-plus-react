@@ -48,6 +48,11 @@ export default {
             month11: 'November',
             month12: 'December',
             week: 'week',
+            format: {
+                isoWeek: 'YYYY-[week]WW',
+                week: 'YYYY-[week]ww',
+                quarter: 'YYYY-[Q]Q',
+            },
             weeks: {
                 sun: 'Sun',
                 mon: 'Mon',

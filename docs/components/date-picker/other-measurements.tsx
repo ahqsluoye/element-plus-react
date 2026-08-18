@@ -9,7 +9,7 @@ const App = () => {
                 <div className="container">
                     <div className="block">
                         <span className="demonstration">Week</span>
-                        <ElDatePicker type="week" format="[Week] ww" isoWeek defaultValue="2024-5-30" style={{ width: 200 }} onChange={console.log} />
+                        <ElDatePicker type="week" style={{ width: 200 }} onChange={console.log} />
                     </div>
                     <div className="block">
                         <span className="demonstration">Dates</span>
@@ -43,7 +43,7 @@ const App = () => {
                     </div>
                     <div className="block">
                         <span className="demonstration">Quarters</span>
-                        <ElDatePicker type="quarters" style={{ width: 200 }} onChange={console.log} />
+                        <ElDatePicker type="quarters" defaultValue={[new Date('2025-6-6')]} style={{ width: 200 }} onChange={console.log} />
                     </div>
                 </div>
             </div>
