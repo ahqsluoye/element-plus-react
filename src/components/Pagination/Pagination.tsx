@@ -284,11 +284,11 @@ const Pagination = ({ ref, ...props }: PaginationProps & { ref?: React.Ref<Pagin
     const totalText = useMemo(
         () =>
             typeof showTotal === 'function' ? (
-                <span className={classNames(e`total`, b`item`)}>
+                <span key="total" className={classNames(e`total`, b`item`)}>
                     {showTotal(total, [total === 0 ? 0 : (current - 1) * pageSize + 1, current * pageSize > total ? total : current * pageSize])}
                 </span>
             ) : (
-                <span className={classNames(e`total`, b`item`)}>
+                <span key="total" className={classNames(e`total`, b`item`)}>
                     {t('el.pagination.total')}
                 </span>
             ),
@@ -378,6 +378,7 @@ const Pagination = ({ ref, ...props }: PaginationProps & { ref?: React.Ref<Pagin
     const sizes = useCallback(
         (type: 'sizes' | 'jumper') => (
             <Options
+                key={type}
                 disabled={disabled}
                 rootPrefixCls={classPrefix}
                 changeSize={changePageSize}
