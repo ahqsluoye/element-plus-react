@@ -1,3 +1,22 @@
+## v2.0.6
+
+2026-08-19
+
+### Bug fixes
+
+- **DatePicker** 修复周类型选择器跨年份周问题，确保周选择器在跨年份周时，能够正确显示年份和周数
+
+### Features
+
+- **DatePicker** 新增多日期选择功能，type属性新增 'years','months', 'dates', 'quarters'
+- **DatePicker** 完善周/季度选择器的国际化与功能逻辑
+- **DatePicker** 新增`showWeekNumber`配置项用于控制是否显示周数
+- **config-provider** 新增全局配置日期选择器isoWeek属性，默认值为false
+
+### Refactor
+
+- **index** 补充导出base工具类新增的类型判断工具、公共工具函数，以及Math工具类的浮点运算函数
+
 ## v2.0.5
 
 2026-08-03
