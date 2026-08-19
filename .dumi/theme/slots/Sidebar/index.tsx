@@ -19,8 +19,12 @@ const Sidebar = memo(({ ref, ...props }: SidebarProps & { ref?: React.RefObject<
     const fullsidebar = useFullSidebarData();
     const [active, setActive] = useState(location.pathname);
     const path = useMemo(() => {
-        return Object.keys(fullsidebar).find(key => location.pathname.startsWith(key)) || '/';
-    }, [location.pathname]);
+        return (
+            Object.keys(fullsidebar)
+                .filter(key => key.split('/').filter(Boolean).length <= (location.pathname.startsWith('/en-US/') ? 2 : 1))
+                .find(key => location.pathname.startsWith(key)) || '/'
+        );
+    }, [fullsidebar, location.pathname]);
 
     const handleScrollIntoView = (isLayer = false) => {
         const node = document.querySelector(`${isLayer ? '.mobile-sidebar-drawer ' : ''}[href="${location.pathname}"]`);

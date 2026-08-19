@@ -107,7 +107,7 @@ const Home = () => {
     //     speed: -10,
     // });
     // console.log(parallax);
-    if (!('hero' in frontmatter)) {
+    if (frontmatter?.toc === 'menu') {
         return null;
     }
 

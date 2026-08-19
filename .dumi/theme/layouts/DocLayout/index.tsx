@@ -5,8 +5,8 @@ import Sidebar, { SidebarRef } from '@/theme/slots/Sidebar';
 import { ElConfigProvider, ElDrawer } from '@qsxy/element-plus-react';
 import '@theme-chalk/dark/css-vars.scss';
 import '@theme-chalk/dev.scss';
-import { Helmet, useIntl, useRouteMeta, useSidebarData } from 'dumi';
-import React, { FC, memo, useRef, useState } from 'react';
+import { Helmet, useIntl, useLocation, useRouteMeta, useSidebarData } from 'dumi';
+import React, { FC, memo, useMemo, useRef, useState } from 'react';
 import './style';
 
 const DocLayout: FC = memo(() => {
@@ -15,9 +15,12 @@ const DocLayout: FC = memo(() => {
     const sidebar = useSidebarData();
     const [drawerVisible, setDrawerVisible] = useState(false);
     const { frontmatter: fm } = useRouteMeta();
+    const location = useLocation();
 
     const showSidebar = fm.sidebar !== false && sidebar?.length > 0;
     const sidebarRef = useRef<SidebarRef>(null);
+
+    const isEnglish = useMemo(() => location.pathname.startsWith('/en-US/'), [location.pathname]);
 
     const handleMenuClick = () => {
         setDrawerVisible(true);
@@ -61,7 +64,7 @@ const DocLayout: FC = memo(() => {
                 {showSidebar && <Sidebar />}
 
                 {'hero' in fm ? null : (
-                    <ElConfigProvider locale="en">
+                    <ElConfigProvider locale={isEnglish ? 'en' : 'zh-cn'}>
                         <Main />
                     </ElConfigProvider>
                 )}

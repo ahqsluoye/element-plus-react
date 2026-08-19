@@ -1,0 +1,230 @@
+---
+title: Select 选择器
+lang: zh-CN
+---
+
+<Meta></Meta>
+
+# Select 选择器
+
+当选项过多时，使用下拉菜单展示并选择内容。
+
+## 基础用法
+
+适用广泛的基础单选 `value` 的值为当前被选中的 `ElOption` 的 value 属性值
+
+<code src="./basic-usage.tsx"></code>
+
+## Options 属性
+
+`ElOptionn` 基本用法。 您可以通过 `props` 属性自定义 `options` 的别名。
+
+<code src="./options.tsx"></code>
+
+## data 属性
+
+如果 `Select` 选中后需要获取额外的数据时，请使用 `data` 属性可以传入自定义数据，数据类型不限，可以是 `Object`，可以是 `Boolean`，或者 `String`，在选中的选项后，`onChange` 回调函数会返回该数据。
+
+<code src="./data.tsx"></code>
+
+## 有禁用选项
+
+在 `ElOption` 中，设定 `disabled` 值为 true，即可禁用该选项
+
+<code src="./disabled-option.tsx"></code>
+
+## 禁用状态
+
+禁用整个选择器组件
+
+为 `ElSelect` 设置 `disabled`属性，则整个选择器不可用。
+
+<code src="./disabled.tsx"></code>
+
+## 可清空单选
+
+您可以使用清除图标来清除选择。
+
+为 `ElSelect` 设置 `clearable` 属性，则可将选择器清空。 需要注意的是，`clearable` 属性仅适用于单选。
+
+<code src="./clearable.tsx"></code>
+
+## 基础多选
+
+多选选择器使用 tag 组件来展示已选中的选项。
+
+为 `ElSelect` 设置 `multiple` 属性即可启用多选， 此时 `value` 的值为当前选中值所组成的数组。 默认情况下选中值会以 Tag 组件的形式展现， 你也可以设置 `collapseTags` 属性将它们合并为一段文字。 您可以使用 `collapseTagsTooltip` 属性来启用鼠标悬停折叠文字以显示具体所选值的行为。
+
+<code src="./multiple.tsx"></code>
+
+## 自定义模板
+
+你可以自定义如何来渲染每一个选项。
+
+将自定义的 HTML 模板用 `ElOption` 包裹即可。
+
+<code src="./custom-template.tsx"></code>
+
+## 自定义下拉菜单的头部
+
+您可以自定义下拉菜单的头部。
+
+<code src="./custom-header.tsx"></code>
+
+## 自定义下拉菜单的底部
+
+您可以自定义下拉菜单的底部。
+
+<code src="./custom-footer.tsx"></code>
+
+## 将选项进行分组
+
+你可以为选项进行分组来区分不同的选项
+
+使用 `ElOptionGroup` 对备选项进行分组，它的 `label` 属性为分组名
+
+<code src="./grouping.tsx"></code>
+
+## 筛选选项
+
+可以利用筛选功能快速查找选项。
+
+为 `ElSelect` 添加 `filterable` 属性即可启用搜索功能。 默认情况下，Select 会找出所有 `label` 属性包含输入值的选项。 如果希望使用其他的搜索逻辑，可以通过传入一个 `filterMethod` 来实现。 `filterMethod` 为一个 Function，它会在输入值发生变化时调用，参数为当前输入值。
+
+<code src="./filterable.tsx"></code>
+
+## 远程搜索
+
+输入关键字以从远程服务器中查找数据。
+
+从服务器搜索数据，输入关键字进行查找。为了启用远程搜索，需要将`filterable`和`remote`设置为`true`，同时传入一个`remoteMethod`。 `remoteMethod`为一个`Function`，它会在输入值发生变化时调用，参数为当前输入值。
+
+<code src="./remote-search.tsx"></code>
+
+## 创建新的选项
+
+创建并选中未包含在初始选项中的条目。
+
+通过使用 `allowCreate` 属性，用户可以通过输入框创建新项目。为了使 `allowCreate` 正常工作， `filterable` 的值必须为 `true`。
+
+ <!-- 本例还使用了 `default-first-option` 属性， 在该属性为 `true` 的情况下，按下回车就可以选中当前选项列表中的第一个选项，无需使用鼠标或键盘方向键进行定位。 -->
+
+<code src="./allow-create.tsx"></code>
+
+## 自定义标签
+
+您可以自定义标签。
+
+通过使用 `tag` 属性，可以自定义的标签内容。 `collapseTags`, `collapseTagsTooltip`, `maxCollapseTags` 在此模式下不生效.
+
+<code src="./custom-tag.tsx"></code>
+
+## 自定义加载
+
+修改加载区域内容
+
+<code src="./custom-loading.tsx"></code>
+
+## 自定义标签
+
+您可以自定义标签
+
+<code src="./custom-label.tsx"></code>
+
+## Select API
+
+### Select 属性
+
+| 属性名              | 说明                                                                                                   | 类型                                                                                                                        | Default                                                                                                             |
+| ------------------- | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| value               | 选中项绑定值                                                                                           | `string` / `number` / `boolean` / `array`                                                                                   | —                                                                                                                   |
+| options             | 选项的数据源， `value` 的 key 和 `label` 和 ` disabled`可以通过 `props`自定义.                         | <Enum type="array">Array<{[key: string]: any}></Enum>                                                                       | —                                                                                                                   |
+| props               | options 的配置                                                                                         | <Enum type="object">{ value?: string; label?: string; disabled?: string; options?: string; data?: string }</Enum>           | <Enum type="object">{value: 'value', label: 'label', disabled: 'disabled', data: 'data', options: 'options'}</Enum> |
+| multiple            | 是否多选                                                                                               | `boolean`                                                                                                                   | false                                                                                                               |
+| disabled            | 是否禁用                                                                                               | `boolean`                                                                                                                   | false                                                                                                               |
+| size                | 输入框尺寸                                                                                             | <Enum>'large' \| 'default' \| 'small'</Enum>                                                                                | —                                                                                                                   |
+| clearable           | 是否可以清空选项                                                                                       | `boolean`                                                                                                                   | false                                                                                                               |
+| collapseTags        | 多选时是否将选中值按文字的形式展示                                                                     | `boolean`                                                                                                                   | false                                                                                                               |
+| collapseTagsTooltip | 当鼠标悬停于折叠标签的文本时，是否显示所有选中的标签。 要使用此属性，`collapseTags`属性必须设定为 true | `boolean`                                                                                                                   | false                                                                                                               |
+| maxCollapseTags     | 需要显示的 Tag 的最大数量 只有当 `collapseTags` 设置为 true 时才会生效。                               | `number`                                                                                                                    | 1                                                                                                                   |
+| collapseTips        | 鼠标悬停于折叠标签的文本格式化函数， 要使用此属性，collapseTags 属性必须设定为 true                    | <Enum type='Function'>(collapseNum: number, total: number) => string</Enum>                                                 | —                                                                                                                   |
+| placeholder         | 占位符                                                                                                 | `string`                                                                                                                    | —                                                                                                                   |
+| filterable          | Select 组件是否可筛选                                                                                  | `boolean`                                                                                                                   | false                                                                                                               |
+| filterMethod        | 自定义筛选方法                                                                                         | <Enum type='Function'>(searchText: string) => void</Enum>                                                                   | —                                                                                                                   |
+| allowCreate         | 是否允许用户创建新条目， 只有当 `filterable` 设置为 true 时才会生效。                                  | `boolean`                                                                                                                   | false                                                                                                               |
+| remote              | 其中的选项是否从服务器远程加载                                                                         | `boolean`                                                                                                                   | false                                                                                                               |
+| remoteMethod        | 自定义远程搜索方法                                                                                     | <Enum type='Function'>(searchText: string) => void</Enum>                                                                   | —                                                                                                                   |
+| remoteShowSuffix    | 远程搜索方法显示后缀图标                                                                               | `boolean`                                                                                                                   | —                                                                                                                   |
+| loading             | 是否正在从远程获取数据                                                                                 | `boolean`                                                                                                                   | false                                                                                                               |
+| loadingText         | 从服务器加载数据时显示的文本                                                                           | `string`                                                                                                                    | —                                                                                                                   |
+| loadingIcon         | 远程加载时显示的图标                                                                                   | `ReactElement`                                                                                                              | —                                                                                                                   |
+| noMatchText         | 搜索条件无匹配时显示的文字                                                                             | `string`                                                                                                                    | —                                                                                                                   |
+| noDataText          | 无选项时显示的文字                                                                                     | `string`                                                                                                                    | —                                                                                                                   |
+| showArrow           | 下拉菜单的内容是否有箭头                                                                               | `boolean`                                                                                                                   | true                                                                                                                |
+| plain               | 是否纯文本模式，即无边框                                                                               | `boolean`                                                                                                                   | —                                                                                                                   |
+| prepend             | 输入框前置内容                                                                                         | `string` / `Component`                                                                                                      | —                                                                                                                   |
+| append              | 输入框后置内容                                                                                         | `string` / `Component`                                                                                                      | —                                                                                                                   |
+| tagType             | 标签类型                                                                                               | <Enum>'success' \| 'info' \| 'warning' \| 'danger'</Enum>                                                                   | info                                                                                                                |
+| tagEffect           | 标签效果                                                                                               | <Enum>'light' \| 'dark' \| 'plain'</Enum>                                                                                   | light                                                                                                               |
+| labelFormat         | 标签格式化函数                                                                                         | <Enum type='Function'>(index: number, value: OptionValue, label?: OptionValue) => ReactElement</Enum>                       | —                                                                                                                   |
+| header              | 下拉列表顶部的内容                                                                                     | `ReactElement`                                                                                                              | —                                                                                                                   |
+| footer              | 下拉列表底部的内容                                                                                     | `ReactElement`                                                                                                              | —                                                                                                                   |
+| tag                 | 自定义标签内容                                                                                         | <Enum type='Function'>(params: { data: OptionData[]; selectDisabled: boolean; deleteTag: Function }) => ReactElement</Enum> | —                                                                                                                   |
+| unmountOnExit       | 是否在退出时卸载组件                                                                                   | `boolean`                                                                                                                   | —                                                                                                                   |
+| suffixIcon          | 自定义后缀图标组件                                                                                     | `IconName`                                                                                                                  | —                                                                                                                   |
+| maxWidth            | 下拉项最大宽度                                                                                         | `number`                                                                                                                    | —                                                                                                                   |
+
+<!-- 以下属性在当前类型定义中未找到 -->
+<!--
+| valueKey            | 作为 value 唯一标识的键名，绑定值为对象类型时必填                                                      | `string`                                                                                                                    | —                                                                                                                   |
+| clearIcon           | 自定义清除图标                                                                                         | `IconName`                                                                                                                  | —                                                                                                                   |
+| max                 | 是否显示最大数量限制                                                                                   | `boolean`                                                                                                                   | —                                                                                                                   |
+| required            | 是否必填                                                                                               | `boolean`                                                                                                                   | —                                                                                                                   |
+| appendToBody        | 是否追加到 body 下                                                                                     | `boolean`                                                                                                                   | —                                                                                                                   |
+| automaticDropdown   | 对于不可搜索的 Select，是否在输入框获得焦点后自动弹出选项菜单                                          | `boolean`                                                                                                                   | —                                                                                                                   |
+| name                | Select 输入框的原生 name 属性                                                                          | `string`                                                                                                          | —                                                                                                                   |
+| effect              | tooltip 主题，内置了 `dark` / `light` 两种                                                             | <Enum>'dark' \| 'light'</Enum> / `string`                                                                         | light                                                                                                               |
+| offset              | 下拉面板偏移量                                                                                         | `number`                                                                                                          | 12                                                                                                                  |
+| popperClass         | 选择器下拉菜单的自定义类名                                                                             | `string`                                                                                                          | ''                                                                                                                  |
+| fitInputWidth       | 下拉框的宽度是否与输入框相同                                                                           | `boolean`                                                       | false       |
+| reserveKeyword      | 当 `multiple` 和 `filterable`被设置为 true 时，是否在选中一个选项后保留当前的搜索关键词                | `boolean`                                                       | true        |
+| multipleLimit       | `multiple` 属性设置为 `true` 时，代表多选场景下用户最多可以选择的项目数， 为 0 则不限制                | `number`                                                        | 0           |
+-->
+
+### Props
+
+| Attribute | 说明                                       | Type     | Default  |
+| --------- | ------------------------------------------ | -------- | -------- |
+| value     | 指定选项的值为选项对象的某个属性值         | `string` | value    |
+| label     | 指定节点标签为节点对象的某个属性值         | `string` | label    |
+| options   | 指定选项的子选项为选项对象的某个属性值     | `string` | options  |
+| disabled  | 指定选项的禁用为选项对象的某个属性值       | `string` | disabled |
+| data      | 指定选项的自定义数据为选项对象的某个属性值 | `string` | data     |
+
+### Select 事件
+
+| 事件名          | 说明                                     | Type                                                    |
+| --------------- | ---------------------------------------- | ------------------------------------------------------- |
+| onChange        | 选中值发生变化时触发                     | <Enum type="Function">(value: any) => void</Enum>       |
+| onVisibleChange | 下拉框出现/隐藏时触发                    | <Enum type="Function">(visible: boolean) => void</Enum> |
+| onRemoveTag     | 多选模式下移除 tag 时触发                | <Enum type="Function">(tagValue: any) => void</Enum>    |
+| onClear         | 可清空的单选模式下用户点击清空按钮时触发 | <Enum type="Function">() => void</Enum>                 |
+
+## Option Group API
+
+### Option Group 属性
+
+| 属性名   | 说明                           | 类型      | 可选值 | 默认值 |
+| -------- | ------------------------------ | --------- | ------ | ------ |
+| label    | 分组的组名                     | `string`  | —      | —      |
+| disabled | 是否将该分组下所有选项置为禁用 | `boolean` | —      | false  |
+
+## Option API
+
+### Option 属性
+
+| 属性名   | 说明                                    | 类型                | 可选值 | 默认值 |
+| -------- | --------------------------------------- | ------------------- | ------ | ------ |
+| value    | 选项的值                                | `string` / `number` | —      | —      |
+| label    | 选项的标签，若不设置则默认与`value`相同 | `string` / `number` | —      | —      |
+| disabled | 是否禁用该选项                          | `boolean`           | —      | false  |
