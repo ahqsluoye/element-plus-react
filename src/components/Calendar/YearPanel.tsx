@@ -10,7 +10,7 @@ import { initDate } from './util';
 const YearPanel: FC<YearPanelProps> = props => {
     const { value, valueRange, onPickYear } = props;
     const { e, b } = useClassNames('picker-panel');
-    const { value: valueProp, dateType, disabledDate } = use(CalendarContext);
+    const { value: valueProp, dateType, disabledDate, formatter } = use(CalendarContext);
 
     // 当前日期
     const currentDate = useMemo(() => {
@@ -156,9 +156,13 @@ const YearPanel: FC<YearPanelProps> = props => {
                                 {rows.slice(i * 4, (i + 1) * 4).map(cell => {
                                     return (
                                         <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickYear(cell)} onMouseEnter={() => onHoverDate(cell)}>
-                                            <div>
-                                                <a className="cell">{cell.text}</a>
-                                            </div>
+                                            {formatter ? (
+                                                formatter(currentDate.year(cell.text), cell.text)
+                                            ) : (
+                                                <div>
+                                                    <a className="cell">{cell.text}</a>
+                                                </div>
+                                            )}
                                         </td>
                                     );
                                 })}

@@ -18,7 +18,7 @@ type Props = {
 const MonthsPanel = (props: Props) => {
     const { value, values, onPickDate } = props;
     const { e, b } = useClassNames('picker-panel');
-    const { value: valueProp, dateType, disabledDate } = use(CalendarContext);
+    const { value: valueProp, dateType, disabledDate, formatter } = use(CalendarContext);
 
     const { t } = useLocale();
 
@@ -100,10 +100,14 @@ const MonthsPanel = (props: Props) => {
                             <tr key={i}>
                                 {rows.slice(i * 4, (i + 1) * 4).map(cell => {
                                     return (
-                                        <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickMonth(cell)}>
-                                            <div>
-                                                <a className="cell">{t('el.datepicker.months.' + monthsI18n[cell.text])}</a>
-                                            </div>
+                                        <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickMonth(cell)} onMouseEnter={() => onHoverDate(cell)}>
+                                            {formatter ? (
+                                                formatter(currentDate.month(cell.text), cell.text)
+                                            ) : (
+                                                <div>
+                                                    <a className="cell">{t('el.datepicker.months.' + monthsI18n[cell.text])}</a>
+                                                </div>
+                                            )}
                                         </td>
                                     );
                                 })}

@@ -15,7 +15,7 @@ dayjs.extend(IsBetween);
 const WeekPanel: FC<WeekPanelProps> = props => {
     const { value, valueRange, onPickDate, onPickDateRange } = props;
     const { b, e, be } = useClassNames('date-table');
-    const { value: valueProp, dateType, isoWeek, disabledDate, formatter } = use(CalendarContext);
+    const { value: valueProp, dateType, isoWeek, showWeekNumber, disabledDate, formatter } = use(CalendarContext);
 
     const { t } = useLocale();
 
@@ -66,26 +66,24 @@ const WeekPanel: FC<WeekPanelProps> = props => {
 
     // 周数
     const WEEK_DAYS = useMemo(() => {
-        return isoWeek
-            ? [
-                  t('el.datepicker.weeks.mon'),
-                  t('el.datepicker.weeks.tue'),
-                  t('el.datepicker.weeks.wed'),
-                  t('el.datepicker.weeks.thu'),
-                  t('el.datepicker.weeks.fri'),
-                  t('el.datepicker.weeks.sat'),
-                  t('el.datepicker.weeks.sun'),
-              ]
-            : [
-                  t('el.datepicker.weeks.sun'),
-                  t('el.datepicker.weeks.mon'),
-                  t('el.datepicker.weeks.tue'),
-                  t('el.datepicker.weeks.wed'),
-                  t('el.datepicker.weeks.thu'),
-                  t('el.datepicker.weeks.fri'),
-                  t('el.datepicker.weeks.sat'),
-              ];
-    }, [isoWeek, t]);
+        const days = [
+            t('el.datepicker.weeks.mon'),
+            t('el.datepicker.weeks.tue'),
+            t('el.datepicker.weeks.wed'),
+            t('el.datepicker.weeks.thu'),
+            t('el.datepicker.weeks.fri'),
+            t('el.datepicker.weeks.sat'),
+        ];
+        if (isoWeek) {
+            days.push(t('el.datepicker.weeks.sun'));
+        } else {
+            days.unshift(t('el.datepicker.weeks.sun'));
+        }
+        if (showWeekNumber) {
+            days.unshift('');
+        }
+        return days;
+    }, [isoWeek, showWeekNumber, t]);
 
     const rows: Cell[] = useMemo(() => {
         const TOTAL_DAYS = 7 * 6;
@@ -218,18 +216,12 @@ const WeekPanel: FC<WeekPanelProps> = props => {
             }
             let date = getFormattedDate(text, type);
             const weekYear = isoWeek ? date.isoWeekYear() : date.weekYear();
-            console.log(weekYear, date.isoWeekYear(), date.week(), date.isoWeek(), date.format('YYYY-MM-DD'));
             const range = [isoWeek ? date.isoWeekday(1) : date.day(0), isoWeek ? date.isoWeekday(7) : date.day(6)];
-            console.log([
-                isoWeek ? date.isoWeekday(1).format('YYYY-MM-DD') : date.day(0).format('YYYY-MM-DD'),
-                isoWeek ? date.isoWeekday(7).format('YYYY-MM-DD') : date.day(6).format('YYYY-MM-DD'),
-            ]);
             range.forEach(item => {
                 if (item.year() === weekYear) {
                     date = item;
                 }
             });
-            // console.log(weekYear, date.format('YYYY-MM-DD'));
             onPickDate?.(date);
             onPickDateRange?.(range);
         },
@@ -239,7 +231,7 @@ const WeekPanel: FC<WeekPanelProps> = props => {
     return (
         <div className={classNames(be('picker-panel', 'content', false), props.className)}>
             {props.children}
-            <table cellSpacing="0" cellPadding="0" className={classNames(b(), 'is-week-mode')}>
+            <table cellSpacing="0" cellPadding="0" className={classNames(b(), 'is-week-mode', showWeekNumber ? 'show-week-number' : 'normal-mode')}>
                 <tbody>
                     <tr>
                         {WEEK_DAYS.map(item => {
@@ -249,6 +241,17 @@ const WeekPanel: FC<WeekPanelProps> = props => {
                     {new Array(6).fill('').map((row, i) => {
                         return (
                             <tr key={i} className={e('row')}>
+                                {showWeekNumber && (
+                                    <td className="week">
+                                        <div /* className={b('cell')} */>
+                                            <span className={be('cell', 'text')}>
+                                                {isoWeek
+                                                    ? getFormattedDate(rows[i * 7].text, rows[i * 7].type).isoWeek()
+                                                    : getFormattedDate(rows[i * 7].text, rows[i * 7].type).week()}
+                                            </span>
+                                        </div>
+                                    </td>
+                                )}
                                 {rows.slice(i * 7, (i + 1) * 7).map(cell => {
                                     return (
                                         <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickDate(cell)} onMouseEnter={() => onHoverDate(cell)}>
