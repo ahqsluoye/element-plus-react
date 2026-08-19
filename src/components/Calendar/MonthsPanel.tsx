@@ -100,7 +100,7 @@ const MonthsPanel = (props: Props) => {
                             <tr key={i}>
                                 {rows.slice(i * 4, (i + 1) * 4).map(cell => {
                                     return (
-                                        <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickMonth(cell)} onMouseEnter={() => onHoverDate(cell)}>
+                                        <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickMonth(cell)}>
                                             {formatter ? (
                                                 formatter(currentDate.month(cell.text), cell.text)
                                             ) : (

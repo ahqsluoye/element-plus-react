@@ -103,7 +103,7 @@ const YearsPanel = (props: Props) => {
                             <tr key={i}>
                                 {rows.slice(i * 4, (i + 1) * 4).map(cell => {
                                     return (
-                                        <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickYear(cell)} onMouseEnter={() => onHoverDate(cell)}>
+                                        <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickYear(cell)}>
                                             {formatter ? (
                                                 formatter(currentDate.year(cell.text), cell.text)
                                             ) : (
