@@ -10,7 +10,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@latest
               with:
                   # 如果配置 themeConfig.lastUpdated 为 false，则不需要添加该参数以加快检出速度
                   fetch-depth: 0
