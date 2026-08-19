@@ -1,9 +1,9 @@
 name: github pages
 
-on:
-    push:
-        branches:
-            - doc # default branch
+# on:
+#     push:
+#         branches:
+#             - doc # default branch
 
 jobs:
     deploy:
