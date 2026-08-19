@@ -49,6 +49,8 @@ export interface DatePickerProps
     valueFormat?: string;
     /** 设置ISO周数，其中1为星期一，7为星期日 */
     isoWeek?: boolean;
+    /** 是否显示周数 */
+    showWeekNumber?: boolean;
     /** 输入框前置内容，只对 type="text" 有效 */
     prepend?: React.ReactElement<any> | string | number;
     /** 输入框后置内容，只对 type="text" 有效 */
@@ -95,6 +97,8 @@ export interface DatePickerRangeProps extends Omit<FormControlBaseProps, 'name' 
     rangeSeparator?: string;
     /** 在范围选择器里取消两个日期面板之间的联动 */
     unlinkPanels?: boolean;
+    /** 是否显示周数 */
+    showWeekNumber?: boolean;
     /** 设置ISO周数，其中1为星期一，7为星期日 */
     isoWeek?: boolean;
     prepend?: React.ReactElement<any> | string | number;
@@ -160,6 +164,8 @@ export interface AllDatePickerProps
     /** 是否纯文本模式，即无边框 */
     plain?: boolean;
     size?: TypeAttributes.Size;
+    /** 是否显示周数 */
+    showWeekNumber?: boolean;
     /** 一个用来判断该日期是否被禁用的函数，接受一个 Date 对象作为参数。 应该返回一个 Boolean 值。 */
     disabledDate?: (time: Date) => boolean;
     shortcuts?: Shortcuts[];

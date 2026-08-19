@@ -25,9 +25,10 @@ const DateRangePicker = memo(({ ref, ...props }: DatePickerRangeProps & { ref?: 
         clearable: true,
         unlinkPanels: false,
         rangeSeparator: '-',
+        showWeekNumber: false,
         ...props,
     };
-    const { name, clearable, valueFormat, type, classPrefix = 'range', prepend, append, onChange, formatter } = props;
+    const { name, clearable, valueFormat, type, classPrefix = 'range', prepend, append, onChange, formatter, showWeekNumber } = props;
     const [value, setValue] = useControlled(props.value, props.defaultValue);
     const { b, e, be, bm, ebm, is } = useClassNames(classPrefix);
     const [visible, setVisible] = useState(false);
@@ -300,6 +301,7 @@ const DateRangePicker = memo(({ ref, ...props }: DatePickerRangeProps & { ref?: 
                         onChangeRange,
                         disabledDate: props.disabledDate,
                         formatter,
+                        showWeekNumber,
                     }}
                 >
                     <Calendar />

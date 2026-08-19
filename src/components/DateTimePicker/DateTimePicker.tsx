@@ -28,6 +28,7 @@ const DateTimePicker = memo(({ ref, ...props }: DateTimePickerProps & { ref?: Re
             readonly: true,
             clearable: true,
             placeholder: '',
+            showWeekNumber: false,
         },
         props,
     );
@@ -47,6 +48,7 @@ const DateTimePicker = memo(({ ref, ...props }: DateTimePickerProps & { ref?: Re
         formatter,
         onClear,
         onVisibleChange,
+        showWeekNumber,
         ...rest
     } = props;
     const { b, e, is } = useClassNames(classPrefix);
@@ -227,6 +229,7 @@ const DateTimePicker = memo(({ ref, ...props }: DateTimePickerProps & { ref?: Re
                         },
                         shortcuts,
                         formatter,
+                        showWeekNumber,
                     }}
                 >
                     <Calendar hasTime>

@@ -24,6 +24,8 @@ export interface CalendarContextProps {
     showConfirm?: boolean;
     /** 设置ISO周数，其中1为星期一，7为星期日 */
     isoWeek?: boolean;
+    /** 是否展示周数 */
+    showWeekNumber?: boolean;
     /** 在范围选择器里取消两个日期面板之间的联动 */
     unlinkPanels?: boolean;
     popperInstRef?: RefObject<PopperOptionRef>;
@@ -48,6 +50,7 @@ const CalendarContext = createContext<CalendarContextProps>({
     showNow: false,
     showConfirm: false,
     isoWeek: true,
+    showWeekNumber: true,
     unlinkPanels: false,
     popperInstRef: null,
     onChange: null,

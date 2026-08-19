@@ -16,7 +16,7 @@ dayjs.extend(IsBetween);
 const DatePanel = props => {
     const { value, valueRange, onPickDate } = props;
     const { b, e, be } = useClassNames('date-table');
-    const { value: valueProp, dateType, isoWeek, disabledDate, formatter } = use(CalendarContext);
+    const { value: valueProp, dateType, isoWeek, disabledDate, formatter, showWeekNumber } = use(CalendarContext);
 
     const { t } = useLocale();
 
@@ -71,26 +71,24 @@ const DatePanel = props => {
 
     // 周数
     const WEEK_DAYS = useMemo(() => {
-        return isoWeek
-            ? [
-                  t('el.datepicker.weeks.mon'),
-                  t('el.datepicker.weeks.tue'),
-                  t('el.datepicker.weeks.wed'),
-                  t('el.datepicker.weeks.thu'),
-                  t('el.datepicker.weeks.fri'),
-                  t('el.datepicker.weeks.sat'),
-                  t('el.datepicker.weeks.sun'),
-              ]
-            : [
-                  t('el.datepicker.weeks.sun'),
-                  t('el.datepicker.weeks.mon'),
-                  t('el.datepicker.weeks.tue'),
-                  t('el.datepicker.weeks.wed'),
-                  t('el.datepicker.weeks.thu'),
-                  t('el.datepicker.weeks.fri'),
-                  t('el.datepicker.weeks.sat'),
-              ];
-    }, [isoWeek, t]);
+        const days = [
+            t('el.datepicker.weeks.mon'),
+            t('el.datepicker.weeks.tue'),
+            t('el.datepicker.weeks.wed'),
+            t('el.datepicker.weeks.thu'),
+            t('el.datepicker.weeks.fri'),
+            t('el.datepicker.weeks.sat'),
+        ];
+        if (isoWeek) {
+            days.push(t('el.datepicker.weeks.sun'));
+        } else {
+            days.unshift(t('el.datepicker.weeks.sun'));
+        }
+        if (showWeekNumber) {
+            days.unshift('');
+        }
+        return days;
+    }, [isoWeek, showWeekNumber, t]);
 
     const rows: Cell[] = useMemo(() => {
         const TOTAL_DAYS = 7 * 6;
@@ -230,7 +228,7 @@ const DatePanel = props => {
     return (
         <div className={classNames(be('picker-panel', 'content', false), props.className)}>
             {props.children}
-            <table cellSpacing="0" cellPadding="0" className={b()}>
+            <table cellSpacing="0" cellPadding="0" className={classNames(b(), showWeekNumber ? 'show-week-number' : 'normal-mode')}>
                 <tbody>
                     <tr>
                         {WEEK_DAYS.map(item => {
@@ -240,6 +238,17 @@ const DatePanel = props => {
                     {new Array(6).fill('').map((row, i) => {
                         return (
                             <tr key={i} className={e('row')}>
+                                {showWeekNumber && (
+                                    <td className="week">
+                                        <div /* className={b('cell')} */>
+                                            <span className={be('cell', 'text')}>
+                                                {isoWeek
+                                                    ? getFormattedDate(rows[i * 7].text, rows[i * 7].type).isoWeek()
+                                                    : getFormattedDate(rows[i * 7].text, rows[i * 7].type).week()}
+                                            </span>
+                                        </div>
+                                    </td>
+                                )}
                                 {rows.slice(i * 7, (i + 1) * 7).map(cell => {
                                     return (
                                         <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickDate(cell)} onMouseEnter={() => onHoverDate(cell)}>

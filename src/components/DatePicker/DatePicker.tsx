@@ -68,8 +68,8 @@ dayjs.extend((o, c, d) => {
 });
 
 const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<DatePickerRef | null> }) => {
-    props = mergeDefaultProps({ readonly: true, clearable: true, type: 'date' }, props);
-    const { name, readonly, clearable, required, valueFormat, plain, onClick, prepend, append, shortcuts, onChange, formatter, type, ...rest } = props;
+    props = mergeDefaultProps({ readonly: true, clearable: true, type: 'date', showWeekNumber: false }, props);
+    const { name, readonly, clearable, required, valueFormat, plain, onClick, prepend, append, shortcuts, onChange, formatter, type, showWeekNumber, ...rest } = props;
 
     const [value, setValue] = useControlled(props.value, props.defaultValue);
     const [visible, setVisible] = useState(false);
@@ -216,14 +216,12 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
             // 处理周类型(跨年份周)
             if (type === 'week' && !Array.isArray(result)) {
                 const _weekYear = isoWeek ? result.isoWeekYear() : result.weekYear();
-                // console.log('_weekYear', _weekYear);
                 const range = [isoWeek ? result.isoWeekday(1) : result.day(0), isoWeek ? result.isoWeekday(7) : result.day(6)];
                 range.forEach(item => {
                     if (item.year() === _weekYear) {
                         result = item;
                     }
                 });
-                // console.log('result', result.format('YYYY-MM-DD'));
             }
         }
         return result;
@@ -396,6 +394,7 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
                         disabledDate: props.disabledDate,
                         shortcuts,
                         formatter,
+                        showWeekNumber,
                         close: () => setVisible(false),
                     }}
                 >
