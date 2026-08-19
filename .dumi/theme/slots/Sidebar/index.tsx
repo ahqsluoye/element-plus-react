@@ -18,7 +18,9 @@ const Sidebar = memo(({ ref, ...props }: SidebarProps & { ref?: React.RefObject<
     const location = useLocation();
     const fullsidebar = useFullSidebarData();
     const [active, setActive] = useState(location.pathname);
-    const path = useMemo(() => '/' + location.pathname.split('/').filter(item => !!item)[0], [location.pathname]);
+    const path = useMemo(() => {
+        return Object.keys(fullsidebar).find(key => location.pathname.startsWith(key)) || '/';
+    }, [location.pathname]);
 
     const handleScrollIntoView = (isLayer = false) => {
         const node = document.querySelector(`${isLayer ? '.mobile-sidebar-drawer ' : ''}[href="${location.pathname}"]`);

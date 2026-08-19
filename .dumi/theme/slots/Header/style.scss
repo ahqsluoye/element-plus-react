@@ -37,7 +37,9 @@
 .theme-toggler-content {
     background-color: var(--bg-color);
     color: var(--text-color);
-    transition: border-color var(--el-transition-duration), background-color var(--el-transition-duration-fast);
+    transition:
+        border-color var(--el-transition-duration),
+        background-color var(--el-transition-duration-fast);
     background-color: transparent;
     display: none;
     border-radius: 50%;
@@ -82,6 +84,21 @@
 
     .github-icon {
         font-size: 20px;
+    }
+}
+
+.local-link {
+    height: 24px;
+    padding: 0 12px;
+    line-height: 40px;
+    cursor: pointer;
+
+    a {
+        color: var(--el-text-color-primary);
+    }
+
+    .el-icon {
+        font-size: 24px;
     }
 }
 

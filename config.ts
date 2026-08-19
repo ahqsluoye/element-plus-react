@@ -2,19 +2,17 @@ import { IThemeConfig } from 'dumi/dist/client/theme-api/types';
 
 export const NAV: IThemeConfig['nav'] = {
     'zh-CN': [
-        { title: '指南', link: '/guide/installation', activePath: '/guide/installation' },
+        { title: '指南', link: '/guide/installation' },
         {
             title: '组件',
             link: '/components/overview',
-            activePath: '/components/overview',
         },
     ],
     'en-US': [
-        { title: 'guide', link: '/en/guide' },
+        { title: 'Guide', link: '/en-US/guide/installation' },
         {
-            title: 'components',
-            link: '/en/components/overview',
-            activePath: '/components/overview',
+            title: 'Component',
+            link: '/en-US/components/overview',
         },
     ],
 };
@@ -33,6 +31,22 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
             children: [
                 { link: '/guide/i18n', title: '国际化' },
                 { link: '/guide/theming', title: '主题' },
+            ],
+        },
+    ],
+    '/en-US/guide': [
+        {
+            title: 'Basic',
+            children: [
+                { link: '/en-US/guide/installation', title: 'Installation' },
+                { link: '/en-US/guide/quickstart', title: 'Quick Start' },
+            ],
+        },
+        {
+            title: 'Advanced',
+            children: [
+                { link: '/en-US/guide/i18n', title: 'il8n' },
+                { link: '/en-US/guide/theming', title: 'Theming' },
             ],
         },
     ],
@@ -136,6 +150,109 @@ export const SIDEBAR: IThemeConfig['sidebar'] = {
             children: [
                 { link: '/components/divider', title: 'Divider 分割线' },
                 { link: '/components/watermark', title: 'Watermark 水印', version: '2.0.0' },
+            ],
+        },
+    ],
+    '/en-US/components': [
+        {
+            title: 'Overview',
+            children: [{ link: '/en-US/components/overview', title: 'Overview' }],
+        },
+        {
+            title: 'Basic',
+            children: [
+                { link: '/en-US/components/button', title: 'Button' },
+                { link: '/en-US/components/container', title: 'Container' },
+                { link: '/en-US/components/icon', title: 'Icon' },
+                { link: '/en-US/components/icon-list', title: 'IconList' },
+                { link: '/en-US/components/layout', title: 'Layout' },
+                { link: '/en-US/components/link', title: 'Link' },
+                { link: '/en-US/components/text', title: 'Text' },
+                { link: '/en-US/components/scrollbar', title: 'Scrollbar' },
+                { link: '/en-US/components/space', title: 'Space' },
+            ],
+        },
+        {
+            title: 'Config Provide',
+            children: [{ link: '/en-US/components/config-provider', title: 'Config Provider' }],
+        },
+        {
+            title: 'Form',
+            children: [
+                { link: '/en-US/components/cascader', title: 'Cascader' },
+                { link: '/en-US/components/checkbox', title: 'Checkbox' },
+                { link: '/en-US/components/color-picker', title: 'ColorPicker' },
+                { link: '/en-US/components/date-picker', title: 'DatePicker' },
+                { link: '/en-US/components/date-time-picker', title: 'DateTimePicker' },
+                { link: '/en-US/components/form', title: 'Form' },
+                { link: '/en-US/components/input', title: 'Input' },
+                { link: '/en-US/components/input-number', title: 'InputNumber' },
+                { link: '/en-US/components/radio', title: 'Radio' },
+                { link: '/en-US/components/select', title: 'Select' },
+                { link: '/en-US/components/slider', title: 'Slider' },
+                { link: '/en-US/components/switch', title: 'Switch' },
+                { link: '/en-US/components/time-picker', title: 'TimePicker' },
+                { link: '/en-US/components/transfer', title: 'Transfer' },
+                { link: '/en-US/components/tree-select', title: 'TreeSelect' },
+                { link: '/en-US/components/upload', title: 'Upload' },
+            ],
+        },
+        {
+            title: 'Data',
+            children: [
+                { link: '/en-US/components/avatar', title: 'Avatar' },
+                { link: '/en-US/components/badge', title: 'Badge' },
+                { link: '/en-US/components/card', title: 'Card' },
+                { link: '/en-US/components/carousel', title: 'Carousel' },
+                { link: '/en-US/components/collapse', title: 'Collapse' },
+                { link: '/en-US/components/descriptions', title: 'Descriptions' },
+                { link: '/en-US/components/pagination', title: 'Pagination' },
+                { link: '/en-US/components/progress', title: 'Progress' },
+                { link: '/en-US/components/skeleton', title: 'Skeleton' },
+                { link: '/en-US/components/table', title: 'Table' },
+                { link: '/en-US/components/table-v2', title: 'Virtualized Table', version: '2.0.0' },
+                { link: '/en-US/components/tag', title: 'Tag' },
+                { link: '/en-US/components/time-line', title: 'Timeline' },
+                { link: '/en-US/components/tour', title: 'Tour', version: '2.0.0' },
+                { link: '/en-US/components/tree', title: 'Tree' },
+                { link: '/en-US/components/statistic', title: 'Statistic' },
+                { link: '/en-US/components/segmented', title: 'Segmented', version: '2.0.0' },
+            ],
+        },
+        {
+            title: 'Navigation',
+            children: [
+                { link: '/en-US/components/affix', title: 'Affix', version: '2.0.0' },
+                { link: '/en-US/components/anchor', title: 'Anchor', version: '2.0.0' },
+                { link: '/en-US/components/backtop', title: 'BackTop', version: '2.0.0' },
+                { link: '/en-US/components/breadcrumb', title: 'Breadcrumb' },
+                { link: '/en-US/components/dropdown', title: 'Dropdown' },
+                { link: '/en-US/components/menu', title: 'Menu' },
+                { link: '/en-US/components/page-header', title: 'PageHeader', version: '2.0.0' },
+                { link: '/en-US/components/steps', title: 'Steps', version: '2.0.0' },
+                { link: '/en-US/components/tabs', title: 'Tabs' },
+            ],
+        },
+        {
+            title: 'Feedback',
+            children: [
+                { link: '/en-US/components/alert', title: 'Alert' },
+                { link: '/en-US/components/dialog', title: 'Dialog' },
+                { link: '/en-US/components/drawer', title: 'Drawer' },
+                { link: '/en-US/components/loading', title: 'Loading' },
+                { link: '/en-US/components/message', title: 'Message' },
+                { link: '/en-US/components/messagebox', title: 'MessageBox' },
+                { link: '/en-US/components/notification', title: 'Notification' },
+                { link: '/en-US/components/popconfirm', title: 'Popconfirm' },
+                { link: '/en-US/components/popover', title: 'Popover' },
+                { link: '/en-US/components/tooltip', title: 'Tooltip' },
+            ],
+        },
+        {
+            title: 'Others',
+            children: [
+                { link: '/en-US/components/divider', title: 'Divider' },
+                { link: '/en-US/components/watermark', title: 'Watermark', version: '2.0.0' },
             ],
         },
     ],
