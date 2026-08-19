@@ -1,25 +1,52 @@
 name: github pages
 
-# on:
-#     push:
-#         branches:
-#             - doc # default branch
+on:
+    push:
+        branches:
+            - doc
+    workflow_dispatch:
 
 jobs:
     deploy:
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            pages: write
+            id-token: write
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
         steps:
             - name: Checkout
               uses: actions/checkout@v5
               with:
-                  # 如果配置 themeConfig.lastUpdated 为 false，则不需要添加该参数以加快检出速度
                   fetch-depth: 0
-            - name: Build with dumi
-              # 文档编译命令，如果是 react 模板需要修改为 npm run docs:build
-              run: npm run build
-            - name: Deploy
-              uses: peaceiris/actions-gh-pages@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
               with:
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-                  # 文档目录，如果是 react 模板需要修改为 docs-dist
-                  publish_dir: ./doc-dist
+                  node-version: '20'
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: '9'
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+              env:
+                  HUSKY: 0
+
+            - name: Build documentation
+              run: pnpm docs:build
+              env:
+                  NODE_ENV: production
+
+            - name: Upload Pages artifact
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: docs-dist
+
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
