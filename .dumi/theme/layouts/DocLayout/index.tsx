@@ -4,7 +4,7 @@ import Main from '@/theme/slots/Main';
 import Sidebar, { SidebarRef } from '@/theme/slots/Sidebar';
 import { ElConfigProvider, ElDrawer } from '@qsxy/element-plus-react';
 import '@theme-chalk/dark/css-vars.scss';
-import '@theme-chalk/doc.scss';
+import '@theme-chalk/dev.scss';
 import { Helmet, useIntl, useLocation, useRouteMeta, useSidebarData } from 'dumi';
 import React, { FC, memo, useMemo, useRef, useState } from 'react';
 import './style';
