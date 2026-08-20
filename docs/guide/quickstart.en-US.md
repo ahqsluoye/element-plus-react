@@ -1,34 +1,34 @@
 ---
-title: 快速开始
-lang: zh-CN
+title: Quick Start
+lang: en-US
 ---
 
-# 快速开始
+# Quick Start
 
-本节将介绍如何在项目中使用 Element Plus React。
+This section will introduce how to use Element Plus React.
 
-## 用法
+## Usage
 
-### 完整引入
+### Full Import
 
-如果你对打包后的文件大小不是很在乎，那么在不使用插件的情况下就是完整引入
+If you don’t care about the bundle size so much, it’s more convenient to use full import.
 
 ```ts [main.ts]
 import '@qsxy/element-plus-react/dist/index.css';
 import { ElButton, ElLink } from '@qsxy/element-plus-react';
 ```
 
-### 按需导入
+### On-demand Import
 
-您需要使用额外的插件来导入要使用的组件。
+You need to use extra plugins to import the components you want to use.
 
 #### Vite
 
-首先你需要安装 <ElLink href="https://www.npmjs.com/package/@qsxy/vite-plugin-element-plus-react-import">vite插件</ElLink>
+First, you need to install the <ElLink href="https://www.npmjs.com/package/@qsxy/vite-plugin-element-plus-react-import">vite plugin</ElLink>.
 
 <InstallDependencies npm='$ npm install @qsxy/vite-plugin-element-plus-react-import --save-dev' yarn='$ yarn add @qsxy/vite-plugin-element-plus-react-import -D' pnpm='$ pnpm add @qsxy/vite-plugin-element-plus-react-import -D'></InstallDependencies>
 
-然后把下列代码插入到你的 `Vite` 的配置文件中
+Then, add the following code to your Vite configuration file.
 
 ```ts [vite.config.ts]
 import { defineConfig } from 'vite';
@@ -45,13 +45,13 @@ export default defineConfig({
 
 #### Webpack
 
-首先你需要安装 <ElLink href="https://www.npmjs.com/package/@qsxy/babel-plugin-element-plus-react">babel插件</ElLink>
+First, you need to install the <ElLink href="https://www.npmjs.com/package/@qsxy/babel-plugin-element-plus-react">babel plugin</ElLink>.
 
 <InstallDependencies npm='$ npm install @qsxy/babel-plugin-element-plus-react --save-dev' yarn='$ yarn add @qsxy/babel-plugin-element-plus-react -D' pnpm='$ pnpm add @qsxy/babel-plugin-element-plus-react -D'></InstallDependencies>
 
-然后把下列代码插入到你的 `Webpack` 的配置文件中
+Then, add the following code to your Webpack configuration file.
 
-```js [.babelrc或babel.config.js]
+```js [.babelrc or .babel.config.js]
 module.exports = {
     plugins: [
         // ...
@@ -60,6 +60,6 @@ module.exports = {
 };
 ```
 
-## 开始使用
+## Let's Get Started
 
-现在你可以启动项目了。 对于每个组件的用法，请查阅 [对应的独立文档](/components/button)。
+Now you can start using the Plus React components. For each component, please refer to the [individual documentation](/en-US/components/overview).

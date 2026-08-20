@@ -1,114 +1,114 @@
 ---
-title: MessageBox 消息弹框
-lang: zh-CN
+title: MessageBox
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# MessageBox 消息弹框
+# MessageBox
 
-模拟系统的消息提示框而实现的一套模态对话框组件，用于消息提示、确认消息和提交内容。
+A set of modal boxes simulating system message boxes, mainly for alerting information, confirming operations, and prompting for content.
 
 :::info{title=TIP}
 
-从设计上来说，MessageBox 的作用是美化系统自带的 `alert`、`confirm` 和 `prompt`，因此适合展示较为简单的内容。 如果需要弹出较为复杂的内容，请使用 Dialog。
+By design, MessageBox is used to beautify the system's native `alert`, `confirm`, and `prompt`, so it is suitable for displaying relatively simple content. If you need to display more complex content, please use Dialog.
 
 :::
 
-## 消息提示
+## Alert
 
-当用户进行操作时会被触发，该对话框中断用户操作，直到用户确认知晓后才可关闭。
+Triggered when the user performs an action. The dialog interrupts the user's operation until they confirm to close it.
 
-调用 `ElMessageBox.alert` 方法以打开 alert 框。 它模拟了系统的 `alert`，无法通过按下 ESC 或点击框外关闭。 此例中接收了两个参数，`message`和`title`。 值得一提的是，窗口被关闭后，它默认会返回一个`Promise`对象便于进行后续操作的处理。 若不确定浏览器是否支持`Promise`，可自行引入第三方 polyfill 或像本例一样使用回调进行后续处理。
+Call the `ElMessageBox.alert` method to open an alert box. It simulates the system's `alert` and cannot be closed by pressing ESC or clicking outside the box. In this example, two parameters, `message` and `title`, are received. It is worth mentioning that when the box is closed, it returns a `Promise` object by default for further processing. If you are not sure whether the browser supports `Promise`, you can import a third-party polyfill or use a callback for further processing like this example.
 
 <code src="./alert.tsx"></code>
 
-## 确认消息
+## Confirm
 
-提示用户确认其已经触发的动作，并询问是否进行此操作时会用到此对话框。
+Used to prompt the user to confirm the action they triggered and ask whether to proceed.
 
-调用 `ElMessageBox.confirm` 方法以打开 confirm 框。它模拟了系统的 `confirm`。 Message Box 组件也拥有极高的定制性，我们可以传入 `options` 作为第三个参数，它是一个字面量对象。 `type` 字段表明消息类型，可以为`success`，`error`，`info`和 `warning`，无效的设置将会被忽略。 需要注意的是，第二个参数 `title` 必须定义为 `String` 类型，如果是 `Object`，会被当做为 `options`使用。 在这里我们返回了一个 `Promise` 来处理后续响应。
+Call the `ElMessageBox.confirm` method to open a confirm box. It simulates the system's `confirm`. The MessageBox component is also highly customizable. We can pass `options` as the third parameter, which is an object literal. The `type` field indicates the message type, which can be `success`, `error`, `info`, and `warning`. Invalid values will be ignored. Note that the second parameter `title` must be of type `String`. If it is an `Object`, it will be treated as `options`. Here we return a `Promise` to handle subsequent responses.
 
 <code src="./confirm.tsx"></code>
 
-## 提交内容
+## Prompt
 
-当需要用户输入内容时，可以使用 Prompt 类型的消息框。
+Used when the user needs to input content.
 
-调用 `ElMessageBox.prompt` 方法以打开 prompt 框。它模拟了系统的 `prompt`。 可以用 `inputPattern` 字段自己规定匹配模式， 使用 `inputValidator` 来指定验证方法，它应该返回 `Boolean` 或 `String`。 返回 `false` 或 `String` 表示验证失败， 返回的字符串将用作 `inputErrorMessage`，用来提示用户错误原因。 此外，可以用 `inputPlaceholder` 字段来定义输入框的占位符。
+Call the `ElMessageBox.prompt` method to open a prompt box. It simulates the system's `prompt`. You can use the `inputPattern` field to specify the matching pattern, and use `inputValidator` to specify the validation method, which should return `Boolean` or `String`. Returning `false` or `String` means validation failed, and the returned string will be used as `inputErrorMessage` to prompt the user for the error reason. In addition, you can use the `inputPlaceholder` field to define the placeholder of the input box.
 
 <code src="./prompt.tsx"></code>
 
-## 个性化
+## Customization
 
-消息弹框可以被定制来展示各种内容。
+The message box can be customized to display various content.
 
-上面提到的三个方法都是对 `ElMessageBox` 方法的二次包装。 本例直接调用 `ElMessageBox` 方法，使用了 `showCancelButton` 字段，用于显示取消按钮。 另外可使用 `cancelButtonClass` 为其添加自定义样式，使用 `cancelButtonText` 来自定义取消按钮文本（Confirm 按钮也具有相同的字段，在文末的 API 说明中有完整的字段列表）。 此例还使用了 `beforeClose` 属性， 当 beforeClose 被赋值且被赋值为一个回调函数时，在消息弹框被关闭之前将会被调用，并且可以通过该方法来阻止弹框被关闭。 它是一个接收三个参数：`action`、`instance` 和`done` 的方法。 使用它能够在关闭前对实例进行一些操作，比如为确定按钮添加 `loading` 状态等；此时若需要关闭实例，可以调用 `done` 方法（若在 `beforeClose` 中没有调用 `done`，则弹框便不会关闭）。
+The three methods mentioned above are all secondary wrappers around the `ElMessageBox` method. This example directly calls the `ElMessageBox` method and uses the `showCancelButton` field to display a cancel button. In addition, you can use `cancelButtonClass` to add a custom style, and `cancelButtonText` to customize the cancel button text (the Confirm button also has the same fields, and there is a complete list of fields in the API documentation at the end of this article). This example also uses the `beforeClose` property. When `beforeClose` is assigned as a callback function, it will be called before the message box is closed, and can be used to prevent the box from being closed. It is a method that receives three parameters: `action`, `instance`, and `done`. Using it, you can perform some operations on the instance before closing, such as adding a `loading` state to the confirm button; if you need to close the instance at this point, you can call the `done` method (if `done` is not called in `beforeClose`, the box will not be closed).
 
 <code src="./customization.tsx"></code>
 
-## 使用 HTML 片段
+## Using HTML
 
-`ElMessageBox` 支持传入 HTML 字符串来作为正文内容。
+`ElMessageBox` supports passing HTML strings as content.
 
-将 `dangerouslyUseHTMLString` 属性设置为 true，`message` 属性就会被当作 HTML 片段处理。
+Set the `dangerouslyUseHTMLString` property to `true`, and the `message` property will be treated as an HTML fragment.
 
 <code src="./use-html.tsx"></code>
 
 :::error{title=WARNING}
 
-`message` 属性虽然支持传入 HTML 片段，但是在网站上动态渲染任意 HTML 是非常危险的，因为容易导致 [XSS 攻击](https://en.wikipedia.org/wiki/Cross-site_scripting)。 因此在 `dangerouslyUseHTMLString` 打开的情况下，请确保 `message` 的内容是可信的，**永远不要**将用户提交的内容赋值给 `message` 属性。
+Although the `message` property supports HTML fragments, dynamically rendering arbitrary HTML on your website is very dangerous because it can easily lead to [XSS attacks](https://en.wikipedia.org/wiki/Cross-site_scripting). So when `dangerouslyUseHTMLString` is enabled, please make sure the content of `message` is trusted, and **never** assign user-submitted content to the `message` property.
 
 :::
 
-## 区分取消操作与关闭操作
+## Distinguishing Cancel and Close
 
-有些场景下，点击取消按钮与点击关闭按钮有着不同的含义。
+In some scenarios, clicking the cancel button and clicking the close button have different meanings.
 
-默认情况下，当用户触发取消（点击取消按钮）和触发关闭（点击关闭按钮或遮罩层、按下 ESC 键）时，Promise 的 reject 回调和 `callback` 回调的参数均为 'cancel'。 如果将`distinguishCancelAndClose`属性设置为 true，则上述两种行为的参数分别为 'cancel' 和 'close'。
+By default, when the user triggers cancel (clicks the cancel button) and triggers close (clicks the close button or mask layer, presses the ESC key), the parameters of Promise's reject callback and `callback` are both `'cancel'`. If `distinguishCancelAndClose` is set to `true`, the parameters of the above two actions will be `'cancel'` and `'close'` respectively.
 
 <code src="./distinguishable-close-cancel.tsx"></code>
 
-<!-- ## 内容居中
+<!-- ## Centered Content
 
-消息弹框支持使用居中布局。
+The message box supports centered layout.
 
-将 `center` 属性设置为 `true` 可将内容居中显示。
+Set the `center` property to `true` to center the content.
 
 <code src="./centered-content.tsx"></code>
 
-## 自定义图标
+## Customized Icon
 
-图标可以使用任意 Vue 组件或 [渲染函数 (JSX)](https://vuejs.org/guide/extras/render-function.html)来自定义。
+Icons can be customized using any Vue component or [render function (JSX)](https://vuejs.org/guide/extras/render-function.html).
 
 <code src="./customized-icon.tsx"></code> -->
 
-## 可拖放
+## Draggable
 
-设置 MessageBox 可以拖拽。
+Set the MessageBox to be draggable.
 
-设置`draggable`属性为`true`来开启拖拽弹窗能力。
+Set the `draggable` property to `true` to enable drag-and-drop for the message box.
 
 <code src="./draggable.tsx"></code>
 
-## 应用程序上下文继承
+## App Context Inheritance
 
-通过 useConfigProvider 创建支持读取 context 的 ElMessageBox。请注意，我们推荐通过顶层注册的方式代替 messageBox 静态方法，因为静态方法无法消费上下文，因而 ConfigProvider 的数据也不会生效。
+Create an ElMessageBox that supports reading context through `useConfigProvider`. Note that we recommend using top-level registration instead of the messageBox static methods, because static methods cannot consume context, so the ConfigProvider data will not take effect.
 
 ```ts
 import { useConfigProvider } from '@qsxy/element-plus-react';
 
 const { ElMessageBox } = useConfigProvider();
 
-// 你可以像这样传递参数：
+// You can pass parameters like this:
 ElMessageBox({});
-// 或者正在使用不同的调用方式
+// Or use different invocation methods
 ElMessageBox.alert('Hello world!', 'Title', {}, appContext);
 ```
 
-## 按需引入
+## Local Import
 
-如果您需要按需引入 `MessageBox`：
+If you need to import `MessageBox` on demand:
 
 ```ts
 import { ElMessageBox } from '@qsxy/element-plus-react';
@@ -116,49 +116,47 @@ import { ElMessageBox } from '@qsxy/element-plus-react';
 
 ## API
 
-### 配置项
+### Configuration Options
 
-| 属性名                    | 说明                                                                          | 类型                                                                                                        | 默认值                                          |
-| ------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| title                     | MessageBox 的标题                                                             | `string` / `React.ReactElement`                                                                             | ''                                              |
-| message                   | MessageBox 的正文内容                                                         | `string` / `React.ReactElement`                                                                             | —                                               |
-| type                      | 消息类型，用于图标显示                                                        | <Enum>'success' \| 'info' \| 'warning' \| 'error'</Enum>                                                    | ''                                              |
-| icon                      | 自定义图标组件，会覆盖 `type` 的类型                                          | `string` / `Component`                                                                                      | ''                                              |
-| dangerouslyUseHTMLString  | 是否将 message 属性作为 HTML 片段处理                                         | `boolean`                                                                                                   | —                                               |
-| modalClass                | 遮罩的自定义类名                                                              | `string`                                                                                                    | —                                               |
-| width                     | 自定义确认按钮及取消按钮的大小                                                | `string` / `number`                                                                                         | —                                               |
-| callback                  | 若不使用 Promise，可以使用此参数指定 MessageBox 关闭后的回调                  | <Enum type="Function">(value: string, action: Action) => any \| (action: Action) => any</Enum>              | null                                            |
-| showClose                 | MessageBox 是否显示右上角关闭按钮                                             | `boolean`                                                                                                   | true                                            |
-| beforeClose               | messageBox 关闭前的回调，会暂停消息弹出框的关闭过程。                         | <Enum type="Function">(action?: Action, done?: () => void, ref?: RefObject\<MessageBoxRef\>) => void</Enum> | null                                            |
-| distinguishCancelAndClose | 是否将取消（点击取消按钮）与关闭（点击关闭按钮或遮罩层、按下 Esc 键）进行区分 | `boolean`                                                                                                   | false                                           |
-| lockScroll                | 是否在 MessageBox 出现时将 body 滚动锁定                                      | `boolean`                                                                                                   | true                                            |
-| showCancelButton          | 是否显示取消按钮                                                              | `boolean`                                                                                                   | false（以 confirm 和 prompt 方式调用时为 true） |
-| showConfirmButton         | 是否显示确定按钮                                                              | `boolean`                                                                                                   | true                                            |
-| cancelButtonText          | 取消按钮的文本内容                                                            | `string`                                                                                                    | 取消                                            |
-| confirmButtonText         | 确定按钮的文本内容                                                            | `string`                                                                                                    | 确定                                            |
-| cancelButtonClass         | 取消按钮的自定义类名                                                          | `string`                                                                                                    | ''                                              |
-| confirmButtonClass        | 确定按钮的自定义类名                                                          | `string`                                                                                                    | ''                                              |
-| closeOnClickModal         | 是否可通过点击遮罩层关闭 MessageBox                                           | `boolean`                                                                                                   | true（以 alert 方式调用时为 false）             |
-| showInput                 | 是否显示输入框                                                                | `boolean`                                                                                                   | false（以 prompt 方式调用时为 true）            |
-| inputPlaceholder          | 输入框占位文本                                                                | `string`                                                                                                    | ''                                              |
-| inputType                 | 输入框的类型                                                                  | `string`                                                                                                    | text                                            |
-| inputValue                | 输入框的初始文本                                                              | `string`                                                                                                    | null                                            |
-| inputPattern              | 输入框的校验表达式                                                            | `RegExp`                                                                                                    | null                                            |
-| inputValidator            | 输入框的校验函数。 应该返回一个 boolean 或者 string，                         | <Enum type="Function">(value: string) => boolean \| string</Enum>                                           | null                                            |
-| inputErrorMessage         | 校验未通过时的提示文本                                                        | `string`                                                                                                    | 输入的数据不合法!                               |
-| center                    | 是否居中布局                                                                  | `boolean`                                                                                                   | false                                           |
-| draggable                 | MessageBox 是否可拖放                                                         | `boolean`                                                                                                   | false                                           |
-| overflow                  | MessageBox 拖动范围可以超出可视区                                             | `boolean`                                                                                                   | false                                           |
-| roundButton               | 是否使用圆角按钮                                                              | `boolean`                                                                                                   | false                                           |
-| buttonSize                | 自定义确认按钮及取消按钮的大小                                                | <Enum>`'small' \| 'default' \| 'large'`</Enum>                                                              | default                                         |
-| locale                    | 国际化                                                                        | <Enum>'en' \| 'zh-CN'</Enum>                                                                                | —                                               |
+| Name                      | Description                                                                           | Type                                                                                                        | Default                                        |
+| ------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| title                     | Title of the MessageBox                                                               | `string` / `React.ReactElement`                                                                             | ''                                             |
+| message                   | Content of the MessageBox                                                             | `string` / `React.ReactElement`                                                                             | —                                              |
+| type                      | Message type, used for icon display                                                   | <Enum>'success' \| 'info' \| 'warning' \| 'error'</Enum>                                                    | ''                                             |
+| icon                      | Custom icon component, overrides the `type` icon                                      | `string` / `Component`                                                                                      | ''                                             |
+| dangerouslyUseHTMLString  | Whether to treat the message property as an HTML fragment                              | `boolean`                                                                                                   | —                                              |
+| modalClass                | Custom class name for the mask                                                        | `string`                                                                                                    | —                                              |
+| width                     | Custom size of the confirm and cancel buttons                                        | `string` / `number`                                                                                         | —                                              |
+| callback                  | If not using Promise, you can use this parameter to specify the callback after MessageBox closes | <Enum type="Function">(value: string, action: Action) => any \| (action: Action) => any</Enum>              | null                                           |
+| showClose                 | Whether the MessageBox shows the close button in the upper right corner                | `boolean`                                                                                                   | true                                           |
+| beforeClose               | Callback before MessageBox closes, will pause the closing process of the message box  | <Enum type="Function">(action?: Action, done?: () => void, ref?: RefObject\<MessageBoxRef\>) => void</Enum> | null                                           |
+| distinguishCancelAndClose | Whether to distinguish cancel (clicking cancel button) from close (clicking close button or mask, pressing ESC) | `boolean`                                                                                                   | false                                          |
+| lockScroll                | Whether to lock body scroll when MessageBox appears                                  | `boolean`                                                                                                   | true                                           |
+| showCancelButton          | Whether to show the cancel button                                                     | `boolean`                                                                                                   | false (true when called with confirm and prompt) |
+| showConfirmButton         | Whether to show the confirm button                                                    | `boolean`                                                                                                   | true                                           |
+| cancelButtonText          | Text content of the cancel button                                                    | `string`                                                                                                    | Cancel                                         |
+| confirmButtonText         | Text content of the confirm button                                                   | `string`                                                                                                    | OK                                             |
+| cancelButtonClass         | Custom class name for the cancel button                                              | `string`                                                                                                    | ''                                             |
+| confirmButtonClass        | Custom class name for the confirm button                                             | `string`                                                                                                    | ''                                             |
+| closeOnClickModal         | Whether the MessageBox can be closed by clicking the mask                             | `boolean`                                                                                                   | true (false when called with alert)            |
+| showInput                 | Whether to show the input box                                                        | `boolean`                                                                                                   | false (true when called with prompt)           |
+| inputPlaceholder          | Placeholder text of the input box                                                    | `string`                                                                                                    | ''                                             |
+| inputType                 | Type of the input box                                                                | `string`                                                                                                    | text                                           |
+| inputValue                | Initial text of the input box                                                        | `string`                                                                                                    | null                                           |
+| inputPattern              | Validation expression for the input box                                              | `RegExp`                                                                                                    | null                                           |
+| inputValidator            | Validation function for the input box. Should return a boolean or string              | <Enum type="Function">(value: string) => boolean \| string</Enum>                                           | null                                           |
+| inputErrorMessage         | Prompt text when validation fails                                                    | `string`                                                                                                    | Illegal input!                                 |
+| center                    | Whether to use centered layout                                                       | `boolean`                                                                                                   | false                                          |
+| draggable                 | Whether MessageBox is draggable                                                      | `boolean`                                                                                                   | false                                          |
+| overflow                  | Whether the MessageBox drag range can exceed the visible area                          | `boolean`                                                                                                   | false                                          |
+| roundButton               | Whether to use rounded buttons                                                       | `boolean`                                                                                                   | false                                          |
+| buttonSize                | Custom size of the confirm and cancel buttons                                        | <Enum>`'small' \| 'default' \| 'large'`</Enum>                                                              | default                                        |
+| locale                    | Internationalization                                                                  | <Enum>'en' \| 'zh-CN'</Enum>                                                                                | —                                              |
 
-<!-- 以下属性在当前类型定义中未找到 -->
-<!-- | buttonPosition            | 按钮位置                                                                      | <Enum>'left' \| 'right' \| 'center'</Enum>                                                          | —                                               | -->
-<!-- | className                 | MessageBox 的自定义类名                                                       | `string`                                                                                           | ''                                              | -->
-<!-- | style                     | MessageBox 的自定义内联样式                                                   | `CSSProperties`                                                                                    | {}                                              | -->
-<!-- | modalClassName            | 遮罩的自定义类名                                                              | `string`                                                                                           | —                                               | -->
-<!-- | cancelButtonLoadingIcon   | 取消按钮的加载图标内容                                                        | `string` / `Component`                                                                             | Loading                                         | -->
-<!-- | confirmButtonLoadingIcon  | 确认按钮的加载图标内容                                                        | `string` / `Component`                                                                             | Loading                                         | -->
-
-<!-- 如果返回的是一个 string 类型，那么该返回值会被赋值给 inputErrorMessage 用于向用户展示错误消息。 -->
+<!-- The following properties are not found in the current type definitions -->
+<!-- | buttonPosition            | Button position                                                                      | <Enum>'left' \| 'right' \| 'center'</Enum>                                                          | —                                               | -->
+<!-- | className                 | Custom class name for MessageBox                                                     | `string`                                                                                           | ''                                              | -->
+<!-- | style                     | Custom inline style for MessageBox                                                   | `CSSProperties`                                                                                    | {}                                              | -->
+<!-- | modalClassName            | Custom class name for the mask                                                      | `string`                                                                                           | —                                               | -->
+<!-- | cancelButtonLoadingIcon   | Loading icon content of the cancel button                                            | `string` / `Component`                                                                             | Loading                                         | -->
+<!-- | confirmButtonLoadingIcon  | Loading icon content of the confirm button                                           | `string` / `Component`                                                                             | Loading                                         | -->

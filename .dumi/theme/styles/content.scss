@@ -84,8 +84,8 @@
 .dumi-default-table table th {
     text-align: left;
     white-space: nowrap;
-    color: var(--el-text-color-regular, #909399);
-    font-weight: normal;
+    color: var(--el-text-color-primary, #909399);
+    font-weight: bold;
 }
 
 .dumi-default-table table th:first-child,

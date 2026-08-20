@@ -5,8 +5,8 @@ import stackblitzSdk from '@stackblitz/sdk';
 import classNames from 'classnames';
 import clipboardCopy from 'clipboard-copy';
 import { addClass, removeClass } from 'dom-lib';
-import { IPreviewerProps } from 'dumi';
-import React, { FC, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { IPreviewerProps, useLocation } from 'dumi';
+import React, { FC, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import getStackblitzConfig from './stackblitzConfig';
 import './style.scss';
 
@@ -24,6 +24,9 @@ const BlockControl = ({ ref, expand }: { expand: boolean } & { ref?: React.Ref<a
     const onMouseEnter = useCallback(() => setHovering(true), []);
     const onMouseLeave = useCallback(() => setHovering(false), []);
 
+    const location = useLocation();
+    const isEnglish = useMemo(() => location.pathname.startsWith('/en-US'), [location.pathname]);
+
     useImperativeHandle(ref, () => ({
         onMouseEnter,
         onMouseLeave,
@@ -34,7 +37,7 @@ const BlockControl = ({ ref, expand }: { expand: boolean } & { ref?: React.Ref<a
             <ElIcon prefix="far" name={expand ? 'angle-up' : 'angle-down'} className={classNames({ hovering })} />
             <ElTransition nodeRef={nodeRef} name="text-slide" visible={hovering} display="inline-block">
                 <span ref={nodeRef} className="r-link">
-                    {expand ? '隐藏代码' : '显示代码'}
+                    {expand ? (isEnglish ? 'Hide Source' : '隐藏代码') : isEnglish ? 'Show Source' : '显示代码'}
                 </span>
             </ElTransition>
         </>
@@ -55,6 +58,8 @@ const Previewer: FC<IPreviewerProps> = props => {
     const description = useRef(null);
     const highlight = useRef(null);
     const preRef = useRef<HTMLPreElement>(null);
+    const location = useLocation();
+    const isEnglish = useMemo(() => location.pathname.startsWith('/en-US'), [location.pathname]);
 
     const scrollParent = useRef(null);
     const codepen = useRef<string>('');
@@ -81,15 +86,15 @@ const Previewer: FC<IPreviewerProps> = props => {
 
             res.then(() => {
                 ElMessage.success({
-                    message: '已复制！',
+                    message: isEnglish ? 'Copied!' : '已复制！',
                 });
             }).catch(() => {
                 ElMessage.error({
-                    message: '该浏览器不支持自动复制！',
+                    message: isEnglish ? 'Browser does not support auto-copy!' : '该浏览器不支持自动复制！',
                 });
             });
         },
-        [files, activeName],
+        [files, activeName, isEnglish],
     );
 
     const scrollHandler = useCallback(() => {
@@ -179,7 +184,7 @@ const Previewer: FC<IPreviewerProps> = props => {
                 <div ref={control} className={classNames('demo-block-control')} onClick={() => setExpand(!expand)}>
                     <BlockControl ref={blockControl} expand={expand} />
                     <div className="control-button-container">
-                        <ElTooltip content="在 Stackblitz 中打开" placement="top">
+                        <ElTooltip content={isEnglish ? 'Open in Stackblitz' : '在 Stackblitz 中打开'} placement="top">
                             <span
                                 className="control-button copy-button"
                                 onClick={e => {
@@ -192,7 +197,7 @@ const Previewer: FC<IPreviewerProps> = props => {
                                 <ElIcon name="bolt-lightning" prefix="far" />
                             </span>
                         </ElTooltip>
-                        <ElTooltip content="复制代码" placement="top">
+                        <ElTooltip content={isEnglish ? 'Copy Code' : '复制代码'} placement="top">
                             <span ref={copyButton} className="control-button copy-button" onClick={copy}>
                                 <ElIcon name="paste" prefix="far" />
                             </span>

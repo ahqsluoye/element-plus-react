@@ -1,39 +1,39 @@
 ---
-title: Link 链接
-lang: zh-CN
+title: Link
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Link 链接
+# Link
 
-文字超链接
+Text hyperlink.
 
-## 基础用法
+## Basic Usage
 
-基础的文字链接用法。
+Basic text link usage.
 
 <code src="./basic.tsx"></code>
 
-## 禁用状态
+## Disabled
 
-文字链接不可用状态。
+Disabled state of link.
 
 <code src="./disabled.tsx"></code>
 
-## 下划线
+## Underline
 
-文字链接下划线。
+Text link underline.
 
 <code src="./underline.tsx"></code>
 
-## 图标
+## Icon
 
-带图标的链接
+Link with icon.
 
 :::info{title=TIP}
 
-使用 `icon` 属性来为按钮添加图标。 Element Plus React 提供了丰富的图标，您可以在 [icon component](/components/icon-list)
+Use the `icon` attribute to add an icon to the button. Element Plus React provides a rich set of icons. You can find them in the [icon component](/components/icon-list).
 
 :::
 
@@ -41,13 +41,13 @@ lang: zh-CN
 
 ## Link API
 
-### 属性
+### Properties
 
-| 属性名    | 说明               | 类型                                                                                | 默认值  |
-| --------- | ------------------ | ----------------------------------------------------------------------------------- | ------- |
-| type      | 类型               | <Enum>'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'default'</Enum> | default |
-| underline | 是否下划线         | <Enum>'always' \| 'hover' \| 'never' </Enum>                                        | hover   |
-| target    | 同原生 target 属性 | <Enum>'\_blank' \| '\_blank' \| '\_self' \| '\_top' </Enum>                         | \_self  |
-| disabled  | 是否禁用状态       | `boolean`                                                                           | false   |
-| href      | 原生 href 属性     | `string`                                                                            | —       |
-| icon      | 图标组件           | `string` / `Component`                                                              | —       |
+| Name      | Description                         | Type                                                                                | Default |
+| --------- | ----------------------------------- | ----------------------------------------------------------------------------------- | ------- |
+| type      | Type                                | <Enum>'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'default'</Enum> | default |
+| underline | Whether to show underline           | <Enum>'always' \| 'hover' \| 'never'</Enum>                                        | hover   |
+| target    | Same as native target attribute     | <Enum>'_blank' \| '_self' \| '_top'</Enum>                                         | _self   |
+| disabled  | Whether to disable                  | `boolean`                                                                           | false   |
+| href      | Native href attribute               | `string`                                                                            | —       |
+| icon      | Icon component                      | `string` / `Component`                                                              | —       |

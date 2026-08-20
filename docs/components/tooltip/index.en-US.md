@@ -1,153 +1,110 @@
 ---
-title: Tooltip 文字提示
-lang: zh-CN
+title: Tooltip
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Tooltip 文字提示
+# Tooltip
 
-常用于展示鼠标 hover 时的提示信息。
+Display prompt information for mouse hover.
 
-## 基础用法
+## Basic Usage
 
-在这里我们提供 9 种不同方向的展示方式，可以通过以下完整示例来理解，选择你要的效果。
+Here we provide 9 different placement options. You can refer to the complete example below to understand and choose the effect you want.
 
-使用 `content` 属性来决定 `hover` 时的提示信息。 由 `placement` 属性决定展示效果： `placement`属性值为：`[方向]-[对齐位置]`；四个方向：`top`、`left`、`right`、`bottom`；三种对齐位置：`start`, `end`，默认为空。 如 `placement="left-end"`，则提示信息出现在目标元素的左侧，且提示信息的底部与目标元素的底部对齐。
+Use the `content` property to determine the tooltip content on `hover`. The `placement` property determines the display effect: the `placement` property value is `[direction]-[alignment]`; four directions: `top`, `left`, `right`, `bottom`; three alignment positions: `start`, `end`, default is empty. For example, `placement="left-end"` means the tooltip appears on the left side of the target element, and the bottom of the tooltip aligns with the bottom of the target element.
 
 <code src="./basic.tsx"></code>
 
-## 主题
+## Theme
 
-Tooltip 组件内置了两个主题：`dark`和`light`。
+The Tooltip component has two built-in themes: `dark` and `light`.
 
 :::info{title=TIP}
 
-要使用自定义主题，您必须知道您的工具提示在哪里渲染， 如果您的工具提示被呈现为根元素，您将需要全局设置 css 规则。
+To use a custom theme, you must know where your tooltip is rendered. If your tooltip is rendered as a root element, you will need to set CSS rules globally.
 
-建议您使用自定义主题并同时显示箭头时不使用线性渐变背景颜色。 因为弹出箭头和内容是两个不同的元素， 弹出箭头的样式需要单独设置， 当它到渐变背景颜色时，会看起来很奇怪。
+When using a custom theme and displaying an arrow at the same time, it is recommended not to use a linear gradient background color. Because the popup arrow and content are two different elements, the popup arrow's style needs to be set separately, and when using a gradient background color, it may look odd.
 
 :::
 
-通过设置 `effect` 来修改主题，默认值为 `dark`.
+Modify the theme by setting `effect`, the default value is `dark`.
 
 <code src="./theme.tsx"></code>
 
-## 更多内容的文字提示
+## More Content
 
-展示多行文本或者是设置文本内容的格式
+Display multiple lines of text or set the format of text content.
 
 <code src="./rich-content.tsx"></code>
 
-<!-- ## 高级扩展
+## Virtual Trigger
 
-除了这些基本设置外，还有一些属性可以让使用者更好的定制自己的效果：
-
-`transition` 属性可以定制显隐的动画效果，默认为`fade-in-linear`。
-
-如果需要关闭 `tooltip` 功能，`disabled` 属性可以满足这个需求， 你只需要将其设置为 `true`。
-
-事实上，Tooltip 是一个基于 [ElPopper](https://github.com/element-plus/element-plus/tree/dev/packages/components/popper) 的扩展，您可以使用 ElPopper 中允许的任何属性。
-
-<code src="./advanced-usage.tsx"></code>
+Sometimes we want to place the tooltip's trigger element elsewhere without writing it together, then you can use virtual triggering.
 
 :::info{title=TIP}
 
-Tooltip 内不支持 `routerLink` 组件，请使用 `vm.$router.push` 代替。
-
-tooltip 内不支持 disabled form 元素，参考 [MDN](https://developer.mozilla.org/en-US/docs/Web/事件/mouseenter)， 请在 disabled form 元素外层添加一层包裹元素。
-
-::: -->
-
-<!-- ## 显示 HTML 内容
-
-内容属性可以设置为 HTML 字符串。
-
-:::error
-
-`content` 属性虽然支持传入 HTML 片段，但是在网站上动态渲染任意 HTML 是非常危险的，因为容易导致 [XSS 攻击](https://en.wikipedia.org/wiki/Cross-site_scripting)。 因此在 `rawContent` 打开的情况下，请确保 `content` 的内容是可信的，**永远不要**将用户提交的内容赋值给 `content` 属性。
+Note that the virtual triggering tooltip is a controlled component, so you must control whether the tooltip is displayed or not. **You will not** be able to close the tooltip by clicking on a blank area.
 
 :::
 
-<code src="./html-content.tsx"></code> -->
-
-## 虚拟触发
-
-有时候我们想把 tooltip 的触发元素放在别的地方，而不需要写在一起，这时候就可以使用虚拟触发。
-
-:::info{title=TIP}
-
-需要注意的是，虚拟触发的 tooltip 是受控组件，因此你必须自己去控制 tooltip 是否显示，**你将无法**通过点击空白处来关闭 tooltip。
-
-:::
 <code src="./virtual-trigger.tsx"></code>
 
-## 单例模式
+## Singleton
 
-Tooltip 可以作为单例，也就是是说你可以同时有多个触发同一个 tooltip 的触发元素，这个功能是在 `虚拟触发` 的基础上开发的。
+Tooltip can work as a singleton, which means you can have multiple trigger elements triggering the same tooltip at the same time. This feature is built on top of `virtual triggering`.
 
 :::info{title=TIP}
 
-已知问题：当使用单例模式时，tooltip 的触发元素发生改变的时候可能会发生弹跳。
+Known issue: when using singleton mode, the tooltip may bounce when the trigger element changes.
 
 :::
 
 <code src="./singleton.tsx"></code>
 
-## 受控模式
+## Controlled Mode
 
-Tooltip 可以通过父组件使用 `visible` 来控制它的显示与关闭。
+Tooltip can be controlled to show and hide by the parent component using `visible`.
 
 <code src="./controlled.tsx"></code>
 
-<!-- ## 自定义动画
-
-Tooltip 可以自定义动画，你可以根据需要自行设置所需的动画方法。
-
-<code src="./animations.tsx"></code> -->
-
 ## API
 
-### 属性
+### Properties
 
-| 名称              | 说明                                                        | 类型                                                                                                                                                                            | 默认   |
-| ----------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| appendTo          | 指示 Tooltip 的内容将附加在哪一个网页元素上                 | `HTMLElement`                                                                                                                                                                   | —      |
-| effect            | Tooltip 主题，内置了 `dark` / `light` 两种                  | <Enum>'dark' \| 'light' \| string</Enum>                                                                                                                                        | dark   |
-| content           | 显示的内容                                                  | `string \| React.ReactNode`                                                                                                                                                     | ''     |
-| placement         | Tooltip 组件出现的位置                                      | <Enum>'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'</Enum> | bottom |
-| visible           | Tooltip 组件可见性                                          | `boolean`                                                                                                                                                                       | —      |
-| defaultVisible    | 初始可见状态                                                | `boolean`                                                                                                                                                                       | —      |
-| disabled          | Tooltip 组件是否禁用                                        | `boolean`                                                                                                                                                                       | —      |
-| offset            | 出现位置的偏移量                                            | `number`                                                                                                                                                                        | 12     |
-| virtualTriggering | 用来标识虚拟触发是否被启用                                  | `boolean`                                                                                                                                                                       | —      |
-| virtualRef        | 标识虚拟触发时的触发元素                                    | <Enum type="object">VirtualElement</Enum>                                                                                                                                       | —      |
-| contentSlot       | 内容插槽                                                    | <Enum type="Function">() => React.ReactNode</Enum>                                                                                                                              | —      |
-| disableTransition | 是否禁用过渡动画                                            | `boolean`                                                                                                                                                                       | —      |
-| showAfter         | 在触发后多久显示内容，单位毫秒                              | `number`                                                                                                                                                                        | 0      |
-| hideAfter         | 延迟关闭，单位毫秒                                          | `number`                                                                                                                                                                        | 200    |
-| enterable         | 鼠标是否可进入到 tooltip 中                                 | `boolean`                                                                                                                                                                       | true   |
-| trigger           | 如何触发 Tooltip                                            | <Enum>'hover' \| 'click' \| 'contextmenu'</Enum>                                                                                                                                | hover  |
-| onMouseEnter      | 鼠标进入时触发                                              | <Enum type="Function">(e?: React.MouseEvent<any>) => void</Enum>                                                                                                                | —      |
-| onMouseLeave      | 鼠标离开时触发                                              | <Enum type="Function">(e?: React.MouseEvent<any>) => void</Enum>                                                                                                                | —      |
-| triggerRef        | 触发元素引用                                                | `React.ReactElement`                                                                                                                                                            | —      |
-| showArrow         | tooltip 的内容是否有箭头                                    | `boolean`                                                                                                                                                                       | true   |
-| persistent        | 当tooltip未激活且 persistent 为 false 时，tooltip将被销毁。 | `boolean`                                                                                                                                                                       | true   |
-| popperClass       | 为 Tooltip 的 popper 添加类名                               | `string`                                                                                                                                                                        | —      |
-| popperStyle       | 为 Tooltip 的 popper 添加自定义样式                         | `object`                                                                                                                                                                        | —      |
-
-<!-- 以下属性在当前类型定义中未找到 -->
-<!-- | popperOptions     | [popper.js](https://popper.js.org/docs/v2/) 参数 | `object` 请参考 [popper.js](https://popper.js.org/docs/v2/) 文档                                                                                                                | {}     | -->
-<!-- | autoClose     | tooltip 出现后自动隐藏延时，单位毫秒                           | `number`                                                                                                                                                                        | 0      |
-| teleported | 是否使用 teleport。设置成 `true`则会被追加到 `appendTo` 的位置 | `boolean` | true |
--->
+| Name              | Description                                                           | Type                                                                                                                                                                            | Default |
+| ----------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| appendTo          | Which HTML element the tooltip content is appended to                  | `HTMLElement`                                                                                                                                                                   | —       |
+| effect            | Tooltip theme, built-in: `dark` / `light`                             | <Enum>'dark' \| 'light' \| string</Enum>                                                                                                                                        | dark    |
+| content           | Display content                                                        | `string \| React.ReactNode`                                                                                                                                                     | ''      |
+| placement         | Position of the Tooltip component                                      | <Enum>'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'</Enum> | bottom  |
+| visible           | Visibility of the Tooltip component                                    | `boolean`                                                                                                                                                                       | —       |
+| defaultVisible    | Initial visibility state                                                | `boolean`                                                                                                                                                                       | —       |
+| disabled          | Whether the Tooltip component is disabled                               | `boolean`                                                                                                                                                                       | —       |
+| offset            | Offset of the position                                                 | `number`                                                                                                                                                                        | 12      |
+| virtualTriggering | Identify whether virtual triggering is enabled                         | `boolean`                                                                                                                                                                       | —       |
+| virtualRef        | Identify the trigger element when virtual triggering                    | <Enum type="object">VirtualElement</Enum>                                                                                                                                       | —       |
+| contentSlot       | Content slot                                                           | <Enum type="Function">() => React.ReactNode</Enum>                                                                                                                              | —       |
+| disableTransition | Whether to disable transition animation                               | `boolean`                                                                                                                                                                       | —       |
+| showAfter         | How long to show content after triggering, in milliseconds             | `number`                                                                                                                                                                        | 0       |
+| hideAfter         | Delay before hiding, in milliseconds                                   | `number`                                                                                                                                                                        | 200     |
+| enterable         | Whether the mouse can enter the tooltip                                | `boolean`                                                                                                                                                                       | true    |
+| trigger           | How to trigger the Tooltip                                             | <Enum>'hover' \| 'click' \| 'contextmenu'</Enum>                                                                                                                                | hover   |
+| onMouseEnter      | Triggers when mouse enters                                             | <Enum type="Function">(e?: React.MouseEvent<any>) => void</Enum>                                                                                                                | —       |
+| onMouseLeave      | Triggers when mouse leaves                                             | <Enum type="Function">(e?: React.MouseEvent<any>) => void</Enum>                                                                                                                | —       |
+| triggerRef        | Trigger element reference                                              | `React.ReactElement`                                                                                                                                                            | —       |
+| showArrow         | Whether the tooltip content has an arrow                               | `boolean`                                                                                                                                                                       | true    |
+| persistent        | When tooltip is inactive and persistent is false, the tooltip will be destroyed | `boolean`                                                                                                                                                                       | true    |
+| popperClass       | Custom class name for Tooltip's popper                                 | `string`                                                                                                                                                                        | —       |
+| popperStyle       | Custom style for Tooltip's popper                                      | `object`                                                                                                                                                                        | —       |
 
 ### Ref
 
-| 名称         | 详情                                 | 类型                                                    |
-| ------------ | ------------------------------------ | ------------------------------------------------------- |
-| popperRef    | el-popper 组件实例                   | <Enum type='objcet'>Ref<PopperOptionRef \| null></Enum> |
-| updatePopper | 更新 el-popper 组件实例              | <Enum type='Function'>() => void</Enum>                 |
-| onOpen       | onOpen 方法控制 el-tooltip 显示状态  | <Enum type='Function'>() => void</Enum>                 |
-| onClose      | onClose 方法控制 el-tooltip 显示状态 | <Enum type='Function'>() => void</Enum>                 |
-| hide         | 提供 hide 方法                       | <Enum type='Function'>() => void</Enum>                 |
+| Name         | Description                                                    | Type                                                    |
+| ------------ | -------------------------------------------------------------- | ------------------------------------------------------- |
+| popperRef    | el-popper component instance                                   | <Enum type='object'>Ref<PopperOptionRef \| null></Enum> |
+| updatePopper | Update el-popper component instance                            | <Enum type='Function'>() => void</Enum>                 |
+| onOpen       | onOpen method controls el-tooltip display state                | <Enum type='Function'>() => void</Enum>                 |
+| onClose      | onClose method controls el-tooltip display state               | <Enum type='Function'>() => void</Enum>                 |
+| hide         | Provides hide method                                          | <Enum type='Function'>() => void</Enum>                 |

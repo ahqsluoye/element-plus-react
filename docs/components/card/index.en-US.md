@@ -1,51 +1,51 @@
 ---
-title: Card 卡片
-lang: zh-CN
+title: Card
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Card 卡片
+# Card
 
-将信息聚合在卡片容器中展示。
+Integrate information in a card container for display.
 
-## 基础用法
+## Basic Usage
 
-卡片包含标题，内容以及操作区域。
+A card includes title, content, and action areas.
 
-Card 组件由 `header` 和 `body` 组成。 `header` 和 `footer` 是可选的。
+The Card component consists of `header` and `body`. `header` and `footer` are optional.
 
 <code src="./basic.tsx"></code>
 
-## 简单卡片
+## Simple Card
 
-卡片可以只有内容区域。
+A card can have only a content area.
 
 <code src="./simple.tsx"></code>
 
-## 有图片内容的卡片
+## Card with Images
 
-可配置定义更丰富的内容展示。
+Configure to display richer content.
 
-配置 `bodyStyle` 属性来自定义 `body` 部分的样式。 在这个例子中我们还使用了 `ElCol` 组件来布局。
+Use the `bodyStyle` attribute to customize the style of the `body` part. In this example, we also use the `ElCol` component for layout.
 
 <code src="./with-images.tsx"></code>
 
-## 带有阴影效果的卡片
+## Shadow Effect
 
-你可以定义什么时候展示卡片的阴影效果。
+You can define when the card's shadow effect is displayed.
 
-通过 `shadow` 属性设置卡片阴影出现的时机。 该属性的值可以是：`always`、`hover` 或 `never`。
+Use the `shadow` attribute to set when the card shadow appears. The value can be: `always`, `hover`, or `never`.
 
 <code src="./shadow.tsx"></code>
 
 ## API
 
-### 属性
+### Properties
 
-| 属性名    | 说明                                                  | 类型                                     | 默认值 |
-| --------- | ----------------------------------------------------- | ---------------------------------------- | ------ |
-| header    | 卡片的标题 你既可以通过设置 header 来修改标题         | `string` / `React.ReactElement`          | —      |
-| footer    | 卡片页脚。 你既可以通过设置 footer 来修改卡片底部内容 | `string` / `React.ReactElement`          | —      |
-| bodyStyle | body 的 CSS 样式                                      | <Enum type='object'>CSSProperties</Enum> | —      |
-| shadow    | 设置阴影显示时机                                      | <Enum>always \| never \| hover</Enum>    | always |
+| Name      | Description                                                                 | Type                                     | Default |
+| --------- | --------------------------------------------------------------------------- | ---------------------------------------- | ------- |
+| header    | Card title. You can modify the title by setting `header`.                    | `string` / `React.ReactElement`          | —       |
+| footer    | Card footer. You can modify the card footer content by setting `footer`.     | `string` / `React.ReactElement`          | —       |
+| bodyStyle | CSS style of body                                                           | <Enum type='object'>CSSProperties</Enum> | —       |
+| shadow    | Set when the shadow is displayed                                            | <Enum>always \| never \| hover</Enum>    | always  |

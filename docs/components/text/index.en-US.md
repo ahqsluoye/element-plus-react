@@ -1,53 +1,53 @@
 ---
 title: Text
-lang: zh-CN
+lang: en-US
 ---
 
 <Meta></Meta>
 
 # Text
 
-文本的常见操作
+Common text operations.
 
-## 基础用法
+## Basic Usage
 
-由 `type` 属性来选择 Text 的类型。
+Use the `type` attribute to define the type of Text.
 
 <code src="./basic.tsx"></code>
 
-## 尺寸
+## Sizes
 
-使用 `size` 属性配置尺寸，可选的尺寸大小有: `large`, `default` 或 `small`
+Use the `size` attribute to configure the size. Available sizes: `large`, `default`, or `small`.
 
 <code src="./sizes.tsx"></code>
 
-## 省略
+## Ellipsis
 
-通过 `truncated` 属性，在文本超过视图或最大宽度设置时展示省略符。 通过 `lineClamp` 属性控制多行的样式
+Use the `truncated` attribute to show an ellipsis when the text exceeds the viewport or max-width. Use the `lineClamp` attribute to control multiline styles.
 
 <code src="./truncated.tsx"></code>
 
-## 覆盖
+## Override
 
-使用属性 `tag` 覆盖元素
+Use the `tag` attribute to override the element.
 
 <code src="./override.tsx"></code>
 
-## 混合使用
+## Mixed Usage
 
-混合使用 Text 组件
+Mixed usage of the Text component.
 
 <code src="./mixed.tsx"></code>
 
 ## API
 
-### 属性
+### Properties
 
-| 属性名    | 描述           | 类型                                                                   | 默认值  |
-| --------- | -------------- | ---------------------------------------------------------------------- | ------- |
-| type      | 类型           | <Enum>'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'</Enum> | —       |
-| size      | 大小           | <Enum>'large' \| 'default' \| 'small'</Enum>                           | default |
-| truncated | 显示省略号     | `boolean`                                                              | false   |
-| lineClamp | 最大行数       | `string` / `number`                                                    | —       |
-| tag       | 自定义元素标签 | `string`                                                               | span    |
-| title     | 标题           | `string`                                                               | —       |
+| Name      | Description        | Type                                                                   | Default |
+| --------- | ------------------ | ---------------------------------------------------------------------- | ------- |
+| type      | Type               | <Enum>'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'</Enum> | —       |
+| size      | Size               | <Enum>'large' \| 'default' \| 'small'</Enum>                           | default |
+| truncated | Show ellipsis      | `boolean`                                                              | false   |
+| lineClamp | Maximum lines      | `string` / `number`                                                    | —       |
+| tag       | Custom element tag | `string`                                                               | span    |
+| title     | Title              | `string`                                                               | —       |

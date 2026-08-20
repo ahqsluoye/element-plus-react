@@ -8,7 +8,7 @@ Element Plus React 目前还处于开发迭代中。 <ElLink href="https://www.n
 
 ## 使用包管理器
 
-我们建议您使用包管理器（如 NPM、Yarn 或 pnpm）安装 Element Plus React，然后您就可以使用打包工具，例如 Vite 或 webpack
+我们建议您使用包管理器（<ElLink href="https://www.npmjs.com/">NPM</ElLink>、<ElLink href="https://classic.yarnpkg.com/lang/en/">Yarn</ElLink> 或 <ElLink href="https://pnpm.io/">PNPM</ElLink>）安装 Element Plus React，然后您就可以使用打包工具，例如 Vite 或 webpack
 
 <InstallDependencies npm='$ npm install @qsxy/element-plus-react --save' yarn='$ yarn add @qsxy/element-plus-react' pnpm='$ pnpm install @qsxy/element-plus-react'></InstallDependencies>
 

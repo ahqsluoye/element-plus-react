@@ -1,111 +1,111 @@
 ---
-title: Upload 上传
-lang: zh-CN
+title: Upload
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Upload 上传
+# Upload
 
-通过点击或者拖拽上传文件。
+Upload files by clicking or drag-and-drop.
 
-## 基础用法
+## Basic Usage
 
-你可以传入自定义的上传按钮类型和文字提示。 可通过设置 `limit` 和 `onExceed` 来限制上传文件的个数和定义超出限制时的行为。 可通过设置 `beforeRemove` 来阻止文件移除操作。
+You can pass custom upload button types and text prompts. Set `limit` and `onExceed` to restrict the number of uploaded files and define the behavior when the limit is exceeded. Set `beforeRemove` to prevent file removal.
 
 <code src="./basic.tsx"></code>
 
-## 覆盖前一个文件
+## Cover Previous File
 
-设置 `limit` 和 `onExceed` 可以在选中时自动替换上一个文件。
+Setting `limit` and `onExceed` can automatically replace the previous file when selecting a new one.
 
 <code src="./limit-cover.tsx"></code>
 
-## 用户头像
+## User Avatar
 
-在 `beforeUpload` 钩子中限制用户上传文件的格式和大小。
+Use the `beforeUpload` hook to restrict the format and size of uploaded files.
 
 <code src="./avatar.tsx"></code>
 
-## 照片墙
+## Photo Wall
 
-使用 `listType` 属性来设定文件列表的样式。
+Use the `listType` property to set the file list style.
 
 <code src="./photo-wall.tsx"></code>
 
-## 自定义缩略图
+## Custom Thumbnail
 
-使用 `formatter` 属性来改变默认的缩略图模板样式。
+Use the `formatter` property to change the default thumbnail template style.
 
 <code src="./custom-thumbnail.tsx"></code>
 
-## 图片列表缩略图
+## File List with Thumbnails
 
 <code src="./file-list-with-thumbnail.tsx"></code>
 
-## 上传文件列表控制
+## File List Control
 
-通过 `onChange` 钩子函数来对上传文件的列表进行控制。
+Use the `onChange` hook function to control the upload file list.
 
 <code src="./file-list.tsx"></code>
 
-## 拖拽上传
+## Drag to Upload
 
-你可以将文件拖拽到特定区域以进行上传。
+You can drag files to a specific area to upload them.
 
 <code src="./drag-and-drop.tsx"></code>
 
-## 手动上传
+## Manual Upload
 
 <code src="./manual.tsx"></code>
 
-## 上传 API
+## Upload API
 
-### 属性
+### Properties
 
-| 名称            | 描述                                                                                                                                 | 类型                                                                                                                       | 默认值   |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- | -------- |
-| action          | 请求 URL                                                                                                                             | `string`                                                                                                                   | —        |
-| headers         | 设置上传的请求头部                                                                                                                   | `Headers \| Record<string, any>`                                                                                           | —        |
-| method          | 设置上传请求方法                                                                                                                     | <Enum>'post' \| 'get'</Enum>                                                                                               | `'post'` |
-| multiple        | 是否支持多选文件                                                                                                                     | `boolean`                                                                                                                  | `false`  |
-| data            | 上传时附带的额外参数                                                                                                                 | `Record<string, any> \| ((rawFile: UploadRawFile) => Promise<Record<string, any>>) \| ((rawFile: UploadRawFile) => Record<string, any>)` | —        |
-| name            | 上传的文件字段名                                                                                                                     | `string`                                                                                                                   | `'file'` |
-| withCredentials | 支持发送 cookie 凭证信息                                                                                                             | `boolean`                                                                                                                  | `false`  |
-| errorStatus     | 自定义上传请求的错误判断                                                                                                             | <Enum type='Function'>`(xhr: XMLHttpRequest) => boolean`</Enum>                                                            | —        |
-| showFileList    | 是否显示已上传文件列表                                                                                                               | `boolean`                                                                                                                  | `true`   |
-| drag            | 是否启用拖拽上传                                                                                                                     | `boolean`                                                                                                                  | `false`  |
-| accept          | 接受上传的[文件类型](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept)（thumbnail-mode 模式下此参数无效） | `string`                                                                                                                   | —        |
-| onPreview       | 点击文件列表中已上传的文件时的钩子                                                                                                   | <Enum type='Function'>`(uploadFile: UploadFile) => void`</Enum>                                                            | —        |
-| onRemove        | 文件列表移除文件时的钩子                                                                                                             | <Enum type='Function'>`(uploadFile: UploadFile, uploadFiles: UploadFiles) => void`</Enum>                                  | —        |
-| onSuccess       | 文件上传成功时的钩子                                                                                                                 | <Enum type='Function'>`(response: any, uploadFile: UploadFile, uploadFiles: UploadFiles) => void`</Enum>                   | —        |
-| onError         | 文件上传失败时的钩子                                                                                                                 | <Enum type='Function'>`(error: Error, uploadFile: UploadFile, uploadFiles: UploadFiles) => void`</Enum>                    | —        |
-| onProgress      | 文件上传时的钩子                                                                                                                     | <Enum type='Function'>`(evt: UploadProgressEvent, uploadFile: UploadFile, uploadFiles: UploadFiles) => void`</Enum>        | —        |
-| onChange        | 文件状态改变时的钩子，添加文件、上传成功和上传失败时都会被调用                                                                       | <Enum type='Function'>`(uploadFile: UploadFile, uploadFiles: UploadFiles) => void`</Enum>                                  | —        |
-| onExceed        | 当超出限制时，执行的钩子函数                                                                                                         | <Enum type='Function'>`(files: File[], uploadFiles: UploadUserFile[]) => void`</Enum>                                      | —        |
-| beforeUpload    | 上传文件之前的钩子，参数为上传的文件， 若返回`false`或者返回` Promise` 且被 reject，则停止上传。                                     | <Enum type='Function'>`(rawFile: UploadRawFile) => Awaitable<void \| undefined \| null \| boolean \| File \| Blob>`</Enum> | —        |
-| beforeRemove    | 删除文件之前的钩子，参数为上传的文件和文件列表， 若返回 `false `或者返回 `Promise `且被 reject，则停止删除。                         | <Enum type='Function'>`(uploadFile: UploadFile, uploadFiles: UploadFiles) => Awaitable<boolean>`</Enum>                    | —        |
-| fileList        | 默认上传文件                                                                                                                         | <Enum type='object'>`UploadUserFile[]`</Enum>                                                                              | `[]`     |
-| listType        | 文件列表的类型                                                                                                                       | <Enum>`'text' \| 'picture' \| 'picture-card'`</Enum>                                                                       | `'text'` |
-| autoUpload      | 是否自动上传文件                                                                                                                     | `boolean`                                                                                                                  | `true`   |
-| httpRequest     | 覆盖默认的 Xhr 行为，允许自行实现上传文件的请求                                                                                      | <Enum type='Function'>`(options: UploadRequestOptions) => XMLHttpRequest \| Promise<unknown>`</Enum>                       | —        |
-| disabled        | 是否禁用上传                                                                                                                         | `boolean`                                                                                                                  | `false`  |
-| limit           | 允许上传文件的最大数量                                                                                                               | `number`                                                                                                                   | —        |
-| formatter       | 缩略图模板的内容                                                                                                                     | <Enum type='Function'>`(file: UploadFile) => React.ReactElement`</Enum>                                                    | —        |
-| trigger         | 触发文件选择框的内容                                                                                                                 | -                                                                                                                          | —        |
-| tip             | 提示说明文字                                                                                                                         | -                                                                                                                          | —        |
+| Name            | Description                                                                                                                            | Type                                                                                                                      | Default  |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | -------- |
+| action          | Request URL                                                                                                                            | `string`                                                                                                                  | —        |
+| headers         | Set request headers for upload                                                                                                         | `Headers \| Record<string, any>`                                                                                          | —        |
+| method          | Set upload request method                                                                                                              | <Enum>'post' \| 'get'</Enum>                                                                                              | `'post'` |
+| multiple        | Whether to support multiple file upload                                                                                                | `boolean`                                                                                                                 | `false`  |
+| data            | Additional parameters attached during upload                                                                                           | `Record<string, any> \| ((rawFile: UploadRawFile) => Promise<Record<string, any>>) \| ((rawFile: UploadRawFile) => Record<string, any>)` | —        |
+| name            | Field name for the uploaded file                                                                                                       | `string`                                                                                                                  | `'file'` |
+| withCredentials | Whether to send cookie credentials                                                                                                     | `boolean`                                                                                                                 | `false`  |
+| errorStatus     | Custom error judgment for upload requests                                                                                              | <Enum type='Function'>`(xhr: XMLHttpRequest) => boolean`</Enum>                                                           | —        |
+| showFileList    | Whether to show the uploaded file list                                                                                                 | `boolean`                                                                                                                 | `true`   |
+| drag            | Whether to enable drag-and-drop upload                                                                                                 | `boolean`                                                                                                                 | `false`  |
+| accept          | Accepted [file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept) (invalid in thumbnail-mode)          | `string`                                                                                                                  | —        |
+| onPreview       | Hook when clicking an uploaded file in the file list                                                                                   | <Enum type='Function'>`(uploadFile: UploadFile) => void`</Enum>                                                           | —        |
+| onRemove        | Hook when a file is removed from the file list                                                                                          | <Enum type='Function'>`(uploadFile: UploadFile, uploadFiles: UploadFiles) => void`</Enum>                                 | —        |
+| onSuccess       | Hook when file upload succeeds                                                                                                         | <Enum type='Function'>`(response: any, uploadFile: UploadFile, uploadFiles: UploadFiles) => void`</Enum>                  | —        |
+| onError         | Hook when file upload fails                                                                                                            | <Enum type='Function'>`(error: Error, uploadFile: UploadFile, uploadFiles: UploadFiles) => void`</Enum>                    | —        |
+| onProgress      | Hook during file upload                                                                                                                | <Enum type='Function'>`(evt: UploadProgressEvent, uploadFile: UploadFile, uploadFiles: UploadFiles) => void`</Enum>        | —        |
+| onChange        | Hook when file status changes, called when files are added, upload succeeds, or upload fails                                          | <Enum type='Function'>`(uploadFile: UploadFile, uploadFiles: UploadFiles) => void`</Enum>                                 | —        |
+| onExceed        | Hook function executed when the limit is exceeded                                                                                     | <Enum type='Function'>`(files: File[], uploadFiles: UploadUserFile[]) => void`</Enum>                                     | —        |
+| beforeUpload    | Hook before uploading a file. Parameters is the file to be uploaded. If `false` is returned or a `Promise` is returned and rejected, the upload is stopped. | <Enum type='Function'>`(rawFile: UploadRawFile) => Awaitable<void \| undefined \| null \| boolean \| File \| Blob>`</Enum> | —        |
+| beforeRemove    | Hook before deleting a file. Parameters are the file and file list. If `false` is returned or a `Promise` is returned and rejected, the deletion is stopped. | <Enum type='Function'>`(uploadFile: UploadFile, uploadFiles: UploadFiles) => Awaitable<boolean>`</Enum>                  | —        |
+| fileList        | Default uploaded files                                                                                                                 | <Enum type='object'>`UploadUserFile[]`</Enum>                                                                             | `[]`     |
+| listType        | Type of file list                                                                                                                      | <Enum>`'text' \| 'picture' \| 'picture-card'`</Enum>                                                                      | `'text'` |
+| autoUpload      | Whether to automatically upload files                                                                                                  | `boolean`                                                                                                                 | `true`   |
+| httpRequest     | Override the default Xhr behavior, allowing custom implementation of file upload requests                                               | <Enum type='Function'>`(options: UploadRequestOptions) => XMLHttpRequest \| Promise<unknown>`</Enum>                      | —        |
+| disabled        | Whether to disable upload                                                                                                               | `boolean`                                                                                                                 | `false`  |
+| limit           | Maximum number of files allowed to be uploaded                                                                                           | `number`                                                                                                                  | —        |
+| formatter       | Content of the thumbnail template                                                                                                       | <Enum type='Function'>`(file: UploadFile) => React.ReactElement`</Enum>                                                   | —        |
+| trigger         | Content that triggers the file selector                                                                                                 | -                                                                                                                         | —        |
+| tip             | Tip text                                                                                                                                | -                                                                                                                         | —        |
 
 ### Ref
 
-| 名称         | 描述                                                         | 类型                                                                                                   |
-| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| abort        | 取消上传请求                                                 | <Enum type='Function'>`(file: UploadFile) => void`</Enum>                                              |
-| submit       | 手动上传文件列表                                             | <Enum type='Function'>`() => void`</Enum>                                                              |
-| clearFiles   | 清空已上传的文件列表（该方法不支持在 `beforeUpload` 中调用） | <Enum type='Function'>`(status?: Array<"ready" \| "uploading" \| "success" \| "fail">) => void`</Enum> |
-| handleStart  | 手动选择文件                                                 | <Enum type='Function'>`(rawFile: UploadRawFile) => void`</Enum>                                        |
-| handleRemove | 手动移除文件                                                 | <Enum type='Function'>`(file: UploadFile \| UploadRawFile) => void`</Enum>                             |
+| Name         | Description                                                         | Type                                                                                                   |
+| ------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| abort        | Cancel upload request                                               | <Enum type='Function'>`(file: UploadFile) => void`</Enum>                                              |
+| submit       | Manually upload file list                                           | <Enum type='Function'>`() => void`</Enum>                                                              |
+| clearFiles   | Clear the uploaded file list (this method is not supported in `beforeUpload`) | <Enum type='Function'>`(status?: Array<"ready" \| "uploading" \| "success" \| "fail">) => void`</Enum> |
+| handleStart  | Manually select file                                                | <Enum type='Function'>`(rawFile: UploadRawFile) => void`</Enum>                                        |
+| handleRemove | Manually remove file                                                | <Enum type='Function'>`(file: UploadFile \| UploadRawFile) => void`</Enum>                             |
 
-### 类型声明
+### Type Declarations
 
 ```typescript
 type UploadFiles = UploadFile[];

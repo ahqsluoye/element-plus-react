@@ -1,111 +1,105 @@
 ---
-title: Tabs 标签页
-lang: zh-CN
+title: Tabs
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Tabs 标签页
+# Tabs
 
-分隔内容上有关联但属于不同类别的数据集合。
+Divide data collections that are related yet belong to different types.
 
-## 基础用法
+## Basic Usage
 
-基础的、简洁的标签页。
+Basic and concise tabs.
 
-Tabs 组件提供了选项卡功能， 默认选中第一个标签页，你也可以通过 `value` 属性来指定当前选中的标签页。
+The Tabs component provides tab functionality. By default, the first tab is selected. You can also specify the currently selected tab through the `value` attribute.
 
 <code src="./basic.tsx"></code>
 
-## 卡片风格的标签
+## Card Style Tabs
 
-你可以设置具有卡片风格的标签。
+You can set tabs with a card style.
 
-只需要设置 `type` 属性为 `card` 就可以使选项卡改变为标签风格。
+Simply set the `type` attribute to `card` to change the tabs to card style.
 
 <code src="./card-style.tsx"></code>
 
-## 带有边框的卡片风格
+## Border Card Style
 
-你还可以设置标签页为带有边框的卡片
+You can also set tabs to have a bordered card style.
 
-将 `type` 设置为 `borderCard`。
+Set `type` to `borderCard`.
 
 <code src="./border-card.tsx"></code>
 
-## 标签位置的设置
+## Tab Position
 
-可以通过 `tabPosition` 设置标签的位置
+You can set the tab position through `tabPosition`.
 
-标签一共有四个方向的设置 `tabPosition="left|right|top|bottom"`
+There are four directions for tabs: `tabPosition="left|right|top|bottom"`.
 
 <code src="./tab-position.tsx"></code>
 
-<!-- ## 自定义标签页的内容
-`
-可以通过具名插槽来实现自定义标签页的内容
+## Dynamic Add & Remove Tabs
 
-<code src="./custom-tab.tsx"></code> -->
-
-## 动态增减标签页
-
-增减标签页按钮只能在选项卡样式的标签页下使用
+The add and remove buttons can only be used under card-style tabs.
 
 <code src="./dynamic-tabs.tsx"></code>
 
-## 添加按钮自定义图标
+## Custom Add Button Icon
 
-可以通过 `addIcon` 属性来自定义添加按钮图标。
+You can customize the add button icon through the `addIcon` attribute.
 
 <code src="./customized-add-button-icon.tsx"></code>
 
-## 自定义增加标签页触发器
+## Customized Trigger
 
 <code src="./customized-trigger.tsx"></code>
 
 ## Tabs API
 
-### Tabs 属性
+### Tabs Properties
 
-| 属性名            | 说明                                                                                  | 类型                                                                                                                              | Default    |
-| ----------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| activeName        | 绑定值，选中选项卡的 name，默认值是第一个 tab 的 name（可控）                         | `string` / `number`                                                                                                               | —          |
-| defaultActiveName | 默认选中选项卡的 `name`                                                               | `string` / `number`                                                                                                               | —          |
-| type              | 风格类型                                                                              | <Enum>'' \| 'card' \| 'border-card'</Enum>                                                                                        | ''         |
-| closable          | 标签是否可关闭                                                                        | `boolean`                                                                                                                         | false      |
-| addable           | 标签是否可增加                                                                        | `boolean`                                                                                                                         | false      |
-| addIcon           | 自定义添加按钮图标                                                                    | `React.ReactNode`                                                                                                                 | —          |
-| editable          | 标签是否同时可增加和关闭                                                              | `boolean`                                                                                                                         | false      |
-| tabPosition       | 选项卡所在位置                                                                        | <Enum>'top' \| 'right' \| 'bottom' \| 'left'</Enum>                                                                               | top        |
-| stretch           | 标签的宽度是否自撑开                                                                  | `boolean`                                                                                                                         | false      |
-| center            | 是否居中显示                                                                          | `boolean`                                                                                                                         | false      |
-| classPrefix       | 样式前缀                                                                              | `string`                                                                                                                          | —          |
-| headerStyle       | 标签页标题栏 div 样式                                                                 | `React.CSSProperties`                                                                                                             | —          |
-| contentStyle      | 内容 div 样式                                                                         | `React.CSSProperties`                                                                                                             | —          |
-| beforeLeave       | 切换标签之前的钩子函数， 若返回 `false ` 或者返回被 reject 的 `Promise`，则阻止切换。 | <Enum type="Function">(activeName: TabPaneName, oldActiveName: TabPaneName) => void \| boolean \| Promise<void \| boolean></Enum> | () => true |
+| Name              | Description                                                                                                          | Type                                                                                                                              | Default    |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| activeName        | Binding value, name of the selected tab. Default is the name of the first tab (controlled)                            | `string` / `number`                                                                                                               | —          |
+| defaultActiveName | The `name` of the default selected tab                                                                              | `string` / `number`                                                                                                               | —          |
+| type              | Type of tab style                                                                                                    | <Enum>'' \| 'card' \| 'border-card'</Enum>                                                                                        | ''         |
+| closable          | Whether the tab can be closed                                                                                        | `boolean`                                                                                                                         | false      |
+| addable           | Whether the tab can be added                                                                                         | `boolean`                                                                                                                         | false      |
+| addIcon           | Custom add button icon                                                                                               | `React.ReactNode`                                                                                                                 | —          |
+| editable          | Whether the tab can be both added and closed                                                                         | `boolean`                                                                                                                         | false      |
+| tabPosition       | Position of the tabs                                                                                                 | <Enum>'top' \| 'right' \| 'bottom' \| 'left'</Enum>                                                                               | top        |
+| stretch           | Whether the tab width automatically fits its container                                                               | `boolean`                                                                                                                         | false      |
+| center            | Whether to center the tabs                                                                                           | `boolean`                                                                                                                         | false      |
+| classPrefix       | Style prefix                                                                                                         | `string`                                                                                                                          | —          |
+| headerStyle       | Style of the tab header bar div                                                                                      | `React.CSSProperties`                                                                                                             | —          |
+| contentStyle      | Style of the content div                                                                                              | `React.CSSProperties`                                                                                                             | —          |
+| beforeLeave       | Hook function before switching tabs. If it returns `false` or a rejected `Promise`, switching will be prevented.     | <Enum type="Function">(activeName: TabPaneName, oldActiveName: TabPaneName) => void \| boolean \| Promise<void \| boolean></Enum> | () => true |
 
-### Tabs 事件
+### Tabs Events
 
-| 事件名      | 说明                          | 类型                                                                                           |
-| ----------- | ----------------------------- | ---------------------------------------------------------------------------------------------- |
-| onTabClick  | tab 被选中时触发              | <Enum type="Function">(context: TabsPaneContext) => void</Enum>                                |
-| onTabChange | `activeName` 改变时触发       | <Enum type="Function">(name: TabPaneName \| undefined) => void</Enum>                          |
-| onTabRemove | 点击 tab 移除按钮时触发       | <Enum type="Function">(name: TabPaneName \| undefined) => void</Enum>                          |
-| onTabAdd    | 点击 tab 新增按钮时触发       | <Enum type="Function">() => void</Enum>                                                        |
-| onTabEdit   | 击 tab 的新增或移除按钮后触发 | <Enum type="Function">(name: TabPaneName \| undefined, type: 'add' \| 'remove') => void</Enum> | —   |
+| Name        | Description                            | Type                                                                                           |
+| ----------- | -------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| onTabClick  | Triggered when a tab is selected       | <Enum type="Function">(context: TabsPaneContext) => void</Enum>                                |
+| onTabChange | Triggered when `activeName` changes     | <Enum type="Function">(name: TabPaneName \| undefined) => void</Enum>                          |
+| onTabRemove | Triggered when the tab remove button is clicked | <Enum type="Function">(name: TabPaneName \| undefined) => void</Enum>                          |
+| onTabAdd    | Triggered when the tab add button is clicked | <Enum type="Function">() => void</Enum>                                                        |
+| onTabEdit   | Triggered after clicking the tab add or remove button | <Enum type="Function">(name: TabPaneName \| undefined, type: 'add' \| 'remove') => void</Enum> | —   |
 
 ## Tab-pane API
 
-### Tab-pane 属性
+### Tab-pane Properties
 
-| 属性名      | 说明                                                                                            | 类型                                    | 默认值 |
-| ----------- | ----------------------------------------------------------------------------------------------- | --------------------------------------- | ------ |
-| label       | 选项卡标题                                                                                      | `string` / `React.ReactElement`         | ''     |
-| name        | 与选项卡绑定值 value 对应的标识符，表示选项卡别名。默认值是 tab 面板的序列号，如第一个 tab 是 0 | `string` / `number`                     | —      |
-| closable    | 标签是否可关闭                                                                                  | `boolean`                               | false  |
-| disabled    | 是否禁用                                                                                        | `boolean`                               | false  |
-| lazy        | 标签是否延迟渲染                                                                                | `boolean`                               | false  |
-| classPrefix | 样式前缀                                                                                        | `string`                                | —      |
-| onTabShow   | 激活标签时触发                                                                                  | <Enum type="Function">() => void</Enum> | —      |
-| onTabClose  | 关闭标签页时触发                                                                                | <Enum type="Function">() => void</Enum> | —      |
-| data        | 传递给点击事件的额外参数                                                                        | `Record<string \| number, any>`         | —      |
+| Name        | Description                                                                                                                    | Type                                    | Default |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------- | ------ |
+| label       | Title of the tab                                                                                                               | `string` / `React.ReactElement`         | ''     |
+| name        | Identifier corresponding to the tab binding value, representing the alias of the tab. Default is the serial number of the tab pane, e.g. the first tab is 0 | `string` / `number`                     | —      |
+| closable    | Whether the tab can be closed                                                                                                  | `boolean`                               | false  |
+| disabled    | Whether the tab is disabled                                                                                                    | `boolean`                               | false  |
+| lazy        | Whether the tab is lazily rendered                                                                                             | `boolean`                               | false  |
+| classPrefix | Style prefix                                                                                                                    | `string`                                | —      |
+| onTabShow   | Triggered when the tab is activated                                                                                            | <Enum type="Function">() => void</Enum> | —      |
+| onTabClose  | Triggered when the tab is closed                                                                                               | <Enum type="Function">() => void</Enum> | —      |
+| data        | Extra parameters passed to the click event                                                                                     | `Record<string \| number, any>`         | —      |

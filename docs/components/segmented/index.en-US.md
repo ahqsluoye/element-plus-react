@@ -1,91 +1,91 @@
 ---
-title: Segmented 分段控制器
-lang: zh-CN
+title: Segmented
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Segmented 分段控制器
+# Segmented
 
-用于展示多个选项并允许用户选择其中单个选项。
+Display multiple options and allow users to select a single option.
 
-## 基础用法
+## Basic Usage
 
-设置`value`为选项值。
+Set `value` to the option value.
 
 <code src="./basic.tsx"></code>
 
-## 配置方向
+## Direction
 
-设置 `vertical` 来改变方向。
+Set `vertical` to change the direction.
 
 <code src="./custom-direction.tsx"></code>
 
-## 禁用状态
+## Disabled
 
-设置 `disabled` 属性来禁用一些选项。
+Set the `disabled` attribute to disable some options.
 
 <code src="./disabled.tsx"></code>
 
-## 自定义选项
+## Custom Options
 
-当您的 `options` 格式不同于默认格式时，可通过 `props` 属性自定义 `options`
+When your `options` format is different from the default format, you can customize `options` through the `props` attribute.
 
 <code src="./props.tsx"></code>
 
-## Block 分段选择器
+## Block
 
-设置`block`为`true`以适应父元素的宽度。
+Set `block` to `true` to fit the width of the parent element.
 
 <code src="./block.tsx"></code>
 
-## 自定义内容
+## Custom Content
 
-设置 `children` 来渲染自定义内容。
+Set `children` to render custom content.
 
 <code src="./custom-content.tsx"></code>
 
-## 自定义样式
+## Custom Style
 
-使用 CSS 变量设置自定义样式。
+Use CSS variables to set custom styles.
 
 <code src="./custom-style.tsx"></code>
 
 ## API
 
-### 属性
+### Properties
 
-| 名称         | 说明               | 类型                                                           | 默认值     |
-| ------------ | ------------------ | -------------------------------------------------------------- | ---------- |
-| value        | 绑定值             | `string` / `number` / `boolean`                                | —          |
-| defaultValue | 默认绑定值         | `string` / `number` / `boolean`                                | —          |
-| options      | 选项的数据         | <Enum type="array">Option[]</Enum>                             | []         |
-| props        | 配置选项，详见下表 | `object`                                                       | —          |
-| size         | 组件大小           | <Enum type="enum">'' \| 'large' \| 'default' \| 'small'</Enum> | ''         |
-| block        | 撑满父元素宽度     | `boolean`                                                      | false      |
-| disabled     | 是否禁用           | `boolean`                                                      | false      |
-| name         | 原生 name 属性     | `string`                                                       | —          |
-| id           | 原生 `id` 属性     | `string`                                                       | —          |
-| direction    | 展示的方向         | <Enum type="enum">'horizontal' \| 'vertical'</Enum>            | horizontal |
+| Name         | Description               | Type                                                           | Default    |
+| ------------ | ------------------------- | -------------------------------------------------------------- | ---------- |
+| value        | Binding value             | `string` / `number` / `boolean`                                | —          |
+| defaultValue | Default binding value     | `string` / `number` / `boolean`                                | —          |
+| options      | Data of the options       | <Enum type="array">Option[]</Enum>                             | []         |
+| props        | Configuration options, see the table below | `object`                                            | —          |
+| size         | Size of the component     | <Enum type="enum">'' \| 'large' \| 'default' \| 'small'</Enum> | ''         |
+| block        | Fit the width of the parent element | `boolean`                                                  | false      |
+| disabled     | Whether disabled          | `boolean`                                                      | false      |
+| name         | Native `name` attribute    | `string`                                                       | —          |
+| id           | Native `id` attribute     | `string`                                                       | —          |
+| direction    | Display direction         | <Enum type="enum">'horizontal' \| 'vertical'</Enum>            | horizontal |
 
 ### props
 
-| 属性     | 说明                               | 类型     | 默认值   |
-| -------- | ---------------------------------- | -------- | -------- |
-| value    | 指定键为节点对象的某个属性值       | `string` | value    |
-| label    | 指定标签为节点对象的某个属性值     | `string` | label    |
-| disabled | 指定禁用状态为节点对象的某个属性值 | `string` | disabled |
+| Attribute | Description                                                     | Type     | Default  |
+| --------- | --------------------------------------------------------------- | -------- | -------- |
+| value     | Specify which key of the node object is used as the value       | `string` | value    |
+| label     | Specify which key of the node object is used as the label       | `string` | label    |
+| disabled  | Specify which key of the node object is used as the disabled state | `string` | disabled |
 
-### 事件
+### Events
 
-| 名称     | 说明                                   | 类型                                            |
-| -------- | -------------------------------------- | ----------------------------------------------- |
-| onChange | 当所选值更改时触发，参数是当前选中的值 | <Enum type="Function">(val: any) => void</Enum> |
+| Name     | Description                                                                 | Type                                            |
+| -------- | --------------------------------------------------------------------------- | ----------------------------------------------- |
+| onChange | Triggered when the selected value changes, the parameter is the currently selected value | <Enum type="Function">(val: any) => void</Enum> |
 
-## 类型声明
+## Type Declarations
 
 <details open>
-  <summary>显示类型声明</summary>
+  <summary>Show declarations</summary>
 
 ```ts
 type Option = Record<string, any> | string | number | boolean;

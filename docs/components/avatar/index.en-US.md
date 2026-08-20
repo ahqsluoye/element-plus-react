@@ -1,70 +1,54 @@
 ---
-title: Avatar 头像
-lang: zh-CN
+title: Avatar
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Avatar 头像
+# Avatar
 
-Avatar 组件可以用来代表人物或对象， 支持使用图片、图标或者文字作为 Avatar。
+Avatars can be used to represent people or objects. It supports images, icons, or characters.
 
-## 基础用法
+## Basic Usage
 
-使用 `shape` 和 `size` 属性来设置 Avatar 的形状和大小。
-
-:::demo
+Use `shape` and `size` props to set the avatar's shape and size.
 
 <code src="./basic.tsx"></code>
 
-:::
+## Types
 
-## 展示类型
-
-支持使用图片，图标或者文字作为 Avatar。
-
-:::demo
+It supports images, icons, or characters as Avatar.
 
 <code src="./types.tsx"></code>
 
-:::
+## Fallback
 
-## 回退行为
-
-图片加载失败时的回退行为。
-
-:::demo
+Fallback when image loading fails.
 
 <code src="./fallback.tsx"></code>
 
-:::
+## Fit Container
 
-## 适应容器
-
-当使用图片作为用户头像时，设置该图片如何在容器中展示。与[ object-fit ](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit) 属性一致
-
-:::demo
+Set how the image fits its container for an image avatar, same as [object-fit](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit).
 
 <code src="./fit.tsx"></code>
 
-:::
-
 ## API
 
-### 属性
+### Properties
 
-| 名称   | 说明                                         | 类型                                                                  | 默认值  |
-| ------ | -------------------------------------------- | --------------------------------------------------------------------- | ------- |
-| icon   | 设置 Avatar 的图标类型，具体参考 Icon 组件   | `string` / `Component`                                                | —       |
-| size   | Avatar 大小                                  | `number` / <Enum>'large' \| 'default' \| 'small'</Enum>               | default |
-| shape  | Avatar 形状                                  | <Enum>'circle' \| 'square'</Enum>                                     | circle  |
-| src    | Avatar 图片的源地址                          | `string`                                                              | —       |
-| srcSet | 图片 Avatar 的原生 `srcset` 属性             | `string`                                                              | —       |
-| alt    | 图片 Avatar 的原生 `alt` 属性                | `string`                                                              | —       |
-| fit    | 当展示类型为图片的时候，设置图片如何适应容器 | <Enum>'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'</Enum> | cover   |
+| Name   | Description                                                 | Type                                                                              | Default |
+| ------ | ----------------------------------------------------------- | --------------------------------------------------------------------------------- | ------- |
+| icon   | set the icon type of Avatar, see Icon component for details | `string` / `Component`                                                            | —       |
+| size   | avatar size                                                 | `number` / <Enum type="enum">'large' \| 'default' \| 'small'</Enum>               | default |
+| shape  | avatar shape                                                | <Enum type="enum">'circle' \| 'square'</Enum>                                     | circle  |
+| src    | the source of the image for an image avatar                 | `string`                                                                          | —       |
+| srcSet | native attribute `srcset` of image avatar                   | `string`                                                                          | —       |
+| alt    | native attribute `alt` of image avatar                      | `string`                                                                          | —       |
+| fit    | set how the image fits its container for an image avatar    | <Enum type="enum">'fill' \| 'contain' \| 'cover' \| 'none' \| 'scale-down'</Enum> | cover   |
 
-### 事件
+### Events
 
-| 名称    | 说明               | 类型                                              |
-| ------- | ------------------ | ------------------------------------------------- |
-| onError | 图片加载失败时触发 | <Enum type="Function">`(e: Event) => void`</Enum> |
+| Name    | Description                   | Type                                              |
+| ------- | ----------------------------- | ------------------------------------------------- |
+| onError | trigger when image load fails | <Enum type="Function">`(e: Event) => void`</Enum> |

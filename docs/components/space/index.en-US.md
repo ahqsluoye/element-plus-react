@@ -1,111 +1,108 @@
 ---
-title: Space 间距
-lang: zh-CN
+title: Space
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Space 间距
+# Space
 
-虽然我们拥有 [Divider 组件](/zh-CN/component/divider)，但很多时候我们需要不是一个被 [Divider 组件](/zh-CN/component/divider) 分割开的页面结构，因此我们会重复的使用很多的 [Divider 组件](/zh-CN/component/divider)，这在我们的开发效率上造成了一定的困扰。 **间距组件**就是为了解决这种困扰应运而生的。
+Although we have the [Divider](/en-US/component/divider) component, there are many times when we need a page structure that is not separated by the [Divider](/en-US/component/divider) component. So we would repeatedly use many [Divider](/en-US/component/divider) components, which causes some trouble in our development efficiency. **Space** was created to solve this problem.
 
-## 基础用法
+## Basic Usage
 
-最基础的用法，通过这个组件来给组件之间提供统一的间距。
+The most basic usage is to provide unified spacing between components through this component.
 
-通过间距组件来给多个组件之间提供间距
+Use Space to provide spacing between multiple components.
 
 <code src="./basic.tsx"></code>
 
-## 垂直布局
+## Vertical Layout
 
-使用 `direction` 来控制布局的方式, 背后实际上是利用了 `flexDirection` 来控制.
+Use `direction` to control the layout direction, which is essentially controlled by `flexDirection` internally.
 
-我们也提供垂直布局方式。
+We also provide a vertical layout.
 
 <code src="./vertical-layout.tsx"></code>
 
-## 控制间距的大小
+## Control the Size of the Space
 
-通过调整 `size` 的值来控制间距的大小
+Control the space size by adjusting the `size` value.
 
-使用内置的 `small`、`default`、`large` 来设置间距大小，分别对应 `8px`、`12px` 和 `16px` 的间距。 默认的间距大小为 `small`，也就是 `8px`。
+Use the built-in `small`, `default`, `large` to set the spacing size, corresponding to `8px`, `12px`, and `16px` respectively. The default spacing size is `small`, which is `8px`.
 
-您也可以通过自定义的 size 来控制大小， 参见下一个部分。
+You can also control the size through a custom size. See the next section.
 
 <code src="./control-size.tsx"></code>
 
-## 自定义 Size
+## Customized Size
 
-很多时候，内建的大小不满足设计师的要求，我们可以通过传入自己定义的大小 (数值类型) 来设置。
+Sometimes the built-in sizes don't meet the designer's requirements. We can set the size by passing a custom size (numeric type).
 
 <code src="./customized-size.tsx"></code>
 
 :::info{title=TIP}
-不要让 `ElSpace` 与使用依赖父元素百分比宽度（或高度）的元素一起使用（例如 `ElSlider`），这样会造成光标不同步。
+Do not use `ElSpace` with components that depend on the parent element's percentage width (or height), such as `ElSlider`, as this will cause the cursor to be out of sync.
 :::
 
-## 自动换行
+## Auto Wrapping
 
-在 **水平 (horizontal) ** 模式下，通过使用 `wrap`（**布尔类型**）来控制自动换行行为。
+In **horizontal** mode, use `wrap` (**boolean type**) to control the auto-wrapping behavior.
 
-利用 `wrap` 属性控制换行
+Use the `wrap` attribute to control line wrapping.
 
 <code src="./auto-wrapping.tsx"></code>
 
-## 行间分隔符
+## Spacer
 
-有时候，仅仅在行间加空白并不能满足我们的日常需求，此时分隔符 (spacer) 就可以发挥非常好的作用了。
+Sometimes just adding blank space between rows doesn't meet our daily needs. At this point, the spacer can play a very good role.
 
-## 字母数字类型分隔符
+## Literal Type Spacer
 
 <code src="./literal-type-spacer.tsx"></code>
 
-## 分隔符还可以是 ReactNode 类型
+## Spacer Can Also Be ReactNode Type
 
 <code src="./vnode-type-spacer.tsx"></code>
 
-## 对齐方式
+## Alignment
 
-设置该值可以调整所有子节点在容器内的对齐方式，可设置的值与 [align-items ](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)一致。
+Set this attribute to adjust the alignment of all child nodes in the container. The available values are the same as [align-items](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items).
 
-使用 `alignment` 属性来对齐
+Use the `alignment` attribute to align items.
 
 <code src="./alignment.tsx"></code>
 
-## 填充容器
+## Fill the Container
 
-通过 `fill`**（布尔类型）**参数，您可以控制子节点是否自动填充容器。
+Through the `fill` **(boolean type)** parameter, you can control whether child nodes automatically fill the container.
 
-下面的例子中，当设置为 `fill` 时，子节点的宽度会自动适配容器的宽度。
+In the example below, when `fill` is set, the width of child nodes will automatically adapt to the container width.
 
-用 fill 属性让子节点自动填充容器
+Use the `fill` attribute to make child nodes automatically fill the container.
 
 <code src="./fill.tsx"></code>
 
-也可以使用 `fillRatio` 参数，自定义填充的比例， 默认值为 `100`，代表基于父容器宽度的 ` 100%` 进行填充
+You can also use the `fillRatio` parameter to customize the fill ratio. The default value is `100`, representing `100%` fill based on the parent container width.
 
-需要注意的是，水平布局和垂直布局的表现形式稍有不同，具体的效果可以查看下面的例子
+Note that the visual representation of horizontal and vertical layouts is slightly different. See the examples below for the specific effect.
 
-用 fillRatio 自定义填充比例
+Use `fillRatio` to customize the fill ratio.
 
 <code src="./fill-ratio.tsx"></code>
 
 ## API
 
-### space 属性
+### Space Properties
 
-| 属性名    | 说明                 | 类型                                                                                                                                                                            | 默认值     |
-| --------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| alignment | 对齐的方式           | <Enum type="enum">'center' \| 'normal' \| 'stretch' \| ...</Enum> [align-items](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)                                   | center     |
-| justify   | 对齐的方式           | <Enum type="enum">'center' \| 'start' \| 'space-between' \| ...</Enum> [justify-content](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content) | -          |
-| direction | 排列的方向           | <Enum type="enum">'vertical' \| 'horizontal'</Enum>                                                                                                                             | horizontal |
-| spacer    | 间隔符               | `string` / `number` / `React.ReactNode`                                                                                                                                                   | —          |
-| size      | 间隔大小             | <Enum type="enum">'small' \| 'medium' \| 'large'`/`number`/`array``[number, number]</Enum>                                                                                     | small      |
-| wrap      | 设置是否自动折行     | `boolean`                                                                                                                                                                       | false      |
-| fill      | 子元素是否填充父容器 | `boolean`                                                                                                                                                                       | false      |
-| fillRatio | 填充父容器的比例     | `number`                                                                                                                                                                        | 100        |
-| prefixCls | 给 space-items 的类名前缀 | `string`                                                                                                                                                                        | —        |
-<!-- 以下属性在当前类型定义中未找到 -->
-<!-- | class     | className            | `string` / `object` / `array`                                                                                                                                                   | —          | -->
-<!-- | style     | 额外样式             | `string` / <Enum type="object">CSSProperties \| CSSProperties[] \| string[]</Enum>                                                                                              | —          | -->
+| Name      | Description                                                                                                          | Type                                                                                                                                                                            | Default    |
+| --------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| alignment | Alignment method                                                                                                     | <Enum type="enum">'center' \| 'normal' \| 'stretch' \| ...</Enum> [align-items](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)                                   | center     |
+| justify   | Justification method                                                                                                 | <Enum type="enum">'center' \| 'start' \| 'space-between' \| ...</Enum> [justify-content](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content) | -          |
+| direction | Arrangement direction                                                                                                | <Enum type="enum">'vertical' \| 'horizontal'</Enum>                                                                                                                             | horizontal |
+| spacer    | Spacer                                                                                                               | `string` / `number` / `React.ReactNode`                                                                                                                                                   | —          |
+| size      | Spacing size                                                                                                         | <Enum type="enum">'small' \| 'medium' \| 'large'`/`number`/`array``[number, number]</Enum>                                                                                     | small      |
+| wrap      | Set whether to auto-wrap                                                                                             | `boolean`                                                                                                                                                                       | false      |
+| fill      | Whether child elements fill the parent container                                                                     | `boolean`                                                                                                                                                                       | false      |
+| fillRatio | Ratio to fill the parent container                                                                                    | `number`                                                                                                                                                                        | 100        |
+| prefixCls | Class name prefix for space-items                                                                                    | `string`                                                                                                                                                                        | —          |

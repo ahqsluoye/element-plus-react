@@ -1,42 +1,42 @@
 ---
-title: Divider 分割线
-lang: zh-CN
+title: Divider
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Divider 分割线
+# Divider
 
-区隔内容的分割线。
+The dividing line that separates the content.
 
-## 基础用法
+## Basic Usage
 
-对不同段落的文本进行分割。
+Divide the text of different paragraphs.
 
 <code src="./basic-usage.tsx"></code>
 
-## 设置文案
+## Custom Content
 
-可以在分割线上自定义文本内容。
+You can customize the content on the divider line.
 
 <code src="./custom-content.tsx"></code>
 
-## 虚线
+## Dashed Line
 
-您可以设置分隔符的样式。
+You can set the style of divider.
 
 <code src="./line-dashed.tsx"></code>
 
-## 垂直分隔线
+## Vertical Divider
 
 <code src="./vertical-divider.tsx"></code>
 
 ## API
 
-### 属性
+### Properties
 
-| 属性名          | 说明                   | 类型                                                                                                                                            | 默认       |
-| --------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| direction       | 设置分割线方向         | <Enum>'horizontal' \| 'vertical'</Enum>                                                                                                         | horizontal |
-| borderStyle     | 设置分隔符样式         | <Enum>'none' \| 'solid' \| 'hidden' \| 'dashed' \| ...</Enum> [css/border-style](https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-style) | solid      |
-| contentPosition | 自定义分隔线内容的位置 | <Enum>'left' \| 'right' \| 'center'</Enum>                                                                                                      | center     |
+| Name            | Description                                                | Type                                                                                                                                            | Default    |
+| --------------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| direction       | set divider's direction                                    | <Enum>'horizontal' \| 'vertical'</Enum>                                                                                                         | horizontal |
+| borderStyle     | set the style of divider                                   | <Enum>'none' \| 'solid' \| 'hidden' \| 'dashed' \| ...</Enum> [css/border-style](https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-style) | solid      |
+| contentPosition | the position of the customized content on the divider line | <Enum>'left' \| 'right' \| 'center'</Enum>                                                                                                      | center     |

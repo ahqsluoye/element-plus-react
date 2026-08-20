@@ -1,58 +1,58 @@
 ---
-title: ColorPicker 颜色选择器
-lang: zh-CN
+title: ColorPicker
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# ColorPicker 颜色选择器
+# ColorPicker
 
-用于颜色选择，支持多种格式。
+ColorPicker is a color selector supporting multiple color formats.
 
-## 基础用法
+## Basic Usage
 
 <code src="./basic.tsx"></code>
 
-## 选择透明度
+## Alpha
 
-ColorPicker 支持普通颜色，也支持带 Alpha 通道的颜色，通过`showAlpha`属性即可控制是否支持透明度的选择。 要启用 Alpha 选择，只需添加 `showAlpha` 属性。
+ColorPicker supports both normal colors and colors with Alpha channel. Use the `showAlpha` attribute to control whether to enable alpha transparency selection. To enable alpha selection, just add the `showAlpha` attribute.
 
 <code src="./alpha.tsx"></code>
 
-## 预定义颜色
+## Predefined Colors
 
-ColorPicker 支持预定义颜色
+ColorPicker supports predefined color options.
 
 <code src="./predefined-color.tsx"></code>
 
-## 不同尺寸
+## Sizes
 
 <code src="./sizes.tsx"></code>
 
 ## API
 
-### 属性
+### Properties
 
-| 属性名      | 说明                    | 类型                                                                                                              | 默认值 |
-| ----------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------- | ------ |
-| value       | 选中项绑定值（可控模式）| `string`                                                                                                          | —      |
-| defaultValue| 默认值                  | `string`                                                                                                          | —      |
-| disabled    | 是否禁用                | `boolean`                                                                                                         | false  |
-| size        | 尺寸                    | <Enum>'large' \| 'default' \| 'small'</Enum>                                                                      | —      |
-| showAlpha   | 是否支持透明度选择      | `boolean`                                                                                                         | false  |
-| colorformat | 写入 value 的颜色的格式 | <Enum>`hsl` \| `hsv` \| `hex` \| `rgb`', '`hex` (当 `showAlpha` 为 false) / `rgb` (当 `showAlpha` 为 true)</Enum> | —      |
-| predefine   | 预定义颜色              | <Enum type='object'>string[]</Enum>                                                                               | —      |
+| Name          | Description                                   | Type                                                                                                              | Default                                                                      |
+| ------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| value         | Binding value (controlled mode)               | `string`                                                                                                          | —                                                                            |
+| defaultValue  | Default value                                 | `string`                                                                                                          | —                                                                            |
+| disabled      | Whether to disable the ColorPicker            | `boolean`                                                                                                         | false                                                                        |
+| size          | Size of ColorPicker                           | <Enum>'large' \| 'default' \| 'small'</Enum>                                                                      | —                                                                            |
+| showAlpha     | Whether to support alpha transparency selection | `boolean`                                                                                                         | false                                                                        |
+| colorFormat   | Color format written to the value             | <Enum>`hsl` \| `hsv` \| `hex` \| `rgb`', '`hex` (when `showAlpha` is false) / `rgb` (when `showAlpha` is true)</Enum> | —                                                                            |
+| predefine     | Predefined color options                      | <Enum type='object'>string[]</Enum>                                                                               | —                                                                            |
 
-### 事件
+### Events
 
-| 事件名       | 说明                               | 类型                                                 |
-| ------------ | ---------------------------------- | ---------------------------------------------------- |
-| onChange     | 当绑定值变化时触发                 | <Enum type='Function'>(value: string) => void</Enum> |
-| activeChange | 面板中当前显示的颜色发生改变时触发 | <Enum type='Function'>(value: string) => void</Enum> |
+| Name         | Description                                    | Type                                                 |
+| ------------ | ---------------------------------------------- | ---------------------------------------------------- |
+| onChange     | Triggers when the binding value changes        | <Enum type='Function'>(value: string) => void</Enum> |
+| activeChange | Triggers when the currently displayed color in the panel changes | <Enum type='Function'>(value: string) => void</Enum> |
 
 ### Ref
 
-| 名称  | 说明         | 类型                                            |
-| ----- | ------------ | ----------------------------------------------- |
-| ref   | 根元素       | <Enum type='object'>Ref\<HTMLDivElement></Enum> |
-| color | 当前色彩对象 | <Enum type='object'>Color</Enum>                |
+| Name  | Description         | Type                                            |
+| ----- | ------------------- | ----------------------------------------------- |
+| ref   | Root element        | <Enum type='object'>Ref\<HTMLDivElement></Enum> |
+| color | Current color object | <Enum type='object'>Color</Enum>                |

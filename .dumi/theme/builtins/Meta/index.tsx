@@ -1,7 +1,7 @@
 import { ElButton, ElButtonGroup, ElDrawer, ElTag, ElTimeLine, ElTimeLineItem, TimeLineItemProps } from '@qsxy/element-plus-react';
 import { useMount } from 'ahooks';
 import { useLocation } from 'dumi';
-import React from 'react';
+import React, { useMemo } from 'react';
 import './style.scss';
 
 export interface ChangelogEntry {
@@ -53,6 +53,8 @@ const Meta = props => {
 
     const todoCount = issues.length || 0;
 
+    const isEnglish = useMemo(() => location.pathname.startsWith('/en-US'), [location.pathname]);
+
     useMount(() => {
         import(`@/../docs/${location.pathname.substring(1).replace('en-US/', '')}/changeLog.ts`).then(res => {
             if (res.default) {
@@ -74,12 +76,12 @@ const Meta = props => {
             <ElButtonGroup size="small">
                 {changeLog.length > 0 && (
                     <ElButton size="small" icon="clock" loading={loadingChangeLog} onClick={() => setVisible('changeLog')}>
-                        更新日志
+                        {isEnglish ? 'Changelog' : '更新日志'}
                     </ElButton>
                 )}
                 {todoCount > 0 && (
                     <ElButton size="small" icon="exclamation-circle" loading={loadingIssues} onClick={() => setVisible('issues')}>
-                        待解决 {todoCount}
+                        {isEnglish ? 'Pending' : '待解决问题'}: {todoCount}
                     </ElButton>
                 )}
             </ElButtonGroup>
@@ -87,7 +89,7 @@ const Meta = props => {
             <ElDrawer
                 title={
                     <div className="changelog-drawer-header">
-                        <span className="changelog-drawer-title">待解决问题</span>
+                        <span className="changelog-drawer-title">{isEnglish ? 'Pending' : '待解决问题'}</span>
                     </div>
                 }
                 visible={visible === 'issues'}
@@ -136,7 +138,7 @@ const Meta = props => {
             <ElDrawer
                 title={
                     <div className="changelog-drawer-header">
-                        <span className="changelog-drawer-title">更新日志</span>
+                        <span className="changelog-drawer-title">{isEnglish ? 'Changelog' : '更新日志'}</span>
                     </div>
                 }
                 visible={visible === 'changeLog'}

@@ -1,48 +1,48 @@
 ---
-title: Popconfirm 气泡确认框
-lang: zh-CN
+title: Popconfirm
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Popconfirm 气泡确认框
+# Popconfirm
 
-点击某个元素弹出一个简单的气泡确认框
+A simple confirmation dialog of an element click action.
 
-## 基础用法
+## Basic Usage
 
-Popconfirm 的属性与 Popover 很类似， 因此对于重复属性，请参考 Popover 的文档，在此文档中不做详尽解释。
+Popconfirm is similar to Popover. So for some duplicated attributes, please refer to the documentation of Popover.
 
-在 Popconfirm 中，只有 `title` 属性可用，`content` 属性会被忽略。
+Only `title` attribute is available in Popconfirm, the `content` attribute will be ignored.
 
 <code src="./basic-usage.tsx"></code>
 
-## 自定义弹出框的内容
+## Customize Content
 
-可以在 Popconfirm 中自定义内容。
+You can customize the content of Popconfirm.
 
 <code src="./customize.tsx"></code>
 
 ## API
 
-### 属性
+### Properties
 
-| 属性名            | 说明                                                                | 类型                                                                             | 默认           |
-| ----------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------- |
-| title             | 标题                                                                | `string`                                                                         | —              |
-| confirmButtonText | 确认按钮文字                                                        | `string`                                                                         | —              |
-| cancelButtonText  | 取消按钮文字                                                        | `string`                                                                         | —              |
-| confirmButtonType | 确认按钮类型                                                        | <Enum>'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'text'</Enum> | primary        |
-| cancelButtonType  | 取消按钮类型                                                        | <Enum>'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'text'</Enum> | text           |
-| icon              | 自定义图标                                                          | `string` / `Component`                                                           | QuestionFilled |
-| iconColor         | Icon 颜色                                                           | `string`                                                                         | #f90           |
-| hideIcon          | 是否隐藏 Icon                                                       | `boolean`                                                                        | false          |
-| width             | 弹层宽度，最小宽度 150px                                            | `string` / `number`                                                              | 150            |
-| persistent        | 当下拉菜单处于非活动状态且 persistent 为 false 时，下拉菜单将被销毁 | `boolean`                                                                        | true           |
+| Name              | Description                                                        | Type                                                                             | Default        |
+| ----------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------- | -------------- |
+| title             | Title                                                              | `string`                                                                         | —              |
+| confirmButtonText | Confirm button text                                                | `string`                                                                         | —              |
+| cancelButtonText  | Cancel button text                                                 | `string`                                                                         | —              |
+| confirmButtonType | Confirm button type                                                | <Enum>'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'text'</Enum> | primary        |
+| cancelButtonType  | Cancel button type                                                 | <Enum>'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'text'</Enum> | text           |
+| icon              | Custom icon                                                        | `string` / `Component`                                                           | QuestionFilled |
+| iconColor         | Icon color                                                         | `string`                                                                         | #f90           |
+| hideIcon          | Whether to hide the icon                                           | `boolean`                                                                        | false          |
+| width             | Popconfirm width, minimum width 150px                               | `string` / `number`                                                              | 150            |
+| persistent        | When the dropdown is inactive and `persistent` is `false`, the dropdown will be destroyed | `boolean`                                                                        | true           |
 
-### 事件
+### Events
 
-| 事件名    | 说明               | 类型                                    |
-| --------- | ------------------ | --------------------------------------- |
-| onConfirm | 点击确认按钮时触发 | <Enum type="Function">() => void</Enum> |
-| onCancel  | 点击取消按钮时触发 | <Enum type="Function">() => void</Enum> |
+| Name      | Description                        | Type                                    |
+| --------- | ---------------------------------- | --------------------------------------- |
+| onConfirm | Triggered when the confirm button is clicked | <Enum type="Function">() => void</Enum> |
+| onCancel  | Triggered when the cancel button is clicked | <Enum type="Function">() => void</Enum> |

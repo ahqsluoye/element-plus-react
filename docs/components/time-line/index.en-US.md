@@ -1,50 +1,50 @@
 ---
-title: Timeline 时间线
-lang: zh-CN
+title: Timeline
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Timeline 时间线
+# Timeline
 
-可视化地呈现时间流信息。
+Visually display timeline.
 
-## 基础用法
+## Basic Usage
 
-Timeline 可拆分成多个按照时间戳排列的活动， 时间戳是其区分于其他控件的重要特征， 使用时注意与 Steps 步骤条等区分。
+Timeline can be split into multiple activities ordered by timestamp. Timestamp is an important feature that distinguishes it from other components. Note the difference with Steps.
 
 <code src="./basic.tsx"></code>
 
-## ⾃定义节点样式
+## Custom Node
 
-可根据实际场景⾃定义节点尺⼨、颜⾊，或直接使⽤图标。
+Size, color, and icons can be customized in node based on actual scenarios.
 
 <code src="./custom-node.tsx"></code>
 
-## ⾃定义时间戳
+## Custom Timestamp
 
-当内容在垂直⽅向上过⾼时，可将时间戳置于内容之上。
+Timestamp can be placed on top of content when content is too high.
 
 <code src="./custom-timestamp.tsx"></code>
 
-## 垂直居中
+## Vertically Centered
 
-垂直居中样式的 Timeline-Item
+Timeline-Item with vertically centered style.
 
 <code src="./center.tsx"></code>
 
-## Timeline-Item API
+## TimelineItem API
 
-### Timeline-Item 属性
+### TimelineItem Properties
 
-| 属性名        | 说明           | 类型                                                                   | 默认值 |
-| ------------- | -------------- | ---------------------------------------------------------------------- | ------ |
-| timestamp     | 时间戳         | `string`                                                               | ''     |
-| hideTimestamp | 是否隐藏时间戳 | `boolean`                                                              | false  |
-| center        | 是否垂直居中   | `boolean`                                                              | false  |
-| placement     | 时间戳位置     | <Enum>'top' \| 'bottom'</Enum>                                         | bottom |
-| type          | 节点类型       | <Enum>'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'</Enum> | ''     |
-| color         | 节点颜色       | <Enum>'hsl' \| 'hsv' \| 'hex' \| 'rgb'</Enum>                          | ''     |
-| size          | 节点尺寸       | <Enum>'normal' \| 'large'</Enum>                                       | normal |
-| icon          | 自定义图标     | `string` / `Component`                                                 | —      |
-| hollow        | 是否空心点     | `boolean`                                                              | false  |
+| Name          | Description                 | Type                                                                   | Default |
+| ------------- | --------------------------- | ---------------------------------------------------------------------- | ------- |
+| timestamp     | Timestamp content           | `string`                                                               | ''      |
+| hideTimestamp | Whether to show timestamp   | `boolean`                                                              | false   |
+| center        | Whether vertically centered | `boolean`                                                              | false   |
+| placement     | Position of timestamp       | <Enum>'top' \| 'bottom'</Enum>                                         | bottom  |
+| type          | Node type                   | <Enum>'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'</Enum> | ''      |
+| color         | Node color                  | <Enum>'hsl' \| 'hsv' \| 'hex' \| 'rgb'</Enum>                          | ''      |
+| size          | Node size                   | <Enum>'normal' \| 'large'</Enum>                                       | normal  |
+| icon          | Custom icon                 | `string` / `Component`                                                 | —       |
+| hollow        | Whether the dot is hollow   | `boolean`                                                              | false   |

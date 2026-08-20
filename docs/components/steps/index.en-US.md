@@ -1,83 +1,83 @@
 ---
-title: Steps 步骤条
-lang: zh-CN
+title: Steps
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Steps 步骤条
+# Steps
 
-引导用户按照流程完成任务的分步导航条， 可根据实际应用场景设定步骤，步骤不得少于 2 步。
+A step-by-step navigation bar that guides users to complete tasks according to the process. The steps can be set according to the actual application scenario, and the number of steps cannot be less than 2.
 
-## 基础用法
+## Basic Usage
 
-简单的步骤条。
+Simple steps bar.
 
-设置 `active` 属性，接受一个 `Number`，表明步骤的 index，从 0 开始。 需要定宽的步骤条时，设置 `space` 属性即可，它接受 `Number`， 单位为 `px`， 如果不设置，则为自适应。 设置 `finishStatus` 属性可以改变已经完成的步骤的状态。
+Set the `active` attribute with a `Number` to indicate the index of the step, starting from 0. When a fixed-width steps bar is needed, set the `space` attribute, which accepts `Number` in `px`. If not set, it will be auto-sized. Setting the `finishStatus` attribute can change the state of completed steps.
 
 <code src="./basic.tsx"></code>
 
-## 含状态的步骤条
+## Step Bar with Status
 
-每一步骤显示出该步骤的状态。
+Each step shows its status.
 
 <code src="./with-status.tsx"></code>
 
-## 居中的步骤条
+## Centered Steps Bar
 
-标题和描述可以居中。
+Title and description can be centered.
 
 <code src="./centered.tsx"></code>
 
-## 带描述的步骤栏
+## Step Bar with Description
 
-每一步都有描述。
+Each step has a description.
 
 <code src="./with-description.tsx"></code>
 
-## 带图标的步骤条
+## Step Bar with Icon
 
-可以在步骤栏中使用各种自定义图标。
+Various custom icons can be used in the steps bar.
 
-通过 `icon` 属性来设置图标， 图标的类型可以参考 Icon 组件的文档。
+Set the icon through the `icon` attribute. For icon types, refer to the Icon component documentation.
 
 <code src="./with-icon.tsx"></code>
 
-## 垂直的步骤条
+## Vertical Steps Bar
 
-垂直方向的步骤条。
+Vertical steps bar.
 
-只需要在 `ElSteps` 元素中设置 `direction` 属性为 `vertical` 即可。
+Simply set the `direction` attribute to `vertical` in the `ElSteps` element.
 
 <code src="./vertical.tsx"></code>
 
-## 简洁风格的步骤条
+## Simple Steps Bar
 
-设置 `simple` 可应用简洁风格，该条件下 `alignCenter` / `description` / `direction` / `space` 都将失效。
+Set `simple` to apply the simple style. Under this condition, `alignCenter` / `description` / `direction` / `space` will all be ignored.
 
 <code src="./simple.tsx"></code>
 
 ## Steps API
 
-### Steps 属性
+### Steps Properties
 
-| 属性名        | 说明                                                | 类型                                                                             | 默认       |
-| ------------- | --------------------------------------------------- | -------------------------------------------------------------------------------- | ---------- |
-| space         | 每个 step 的间距，不填写将自适应间距。 支持百分比。 | `number` / `string`                                                              | ''         |
-| direction     | 显示方向                                            | <Enum type="enum">'vertical' \| 'horizontal'</Enum>                              | horizontal |
-| active        | 设置当前激活步骤                                    | `number`                                                                         | 0          |
-| processStatus | 设置当前步骤的状态                                  | <Enum type="enum">'wait' \| 'process' \| 'finish' \| 'error' \| 'success'</Enum> | process    |
-| finishStatus  | 设置结束步骤的状态                                  | <Enum type="enum">'wait' \| 'process' \| 'finish' \| 'error' \| 'success'</Enum> | finish     |
-| alignCenter   | 进行居中对齐                                        | `boolean`                                                                        | —          |
-| simple        | 是否应用简洁风格                                    | `boolean`                                                                        | —          |
+| Name          | Description                                                                           | Type                                                                             | Default    |
+| ------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ---------- |
+| space         | Spacing of each step. Auto-sized if not set. Supports percentage.                     | `number` / `string`                                                              | ''         |
+| direction     | Display direction                                                                     | <Enum type="enum">'vertical' \| 'horizontal'</Enum>                              | horizontal |
+| active        | Set the current active step                                                           | `number`                                                                         | 0          |
+| processStatus | Set the status of the current step                                                    | <Enum type="enum">'wait' \| 'process' \| 'finish' \| 'error' \| 'success'</Enum> | process    |
+| finishStatus  | Set the status of the completed steps                                                 | <Enum type="enum">'wait' \| 'process' \| 'finish' \| 'error' \| 'success'</Enum> | finish     |
+| alignCenter   | Center align                                                                          | `boolean`                                                                        | —          |
+| simple        | Whether to apply simple style                                                         | `boolean`                                                                        | —          |
 
 ## Step API
 
-### Step 属性
+### Step Properties
 
-| 属性名      | 说明                                             | 类型                                                                                   | 默认 |
-| ----------- | ------------------------------------------------ | -------------------------------------------------------------------------------------- | ---- |
-| title       | 标题                                             | `string` / `Component`                                                                 | ''   |
-| description | 描述文案                                         | `string` / `Component`                                                                 | ''   |
-| icon        | Step 组件的自定义图标。 也支持 slot 方式写入     | `string`                                                                               | —    |
-| status      | 设置当前步骤的状态， 不设置则根据 steps 确定状态 | <Enum type="enum">'' \| 'wait' \| 'process' \| 'finish' \| 'error' \| 'success'</Enum> | ''   |
+| Name        | Description                                                                                                  | Type                                                                                   | Default |
+| ----------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- | ------- |
+| title       | Title                                                                                                        | `string` / `Component`                                                                 | ''      |
+| description | Description text                                                                                             | `string` / `Component`                                                                 | ''      |
+| icon        | Custom icon for the Step component. Also supports slot approach                                              | `string`                                                                               | —       |
+| status      | Set the current step's status. If not set, the status will be determined by Steps                           | <Enum type="enum">'' \| 'wait' \| 'process' \| 'finish' \| 'error' \| 'success'</Enum> | ''      |

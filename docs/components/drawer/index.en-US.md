@@ -1,91 +1,91 @@
 ---
-title: Drawer 抽屉
-lang: zh-CN
+title: Drawer
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Drawer 抽屉
+# Drawer
 
-有些时候, `Dialog` 组件并不满足我们的需求, 比如你的表单很长, 亦或是你需要临时展示一些文档, `Drawer` 拥有和 `Dialog` 几乎相同的 API, 在 UI 上带来不一样的体验.
+Sometimes, `Dialog` does not always satisfy our requirements. Let's say you have a massive form, or you need space to display something like `terms & conditions` — `Drawer` has almost identical API with `Dialog`, but introduces a different user experience.
 
-## 基础用法
+## Basic Usage
 
-呼出一个临时的侧边栏, 可以从多个方向呼出
+Callout a temporary drawer, from multiple directions.
 
-你必须像 `Dialog`一样为 `Drawer` 设置 `visible` 属性来控制 `Drawer` 的显示与隐藏状态，该属性接受一个 `boolean` 类型。 `Drawer` 包含三部分: `title` & `body` & `footer`, 你还可以通过 `title` 属性来设置标题, 默认情况下它是一个空字符串, 其中 `body` 部分是 `Drawer` 组件的主区域, 它包含了用户定义的主要内容. `footer` 用来显示页脚信息. 当 `Drawer` 打开时，默认设置是**从右至左**打开 **30%** 浏览器宽度。 你可以通过传入对应的 `direction` 和 `size` 属性来修改这一默认行为。 下面一个示例将展示如何使用 `beforeClose` API，更多详细用法请参考页面底部的 API 部分。
+You must set `visible` for `Drawer` like `Dialog` does to control the visibility of `Drawer` itself. It accepts a `boolean` type. `Drawer` has three parts: `title`, `body` and `footer`. You can also set the title through the `title` attribute, which defaults to an empty string. The `body` part is the main area of `Drawer`, which contains user-defined content. The `footer` is used to display footer information. When opening, `Drawer` expands itself from **right to left** to **30%** of the browser width by default. You can change this default behavior by setting `direction` and `size` attributes. The following example demonstrates how to use the `beforeClose` API. For more details, refer to the API section at the bottom of the page.
 
 <code src="./basic-usage.tsx"></code>
 
-## 不添加 Title
+## No Title
 
-当你不需要标题的时候，你可以将它移除。
+When you no longer need a title, you can remove it from the drawer.
 
-通过设置 `withHeader` 属性为 **false** 来控制是否显示标题。 如果你的应用需要具备可访问性，请务必设置好 `title`。
+Set the `withHeader` attribute to **false** to control whether the title is displayed. If your application needs to be accessible, make sure to set the `title` attribute.
 
 <code src="./no-title.tsx"></code>
 
-## 自定义内容
+## Customized Content
 
-像 `Dialog` 组件一样，`Drawer` 也可以用来显示多种不同的交互。
+Like `Dialog`, `Drawer` can be used to display a multitude of diverse interactions.
 
 <code src="./customization-content.tsx"></code>
 
-<!-- ## 自定义头部
+<!-- ## Customized Header
 
-`header` 可用于自定义显示标题的区域。 为了保持可用性，除了使用此插槽外，使用 `title` 属性，或使用 `titleId` 插槽属性来指定哪些元素应该读取为抽屉标题。
+`header` can be used to customize the area where the title is displayed. To maintain accessibility, use the `title` attribute in addition to using this slot, or use the `titleId` slot property to specify which element should be read out as the drawer title.
 
 <code src="./customization-header.tsx"></code> -->
 
-## 嵌套抽屉
+## Nested Drawer
 
-你可以像 `Dialog` 一样拥有多层嵌套的 `Drawer`
+You can also have multiple layers of `Drawer` just like `Dialog`.
 
 <code src="./nested-drawer.tsx"></code>
 
 :::info{title=TIP}
 
-Drawer 的内容是懒渲染的，即在第一次被打开之前，传入的内容 不会被渲染到 DOM 上。 因此，如果需要执行 DOM 操作，或通过 `ref` 获取相应组件，请在 `open` 事件回调中进行。
+The content inside Drawer is lazily rendered — it is not rendered to the DOM until it is first opened. Therefore, if you need to perform DOM manipulation or access a component using `ref`, do it in the `open` event callback.
 
 :::
 
-## Drawer 属性
+## Drawer Properties
 
-| 属性名            | 说明                                                                                                                       | 类型                                                | 默认值 |
-| ----------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | ------ |
-| visible           | 是否显示 Drawer（可控**必填项**）                                                                                          | `boolean`                                           | false  |
-| onCloseDrawer     | 关闭 Drawer 函数，与 `visible` 属性配合使用，关闭后将 `visible` 设置为 `false`。                                           | <Enum type="Function">() => void</Enum>             | —      |
-| modal             | 是否需要遮罩层                                                                                                             | `boolean`                                           | true   |
-| modalPenetrable   | 是否允许穿透遮罩层。modal 属性必须为 false                                                                                 | `boolean`                                           | —      |
-| modalClass        | 遮罩层的自定义类名                                                                                                         | `string`                                            | —      |
-| headerClass       | header 部分的自定义 class 名                                                                                               | `string`                                            | —      |
-| bodyClass         | body 部分的自定义 class 名                                                                                                 | `string`                                            | —      |
-| footerClass       | footer 部分的自定义 class 名                                                                                               | `string`                                            | —      |
-| lockScroll        | 是否在 Drawer 出现时将 body 滚动锁定                                                                                       | `boolean`                                           | true   |
-| openDelay         | Drawer 打开的延时时间，单位毫秒                                                                                            | `number`                                            | —      |
-| closeDelay        | Drawer 关闭的延时时间，单位毫秒                                                                                            | `number`                                            | —      |
-| closeOnClickModal | 是否可以通过点击 modal 关闭 Drawer                                                                                         | `boolean`                                           | true   |
-| showClose         | 是否显示关闭按钮                                                                                                           | `boolean`                                           | true   |
-| beforeClose       | 关闭前的回调，会暂停 Drawer 的关闭                                                                                         | <Enum type="Function">(done: DoneFn) => void</Enum> | —      |
-| title             | Drawer 的标题                                                                                                              | `string` \| `ReactElement`                          | —      |
-| footer            | Drawer 对话框的底部操作按钮                                                                                                | `ReactNode`                                         | —      |
-| withHeader        | 控制是否显示 header 栏, 默认为 true, 当此项为 false 时, title 属性不生效                                                   | `boolean`                                           | true   |
-| border            | 标题是否有边框                                                                                                             | `boolean`                                           | true   |
-| size              | Drawer 窗体的大小, 当使用 `number` 类型时, 以像素为单位, 当使用 `string` 类型时, 请传入 'x%', 否则便会以 `number` 类型解释 | `number` / `string`                                 | '30%'  |
-| direction         | Drawer 打开的方向                                                                                                          | <Enum>'rtl' \| 'ltr' \| 'ttb' \| 'btt'</Enum>       | 'ltr'  |
-| zIndex            | 和原生的 CSS 的 z-index 相同，改变 z 轴的顺序                                                                              | `number`                                            | —      |
-| destroyOnClose    | 控制是否在关闭 Drawer 之后将子元素全部销毁                                                                                 | `boolean`                                           | true   |
+| Name              | Description                                                                                                                       | Type                                                | Default |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | ------- |
+| visible           | whether the Drawer is displayed (controlled **required**)                                                                          | `boolean`                                           | false   |
+| onCloseDrawer     | function to close Drawer, used with `visible` attribute, sets `visible` to `false` after closing.                                 | <Enum type="Function">() => void</Enum>             | —       |
+| modal             | whether a mask is displayed                                                                                                       | `boolean`                                           | true    |
+| modalPenetrable   | whether the mask is penetrable. The modal attribute must be `false`                                                                 | `boolean`                                           | —       |
+| modalClass        | custom class names for mask                                                                                                       | `string`                                            | —       |
+| headerClass       | custom class names for header wrapper                                                                                             | `string`                                            | —       |
+| bodyClass         | custom class names for body wrapper                                                                                               | `string`                                            | —       |
+| footerClass       | custom class names for footer wrapper                                                                                             | `string`                                            | —       |
+| lockScroll        | whether scroll of body is disabled while Drawer is displayed                                                                       | `boolean`                                           | true    |
+| openDelay         | the time (milliseconds) before open                                                                                                | `number`                                            | —       |
+| closeDelay        | the time (milliseconds) before close                                                                                               | `number`                                            | —       |
+| closeOnClickModal | whether the Drawer can be closed by clicking the mask                                                                              | `boolean`                                           | true    |
+| showClose         | whether to show a close button                                                                                                    | `boolean`                                           | true    |
+| beforeClose       | callback before Drawer closes, it will prevent Drawer from closing                                                                 | <Enum type="Function">(done: DoneFn) => void</Enum> | —       |
+| title             | title of Drawer                                                                                                                    | `string` \| `ReactElement`                          | —       |
+| footer            | footer content of Drawer                                                                                                           | `ReactNode`                                         | —       |
+| withHeader        | controls whether the header section is displayed, defaults to true; when set to false, the `title` attribute does not work          | `boolean`                                           | true    |
+| border            | whether the title has a border                                                                                                    | `boolean`                                           | true    |
+| size              | size of Drawer; when using `number` type, it is in pixels; when using `string` type, pass 'x%', otherwise it will be interpreted as `number` | `number` / `string`                                 | '30%'   |
+| direction         | opening direction of Drawer                                                                                                        | <Enum>'rtl' \| 'ltr' \| 'ttb' \| 'btt'</Enum>       | 'ltr'   |
+| zIndex            | same as z-index in native CSS, z-order of dialog                                                                                   | `number`                                            | —       |
+| destroyOnClose    | whether to destroy child elements after closing the Drawer                                                                          | `boolean`                                           | true    |
 
-<!-- 以下属性在当前类型定义中未找到 -->
-<!-- | defaultVisible    | 默认是否显示 Drawer（不可控）                                                                                              | `boolean`                                           | false         | -->
-<!-- | className         | Drawer 的自定义类名                                                                                                        | string                                              | —             | -->
-<!-- | modalClassName    | 遮罩层的自定义类名                                                                                                         | `string`                                            | -             | -->
+<!-- The following properties were not found in the current type definitions -->
+<!-- | defaultVisible    | whether the Drawer is displayed by default (uncontrolled)                                                                                              | `boolean`                                           | false         | -->
+<!-- | className         | custom class name for Drawer                                                                                                        | string                                              | —             | -->
+<!-- | modalClassName    | custom class name for mask                                                                                                         | `string`                                            | -             | -->
 
-## Drawer 事件
+## Drawer Events
 
-| 事件名   | 说明                        | Type                                    |
-| -------- | --------------------------- | --------------------------------------- |
-| onOpen   | Dialog 打开的回调           | <Enum type="Function">() => void</Enum> |
-| onOpened | Dialog 打开动画结束时的回调 | <Enum type="Function">() => void</Enum> |
-| onClose  | Dialog 关闭的回调           | <Enum type="Function">() => void</Enum> |
-| onClosed | Dialog 关闭动画结束时的回调 | <Enum type="Function">() => void</Enum> |
+| Name     | Description                        | Type                                    |
+| -------- | ---------------------------------- | --------------------------------------- |
+| onOpen   | triggers when the Dialog opens     | <Enum type="Function">() => void</Enum> |
+| onOpened | triggers when the Dialog opening animation ends | <Enum type="Function">() => void</Enum> |
+| onClose  | triggers when the Dialog closes    | <Enum type="Function">() => void</Enum> |
+| onClosed | triggers when the Dialog closing animation ends | <Enum type="Function">() => void</Enum> |

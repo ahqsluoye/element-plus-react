@@ -1,45 +1,45 @@
 ---
-title: DateTimePicker 日期时间选择器
-lang: zh-CN
+title: DateTimePicker
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# DateTimePicker 日期时间选择器
+# DateTimePicker
 
-在同一个选择器里选择日期和时间
+Select date and time in one picker.
 
 :::info{title=TIP}
 
-日期时间选择器来自日期选择器和时间选择器的组合。 关于属性的更详细解释，请参阅日期选择器和时间选择器。
+DateTimePicker is derived from the combination of DatePicker and TimePicker. For a more detailed explanation on attributes, please refer to DatePicker and TimePicker.
 
 :::
 
-## 日期和时间点
+## Date and Time
 
-通过设置`type`属性为`datetime`，即可在同一个选择器里同时进行日期和时间的选择。 快捷方式的使用方法与 Date Picker 相同。
+You can select date and time in one picker at the same time by setting the `type` attribute to `datetime`. The usage of shortcuts is the same as DatePicker.
 
 <code src="./date-and-time.tsx"></code>
 
-## 日期时间格式
+## DateTime Formats
 
-使用`format`指定输入框的格式。 使用`valueFormat`指定绑定值的格式。
+Use `format` to specify the format displayed in the input box. Use `valueFormat` to specify the format of the binding value.
 
-默认情况下，组件返回`Date`对象。
+By default, the component returns `Date` objects.
 
-在 [这里](https://day.js.org/docs/en/display/format#list-of-all-available-formats) 查看 Day.js 支持的所有格式。
+Check all formats supported by Day.js [here](https://day.js.org/docs/en/display/format#list-of-all-available-formats).
 
 :::error{title=WARNING}
 
-请一定要注意传入参数的大小写是否正确
+Pay attention to the case of the parameters passed.
 
 :::
 
 <code src="./date-and-time-formats.tsx"></code>
 
-## 日期和时间范围
+## Date and Time Range
 
-设置`type`为`datetimerange`即可选择日期和时间范围
+Set `type` to `datetimerange` to select a date and time range.
 
 :::error{title=TODO}
 
@@ -47,9 +47,9 @@ lang: zh-CN
 
 <!-- <code src="./date-and-time-range.tsx"></code> -->
 
-## 默认的起始与结束时刻
+## Default Start and End Time
 
-使用`datetimerange`进行范围选择时，在日期选择面板中选定起始与结束的日期，默认会使用该日期的`00:00:00`作为起始与结束的时刻；通过选项`default-time`可以控制选中起始与结束日期时所使用的具体时刻。 我们可以使用 `default-time` 属性来控制它。 `default-time`接受一个数组，其中第一项控制起始日期的具体时刻，第二项控制结束日期的具体时刻。 第一项控制开始日期的时间值，第二项控制结束日期的时间值。
+When using `datetimerange` for range selection, after selecting the start and end dates on the date selection panel, the `00:00:00` of that date is used as the default start and end time. The specific moment when selecting the start and end dates can be controlled via the `defaultTime` option. `defaultTime` accepts an array, where the first item controls the specific moment of the start date, and the second item controls the specific moment of the end date.
 
 :::error{title=TODO}
 
@@ -59,45 +59,45 @@ lang: zh-CN
 
 ## API
 
-### 属性
+### Properties
 
-| 属性名           | 说明                                                                                       | 类型                                                   | 可选值                                                        | 默认值              |
-| ---------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------------- | ------------------- |
-| value            | 绑定值，如果它是数组，长度应该是 2                                                         | `string` \ <Enum type="object">[string, string]</Enum> | —                                                             | —                   |
-| defaultValue     | 可选，选择器打开时默认显示的时间                                                           | `string` \ <Enum type="object">[string, string]</Enum> | —                                                             | —                   |
-| disabled         | 禁用                                                                                       | `boolean`                                              | —                                                             | false               |
-| clearable        | 是否显示清除按钮                                                                           | `boolean`                                              | —                                                             | true                |
-| size             | 输入框尺寸                                                                                 | `string`                                               | large/default/small                                           | default             |
-| placeholder      | 非范围选择时的占位内容                                                                     | `string`                                               | —                                                             | —                   |
-| startPlaceholder | 范围选择时开始日期的占位内容                                                               | `string`                                               | —                                                             | —                   |
-| endPlaceholder   | 范围选择时结束日期的占位内容                                                               | `string`                                               | —                                                             | —                   |
-| type             | 显示类型                                                                                   | `string`                                               | year/month/date/datetime/ week/datetimerange/daterange        | date                |
-| format           | 显示在输入框中的格式                                                                       | `string`                                               | see [date formats](/en-US/component/date-picker#date-formats) | YYYY-MM-DD HH:mm:ss |
-| popperClass      | DateTimePicker 下拉框的类名                                                                | `string`                                               | —                                                             | —                   |
-| rangeSeparator   | 选择范围时的分隔符                                                                         | `string`                                               | —                                                             | '-'                 |
-| defaultTime      | 选择日期后的默认时间值。 如未指定则默认时间值为 `00:00:00`                                 | `Date`                                                 | —                                                             | —                   |
-| valueFormat      | 可选，绑定值的格式。 不指定则绑定值为 Date 对象                                            | `string`                                               | 查看 [日期格式](https://day.js.org/docs/en/display/format)    | —                   |
-| unlinkPanels     | 在范围选择器里取消两个日期面板之间的联动                                                   | `boolean`                                              | —                                                             | false               |
-| prefixIcon       | 自定义前缀图标                                                                             | `string \| Component`                                  | —                                                             | Clock               |
-| shortcuts        | 设置快捷选项，需要传入数组对象                                                             |                                                        | —                                                             | —                   |
-| disabledDate     | 一个用来判断该日期是否被禁用的函数，接受一个 Date 对象作为参数。 应该返回一个 Boolean 值。 | <Enum type='Function'>`(time: Date) => boolean`</Enum> | —                                                             | —                   |
-| showWeekNumber   | 显示周数                                                                                   | `boolean`                                              | —                                                             | false               |
+| Name            | Description                                                                                                 | Type                                                   | Optional Values                                                                                               | Default                            |
+| --------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ---------------------------------- |
+| value           | Binding value, if it is an array, the length should be 2                                                    | `string` \ <Enum type="object">[string, string]</Enum> | —                                                                                                            | —                                  |
+| defaultValue    | Optional, the default time displayed when the picker is opened                                              | `string` \ <Enum type="object">[string, string]</Enum> | —                                                                                                            | —                                  |
+| disabled        | Whether to disable                                                                                          | `boolean`                                              | —                                                                                                            | false                              |
+| clearable       | Whether to show the clear button                                                                            | `boolean`                                              | —                                                                                                            | true                               |
+| size            | Input box size                                                                                              | `string`                                               | large/default/small                                                                                          | default                            |
+| placeholder     | Placeholder content for non-range selection                                                                 | `string`                                               | —                                                                                                            | —                                  |
+| startPlaceholder | Placeholder content for the start date in range selection                                                   | `string`                                               | —                                                                                                            | —                                  |
+| endPlaceholder  | Placeholder content for the end date in range selection                                                     | `string`                                               | —                                                                                                            | —                                  |
+| type            | Display type                                                                                                | `string`                                               | year/month/date/datetime/ week/datetimerange/daterange                                                       | date                               |
+| format          | Format displayed in the input box                                                                           | `string`                                               | see [date formats](/en-US/component/date-picker#date-formats)                                                 | YYYY-MM-DD HH:mm:ss                |
+| popperClass     | Class name of the DateTimePicker dropdown                                                                   | `string`                                               | —                                                                                                            | —                                  |
+| rangeSeparator  | Separator when selecting a range                                                                            | `string`                                               | —                                                                                                            | '-'                                |
+| defaultTime     | Default time value after selecting a date. If not specified, the default time value is `00:00:00`          | `Date`                                                 | —                                                                                                            | —                                  |
+| valueFormat     | Optional, format of the binding value. If not specified, the binding value will be a Date object             | `string`                                               | see [date formats](https://day.js.org/docs/en/display/format)                                                | —                                  |
+| unlinkPanels    | Unlink the two date panels in the range picker                                                              | `boolean`                                              | —                                                                                                            | false                              |
+| prefixIcon      | Custom prefix icon                                                                                          | `string \| Component`                                  | —                                                                                                            | Clock                              |
+| shortcuts       | Set shortcut options, needs to pass in an array of objects                                                  |                                                        | —                                                                                                            | —                                  |
+| disabledDate    | A function to determine whether the date is disabled, taking a Date object as parameter. Should return a Boolean value. | <Enum type='Function'>`(time: Date) => boolean`</Enum> | —                                                                                                            | —                                  |
+| showWeekNumber  | Show week number                                                                                            | `boolean`                                              | —                                                                                                            | false                              |
 
-### 事件
+### Events
 
-| 事件名          | 说明                                    | 类型                                                                                                                           |
-| --------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| onChange        | 用户确认选定的值时触发                  | <Enum type="Function">`(val: number \| string \| Date \| [number, number] \| [string, string] \| [Date, Date]) => void`</Enum> |
-| onBlur          | 在组件 Input 失去焦点时触发             | <Enum type="Function">`(e: FocusEvent) => void`</Enum>                                                                         |
-| onFocus         | 在组件 Input 获得焦点时触发             | <Enum type="Function">`(e: FocusEvent) => void`</Enum>                                                                         |
-| onClear         | 可清空的模式下用户点击清空按钮时触发    | <Enum type="Function">`() => void`</Enum>                                                                                      |
-| onVisibleChange | 当 TimePicker 的下拉列表出现/消失时触发 | <Enum type="Function">`(visibility: boolean) => void`</Enum>                                                                   |
+| Name            | Description                                              | Type                                                                                                                           |
+| --------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| onChange        | Triggers when the user confirms the selected value       | <Enum type="Function">`(val: number \| string \| Date \| [number, number] \| [string, string] \| [Date, Date]) => void`</Enum> |
+| onBlur          | Triggers when the component Input loses focus            | <Enum type="Function">`(e: FocusEvent) => void`</Enum>                                                                         |
+| onFocus         | Triggers when the component Input gains focus            | <Enum type="Function">`(e: FocusEvent) => void`</Enum>                                                                         |
+| onClear         | Triggers when the user clicks the clear button in clearable mode | <Enum type="Function">`() => void`</Enum>                                                                                      |
+| onVisibleChange | Triggers when the TimePicker's dropdown appears/disappears | <Enum type="Function">`(visibility: boolean) => void`</Enum>                                                                   |
 
 ### Ref
 
-| 名称        | 说明               | Type                                      |
-| ----------- | ------------------ | ----------------------------------------- |
-| focus       | 使组件获取焦点     | <Enum type="Function">`() => void`</Enum> |
-| blur        | 使组件失去焦点     | <Enum type="Function">`() => void`</Enum> |
-| handleOpen  | 打开时间选择器弹窗 | <Enum type="Function">`() => void`</Enum> |
-| handleClose | 关闭时间选择器弹窗 | <Enum type="Function">`() => void`</Enum> |
+| Name        | Description               | Type                                      |
+| ----------- | ------------------------- | ----------------------------------------- |
+| focus       | Make the component focus  | <Enum type="Function">`() => void`</Enum> |
+| blur        | Make the component blur   | <Enum type="Function">`() => void`</Enum> |
+| handleOpen  | Open the time picker popup | <Enum type="Function">`() => void`</Enum> |
+| handleClose | Close the time picker popup | <Enum type="Function">`() => void`</Enum> |

@@ -1,90 +1,84 @@
 ---
-title: Alert 提示
-lang: zh-CN
+title: Alert
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Alert 提示
+# Alert
 
-用于页面中展示重要的提示信息。
+Displays important alert messages.
 
-## 基础用法
+## Basic Usage
 
-Alert 组件不属于浮层元素，不会自动消失或关闭。
+Alert components are non-overlay elements in the page that do not disappear automatically.
 
-Alert 组件提供 5 种类型，由 `type` 属性指定，默认值为 `info`。
+Alert provides 5 types defined by `type`, whose default value is `info`.
 
 <code src="./basic.tsx"></code>
 
-## 主题
+## Theme
 
-Alert 组件提供了两个不同的主题：`light` 和 `dark`。
+Alert provides two different themes, `light` and `dark`.
 
-通过设置 `effect` 属性来改变主题，默认为 `light`。
+Set `effect` to change the theme, default is `light`.
 
 <code src="./theme.tsx"></code>
 
-## 自定义关闭按钮
+## Customizable Close Button
 
-你可以自定义关闭按钮为文字或其他符号。
+Customize the close button as texts or other symbols.
 
-你可以设置 Alert 组件是否为可关闭状态， 关闭按钮的内容以及关闭时的回调函数同样可以定制。 `closable` 属性决定 Alert 组件是否可关闭， 该属性接受一个 `Boolean`，默认为 `false`。 你可以设置 `closeText` 属性来代替右侧的关闭图标， 需要注意的是 `closeText` 必须是一个字符串。 当 Alert 组件被关闭时会触发 `close` 事件。
+Alert allows you to configure if it's closable. The close button text and closing callbacks are also customizable. `closable` attribute decides if the component can be closed or not. It accepts `boolean`, and the default is `false`. You can set `closeText` attribute to replace the default close icon. Be careful that `closeText` must be a string. `onClose` event fires when the component is closed.
 
 <code src="./close-button.tsx"></code>
 
-## 使用图标
+## With Icon
 
-你可以通过为 Alert 组件添加图标来提高可读性。
+Displaying an icon improves readability.
 
-通过设置 `showIcon` 属性来显示 Alert 的 icon，这能更有效地向用户展示你的显示意图。 或者你可以使用 `icon` slot 自定义 icon 内容。
+Setting the `showIcon` attribute displays an icon that corresponds with the current Alert type. Or use the `icon` prop to customize icon content.
 
 <code src="./icon.tsx"></code>
 
-## 文字居中
+## Centered Text
 
-使用 `center` 属性来让文字水平居中。
+Use the `center` attribute to center the text.
 
 <code src="./center.tsx"></code>
 
-## 文字描述
+## With Description
 
-为 Alert 组件添加一个更加详细的描述来使用户了解更多信息。
+Add a more detailed description to the Alert component to help users understand more information.
 
-除了必填的 `title` 属性外，你可以设置 `description` 属性来帮助你更好地介绍，我们称之为辅助性文字。 辅助性文字只能存放文本内容，当内容超出长度限制时会自动换行显示。
+Besides the required `title` attribute, you can add a `description` attribute to help you describe the alert with more details. Description can only store text content, and it will word wrap automatically when the content exceeds the length limit.
 
 <code src="./description.tsx"></code>
 
-## 带图标和描述
+## With Icon and Description
 
-在最后, 这是一个带有图标和描述的例子。
+At last, this is an example with both icon and description.
 
 <code src="./icon-description.tsx"></code>
 
-<!-- ## 延迟属性
-
-在最后, 这是一个延迟属性的例子。
-
-<code src="./delayed.tsx"></code> -->
-
 ## Alert API
 
-### 属性
+### Properties
 
-| 名称        | 说明               | 类型                                                                              | 默认值 |
-| ----------- | ------------------ | --------------------------------------------------------------------------------- | ------ |
-| title       | Alert 标题。       | `string`                                                                          | —      |
-| type        | Alert 类型。       | <Enum type="enum">'primary' \| 'success' \| 'warning' \| 'info' \| 'error'</Enum> | info   |
-| description | 描述性文本         | `string`                                                                          | —      |
-| closable    | 是否可以关闭       | `boolean`                                                                         | true   |
-| center      | 文字是否居中       | `boolean`                                                                         | false  |
-| closeText   | 自定义关闭按钮文本 | `string`                                                                          | —      |
-| showIcon    | 是否显示类型图标   | `boolean`                                                                         | false  |
-| effect      | 主题样式           | <Enum type="enum">'light' \| 'dark'</Enum>                                        | light  |
-| icon        | 自定义图标         | `IconName`                                                                        | —      |
+| Name        | Description                              | Type                                                                              | Default |
+| ----------- | ---------------------------------------- | --------------------------------------------------------------------------------- | ------- |
+| title       | alert title.                             | `string`                                                                          | —       |
+| type        | alert type.                              | <Enum type="enum">'primary' \| 'success' \| 'warning' \| 'info' \| 'error'</Enum> | info    |
+| description | descriptive text.                        | `string`                                                                          | —       |
+| closable    | whether alert can be dismissed.          | `boolean`                                                                         | true    |
+| center      | whether content is placed in the center. | `boolean`                                                                         | false   |
+| closeText   | customized close button text.            | `string`                                                                          | —       |
+| showIcon    | whether a type icon is displayed.        | `boolean`                                                                         | false   |
+| effect      | theme style.                             | <Enum type="enum">'light' \| 'dark'</Enum>                                        | light   |
+| icon        | custom icon                              | `IconName`                                                                        | —       |
 
 ### Events
 
-| 名称    | 描述                    | 类型                                                   |
-| ------- | ----------------------- | ------------------------------------------------------ |
-| onClose | 关闭 Alert 时触发的事件 | <Enum type="Function">(evt: MouseEvent) => void</Enum> |
+| Name    | Description                   | Type                                                   |
+| ------- | ----------------------------- | ------------------------------------------------------ |
+| onClose | trigger when alert is closed. | <Enum type="Function">(evt: MouseEvent) => void</Enum> |

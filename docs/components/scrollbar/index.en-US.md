@@ -1,73 +1,73 @@
 ---
-title: Scrollbar 滚动条
-lang: zh-CN
+title: Scrollbar
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Scrollbar 滚动条
+# Scrollbar
 
-用于替换浏览器原生滚动条。
+Used to replace the browser's native scrollbar.
 
-## 基础用法
+## Basic Usage
 
-通过 `height` 属性设置滚动条高度，若不设置则根据父容器高度自适应。
+Use the `height` attribute to set the height of the scrollbar. If not set, it adapts to the height of the parent container.
 
-<code src="./basic-usage.tsx" ></code>
+<code src="./basic-usage.tsx"></code>
 
-## 横向滚动
+## Horizontal Scroll
 
-当元素宽度大于滚动条宽度时，会显示横向滚动条。
+When the element width is greater than the scrollbar width, a horizontal scrollbar is displayed.
 
-<code src="./horizontal-scroll.tsx" ></code>
+<code src="./horizontal-scroll.tsx"></code>
 
-## 最大高度
+## Max Height
 
-当元素高度超过最大高度，才会显示滚动条。
+The scrollbar is displayed only when the element height exceeds the max height.
 
-<code src="./max-height.tsx" ></code>
+<code src="./max-height.tsx"></code>
 
-<!-- ## 手动滚动
+<!-- ## Manual Scroll
 
-通过使用 `setScrollTop` 与 `setScrollLeft` 方法，可以手动控制滚动条滚动。
+Use `setScrollTop` and `setScrollLeft` methods to manually control the scrolling of the scrollbar.
 
 scrollbar/manual-scroll -->
 
 ## API
 
-### 属性
+### Properties
 
-| 属性名    | 说明                                                                 | 类型                                                 | 默认值 |
-| --------- | -------------------------------------------------------------------- | ---------------------------------------------------- | ------ |
-| height    | 滚动条高度                                                           | `string` / `number`                                  | —      |
-| maxHeight | 滚动条最大高度                                                       | `string` / `number`                                  | —      |
-| native    | 是否使用原生滚动条样式                                               | `boolean`                                            | false  |
-| wrapStyle | 包裹容器的自定义样式                                                 | `string` / <Enum type='object'>CSSSProperties</Enum> | —      |
-| wrapClass | 包裹容器的自定义类名                                                 | `string`                                             | —      |
-| viewStyle | 视图的自定义样式                                                     | `string` / <Enum type='object'>CSSSProperties</Enum> | —      |
-| viewClass | 视图的自定义类名                                                     | `string`                                             | —      |
-| noresize  | 不响应容器尺寸变化，如果容器尺寸不会发生变化，最好设置它可以优化性能 | `boolean`                                            | false  |
-| tag       | 视图的元素标签                                                       | `string`                                             | div    |
-| always    | 滚动条总是显示                                                       | `boolean`                                            | false  |
-| minSize   | 滚动条最小尺寸                                                       | `number`                                             | 20     |
-| showHorizontal | 是否显示横向滚动条                                              | `boolean`                                            | —      |
-| showVertical   | 是否显示纵向滚动条                                              | `boolean`                                            | —      |
+| Name           | Description                                                                 | Type                                                 | Default |
+| -------------- | --------------------------------------------------------------------------- | ---------------------------------------------------- | ------- |
+| height         | Height of scrollbar                                                         | `string` / `number`                                  | —       |
+| maxHeight      | Max height of scrollbar                                                     | `string` / `number`                                  | —       |
+| native         | Whether to use native scrollbar style                                       | `boolean`                                            | false   |
+| wrapStyle      | Custom style for the wrap container                                         | `string` / <Enum type='object'>CSSProperties</Enum>  | —       |
+| wrapClass      | Custom class name for the wrap container                                    | `string`                                             | —       |
+| viewStyle      | Custom style for the view                                                   | `string` / <Enum type='object'>CSSProperties</Enum>  | —       |
+| viewClass      | Custom class name for the view                                             | `string`                                             | —       |
+| noresize       | Do not respond to container size changes. If the container size does not change, it is recommended to set it for performance optimization | `boolean`                                            | false   |
+| tag            | Element tag of the view                                                     | `string`                                             | div     |
+| always         | Always show scrollbar                                                       | `boolean`                                            | false   |
+| minSize        | Minimum size of scrollbar                                                   | `number`                                             | 20      |
+| showHorizontal | Whether to show horizontal scrollbar                                        | `boolean`                                            | —       |
+| showVertical   | Whether to show vertical scrollbar                                          | `boolean`                                            | —       |
 
-### 事件
+### Events
 
-| 事件名   | 说明                             | 类型                                                                                                                              |
-| -------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| onScroll | 当触发滚动事件时，返回滚动的距离 | <Enum type="Function">(data: { e: React.UIEvent<HTMLDivElement, UIEvent>; scrollTop: number; scrollLeft: number }) => void</Enum> |
+| Name    | Description                                           | Type                                                                                                                              |
+| ------- | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| onScroll | Triggered when a scroll event occurs, returns the scroll distance | <Enum type="Function">(data: { e: React.UIEvent<HTMLDivElement, UIEvent>; scrollTop: number; scrollLeft: number }) => void</Enum> |
 
 ### Ref
 
-| 名称          | 说明                   | 类型                                                                                         |
-| ------------- | ---------------------- | -------------------------------------------------------------------------------------------- |
-| scrollTo      | 滚动到一组特定坐标     | <Enum  type="Function">(options: ScrollToOptions \| number, yCoord?: number) => void </Enum> |
-| setScrollTop  | 设置滚动条到顶部的距离 | <Enum  type="Function">(scrollTop: number) => void</Enum>                                    |
-| setScrollLeft | 设置滚动条到左边的距离 | <Enum  type="Function">(scrollLeft: number) => void </Enum>                                  |
-| update        | 手动更新滚动条状态     | <Enum  type="Function">() => void </Enum>                                                    |
-| wrapRef       | 滚动条包裹的 ref 对象  | <Enum type="Object">Ref\<HTMLDivElement\></Enum>                                             |
-| resizeRef     | 视图 ref 对象          | <Enum type="Object">Ref\<any\></Enum>                                                        |
+| Name          | Description                   | Type                                                                                         |
+| ------------- | ----------------------------- | -------------------------------------------------------------------------------------------- |
+| scrollTo      | Scroll to a specific coordinate | <Enum type="Function">(options: ScrollToOptions \| number, yCoord?: number) => void </Enum> |
+| setScrollTop  | Set the distance from the top of the scrollbar | <Enum type="Function">(scrollTop: number) => void</Enum>                                    |
+| setScrollLeft | Set the distance from the left of the scrollbar | <Enum type="Function">(scrollLeft: number) => void </Enum>                                  |
+| update        | Manually update the scrollbar status | <Enum type="Function">() => void </Enum>                                                    |
+| wrapRef       | Ref object of the scrollbar wrap | <Enum type="Object">Ref\<HTMLDivElement\></Enum>                                             |
+| resizeRef     | Ref object of the view        | <Enum type="Object">Ref\<any\></Enum>                                                        |
 
-<!--          | handleScroll           | 触发滚动事件                                                                                 | <Enum  type="Function">() => void </Enum> -->
+<!--          | handleScroll           | Trigger scroll event                                                                                 | <Enum  type="Function">() => void </Enum> -->

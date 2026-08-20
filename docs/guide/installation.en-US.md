@@ -2,17 +2,17 @@
 
 ## Version
 
-Element Plus React 目前还处于开发迭代中。 <ElLink href="https://www.npmjs.com/package/@qsxy/element-plus-react">Element Plus React version badge</ElLink>
+Element Plus React is currently in a rapid development iteration. <ElLink href="https://www.npmjs.com/package/@qsxy/element-plus-react">Element Plus React version badge</ElLink>
 
-此外，在 dev 分支上的每个提交都将被发布到 <ElLink href="https://github.com/ahqsluoye/element-plus-react">GitHub</ElLink>
+In addition, every commit on the dev branch will be published to <ElLink href="https://github.com/ahqsluoye/element-plus-react">GitHub</ElLink>
 
 ## Using Package Managers
 
-我们建议您使用包管理器（如 NPM、Yarn 或 pnpm）安装 Element Plus React，然后您就可以使用打包工具，例如 Vite 或 webpack
+We recommend you to use package managers（<ElLink href="https://www.npmjs.com/">NPM</ElLink>、<ElLink href="https://classic.yarnpkg.com/lang/en/">Yarn</ElLink> or <ElLink href="https://pnpm.io/">PNPM</ElLink>） to install Element Plus React.
 
 <InstallDependencies npm='$ npm install @qsxy/element-plus-react --save' yarn='$ yarn add @qsxy/element-plus-react' pnpm='$ pnpm install @qsxy/element-plus-react'></InstallDependencies>
 
-如果你的网络环境不佳，推荐使用 <ElLink href="https://github.com/cnpm/cnpm">cnpm</ElLink>或使用 <ElLink href="https://npmmirror.com/">npmmirror</ElLink>
+If your network environment is not good, it is recommended to use a mirror registry <ElLink href="https://github.com/cnpm/cnpm">cnpm</ElLink> or <ElLink href="https://npmmirror.com/">npmmirror</ElLink>
 
 ```shell
 npm config set registry https://registry.npmmirror.com

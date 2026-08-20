@@ -1,93 +1,90 @@
 ---
-title: Switch 开关
-lang: zh-CN
+title: Switch
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Switch 开关
+# Switch
 
-表示两种相互对立的状态间的切换，多用于触发「开/关」。
+Switch is used for switching between two opposing states, commonly used for toggling on/off states.
 
-## 基础用法
+## Basic Usage
 
-绑定 `value` 到一个 `Boolean` 类型的变量。可以使用 `activeColor` 属性与 `inactiveColor` 属性来设置开关的背景色。 也可以使用 `--el-switch-on-color` 属性与 `--el-switch-off-color` 属性来设置开关的背景色。
+Bind `value` to a `Boolean` typed variable. The `activeColor` and `inactiveColor` attributes can be used to set the background color of the switch. You can also use the `--el-switch-on-color` and `--el-switch-off-color` CSS variables to set the background color.
 
 <code src="./basic.tsx"></code>
 
-## 尺寸
+## Sizes
 
 <code src="./sizes.tsx"></code>
 
-## 文字描述
+## Text Description
 
-使用`activeText`属性与`inactiveText`属性来设置开关的文字描述。 使用 `inlinePrompt` 属性来控制文本是否显示在点内。
+Use the `activeText` and `inactiveText` attributes to set the text description of the switch. Use the `inlinePrompt` attribute to control whether the text is displayed inside the dot.
 
-使用`activeText`属性与`inactiveText`属性来设置开关的文字描述。
+Use the `activeText` and `inactiveText` attributes to set the text description of the switch.
 
 <code src="./text-description.tsx"></code>
 
-## 显示自定义图标
+## Display Custom Icons
 
-使用 `inactiveIcon` 和 `activeIcon` 属性来添加图标。 使用 `inlinePrompt` 属性来控制图标显示在点内。
+Use the `inactiveIcon` and `activeIcon` attributes to add icons. Use the `inlinePrompt` attribute to control whether the icon is displayed inside the dot.
 
 <code src="./custom-icons.tsx"></code>
 
-## 扩展的 value 类型
+## Extended Value Types
 
-你可以设置 `activeValue` 和 `inactiveValue` 属性， 它们接受 `Boolean`、`String` 或 `Number` 类型的值。
+You can set the `activeValue` and `inactiveValue` attributes, which accept `Boolean`, `String`, or `Number` typed values.
 
 <code src="./extended-value-types.tsx"></code>
 
-## 禁用状态
+## Disabled
 
-设置`disabled`属性，接受一个`Boolean`，设置`true`即可禁用。
+Set the `disabled` attribute, which accepts a `Boolean`, and set it to `true` to disable the switch.
 
 <code src="./disabled.tsx"></code>
 
-## 加载状态
+## Loading
 
-设置`loading`属性，接受一个`Boolean`，设置`true`即加载中状态。
+Set the `loading` attribute, which accepts a `Boolean`, and set it to `true` to show a loading state.
 
 <code src="./loading.tsx"></code>
 
-## 阻止切换
+## Prevent Switching
 
-设置`beforeChange`属性，若返回 false 或者返回 Promise 且被 reject，则停止切换。
+Set the `beforeChange` attribute. If it returns `false` or returns a `Promise` that gets rejected, switching will be stopped.
 
 <code src="./prevent-switching.tsx"></code>
 
 ## API
 
-### 属性
+### Properties
 
-| 属性名         | 说明                                                                             | 类型                                | 可选值                  | 默认值  |
-| -------------- | -------------------------------------------------------------------------------- | ----------------------------------- | ----------------------- | ------- |
-| value          | 绑定值，必须等于 `activeValue` 或 `inactiveValue`，默认为 `Boolean` 类型         | boolean / string / number           | —                       | —       |
-| disabled       | 是否禁用                                                                         | boolean                             | —                       | false   |
-| loading        | 是否显示加载中                                                                   | boolean                             | —                       | false   |
-| size           | switch 的大小                                                                    | string                              | large / default / small | default |
-| name           | switch 对应的 name 属性                                                          | string                              | —                       | —       |
-| width          | switch 的宽度                                                                    | number                              | —                       | —       |
-| inlinePrompt   | 图标或文本是否显示在点内                                                         | boolean                             | —                       | false   |
-| activeIcon     | switch 状态为 `on` 时所显示图标，设置此项会忽略 `activeText`                     | `string \| Component`               | —                       | —       |
-| inactiveIcon   | switch 状态为 `off` 时所显示图标，设置此项会忽略 `inactiveText`                  | `string \| Component`               | —                       | —       |
-| activeAction   | `on`状态下显示的图标组件                                                         | `string \| Component`               | —                       | —       |
-| inactiveAction | `off`状态下显示的图标组件                                                        | `string \| Component`               | —                       | —       |
-| activeText     | switch 打开时的文字描述                                                          | string                              | —                       | —       |
-| inactiveText   | switch 的状态为 `off` 时的文字描述                                               | string                              | —                       | —       |
-| activeValue    | switch 状态为 `on` 时的值                                                        | boolean / string / number           | —                       | true    |
-| inactiveValue  | switch 的状态为 `off` 时的值                                                     | boolean / string / number           | —                       | false   |
-| activeColor    | 当在 `on` 状态时的背景颜色(已废弃，请使用 CSS var `--el-switch-on-color` )       | string                              | —                       | —       |
-| inactiveColor  | `off` 状态时的背景颜色(已废弃，使用 CSS var `--el-switch-of-color` )             | string                              | —                       | —       |
-| borderColor    | 开关的边框颜色 ( 已废弃，使用 CSS var `--el-switch-border-color` )               | string                              | —                       | —       |
-| beforeChange   | switch 状态改变前的钩子， 返回 `false` 或者返回 `Promise` 且被 reject 则停止切换 | `() => Promise<boolean> \| boolean` | —                       | —       |
+| Name           | Description                                                                                                                                | Type                                | Options                | Default |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------- | ---------------------- | ------- |
+| value          | Binding value, must be equal to `activeValue` or `inactiveValue`, defaults to `Boolean` type                                             | boolean / string / number           | —                      | —       |
+| disabled       | Whether the switch is disabled                                                                                                             | boolean                             | —                      | false   |
+| loading        | Whether to show loading state                                                                                                              | boolean                             | —                      | false   |
+| size           | Size of the switch                                                                                                                         | string                              | large / default / small | default |
+| name           | The `name` attribute of the switch                                                                                                         | string                              | —                      | —       |
+| width          | Width of the switch                                                                                                                        | number                              | —                      | —       |
+| inlinePrompt   | Whether the icon or text is displayed inside the dot                                                                                        | boolean                             | —                      | false   |
+| activeIcon     | The icon displayed when the switch is in `on` state. Setting this will ignore `activeText`                                                | `string \| Component`               | —                      | —       |
+| inactiveIcon   | The icon displayed when the switch is in `off` state. Setting this will ignore `inactiveText`                                              | `string \| Component`               | —                      | —       |
+| activeAction   | The icon component displayed in `on` state                                                                                                 | `string \| Component`               | —                      | —       |
+| inactiveAction | The icon component displayed in `off` state                                                                                                | `string \| Component`               | —                      | —       |
+| activeText     | Text description when the switch is on                                                                                                     | string                              | —                      | —       |
+| inactiveText   | Text description when the switch is off                                                                                                    | string                              | —                      | —       |
+| activeValue    | Value when the switch is in `on` state                                                                                                      | boolean / string / number           | —                      | true    |
+| inactiveValue  | Value when the switch is in `off` state                                                                                                     | boolean / string / number           | —                      | false   |
+| activeColor    | Background color when in `on` state (deprecated, use CSS var `--el-switch-on-color` instead)                                               | string                              | —                      | —       |
+| inactiveColor  | Background color when in `off` state (deprecated, use CSS var `--el-switch-off-color` instead)                                              | string                              | —                      | —       |
+| borderColor    | Border color of the switch (deprecated, use CSS var `--el-switch-border-color` instead)                                                     | string                              | —                      | —       |
+| beforeChange   | Hook before the switch state changes. If it returns `false` or returns a `Promise` that gets rejected, switching will be stopped            | `() => Promise<boolean> \| boolean` | —                      | —       |
 
-<!-- 以下属性在当前类型定义中未找到 -->
-<!-- | validateEvent  | 是否触发表单验证                                                                 | `boolean`                           | —                       | true    | -->
+### Events
 
-### 事件
-
-| 事件名   | 说明                            | 类型                                                                                                                                            |
-| -------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| onChange | switch 状态发生变化时的回调函数 | <Enum type="Function">(value?: boolean \| string \| number, checked?: boolean, e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => void</Enum> |
+| Name    | Description                          | Type                                                                                                                                            |
+| ------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| onChange | Callback when the switch state changes | <Enum type="Function">(value?: boolean \| string \| number, checked?: boolean, e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => void</Enum> |

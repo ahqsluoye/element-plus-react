@@ -1,48 +1,48 @@
 ---
-title: Icon 图标
-lang: zh-CN
+title: Icon
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Icon 图标
+# Icon
 
-Element Plus React 提供了一套常用的图标集合。
+Element Plus React provides a set of common icons.
 
-## 使用方法
+## Basic Usage
 
-基础的按钮用法。
+Basic icon usage.
 <code src="./basic.tsx"></code>
 
-## 图标尺寸
+## Icon Size
 
-图标继承了其父容器的字体大小，从而使它们可以匹配您所呈现的任何文本。 通过以下类，我们可以相对于继承的 font-size 增大或减小图标的大小。
+Icons inherit the font size of their parent container, allowing them to match any text you present. The following classes can be used to increase or decrease icon size relative to the inherited font-size.
 <code src="./sizes.tsx"></code>
 
-## 图标旋转
+## Icon Rotation
 
-有时您需要旋转、翻转或镜像图标才能在项目或设计中达到期望的效果。 我们提供了一些快速实用的工具来帮助您解决此问题。
+Sometimes you may need to rotate, flip, or mirror an icon to achieve the desired effect in your project or design. We provide some quick utility tools to help you with this.
 
-若要任意旋转和翻转图标，请设置 `rotate` 和 `flip`。
+To rotate and flip icons arbitrarily, set `rotate` and `flip`.
 <code src="./rotate.tsx"></code>
 
-## 图标动画
+## Icon Animation
 
-需要加载或状态通信图标来旋转吗？ 那就对了。 我们在支持样式中包括了一些基本的动画供您使用。
+Need a loading or status communication icon to rotate? That's right. We include some basic animations in the supporting styles for you to use.
 
-使用 `spin` 类使任何图标旋转，或者使用 `pulse` 使其进行 8 方向旋转。
+Use the `spin` class to rotate any icon, or use `pulse` to make it rotate in 8 directions.
 <code src="./animate.tsx"></code>
 
 ## API
 
-### 属性
+### Properties
 
-| 属性名 | 说明                       | 类型                                                                                                                                           | 默认值       |
-| ------ | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| prefix | 图标前缀，定义图标字体粗细 | <Enum>'fat' \| 'fal' \| 'far' \| 'fas' \| 'fab' \| 'fad'</Enum>                                                                                | 'fas'        |
-| name   | 图标名称                   | `string`                                                                                                                                       |              |
-| size   | 图标大小                   | `string` / `number` / <Enum>'xs' \| 'small' \| 'large' \| '1x' \| '2x' \| '3x' \| '4x' \| '5x' \| '6x' \| '7x' \| '8x' \| '9x' \| '10x'</Enum> | 继承字体大小 |
-| rotate | 图标旋转角度               | <Enum>90 \| 180 \| 270</Enum>                                                                                                                  |              |
-| flip   | 图标是否翻转               | <Enum>'horizontal' \| 'vertical' \| 'both'</Enum>                                                                                              |              |
-| spin   | 是否动画                   | boolean                                                                                                                                        | `false`      |
-| pulse  | 是否 8 方向旋转            | boolean                                                                                                                                        | `false`      |
+| Name   | Description                          | Type                                                                                                                                           | Default         |
+| ------ | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| prefix | Icon prefix, defines icon font weight | <Enum>'fat' \| 'fal' \| 'far' \| 'fas' \| 'fab' \| 'fad'</Enum>                                                                                | 'fas'           |
+| name   | Icon name                            | `string`                                                                                                                                       |                 |
+| size   | Icon size                            | `string` / `number` / <Enum>'xs' \| 'small' \| 'large' \| '1x' \| '2x' \| '3x' \| '4x' \| '5x' \| '6x' \| '7x' \| '8x' \| '9x' \| '10x'</Enum> | inherits font size |
+| rotate | Icon rotation angle                  | <Enum>90 \| 180 \| 270</Enum>                                                                                                                  |                 |
+| flip   | Whether to flip the icon             | <Enum>'horizontal' \| 'vertical' \| 'both'</Enum>                                                                                              |                 |
+| spin   | Whether to animate                   | `boolean`                                                                                                                                      | `false`         |
+| pulse  | Whether to rotate in 8 directions    | `boolean`                                                                                                                                      | `false`         |

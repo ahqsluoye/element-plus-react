@@ -1,19 +1,19 @@
 ---
-title: 主题
-lang: zh-CN
+title: Custom Theme
+lang: en-US
 ---
 
-# 自定义主题
+# Custom Theme
 
-Element Plus 默认提供一套主题，CSS 命名采用 BEM 的风格，方便使用者覆盖样式。 但是如果需要大规模替换样式，例如： 将主题颜色从蓝色改为橙色或绿色，也许一个个将其覆盖起来不是一个好主意。
+Element Plus React uses BEM-styled CSS so that you can override styles easily. But if you need to replace styles at a large scale, e.g. change the theme color from blue to orange or green, maybe overriding them one by one is not a good idea.
 
-我们提供四种方法来改变样式变量。
+We provide four ways to change the style variables.
 
-## 更换主题色
+## Change Theme Color
 
-### 通过 SCSS 变量
+### Through SCSS Variables
 
-`theme-chalk` 使用 SCSS 编写而成。 你可以在 <ElLink href="https://github.com/ahqsluoye/element-plus-react/blob/main/src/theme-chalk/common/var.scss">src/theme-chalk/common/var.scss</ElLink> 文件中查找 SCSS 变量。
+`theme-chalk` is written in SCSS. You can find SCSS variables in <ElLink href="https://github.com/ahqsluoye/element-plus-react/blob/main/src/theme-chalk/common/var.scss">src/theme-chalk/common/var.scss</ElLink>.
 
 <!-- :::warning
 
@@ -58,15 +58,15 @@ $colors: map.deep-merge(
 );
 ```
 
-### 如何覆盖它？
+### How to Override It
 
-如果您的项目也使用了 SCSS，可以直接修改 Element Plus 的样式变量。 新建一个样式文件，例如 `styles/element/index.scss`：
+If your project also uses SCSS, you can directly change Element Plus React style variables. Create a style file, for example `styles/element/index.scss`：
 
 :::error{title=WARNING}
 
-您应该使用 `@use 'xxx.scss' as *;` 代替 `@import 'xxx.scss';`。
+You should use `@use 'xxx.scss' as *;` instead of `@import 'xxx.scss';`.
 
-因为 sass 团队说他们最终会删除 `@import` 语法。
+Because sass team said `@import` will be removed in the future.
 
 > [Sass: @use](https://sass-lang.com/documentation/at-rules/use) vs [Sass: @import](https://sass-lang.com/documentation/at-rules/import)
 
@@ -74,12 +74,12 @@ $colors: map.deep-merge(
 
 ```scss [styles/element/index.scss]
 /* just override what you need */
-@use '@qsxy/element-plus-react/theme-chalk/common/var' with(
-        // 字体文件路径必填
+@use '@qsxy/element-plus-react/theme-chalk/common/var'
+    with(
+        // Font file path is required
         $fa-font-path: '~/node_modules/@qsxy/element-plus-react/theme-chalk/fonts',
-        // 其他变量可自定义
-        $colors:
-            (
+        // Other variables can be customized
+        $colors: (
                 'primary': (
                     'base': green,
                 )
@@ -87,7 +87,7 @@ $colors: map.deep-merge(
     );
 
 // If you just import on demand, you can ignore the following content.
-// 如果你想导入所有样式:
+// If you want to import all styles:
 // @use '@qsxy/element-plus-react/theme-chalk/common/var'
 //     with(
 //         $fa-font-path: '~/node_modules/@qsxy/element-plus-react/theme-chalk/fonts',
@@ -95,19 +95,21 @@ $colors: map.deep-merge(
 // @use "@qsxy/element-plus-react/theme-chalk/index.scss" as *;
 ```
 
-然后在你的项目入口文件中，导入这个样式文件以替换 Element Plus React 内置的 CSS：
+Then, this style file will override the default CSS of Element Plus React.
 
 :::info{title=TIP}
 
-在 element-plus-react scss 文件之前导入`element/index.scss`以避免 sass 混合变量的问题，因为我们需要通过你的自定义变量生成 light-x。
+Import `styles/element/index.scss` before `@qsxy/element-plus-react/theme-chalk/index.scss` to avoid sass variable mixing. Because we need to generate light-x variables from your custom variables.
 
 :::
 
-创建一个 `element/index.scss` 文件来合并你的变量和 element-plus-react 的变量。 （如果你在 TypeScript 中导入了它们，他们将不会被合并）
+Create a `styles/element/index.scss` file to merge your variables and the variables of Element Plus React.
+
+If you import them in TypeScript, they will not be merged.
 
 :::info{title=TIP}
 
-除此以外，你应该将你的 scss 文件与 element 变量的 scss 文件区分开来。 如果将它们混合在一起，`element-plus-react` 每次热更新都需要编译大量的 scss 文件，这将会导致编译速度变慢。
+In addition, you should distinguish your scss from the element variable scss. If they are mixed together, each hot update of `Element Plus React` needs to compile a large number of scss files, resulting in slow speed.
 
 :::
 
@@ -194,25 +196,25 @@ export default defineConfig({
 });
 ``` -->
 
-### 通过 CSS 变量设置
+### By CSS Variable
 
-CSS 变量是一个非常有用的功能，几乎所有浏览器都支持。 （IE：啊这？)
+CSS Variables is a very useful feature, already supported by almost all browsers. (IE: Wait?)
 
-> 从 [使用 CSS 自定义属性(变量) | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) 了解更多信息
+> Learn more from [Using CSS custom properties (variables) | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
 
-我们用 css 变量来重构了几乎所有组件的样式系统。
+We have used css variables to reconstruct the style system of almost all components.
 
-:::tip
+:::error{title=WARNING}
 
-它兼容 SCSS 变量系统。 我们使用 SCSS 的函数自动生成需要用到的 css 变量。
+It is compatible with the SCSS variable system. We use the function of SCSS to automatically generate css variables for use.
 
 :::
 
-这意味着你可以动态地改变组件内的个别变量，以便更好地自定义组件样式，而不需要修改 SCSS 文件重新编译一次。
+This means you can dynamically change individual variables inside the component to better customize it without having to modify scss and recompile it.
 
-> 之后，每个组件的 css 变量名称和作用将被写入到对应的组件文档中。
+> In the future, the css variable names and role documentation for each component will be written to each component.
 
-就像这样：
+Like this:
 
 ```css
 :root {
@@ -220,13 +222,13 @@ CSS 变量是一个非常有用的功能，几乎所有浏览器都支持。 （
 }
 ```
 
-如果你只想自定义一个特定的组件，只需为某些组件单独添加内联样式。
+If you just want to customize a particular component, just add inline styles for certain components individually.
 
 ```ts
 <ElTag style={{ '--el-tag-bg-color': 'red' }}>Tag</ElTag>
 ```
 
-出于性能原因，更加推荐你在类名下添加自定义 css 变量，而不是在全局的 `:root` 下。
+For performance reasons, it is more recommended to custom css variables under a class rather than the global `:root`.
 
 ```css
 .custom-class {
@@ -234,18 +236,18 @@ CSS 变量是一个非常有用的功能，几乎所有浏览器都支持。 （
 }
 ```
 
-如果您想要通过 js 控制 css 变量，可以这样做：
+If you want to use js to control css variables:
 
 ```ts
-// document.documentElement 是全局变量时
+// document.documentElement is global variable when
 const el = document.documentElement;
 // const el = document.getElementById('xxx')
 
-// 获取 css 变量
+// Get css variable
 getComputedStyle(el).getPropertyValue(`--el-color-primary`);
 
-// 设置 css 变量
+// Set css variable
 el.style.setProperty('--el-color-primary', 'red');
 ```
 
-如果你想要更优雅的方式，请看这里。 [useCssVar | VueUse](https://vueuse.org/core/usecssvar/)
+If you want a more elegant way, please check out [useCssVar | VueUse](https://vueuse.org/core/usecssvar/)

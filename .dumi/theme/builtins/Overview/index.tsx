@@ -2,15 +2,17 @@ import { ElCard, ElEmpty, ElIcon, ElInput, ElLink, ElTag, InputRef } from '@qsxy
 import { useMount } from 'ahooks';
 import { useFullSidebarData } from 'dumi';
 import React, { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import overviewIcons from '../overview-icons';
 import './index.scss';
 
 const Overview = () => {
     const [query, setQuery] = React.useState('');
-    const searchRef = React.useRef<InputRef>();
+    const searchRef = React.useRef<InputRef>(null);
     const sidebars = useFullSidebarData();
     const navigation = useNavigate();
+    const location = useLocation();
+    const isEnglish = useMemo(() => location.pathname.startsWith('/en-US'), [location.pathname]);
 
     const toPage = link => {
         navigation(link);
@@ -18,7 +20,7 @@ const Overview = () => {
 
     const filteredSidebars = useMemo(
         () =>
-            sidebars['/components']
+            sidebars[isEnglish ? '/en-US/components' : '/components']
                 .slice(1)
                 .map(group => ({
                     ...group,
@@ -28,7 +30,7 @@ const Overview = () => {
                     }),
                 }))
                 .filter(group => group.children.length),
-        [query, sidebars],
+        [isEnglish, query, sidebars],
     );
 
     const getIcon = (link: string) => {

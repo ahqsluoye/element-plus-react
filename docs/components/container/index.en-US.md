@@ -1,31 +1,31 @@
 ---
-title: Container 布局容器
-lang: zh-CN
+title: Container
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Container 布局容器
+# Container
 
-用于布局的容器组件，方便快速搭建页面的基本结构：
+Container components for scaffolding the basic structure of the page:
 
-`<ElContainer>`：外层容器。 当子元素中包含 `<ElHeader>` 或 `<ElFooter>` 时，全部子元素会垂直上下排列， 否则会水平左右排列。
+`<ElContainer>`: Wrapper container. When nested with `<ElHeader>` or `<ElFooter>`, all child elements will be arranged vertically. Otherwise, they are arranged horizontally.
 
-`<ElHeader>`：顶栏容器。
+`<ElHeader>`: Container for headers.
 
-`<ElAside>`：侧边栏容器。
+`<ElAside>`: Container for side sections.
 
-`<ElMain>`：主要区域容器。
+`<ElMain>`: Container for main sections.
 
-`<ElFooter>`：底栏容器。
+`<ElFooter>`: Container for footers.
 
 :::info{title=TIP}
 
-以上组件采用了 flex 布局，使用前请确定目标浏览器是否兼容。 此外， `<ElContainer>`的直接子元素必须是后四个组件中的一个或多个。 后四个组件的父元素必须是一个 `<ElContainer>`
+These components use flex for layout, so please make sure your browser supports it. Besides, the direct child elements of `<ElContainer>` must be one or more of the other four components. The parent element of the other four components must be an `<ElContainer>`.
 
 :::
 
-## 常见页面布局
+## Common Layouts
 
 <style lang="scss">
 @use '../../examples/container/common-layout.scss';
@@ -57,38 +57,38 @@ lang: zh-CN
 
 <code src="./layout-ahmf.tsx"></code>
 
-## 例子
+## Example
 
 <code src="./example.tsx"></code>
 
 ## Container API
 
-### Container 属性
+### Container Properties
 
-| 属性名    | 说明             | 类型                                                | 默认值                                                               |
-| --------- | ---------------- | --------------------------------------------------- | -------------------------------------------------------------------- |
-| direction | 子元素的排列方向 | <Enum type="enum">'horizontal' \| 'vertical'</Enum> | 子元素中有 `ElHeader` 或 `ElFooter` 时为 vertical，否则为 horizontal |
+| Name      | Description                         | Type                                                | Default                                                                    |
+| --------- | ----------------------------------- | --------------------------------------------------- | -------------------------------------------------------------------------- |
+| direction | Layout direction for child elements | <Enum type="enum">'horizontal' \| 'vertical'</Enum> | vertical when nested with `ElHeader` or `ElFooter`; horizontal otherwise   |
 
 ## Header API
 
-### Header 属性
+### Header Properties
 
-| 属性名 | 说明     | 类型         | 默认值 |
-| ------ | -------- | ------------ | ------ |
-| height | 顶栏高度 | `string` / `number` | 60px   |
+| Name   | Description          | Type               | Default |
+| ------ | -------------------- | ------------------ | ------- |
+| height | Height of the header | `string` / `number` | 60px    |
 
 ## Aside API
 
-### Aside 属性
+### Aside Properties
 
-| 属性名 | 说明       | 类型         | 默认值 |
-| ------ | ---------- | ------------ | ------ |
-| width  | 侧边栏宽度 | `string` / `number` | 300px  |
+| Name  | Description               | Type               | Default |
+| ----- | ------------------------- | ------------------ | ------- |
+| width | Width of the side section | `string` / `number` | 300px   |
 
 ## Footer API
 
-### Footer 属性
+### Footer Properties
 
-| 属性名 | 说明     | 类型         | 默认值 |
-| ------ | -------- | ------------ | ------ |
-| height | 底栏高度 | `string` / `number` | 60px   |
+| Name   | Description          | Type               | Default |
+| ------ | -------------------- | ------------------ | ------- |
+| height | Height of the footer | `string` / `number` | 60px    |

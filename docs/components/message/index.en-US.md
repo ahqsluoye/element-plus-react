@@ -1,83 +1,83 @@
 ---
-title: Message 消息提示
-lang: zh-CN
+title: Message
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Message 消息提示
+# Message
 
-常用于主动操作后的反馈提示。 与 Notification 的区别是后者更多用于系统级通知的被动提醒。
+Used to show feedback after an activity. The difference with Notification is that the latter is often used for system-level passive notifications.
 
-## 基础用法
+## Basic Usage
 
-从顶部出现，3 秒后自动消失。
+Displays at the top and disappears after 3 seconds automatically.
 
-Message 在配置上与 Notification 非常类似，所以部分 options 在此不做详尽解释。 文末有 options 列表，可以结合 Notification 的文档理解它们。
+The setup of Message is very similar to Notification, so some options won't be explained in detail here. You can check the options table below combined with the Notification documentation to understand them.
 
 <code src="./basic.tsx"></code>
 
-## 不同状态
+## Different Types
 
-用来显示「成功、警告、消息、错误」类的操作反馈。
+Used to show feedback for operations like "success", "warning", "message", and "error".
 
-当需要自定义更多属性时，Message 也可以接收一个对象为参数。 比如，设置 `type` 字段可以定义不同的状态，默认为`info`。 此时正文内容以 `message` 的值传入。 同时，我们也为 Message 的各种 type 注册了方法，可以在不传入 type 字段的情况下像下方第四个按钮那样直接调用。
+When you need more customizations, the Message component can also take an object as a parameter. For example, setting the `type` field can define different types, and the default is `info`. In this case, the main content is passed in as the value of `message`. We have also registered methods for different types of Message, so you can call them directly without passing a `type` field, like the fourth button below.
 
 <code src="./different-types.tsx"></code>
 
-## 可关闭的消息提示
+## Closable Messages
 
-可以添加关闭按钮。
+A close button can be added.
 
-默认的 Message 是可以被人工关闭的。 如果你需要手动关闭功能，你可以把 `showClose` 设置为 true 此外，和 Notification 一样，Message 拥有可控的 `duration`， 默认的关闭时间为 3000 毫秒，当把这个属性的值设置为`0`便表示该消息不会被自动关闭。
+By default, Message can be closed manually. If you need a close button, you can set `showClose` to `true`. Besides, like Notification, Message has a controllable `duration`. The default duration is 3000 milliseconds, and it will not auto-close when set to `0`.
 
 <code src="./closable.tsx"></code>
 
 ## Plain
 
-设置 `plain` 为 plain 背景。
+Set `plain` to have a plain background.
 
 <code src="./plain.tsx"></code>
 
-<!-- ## 使用 HTML 片段作为正文内容
+<!-- ## Use HTML as Content
 
-`message` 还支持使用 HTML 字符串作为正文内容。
+`message` also supports HTML strings as content.
 
-将`dangerouslyUseHTMLString`属性设置为 true,`message` 就会被当作 HTML 片段处理。
+Set the `dangerouslyUseHTMLString` property to `true`, and `message` will be treated as an HTML fragment.
 
 <code src="./raw-html.tsx"></code>
 
 :::error
 
-`message` 属性虽然支持传入 HTML 片段，但是在网站上动态渲染任意 HTML 是非常危险的，因为容易导致 [XSS 攻击](https://en.wikipedia.org/wiki/Cross-site_scripting)。 因此在 `dangerouslyUseHTMLString` 打开的情况下，请确保 `message` 的内容是可信的，**永远不要**将用户提交的内容赋值给 `message` 属性。
+Although the `message` property supports HTML fragments, dynamically rendering arbitrary HTML on your website is very dangerous because it can easily lead to [XSS attacks](https://en.wikipedia.org/wiki/Cross-site_scripting). So when `dangerouslyUseHTMLString` is enabled, please make sure the content of `message` is trusted, and **never** assign user-submitted content to the `message` property.
 
 ::: -->
 
-## 分组消息合并
+## Grouping
 
-合并相同内容的消息。
+Merge messages with the same content.
 
-设置 `grouping` 为 true，内容相同的 `message` 将被合并。
+Set `grouping` to `true`, and messages with the same `message` content will be merged.
 
 <code src="./grouping.tsx"></code>
 
-## 调用方法
+## How to Use
 
 ```ts
 import { ElMessage } from '@qsxy/element-plus-react';
 ```
 
-此时调用方法为 `ElMessage(options)`。 我们也为每个 type 定义了各自的方法，如 `ElMessage.success(options)`。 并且可以调用 `ElMessage.closeAll()` 手动关闭所有实例。
+You can call `ElMessage(options)` to create a message. We have also registered methods for each type, such as `ElMessage.success(options)`. You can also call `ElMessage.closeAll()` to manually close all instances.
 
-<!-- ## 应用程序上下文继承 <el-tag> >= 2.0.3</el-tag>
+<!-- ## App Context Inheritance <el-tag> >= 2.0.3</el-tag>
 
-现在 Message 接受一条 `context` 作为消息构造器的第二个参数，允许你将当前应用的上下文注入到 Message 中，这将允许你继承应用程序的所有属性。
+Now Message accepts a `context` as the second parameter of the message constructor, allowing you to inject the current application's context into Message, which enables you to inherit all the properties of the application.
 
-你可以像这样使用它：
+You can use it like this:
 
 :::info{title=TIP}
 
-如果您全局注册了 ElMessage 组件，它将自动继承应用的上下文环境。
+If you globally register the ElMessage component, it will automatically inherit the application's context.
 
 :::
 
@@ -85,38 +85,38 @@ import { ElMessage } from '@qsxy/element-plus-react';
 import { getCurrentInstance } from 'vue';
 import { ElMessage } from 'element-plus';
 
-// 在你的 setup 方法中
+// in your setup method
 const { appContext } = getCurrentInstance()!;
-`boolean` lMessage({}, appContext);
+ElMessage({}, appContext);
 ``` -->
 
 ## Message API
 
-### Message 配置项
+### Message Configuration
 
-| 属性        | 说明                                                     | 类型                                                                        | 默认值   |
-| ----------- | -------------------------------------------------------- | --------------------------------------------------------------------------- | -------- |
-| plain       | 是否纯色                                                 | `boolean`                                                                   | —        |
-| message     | 消息文字                                                 | `string \| React.ReactElement`                                              | —        |
-| type        | 消息类型                                                 | <Enum>'primary' \| 'success' \| 'warning' \| 'info' \| 'error' \| ''</Enum> | `'info'` |
-| iconClass   | 自定义图标                                               | `string`                                                                    | —        |
-| duration    | 显示时间，单位为毫秒。 设为 0 则不会自动关闭             | `number`                                                                    | `3000`   |
-| showClose   | 是否显示关闭按钮                                         | `boolean`                                                                   | `false`  |
-| onClose     | 关闭时的回调函数, 参数为被关闭的 message 实例            | <Enum type="Function">(el?: RefObject<HTMLElement>) => void</Enum>          | —        |
-| immediate   | 是否立即执行 onClose 方法                                | `boolean`                                                                   | —        |
-| userOnClose | 用户关闭时的回调函数                                     | <Enum type="Function">(el?: RefObject<HTMLElement>) => void</Enum>          | —        |
-| offset      | Message 距离窗口顶部的偏移量                             | `number`                                                                    | `20`     |
-| grouping    | 合并内容相同的消息，不支持 React.ReactElement 类型的消息 | `boolean`                                                                   | `false`  |
+| Name        | Description                                                     | Type                                                                        | Default  |
+| ----------- | -------------------------------------------------------------- | --------------------------------------------------------------------------- | -------- |
+| plain       | Whether it is plain                                             | `boolean`                                                                   | —        |
+| message     | Message text                                                   | `string \| React.ReactElement`                                              | —        |
+| type        | Message type                                                   | <Enum>'primary' \| 'success' \| 'warning' \| 'info' \| 'error' \| ''</Enum> | `'info'` |
+| iconClass   | Custom icon                                                    | `string`                                                                    | —        |
+| duration    | Display duration in milliseconds. Set to 0 to not auto-close   | `number`                                                                    | `3000`   |
+| showClose   | Whether to show a close button                                 | `boolean`                                                                   | `false`  |
+| onClose     | Callback when closed, with the closed message instance as parameter | <Enum type="Function">(el?: RefObject<HTMLElement>) => void</Enum>          | —        |
+| immediate   | Whether to execute the onClose method immediately              | `boolean`                                                                   | —        |
+| userOnClose | Callback when the user closes the message                      | <Enum type="Function">(el?: RefObject<HTMLElement>) => void</Enum>          | —        |
+| offset      | Offset of Message from the top of the window                   | `number`                                                                    | `20`     |
+| grouping    | Merge messages with the same content, React.ReactElement type is not supported | `boolean`                                                                   | `false`  |
 
-<!-- 以下属性在当前类型定义中未找到 -->
-<!-- | id          | 消息 id                                                  | `string`                                                                    | —        | -->
-<!-- | placement | 消息放置位置 | <Enum>'top' \| 'top-left' \| 'top-right' \| 'bottom' \| 'bottom-left' \| 'bottom-right'</Enum> | — | -->
-<!-- | icon        | 自定义图标，该属性会覆盖 `type` 的图标。                 | `string \| Component`                                              | —        | -->
-<!-- | customClass | 自定义类名                                               | `string`                                                           | —        | -->
-<!-- | center      | 文字是否居中                                             | `boolean`                                                          | `false`  | -->
+<!-- The following properties are not found in the current type definitions -->
+<!-- | id          | Message id                                                  | `string`                                                                    | —        | -->
+<!-- | placement | Message placement position | <Enum>'top' \| 'top-left' \| 'top-right' \| 'bottom' \| 'bottom-left' \| 'bottom-right'</Enum> | — | -->
+<!-- | icon        | Custom icon, which will override the `type` icon             | `string \| Component`                                              | —        | -->
+<!-- | customClass | Custom class name                                           | `string`                                                           | —        | -->
+<!-- | center      | Whether the text is centered                                | `boolean`                                                          | `false`  | -->
 
-### Message 方法
+### Message Methods
 
-| 方法名  | 描述               |
-| ------- | ------------------ |
-| `close` | 关闭当前的 Message |
+| Name    | Description                |
+| ------- | -------------------------- |
+| `close` | Close the current Message  |

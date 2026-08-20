@@ -1,53 +1,53 @@
 ---
-title: Loading 加载
-lang: zh-CN
+title: Loading
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Loading 加载
+# Loading
 
-加载数据时显示动效。
+Show animation while loading data.
 
-## 区域加载
+## Loading in Container
 
-在需要的时候展示加载动画，防止页面失去响应提高用户体验（例如表格）。
+Display a loading animation when needed to prevent the page from becoming unresponsive and improve user experience (e.g., in tables).
 
-Element Plus React 提供了两种调用 Loading 的方法：组件和服务。 对于组件方式，既可以将 `Loading` 置于其他组件之内，也可以将其他组件置于 `Loading` 之内。
+Element Plus React provides two ways to invoke Loading: component and service. For the component approach, you can either place `Loading` inside other components or place other components inside `Loading`.
 
 <code src="./basic.tsx"></code>
 
-## 自定义加载中组件内容
+## Customization
 
-你可以自定义加载中组件的文字，图标，以及背景颜色。
+You can customize the text, icon, and background color of the loading component.
 
-在绑定了`vLoading`指令的元素上添加`element-loading-text`属性，其值会被渲染为加载文案，并显示在加载图标的下方。 类似地，`element-loading-spinner`、`element-loading-background` 和 `element-loading-svg` 属性分别用来设定 svg 图标、背景色值、加载图标。
+Add the `element-loading-text` attribute to the element bound with the `vLoading` directive, and its value will be rendered as the loading text and displayed below the loading icon. Similarly, `element-loading-spinner`, `element-loading-background`, and `element-loading-svg` attributes are used to set the SVG icon, background color, and loading icon respectively.
 
 <code src="./customization.tsx"></code>
 
-## 让加载组件铺满整个屏幕
+## Full Screen Loading
 
-加载数据时显示全屏动画。
+Show a full screen animation while loading data.
 
-当使用指令方式时，全屏遮罩需要添加 `fullscreen` 修饰符（遮罩会插入至 body 上） 此时若需要锁定屏幕的滚动，可以使用`lock`修饰符； 当使用服务方式时，遮罩默认即为全屏，无需额外设置。
+When using the directive approach, a full screen mask requires the `fullscreen` modifier (the mask will be inserted onto the body). If you need to lock screen scrolling at this point, you can use the `lock` modifier. When using the service approach, the mask is full screen by default and no additional settings are required.
 
 <code src="./fullscreen.tsx"></code>
 
-## 以服务的方式来调用
+## Service
 
-`Loading` 还可以以服务的方式调用。 你可以像这样引入 `Loading` 服务：
+`Loading` can also be invoked as a service. You can import the `Loading` service like this:
 
 ```ts
 import { ElLoading } from '@qsxy/element-plus-react';
 ```
 
-在你需要的时候通过下面的方式调用：
+Invoke it when you need it as follows:
 
 ```ts
 ElLoading.service(options);
 ```
 
-其中`options`参数为 Loading 的配置项，具体见下表。 `LoadingService` 会返回一个 Loading 实例，可通过调用该实例的 `close` 方法来关闭它：
+The `options` parameter is the configuration of Loading, see the table below for details. `LoadingService` returns a Loading instance, which can be closed by calling the `close` method:
 
 ```ts
 const loadingInstance = ElLoading.service(options);
@@ -57,18 +57,16 @@ setTimeout(() => {
 }, 2000);
 ```
 
-## 配置项
+## Options
 
-| 属性       | 说明                                                                                                                                         | 类型                                      | 可选值 | 默认值        |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- | ------ | ------------- |
-| target     | Loading 需要覆盖的 DOM 节点。 可传入一个 DOM 对象或字符串； 若传入字符串，则会将其作为参数传入 `document.querySelector`以获取到对应 DOM 节点 | <Enum type='object'>RefObject\<HTMLElement></Enum> | —      | document.body |
-| visible    | 是否显示 Loading                                                                                                                             | `boolean`                | —      | false         |
-| fullscreen | 是否让加载组件铺满整个屏幕                                                                                                                   | `boolean`                | —      | false         |
-| lock       | 是否锁定父级元素滚动                                                                                                                         | `boolean`                | —      | false         |
-| text       | 显示在加载图标下方的加载文案                                                                                                                 | `string`                 | —      | —             |
-| spinner    | 自定义加载图标类名                                                                                                                           | `string`                 | —      | —             |
-| background | 遮罩背景色                                                                                                                                   | `string`                 | —      | —             |
-| svg        | 自定义 SVG 元素覆盖默认加载器                                                                                                                | `string`                 | —      | —             |
-| svgViewBox | 设置用于加载 svg 元素的 viewBox 属性                                                                                                         | `string`                 | —      | —             |
-<!-- 以下属性在当前类型定义中未找到 -->
-<!-- | className  | Loading 的自定义类名                                                                                                                         | `string`                 | —      | —             | -->
+| Name       | Description                                                                                                                                  | Type                                                                                                      | Default       |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------- |
+| target     | The DOM node that Loading needs to cover. Accepts a DOM object or a string; if a string is passed, it will be passed to `document.querySelector` to get the corresponding DOM node | <Enum type='object'>RefObject\<HTMLElement></Enum>                                                        | document.body |
+| visible    | Whether to show Loading                                                                                                                      | `boolean`                                                                                                 | false         |
+| fullscreen | Whether the loading component covers the entire screen                                                                                       | `boolean`                                                                                                 | false         |
+| lock       | Whether to lock parent element scrolling                                                                                                     | `boolean`                                                                                                 | false         |
+| text       | Loading text displayed below the loading icon                                                                                               | `string`                                                                                                  | —             |
+| spinner    | Custom loading icon class name                                                                                                               | `string`                                                                                                  | —             |
+| background | Mask background color                                                                                                                       | `string`                                                                                                  | —             |
+| svg        | Custom SVG element to override the default loader                                                                                            | `string`                                                                                                  | —             |
+| svgViewBox | Sets the viewBox attribute for the loading SVG element                                                                                       | `string`                                                                                                  | —             |

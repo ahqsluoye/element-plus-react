@@ -1,130 +1,130 @@
 ---
-title: Dropdown 下拉菜单
-lang: zh-CN
+title: Dropdown
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Dropdown 下拉菜单
+# Dropdown
 
-将动作或菜单折叠到下拉菜单中。
+Toggleable menu for displaying lists of links and actions.
 
-## 基础用法
+## Basic Usage
 
-悬停在下拉菜单上以展开更多操作。
+Hover on the dropdown menu to unfold it for more actions.
 
-通过子组件 来设置下拉触发的元素以及需要通过属性 `menu` 为 `dropdown` 来设置下拉菜单。 默认情况下，只需要悬停在触发菜单的元素上即可，无需点击也会显示下拉菜单。
+The triggering element is rendered by the child component, and the dropdown part is set via the `menu` attribute on the `Dropdown`. By default, the dropdown list shows when you hover on the triggering element without having to click it.
 
 <code src="./basic-usage.tsx"></code>
 
-## 触发对象
+## Triggering Element
 
-可使用按钮触发下拉菜单。
+Use the button to trigger the dropdown list.
 
-设置 `splitButton` 属性来让触发下拉元素呈现为按钮组，左边是功能按钮，右边是触发下拉菜单的按钮，设置为 `true` 即可。 如果你想要在第三和第四个选项之间添加一个分隔符，你只需要为第四个选项添加一个 `divider` 的 CSS class。
+Set `splitButton` to `true` to split the triggering element into a button group, with the left button being a normal button and the right one the actual triggering target. If you want to insert a separator line between the third and fourth options, just add a `divider` CSS class to the fourth option.
 
 <code src="./triggering-element.tsx"></code>
 
-## 触发方式
+## How to Trigger
 
-可以配置点击激活或者悬停激活。
+Click or hover to activate.
 
-将 `trigger` 属性设置为 click 即可， 默认为 `hover`。
+Set the `trigger` attribute to `click`; the default is `hover`.
 
 <code src="./how-to-trigger.tsx"></code>
 
-## 菜单隐藏方式
+## Menu Hiding Behavior
 
-可以通过 `hideOnClick` 属性来配置。
+This can be configured via the `hideOnClick` attribute.
 
-下拉菜单默认在点击菜单项后会被隐藏，将 hideOnClick 属性设置为 false 可以关闭此功能。
+By default, the dropdown menu is hidden after clicking a menu item. Set `hideOnClick` to `false` to disable this behavior.
 
 <code src="./menu-hiding-behavior.tsx"></code>
 
-## 指令事件
+## Command Event
 
-点击菜单项后会触发事件，用户可以通过相应的菜单项 key 进行不同的操作。
+Clicking a menu item triggers an event, and users can perform different operations via the corresponding menu item key.
 
 <code src="./command-event.tsx"></code>
 
-## 下拉方法
+## Dropdown Methods
 
-您可以手动使用 `手动打开` 或 `手动关闭下拉菜单以打开或关闭`
+You can manually open or close the dropdown menu using `handleOpen` or `handleClose`.
 
 <code src="./dropdown-methods.tsx"></code>
 
-## 尺寸
+## Sizes
 
-Dropdown 组件提供除了默认值以外的三种尺寸，可以在不同场景下选择合适的尺寸。
+Besides the default size, the Dropdown component provides three additional sizes for you to choose among different scenarios.
 
-使用 `size` 属性配置尺寸，可选的尺寸大小有: `large`, `default` 或 `small`
+Use the `size` attribute to configure the size. The available sizes are: `large`, `default`, or `small`.
 
 <code src="./sizes.tsx"></code>
 
-## 虚拟触发
+## Virtual Triggering
 
-有时候我们想把 dropdown 的触发元素放在别的地方，而不需要写在一起，这时候就可以使用虚拟触发。
+Sometimes we want to place the dropdown trigger element elsewhere without writing them together. In this case, you can use virtual triggering.
 
 <code src="./virtual-trigger.tsx"></code>
 
-## Dropdown 属性
+## Dropdown Properties
 
-| 属性名            | 说明                                                                          | 类型                                                                                                                         | Default |
-| ----------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------- |
-| menu              | ElDropdownMenu 菜单                                                           | <Enum type='object'> `React.ReactElement<DropdownMenuProps>`</Enum>                                                          | ''      |
-| visible           | 状态是否可见                                                                  | `boolean`                                                                                                                    | —       |
-| defaultVisible    | 初始值                                                                        | `boolean`                                                                                                                    | —       |
-| type              | 菜单按钮类型，同 `Button` 组件一样，仅在 `splitButton` 为 true 的情况下有效。 | <Enum type="enum">'' \| 'default' \| 'primary' \| 'success' \| 'warning' \| 'info' \| 'danger' \| 'text' (deprecated)</Enum> | ''      |
-| size              | 菜单尺寸，在 splitButton 为 true 的情况下也对触发按钮生效。                   | <Enum type="enum">'' \| 'large' \| 'default' \| 'small'</Enum>                                                               | ''      |
-| buttonProps       | 按钮组件的 props，参考 [按钮属性](./button#button-属性)                       | `object`                                                                                                                     | —       |
-| maxHeight         | 菜单最大高度                                                                  | `string` / `number`                                                                                                          | ''      |
-| splitButton       | 下拉触发元素呈现为按钮组                                                      | `boolean`                                                                                                                    | false   |
-| disabled          | 是否禁用                                                                      | `boolean`                                                                                                                    | false   |
-| placement         | 菜单弹出位置                                                                  | <Enum type="enum">'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end'</Enum>                     | bottom  |
-| effect            | Tooltip 主题，内置了 `dark` / `light` 两种主题                                | <Enum type="enum">'dark' \| 'light'</Enum> / `string`                                                                        | light   |
-| trigger           | 触发下拉的行为                                                                | <Enum type="enum">'click' \| 'hover' \| 'contextmenu'`/`array``Array<'click' \| 'hover' \| 'contextmenu'></Enum>             | hover   |
-| virtualTriggering | 是否启用虚拟触发器                                                            | `boolean`                                                                                                                    | —       |
-| virtualRef        | 指示下拉框所依附的参考元素                                                    | `HTMLElement`                                                                                                                | —       |
-| hideOnClick       | 是否在点击菜单项后隐藏菜单                                                    | `boolean`                                                                                                                    | true    |
-| showArrow         | tooltip 的内容是否有箭头                                                      | `boolean`                                                                                                                    | true    |
-| showTimeout       | 展开下拉菜单的延时，仅在 trigger 为 hover 时有效                              | `number`                                                                                                                     | 150     |
-| hideTimeout       | 收起下拉菜单的延时（仅在 trigger 为 hover 时有效）                            | `number`                                                                                                                     | 150     |
-| persistent        | 当下拉菜单处于非活动状态且 persistent 为 false 时，下拉菜单将被销毁           | `boolean`                                                                                                                    | true    |
-| popperClass       | 自定义浮层类名                                                                | `string` / `object`                                                                                                          | ''      |
-| popperStyle       | 自定义浮层类名                                                                | `string` / `object`                                                                                                          | —       |
+| Name              | Description                                                                                                          | Type                                                                                                                         | Default |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------- |
+| menu              | Dropdown menu                                                                                                        | <Enum type='object'> `React.ReactElement<DropdownMenuProps>`</Enum>                                                          | ''      |
+| visible           | whether the state is visible                                                                                         | `boolean`                                                                                                                    | —       |
+| defaultVisible    | initial value                                                                                                        | `boolean`                                                                                                                    | —       |
+| type              | menu button type, same as `Button` component, only works when `splitButton` is true                                  | <Enum type="enum">'' \| 'default' \| 'primary' \| 'success' \| 'warning' \| 'info' \| 'danger' \| 'text' (deprecated)</Enum> | ''      |
+| size              | menu size, also works on the split button when `splitButton` is true                                                 | <Enum type="enum">'' \| 'large' \| 'default' \| 'small'</Enum>                                                               | ''      |
+| buttonProps       | props for the button component, refer to [Button Attributes](./button#button-properties)                              | `object`                                                                                                                     | —       |
+| maxHeight         | the max height of the menu                                                                                           | `string` / `number`                                                                                                          | ''      |
+| splitButton       | whether a button group is displayed                                                                                   | `boolean`                                                                                                                    | false   |
+| disabled          | whether to disable                                                                                                    | `boolean`                                                                                                                    | false   |
+| placement         | placement of the pop menu                                                                                             | <Enum type="enum">'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end'</Enum>                     | bottom  |
+| effect            | Tooltip theme, built-in theme: `dark` / `light`                                                                       | <Enum type="enum">'dark' \| 'light'</Enum> / `string`                                                                        | light   |
+| trigger           | how to trigger the dropdown                                                                                           | <Enum type="enum">'click' \| 'hover' \| 'contextmenu'`/`array``Array<'click' \| 'hover' \| 'contextmenu'></Enum>             | hover   |
+| virtualTriggering | whether virtual triggering is enabled                                                                                 | `boolean`                                                                                                                    | —       |
+| virtualRef        | indicates the reference element to which the dropdown is attached                                                     | `HTMLElement`                                                                                                                | —       |
+| hideOnClick       | whether to hide the menu after clicking a menu item                                                                   | `boolean`                                                                                                                    | true    |
+| showArrow         | whether the tooltip content has an arrow                                                                              | `boolean`                                                                                                                    | true    |
+| showTimeout       | delay time before showing the dropdown (only works when trigger is `hover`)                                            | `number`                                                                                                                     | 150     |
+| hideTimeout       | delay time before hiding the dropdown (only works when trigger is `hover`)                                             | `number`                                                                                                                     | 150     |
+| persistent        | when the dropdown is inactive and `persistent` is `false`, the dropdown menu will be destroyed                          | `boolean`                                                                                                                    | true    |
+| popperClass       | custom class name for the dropdown                                                                                   | `string` / `object`                                                                                                          | ''      |
+| popperStyle       | custom style for the dropdown                                                                                        | `string` / `object`                                                                                                          | —       |
 
 <!--
-| triggerKeys | 指定键盘上哪些按键可以触发操作 | <Enum type="array">string[]`                                                                                                 |`['Enter', 'Space', 'ArrowDown', 'NumpadEnter']</Enum> |
-| role | 下拉菜单的 ARIA 属性。 根据具体场景，您可能想要将此更改为“navigation” | <Enum type="enum">'dialog' \| 'grid' \| 'group' \| 'listbox' \| 'menu' \| 'navigation' \| 'tooltip' \| 'tree'</Enum> | menu |
-| tabindex | Dropdown 组件的 [tabindex](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex) | `number` / `string` | 0 |
-| popperOptions | [popper.js](https://popper.js.org/docs/v2/) 参数 | `object` | `{modifiers: [{name: 'computeStyles',options: {gpuAcceleration: false}}]}` |
-| teleported | 是否将下拉列表插入至 body 元素 | `boolean` | true |
-| appendTo | dropdown 的内容将挂载到哪一个元素上 | `CSSSelector` / `HTMLElement` | — |
-| persistent | 当下拉菜单处于非活动状态且 `persistent` 为 `false` 时，下拉菜单将被销毁 | `boolean` | true |
+| triggerKeys | specify which keys on the keyboard can trigger when pressed | <Enum type="array">string[]`                                                                                                 |`['Enter', 'Space', 'ArrowDown', 'NumpadEnter']</Enum> |
+| role | the ARIA role attribute for the dropdown menu. Depending on the use case, you may want to change this to 'navigation' | <Enum type="enum">'dialog' \| 'grid' \| 'group' \| 'listbox' \| 'menu' \| 'navigation' \| 'tooltip' \| 'tree'</Enum> | menu |
+| tabindex | [tabindex](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex) of Dropdown | `number` / `string` | 0 |
+| popperOptions | [popper.js](https://popper.js.org/docs/v2/) parameters | `object` | `{modifiers: [{name: 'computeStyles',options: {gpuAcceleration: false}}]}` |
+| teleported | whether the dropdown popup is teleported to the body | `boolean` | true |
+| appendTo | which element the dropdown content appends to | `CSSSelector` / `HTMLElement` | — |
+| persistent | when the dropdown is inactive and `persistent` is `false`, the dropdown menu will be destroyed | `boolean` | true |
 -->
 
-## Dropdown 事件
+## Dropdown Events
 
-| 事件名          | 说明                                                                       | 类型                                                                                |
-| --------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| onClick         | splitButton 为 true 时，点击左侧按钮的回调                                 | <Enum type="Function">(e: React.MouseEvent<HTMLElement, MouseEvent>) => void</Enum> |
-| onCommand       | 当下拉项被点击时触发，参数是从下拉菜单中发送的命令                         | <Enum type="Function">(...args: any[]) => void</Enum>                               |
-| onVisiblechange | 当下拉菜单出现/消失时触发器, 当它出现时, 参数将是 `true`, 否则将是 `false` | <Enum type="Function">(val: boolean) => void</Enum>                                 |
+| Name            | Description                                                                       | Type                                                                                |
+| --------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| onClick         | triggers when the left button is clicked (when `splitButton` is `true`)            | <Enum type="Function">(e: React.MouseEvent<HTMLElement, MouseEvent>) => void</Enum> |
+| onCommand       | triggers when a dropdown item is clicked; the parameter is the command dispatched from the dropdown item | <Enum type="Function">(...args: any[]) => void</Enum>                               |
+| onVisiblechange | triggers when the dropdown appears/disappears; the parameter is `true` when it appears, `false` otherwise | <Enum type="Function">(val: boolean) => void</Enum>                                 |
 
 ### Dropdown Ref
 
-| 方法名      | 说明         | Type                                    |
-| ----------- | ------------ | --------------------------------------- |
-| handleOpen  | 打开下拉菜单 | <Enum type="Function">() => void</Enum> |
-| handleClose | 关闭下拉菜单 | <Enum type="Function">() => void</Enum> |
+| Name        | Description             | Type                                    |
+| ----------- | ----------------------- | --------------------------------------- |
+| handleOpen  | open the dropdown menu  | <Enum type="Function">() => void</Enum> |
+| handleClose | close the dropdown menu | <Enum type="Function">() => void</Enum> |
 
 ## DropdownItem API
 
-### DropdownItem 属性
+### DropdownItem Properties
 
-| 属性名   | 说明                              | Type                           | 默认值 |
-| -------- | --------------------------------- | ------------------------------ | ------ |
-| command  | 派发到`command`回调函数的指令参数 | `string` / `number` / `object` | —      |
-| disabled | 是否禁用                          | `boolean`                      | false  |
-| divided  | 是否显示分隔符                    | `boolean`                      | false  |
-| active   | 是否为激活状态                    | `boolean`                      | false  |
+| Name     | Description                                                                   | Type                           | Default |
+| -------- | ----------------------------------------------------------------------------- | ------------------------------ | ------- |
+| command  | a command dispatched to the `command` callback function                       | `string` / `number` / `object` | —       |
+| disabled | whether the item is disabled                                                  | `boolean`                      | false   |
+| divided  | whether a divider is displayed                                                | `boolean`                      | false   |
+| active   | whether it is in active state                                                 | `boolean`                      | false   |

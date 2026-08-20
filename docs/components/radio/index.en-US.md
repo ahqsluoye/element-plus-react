@@ -1,106 +1,106 @@
 ---
-title: Radio 单选框
-lang: zh-CN
+title: Radio
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Radio 单选框
+# Radio
 
-在一组备选项中进行单选
+Single selection among multiple options.
 
-## 基础用法
+## Basic Usage
 
-单选框不应该有太多的可选项， 如果你有很多的可选项你应该使用选择框而不是单选框。
+Radio should not have too many options. If you have many options, you should use the Select component instead.
 
 <code src="./basic-usage.tsx"></code>
 
-## 禁用状态
+## Disabled State
 
-`disabled` 属性可以用来控制单选框的禁用状态。
+The `disabled` attribute can be used to control the disabled state of the radio.
 
-你只需要为单选框设置 `disabled` 属性就能控制其禁用状态。
+You just need to set the `disabled` attribute on the radio to control its disabled state.
 
 <code src="./disabled.tsx"></code>
 
-## 单选框组
+## Radio Group
 
-适用于在多个互斥的选项中选择的场景
+Suitable for scenarios where you need to choose from multiple mutually exclusive options.
 
-结合`ElRadioGroup`元素和子元素`ElRadio`可以实现单选组， 为 `ElRadioGroup` 绑定 `value`，再为 每一个 `ElRadio` 设置好 `value` 属性即可， 另外，还可以通过 `onChange` 事件来响应变化，它会传入一个参数 `value` 来表示改变之后的值。
+Combine the `ElRadioGroup` element and child `ElRadio` elements to create a radio group. Bind `value` to `ElRadioGroup`, and then set the `value` attribute for each `ElRadio`. Additionally, you can respond to changes through the `onChange` event, which passes a parameter `value` representing the changed value.
 
 <code src="./radio-button-group.tsx"></code>
 
-## Options 属性
+## Options Attribute
 
-基础用法 `ElCheckboxGroup` 的快捷示例。 您可以通过 `props` 属性自定义 `options` 的别名。
+A shortcut for basic `ElCheckboxGroup` usage. You can customize the alias of `options` through the `props` attribute.
 
 <code src="./options.tsx"></code>
 
-## 按钮样式
+## Button Style
 
-你可以让单选框看起来像一个按钮一样。
+You can make the radio look like a button.
 
-只需要把 `ElRadio` 元素换成 `ElRadioButton` 元素即可， 此外，Element Plus React 还提供了 `size` 属性用来控制单选框的大小。
+Just replace the `ElRadio` element with the `ElRadioButton` element. Additionally, Element Plus React provides a `size` attribute to control the size of the radio.
 
 <code src="./button-style.tsx"></code>
 
-<!-- ## 带有边框
+<!-- ## With Borders
 
-设置 `border` 属性为 true 可以渲染为带有边框的单选框。
+Set the `border` attribute to `true` to render radios with borders.
 
 <code src="./with-borders.tsx"></code> -->
 
 ## Radio API
 
-### Radio 属性
+### Radio Properties
 
-| 属性名         | 说明               | 类型                                         | 默认值 |
-| -------------- | ------------------ | -------------------------------------------- | ------ |
-| value          | 选中项绑定值       | `string` / `number` / `boolean`              | —      |
-| checked        | 是否选中（可控）   | `boolean`                                    | false  |
-| defaultChecked | 是否选中（默认值） | `boolean`                                    | false  |
-| title          | tooltip 提示       | `string`                                     | —      |
-| disabled       | 是否禁用单选框     | `boolean`                                    | false  |
-| size           | 单选框的尺寸       | <Enum>'large' \| 'default' \| 'small'</Enum> | —      |
-| readOnly       | 是否只读           | `boolean`                                    | —      |
-| plaintext      | 是否渲染为纯文本   | `boolean`                                    | —      |
-| name           | 原始 `name` 属性   | `string`                                     | —      |
+| Name           | Description               | Type                                         | Default |
+| -------------- | ------------------------- | -------------------------------------------- | ------- |
+| value          | Bound value when selected | `string` / `number` / `boolean`              | —       |
+| checked        | Whether selected (controlled) | `boolean`                                  | false   |
+| defaultChecked | Whether selected (default value) | `boolean`                                | false   |
+| title          | Tooltip tip               | `string`                                     | —       |
+| disabled       | Whether radio is disabled | `boolean`                                    | false   |
+| size           | Size of the radio         | <Enum>'large' \| 'default' \| 'small'</Enum> | —       |
+| readOnly       | Whether read-only         | `boolean`                                    | —       |
+| plaintext      | Whether rendered as plain text | `boolean`                                 | —       |
+| name           | Native `name` attribute   | `string`                                     | —       |
 
-### Radio 事件
+### Radio Events
 
-| 事件名   | 说明                   | 类型                                                                                                            |
-| -------- | ---------------------- | --------------------------------------------------------------------------------------------------------------- |
-| onChange | 绑定值变化时触发的事件 | <Enum type='Function'>(checked: boolean, value: any, event: React.ChangeEvent<HTMLInputElement>) => void</Enum> |
+| Name     | Description                               | Type                                                                                                            |
+| -------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| onChange | Triggered when the binding value changes  | <Enum type='Function'>(checked: boolean, value: any, event: React.ChangeEvent<HTMLInputElement>) => void</Enum> |
 
 ## RadioGroup API
 
-### RadioGroup 属性
+### RadioGroup Properties
 
-| 属性名   | 说明                                                                           | 类型                                                                             | 默认值                                                                            |
-| -------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| value    | 选中项绑定值                                                                   | `string` / `number` / `boolean`                                                  | —                                                                                 |
-| size     | 单选框按钮或边框按钮的大小                                                     | `string`                                                                         | default                                                                           |
-| disabled | 是否禁用                                                                       | `boolean`                                                                        | false                                                                             |
-| name     | 原生 `name` 属性                                                               | `string`                                                                         | —                                                                                 |
-| options  | 选项的数据源， `value` 的 key 和 `label` 和 ` disabled`可以通过 `props`自定义. | <Enum type="array">Array<{[key: string]: any}></Enum>                            | —                                                                                 |
-| props    | options 的配置                                                                 | <Enum type="object">{ value?: string; label?: string; disabled?: string }</Enum> | <Enum type="object">{value: 'value', label: 'label', disabled: 'disabled'}</Enum> |
+| Name     | Description                                                                           | Type                                                                             | Default                                                                            |
+| -------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| value    | Bound value when selected                                                             | `string` / `number` / `boolean`                                                  | —                                                                                 |
+| size     | Size of radio buttons or bordered radios                                              | `string`                                                                         | default                                                                           |
+| disabled | Whether disabled                                                                      | `boolean`                                                                        | false                                                                             |
+| name     | Native `name` attribute                                                               | `string`                                                                         | —                                                                                 |
+| options  | Data source of options. The keys `value`, `label`, and `disabled` can be customized through `props`. | <Enum type="array">Array<{[key: string]: any}></Enum>                            | —                                                                                 |
+| props    | Configuration of options                                                             | <Enum type="object">{ value?: string; label?: string; disabled?: string }</Enum> | <Enum type="object">{value: 'value', label: 'label', disabled: 'disabled'}</Enum> |
 
-### RadioGroup 事件
+### RadioGroup Events
 
-| 事件名   | 说明                   | 类型                                                                      |
-| -------- | ---------------------- | ------------------------------------------------------------------------- |
-| onChange | 绑定值变化时触发的事件 | <Enum type='Function'>(value: string \| number \| boolean) => void</Enum> |
+| Name     | Description                               | Type                                                                      |
+| -------- | ----------------------------------------- | ------------------------------------------------------------------------- |
+| onChange | Triggered when the binding value changes  | <Enum type='Function'>(value: string \| number \| boolean) => void</Enum> |
 
 ## RadioButton API
 
-### RadioButton 属性
+### RadioButton Properties
 
-| 属性名         | 说明               | 类型                                         | 默认  |
-| -------------- | ------------------ | -------------------------------------------- | ----- |
-| value          | 选中项绑定值       | `string` / `number` / `boolean`              | —     |
-| checked        | 是否选中（可控）   | `boolean`                                    | false |
-| defaultChecked | 是否选中（默认值） | `boolean`                                    | false |
-| disabled       | 是否禁用单选框     | `boolean`                                    | false |
-| size           | 单选框的尺寸       | <Enum>'large' \| 'default' \| 'small'</Enum> | —     |
-| name           | 原始 `name` 属性   | `string`                                     | —     |
+| Name           | Description               | Type                                         | Default |
+| -------------- | ------------------------- | -------------------------------------------- | ------- |
+| value          | Bound value when selected | `string` / `number` / `boolean`              | —       |
+| checked        | Whether selected (controlled) | `boolean`                                  | false   |
+| defaultChecked | Whether selected (default value) | `boolean`                                | false   |
+| disabled       | Whether radio is disabled | `boolean`                                    | false   |
+| size           | Size of the radio         | <Enum>'large' \| 'default' \| 'small'</Enum> | —       |
+| name           | Native `name` attribute   | `string`                                     | —       |

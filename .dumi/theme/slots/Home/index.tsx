@@ -1,5 +1,6 @@
+import ElLink from '@/theme/builtins/ElLink';
 import useParallax from '@/theme/hooks/useParallax';
-import { useRouteMeta } from 'dumi';
+import { useLocation, useRouteMeta } from 'dumi';
 import React, { CSSProperties, useMemo, useRef } from 'react';
 import LeftBottomSvg from './LeftBottomSvg';
 import LeftLayerSvg from './LeftLayerSvg';
@@ -26,9 +27,21 @@ const layerBase: CSSProperties = {
 };
 
 const Home = () => {
+    const { frontmatter } = useRouteMeta();
+    if (frontmatter?.toc === 'menu' && frontmatter?.filename !== 'docs/index.en-US.md') {
+        return null;
+    }
+
+    return <HomePage />;
+};
+
+const HomePage = () => {
     const target = useRef(null);
 
     const parallax = useParallax(target);
+
+    const location = useLocation();
+    const isEnglish = useMemo(() => location.pathname.startsWith('/en-US'), [location.pathname]);
     // const parallax = { roll: 0, tilt: 0 };
 
     // const parallax = useParallax({
@@ -103,13 +116,6 @@ const Home = () => {
     );
 
     const { frontmatter } = useRouteMeta();
-    // const parallax = useParallax<HTMLDivElement>({
-    //     speed: -10,
-    // });
-    // console.log(parallax);
-    if (frontmatter?.toc === 'menu') {
-        return null;
-    }
 
     return (
         <main id="page-content" className="page-content">
@@ -120,7 +126,25 @@ const Home = () => {
                             <div className="banner text-center">
                                 <div className="banner-desc mt-4">
                                     <h1>Element Plus React</h1>
-                                    <p className="t-2">基于 React 和 Element Plus，面向设计师和开发者的组件库</p>
+                                    <p className="t-2">
+                                        {isEnglish ? (
+                                            <span>
+                                                Based on React and{' '}
+                                                <ElLink href="https://element-plus.org/en-US/" target="_blank" rel="noopener noreferrer">
+                                                    Element Plus
+                                                </ElLink>
+                                                , it is a component library for designers and developers.
+                                            </span>
+                                        ) : (
+                                            <span>
+                                                基于 React 和{' '}
+                                                <ElLink href="https://element-plus.org/" target="_blank" rel="noopener noreferrer">
+                                                    Element Plus
+                                                </ElLink>
+                                                ，面向设计师和开发者的组件库
+                                            </span>
+                                        )}
+                                    </p>
                                 </div>
                             </div>
                             <div className="jumbotron">

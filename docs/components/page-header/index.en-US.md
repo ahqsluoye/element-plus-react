@@ -1,69 +1,69 @@
 ---
-title: Page Header 页头
-lang: zh-CN
+title: Page Header
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Page Header 页头
+# Page Header
 
-如果页面的路径比较简单，推荐使用页头组件而非面包屑组件。
+If the page path is simple, it is recommended to use Page Header instead of the Breadcrumb component.
 
-## 完整示例
+## Complete Example
 
 <code src="./complete.tsx"></code>
 
-## 基础用法
+## Basic Usage
 
-简单场景下的标准页头。
+Standard page header for simple scenarios.
 
 <code src="./basic.tsx"></code>
 
-## 自定义图标
+## Custom Icon
 
-默认图标可能无法满足您的需求，您可以通过设置`icon`属性来自定义图标，示例如下。
+The default icon may not meet your needs. You can customize the icon by setting the `icon` attribute, as shown in the example below.
 
 <code src="./custom-icon.tsx"></code>
 
-## 无图标
+## No Icon
 
-有时，页面全是元素，您可能不想展示页面上方的图标，您可以设置`icon`属性值为`""`来去除它。
+Sometimes the page may be full of elements and you might not want the icon to show up. You can set the `icon` attribute to `""` to remove it.
 
 <code src="./no-icon.tsx"></code>
 
-## 面包屑导航
+## Breadcrumb Navigation
 
-使用页头组件，您可以通过添加插槽 `breadcrumb` 来设置面包屑路由导航。
+Using the Page Header component, you can add breadcrumb route navigation by adding the `breadcrumb` slot.
 
 <code src="./breadcrumb.tsx"></code>
 
-## 额外操作部分
+## Additional Sections
 
-头部可能会变得很复杂，您可以在头部添加更多的区块，以允许丰富的交互。
+The header can be complex. You can add more sections to the header to enable rich interactions.
 
 <code src="./additional-sections.tsx"></code>
 
-## 主要内容
+## Main Content
 
-有时我们想让页头显示一些协同响应内容，我们可以使用 `default` 插槽。
+Sometimes we want the page header to display some collaborative content. We can use the `default` slot.
 
 <code src="./main-content.tsx"></code>
 
 ## API
 
-### 属性
+### Properties
 
-| 属性名     | 说明                                          | 类型                   | 默认       |
-| ---------- | --------------------------------------------- | ---------------------- | ---------- |
-| icon       | Page Header 的图标 Icon 组件                  | `string`               | arrow-left |
-| title      | Page Header 的主标题，默认是 Back (内置 a11y) | `string` / `Component` | ''         |
-| content    | Page Header 的内容                            | `string` / `Component` | ''         |
-| extra      | 扩展设置                                      | `string` / `Component` | ''         |
-| breadcrumb | 面包屑导航内容                                | `string` / `Component` | ''         |
-| default    | 默认内容                                      | `string` / `Component` | ''         |
+| Name       | Description                                                | Type                   | Default    |
+| ---------- | ---------------------------------------------------------- | ---------------------- | ---------- |
+| icon       | Icon component of Page Header                             | `string`               | arrow-left |
+| title      | Main title of Page Header, default is Back (built-in a11y) | `string` / `Component` | ''         |
+| content    | Content of Page Header                                    | `string` / `Component` | ''         |
+| extra      | Extra section                                             | `string` / `Component` | ''         |
+| breadcrumb | Breadcrumb navigation content                             | `string` / `Component` | ''         |
+| default    | Default content                                           | `string` / `Component` | ''         |
 
-### 事件
+### Events
 
-| 事件名 | 说明             | 类型                                    |
-| ------ | ---------------- | --------------------------------------- |
-| onBack | 点击左侧区域触发 | <Enum type="Function">() => void</Enum> |
+| Name   | Description                     | Type                                    |
+| ------ | ------------------------------- | --------------------------------------- |
+| onBack | Triggered when the left area is clicked | <Enum type="Function">() => void</Enum> |

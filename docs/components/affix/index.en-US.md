@@ -1,66 +1,66 @@
 ---
-title: Affix 固钉
-lang: zh-CN
+title: Affix
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Affix 固钉
+# Affix
 
-将页面元素固定在特定可视区域。
+Fix the element to a specific visible area.
 
-## 基础用法
+## Basic Usage
 
-固钉默认固定在页面顶部。
+Affix is fixed at the top of the page by default.
 
-通过设置 `offset` 属性来改变吸顶距离，默认值为 0。
+You can set `offset` attribute to change the offset distance, the default value is 0.
 
 <code src="./basic.tsx"></code>
 
-## 指定容器
+## Target Container
 
-通过设置 `target` 属性，让固钉始终保持在容器内， 超过范围则隐藏。
+You can set `target` attribute to keep the affix in the container at all times. It will be hidden if out of range.
 
-请注意容器避免出现滚动条。
+Please notice that the container should avoid having scrollbar.
 
 <code src="./target.tsx"></code>
 
-## 固定位置
+## Fixed Position
 
-Affix 组件提供 2 个固定的位置参数 `top` 和 `bottom`。
+The affix component provides two fixed positions: `top` and `bottom`.
 
-通过设置 `position` 属性来改变固定位置，默认值为 `top`。
+You can set `position` attribute to change the fixed position, the default value is `top`.
 
 <code src="./fixed.tsx"></code>
 
 ## API
 
-### 属性
+### Properties
 
-| 名称       | 说明                                                                                         | 类型                                       | 默认值 |
-| ---------- | -------------------------------------------------------------------------------------------- | ------------------------------------------ | ------ |
-| offset     | 偏移距离                                                                                     | `number`                                   | 0      |
-| position   | 固钉位置                                                                                     | <Enum type="enum">'top' \| 'bottom'</Enum> | top    |
-| target     | 指定容器（CSS 选择器）                                                                       | `string`                                   | —      |
-| zIndex     | `z-index`                                                                                    | `number`                                   | 100    |
-| teleported | Affix 元素是否使用 teleport 特性，设置为 `true` 将会使得该元素“传送”至 `appendTo` 设置的位置 | `boolean`                                  | false  |
-| appendTo   | Affix 元素将被挂载至哪个元素                                                                 | `CSSSelector` / `HTMLElement`              | body   |
+| Name       | Description                                                                                    | Type                                       | Default |
+| ---------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------ | ------- |
+| offset     | offset distance                                                                                | `number`                                   | 0       |
+| position   | position of affix                                                                              | <Enum type="enum">'top' \| 'bottom'</Enum> | top     |
+| target     | target container (CSS selector)                                                                | `string`                                   | —       |
+| zIndex     | `z-index` of affix                                                                             | `number`                                   | 100     |
+| teleported | whether affix element uses teleport feature, if `true` it will be teleported to where `appendTo` sets | `boolean`                                  | false   |
+| appendTo   | which element the affix element is mounted to                                                  | `CSSSelector` / `HTMLElement`              | body    |
 
-### 事件
+### Events
 
-| 事件名   | 说明               | 回调参数                                                                             |
-| -------- | ------------------ | ------------------------------------------------------------------------------------ |
-| onChange | 固钉状态改变时触发 | <Enum type="Function">`(fixed: boolean) => void`</Enum>                              |
-| onScroll | 滚动时触发         | <Enum type="Function">`(data: { scrollTop: number; fixed: boolean }) => void`</Enum> |
+| Name     | Description                       | Callback Parameters                                                                             |
+| -------- | --------------------------------- | ----------------------------------------------------------------------------------------------- |
+| onChange | triggers when fixed state changed | <Enum type="Function">`(fixed: boolean) => void`</Enum>                                          |
+| onScroll | triggers when scrolling           | <Enum type="Function">`(data: { scrollTop: number; fixed: boolean }) => void`</Enum>            |
 
 ### AffixRef
 
-| 方法名     | 说明                       | 类型                                      |
-| ---------- | -------------------------- | ----------------------------------------- |
-| update     | 手动更新固钉状态           | <Enum type="Function">`() => void`</Enum> |
-| updateRoot | 手动更新根元素的盒模型信息 | <Enum type="Function">`() => void`</Enum> |
+| Name       | Description                          | Type                                      |
+| ---------- | ------------------------------------ | ----------------------------------------- |
+| update     | update affix state manually          | <Enum type="Function">`() => void`</Enum> |
+| updateRoot | update root element's box model info | <Enum type="Function">`() => void`</Enum> |
 
-## 类型定义
+## Type Definitions
 
 ```typescript
 interface AffixProps {

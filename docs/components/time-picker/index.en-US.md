@@ -1,77 +1,75 @@
 ---
-title: TimePicker 时间选择器
-lang: zh-CN
+title: TimePicker
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# TimePicker 时间选择器
+# TimePicker
 
-用于选择或输入日期
+Use Time Picker for time input.
 
-## 任意时间点
+## Arbitrary Time Picker
 
-可以选择任意时间
-
-<!-- 提供了两种交互方式：默认情况下通过鼠标滚轮进行选择，打开`arrowControl`属性则通过界面上的箭头进行选择。 -->
+Can pick an arbitrary time.
 
 <code src="./basic.tsx"></code>
 
-## 限制时间选择范围
+## Limit the Time Range
 
-您也可以限制时间选择范围。
+You can also limit the time range.
 
-通过 `disabledHours`，`disabledMinutes` 和 `disabledSeconds` 限制可选时间范围。
+Use `disabledHours`, `disabledMinutes` and `disabledSeconds` to limit the selectable time range.
 
 <code src="./basic-range.tsx"></code>
 
-## 任意时间范围
+## Arbitrary Time Range
 
-可选择任意的时间范围
+Can pick an arbitrary time range.
 
-添加`isRange`属性即可选择时间范围。
+Add the `isRange` attribute to pick a time range.
 
 <code src="./range.tsx"></code>
 
 ## API
 
-### TimePicker 属性
+### TimePicker Properties
 
-| 属性名           | 说明                               | 类型                                                                                                        | 可选值                                                           | 默认值   |
-| ---------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | -------- |
-| value            | 绑定值，如果它是数组，长度应该是 2 | `string` \ <Enum type="object">[string, string]</Enum>                                                      | —                                                                | —        |
-| defaultValue     | 可选，选择器打开时默认显示的时间   | `string` \ <Enum type="object">[string, string]</Enum>                                                      | —                                                                | —        |
-| disabled         | 禁用                               | `boolean`                                                                                                   | —                                                                | false    |
-| clearable        | 是否显示清除按钮                   | `boolean`                                                                                                   | —                                                                | true     |
-| size             | 输入框尺寸                         | `string`                                                                                                    | <Enum>'large' \| 'default' \| 'small' </Enum>                    | —        |
-| placeholder      | 非范围选择时的占位内容             | `string`                                                                                                    | —                                                                | —        |
-| startPlaceholder | 范围选择时开始日期的占位内容       | `string`                                                                                                    | —                                                                | —        |
-| endPlaceholder   | 范围选择时结束日期的占位内容       | `string`                                                                                                    | —                                                                | —        |
-| isRange          | 是否为时间范围选择                 | `boolean`                                                                                                   | —                                                                | false    |
-| popperClass      | TimePicker 下拉框的类名            | `string`                                                                                                    | —                                                                | —        |
-| rangeSeparator   | 选择范围时的分隔符                 | `string`                                                                                                    | —                                                                | '-'      |
-| format           | 显示在输入框中的格式               | `string`                                                                                                    | 请查看 [date formats](/en-US/component/date-picker#date-formats) | HH:mm:ss |
-| name             | 等价于原生 input `name` 属性       | `string`                                                                                                    | —                                                                | —        |
-| prefixIcon       | 自定义前缀图标                     | `string \| Component`                                                                                       | —                                                                | Clock    |
-| disabledHours    | 禁止选择部分小时选项               | <Enum type="Function">(role?: RoleType, compare?: Compare) => number[]</Enum>                               | —                                                                | —        |
-| disabledMinutes  | 禁止选择部分分钟选项               | <Enum type="Function">(hour: number, role?: RoleType, compare?: Compare) => number[]</Enum>                 | —                                                                | —        |
-| disabledSeconds  | 禁止选择部分秒选项                 | <Enum type="Function">(hour: number, minute: number, role?: RoleType, compare?: Compare) => number[]</Enum> | —                                                                | —        |
+| Name              | Description                                         | Type                                                                                                        | Default |
+| ----------------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------- |
+| value             | Binding value, if it is an array, length should be 2 | `string` \ <Enum type="object">[string, string]</Enum>                                                      | —       |
+| defaultValue      | Optional, the default time displayed when the picker opens | `string` \ <Enum type="object">[string, string]</Enum>                                                      | —       |
+| disabled          | Whether to disable                                  | `boolean`                                                                                                   | false   |
+| clearable         | Whether to show clear button                        | `boolean`                                                                                                   | true    |
+| size              | Input box size                                      | `string`                                                                                                    | <Enum>'large' \| 'default' \| 'small'</Enum>                    | —       |
+| placeholder       | Placeholder in non-range mode                       | `string`                                                                                                    | —       |
+| startPlaceholder  | Placeholder for start time in range mode            | `string`                                                                                                    | —       |
+| endPlaceholder    | Placeholder for end time in range mode              | `string`                                                                                                    | —       |
+| isRange           | Whether to pick a time range                        | `boolean`                                                                                                   | false   |
+| popperClass       | Custom class name for TimePicker's dropdown          | `string`                                                                                                    | —       |
+| rangeSeparator    | Range separator                                     | `string`                                                                                                    | '-'     |
+| format            | Format of the displayed value in the input box      | `string`                                                                                                    | HH:mm:ss |
+| name              | Same as `name` in native input                      | `string`                                                                                                    | —       |
+| prefixIcon        | Custom prefix icon component                        | `string \| Component`                                                                                       | Clock   |
+| disabledHours     | Specify the array of hours that cannot be selected  | <Enum type="Function">(role?: RoleType, compare?: Compare) => number[]</Enum>                               | —       |
+| disabledMinutes   | Specify the array of minutes that cannot be selected | <Enum type="Function">(hour: number, role?: RoleType, compare?: Compare) => number[]</Enum>                 | —       |
+| disabledSeconds   | Specify the array of seconds that cannot be selected | <Enum type="Function">(hour: number, minute: number, role?: RoleType, compare?: Compare) => number[]</Enum> | —       |
 
-### TimePicker 事件
+### TimePicker Events
 
-| 事件名          | 说明                                    | 类型                                                                                                                           |
-| --------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| onChange        | 用户确认选定的值时触发                  | <Enum type="Function">`(val: number \| string \| Date \| [number, number] \| [string, string] \| [Date, Date]) => void`</Enum> |
-| onBlur          | 在组件 Input 失去焦点时触发             | <Enum type="Function">`(e: FocusEvent) => void`</Enum>                                                                         |
-| onFocus         | 在组件 Input 获得焦点时触发             | <Enum type="Function">`(e: FocusEvent) => void`</Enum>                                                                         |
-| onClear         | 可清空的模式下用户点击清空按钮时触发    | <Enum type="Function">`() => void`</Enum>                                                                                      |
-| onVisibleChange | 当 TimePicker 的下拉列表出现/消失时触发 | <Enum type="Function">`(visibility: boolean) => void`</Enum>                                                                   |
+| Name              | Description                                           | Type                                                                                                                           |
+| ----------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| onChange          | Triggers when user confirms the value                 | <Enum type="Function">`(val: number \| string \| Date \| [number, number] \| [string, string] \| [Date, Date]) => void`</Enum> |
+| onBlur            | Triggers when Input blurs                             | <Enum type="Function">`(e: FocusEvent) => void`</Enum>                                                                         |
+| onFocus           | Triggers when Input focuses                           | <Enum type="Function">`(e: FocusEvent) => void`</Enum>                                                                         |
+| onClear           | Triggers when the clear icon is clicked in clearable mode | <Enum type="Function">`() => void`</Enum>                                                                                      |
+| onVisibleChange   | Triggers when the TimePicker's dropdown appears/disappears | <Enum type="Function">`(visibility: boolean) => void`</Enum>                                                                   |
 
 ### Ref
 
-| 名称        | 说明               | Type                                      |
-| ----------- | ------------------ | ----------------------------------------- |
-| focus       | 使组件获取焦点     | <Enum type="Function">`() => void`</Enum> |
-| blur        | 使组件失去焦点     | <Enum type="Function">`() => void`</Enum> |
-| handleOpen  | 打开时间选择器弹窗 | <Enum type="Function">`() => void`</Enum> |
-| handleClose | 关闭时间选择器弹窗 | <Enum type="Function">`() => void`</Enum> |
+| Name        | Description                          | Type                                      |
+| ----------- | ------------------------------------ | ----------------------------------------- |
+| focus       | Focus the component                  | <Enum type="Function">`() => void`</Enum> |
+| blur        | Blur the component                   | <Enum type="Function">`() => void`</Enum> |
+| handleOpen  | Open the TimePicker popper           | <Enum type="Function">`() => void`</Enum> |
+| handleClose | Close the TimePicker popper          | <Enum type="Function">`() => void`</Enum> |

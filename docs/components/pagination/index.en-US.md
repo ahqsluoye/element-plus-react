@@ -1,92 +1,92 @@
 ---
-title: Pagination 分页
-lang: zh-CN
+title: Pagination
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Pagination 分页
+# Pagination
 
-当数据量过多时，使用分页分解数据。
+Use pagination to break down data when there is too much to display on one page.
 
-## 基础用法
+## Basic Usage
 
-设置 `layout` ，表示需要显示的内容，用逗号分隔，布局元素会依次显示。 分页元素如下： `prev` (上一页按钮), `next` (下一页按钮), `pager` (分页列表), `jumper` (跳转), `total` (总计), `sizes` (每页条数选择) 和 `->` (every element after this symbol will be pulled to the right).
+Set `layout` to specify what content needs to be displayed, separated by commas, and the layout elements will be displayed in order. The pagination elements are as follows: `prev` (previous page button), `next` (next page button), `pager` (pagination list), `jumper` (jump to), `total` (total), `sizes` (page size selector), and `->` (every element after this symbol will be pulled to the right).
 
 <code src="./basic-usage.tsx"></code>
 
-## 设置最大页码按钮数
+## Number of Pagers
 
-默认情况下，当总页数超过 7 页时，Pagination 会折叠多余的页码按钮。 通过 `pagerCount` 属性可以设置最大页码按钮数。
+By default, when the total number of pages exceeds 7, Pagination will collapse the extra page number buttons. You can set the maximum number of page buttons through the `pagerCount` property.
 
 <code src="./number-of-pagers.tsx"></code>
 
-## 带有背景色的分页
+## Buttons with Background Color
 
-设置 `background` 属性可以为分页按钮添加背景色。
+Set the `background` property to add a background color to the pagination buttons.
 
 <code src="./background-color.tsx"></code>
 
-## 小型分页
+## Small Pagination
 
-在空间有限的情况下，可以使用简单的小型分页。
+In cases of limited space, you can use a simple small pagination.
 
-通过 `size` 更改大小 这是个 `small` 的例子
+Change the size through `size`. This is an example of `small`.
 
 <code src="./small-pagination.tsx"></code>
 
-## 当只有一页时隐藏分页
+## Hide Pagination When There is Only One Page
 
-当只有一页时，通过设置 `hideOnSinglePage` 属性来隐藏分页。
+When there is only one page, hide the pagination by setting the `hideOnSinglePage` property.
 
 <code src="./auto-hide-pagination.tsx"></code>
 
-## 附加功能
+## More Elements
 
-根据场景需要，可以添加其他功能模块。
+Other functional modules can be added according to scenario needs.
 
-此示例是一个完整的用例。 使用了 `sizeChange` 和 `currentChange` 事件来处理页码大小和当前页变动时候触发的事件。 `pageSizes` 接受一个整数类型的数组，数组元素为展示的选择每页显示个数的选项， `[100, 200, 300, 400]` 表示四个选项，每页显示 100 个，200 个，300 个或者 400 个。
+This example is a complete use case. It uses `sizeChange` and `currentChange` events to handle the events triggered when the page size and current page change. `pageSizes` accepts an array of integers. The array elements are the options for selecting the number of items displayed per page. `[100, 200, 300, 400]` means four options: displaying 100, 200, 300, or 400 items per page.
 
 <code src="./more-elements.tsx"></code>
 
 ## API
 
-### 属性
+### Properties
 
-| 属性名             | 说明                                                          | 类型                                                                                                                  | 默认值                               |
-| ------------------ | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| size               | 分页大小                                                      | <Enum>'large' \| 'default' \| 'small'</Enum>                                                                          | —                                    |
-| background         | 是否为分页按钮添加背景色                                      | `boolean`                                                                                                             | false                                |
-| pageSize           | 每页显示条目个数                                              | `number`                                                                                                              | 10                                   |
-| defaultPageSize    | 每页默认的条目个数，不设置时默认为 10                         | `number`                                                                                                              | -                                    |
-| total              | 总条目数                                                      | `number`                                                                                                              | —                                    |
-| pagerCount         | 设置最大页码按钮数。 页码按钮的数量，当总页数超过该值时会折叠 | `number`                                                                                                              | 7                                    |
-| currentPage        | 当前页数                                                      | `number`                                                                                                              | 1                                    |
-| defaultCurrentPage | 当前页数的初始值，不设置时默认为 1                            | `number`                                                                                                              | -                                    |
-| layout             | 组件布局，子组件名用逗号分隔                                  | <Enum type="string"> `string (consists of sizes, prev, pager, next, jumper, ->, total)` </Enum>                       | prev, pager, next, jumper, ->, total |
-| pageSizes          | 每页显示个数选择器的选项设置                                  | ` array` `number[] `                                                                                                  | [10, 20, 30, 40, 50, 100]            |
-| prevText           | 替代图标显示的上一页文字                                      | `string`                                                                                                              | —                                    |
-| prevIcon           | 上一页的图标， 比 `prevText` 优先级更高                       | `string` / `Component`                                                                                                | angle-left                           |
-| nextText           | 替代图标显示的下一页文字                                      | `string`                                                                                                              | —                                    |
-| nextIcon           | 下一页的图标， 比 `nextText` 优先级更高                       | `string` / `Component`                                                                                                | angle-right                          |
-| disabled           | 是否禁用分页                                                  | `boolean`                                                                                                             | false                                |
-| hideOnSinglePage   | 只有一页时是否隐藏                                            | `boolean`                                                                                                             | false                                |
-| simple             | 当添加该属性时，显示为简单分页                                | `boolean`                                                                                                             | false                                |
-| showTotal          | 用于显示数据总量和当前数据顺序                                | <Enum type="Function">(total: number, [from, to]: [number, number]) => React.ReactElement \| boolean \| string</Enum> | —                                    |
+| Name               | Description                                                                                           | Type                                                                                                                  | Default                              |
+| ------------------ | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| size               | Pagination size                                                                                       | <Enum>'large' \| 'default' \| 'small'</Enum>                                                                          | —                                    |
+| background         | Whether to add background color to pagination buttons                                                  | `boolean`                                                                                                             | false                                |
+| pageSize           | Number of items displayed per page                                                                    | `number`                                                                                                              | 10                                   |
+| defaultPageSize    | Default number of items per page, defaults to 10 when not set                                         | `number`                                                                                                              | -                                    |
+| total              | Total number of items                                                                                 | `number`                                                                                                              | —                                    |
+| pagerCount         | Set the maximum number of page buttons. When the total number of pages exceeds this value, it will collapse | `number`                                                                                                              | 7                                    |
+| currentPage        | Current page number                                                                                  | `number`                                                                                                              | 1                                    |
+| defaultCurrentPage | Initial value of current page number, defaults to 1 when not set                                      | `number`                                                                                                              | -                                    |
+| layout             | Component layout, sub-component names separated by commas                                             | <Enum type="string"> `string (consists of sizes, prev, pager, next, jumper, ->, total)` </Enum>                       | prev, pager, next, jumper, ->, total |
+| pageSizes          | Option settings for the page size selector                                                           | ` array` `number[] `                                                                                                  | [10, 20, 30, 40, 50, 100]            |
+| prevText           | Text for the previous page displayed instead of icon                                                  | `string`                                                                                                              | —                                    |
+| prevIcon           | Icon for previous page, higher priority than `prevText`                                               | `string` / `Component`                                                                                                | angle-left                           |
+| nextText           | Text for the next page displayed instead of icon                                                     | `string`                                                                                                              | —                                    |
+| nextIcon           | Icon for next page, higher priority than `nextText`                                                   | `string` / `Component`                                                                                                | angle-right                          |
+| disabled           | Whether pagination is disabled                                                                       | `boolean`                                                                                                             | false                                |
+| hideOnSinglePage   | Whether to hide when there is only one page                                                          | `boolean`                                                                                                             | false                                |
+| simple             | When this property is added, it will be displayed as simple pagination                               | `boolean`                                                                                                             | false                                |
+| showTotal          | Used to display the total data volume and current data order                                         | <Enum type="Function">(total: number, [from, to]: [number, number]) => React.ReactElement \| boolean \| string</Enum> | —                                    |
 
 :::error{title=WARNING}
 
-我们现在会检查一些不合理的用法，如果发现分页器未显示，可以核对是否违反以下情形：
+We will now check for unreasonable usages. If you find that the pager is not displayed, please check whether the following conditions are violated:
 
--   `total` 必须传，不然组件无法判断总页数；
--   如果传入了 `currentPage`，必须监听 `currentPage` 变更的事件（`onChange`），否则分页切换不起作用；
--   如果传入了 `pageSize`，且布局包含 pageSize 选择器（即 `layout` 包含 `sizes`），必须监听 `pageSize` 变更的事件（`onSizeChange`），否则分页大小的变化将不起作用。
+- `total` must be passed, otherwise the component cannot determine the total number of pages;
+- If `currentPage` is passed, you must listen to the `currentPage` change event (`onChange`), otherwise the pagination will not work;
+- If `pageSize` is passed and the layout includes a pageSize selector (i.e., `layout` includes `sizes`), you must listen to the `pageSize` change event (`onSizeChange`), otherwise the page size change will not work.
 
 :::
 
-### 事件
+### Events
 
-| 事件名       | 说明                     | 类型                                                                         |
-| ------------ | ------------------------ | ---------------------------------------------------------------------------- |
-| onSizeChange | `pageSize` 改变时触发    | <Enum type='Function'>(pageSize: number, currentPage: number) => void</Enum> |
-| onChange     | `currentPage` 改变时触发 | <Enum type='Function'>(currentPage: number, pageSize: number) => void</Enum> |
+| Name         | Description                          | Type                                                                         |
+| ------------ | ------------------------------------ | ---------------------------------------------------------------------------- |
+| onSizeChange | Triggered when `pageSize` changes    | <Enum type='Function'>(pageSize: number, currentPage: number) => void</Enum> |
+| onChange     | Triggered when `currentPage` changes | <Enum type='Function'>(currentPage: number, pageSize: number) => void</Enum> |

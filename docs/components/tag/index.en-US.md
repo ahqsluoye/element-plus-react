@@ -1,92 +1,72 @@
 ---
-title: Tag 标签
-lang: zh-CN
+title: Tag
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Tag 标签
+# Tag
 
-用于标记和选择。
+Used for marking and selection.
 
-## 基础用法
+## Basic Usage
 
-由 `type` 属性来选择 tag 的类型。 也可以通过 `color` 属性来自定义背景色。
+Use the `type` attribute to define the type of Tag. You can also customize the background color through the `color` attribute.
 
 <code src="./basic.tsx"></code>
 
-## 可移除标签
+## Removable Tag
 
-设置 `closable` 属性可以定义一个标签是否可移除。 它接受一个 `Boolean`。 默认的标签移除时会附带渐变动画。 如果不想使用，可以设置 `disableTransitions` 属性，它接受一个 `Boolean`，`true` 为关闭。 当 Tag 被移除时会触发 `onClose` 事件。
+Set the `closable` attribute to define whether a tag can be removed. It accepts a `Boolean`. By default, tag removal comes with a fading animation. If you don't want to use it, set the `disableTransitions` attribute, which accepts a `Boolean`, to `true`. The `onClose` event is triggered when the Tag is removed.
 
 <code src="./removable.tsx"></code>
 
-## 动态编辑标签
+## Edit Dynamically
 
-动态编辑标签可以通过点击标签关闭按钮后触发的 `onClose` 事件来实现。
+Dynamically editable tags can be implemented through the `onClose` event triggered when clicking the tag close button.
 
 <code src="./editable.tsx"></code>
 
-## 不同尺寸
+## Sizes
 
-Tag 组件提供除了默认值以外的三种尺寸，可以在不同场景下选择合适的按钮尺寸。
+Besides the default size, the Tag component provides three additional sizes for choosing in different scenarios.
 
-使用 `size` 属性来设置额外尺寸, 可选值包括 `large`, `default` 或 `small`.
+Use the `size` attribute to set additional sizes. Available values: `large`, `default`, or `small`.
 
 <code src="./sizes.tsx"></code>
 
-## 主题
+## Theme
 
-Tag 组件提供了三个不同的主题：`dark`、`light` 和 `plain`。
+The Tag component provides three different themes: `dark`, `light`, and `plain`.
 
-通过设置 `effect` 属性来改变主题，默认为 `light`。
+Change the theme by setting the `effect` attribute. The default is `light`.
 
 <code src="./theme.tsx"></code>
 
-## 圆形标签
+## Rounded
 
-Tag 可以向按钮组件一样变为完全圆形。
+Tags can be fully rounded like buttons.
 
 <code src="./rounded.tsx"></code>
 
-<!-- ## 可选中的标签
+## API
 
-有时候因为业务需求，我们可能会需要用到类似复选框的标签，但是**按钮式的复选框**的样式又不满足需求，此时我们就可以用到 `checkTag`组件。
+### Tag Properties
 
-check-tag 的基础使用方法，check-tag 提供的 API 非常简单。
+| Name               | Description                  | Type                                                                   | Options                                    | Default |
+| ------------------ | ---------------------------- | ---------------------------------------------------------------------- | ------------------------------------------ | ------- |
+| type               | Type of Tag                  | <Enum>'primary' \| 'success' \| 'info' \| 'warning' \| 'danger'</Enum> | primary                                    |
+| closable           | Whether the tag can be closed | `boolean`                                                              | false                                      |
+| disableTransitions | Whether to disable animations | `boolean`                                                              | false                                      |
+| hit                | Whether to have a highlighted border | `boolean`                                                         | false                                      |
+| color              | Background color             | `string`                                                               | —                                          |
+| size               | Size of Tag                  | <Enum>'large' \| 'default' \| 'small'</Enum>                           | —                                          |
+| effect             | Theme of Tag                 | <Enum>'dark' \| 'light' \| 'plain'</Enum>                              | light                                      |
+| round              | Whether the tag is rounded   | `boolean`                                                              | false                                      |
 
-<code src="./checkable.tsx"></code> -->
+### Tag Events
 
-## Tag API
-
-### Tag 属性
-
-| 属性名             | 说明             | 类型                                                                   | 可选值  | 默认值 |
-| ------------------ | ---------------- | ---------------------------------------------------------------------- | ------- | ------ |
-| type               | Tag 的类型       | <Enum>'primary' \| 'success' \| 'info' \| 'warning' \| 'danger'</Enum> | primary |
-| closable           | 是否可关闭       | `boolean`                                                              | false   |
-| disableTransitions | 是否禁用渐变动画 | `boolean`                                                              | false   |
-| hit                | 是否有边框描边   | `boolean`                                                              | false   |
-| color              | 背景色           | `string`                                                               | —       |
-| size               | Tag 的尺寸       | <Enum>'large' \| 'default' \| 'small'</Enum>                           | —       |
-| effect             | Tag 的主题       | <Enum>'dark' \| 'light' \| 'plain'</Enum>                              | light   |
-| round              | Tag 是否为圆形   | `boolean`                                                              | false   |
-
-### Tag 事件
-
-| 事件名  | 说明                  | 参数                                                   |
-| ------- | --------------------- | ------------------------------------------------------ |
-| onClick | 点击 Tag 时触发的事件 | <Enum type="Function">(evt: MouseEvent) => void</Enum> |
-| onClose | 关闭 Tag 时触发的事件 | <Enum type="Function">(evt: MouseEvent) => void</Enum> |
-
-<!-- ## CheckTag 属性
-
-| 属性名  | 说明     | 类型    | 可选值     | 默认值 |
-| ------- | -------- | ------- | ---------- | ------ |
-| checked | 是否选中 | boolean | true/false | —      |
-
-## CheckTag 事件
-
-| 事件名 | 说明                        | 参数    |
-| ------ | --------------------------- | ------- |
-| change | 点击 Check Tag 时触发的事件 | checked | -->
+| Name    | Description                          | Parameters                                             |
+| ------- | ------------------------------------ | ------------------------------------------------------ |
+| onClick | Triggered when Tag is clicked        | <Enum type="Function">(evt: MouseEvent) => void</Enum> |
+| onClose | Triggered when Tag is closed         | <Enum type="Function">(evt: MouseEvent) => void</Enum> |

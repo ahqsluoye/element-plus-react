@@ -1,133 +1,133 @@
 ---
-title: Dialog 对话框
-lang: zh-CN
+title: Dialog
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Dialog 对话框
+# Dialog
 
-在保留当前页面状态的情况下，告知用户并承载相关操作。
+Informs users while preserving the current page state.
 
-## 基础用法
+## Basic Usage
 
-Dialog 弹出一个对话框，适合需要定制性更大的场景。
+Dialog pops up a dialog box, and it's quite customizable.
 
-需要设置 `visible` 属性，它接收 `Boolean`，当为 `true` 时显示 Dialog。 Dialog 分为三个部分：`header`，`body` 和 `footer`， `header` 用于定义标题。 最后，本例还展示了 `beforeClose` 的用法。
+Set the `visible` attribute with a `Boolean`, and Dialog shows when it is `true`. The Dialog has three parts: `header`, `body` and `footer`, and the `header` is for defining a title. Finally, this example demonstrates how `beforeClose` is used.
 
 <code src="./basic-usage.tsx"></code>
 
 :::info{title=TIP}
 
-`beforeClose` 只会在用户点击关闭按钮或者对话框的遮罩区域时被调用。 如果你在 `footer` 里添加了用于关闭 Dialog 的按钮，那么可以在按钮的点击回调函数里加入 `beforeClose` 的相关逻辑。
+`beforeClose` only works when user clicks the close icon or the backdrop. If you have buttons that close the Dialog in the `footer`, you can add what you would do with `beforeClose` in the buttons' click event handler.
 :::
 
-## 自定义内容
+## Customized Content
 
-对话框的内容可以是任何东西，甚至是一个表格或表单。 此示例显示如何在 Dialog 中使用 Element Plus React 的表格和表单。
+The content of Dialog can be anything, even a table or a form. This example shows how to use Element Plus React Table and Form with Dialog.
 
 <code src="./customization-content.tsx"></code>
 
-## 自定义头部
+## Customized Header
 
-`header` 可用于自定义显示标题的区域。
+`header` can be used to customize the area where the title is displayed.
 
 <code src="./customization-header.tsx"></code>
 
-## 嵌套的对话框
+## Nested Dialog
 
 <code src="./nested-dialog.tsx"></code>
 
-## 内容居中
+## Centered Content
 
-对话框的内容可以居中。
+Dialog's content can be centered.
 
-将`center`设置为`true`即可使标题和底部居中。 `center`仅影响标题和底部区域。 Dialog 的内容是任意的，在一些情况下，内容并不适合居中布局。 如果需要内容也水平居中，请自行为其添加 CSS 样式。
+Setting `center` to `true` will center dialog's header and footer horizontally. `center` only affects Dialog's header and footer. The body of Dialog can be anything, so sometimes it may not look good when centered. You need to write some CSS if you wish to center the body as well.
 
 <code src="./centered-content.tsx"></code>
 
 :::info{title=TIP}
-Dialog 的内容是懒渲染的——在被打开之前，内容 不会被立即渲染到 DOM 上。 因此，如果需要执行 DOM 操作，或通过 `ref` 获取相应组件，请在`onOpen`， `onEnter` 或 `afterEnter` 事件回调中进行。
+The content of Dialog is lazily rendered — it is not rendered to the DOM until it is opened. Therefore, if you need to perform DOM manipulation or access a component using `ref`, do it in the `onOpen`, `onEnter` or `afterEnter` event callbacks.
 :::
 
-## 居中对话框
+## Align Center Dialog
 
-从屏幕中心打开对话框。
+Open dialog from the center of the screen.
 
-设置 `align-center` 为 `true` 使对话框水平垂直居中。 由于对话框垂直居中在弹性盒子中，所以`top`属性将不起作用。
+Set `alignCenter` to `true` to center the dialog both horizontally and vertically. The `top` attribute will not work at the same time because the dialog is vertically centered in a flexbox.
 
 <code src="./align-center.tsx"></code>
 
-## 可拖拽对话框
+## Draggable Dialog
 
-试着拖动一下`header`部分吧
+Try to drag the `header` part.
 
-设置`draggable`属性为`true`以做到拖拽，设置 `overflow` 为 true 可以让拖拽范围超出可视区。
+Set `draggable` to `true` to enable dragging. Set `overflow` to `true` to allow dragging beyond the viewport.
 
 <code src="./draggable-dialog.tsx"></code>
 
-## 全屏 ​
+## Fullscreen
 
-设置 fullscreen 属性来打开全屏对话框。
+Set the `fullscreen` attribute to open fullscreen dialog.
 
 <code src="./fullscreen-dialog.tsx"></code>
 
-## 自定义动画
+## Custom Animation
 
-通过 `transition` 属性自定义对话框动画，该属性可以接受以下任意一种值：
+Customize dialog animation through the `transition` attribute, which accepts either of the following values:
 
--   动画名称（字符串）
+- Animation name (string)
 
--   过渡配置（对象）
+- Transition configuration (object)
 
-示例包括缩放（scale）、滑动（slide）、淡入淡出（fade）、弹跳（bounce）动画，以及带有自定义事件处理器的基于对象的配置。
+Examples include scale, slide, fade, bounce animations and object-based configurations with custom event handlers.
 
 <code src="./custom-animation.tsx"></code>
 
 ## API
 
-### Dialog 属性
+### Dialog Properties
 
-| 属性名            | 说明                                                                                            | 类型                                                | 默认  |
-| ----------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------- | ----- |
-| visible           | 是否显示 Dialog（可控**必填项**）                                                               | `boolean`                                           | —     |
-| onCloseDialog     | 关闭 Dialog 函数，与 `visible` 属性配合使用，关闭后将 `visible` 设置为 `false`。                | <Enum type="Function">() => void</Enum>             | —     |
-| title             | Dialog 对话框的标题                                                                             | `string` / `Component`                              | ''    |
-| width             | 对话框的宽度，默认值为 50%                                                                      | `string` / `number`                                 | ''    |
-| fullscreen        | 是否为全屏 Dialog                                                                               | `boolean`                                           | false |
-| top               | dialog CSS 中的 margin-top 值，默认为 15vh                                                      | `string`                                            | ''    |
-| modal             | 是否需要遮罩层                                                                                  | `boolean`                                           | true  |
-| modalPenetrable   | 是否允许穿透遮罩层。modal 属性必须为 false                                                      | `boolean`                                           | —     |
-| modalClass        | 遮罩的自定义类名                                                                                | `string`                                            | —     |
-| headerClass       | header 部分的自定义 class 名                                                                    | `string`                                            | —     |
-| bodyClass         | body 部分的自定义 class 名                                                                      | `string`                                            | —     |
-| footerClass       | footer 部分的自定义 class 名                                                                    | `string`                                            | —     |
-| lockScroll        | 是否在 Dialog 出现时将 body 滚动锁定                                                            | `boolean`                                           | true  |
-| openDelay         | dialog 打开的延时时间，单位毫秒                                                                 | `number`                                            | —     |
-| closeDelay        | dialog 关闭的延时时间，单位毫秒                                                                 | `number`                                            | —     |
-| closeOnClickModal | 是否可以通过点击 modal 关闭 Dialog                                                              | `boolean`                                           | true  |
-| showClose         | 是否显示关闭按钮                                                                                | `boolean`                                           | true  |
-| beforeClose       | 关闭前的回调，会暂停 Dialog 的关闭. 回调函数内执行 done 参数方法的时候才是真正关闭对话框的时候. | <Enum type="Function">(done: DoneFn) => void</Enum> | —     |
-| draggable         | 为 Dialog 启用可拖拽功能                                                                        | `boolean`                                           | false |
-| overflow          | 拖动范围可以超出可视区                                                                          | `boolean`                                           | —     |
-| center            | 是否让 Dialog 的 header 和 footer 部分居中排列                                                  | `boolean`                                           | false |
-| alignCenter       | 是否水平垂直对齐对话框                                                                          | `boolean`                                           | false |
-| zIndex            | 和原生的 CSS 的 z-index 相同，改变 z 轴的顺序                                                   | `number`                                            | —     |
-| className         | 组件的自定义类名                                                                                | `string`                                            | —     |
-| footer            | Dialog 对话框的底部内容                                                                         | `ReactNode`                                         | —     |
-| border            | 标题是否有边框                                                                                  | `boolean`                                           | —     |
-| transitionConfig  | Dialog 过渡动画配置                                                                             | `string \| TransitionProps`                         | —     |
-| destroyOnClose    | 控制是否在关闭 Dialog 之后将子元素全部销毁                                                      | `boolean`                                           | true  |
+| Name              | Description                                                                                            | Type                                                | Default |
+| ----------------- | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------- | ------- |
+| visible           | whether the Dialog is displayed (controlled **required**)                                              | `boolean`                                           | —       |
+| onCloseDialog     | function to close Dialog, used with `visible` attribute, sets `visible` to `false` after closing.      | <Enum type="Function">() => void</Enum>             | —       |
+| title             | title of Dialog                                                                                         | `string` / `Component`                              | ''      |
+| width             | width of Dialog, default is 50%                                                                         | `string` / `number`                                 | ''      |
+| fullscreen        | whether the Dialog takes up full screen                                                                 | `boolean`                                           | false   |
+| top               | value for `margin-top` of Dialog CSS, default is 15vh                                                    | `string`                                            | ''      |
+| modal             | whether a mask is displayed                                                                             | `boolean`                                           | true    |
+| modalPenetrable   | whether the mask is penetrable. The modal attribute must be `false`                                      | `boolean`                                           | —       |
+| modalClass        | custom class names for mask                                                                             | `string`                                            | —       |
+| headerClass       | custom class names for header wrapper                                                                   | `string`                                            | —       |
+| bodyClass         | custom class names for body wrapper                                                                     | `string`                                            | —       |
+| footerClass       | custom class names for footer wrapper                                                                   | `string`                                            | —       |
+| lockScroll        | whether scroll of body is disabled while Dialog is displayed                                             | `boolean`                                           | true    |
+| openDelay         | the time (milliseconds) before open                                                                      | `number`                                            | —       |
+| closeDelay        | the time (milliseconds) before close                                                                     | `number`                                            | —       |
+| closeOnClickModal | whether the Dialog can be closed by clicking the mask                                                    | `boolean`                                           | true    |
+| showClose         | whether to show a close button                                                                          | `boolean`                                           | true    |
+| beforeClose       | callback before Dialog closes, it will prevent Dialog from closing; use `done` to close the dialog      | <Enum type="Function">(done: DoneFn) => void</Enum> | —       |
+| draggable         | enable dragging feature for Dialog                                                                       | `boolean`                                           | false   |
+| overflow          | draggable Dialog can overflow the viewport                                                              | `boolean`                                           | —       |
+| center            | whether to align the header and footer in center                                                        | `boolean`                                           | false   |
+| alignCenter       | whether to align the dialog both horizontally and vertically                                            | `boolean`                                           | false   |
+| zIndex            | same as z-index in native CSS, z-order of dialog                                                        | `number`                                            | —       |
+| className         | custom class names for Dialog                                                                           | `string`                                            | —       |
+| footer            | footer content of Dialog                                                                                | `ReactNode`                                         | —       |
+| border            | whether the title has a border                                                                          | `boolean`                                           | —       |
+| transitionConfig  | custom transition configuration for dialog animation                                                    | `string \| TransitionProps`                         | —       |
+| destroyOnClose    | whether to destroy child elements after closing the Dialog                                              | `boolean`                                           | true    |
 
-<!-- 以下属性在当前类型定义中未找到 -->
-<!-- | defaultVisible    | 默认是否显示 Dialog                                                                             | `boolean`                                           | —     | -->
-<!-- | unmountOnExit     | 当关闭 Dialog 时，销毁其中的元素                                                                | `boolean`                                           | false | -->
+<!-- The following properties were not found in the current type definitions -->
+<!-- | defaultVisible    | whether the Dialog is displayed by default                                                               | `boolean`                                           | —     | -->
+<!-- | unmountOnExit     | whether to destroy elements in Dialog when closed                                                       | `boolean`                                           | false | -->
 
-### Dialog 事件
+### Dialog Events
 
-| 事件名   | 说明                        | Type                                    |
-| -------- | --------------------------- | --------------------------------------- |
-| onOpen   | Dialog 打开的回调           | <Enum type="Function">() => void</Enum> |
-| onOpened | Dialog 打开动画结束时的回调 | <Enum type="Function">() => void</Enum> |
-| onClose  | Dialog 关闭的回调           | <Enum type="Function">() => void</Enum> |
-| onClosed | Dialog 关闭动画结束时的回调 | <Enum type="Function">() => void</Enum> |
+| Name     | Description                        | Type                                    |
+| -------- | ---------------------------------- | --------------------------------------- |
+| onOpen   | triggers when the Dialog opens     | <Enum type="Function">() => void</Enum> |
+| onOpened | triggers when the Dialog opening animation ends | <Enum type="Function">() => void</Enum> |
+| onClose  | triggers when the Dialog closes    | <Enum type="Function">() => void</Enum> |
+| onClosed | triggers when the Dialog closing animation ends | <Enum type="Function">() => void</Enum> |

@@ -17,6 +17,7 @@ const Main = () => {
     const siteData = useSiteData();
     const tab = useTabMeta();
     const location = useLocation();
+    const isEnglish = useMemo(() => location.pathname.startsWith('/en-US'), [location.pathname]);
 
     const scrollbarRef = useRef<ScrollbarRef>(null);
 
@@ -64,7 +65,7 @@ const Main = () => {
                     <div className="toc-wrapper">
                         {anchors.length > 0 && (
                             <nav className="toc-content">
-                                <h3 className="toc-content__heading">目录</h3>
+                                <h3 className="toc-content__heading">{isEnglish ? 'CONTENTS' : '目录'}</h3>
                                 <ElScrollbar ref={scrollbarRef} maxHeight="calc(100vh - 140px)">
                                     <ElAnchor ref={setAnchorRef} offset={70}>
                                         {anchors.map(item => {

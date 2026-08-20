@@ -1,66 +1,66 @@
 ---
-title: Descriptions 描述列表
-lang: zh-CN
+title: Descriptions
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Descriptions 描述列表
+# Descriptions
 
-列表形式展示多个字段。
+Display multiple fields in list form.
 
-## 基础用法
+## Basic Usage
 
 <code src="./basic-usage.tsx"></code>
 
-## 不同尺寸
+## Sizes
 
 <code src="./sizes.tsx"></code>
 
-## 垂直列表
+## Vertical List
 
 <code src="./vertical-list.tsx"></code>
 
-## 自定义样式
+## Customized Style
 
 <code src="./customized-style.tsx"></code>
 
 ## Descriptions API
 
-### Descriptions 属性
+### Descriptions Properties
 
-| 属性名    | 说明                            | 类型                                               | 默认       |
-| --------- | ------------------------------- | -------------------------------------------------- | ---------- |
-| border    | 是否带有边框                    | `boolean`                                          | false      |
-| column    | 一行 `Descriptions Item` 的数量 | `number`                                           | 3          |
-| direction | 排列的方向                      | <Enum>'vertical' \| 'horizontal'</Enum>            | horizontal |
-| size      | 列表的尺寸                      | <Enum>'' \| 'large' \| 'default' \| 'small'</Enum> | —          |
-| title     | 标题文本，显示在左上方          | `string`                                           | ''         |
-| extra     | 操作区文本，显示在右上方        | `string`                                           | ''         |
+| Name      | Description                            | Type                                               | Default    |
+| --------- | -------------------------------------- | -------------------------------------------------- | ---------- |
+| border    | whether to have border                 | `boolean`                                          | false      |
+| column    | numbers of `Descriptions Item` in one line | `number`                                           | 3          |
+| direction | direction of list                      | <Enum>'vertical' \| 'horizontal'</Enum>            | horizontal |
+| size      | size of list                           | <Enum>'' \| 'large' \| 'default' \| 'small'</Enum> | —          |
+| title     | title text, displayed on the top left   | `string`                                           | ''         |
+| extra     | extra text, displayed on the top right  | `string`                                           | ''         |
 
 <!--
-| labelWidth | 每一列的标签宽度                | `string` / `number`                                | ''         | -->
+| labelWidth | label width of every column                | `string` / `number`                                | ''         | -->
 
 ## DescriptionsItem API
 
-### DescriptionsItem 属性
+### DescriptionsItem Properties
 
-| 属性名         | 说明                                                                                                                                               | 类型                                       | 默认 |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ---- |
-| label          | 标签文本                                                                                                                                           | `string` / `React.ReactElement`                                   | ''   |
-| span           | 列的数量                                                                                                                                           | `number`                                   | 1    |
-| width          | 列的宽度，不同行相同列的宽度按最大值设定（如无 `border` ，宽度包含标签与内容）                                                                     | `string` / `number`                        | ''   |
-| minWidth       | 列的最小宽度，与 `width` 的区别是 `width` 是固定的，`minWidth` 会把剩余宽度按比例分配给设置了 `minWidth` 的列（如无 `border`，宽度包含标签与内容） | `string` / `number`                        | ''   |
-| align          | 列的内容对齐方式（如无 `border`，对标签和内容均生效）                                                                                              | <Enum>'left' \| 'center' \| 'right'</Enum> | left |
-| labelAlign     | 列的标签对齐方式，若不设置该项，则使用内容的对齐方式（如无 `border`，请使用 `align` 参数）                                                         | <Enum>'left' \| 'center' \| 'right'</Enum> | ''   |
-| labelClassName | 列标题自定义类名                                                                                                                                   | `string`                                   | ''   |
-| className      | 列的内容自定义类名                                                                                                                                 | `string`                                   | ''   |
+| Name           | Description                                                                                                                                               | Type                                       | Default |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------- |
+| label          | label text                                                                                                                                                | `string` / `React.ReactElement`            | ''      |
+| span           | colspan of column                                                                                                                                          | `number`                                   | 1       |
+| width          | column width, the width of the same column in different rows is set by the max value (If no `border`, width contains label and content)                   | `string` / `number`                        | ''      |
+| minWidth       | column minimum width, columns with `width` has a fixed width, while columns with `minWidth` has a width that is distributed in proportion (If no `border`, width contains label and content) | `string` / `number`                        | ''      |
+| align          | column content alignment (If no `border`, effective for both label and content)                                                                           | <Enum>'left' \| 'center' \| 'right'</Enum> | left    |
+| labelAlign     | column label alignment, if omitted, the value of `align` will be applied (If no `border`, please use `align` attribute)                                  | <Enum>'left' \| 'center' \| 'right'</Enum> | ''      |
+| labelClassName | custom class name for label                                                                                                                               | `string`                                   | ''      |
+| className      | custom class name for content                                                                                                                             | `string`                                   | ''      |
 
-<!-- 以下属性在当前类型定义中未找到 -->
-<!-- 
+<!-- The following properties were not found in the current type definitions -->
+<!--
 
 -->
 
 <!--
-| rowspan        | 单元格应该跨越的行数                                                                                                                               | `number`                                   | 1    |
-| labelWidth     | 列标签宽，如果未设置，它将与列宽度相同。 比 `Descriptions` 的 `labelWidth` 优先级高                                                                | `string` / `number`                        | ''   | -->
+| rowspan        | the number of rows a cell should span                                                                                                                               | `number`                                   | 1    |
+| labelWidth     | column label width, if not set, it will be the same as the width of the column. Higher priority than the `labelWidth` of `Descriptions`                                                                  | `string` / `number`                        | ''   | -->

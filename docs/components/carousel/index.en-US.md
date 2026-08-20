@@ -1,104 +1,104 @@
 ---
-title: Carousel 走马灯
-lang: zh-CN
+title: Carousel
+lang: en-US
 ---
 
 <Meta></Meta>
 
-# Carousel 走马灯
+# Carousel
 
-在有限空间内，循环播放同一类型的图片、文字等内容
+Loop through images, text, and other content of the same type in a limited space.
 
-## 基础用法
+## Basic Usage
 
-结合使用 `elCarousel` 和 `elCarouselItem` 标签就得到了一个走马灯。 每一个页面的内容是完全可定制的，把你想要展示的内容放在 `elCarouselItem` 标签内。 默认情况下，在鼠标 hover 底部的指示器时就会触发切换。 通过设置 `trigger` 属性为 `click`，可以达到点击触发的效果。
+Combine `ElCarousel` and `ElCarouselItem` tags to create a carousel. The content of each page is fully customizable — place the content you want to display inside the `ElCarouselItem` tag. By default, switching is triggered when the mouse hovers over the bottom indicators. Set the `trigger` attribute to `click` to trigger switching on click instead.
 
 <code src="./basic.tsx"></code>
 
-## 动态模糊
+## Motion Blur
 
-添加动态模糊以给走马灯注入活力和流畅性。
+Add motion blur to infuse dynamism and smoothness into the carousel.
 
-启用动态模糊增强了走马灯的活力和流畅性。 `motionBlur` 的默认值是 `false`，手动激活此功能即可提供视觉感受上的提升。
+Enabling motion blur enhances the dynamism and smoothness of the carousel. The default value of `motionBlur` is `false`. Manually activating this feature provides a visual enhancement.
 
 <code src="./motion-blur.tsx"></code>
 
-## 指示器
+## Indicators
 
-可以将指示器的显示位置设置在容器外部
+The indicator display position can be set outside the container.
 
-`indicatorPosition` 属性定义了指示器的位置。 默认情况下，它会显示在走马灯内部，设置为 `outside` 则会显示在外部；设置为 `none` 则不会显示指示器。
+The `indicatorPosition` attribute defines the position of indicators. By default, they are displayed inside the carousel; set to `outside` to display them outside; set to `none` to hide indicators entirely.
 
 <code src="./indicator.tsx"></code>
 
-## 切换箭头
+## Arrows
 
-可以设置切换箭头的显示时机
+You can set when the navigation arrows are displayed.
 
-`arrow` 属性定义了切换箭头的显示时机。 默认情况下，切换箭头只有在鼠标 hover 到走马灯上时才会显示。 若将 `arrow` 设置为 `always`，则会一直显示；设置为 `never`，则会一直隐藏。
+The `arrow` attribute defines when the navigation arrows are displayed. By default, arrows only appear when the mouse hovers over the carousel. If `arrow` is set to `always`, they are always displayed; if set to `never`, they are always hidden.
 
 <code src="./arrows.tsx"></code>
 
-## 自动高度
+## Auto Height
 
-当 `carousel <code>的<code> height` 设置为 `auto`时， `carousel` 的高度将根据子内容的高度自动设置
+When the `height` of the carousel is set to `auto`, the carousel height is automatically set based on the height of its child content.
 
 <code src="./auto-height.tsx"></code>
 
-## 卡片模式
+## Card Mode
 
-当页面宽度方向空间空余，但高度方向空间匮乏时，可使用卡片风格
+When there is ample horizontal space but limited vertical space, card mode can be used.
 
-将 `type` 属性设置为 `card` 即可启用卡片模式。 从交互上来说，卡片模式和一般模式的最大区别在于，卡片模式可以通过直接点击两侧的幻灯片进行切换。
+Set the `type` attribute to `card` to enable card mode. In terms of interaction, the biggest difference between card mode and normal mode is that card mode allows switching by directly clicking on the slides on both sides.
 
 <code src="./card.tsx"></code>
 
-## 垂直排列
+## Vertical Layout
 
-默认情况下，方向 `direction` 为 水平 `horizontal`。 通过设置 `direction` 为 `vertical` 来让走马灯在垂直方向上显示。
+By default, the `direction` is `horizontal`. Set `direction` to `vertical` to display the carousel vertically.
 
 <code src="./vertical.tsx"></code>
 
 ## Carousel API
 
-### Carousel 属性
+### Carousel Properties
 
-| 属性名            | 说明                                     | 类型                                        | Default    |
-| ----------------- | ---------------------------------------- | ------------------------------------------- | ---------- |
-| height            | carousel 的高度                          | `string`                                    | ''         |
-| initialIndex      | 初始状态激活的幻灯片的索引，从 0 开始    | `number`                                    | 0          |
-| trigger           | 指示器的触发方式                         | <Enum>'hover' \| 'click'</Enum>             | hover      |
-| autoplay          | 是否自动切换                             | `boolean`                                   | true       |
-| interval          | 自动切换的时间间隔，单位为毫秒           | `number`                                    | 3000       |
-| indicatorPosition | 指示器的位置                             | <Enum>'' \| 'none' \| 'outside'</Enum>      | ''         |
-| arrow             | 切换箭头的显示时机                       | <Enum>'always' \| 'hover' \| 'never'</Enum> | hover      |
-| type              | carousel 的类型                          | <Enum>'' \| 'card'</Enum>                   | ''         |
-| cardScale         | 当 type 为 card 时，二级卡的缩放大小     | `number`                                    | 0.83       |
-| loop              | 是否循环显示                             | `boolean`                                   | true       |
-| direction         | 展示的方向                               | <Enum>'horizontal' \| 'vertical'</Enum>     | horizontal |
-| pauseOnHover      | 鼠标悬浮时暂停自动切换                   | `boolean`                                   | true       |
-| motionBlur        | 添加动态模糊以给走马灯注入活力和流畅性。 | `boolean`                                   | false      |
+| Name               | Description                                                  | Type                                        | Default    |
+| ------------------ | ------------------------------------------------------------ | ------------------------------------------- | ---------- |
+| height             | Height of the carousel                                       | `string`                                    | ''         |
+| initialIndex       | Index of the initially active slide (starting from 0)        | `number`                                    | 0          |
+| trigger            | Trigger mode for indicators                                 | <Enum>'hover' \| 'click'</Enum>             | hover      |
+| autoplay           | Whether to automatically switch                              | `boolean`                                   | true       |
+| interval           | Interval for automatic switching, in milliseconds            | `number`                                    | 3000       |
+| indicatorPosition  | Position of indicators                                       | <Enum>'' \| 'none' \| 'outside'</Enum>      | ''         |
+| arrow              | When navigation arrows are displayed                         | <Enum>'always' \| 'hover' \| 'never'</Enum> | hover      |
+| type               | Type of carousel                                             | <Enum>'' \| 'card'</Enum>                   | ''         |
+| cardScale          | Scaled size of the secondary card when type is card          | `number`                                    | 0.83       |
+| loop               | Whether to loop display                                      | `boolean`                                   | true       |
+| direction          | Display direction                                            | <Enum>'horizontal' \| 'vertical'</Enum>     | horizontal |
+| pauseOnHover       | Pause automatic switching when mouse hovers                 | `boolean`                                   | true       |
+| motionBlur         | Add motion blur to infuse dynamism and smoothness            | `boolean`                                   | false      |
 
-### Carousel 事件
+### Carousel Events
 
-| 事件名   | 说明                                                                                    | 类型                                                                     |
-| -------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| onChange | 当前展示的幻灯片切换时触发，它有两个参数， 一个是新幻灯片的索引，另一个是旧幻灯片的索引 | <Enum type="Function">(current: number, prev: number) => boolean </Enum> |
+| Name     | Description                                                                                                                           | Type                                                                     |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| onChange | Triggered when the currently displayed slide switches, with two parameters: the index of the new slide and the index of the old slide   | <Enum type="Function">(current: number, prev: number) => boolean </Enum> |
 
 ### Carousel Ref
 
-| 方法名        | 说明                                                                                            | 类型                                                            |
-| ------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| activeIndex   | 当前幻灯片的索引                                                                                | `number`                                                        |
-| setActiveItem | 手动切换幻灯片，传入需要切换的幻灯片的索引，从 0 开始；或相应 `elCarouselItem` 的 `name` 属性值 | <Enum type="Function">(index: string \| number) => void </Enum> |
-| prev          | 切换至上一张幻灯片                                                                              | <Enum type="Function">() => void</Enum>                         |
-| next          | 切换至下一张幻灯片                                                                              | <Enum type="Function">() => void</Enum>                         |
+| Name          | Description                                                                                                                          | Type                                                            |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------- |
+| activeIndex   | Index of the current slide                                                                                                           | `number`                                                        |
+| setActiveItem | Manually switch slides, pass the index of the target slide (starting from 0); or the `name` attribute value of the corresponding `ElCarouselItem` | <Enum type="Function">(index: string \| number) => void </Enum> |
+| prev          | Switch to the previous slide                                                                                                         | <Enum type="Function">() => void</Enum>                         |
+| next          | Switch to the next slide                                                                                                             | <Enum type="Function">() => void</Enum>                         |
 
 ## CarouselItem API
 
-### CarouselItem 属性
+### CarouselItem Properties
 
-| 属性名 | 说明                                        | 类型                | 默认值 |
-| ------ | ------------------------------------------- | ------------------- | ------ |
-| name   | 幻灯片的名字，可用作 `setActiveItem` 的参数 | `string`            | ''     |
-| label  | 该幻灯片所对应指示器的文本                  | `string` / `number` | ''     |
+| Name  | Description                                                             | Type                | Default |
+| ----- | ----------------------------------------------------------------------- | ------------------- | ------- |
+| name  | Name of the slide, can be used as a parameter for `setActiveItem`       | `string`            | ''      |
+| label | Text of the indicator corresponding to this slide                       | `string` / `number` | ''      |

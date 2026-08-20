@@ -94,7 +94,7 @@ const Header = ({ onMenuClick }: HeaderProps) => {
             <div ref={navbarRef} className="navbar-wrapper">
                 <div className="header-container">
                     <div className="logo-container">
-                        <Link to="/">
+                        <Link to={isEnglish ? '/en-US' : '/'}>
                             <img className="logo" src={require('@/theme/images/element-react-logo.svg').default} alt="Element React Logo" />
                         </Link>
                     </div>
