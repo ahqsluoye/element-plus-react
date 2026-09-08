@@ -38,7 +38,7 @@ let removePopper: () => void | undefined;
 
 const TableCell = (p: Props) => {
     const { row, column, columnIndex, className = '', style = {}, rowSpan = 1, colSpan = 1 } = p;
-    const { data, setData, props, tableRefs, flattenColumns } = use(TableContext);
+    const { data, setData, props, tableRefs, flattenColumns, columnDragState } = use(TableContext);
     const { state, dispatch, disabledRows, isTreeExpandCell, treeProps, treeNodes, initialData, sortedData } = use(TableBodyContext);
     const {
         cellClassName,
@@ -410,7 +410,9 @@ const TableCell = (p: Props) => {
                 e`cell`,
                 { [bm('column', 'selection')]: column.type === 'selection' },
                 column.className,
-                is(column.align),
+                is(column.align, {
+                    dragging: columnDragState.draggingId === column.id,
+                }),
                 className,
                 typeof cellClassName === 'function' ? cellClassName?.({ row, column, rowIndex, columnIndex }) : cellClassName,
             )}

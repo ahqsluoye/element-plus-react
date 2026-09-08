@@ -243,6 +243,20 @@
             margin-right: 5px;
             vertical-align: middle;
         }
+
+        &.is-column-draggable {
+            cursor: move;
+            transition: background-color 0.2s ease;
+
+            &:active {
+                cursor: grabbing;
+            }
+        }
+
+        &.is-dragging {
+            opacity: 0.6;
+            background: getCssVar('color-info-light-7');
+        }
     }
 
     td.#{$namespace}-table__cell {
@@ -252,6 +266,11 @@
 
         &.gutter {
             width: 0;
+        }
+
+        &.is-dragging {
+            opacity: 0.6;
+            background: getCssVar('color-info-light-7');
         }
     }
 
@@ -608,8 +627,47 @@
         top: 0;
         bottom: 0;
         width: 0;
-        border-left: getCssVar('table-border');
+        border-left: 1px dashed var(--el-color-primary);
         z-index: calc(getCssVar('table-index') + 9);
+    }
+
+    // 列拖拽插入指示线：覆盖表头到表尾的完整高度
+    @include e(column-drag-proxy) {
+        position: absolute;
+        left: 200px;
+        top: 0;
+        bottom: 0;
+        width: 0;
+        border-left: 1px dashed var(--el-color-primary);
+        z-index: calc(getCssVar('table-index') + 9);
+        pointer-events: none;
+    }
+
+    // 列拖拽图像：方块样式，跟随光标在表头行内横向移动（垂直位置固定）
+    @include e(column-drag-ghost) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 3000;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        overflow: hidden;
+        color: getCssVar('text-color-primary');
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.4;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        background-color: getCssVar('fill-color-light');
+        border: 1px solid getCssVar('border-color');
+        border-radius: 4px;
+        box-shadow: getCssVar('box-shadow-light');
+        opacity: 0.92;
+        pointer-events: none;
+        user-select: none;
+        will-change: transform;
     }
 
     @include e(column-filter-trigger) {

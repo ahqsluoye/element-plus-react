@@ -21,6 +21,16 @@ export interface TableContextProps<T> {
     props: Omit<TableProps<T>, 'children'>;
     data: T[];
     setData: (data: T[]) => void;
+    /** 列拖拽排序 */
+    reorderColumn: (fromId: string, toId: string, placement: 'before' | 'after') => TableColumnCtx<T>[] | null;
+    /** 列拖拽排序相关状态 */
+    columnDragState: ColumnDragState;
+    setColumnDragState: (state: ColumnDragState) => void;
+}
+
+export interface ColumnDragState {
+    /** 正在拖拽的列的 id */
+    draggingId?: string;
 }
 
 export interface TableHeaderContextProps {
@@ -59,6 +69,9 @@ export const TableContext = createContext<TableContextProps<any>>({
     props: {},
     data: [],
     setData: noop,
+    reorderColumn: () => null,
+    columnDragState: {},
+    setColumnDragState: noop,
 });
 
 export const TableHeaderContext = createContext<TableHeaderContextProps>({

@@ -7,6 +7,26 @@ import { flatTreeData } from '../treeUtil';
 import { TableColumnCtx, TableColumnProps, TableProps, TableRefs, TreeNode } from '../typings';
 import { TableIdManager, getRowIdentity } from '../util';
 
+/** 获取用于列排序持久化的稳定 key */
+const getColumnKey = <T>(column: TableColumnCtx<T>): string => {
+    const label = typeof column.label === 'string' ? column.label : '';
+    return String(column.columnKey || column.prop || column.name || label || column.id || '');
+};
+
+/** 依据持久化的 key 顺序重排列（仅重排非固定列，固定列保持左右固定） */
+const applyColumnOrder = <T>(columns: TableColumnCtx<T>[][], orderKeys: string[]): TableColumnCtx<T>[][] => {
+    if (!columns?.length || !Array.isArray(orderKeys) || orderKeys.length === 0) {
+        return columns;
+    }
+    const row = [...(columns[0] || [])];
+    const rank = (c: TableColumnCtx<T>) => orderKeys.indexOf(getColumnKey(c));
+    const fixedLeft = row.filter(c => c.fixed === true || c.fixed === 'left');
+    const fixedRight = row.filter(c => c.fixed === 'right');
+    const middle = row.filter(c => !c.fixed);
+    const known = middle.filter(c => rank(c) >= 0).sort((a, b) => rank(a) - rank(b));
+    const unknown = middle.filter(c => rank(c) < 0);
+    return [[...fixedLeft, ...known, ...unknown, ...fixedRight], ...columns.slice(1)];
+};
 export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs, tableId: string) => {
     const getChildren = useChildrenInstance<TableColumnProps>('ElTableColumn');
     const _children = getChildren(props.children);
@@ -21,6 +41,7 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
     const sortedData = useRef<T[]>([]);
     const isTree = useRef<boolean>(false);
     const treeNodes = useRef<TreeNode[]>([]);
+    const cachedDragColumns = useRef<string[]>([]);
 
     const [data, setData] = useState<T[]>([]);
 
@@ -85,7 +106,7 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
 
                 const column: TableColumnCtx<T> = {
                     ...item.props,
-                    id: tableId + '_' + TableIdManager.nextColumnId(),
+                    id: tableId + '_' + (item.props?.id ?? TableIdManager.nextColumnId()),
                     children,
                     level,
                     colSpan:
@@ -127,31 +148,60 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
         });
     }, []);
 
-    const getFlattenColumns = useCallback(
-        (immediate = true) => {
-            const result: TableColumnCtx<T>[] = [];
-            columns.forEach(row => {
-                row.forEach(col => {
-                    if (col.isSubColumn) {
-                        const find = flattenColumns.find(item => item.id === col.id);
-                        if (find && immediate) {
-                            // 表格重新布局后，同步下自定义宽度
-                            col = ['width', 'minWidth', 'realWidth'].reduce((prev, item) => {
-                                if (find[item]) {
-                                    return { ...prev, [item]: find[item] };
-                                }
-                                return prev;
-                            }, col);
-                            result.push(col);
-                        } else {
-                            result.push(col);
-                        }
+    const getFlattenColumnsCore = useCallback(
+        (_columns: TableColumnCtx<T>[], immediate = true, result: TableColumnCtx<T>[] = []) => {
+            _columns.forEach(col => {
+                if (col.isSubColumn) {
+                    const find = flattenColumns.find(item => item.id === col.id);
+                    if (find && immediate) {
+                        // 表格重新布局后，同步下自定义宽度
+                        col = ['width', 'minWidth', 'realWidth'].reduce((prev, item) => {
+                            if (find[item]) {
+                                return { ...prev, [item]: find[item] };
+                            }
+                            return prev;
+                        }, col);
+                        result.push(col);
+                    } else {
+                        result.push(col);
                     }
-                });
+                } else {
+                    getFlattenColumnsCore(col.children, immediate, result);
+                }
             });
             return result;
         },
-        [columns, flattenColumns],
+        [flattenColumns],
+    );
+
+    const getFlattenColumns = useCallback(
+        (immediate = true) => {
+            const result: TableColumnCtx<T>[] = [];
+            columns.slice(0, 1).forEach(row => {
+                getFlattenColumnsCore(row, immediate, result);
+                // row.forEach(col => {
+                //     if (col.isSubColumn) {
+                //         const find = flattenColumns.find(item => item.id === col.id);
+                //         if (find && immediate) {
+                //             // 表格重新布局后，同步下自定义宽度
+                //             col = ['width', 'minWidth', 'realWidth'].reduce((prev, item) => {
+                //                 if (find[item]) {
+                //                     return { ...prev, [item]: find[item] };
+                //                 }
+                //                 return prev;
+                //             }, col);
+                //             result.push(col);
+                //         } else {
+                //             result.push(col);
+                //         }
+                //     } else {
+                //         getFixedColumns();
+                //     }
+                // });
+            });
+            return result;
+        },
+        [columns, getFlattenColumnsCore],
     );
 
     const getFixedColumns = useCallback(() => {
@@ -425,8 +475,15 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
         const children = getChildren(props.children);
         const _columns = initColumns(children);
         groupColumns(_columns);
-        setColumns(flatColumns.current);
-        setIsGroup(flatColumns.current.length > 1);
+
+        let orderedColumns = flatColumns.current;
+        // 恢复持久化的列顺序
+        if (props.columnSortEnabled && cachedDragColumns.current.length > 0) {
+            orderedColumns = applyColumnOrder(orderedColumns, cachedDragColumns.current);
+        }
+
+        setColumns(orderedColumns);
+        setIsGroup(orderedColumns.length > 1);
         flatColumns.current = [];
         // requestAnimationFrame(scheduleLayout);
     }, [props.children]);
@@ -458,6 +515,50 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
         [isTreeTable, props.rowKey, treeExpandCell],
     );
 
+    /** 持久化当前列顺序 */
+    const persistColumnOrder = useCallback(
+        (row: TableColumnCtx<T>[]) => {
+            if (!props.columnSortEnabled) {
+                return;
+            }
+            const keys = row
+                .filter(item => !item.fixed)
+                .map(getColumnKey)
+                .filter(Boolean);
+            cachedDragColumns.current = keys;
+        },
+        [props.columnSortEnabled],
+    );
+
+    /** 列拖拽排序：将 fromId 对应的列移动到 toId 对应列的前面或后面 */
+    const reorderColumn = useCallback(
+        (fromId: string, toId: string, placement: 'before' | 'after'): TableColumnCtx<T>[] | null => {
+            if (!columns.length) {
+                return null;
+            }
+            const row = [...columns[0]];
+            const fromIndex = row.findIndex(item => item.id === fromId);
+            if (fromIndex < 0) {
+                return null;
+            }
+            // 移出被拖拽列
+            const [moved] = row.splice(fromIndex, 1);
+            let toIndex = row.findIndex(item => item.id === toId);
+            if (toIndex < 0) {
+                return null;
+            }
+            if (placement === 'after') {
+                toIndex += 1;
+            }
+            row.splice(toIndex, 0, moved);
+
+            setColumns([row, ...columns.slice(1)]);
+            persistColumnOrder(row);
+            return row;
+        },
+        [columns, persistColumnOrder, setColumns],
+    );
+
     return {
         data,
         setData,
@@ -479,5 +580,6 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
         treeProps,
         isTreeTable,
         isTreeExpandCell,
+        reorderColumn,
     };
 };

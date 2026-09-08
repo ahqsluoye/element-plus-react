@@ -8,6 +8,7 @@ import isEqual from 'lodash/isEqual';
 import sortBy from 'lodash/sortBy';
 import React, { use, useCallback, useEffect, useMemo, useState } from 'react';
 import { TableBodyContext, TableContext, TableHeaderContext } from './TableContext';
+import { useColumnDrag } from './hooks/useColumnDrag';
 import { useResize } from './hooks/useResize';
 import { onCheck } from './hooks/useSelection';
 import { mergeTreeData } from './treeUtil';
@@ -32,6 +33,10 @@ const TableHeaderCell = (p: Props) => {
     const { e, is, bm } = useClassNames('table');
 
     const { handleMouseDown, handleMouseMove, handleMouseOut } = useResize(scheduleLayout);
+    const { dragEnabled, draggingId, handleDragStart, handleDragEnter, handleDragOver, handleDragLeave, handleDrop, handleDragEnd } = useColumnDrag(column);
+
+    /** 仅在首行（非分组表头的子列）启用列拖拽 */
+    const enableDrag = dragEnabled && rowIndex === 0;
 
     /** 是否启用排序 */
     const enableSort = useMemo(() => {
@@ -53,7 +58,6 @@ const TableHeaderCell = (p: Props) => {
             // 设置为最后一个排序，为了在下次点击时切换到第一个
             setOrder(sortOrders[sortOrders.length - 1]);
         }
-         
     }, [sortProp]);
 
     /** 全选点击事件 */
@@ -136,7 +140,12 @@ const TableHeaderCell = (p: Props) => {
                 column.id,
                 e`cell`,
                 { [bm('column', 'selection')]: column.type === 'selection', [order]: activeSort },
-                is(column.headerAlign || column.align, { leaf: column.isSubColumn, sortable: enableSort }),
+                is(column.headerAlign || column.align, {
+                    leaf: column.isSubColumn,
+                    sortable: enableSort,
+                    'column-draggable': enableDrag,
+                    dragging: draggingId === column.id,
+                }),
                 column.labelClassName,
                 className,
                 typeof headerCellClassName === 'function' ? headerCellClassName?.({ row, column, rowIndex, columnIndex }) : headerCellClassName,
@@ -154,6 +163,13 @@ const TableHeaderCell = (p: Props) => {
             }
             onMouseMove={event => handleMouseMove(event, column)}
             onMouseOut={handleMouseOut}
+            draggable={enableDrag}
+            onDragStart={enableDrag ? handleDragStart : undefined}
+            onDragEnter={enableDrag ? handleDragEnter : undefined}
+            onDragOver={enableDrag ? handleDragOver : undefined}
+            onDragLeave={enableDrag ? handleDragLeave : undefined}
+            onDrop={enableDrag ? handleDrop : undefined}
+            onDragEnd={enableDrag ? handleDragEnd : undefined}
         >
             <div className={'cell'}>
                 {(() => {
