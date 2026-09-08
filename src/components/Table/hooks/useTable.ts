@@ -119,8 +119,8 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
                     isColumnGroup: children.length > 0,
                     isSubColumn: children.length === 0,
                     renderCell,
-                    width: ['index', 'selection', 'expand'].includes(item.props?.type) ? (item.props?.width ?? 48) : item.props?.width,
-                    align: ['index', 'selection', 'expand'].includes(item.props?.type) ? (item.props?.align ?? 'center') : (item.props?.align ?? 'left'),
+                    width: ['index', 'selection', 'expand', 'drag'].includes(item.props?.type) ? (item.props?.width ?? 48) : item.props?.width,
+                    align: ['index', 'selection', 'expand', 'drag'].includes(item.props?.type) ? (item.props?.align ?? 'center') : item.props?.align,
                     resizable: item.props?.type === 'expand' ? false : props?.border && item.props?.resizable !== false,
                 };
                 return column;
@@ -495,10 +495,10 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
     const treeExpandCell = useMemo(() => {
         let dataColumns: TableColumnCtx<T>[] = [];
         if (fixedLeftColumns.length > 0) {
-            dataColumns = fixedLeftColumns.filter(item => !['index', 'selection', 'expand'].includes(item.type));
+            dataColumns = fixedLeftColumns.filter(item => !['index', 'selection', 'expand', 'drag'].includes(item.type));
         }
         if (dataColumns.length === 0) {
-            dataColumns = flattenColumns.filter(item => !['index', 'selection', 'expand'].includes(item.type));
+            dataColumns = flattenColumns.filter(item => !['index', 'selection', 'expand', 'drag'].includes(item.type));
         }
         return dataColumns.length > 0 ? dataColumns[0] : undefined;
     }, [fixedLeftColumns, flattenColumns]);
@@ -528,6 +528,26 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
             cachedDragColumns.current = keys;
         },
         [props.columnSortEnabled],
+    );
+
+    /**
+     * 行拖拽排序：将 fromIndex 的行移动到 toIndex（arrayMove 语义，toIndex 为移动后的最终下标）。
+     * 树形表格不支持行拖拽排序；同时同步 initialData/sortedData，保证后续排序、还原操作基于最新顺序。
+     */
+    const reorderRow = useCallback(
+        (fromIndex: number, toIndex: number): T[] | null => {
+            if (isTree.current || fromIndex === toIndex || fromIndex < 0 || toIndex < 0 || fromIndex >= data.length || toIndex >= data.length) {
+                return null;
+            }
+            const next = [...data];
+            const [moved] = next.splice(fromIndex, 1);
+            next.splice(toIndex, 0, moved);
+            initialData.current = next;
+            sortedData.current = next;
+            setData(next);
+            return next;
+        },
+        [data, setData],
     );
 
     /** 列拖拽排序：将 fromId 对应的列移动到 toId 对应列的前面或后面 */
@@ -580,6 +600,7 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
         treeProps,
         isTreeTable,
         isTreeExpandCell,
+        reorderRow,
         reorderColumn,
     };
 };

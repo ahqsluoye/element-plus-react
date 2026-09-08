@@ -1,24 +1,31 @@
+import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import some from 'lodash/some';
 import React, { use, useCallback, useEffect, useMemo, useRef } from 'react';
-// import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
-import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import TableCell from './TableCell';
 import { TableBodyContext, TableContext } from './TableContext';
+import { useRowDrag } from './hooks/useRowDrag';
 import { TableColumnCtx } from './typings';
 import { getRowIdentity } from './util';
 
 const TableBody = () => {
     const { data, /* setData, */ props, tableId, flattenColumns, fixedLeftColumns, fixedRightColumns } = use(TableContext);
     const { state, oldActiveRow, treeProps } = use(TableBodyContext);
-    const { stripe, rowClassName, rowStyle, onCurrentChange, highlightCurrentRow, currentRowKey, rowKey, onDragChange, spanMethod } = props;
+    const { stripe, rowClassName, rowStyle, onCurrentChange, highlightCurrentRow, currentRowKey, rowKey, spanMethod, rowSortEnabled } = props;
     const { e, em, bm, is } = useClassNames('table');
 
     const tbodyRef = useRef<HTMLTableSectionElement>(null);
     const rowRef = useRef<Record<number, HTMLTableRowElement>>({});
     const mergeAreaRef = useRef<[number, number, number, number][]>([]);
+
+    const { rowDragEnabled, handleOnly, draggingIndex, tbodyDragHandlers, applyFlipAfterReorder } = useRowDrag({ tbodyRef, rowRef });
+
+    /** 数据变化后播放行拖拽排序的 FLIP 位移动画（无快照时为 no-op） */
+    useEffect(() => {
+        applyFlipAfterReorder();
+    }, [data, applyFlipAfterReorder]);
 
     useEffect(() => {
         if (
@@ -28,7 +35,6 @@ const TableBody = () => {
         ) {
             onCurrentChange?.(state.currentRow, oldActiveRow.current);
         }
-         
     }, [state.currentRow, onCurrentChange]);
 
     useEffect(() => {
@@ -100,17 +106,21 @@ const TableBody = () => {
                     ref={ref => {
                         rowRef.current[rowIndex] = ref;
                     }}
+                    data-row-index={rowIndex}
+                    draggable={rowDragEnabled && !handleOnly ? true : undefined}
                     className={classNames(
                         e`row`,
                         { [em('row', 'striped')]: stripe && rowIndex % 2 === 1, 'current-row': highlightCurrentRow && isEqual(row, state.currentRow) },
                         typeof rowClassName === 'string' ? rowClassName : rowClassName?.({ row, rowIndex }),
                         { [em('row', `level-${row.level ?? 0}`)]: row.level > 0 || (row.level === 0 && (row[treeProps.children] || row[treeProps.hasChildren])) },
+                        { 'is-dragging': draggingIndex === rowIndex },
                     )}
                     style={{
                         display: rowKey && isTreeTalbe && !row.display ? 'none' : '',
                         ...(typeof rowStyle === 'function' ? rowStyle?.({ row: row, rowIndex }) : rowStyle),
                     }}
-                    key={`${tableId}_${rowIndex}`}
+                    // 行拖拽开启且提供 rowKey 时使用稳定 key，React 才会移动 DOM 节点（FLIP 动画的前提）
+                    key={rowSortEnabled && rowKey ? `${tableId}_${getRowIdentity(row, rowKey)}` : `${tableId}_${rowIndex}`}
                 >
                     {fixedLeftColumns.map(column => {
                         columnIndex++;
@@ -177,17 +187,21 @@ const TableBody = () => {
         },
         [
             bm,
+            draggingIndex,
             e,
             em,
             fixedLeftColumns,
             fixedRightColumns,
+            handleOnly,
             highlightCurrentRow,
             is,
             isMerge,
             isTreeTalbe,
             middleColumns,
             rowClassName,
+            rowDragEnabled,
             rowKey,
+            rowSortEnabled,
             rowStyle,
             state.currentRow,
             stripe,
@@ -197,51 +211,11 @@ const TableBody = () => {
         ],
     );
 
-    /** 排序结束后回调 */
-    // const onSortItems = useCallback(
-    //     ({ oldIndex, newIndex }) => {
-    //         const result = arrayMove(cloneDeep(data), oldIndex, newIndex);
-    //         if (!isEqual(data, result)) {
-    //             setData(result);
-    //             onDragChange?.(result);
-    //         }
-    //     },
-    //     [data, onDragChange, setData],
-    // );
-
-    // const isSortTable = useMemo(
-    //     () => [...flattenColumns, ...fixedLeftColumns, ...fixedRightColumns].some(item => item.type === 'drag'),
-    //     [fixedLeftColumns, fixedRightColumns, flattenColumns],
-    // );
-
-    // /** 拖拽容器 */
-    // const Sortable = useMemo(() => {
-    //     return SortableContainer(({ children }) => <tbody ref={tbodyRef}>{children}</tbody>);
-    // }, []);
-
-    // /** 拖拽项 */
-    // const ListItem = useMemo(() => {
-    //     return SortableElement(({ item: row, rowIndex }) => renderTr(row, rowIndex));
-    // }, [renderTr]);
-
-    // return isSortTable ? (
-    //     // @ts-ignore
-    //     <Sortable
-    //         axis="y"
-    //         helperClass="r-sort-placeholder"
-    //         useDragHandle
-    //         helperContainer={() => tbodyRef.current}
-    //         onSortEnd={onSortItems}
-    //         onSortStart={(_, event) => event.preventDefault()}
-    //     >
-    //         {data.map((row, rowIndex) => (
-    //             // @ts-ignore
-    //             <ListItem index={rowIndex} key={`${tableId}_${rowIndex}`} item={row} rowIndex={rowIndex} />
-    //         ))}
-    //     </Sortable>
-    // ) : (
-    // );
-    return <tbody ref={tbodyRef}>{data.map(renderTr)}</tbody>;
+    return (
+        <tbody ref={tbodyRef} {...tbodyDragHandlers}>
+            {data.map(renderTr)}
+        </tbody>
+    );
 };
 
 TableBody.displayName = 'TableBody';

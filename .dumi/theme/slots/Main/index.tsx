@@ -80,7 +80,7 @@ const Main = () => {
                                                         <>
                                                             {title}
                                                             {version && (
-                                                                <ElTag type="primary" round={true} effect="plain" className="version">
+                                                                <ElTag type="primary" round={true} effect="plain" className="version" size="small">
                                                                     {version}
                                                                 </ElTag>
                                                             )}

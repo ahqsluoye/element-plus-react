@@ -16,8 +16,8 @@ export type RenderCell<T> = { $index: number; row: T; column?: TableColumnCtx<T>
 
 export type TableColumnProps = {
     id?: string | number;
-    /** 对应列的类型。 如果设置了selection则显示多选框； 如果设置了 index 则显示该行的索引（从 1 开始计算）； 如果设置了 expand 则显示为一个可展开的按钮 */
-    type?: 'selection' | 'index' | 'expand' /* | 'drag' */;
+    /** 对应列的类型。 如果设置了selection则显示多选框； 如果设置了 index 则显示该行的索引（从 1 开始计算）； 如果设置为 expand 则显示为一个可展开的按钮； 如果设置为 drag 则显示为行拖拽排序手柄（需在 Table 上开启 rowSortEnabled） */
+    type?: 'selection' | 'index' | 'expand' | 'drag';
     /** 如果设置了 type=index，可以通过传递 index 属性来自定义索引 */
     index?: number | ((index: number, row?: any) => number);
     /** column 的 key，如果需要使用 filterChange 事件，则需要此属性标识是哪个 column 的筛选条件 */
@@ -169,8 +169,8 @@ export interface TableEvents<T> {
     onHeaderDragend?: (newWidth: number, oldWidth: number, column: TableColumnCtx<T>, event: React.MouseEvent<Element>) => void;
     /** 当用户对某一行展开或者关闭的时候会触发该事件（展开行时，回调的第二个参数为 expandedRows；树形表格时第二参数为 expanded）  */
     onExpandChange?: (row: T, expandedRows: boolean | string[]) => void;
-    /** 拖拽排序后的回调 */
-    onDragChange?: (data: T[]) => void;
+    /** 拖拽行排序结束后触发，返回排序后的完整数据及本次拖拽详情（起始/目标下标与被移动的行） */
+    onRowSortChange?: (data: T[], detail: { fromIndex: number; toIndex: number; row: T }) => void;
     /** 列拖拽排序结束后的回调 */
     onColumnSortChange?: (data: { fromColumn: TableColumnCtx<T>; toColumn: TableColumnCtx<T>; fromIndex: number; toIndex: number; columns: TableColumnCtx<T>[] }) => void;
 }
@@ -276,6 +276,8 @@ export interface TableProps<T>
     tableLayout?: 'fixed' | 'auto';
     /** 是否开启列拖拽排序 */
     columnSortEnabled?: boolean;
+    /** 是否开启行拖拽排序。 true 表示直接拖拽整行进行排序； 'handle' 表示仅通过拖拽手柄（type=drag 列）进行排序。 树形表格下不支持行拖拽排序 */
+    rowSortEnabled?: boolean | 'handle';
     /** 总是显示滚动条 */
     scrollbarAlwaysOn?: boolean;
     /** 确保主轴的最小尺寸 */
@@ -316,6 +318,8 @@ export interface TableRefs {
     resizeHelper: RefObject<HTMLDivElement>;
     /** 列拖拽辅助线（覆盖表头到表尾的完整高度） */
     columnDragHelper: RefObject<HTMLDivElement>;
+    /** 行拖拽插入指示线（覆盖表格的完整宽度） */
+    rowDragHelper: RefObject<HTMLDivElement>;
     /** 表格头部table */
     tableHeader: RefObject<HTMLTableElement>;
     /** 表格内容table */

@@ -18,6 +18,12 @@ interface DropTarget {
     x: number;
 }
 
+/** 拖拽期间的 document 级事件监听器集合 */
+interface ColumnDragGlobalListeners {
+    dragover: (e: Event) => void;
+    drop: (e: Event) => void;
+}
+
 export const useColumnDrag = <T>(column: TableColumnCtx<T>) => {
     const { props, columns, reorderColumn, columnDragState, setColumnDragState, tableRefs } = use(TableContext);
 
@@ -31,7 +37,7 @@ export const useColumnDrag = <T>(column: TableColumnCtx<T>) => {
     const ghostTop = useRef(0);
 
     /** 拖拽期间的 document 级捕获监听器（鼠标移出表头后仍可持续跟踪） */
-    const globalListenersRef = useRef<{ dragover: (e: Event) => void; drop: (e: Event) => void } | null>(null);
+    const globalListenersRef = useRef<ColumnDragGlobalListeners | null>(null);
 
     /** 最近一次根据鼠标坐标计算的插入目标 */
     const dropTargetRef = useRef<{ id?: string; placement: 'before' | 'after' } | null>(null);

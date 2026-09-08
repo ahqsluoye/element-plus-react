@@ -31,7 +31,7 @@ function InternalTable<RecordType extends object = TreeNode>({ ref, ...props }: 
         },
         props,
     );
-    const { height, maxHeight, size, stripe = false, fit, border, tableLayout, showHeader, showSummary, emptyText, append, loading } = props;
+    const { height, maxHeight, size, stripe = false, fit, border, tableLayout, showHeader, showSummary, emptyText, append, loading, rowSortEnabled } = props;
     const { b, e, m } = useClassNames('table');
 
     const refs: TableRefs = {
@@ -42,6 +42,7 @@ function InternalTable<RecordType extends object = TreeNode>({ ref, ...props }: 
         scrollBarRef: useRef<ScrollbarRef>(null),
         resizeHelper: useRef<HTMLDivElement>(null),
         columnDragHelper: useRef<HTMLDivElement>(null),
+        rowDragHelper: useRef<HTMLDivElement>(null),
         tableHeader: useRef<HTMLTableElement>(null),
         tableBody: useRef<HTMLTableElement>(null),
         emptyBlock: useRef<HTMLDivElement>(null),
@@ -66,6 +67,7 @@ function InternalTable<RecordType extends object = TreeNode>({ ref, ...props }: 
         treeProps,
         isTreeTable,
         isTreeExpandCell,
+        reorderRow,
         reorderColumn,
     } = useTable<RecordType>(props, refs, tableId);
 
@@ -102,6 +104,7 @@ function InternalTable<RecordType extends object = TreeNode>({ ref, ...props }: 
                 tableRefs: refs,
                 data,
                 setData,
+                reorderRow,
                 reorderColumn,
                 columnDragState,
                 setColumnDragState,
@@ -120,6 +123,8 @@ function InternalTable<RecordType extends object = TreeNode>({ ref, ...props }: 
                         // [ns.m('scrollable-y')]: layout.scrollY.value,
                         [m`enable-row-hover`]: true,
                         [m('enable-row-transition')]: (data || []).length !== 0 && (data || []).length < 100,
+                        // 行拖拽模式（非手柄模式）下，行内单元格显示移动光标
+                        [m('enable-row-drag')]: rowSortEnabled === true,
                         'has-footer': showSummary,
                     },
                     b(),
@@ -189,6 +194,7 @@ function InternalTable<RecordType extends object = TreeNode>({ ref, ...props }: 
                 </div>
                 <div className={e`column-resize-proxy`} ref={refs.resizeHelper} style={{ display: 'none' }} />
                 <div className={e`column-drag-proxy`} ref={refs.columnDragHelper} style={{ display: 'none' }} />
+                <div className={e`row-drag-proxy`} ref={refs.rowDragHelper} style={{ display: 'none' }} />
             </div>
         </TableContext>
     );
