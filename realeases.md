@@ -1,3 +1,11 @@
+## v2.0.7
+
+2026-09
+
+### Features
+
+- **Table** 新增列拖拽排序功能，支持通过`columnSortEnabled`开启, 新增列排序事件`onColumnSortChange`，用于监听列排序变化
+
 ## v2.0.6
 
 2026-08-19
