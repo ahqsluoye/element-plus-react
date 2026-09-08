@@ -15,6 +15,7 @@ type FilterMethods<T> = (value: any, row: T, column: TableColumnCtx<T>) => void;
 export type RenderCell<T> = { $index: number; row: T; column?: TableColumnCtx<T> };
 
 export type TableColumnProps = {
+    id?: string | number;
     /** 对应列的类型。 如果设置了selection则显示多选框； 如果设置了 index 则显示该行的索引（从 1 开始计算）； 如果设置了 expand 则显示为一个可展开的按钮 */
     type?: 'selection' | 'index' | 'expand' /* | 'drag' */;
     /** 如果设置了 type=index，可以通过传递 index 属性来自定义索引 */
@@ -170,10 +171,13 @@ export interface TableEvents<T> {
     onExpandChange?: (row: T, expandedRows: boolean | string[]) => void;
     /** 拖拽排序后的回调 */
     onDragChange?: (data: T[]) => void;
+    /** 列拖拽排序结束后的回调 */
+    onColumnSortChange?: (data: { fromColumn: TableColumnCtx<T>; toColumn: TableColumnCtx<T>; fromIndex: number; toIndex: number; columns: TableColumnCtx<T>[] }) => void;
 }
 
 export interface TableProps<T>
-    extends BaseProps,
+    extends
+        BaseProps,
         NativeProps<
             | '--el-table-border-color'
             | '--el-table-border'
@@ -270,6 +274,8 @@ export interface TableProps<T>
     treeProps?: { hasChildren?: string; children?: string };
     /** 设置表格单元、行和列的布局方式 */
     tableLayout?: 'fixed' | 'auto';
+    /** 是否开启列拖拽排序 */
+    columnSortEnabled?: boolean;
     /** 总是显示滚动条 */
     scrollbarAlwaysOn?: boolean;
     /** 确保主轴的最小尺寸 */
@@ -308,6 +314,8 @@ export interface TableRefs {
     scrollBarRef: RefObject<ScrollbarRef>;
     /** 拖动改变宽度辅助线 */
     resizeHelper: RefObject<HTMLDivElement>;
+    /** 列拖拽辅助线（覆盖表头到表尾的完整高度） */
+    columnDragHelper: RefObject<HTMLDivElement>;
     /** 表格头部table */
     tableHeader: RefObject<HTMLTableElement>;
     /** 表格内容table */

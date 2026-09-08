@@ -5,10 +5,10 @@ import { mergeDefaultProps } from '@qsxy/element-plus-react/Util/base';
 import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import { useLocale } from '@qsxy/element-plus-react/hooks/useLocale';
 import classNames from 'classnames';
-import React, { useImperativeHandle, useMemo, useRef } from 'react';
+import React, { useImperativeHandle, useMemo, useRef, useState } from 'react';
 import Colgroup from './Colgroup';
 import TableBody from './TableBody';
-import { TableBodyContext, TableContext } from './TableContext';
+import { ColumnDragState, TableBodyContext, TableContext } from './TableContext';
 import TableHeader from './TableHeader';
 import { useScroll } from './hooks/useScroll';
 import { useSelection } from './hooks/useSelection';
@@ -41,6 +41,7 @@ function InternalTable<RecordType extends object = TreeNode>({ ref, ...props }: 
         footerWrapper: useRef<HTMLDivElement>(null),
         scrollBarRef: useRef<ScrollbarRef>(null),
         resizeHelper: useRef<HTMLDivElement>(null),
+        columnDragHelper: useRef<HTMLDivElement>(null),
         tableHeader: useRef<HTMLTableElement>(null),
         tableBody: useRef<HTMLTableElement>(null),
         emptyBlock: useRef<HTMLDivElement>(null),
@@ -65,10 +66,12 @@ function InternalTable<RecordType extends object = TreeNode>({ ref, ...props }: 
         treeProps,
         isTreeTable,
         isTreeExpandCell,
+        reorderColumn,
     } = useTable<RecordType>(props, refs, tableId);
 
     const { state, dispatch, oldActiveRow, setCurrentRow, toggleRowSelection, toggleAllSelection, getSelectionRows, clearSelection, disabledRows } = useSelection(props, data);
     const { setHeight, scrollTo, setScrollLeft, setScrollTop } = useScroll(props, data, refs, m);
+    const [columnDragState, setColumnDragState] = useState<ColumnDragState>({});
 
     useImperativeHandle(ref, () => ({
         refs,
@@ -99,6 +102,9 @@ function InternalTable<RecordType extends object = TreeNode>({ ref, ...props }: 
                 tableRefs: refs,
                 data,
                 setData,
+                reorderColumn,
+                columnDragState,
+                setColumnDragState,
             }}
         >
             <div
@@ -182,6 +188,7 @@ function InternalTable<RecordType extends object = TreeNode>({ ref, ...props }: 
                     {showSummary && <div className={e`footer-wrapper`} ref={refs.footerWrapper} />}
                 </div>
                 <div className={e`column-resize-proxy`} ref={refs.resizeHelper} style={{ display: 'none' }} />
+                <div className={e`column-drag-proxy`} ref={refs.columnDragHelper} style={{ display: 'none' }} />
             </div>
         </TableContext>
     );
