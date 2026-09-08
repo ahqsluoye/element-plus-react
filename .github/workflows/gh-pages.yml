@@ -22,15 +22,16 @@ jobs:
               with:
                   fetch-depth: 0
 
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v5
+              # 不指定 version：自动读取 package.json 的 packageManager 字段（pnpm@11.22.0），
+              # 避免与仓库实际使用的 pnpm 版本不一致导致 pnpm 不在 PATH 中。
+
             - name: Setup Node.js
               uses: actions/setup-node@v5
               with:
                   node-version: '22'
-
-            - name: Setup pnpm
-              uses: pnpm/action-setup@v5
-              with:
-                  version: '9'
+                  cache: pnpm
 
             - name: Install dependencies
               run: pnpm install --no-frozen-lockfile
