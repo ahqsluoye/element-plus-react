@@ -3,9 +3,7 @@ import { h } from 'preact';
 
             const App = () => {
 
-                return (
-
-                );
+                return null;
             };
 
             
