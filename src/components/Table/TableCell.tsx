@@ -39,7 +39,7 @@ let removePopper: () => void | undefined;
 const TableCell = (p: Props) => {
     const { row, column, columnIndex, className = '', style = {}, rowSpan = 1, colSpan = 1 } = p;
     const { data, setData, props, tableRefs, flattenColumns, columnDragState } = use(TableContext);
-    const { state, dispatch, disabledRows, isTreeExpandCell, treeProps, treeNodes, initialData, sortedData } = use(TableBodyContext);
+    const { state, dispatch, disabledRows, isTreeExpandCell, isTreeTable, treeProps, treeNodes, initialData, sortedData } = use(TableBodyContext);
     const {
         cellClassName,
         cellStyle,
@@ -86,7 +86,7 @@ const TableCell = (p: Props) => {
             if (removePopper) {
                 removePopper();
             }
-            if (!['index', 'selection', 'expand'].includes(_column?.type || '') && (props.showOverflowTooltip || column.showOverflowTooltip)) {
+            if (!['index', 'selection', 'expand', 'drag'].includes(_column?.type || '') && (props.showOverflowTooltip || column.showOverflowTooltip)) {
                 const cell = event.currentTarget as HTMLElement;
                 const cellChild = (event.currentTarget as HTMLElement).querySelector('.cell') as HTMLElement;
                 const range = document.createRange();
@@ -331,7 +331,6 @@ const TableCell = (p: Props) => {
                 );
             }
         }
-         
     }, [disabled, row]);
 
     /** 展开/折叠行 */
@@ -451,6 +450,13 @@ const TableCell = (p: Props) => {
                                 <ElIcon name="angle-right" />
                             </button>
                         );
+                    } else if (column.type === 'drag') {
+                        // 行拖拽排序手柄：仅手柄模式（rowSortEnabled='handle'）下自身可拖拽；行模式下由 tr 承担拖拽
+                        return props.rowSortEnabled && !isTreeTable() ? (
+                            <span className={e`row-drag-handle`} draggable={props.rowSortEnabled === 'handle' || undefined} title="拖拽排序" role="button" aria-label="拖拽排序">
+                                <ElIcon name="grip-vertical" prefix="fas" />
+                            </span>
+                        ) : null;
                     } else if (column.type === 'selection') {
                         return (
                             <ElCheckbox

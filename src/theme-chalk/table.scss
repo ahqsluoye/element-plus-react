@@ -670,6 +670,86 @@
         will-change: transform;
     }
 
+    // 行拖拽插入指示线：覆盖表格可见宽度的水平线，起始端带圆点强调
+    @include e(row-drag-proxy) {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 200px;
+        height: 0;
+        border-top: 2px solid getCssVar('color-primary');
+        z-index: calc(getCssVar('table-index') + 9);
+        pointer-events: none;
+    }
+
+    // 行拖拽图像：克隆行跟随光标移动（携带 .el-table 根类以继承单元格作用域样式）
+    @include e(row-drag-ghost) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: max-content;
+        z-index: 3000;
+        opacity: 1;
+        background: transparent;
+        pointer-events: none;
+        user-select: none;
+        will-change: transform;
+        border: 1px dashed getCssVar('color-primary');
+
+        table {
+            table-layout: fixed;
+            border-collapse: separate;
+            border-spacing: 0;
+            opacity: 0;
+            background-color: getCssVar('bg-color');
+            box-shadow: getCssVar('box-shadow-light');
+        }
+
+        tr {
+            background-color: getCssVar('table-tr-bg-color');
+        }
+    }
+
+    // 行拖拽排序手柄
+    @include e(row-drag-handle) {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        color: getCssVar('text-color-secondary');
+        cursor: grab;
+        touch-action: none;
+
+        &:hover {
+            color: getCssVar('color-primary');
+        }
+
+        &:active {
+            cursor: grabbing;
+        }
+    }
+
+    // 行拖拽模式（rowSortEnabled=true）：行内单元格显示移动光标
+    @include m(enable-row-drag) {
+        .#{$namespace}-table__body td.#{$namespace}-table__cell {
+            cursor: move;
+        }
+    }
+
+    // 正在拖拽的源行高亮
+    .#{$namespace}-table__body tr.is-dragging {
+        > td.#{$namespace}-table__cell {
+            background-color: getCssVar('color-info-light-9');
+        }
+    }
+
+    // 行落点确认动画：排序完成后被移动的行闪烁高亮（配合 JS 中的 FLIP 位移过渡）
+    .#{$namespace}-table__body tr.is-row-dropped {
+        > td.#{$namespace}-table__cell {
+            animation: #{$namespace}-table-row-drop-flash 0.6s ease-out;
+        }
+    }
+
     @include e(column-filter-trigger) {
         @include reset-button();
 
@@ -747,5 +827,16 @@
                 content: none;
             }
         }
+    }
+}
+
+// 行拖拽排序落点确认动画：从主题色浅背景渐隐回透明
+@keyframes #{$namespace}-table-row-drop-flash {
+    0% {
+        background-color: getCssVar('color-primary-light-8');
+    }
+
+    100% {
+        background-color: transparent;
     }
 }

@@ -21,6 +21,8 @@ export interface TableContextProps<T> {
     props: Omit<TableProps<T>, 'children'>;
     data: T[];
     setData: (data: T[]) => void;
+    /** 行拖拽排序：将 fromIndex 的行移动到 toIndex，返回重排后的数据；无效时返回 null */
+    reorderRow: (fromIndex: number, toIndex: number) => T[] | null;
     /** 列拖拽排序 */
     reorderColumn: (fromId: string, toId: string, placement: 'before' | 'after') => TableColumnCtx<T>[] | null;
     /** 列拖拽排序相关状态 */
@@ -69,6 +71,7 @@ export const TableContext = createContext<TableContextProps<any>>({
     props: {},
     data: [],
     setData: noop,
+    reorderRow: () => null,
     reorderColumn: () => null,
     columnDragState: {},
     setColumnDragState: noop,
