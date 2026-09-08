@@ -43,12 +43,15 @@ function generatePackageJSON() {
             objectTransform((file, enc, cb) => {
                 const rawJSON = file.contents.toString();
                 const parsed = JSON.parse(rawJSON);
+                parsed.homepage = 'https://ahqsluoye.github.io/element-plus-react/';
+                parsed.keywords = ['element-plus-react', 'element-plus', 'element', 'component library', 'ui framework', 'ui', 'react'];
                 delete parsed.scripts;
                 // delete parsed.peerDependencies;
                 delete parsed.devDependencies;
                 delete parsed.publishConfig;
                 delete parsed.commitlint;
                 delete parsed['lint-staged'];
+                delete parsed['pnpm'];
                 const stringified = JSON.stringify(parsed, null, 2);
                 file.contents = Buffer.from(stringified);
                 cb(null, file);

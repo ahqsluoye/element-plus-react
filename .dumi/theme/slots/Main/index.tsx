@@ -1,4 +1,4 @@
-import { AnchorRef, ElAnchor, ElAnchorLink, ElScrollbar, ScrollbarRef } from '@qsxy/element-plus-react';
+import { AnchorRef, ElAnchor, ElAnchorLink, ElScrollbar, ElTag, ScrollbarRef } from '@qsxy/element-plus-react';
 import classNames from 'classnames';
 import { useRouteMeta, useSidebarData, useSiteData, useTabMeta } from 'dumi';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -69,8 +69,24 @@ const Main = () => {
                                 <ElScrollbar ref={scrollbarRef} maxHeight="calc(100vh - 140px)">
                                     <ElAnchor ref={setAnchorRef} offset={70}>
                                         {anchors.map(item => {
+                                            // 分离出标题和版本号
+                                            const title = item.title.replace(/\d{1,3}\.\d{1,3}\.\d{1,3}/g, '');
+                                            const version = item.title.replace(title, '');
                                             return (
-                                                <ElAnchorLink key={item.id} href={`#${item.id}`} title={item.title}>
+                                                <ElAnchorLink
+                                                    key={item.id}
+                                                    href={`#${item.id}`}
+                                                    title={
+                                                        <>
+                                                            {title}
+                                                            {version && (
+                                                                <ElTag type="primary" round={true} effect="plain" className="version">
+                                                                    {version}
+                                                                </ElTag>
+                                                            )}
+                                                        </>
+                                                    }
+                                                >
                                                     {item?.children?.length > 0 &&
                                                         item.children.map(child => <ElAnchorLink key={child.id} href={`#${child.id}`} title={child.title} />)}
                                                 </ElAnchorLink>

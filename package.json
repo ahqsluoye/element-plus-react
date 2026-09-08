@@ -4,6 +4,7 @@
   "description": "element-plus-react",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "packageManager": "pnpm@11.22.0",
   "scripts": {
     "start": "npm run dev",
     "dev": "dumi dev",
