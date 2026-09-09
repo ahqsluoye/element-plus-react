@@ -26,6 +26,9 @@ export default defineConfig<IDumiUserConfig>({
         // 百度统计的 key
         baidu: 'eb09046bc8b443d9d9079a1ef0115dd1',
     },
+    reactCompiler: {
+        target: '19',
+    },
     chainWebpack(con) {
         // config.module // 配置 file-loader
         //     .rule('otf')
