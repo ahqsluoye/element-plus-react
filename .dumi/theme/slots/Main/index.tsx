@@ -72,10 +72,11 @@ const Main = () => {
                                             // 分离出标题和版本号
                                             const title = item.title.replace(/\d{1,3}\.\d{1,3}\.\d{1,3}/g, '');
                                             const version = item.title.replace(title, '');
+                                            const id = version ? item.id.replace(version.replace(/\./g, ''), '') : item.id;
                                             return (
                                                 <ElAnchorLink
-                                                    key={item.id}
-                                                    href={`#${item.id}`}
+                                                    key={id}
+                                                    href={`#${id}`}
                                                     title={
                                                         <>
                                                             {title}
