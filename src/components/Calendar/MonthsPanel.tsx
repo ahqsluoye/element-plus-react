@@ -34,7 +34,7 @@ const MonthsPanel = (props: Props) => {
 
     // 当前日期
     const currentDate = useMemo(() => {
-        if (value.isValid()) {
+        if (value?.isValid()) {
             return value;
         }
         return initDate();

@@ -86,7 +86,7 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
 
     // 当前日期，dayjs对象
     const currentDate = useMemo(() => {
-        if (defaultValue.isValid()) {
+        if (defaultValue?.isValid()) {
             return defaultValue;
         }
         return initDate();

@@ -23,7 +23,7 @@ const DateRangePanel: FC<DateRangePanelProps> = props => {
     const startDate = useMemo(() => {
         if (value[0]) {
             const date = value[0];
-            if (date.isValid()) {
+            if (date?.isValid()) {
                 return date;
             }
         }
@@ -39,7 +39,7 @@ const DateRangePanel: FC<DateRangePanelProps> = props => {
         if (value[1]) {
             if ((value[0] && value[1].isAfter(value[0], 'M')) || !value[0]) {
                 const date = value[1];
-                if (date.isValid()) {
+                if (date?.isValid()) {
                     return date;
                 }
             }
