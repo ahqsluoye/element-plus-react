@@ -26,35 +26,35 @@ Element‑Plus 是 Vue3 生态中非常成熟的企业级 UI 组件库，本项�
 使用 npm
 
 ```bash
-npm install element-plus-react
+npm install @qsxy/element-plus-react
 ```
 
 使用 yarn
 
-```
-yarn add element-plus-react
+```bash
+yarn add @qsxy/element-plus-react
 ```
 
 使用 pnpm
 
-```
-pnpm add element-plus-react
+```bash
+pnpm add @qsxy/element-plus-react
 ```
 
 ## 🚀 快速上手最小示例
 
-```
+```tsx
 import React from 'react';
-import { ElButton } from 'element-plus-react';
+import { ElButton } from '@qsxy/element-plus-react';
 // 引入样式
-import 'element-plus-react/dist/index.css';
+import '@qsxy/element-plus-react/dist/index.css';
 
 function App() {
-  return (
-    <div>
-      <ElButton type="primary">主要按钮</ElButton>
-    </div>
-  )
+    return (
+        <div>
+            <ElButton type="primary">主要按钮</ElButton>
+        </div>
+    );
 }
 
 export default App;
@@ -86,13 +86,6 @@ export default App;
 4. 发起 PR
 
 提交 issue 请尽量提供：复现步骤、示例代码、版本号。
-
-## 📌 Roadmap（可选，让用户看到未来规划）
-
-- 完善更多组件封装
-- 补充完整 Storybook 在线演示
-- 完善单元测试
-- 完善文档站点
 
 ## 📄 License
 
