@@ -188,8 +188,9 @@ const DatePicker = memo(({ ref, ...props }: DatePickerProps & { ref?: React.Ref<
 
     /** 日期参数转成dayjs对象 */
     const dateProp = useCallback(() => {
-        let result = initDate();
+        let result = null;
         if (isNotEmpty(value)) {
+            result = initDate();
             if (type === 'week' || type === 'quarter') {
                 if (currentDateRef.current) {
                     result = currentDateRef.current;
