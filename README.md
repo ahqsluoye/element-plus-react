@@ -1,63 +1,99 @@
-# @qsxy/element-plus-react
+# element‑plus‑react
 
 [![NPM version](https://img.shields.io/npm/v/@qsxy/element-plus-react.svg?style=flat)](https://npmjs.org/package/@qsxy/element-plus-react)
-[![NPM downloads](http://img.shields.io/npm/dm/@qsxy/element-plus-react.svg?style=flat)](https://npmjs.org/package/@qsxy/element-plus-react)
+[![license](https://img.shields.io/github/license/ahqsluoye/element-plus-react)](https://github.com/ahqsluoye/element-plus-react/blob/main/LICENSE)
+[![stars](https://img.shields.io/github/stars/ahqsluoye/element-plus-react)](https://github.com/ahqsluoye/element-plus-react)
 
-- 🔥 所有的组件文档和示例在这里哦，戳戳戳 👉👉👉[API 文档](https://ahqsluoye.github.io/element-plus-react/)
-- 🔥 支持按需导入，避免打包时引入所有组件，减少打包体积，插件入口：[webpack 插件](https://www.npmjs.com/package/@qsxy/babel-plugin-element-plus-react)， [vite 插件](https://www.npmjs.com/package/@qsxy/vite-plugin-element-plus-react-import)
+> 🧩 Element‑Plus for React，将 Vue3 生态优秀的 Element‑Plus 组件封装为 React 可用组件库。
 
-## Usage
+## ✨ 介绍
 
-```javascript
-// how to use
-import '@qsxy/element-plus-react/dist/index.css';
-import { ElButton, ElLink } from '@qsxy/element-plus-react';
-```
+Element‑Plus 是 Vue3 生态中非常成熟的企业级 UI 组件库，本项目对 Element‑Plus 做 React 层封装，让 React 开发者可以复用 Element‑Plus 的组件能力、样式与交互，不用重复开发业务组件。
 
-### Change the SCSS variable in the project
+> ⚠️ 注意：本项目是基于 Element‑Plus 的封装适配，**不是官方官方维护的 React 版本**。
 
-element-plus-react is using SCSS. If your project also uses SCSS, you can directly change the style variable of Element in the project. Create a new style file, such as element-variables.csss, and write the following content:
+## 🎯 特性
 
-### 在项目中改变 SCSS 变量
+- ✅ 复用 Element‑Plus 完整样式与交互效果
+- ✅ 符合 React 组件书写习惯
+- ✅ 支持 TypeScript 类型提示
+- ✅ 开箱即用，快速搭建中后台业务
+- ✅ 跟随 Element‑Plus 生态迭代
+- ✅ 支持按需导入，避免打包时引入所有组件，减少打包体积，插件入口：[webpack 插件](https://www.npmjs.com/package/@qsxy/babel-plugin-element-plus-react)， [vite 插件](https://www.npmjs.com/package/@qsxy/vite-plugin-element-plus-react-import)
 
-element-plus-react 的 theme-chalk 使用 SCSS 编写，如果你的项目也使用了 SCSS，那么可以直接在项目中改变 Element 的样式变量。新建一个样式文件，例如 element-variables.scss，写入以下内容：
+## 📦 安装
 
-/_ Change the theme color variable _/
-
-/_ 改变主题色变量 _/
-
-```scss
-@use '@qsxy/element-plus-react/theme-chalk/common/var'
-    with(
-        // 字体文件路径必填
-        $fa-font-path: '~/node_modules/@qsxy/element-plus-react/theme-chalk/fonts',
-        // 其他变量可自定义
-        $colors: (
-                'primary': (
-                    'base': green,
-                )
-            )
-    );
-```
-
-/_ Change icon font path variable, required _/
-
-/_ 改变 icon 字体路径变量，必需 _/
-
-```scss
-@use '@qsxy/element-plus-react/theme-chalk/common/var' with($fa-font-path: '~@/assets/fonts');
-```
-
-## Development
+使用 npm
 
 ```bash
-# install dependencies
-$ npm i @qsxy/element-plus-react
-# It is recommended to use (to avoid React version conflicts)
-# 推荐使用（避免react版本冲突）
-$ pnpm add @qsxy/element-plus-react
+npm install element-plus-react
 ```
 
-## LICENSE
+使用 yarn
 
-MIT
+```
+yarn add element-plus-react
+```
+
+使用 pnpm
+
+```
+pnpm add element-plus-react
+```
+
+## 🚀 快速上手最小示例
+
+```
+import React from 'react';
+import { ElButton } from 'element-plus-react';
+// 引入样式
+import 'element-plus-react/dist/index.css';
+
+function App() {
+  return (
+    <div>
+      <ElButton type="primary">主要按钮</ElButton>
+    </div>
+  )
+}
+
+export default App;
+```
+
+## 📖 文档与示例
+
+- 🔥 所有的组件文档和示例在这里哦，戳戳戳 👉👉👉[API 文档](https://ahqsluoye.github.io/element-plus-react/)
+
+## 📋 适用场景
+
+- React 中后台管理系统，希望使用 Element‑Plus 的组件风格
+- 项目从 Vue3 迁移部分业务，希望复用 Element‑Plus 交互
+- 想快速拿到成熟企业级 UI 组件，不想从零造组件
+
+## ⚠️ 限制与已知问题
+
+1. 该项目为社区适配封装，**非 Element‑Plus 官方 React 版本**；
+2. 部分复杂组件、指令、Vue 专属特性可能暂未完全适配；
+3. 遇到组件行为异常，请先提 issue，欢迎提交 PR 共同完善。
+
+## 🤝 参与贡献
+
+欢迎提交 Issue 和 Pull Request，帮助完善组件库。
+
+1. Fork 本仓库
+2. 创建你的特性分支：`git checkout -b feature/xxx`
+3. 提交你的修改
+4. 发起 PR
+
+提交 issue 请尽量提供：复现步骤、示例代码、版本号。
+
+## 📌 Roadmap（可选，让用户看到未来规划）
+
+- 完善更多组件封装
+- 补充完整 Storybook 在线演示
+- 完善单元测试
+- 完善文档站点
+
+## 📄 License
+
+[MIT](https://github.com/ahqsluoye/element-plus-react/blob/main/LICENSE)
