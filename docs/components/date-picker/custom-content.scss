@@ -1,48 +1,110 @@
-.el-date-table-cell {
-    .holiday {
-        position: absolute;
-        width: 40px;
-        color: var(--el-color-error);
-        bottom: -12px;
-        left: 50%;
-        transform: translate(-50%);
+.holiday {
+    opacity: 0;
+}
+td.available {
+    .el-date-table-cell {
+        .holiday {
+            opacity: 1;
+            position: absolute;
+            width: 40px;
+            color: var(--el-color-error);
+            bottom: -12px;
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        &.is-holiday::before {
+            content: '休';
+            position: absolute;
+            font-size: 10px;
+            right: 2px;
+            top: 1px;
+            color: #fff;
+            background: var(--el-color-success);
+            border-radius: 100%;
+            height: 16px;
+            width: 16px;
+            line-height: 17px;
+            zoom: 0.7;
+            font-family: 'PingFang-SC-Regular', 'PingFang SC', sans-serif;
+        }
+        &.is-workday::before {
+            content: '班';
+            position: absolute;
+            font-size: 13px;
+            right: 2px;
+            top: 1px;
+            color: #fff;
+            background: var(--el-color-info);
+            border-radius: 100%;
+            height: 17px;
+            width: 16px;
+            line-height: 17px;
+            zoom: 0.7;
+            font-weight: 100;
+            font-family: 'PingFang-SC-Regular', 'PingFang SC', sans-serif;
+        }
     }
 
-    &.is-holiday::before {
-        content: '休';
-        position: absolute;
-        font-size: 10px;
-        right: 2px;
-        top: 1px;
-        color: #fff;
-        background: var(--el-color-success);
-        border-radius: 100%;
-        height: 16px;
-        width: 16px;
-        line-height: 17px;
-        zoom: 0.7;
-        font-family: 'PingFang-SC-Regular', 'PingFang SC', sans-serif;
-    }
-    &.is-workday::before {
-        content: '班';
-        position: absolute;
-        font-size: 13px;
-        right: 2px;
-        top: 1px;
-        color: #fff;
-        background: var(--el-color-info);
-        border-radius: 100%;
-        height: 17px;
-        width: 16px;
-        line-height: 17px;
-        zoom: 0.7;
-        font-weight: 100;
-        font-family: 'PingFang-SC-Regular', 'PingFang SC', sans-serif;
+    .el-date-table-cell.custom-cell-content {
+        .el-date-table-cell__text {
+            font-size: 18px;
+            width: 26px !important;
+            height: 26px !important;
+            line-height: 26px !important;
+
+            &.is-holiday {
+                color: var(--el-color-warning);
+                font-weight: bold;
+            }
+        }
+        .holiday {
+            position: absolute;
+            width: 40px;
+            color: var(--el-color-error);
+            bottom: -12px;
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        &.is-holiday::before {
+            display: none;
+            content: '休';
+            position: absolute;
+            font-size: 10px;
+            right: 2px;
+            top: 1px;
+            color: #fff;
+            background: var(--el-color-success);
+            border-radius: 100%;
+            height: 16px;
+            width: 16px;
+            line-height: 17px;
+            zoom: 0.7;
+            font-family: 'PingFang-SC-Regular', 'PingFang SC', sans-serif;
+        }
+        &.is-workday::before {
+            display: none;
+            content: '班';
+            position: absolute;
+            font-size: 13px;
+            right: 2px;
+            top: 1px;
+            color: #fff;
+            background: var(--el-color-info);
+            border-radius: 100%;
+            height: 17px;
+            width: 16px;
+            line-height: 17px;
+            zoom: 0.7;
+            font-weight: 100;
+            font-family: 'PingFang-SC-Regular', 'PingFang SC', sans-serif;
+        }
     }
 }
 
 .el-date-table td.current:not(.disabled) .el-date-table-cell__text {
-    // color: var(--el-color-primary);
+    color: var(--el-color-white) !important;
     // background: var(--el-bg-color);
     // border: 1px solid var(--el-color-primary);
     width: 20px;

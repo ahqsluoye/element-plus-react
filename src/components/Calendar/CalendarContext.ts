@@ -28,6 +28,10 @@ export interface CalendarContextProps {
     showWeekNumber?: boolean;
     /** 在范围选择器里取消两个日期面板之间的联动 */
     unlinkPanels?: boolean;
+    /** 是否展示边框 */
+    border?: boolean;
+    /** 是否禁用 */
+    disabled?: boolean;
     popperInstRef?: RefObject<PopperOptionRef>;
     /** 快捷方式 */
     shortcuts?: Shortcuts[];
@@ -39,7 +43,8 @@ export interface CalendarContextProps {
     onChange?: (value: Dayjs | Dayjs[], params?: ChangeParams) => void;
     /** 日期范围框提交数据方法 */
     onChangeRange?: (value: Dayjs[], finish: boolean) => void;
-    formatter?: (value: Dayjs, text: number) => React.ReactElement;
+    /** 格式化 */
+    formatter?: (value: Dayjs, text: number, extra?: { view?: DateType | DateRangeType; defaultText?: string | number }) => React.ReactElement;
 }
 
 const CalendarContext = createContext<CalendarContextProps>({
@@ -52,6 +57,7 @@ const CalendarContext = createContext<CalendarContextProps>({
     isoWeek: true,
     showWeekNumber: true,
     unlinkPanels: false,
+    border: false,
     popperInstRef: null,
     onChange: null,
     shortcuts: [],

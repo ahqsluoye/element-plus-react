@@ -253,7 +253,7 @@ const DatePanel = props => {
                                     return (
                                         <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickDate(cell)} onMouseEnter={() => onHoverDate(cell)}>
                                             {formatter ? (
-                                                formatter(getFormattedDate(cell.text, cell.type), cell.text)
+                                                formatter(getFormattedDate(cell.text, cell.type), cell.text, { view: dateType, defaultText: cell.text })
                                             ) : (
                                                 <div className={b('cell')}>
                                                     <span className={be('cell', 'text')}>{cell.text}</span>
