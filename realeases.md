@@ -1,3 +1,12 @@
+## v2.0.8
+
+2026-11-06
+
+### Features
+
+- **DatePickerPanel** 新增日期选择器面板组件及相关功能
+- **MessageBox** 新增 closeOnClickModal 和 lockScroll 属性
+
 ## v2.0.7
 
 2026-09-08
