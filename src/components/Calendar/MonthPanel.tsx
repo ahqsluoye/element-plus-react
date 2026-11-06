@@ -160,10 +160,13 @@ const MonthPanel: FC<MonthPanelProps> = props => {
                                     return (
                                         <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickMonth(cell)} onMouseEnter={() => onHoverDate(cell)}>
                                             {formatter ? (
-                                                formatter(currentDate.month(cell.text), cell.text)
+                                                formatter(currentDate.month(cell.text), cell.text, {
+                                                    view: 'month',
+                                                    defaultText: t('el.datepicker.months.' + monthsI18n[cell.text]),
+                                                })
                                             ) : (
                                                 <div>
-                                                    <a className="cell">{t('el.datepicker.months.' + monthsI18n[cell.text])}</a>
+                                                    <span className="cell">{t('el.datepicker.months.' + monthsI18n[cell.text])}</span>
                                                 </div>
                                             )}
                                         </td>

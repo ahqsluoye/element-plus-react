@@ -55,7 +55,7 @@ const Sidebar = memo(({ ref, ...props }: SidebarProps & { ref?: React.RefObject<
                             <Link
                                 key={item.link}
                                 to={item.link}
-                                className={classNames('link', {
+                                className={classNames('link', 'flex', {
                                     active: active === item.link,
                                 })}
                                 onClick={() => {
@@ -63,14 +63,12 @@ const Sidebar = memo(({ ref, ...props }: SidebarProps & { ref?: React.RefObject<
                                     onCloseDrawer?.();
                                 }}
                             >
-                                <p className="link-text">
-                                    {item.title}{' '}
-                                    {item.version && (
-                                        <ElTag type="primary" round effect="plain" size="small">
-                                            {item.version}
-                                        </ElTag>
-                                    )}
-                                </p>
+                                <p className="link-text">{item.title}</p>
+                                {item.version && (
+                                    <ElTag type="primary" round effect="plain" size="small">
+                                        {item.version}
+                                    </ElTag>
+                                )}
                             </Link>
                         ))}
                     </section>

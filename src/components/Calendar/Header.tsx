@@ -2,7 +2,8 @@ import useClassNames from '@qsxy/element-plus-react/hooks/useClassNames';
 import ElIcon from '@qsxy/element-plus-react/Icon/Icon';
 import ElLink from '@qsxy/element-plus-react/Link/Link';
 import classNames from 'classnames';
-import React, { FC, useMemo } from 'react';
+import React, { FC, use, useMemo } from 'react';
+import CalendarContext from './CalendarContext';
 import { HeaderProps } from './typings';
 
 const Header: FC<HeaderProps> = props => {
@@ -29,15 +30,17 @@ const Header: FC<HeaderProps> = props => {
     const { e, be, em } = useClassNames(prefix ?? 'date-picker');
     const iconClass = useMemo(() => be('picker-panel', 'icon-btn', false), [be]);
 
+    const { disabled } = use(CalendarContext);
+
     return (
         <div className={classNames(e`header`, { [em('header', 'bordered')]: border })}>
             {showBackward && (
                 <div className={e`prev-btn`}>
-                    <ElLink disabled={disabledBackwards} underline="never" className={classNames(iconClass, 'd-arrow-left')} onClick={onMoveBackwards}>
+                    <ElLink disabled={disabled || disabledBackwards} underline="never" className={classNames(iconClass, 'd-arrow-left')} onClick={onMoveBackwards}>
                         <ElIcon name="angles-left" />
                     </ElLink>
                     {showMonth && (
-                        <ElLink disabled={disabledBackward} underline="never" className={classNames(iconClass, 'arrow-left')} onClick={onMoveBackward}>
+                        <ElLink disabled={disabled || disabledBackward} underline="never" className={classNames(iconClass, 'arrow-left')} onClick={onMoveBackward}>
                             <ElIcon name="angle-left" />
                         </ElLink>
                     )}
@@ -45,13 +48,13 @@ const Header: FC<HeaderProps> = props => {
             )}
 
             {!plain && (
-                <span className={e`header-label`} onClick={() => onToggleView('year', postion)}>
+                <span className={e`header-label`} onClick={disabled ? undefined : () => onToggleView('year', postion)}>
                     {year}
                 </span>
             )}
 
             {!plain && showMonth && (
-                <span className={e`header-label`} onClick={() => onToggleView('month', postion)}>
+                <span className={e`header-label`} onClick={disabled ? undefined : () => onToggleView('month', postion)}>
                     {month}
                 </span>
             )}
@@ -59,11 +62,11 @@ const Header: FC<HeaderProps> = props => {
             {showForward && (
                 <div className={e`next-btn`}>
                     {showMonth && (
-                        <ElLink disabled={disabledForward} underline="never" className={classNames(iconClass, 'arrow-right')} onClick={onMoveForward}>
+                        <ElLink disabled={disabled || disabledForward} underline="never" className={classNames(iconClass, 'arrow-right')} onClick={onMoveForward}>
                             <ElIcon name="angle-right" />
                         </ElLink>
                     )}
-                    <ElLink disabled={disabledForwards} underline="never" className={classNames(iconClass, 'd-arrow-right')} onClick={onMoveForwards}>
+                    <ElLink disabled={disabled || disabledForwards} underline="never" className={classNames(iconClass, 'd-arrow-right')} onClick={onMoveForwards}>
                         <ElIcon name="angles-right" />
                     </ElLink>
                 </div>

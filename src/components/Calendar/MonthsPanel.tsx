@@ -102,10 +102,13 @@ const MonthsPanel = (props: Props) => {
                                     return (
                                         <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickMonth(cell)}>
                                             {formatter ? (
-                                                formatter(currentDate.month(cell.text), cell.text)
+                                                formatter(currentDate.month(cell.text), cell.text, {
+                                                    view: 'months',
+                                                    defaultText: t('el.datepicker.months.' + monthsI18n[cell.text]),
+                                                })
                                             ) : (
                                                 <div>
-                                                    <a className="cell">{t('el.datepicker.months.' + monthsI18n[cell.text])}</a>
+                                                    <span className="cell">{t('el.datepicker.months.' + monthsI18n[cell.text])}</span>
                                                 </div>
                                             )}
                                         </td>

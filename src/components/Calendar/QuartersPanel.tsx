@@ -18,7 +18,7 @@ type Props = {
 const QuartersPanel = (props: Props) => {
     const { value, values, onPickDate } = props;
     const { b, be } = useClassNames('quarter-table');
-    const { value: valueProp, disabledDate, formatter } = use(CalendarContext);
+    const { value: valueProp, disabledDate, dateType, formatter } = use(CalendarContext);
 
     const { t } = useLocale();
 
@@ -104,7 +104,10 @@ const QuartersPanel = (props: Props) => {
                             return (
                                 <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickDate(cell)}>
                                     {formatter ? (
-                                        formatter(getFormattedDate(cell.text, cell.type), cell.text)
+                                        formatter(getFormattedDate(cell.text, cell.type), cell.text, {
+                                            view: dateType,
+                                            defaultText: t('el.datepicker.quarter', { quarter: cell.text }),
+                                        })
                                     ) : (
                                         <div>
                                             <span className="cell">{t('el.datepicker.quarter', { quarter: cell.text })}</span>

@@ -14,7 +14,10 @@
     padding-top: 0;
     overflow-y: auto;
     transform: translate(-100%);
-    transition: background-color var(--el-transition-duration-fast), opacity 0.25s, transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    transition:
+        background-color var(--el-transition-duration-fast),
+        opacity 0.25s,
+        transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 
     &.open {
         transform: translate(0);
@@ -77,7 +80,10 @@
         line-height: 1.5;
         font-size: 0.9rem;
         border-radius: 8px;
-        white-space: nowrap;
+        // white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
     .link .link-text {

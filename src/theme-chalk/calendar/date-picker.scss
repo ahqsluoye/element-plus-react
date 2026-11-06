@@ -1,19 +1,15 @@
-@use '../mixins/config' as *;
+@use '../common/var' as *;
+@use '../mixins/mixins' as *;
+@use '../mixins/var' as *;
+@use './picker-panel.scss';
+@use './utils.scss' as *;
 
-.#{$namespace}-date-picker {
-    --#{$namespace}-datepicker-text-color: var(--#{$namespace}-text-color-regular);
-    --#{$namespace}-datepicker-off-text-color: var(--#{$namespace}-text-color-placeholder);
-    --#{$namespace}-datepicker-header-text-color: var(--#{$namespace}-text-color-regular);
-    --#{$namespace}-datepicker-icon-color: var(--#{$namespace}-text-color-primary);
-    --#{$namespace}-datepicker-border-color: var(--#{$namespace}-border-color);
-    --#{$namespace}-datepicker-inner-border-color: var(--#{$namespace}-border-color-light);
-    --#{$namespace}-datepicker-inrange-bg-color: var(--#{$namespace}-border-color-extra-light);
-    --#{$namespace}-datepicker-inrange-hover-bg-color: var(--#{$namespace}-border-color-extra-light);
-    --#{$namespace}-datepicker-active-color: var(--#{$namespace}-color-primary);
-    --#{$namespace}-datepicker-hover-text-color: var(--#{$namespace}-color-primary);
+@include b(date-picker) {
+    @include set-component-css-var('datepicker', $datepicker);
+    @include set-css-var-value(('fill-color', 'blank'), getCssVar('datepicker', 'bg-color'));
 }
 
-.#{$namespace}-date-picker {
+@include b(date-picker) {
     width: 322px;
 
     &.has-sidebar.has-time {
@@ -37,30 +33,30 @@
         width: 100%;
     }
 
-    &__editor-wrap {
+    @include e(editor-wrap) {
         position: relative;
         display: table-cell;
         padding: 0 5px;
     }
 
-    &__time-header {
+    @include e(time-header) {
         position: relative;
-        border-bottom: 1px solid var(--#{$namespace}-datepicker-inner-border-color);
+        border-bottom: 1px solid getCssVar('datepicker-inner-border-color');
         font-size: 12px;
-        padding: 8px 5px 5px 5px;
+        padding: 8px 5px 5px;
         display: table;
         width: 100%;
         box-sizing: border-box;
     }
 
-    &__header {
+    @include e(header) {
         margin: 12px;
         text-align: center;
 
-        &--bordered {
+        @include m(bordered) {
             margin-bottom: 0;
             padding-bottom: 12px;
-            border-bottom: solid 1px var(--#{$namespace}-border-color-lighter);
+            border-bottom: solid 1px getCssVar('border-color-lighter');
 
             & + .#{$namespace}-picker-panel__content {
                 margin-top: 0;
@@ -68,38 +64,42 @@
         }
     }
 
-    &__header-label {
+    @include e(header-label) {
         font-size: 16px;
         font-weight: 500;
         padding: 0 5px;
         line-height: 22px;
         text-align: center;
         cursor: pointer;
-        color: var(--#{$namespace}-text-color-regular);
+        color: getCssVar('text-color', 'regular');
 
         &:hover {
-            color: var(--#{$namespace}-color-primary);
+            color: getCssVar('datepicker-hover-text-color');
+        }
+        &:focus-visible {
+            outline: none;
+            color: getCssVar('datepicker-hover-text-color');
         }
 
         &.active {
-            color: var(--#{$namespace}-color-primary);
+            color: getCssVar('datepicker-active-color');
         }
     }
 
-    &__prev-btn {
+    @include e(prev-btn) {
         float: left;
     }
 
-    &__next-btn {
+    @include e(next-btn) {
         float: right;
     }
 
-    &__time-wrap {
+    @include e(time-wrap) {
         padding: 10px;
         text-align: center;
     }
 
-    &__time-label {
+    @include e(time-label) {
         float: left;
         cursor: pointer;
         line-height: 30px;
@@ -108,5 +108,11 @@
 
     .#{$namespace}-time-panel {
         position: absolute;
+    }
+
+    @include when(disabled) {
+        @include e(header-label) {
+            @include disable;
+        }
     }
 }

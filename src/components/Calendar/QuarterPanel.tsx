@@ -10,7 +10,7 @@ import { initDate } from './util';
 const QuarterPanel: FC<WeekPanelProps> = props => {
     const { value, onPickDate } = props;
     const { b, be } = useClassNames('quarter-table');
-    const { value: valueProp, disabledDate, formatter } = use(CalendarContext);
+    const { value: valueProp, disabledDate, dateType, formatter } = use(CalendarContext);
 
     const { t } = useLocale();
 
@@ -97,7 +97,10 @@ const QuarterPanel: FC<WeekPanelProps> = props => {
                             return (
                                 <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickDate(cell)}>
                                     {formatter ? (
-                                        formatter(getFormattedDate(cell.text, cell.type), cell.text)
+                                        formatter(getFormattedDate(cell.text, cell.type), cell.text, {
+                                            view: dateType,
+                                            defaultText: t('el.datepicker.quarter', { quarter: cell.text }),
+                                        })
                                     ) : (
                                         <div>
                                             <span className="cell">{t('el.datepicker.quarter', { quarter: cell.text })}</span>
