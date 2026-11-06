@@ -48,6 +48,7 @@ const MessageBox = memo(({ ref, ...props }: MessageState & { ref?: React.Ref<Mes
         width,
         callback,
         showClose,
+        closeOnClickModal,
         beforeClose,
         showCancelButton,
         showConfirmButton,
@@ -65,6 +66,7 @@ const MessageBox = memo(({ ref, ...props }: MessageState & { ref?: React.Ref<Mes
         inputErrorMessage,
         inputValidator,
         distinguishCancelAndClose,
+        lockScroll,
         classPrefix = 'message-box',
         className,
         style,
@@ -211,6 +213,8 @@ const MessageBox = memo(({ ref, ...props }: MessageState & { ref?: React.Ref<Mes
             title={title}
             beforeClose={() => handleAction('close')}
             {...transitionProps}
+            lockScroll={lockScroll}
+            closeOnClickModal={closeOnClickModal}
             unmountOnExit={false}
             transitionConfig={'fade-in-linear'}
             footer={
