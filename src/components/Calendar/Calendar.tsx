@@ -44,8 +44,10 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
         close,
         onChangeRange,
         shortcuts,
+        border,
+        disabled,
     } = use(CalendarContext);
-    const { wb, e } = useClassNames('picker-panel');
+    const { wb, e, is } = useClassNames('picker-panel');
 
     const { t } = useLocale();
 
@@ -71,10 +73,17 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
     const [valueRangeTemp, setValueRangeTemp] = useState<ValueRagneTemp>(
         initialValue instanceof Array && isNotEmpty(initialValue) ? [...valueRangeProp, null] : [null, null, null],
     );
+    console.log(valueRangeTemp);
     // 日期面板类型
     const [view, setView] = useState<DateType | DateRangeType>(dateType);
     // 日期范围组件的位置，分别为左和右
     const [rangePosition, setRangePosition] = useState<RangePosition>('left');
+
+    useEffect(() => {
+        if (view !== dateType) {
+            setView(dateType);
+        }
+    }, [dateType]);
 
     // 默认日期，字符串格式
     const defaultValue = useMemo(() => {
@@ -323,6 +332,7 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
                     'has-time': props.hasTime,
                     'has-sidebar': isNotEmpty(shortcuts),
                 },
+                is({ border, disabled }),
                 props.className,
             )}
             style={props.style}
@@ -354,11 +364,11 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
                         />
                     )}
 
-                    {view === 'year' && <YearPanel value={defaultValue} onPickYear={onPickYear} />}
+                    {view === 'year' && <YearPanel value={defaultValue} valueRange={valueRange} onPickYear={onPickYear} />}
                     {view === 'years' && <YearsPanel value={value} values={values} onPickDate={onPickDates} />}
                     {view === 'months' && <MonthsPanel value={value} values={values} onPickDate={onPickDates} />}
-                    {view === 'month' && <MonthPanel value={defaultValue} onPickMonth={onPickMonth} />}
-                    {view === 'date' && <DatePanel value={defaultValue} onPickDate={onPickDate} />}
+                    {view === 'month' && <MonthPanel value={defaultValue} valueRange={valueRange} onPickMonth={onPickMonth} />}
+                    {view === 'date' && <DatePanel value={defaultValue} valueRange={valueRange} onPickDate={onPickDate} />}
                     {view === 'dates' && <DatesPanel value={value} values={values} onPickDate={onPickDates} />}
                     {view === 'quarter' && <QuarterPanel value={defaultValue} onPickDate={onPickDate} />}
                     {view === 'quarters' && <QuartersPanel value={value} values={values} onPickDate={onPickDates} />}

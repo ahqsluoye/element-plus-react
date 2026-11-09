@@ -157,10 +157,13 @@ const YearPanel: FC<YearPanelProps> = props => {
                                     return (
                                         <td key={cell.text} className={getCellClass(cell)} onClick={() => handlePickYear(cell)} onMouseEnter={() => onHoverDate(cell)}>
                                             {formatter ? (
-                                                formatter(currentDate.year(cell.text), cell.text)
+                                                formatter(currentDate.year(cell.text), cell.text, {
+                                                    view: 'year',
+                                                    defaultText: cell.text,
+                                                })
                                             ) : (
                                                 <div>
-                                                    <a className="cell">{cell.text}</a>
+                                                    <span className="cell">{cell.text}</span>
                                                 </div>
                                             )}
                                         </td>

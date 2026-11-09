@@ -37,7 +37,7 @@ export type { ButtonGroupProps, ButtonProps, ButtonRef } from './Button/typings'
 // export { default as ElCalendar } from './Calendar/Calendar';
 // export { default as ElCalendarContext } from './Calendar/CalendarContext';
 // export type { CalendarContextProps, ChangeParams } from './Calendar/CalendarContext';
-// export * from './Calendar/typings';
+export type { DateType, Shortcuts } from './Calendar/typings';
 // export * from './Calendar/util';
 
 // 卡片 (Card)
@@ -97,6 +97,10 @@ export type { CountdownProps, CountdownRef } from './Countdown/typings';
 // 日期选择器 (DatePicker)
 export { default as ElDatePicker } from './DatePicker/main';
 export type { AllDatePickerProps as DatePickerProps, DatePickerRangeProps, DatePickerRef } from './DatePicker/typings';
+
+// 日期选择器面板 (DatePickerPanel)
+export { default as ElDatePickerPanel } from './DatePickerPanel/DatePickerPanel';
+export type { DatePickerPanelProps } from './DatePickerPanel/typings';
 
 // 日期时间选择器 (DateTimePicker)
 export { default as ElDateTimePicker } from './DateTimePicker/DateTimePicker';
