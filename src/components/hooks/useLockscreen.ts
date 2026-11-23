@@ -1,4 +1,5 @@
 import { getScrollBarWidth } from '@qsxy/element-plus-react/Util/scroll';
+import { useUnmount } from 'ahooks';
 import { getStyle, hasClass } from 'dom-lib';
 import addClass from 'dom-lib/esm/addClass';
 import removeClass from 'dom-lib/esm/removeClass';
@@ -49,6 +50,13 @@ export const useLockScreen = (trigger: boolean, options: UseLockScreenOptions = 
             document.body.style.paddingRight = bodyPaddingRight;
         }, 200);
     };
+
+    useUnmount(() => {
+        if (countRef > 0) {
+            countRef = countRef - 1;
+        }
+        unlockScroll();
+    });
 
     useEffect(() => {
         if (trigger) {
