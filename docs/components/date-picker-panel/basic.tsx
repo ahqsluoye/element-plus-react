@@ -1,58 +1,98 @@
 import { ElDatePickerPanel, ElSpace } from '@qsxy/element-plus-react';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../date-picker/custom-content.scss';
 
 type Holiday = Record<string, { holiday: boolean; name: string }>;
 
-const holidays = [
-    { date: '2026-01-01', name: '元旦', isOffDay: true },
-    { date: '2026-01-02', name: '元旦', isOffDay: true },
-    { date: '2026-01-03', name: '元旦', isOffDay: true },
-    { date: '2026-01-04', name: '元旦', isOffDay: false },
-    { date: '2026-02-14', name: '春节', isOffDay: false },
-    { date: '2026-02-15', name: '春节', isOffDay: true },
-    { date: '2026-02-16', name: '春节', isOffDay: true },
-    { date: '2026-02-17', name: '春节', isOffDay: true },
-    { date: '2026-02-18', name: '春节', isOffDay: true },
-    { date: '2026-02-19', name: '春节', isOffDay: true },
-    { date: '2026-02-20', name: '春节', isOffDay: true },
-    { date: '2026-02-21', name: '春节', isOffDay: true },
-    { date: '2026-02-22', name: '春节', isOffDay: true },
-    { date: '2026-02-23', name: '春节', isOffDay: true },
-    { date: '2026-02-28', name: '春节', isOffDay: false },
-    { date: '2026-04-04', name: '清明节', isOffDay: true },
-    { date: '2026-04-05', name: '清明节', isOffDay: true },
-    { date: '2026-04-06', name: '清明节', isOffDay: true },
-    { date: '2026-05-01', name: '劳动节', isOffDay: true },
-    { date: '2026-05-02', name: '劳动节', isOffDay: true },
-    { date: '2026-05-03', name: '劳动节', isOffDay: true },
-    { date: '2026-05-04', name: '劳动节', isOffDay: true },
-    { date: '2026-05-05', name: '劳动节', isOffDay: true },
-    { date: '2026-05-09', name: '劳动节', isOffDay: false },
-    { date: '2026-06-19', name: '端午节', isOffDay: true },
-    { date: '2026-06-20', name: '端午节', isOffDay: true },
-    { date: '2026-06-21', name: '端午节', isOffDay: true },
-    { date: '2026-09-20', name: '国庆节', isOffDay: false },
-    { date: '2026-09-25', name: '中秋节', isOffDay: true },
-    { date: '2026-09-26', name: '中秋节', isOffDay: true },
-    { date: '2026-09-27', name: '中秋节', isOffDay: true },
-    { date: '2026-10-01', name: '国庆节', isOffDay: true },
-    { date: '2026-10-02', name: '国庆节', isOffDay: true },
-    { date: '2026-10-03', name: '国庆节', isOffDay: true },
-    { date: '2026-10-04', name: '国庆节', isOffDay: true },
-    { date: '2026-10-05', name: '国庆节', isOffDay: true },
-    { date: '2026-10-06', name: '国庆节', isOffDay: true },
-    { date: '2026-10-07', name: '国庆节', isOffDay: true },
-    { date: '2026-10-10', name: '国庆节', isOffDay: false },
-];
+/** 中国法定节假日调休补班日历（ICS 订阅源） */
+const CALENDAR_URL = 'https://yangh9.github.io/ChinaCalendar/cal_holiday.ics';
 
-const holidayMap = holidays.reduce((acc, cur) => {
-    acc[cur.date] = { holiday: cur.isOffDay, name: cur.name };
-    return acc;
-}, {} as Holiday);
+/** 解析 ICS 属性行：处理 DTSTART;VALUE=DATE:20260101 这类带参数的形式 */
+function splitIcsLine(line: string): [string, string] {
+    const colon = line.indexOf(':');
+    if (colon < 0) {
+        return ['', ''];
+    }
+    return [line.slice(0, colon).split(';')[0], line.slice(colon + 1)];
+}
+
+/** 20260101 或 20260104T090000 → 2026-01-01 */
+function toDateString(value: string): string | undefined {
+    const match = /^(\d{4})(\d{2})(\d{2})/.exec(value.trim());
+    return match ? `${match[1]}-${match[2]}-${match[3]}` : undefined;
+}
+
+/**
+ * 解析 ICS 日历文本为节假日映射 { 'YYYY-MM-DD': { holiday, name } }
+ * - 假期事件：SUMMARY 形如「元旦 假期」第1天/共3天，isOffDay = true
+ * - 补班事件：SUMMARY 形如「元旦 补班」第1天/共1天，isOffDay = false
+ */
+function parseIcsHolidays(text: string): Holiday {
+    // 处理 RFC5545 折行（以空格/制表符开头的行是上一行的续行）
+    const unfolded: string[] = [];
+    for (const line of text.replace(/\r\n/g, '\n').split('\n')) {
+        if (/^[ \t]/.test(line) && unfolded.length) {
+            unfolded[unfolded.length - 1] += line.slice(1);
+        } else {
+            unfolded.push(line);
+        }
+    }
+
+    const holidays: Holiday = {};
+    let date: string | undefined;
+    let summary: string | undefined;
+
+    for (const line of unfolded) {
+        if (line === 'BEGIN:VEVENT') {
+            date = undefined;
+            summary = undefined;
+            continue;
+        }
+        if (line === 'END:VEVENT') {
+            if (date && summary) {
+                const match = /「(.+?)\s+(假期|补班)」/.exec(summary);
+                if (match) {
+                    holidays[date] = { name: match[1], holiday: match[2] === '假期' };
+                }
+            }
+            continue;
+        }
+        const [key, value] = splitIcsLine(line);
+        if (key === 'DTSTART') {
+            date = toDateString(value);
+        } else if (key === 'SUMMARY') {
+            summary = value;
+        }
+    }
+    return holidays;
+}
 
 const App = () => {
+    const [holidayMap, setHolidayMap] = useState<Holiday>({});
+
+    useEffect(() => {
+        let cancelled = false;
+        fetch(CALENDAR_URL)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP ${res.status}`);
+                }
+                return res.text();
+            })
+            .then(text => {
+                if (!cancelled) {
+                    setHolidayMap(parseIcsHolidays(text));
+                }
+            })
+            .catch(error => {
+                console.error('节假日日历订阅加载失败，节假日/补班标识暂不可用：', error);
+            });
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
     return (
         <ElSpace style={{ width: '100%' }} justify="center">
             <ElDatePickerPanel
@@ -61,7 +101,6 @@ const App = () => {
                     if (extra?.view === 'date') {
                         const isHoliday = holidayMap[value.format('YYYY-MM-DD')];
                         const isoWeekday = value.isoWeekday();
-                        // console.log(value.format('YYYY-MM-DD'), isoWeekday);
                         return (
                             <div
                                 className={classNames('el-date-table-cell custom-cell-content', {
