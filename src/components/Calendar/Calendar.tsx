@@ -73,7 +73,6 @@ const Calendar = ({ ref, ...props }: CalendarProps & { ref?: React.Ref<HTMLDivEl
     const [valueRangeTemp, setValueRangeTemp] = useState<ValueRagneTemp>(
         initialValue instanceof Array && isNotEmpty(initialValue) ? [...valueRangeProp, null] : [null, null, null],
     );
-    console.log(valueRangeTemp);
     // 日期面板类型
     const [view, setView] = useState<DateType | DateRangeType>(dateType);
     // 日期范围组件的位置，分别为左和右
