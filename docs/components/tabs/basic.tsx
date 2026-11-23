@@ -40,20 +40,20 @@ const App = () => {
 
     return (
         <ElTabs defaultActiveName="role" onTabClick={onTabClick}>
-            <ElTabPane label="用户管理" name="user" lazy onTabShow={onTabShow}>
+            <ElTabPane label="用户管理" name="user" onTabShow={onTabShow}>
                 <ElTable ref={tableRef} data={tableData} style={{ width: '100%' }}>
                     <ElTableColumn prop="date" label="Date" width={180} />
                     <ElTableColumn prop="name" label="Name" width={180} />
                     <ElTableColumn prop="address" label="Address" align="center" />
                 </ElTable>
             </ElTabPane>
-            <ElTabPane label="配置管理" name="config" data={{ name: 'config' }} lazy>
+            <ElTabPane label="配置管理" name="config" data={{ name: 'config' }}>
                 配置管理
             </ElTabPane>
-            <ElTabPane label="角色管理" name="role" lazy>
+            <ElTabPane label="角色管理" name="role">
                 角色管理
             </ElTabPane>
-            <ElTabPane label="定时任务补偿" name="task" lazy>
+            <ElTabPane label="定时任务补偿" name="task">
                 定时任务补偿
             </ElTabPane>
         </ElTabs>

@@ -1,11 +1,11 @@
 import { isNotEmpty } from '@qsxy/element-plus-react/Util/base';
 import useChildrenInstance from '@qsxy/element-plus-react/hooks/useChildrenInstance';
-import { useDebounceFn, useMount, useUnmount } from 'ahooks';
+import { useDebounceFn } from 'ahooks';
 import cloneDeep from 'lodash/cloneDeep';
 import React, { Children, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { flatTreeData } from '../treeUtil';
 import { TableColumnCtx, TableColumnProps, TableProps, TableRefs, TreeNode } from '../typings';
-import { TableIdManager, getRowIdentity } from '../util';
+import { TableIdManager, getRowIdentity, parseHeight } from '../util';
 
 /** 获取用于列排序持久化的稳定 key */
 const getColumnKey = <T>(column: TableColumnCtx<T>): string => {
@@ -439,6 +439,17 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
         }
         updateColumnsWidth(immediate);
         requestAnimationFrame(syncPosition);
+        if (refs.tableWrapper.current && refs.headerWrapper.current) {
+            if (props.maxHeight) {
+                const _maxHeight = parseHeight(props.maxHeight);
+                if (typeof _maxHeight === 'number') {
+                    if (refs.headerWrapper.current && refs.scrollBarRef.current?.wrapRef.current) {
+                        refs.scrollBarRef.current.wrapRef.current.style.maxHeight = _maxHeight - refs.headerWrapper.current?.clientHeight + 'px';
+                        refs.scrollBarRef.current?.update();
+                    }
+                }
+            }
+        }
         // if (needUpdateColumns) {
         //     updateColumns();
         // }
@@ -451,20 +462,59 @@ export const useTable = <T extends object>(props: TableProps<T>, refs: TableRefs
 
     const { run } = useDebounceFn(
         () => {
-            scheduleLayout();
+            // scheduleLayout();
+            if (refs.tableWrapper.current?.clientWidth === 0) {
+                // warning(false, '表格宽度为0，无法初始化，如果表格所在的容器是懒加载，请忽略此消息！');
+                return;
+            }
+            TableIdManager.columnId = 0;
+            const children = getChildren(props.children);
+            const _columns = initColumns(children);
+            groupColumns(_columns);
+
+            let orderedColumns = flatColumns.current;
+            // 恢复持久化的列顺序
+            if (props.columnSortEnabled && cachedDragColumns.current.length > 0) {
+                orderedColumns = applyColumnOrder(orderedColumns, cachedDragColumns.current);
+            }
+
+            setColumns(orderedColumns);
+            setIsGroup(orderedColumns.length > 1);
+            flatColumns.current = [];
         },
         {
             wait: 200,
         },
     );
 
-    useMount(() => {
-        window.addEventListener('resize', run);
-    });
+    // useMount(() => {
+    //     window.addEventListener('resize', run);
+    // });
 
-    useUnmount(() => {
-        window.removeEventListener('resize', run);
-    });
+    // useUnmount(() => {
+    //     window.removeEventListener('resize', run);
+    // });
+
+    // 监听表格容器宽度变化，宽度发生变化时重新计算布局
+    useEffect(() => {
+        const el = refs.tableWrapper.current;
+        if (!el) {
+            return;
+        }
+        let lastWidth = el.clientWidth;
+        const observer = new ResizeObserver(() => {
+            const width = el.clientWidth;
+            if (width === lastWidth) {
+                return;
+            }
+            lastWidth = width;
+            run();
+        });
+        observer.observe(el);
+        return () => {
+            observer.disconnect();
+        };
+    }, [refs.tableWrapper, run]);
 
     useEffect(() => {
         if (refs.tableWrapper.current?.clientWidth === 0) {
